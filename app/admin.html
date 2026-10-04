@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PatitasFind Admin</title>
+  <link rel="stylesheet" href="/admin/admin.css" />
+</head>
+<body>
+  <div id="login-view" class="login-view">
+    <div class="login-card">
+      <h1>PatitasFind Admin</h1>
+      <form id="login-form">
+        <label for="email">Correo</label>
+        <input id="email" type="email" required />
+        <label for="password">Contraseña</label>
+        <input id="password" type="password" required />
+        <button type="submit">Entrar</button>
+        <p id="login-error" class="error"></p>
+      </form>
+    </div>
+  </div>
+
+  <div id="app-view" class="app-view hidden">
+    <aside class="sidebar">
+      <div class="brand">PatitasFind Admin</div>
+      <nav>
+        <button data-section="dashboard" class="nav-btn active">Dashboard</button>
+        <button data-section="users" class="nav-btn">Usuarios</button>
+        <button data-section="dogs" class="nav-btn">Perros</button>
+        <button data-section="matches" class="nav-btn">Matches</button>
+        <button data-section="refuges" class="nav-btn">Refugios pendientes</button>
+        <button data-section="foster-homes" class="nav-btn">Casas de paso</button>
+        <button data-section="products" class="nav-btn">Productos</button>
+        <button data-section="orders" class="nav-btn">Pedidos</button>
+        <button data-section="donations" class="nav-btn">Donaciones</button>
+        <button data-section="lost-reports" class="nav-btn">Perdidos y encontrados</button>
+        <button data-section="whatsapp" class="nav-btn">Bot WhatsApp</button>
+        <button data-section="facebook" class="nav-btn">Facebook</button>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <span id="admin-name"></span>
+        <button id="logout-btn" class="btn-secondary">Cerrar sesión</button>
+      </header>
+
+      <section id="dashboard" class="section active">
+        <h2>Dashboard</h2>
+        <div id="stats-grid" class="stats-grid"></div>
+        <div class="dashboard-grid">
+          <div class="panel">
+            <h3>Actividad reciente</h3>
+            <div id="recent-activity" class="mini-stats"></div>
+          </div>
+          <div class="panel">
+            <h3>Usuarios por ciudad</h3>
+            <div id="users-by-city" class="list-stats"></div>
+          </div>
+          <div class="panel">
+            <h3>Perros por estado</h3>
+            <div id="dogs-by-status" class="list-stats"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="users" class="section">
+        <h2>Usuarios</h2>
+        <div id="users-table" class="table-wrap"></div>
+      </section>
+
+      <section id="dogs" class="section">
+        <h2>Perros publicados</h2>
+        <div class="filters">
+          <select id="dogs-filter-status"><option value="">Todos los estados</option><option value="available">Disponible</option><option value="in_process">En proceso</option><option value="adopted">Adoptado</option><option value="in_foster">En casa de paso</option><option value="unavailable">No disponible</option></select>
+          <input id="dogs-filter-city" type="text" placeholder="Ciudad" />
+          <button id="dogs-filter-btn">Filtrar</button>
+        </div>
+        <div id="dogs-table" class="table-wrap"></div>
+        <div class="pagination" id="dogs-pagination"></div>
+      </section>
+
+      <section id="matches" class="section">
+        <h2>Matches</h2>
+        <div class="filters">
+          <select id="matches-filter-status"><option value="">Todos los estados</option><option value="pending_application">Pendiente</option><option value="approved">Aprobado</option><option value="completed">Adopción completada</option><option value="rejected">Rechazado</option></select>
+          <button id="matches-filter-btn">Filtrar</button>
+        </div>
+        <div id="matches-table" class="table-wrap"></div>
+        <div class="pagination" id="matches-pagination"></div>
+      </section>
+
+      <section id="refuges" class="section">
+        <h2>Refugios pendientes</h2>
+        <div id="refuges-table" class="table-wrap"></div>
+      </section>
+
+      <section id="foster-homes" class="section">
+        <h2>Casas de paso pendientes</h2>
+        <div id="foster-homes-table" class="table-wrap"></div>
+      </section>
+
+      <section id="products" class="section">
+        <h2>Productos</h2>
+        <div id="products-table" class="table-wrap"></div>
+      </section>
+
+      <section id="orders" class="section">
+        <h2>Pedidos de la tienda</h2>
+        <div class="filters">
+          <select id="orders-filter-status"><option value="">Todos los estados</option><option value="pending_payment">Pago pendiente</option><option value="paid">Pagado</option><option value="shipped">Enviado</option><option value="cancelled">Cancelado</option></select>
+          <button id="orders-filter-btn">Filtrar</button>
+        </div>
+        <div id="orders-table" class="table-wrap"></div>
+      </section>
+
+      <section id="donations" class="section">
+        <h2>Donaciones</h2>
+        <div class="filters">
+          <select id="donations-filter-status"><option value="">Todos los estados</option><option value="pending">Pendiente</option><option value="approved">Aprobada</option><option value="rejected">Rechazada</option></select>
+          <button id="donations-filter-btn">Filtrar</button>
+        </div>
+        <div id="donations-summary" class="mini-stats"></div>
+        <div id="donations-table" class="table-wrap"></div>
+      </section>
+
+      <section id="lost-reports" class="section">
+        <h2>Perdidos y encontrados</h2>
+        <div class="filters">
+          <select id="lost-filter-status"><option value="">Todos los estados</option><option value="active">Activos</option><option value="resolved">Resueltos</option><option value="closed">Cerrados</option></select>
+          <select id="lost-filter-source"><option value="">Todas las fuentes</option><option value="app">App</option><option value="whatsapp">WhatsApp</option><option value="facebook">Facebook</option></select>
+          <button id="lost-filter-btn">Filtrar</button>
+        </div>
+        <div id="lost-reports-table" class="table-wrap"></div>
+      </section>
+
+      <section id="whatsapp" class="section">
+        <h2>Simulador del bot de WhatsApp</h2>
+        <p class="hint" id="whatsapp-status"></p>
+        <form id="whatsapp-form" class="form-inline">
+          <div><label for="wa-phone">Teléfono</label>
+          <input id="wa-phone" type="text" placeholder="5215512345678" required /></div>
+          <div><label for="wa-message">Mensaje</label>
+          <input id="wa-message" type="text" placeholder="hola, 1, listo, no sé…" /></div>
+          <div><label for="wa-media">URL de foto</label>
+          <input id="wa-media" type="text" placeholder="https://… o /uploads/…" /></div>
+          <div><label for="wa-lat">Latitud</label>
+          <input id="wa-lat" type="number" step="any" placeholder="19.4326" /></div>
+          <div><label for="wa-lon">Longitud</label>
+          <input id="wa-lon" type="number" step="any" placeholder="-99.1332" /></div>
+          <button type="submit">Enviar al bot</button>
+        </form>
+        <div id="whatsapp-quick" class="actions quick-replies"></div>
+        <pre id="whatsapp-response" class="response-box"></pre>
+        <h3>Interacciones recientes</h3>
+        <div id="whatsapp-interactions" class="table-wrap"></div>
+      </section>
+
+      <section id="facebook" class="section">
+        <h2>Facebook</h2>
+        <p class="hint">Meta retiró la API de Grupos en 2024 y el scraping de grupos viola sus términos. Aquí puedes
+          conectar <strong>Páginas de Facebook</strong> (Graph API, requiere <code>FACEBOOK_PAGE_ACCESS_TOKEN</code>)
+          o <strong>importar manualmente</strong> publicaciones que voluntarios encuentren en grupos.</p>
+        <p class="hint" id="facebook-status"></p>
+
+        <h3>Importar publicación manualmente</h3>
+        <form id="facebook-import-form" class="form-stack">
+          <div class="form-row">
+            <div><label for="fbi-url">URL de la publicación</label><input id="fbi-url" type="url" placeholder="https://facebook.com/…" /></div>
+            <div><label for="fbi-type">Tipo</label>
+              <select id="fbi-type"><option value="found">Encontrado</option><option value="lost">Perdido</option></select></div>
+            <div><label for="fbi-city">Ciudad</label><input id="fbi-city" type="text" placeholder="Ciudad de México" /></div>
+          </div>
+          <label for="fbi-text">Texto de la publicación</label>
+          <textarea id="fbi-text" rows="4" placeholder="Pega aquí el texto…"></textarea>
+          <label for="fbi-images">URLs de fotos (una por línea, máximo 3)</label>
+          <textarea id="fbi-images" rows="3" placeholder="https://…"></textarea>
+          <button type="submit">Importar como reporte</button>
+          <p id="facebook-import-result" class="hint"></p>
+        </form>
+
+        <h3>Fuentes</h3>
+        <form id="facebook-form" class="form-inline">
+          <div><label for="fb-name">Nombre</label><input id="fb-name" type="text" required /></div>
+          <div><label for="fb-url">URL</label><input id="fb-url" type="url" required /></div>
+          <div><label for="fb-kind">Tipo</label>
+            <select id="fb-kind"><option value="page">Página (Graph API)</option><option value="manual">Manual</option></select></div>
+          <div><label for="fb-page-id">ID de la página</label><input id="fb-page-id" type="text" placeholder="1234567890" /></div>
+          <div><label for="fb-city">Ciudad</label><input id="fb-city" type="text" /></div>
+          <button type="submit">Agregar fuente</button>
+          <button type="button" id="facebook-scrape-all" class="btn-secondary">Leer todas las páginas</button>
+        </form>
+        <div id="facebook-table" class="table-wrap"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/admin/admin.js"></script>
+</body>
+</html>

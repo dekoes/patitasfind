@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>PatitasFind MVP</title>
+  <link rel="stylesheet" href="app-mvp.css">
+</head>
+<body>
+  <div id="app">
+    <!-- AUTH -->
+    <section id="auth-screen" class="screen active">
+      <div class="auth-box">
+        <div class="logo">
+          <svg viewBox="0 0 48 48" width="56" height="56" aria-hidden="true">
+            <circle cx="24" cy="24" r="22" fill="#33C7BE" stroke="#1D2233" stroke-width="3"/>
+            <ellipse cx="16" cy="14" rx="6" ry="8" fill="#1D2233"/>
+            <ellipse cx="32" cy="14" rx="6" ry="8" fill="#1D2233"/>
+            <ellipse cx="24" cy="30" rx="9" ry="7" fill="#1D2233"/>
+          </svg>
+          <h1>PatitasFind</h1>
+        </div>
+        <p class="subtitle">Encuentra a tu nuevo mejor amigo</p>
+
+        <form id="auth-form" class="form-stack">
+          <div id="register-fields" class="hidden form-stack">
+            <label for="full_name">Nombre completo</label>
+            <input id="full_name" name="full_name" type="text" class="inp" placeholder="Tu nombre" autocomplete="name">
+            <label for="phone">Teléfono</label>
+            <input id="phone" name="phone" type="tel" class="inp" placeholder="+54 9 11 1234 5678" autocomplete="tel">
+          </div>
+
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" class="inp" placeholder="hola@patitasfind.com" autocomplete="email" required>
+
+          <label for="password">Contraseña</label>
+          <input id="password" name="password" type="password" class="inp" placeholder="••••••••" autocomplete="current-password" required>
+
+          <button type="submit" id="auth-submit" class="btn btn-primary">Iniciar sesión</button>
+        </form>
+
+        <p class="auth-toggle">
+          <span id="auth-toggle-text">¿No tenés cuenta?</span>
+          <button type="button" id="auth-toggle" class="link">Registrate</button>
+        </p>
+      </div>
+    </section>
+
+    <!-- MAIN APP -->
+    <section id="main-screen" class="screen">
+      <header class="topbar">
+        <div class="brand-small">
+          <svg viewBox="0 0 48 48" width="28" height="28" aria-hidden="true">
+            <circle cx="24" cy="24" r="22" fill="#33C7BE" stroke="#1D2233" stroke-width="3"/>
+            <ellipse cx="16" cy="14" rx="6" ry="8" fill="#1D2233"/>
+            <ellipse cx="32" cy="14" rx="6" ry="8" fill="#1D2233"/>
+            <ellipse cx="24" cy="30" rx="9" ry="7" fill="#1D2233"/>
+          </svg>
+          <span>PatitasFind</span>
+        </div>
+        <div class="topbar-actions">
+          <button id="topbar-notifications" class="btn btn-ghost btn-sm icon-btn" aria-label="Notificaciones">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+              <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" fill="currentColor"/>
+            </svg>
+            <span id="notif-badge" class="nav-badge hidden">0</span>
+          </button>
+          <button id="logout-btn" class="btn btn-ghost btn-sm">Salir</button>
+        </div>
+      </header>
+
+      <main id="content" class="content">
+        <!-- Discover -->
+        <div id="discover-view" class="view active">
+          <div id="discover-empty" class="empty-state hidden">
+            <div class="empty-icon">
+              <svg viewBox="0 0 48 48" width="64" height="64" aria-hidden="true">
+                <circle cx="24" cy="28" r="14" fill="#DCC7FA" stroke="#1D2233" stroke-width="3"/>
+                <ellipse cx="14" cy="18" rx="6" ry="9" fill="#DCC7FA" stroke="#1D2233" stroke-width="3"/>
+                <ellipse cx="34" cy="18" rx="6" ry="9" fill="#DCC7FA" stroke="#1D2233" stroke-width="3"/>
+                <circle cx="20" cy="26" r="2" fill="#1D2233"/>
+                <circle cx="28" cy="26" r="2" fill="#1D2233"/>
+                <ellipse cx="24" cy="32" rx="4" ry="3" fill="#1D2233"/>
+              </svg>
+            </div>
+            <p>No hay perros nuevos por ahora.</p>
+            <button id="reload-discover" class="btn btn-primary btn-sm">Recargar</button>
+          </div>
+
+          <div id="discover-card" class="dog-card hidden">
+            <div class="dog-photo-wrap">
+              <img id="dog-photo" src="" alt="Foto del perro">
+            </div>
+            <div class="dog-info">
+              <h2 id="dog-name"></h2>
+              <div class="dog-tags">
+                <span id="dog-breed" class="badge"></span>
+                <span id="dog-age" class="badge"></span>
+                <span id="dog-size" class="badge"></span>
+              </div>
+              <p id="dog-description" class="dog-desc"></p>
+              <p id="dog-location" class="dog-location"></p>
+            </div>
+            <div class="dog-actions">
+              <button id="skip-btn" class="action-btn action-skip" aria-label="Saltar">
+                <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
+                  <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+                <span>Saltar</span>
+              </button>
+              <button id="like-btn" class="action-btn action-like" aria-label="Me gusta">
+                <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor"/>
+                </svg>
+                <span>Me gusta</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Questionnaire -->
+        <div id="questionnaire-view" class="view">
+          <div class="panel">
+            <h2 class="panel-title">Cuestionario de adopción</h2>
+            <p class="panel-subtitle">Contanos un poco sobre tu hogar para que <span id="q-dog-name"></span> te conozca.</p>
+            <form id="questionnaire-form" class="form-stack">
+              <label for="housing">Tipo de vivienda</label>
+              <select id="housing" name="housing" class="inp" required>
+                <option value="">Seleccionar</option>
+                <option value="casa_con_jardin">Casa con jardín</option>
+                <option value="casa_sin_jardin">Casa sin jardín</option>
+                <option value="departamento_grande">Departamento grande</option>
+                <option value="departamento_chico">Departamento chico</option>
+              </select>
+
+              <label for="experience">Experiencia con mascotas</label>
+              <select id="experience" name="experience" class="inp" required>
+                <option value="">Seleccionar</option>
+                <option value="mucha">Mucha</option>
+                <option value="alguna">Alguna</option>
+                <option value="poca">Poca</option>
+                <option value="ninguna">Ninguna</option>
+              </select>
+
+              <label for="children">¿Hay niños en casa?</label>
+              <select id="children" name="children" class="inp" required>
+                <option value="">Seleccionar</option>
+                <option value="si_chicos">Sí, menores de 10 años</option>
+                <option value="si_grandes">Sí, mayores de 10 años</option>
+                <option value="no">No</option>
+              </select>
+
+              <label for="other_pets">¿Hay otras mascotas?</label>
+              <select id="other_pets" name="other_pets" class="inp" required>
+                <option value="">Seleccionar</option>
+                <option value="perros">Sí, perros</option>
+                <option value="gatos">Sí, gatos</option>
+                <option value="otros">Sí, otros</option>
+                <option value="no">No</option>
+              </select>
+
+              <label for="budget">Presupuesto mensual estimado</label>
+              <select id="budget" name="budget" class="inp" required>
+                <option value="">Seleccionar</option>
+                <option value="0-50">Menos de $50.000</option>
+                <option value="50-100">$50.000 - $100.000</option>
+                <option value="100-200">$100.000 - $200.000</option>
+                <option value="200+">Más de $200.000</option>
+              </select>
+
+              <label for="outdoor">Espacio exterior disponible</label>
+              <select id="outdoor" name="outdoor" class="inp" required>
+                <option value="">Seleccionar</option>
+                <option value="jardin">Jardín privado</option>
+                <option value="balcon">Balcón/Terraza</option>
+                <option value="parque_cerca">Parque cerca</option>
+                <option value="ninguno">Ninguno</option>
+              </select>
+
+              <button type="submit" class="btn btn-primary">Enviar solicitud</button>
+              <button type="button" id="q-cancel" class="btn btn-ghost">Volver</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Matches -->
+        <div id="matches-view" class="view">
+          <div class="panel">
+            <h2 class="panel-title">Mis matches</h2>
+            <div id="matches-list" class="matches-list">
+              <p class="empty-text">Todavía no tenés matches.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Application detail (owner) -->
+        <div id="application-view" class="view">
+          <div class="panel">
+            <h2 class="panel-title">Cuestionario de <span id="app-adopter-name"></span></h2>
+            <p class="panel-subtitle">Para adoptar a <span id="app-dog-name"></span></p>
+            <div id="application-answers" class="answers-list"></div>
+            <div class="form-actions">
+              <button id="app-back" class="btn btn-ghost">Volver</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chat -->
+        <div id="chat-view" class="view">
+          <div class="chat-header">
+            <button id="chat-back" class="btn btn-ghost btn-sm">Volver</button>
+            <div class="chat-title">
+              <span id="chat-dog-name"></span>
+              <small id="chat-with"></small>
+            </div>
+            <div style="width:60px"></div>
+          </div>
+          <div id="chat-messages" class="chat-messages"></div>
+          <form id="chat-form" class="chat-input-row">
+            <input id="chat-input" type="text" class="inp" placeholder="Escribí un mensaje..." autocomplete="off" required>
+            <button type="submit" class="btn btn-primary btn-sm">Enviar</button>
+          </form>
+        </div>
+
+        <!-- Publish -->
+        <div id="publish-view" class="view">
+          <div class="panel">
+            <h2 class="panel-title">Publicar un perro</h2>
+            <form id="publish-form" class="form-stack">
+              <label for="pub-name">Nombre</label>
+              <input id="pub-name" name="name" type="text" class="inp" required>
+
+              <label for="pub-breed">Raza</label>
+              <input id="pub-breed" name="breed" type="text" class="inp">
+
+              <div class="row-two">
+                <div>
+                  <label for="pub-age-years">Años</label>
+                  <input id="pub-age-years" name="age_years" type="number" min="0" class="inp">
+                </div>
+                <div>
+                  <label for="pub-age-months">Meses</label>
+                  <input id="pub-age-months" name="age_months" type="number" min="0" max="11" class="inp">
+                </div>
+              </div>
+
+              <label for="pub-size">Tamaño</label>
+              <select id="pub-size" name="size" class="inp">
+                <option value="">Seleccionar</option>
+                <option value="Pequeño">Pequeño</option>
+                <option value="Mediano">Mediano</option>
+                <option value="Grande">Grande</option>
+              </select>
+
+              <label for="pub-description">Descripción</label>
+              <textarea id="pub-description" name="description" class="inp" rows="3"></textarea>
+
+              <div class="row-two">
+                <div>
+                  <label for="pub-city">Ciudad</label>
+                  <input id="pub-city" name="city" type="text" class="inp">
+                </div>
+                <div>
+                  <label for="pub-country">País</label>
+                  <input id="pub-country" name="country" type="text" class="inp">
+                </div>
+              </div>
+
+              <label for="pub-photos">URLs de fotos (separadas por comas)</label>
+              <textarea id="pub-photos" name="photos" class="inp" rows="2" placeholder="https://ejemplo.com/foto1.jpg, https://ejemplo.com/foto2.jpg"></textarea>
+
+              <button type="submit" class="btn btn-primary">Publicar</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Notifications -->
+        <div id="notifications-view" class="view">
+          <div class="panel">
+            <h2 class="panel-title">Notificaciones</h2>
+            <div id="notifications-list" class="notifications-list">
+              <p class="empty-text">No tenés notificaciones.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Refuges -->
+        <div id="refuges-view" class="view">
+          <div class="panel">
+            <h2 class="panel-title">Refugios</h2>
+
+            <div id="refuge-info" class="hidden">
+              <div class="refuge-header">
+                <h3 id="refuge-name"></h3>
+                <span id="refuge-status" class="status-badge"></span>
+              </div>
+              <p id="refuge-description" class="refuge-description"></p>
+              <p id="refuge-location" class="refuge-location"></p>
+
+              <div id="refuge-actions" class="refuge-actions hidden">
+                <div class="refuge-stats">
+                  <div class="stat"><strong id="stat-rescued">0</strong><span>Rescates</span></div>
+                  <div class="stat"><strong id="stat-adopted">0</strong><span>Adopciones</span></div>
+                  <div class="stat"><strong id="stat-foster">0</strong><span>Hogar de paso</span></div>
+                  <div class="stat"><strong id="stat-points">0</strong><span>Puntos</span></div>
+                </div>
+                <div class="form-actions">
+                  <button id="btn-rescue" class="btn btn-primary btn-sm">+ Rescate</button>
+                  <button id="btn-adopt" class="btn btn-green btn-sm">+ Adopción</button>
+                  <button id="btn-foster" class="btn btn-ghost btn-sm">+ Hogar de paso</button>
+                </div>
+              </div>
+            </div>
+
+            <form id="refuge-form" class="form-stack">
+              <label for="ref-name">Nombre del refugio</label>
+              <input id="ref-name" name="name" type="text" class="inp" required>
+
+              <label for="ref-description">Descripción</label>
+              <textarea id="ref-description-input" name="description" class="inp" rows="3"></textarea>
+
+              <div class="row-two">
+                <div>
+                  <label for="ref-city">Ciudad</label>
+                  <input id="ref-city" name="city" type="text" class="inp">
+                </div>
+                <div>
+                  <label for="ref-country">País</label>
+                  <input id="ref-country" name="country" type="text" class="inp">
+                </div>
+              </div>
+
+              <label for="ref-documents">URLs de documentos/fotos (separadas por comas)</label>
+              <textarea id="ref-documents" name="documents" class="inp" rows="2" placeholder="https://ejemplo.com/doc1.jpg, https://ejemplo.com/doc2.jpg"></textarea>
+
+              <button type="submit" class="btn btn-primary">Registrar refugio</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Ranking -->
+        <div id="ranking-view" class="view">
+          <div class="panel">
+            <h2 class="panel-title">Ranking de refugios</h2>
+            <p class="panel-subtitle">Los refugios con más impacto</p>
+            <div id="ranking-list" class="ranking-list">
+              <p class="empty-text">Todavía no hay refugios en el ranking.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shop -->
+        <div id="shop-view" class="view">
+          <div class="panel">
+            <div class="shop-header">
+              <div>
+                <h2 class="panel-title">Tienda solidaria</h2>
+                <p class="panel-subtitle">Comprá y ayudá a los refugios</p>
+              </div>
+              <button id="cart-btn" class="btn btn-primary btn-sm">Carrito <span id="cart-count">0</span></button>
+            </div>
+            <div id="shop-list" class="shop-list">
+              <p class="empty-text">Cargando productos...</p>
+            </div>
+            <h3 class="section-subtitle">Mis pedidos</h3>
+            <div id="orders-list" class="orders-list">
+              <p class="empty-text">Todavía no hiciste pedidos.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lost reports -->
+        <div id="lost-view" class="view">
+          <div class="panel">
+            <h2 class="panel-title">Perros perdidos</h2>
+            <p class="panel-subtitle">Ayudá a encontrarlos</p>
+
+            <form id="lost-form" class="form-stack">
+              <label for="lost-dog-name">Nombre del perro</label>
+              <input id="lost-dog-name" name="dog_name" type="text" class="inp" required>
+
+              <label for="lost-description">Descripción / señas particulares</label>
+              <textarea id="lost-description" name="description" class="inp" rows="3"></textarea>
+
+              <div class="row-two">
+                <div>
+                  <label for="lost-city">Ciudad</label>
+                  <input id="lost-city" name="city" type="text" class="inp">
+                </div>
+                <div>
+                  <label for="lost-country">País</label>
+                  <input id="lost-country" name="country" type="text" class="inp">
+                </div>
+              </div>
+
+              <label for="lost-photos">URLs de fotos (separadas por comas)</label>
+              <textarea id="lost-photos" name="photos" class="inp" rows="2" placeholder="https://ejemplo.com/foto1.jpg, https://ejemplo.com/foto2.jpg"></textarea>
+
+              <button type="submit" class="btn btn-primary">Publicar reporte</button>
+            </form>
+
+            <h3 class="section-subtitle">Reportes recientes</h3>
+            <div id="lost-list" class="lost-list">
+              <p class="empty-text">No hay reportes activos.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Foster homes -->
+        <div id="foster-view" class="view">
+          <div class="panel">
+            <h2 class="panel-title">Hogares de paso</h2>
+            <p class="panel-subtitle">Ofrecé o encontrá un hogar temporal</p>
+
+            <div id="foster-my-info" class="hidden">
+              <div class="refuge-header">
+                <h3>Mi casa de paso</h3>
+                <span id="foster-my-status" class="status-badge"></span>
+              </div>
+              <p id="foster-my-description" class="refuge-description"></p>
+              <p id="foster-my-location" class="refuge-location"></p>
+            </div>
+
+            <form id="foster-form" class="form-stack">
+              <label for="foster-description">Descripción del hogar</label>
+              <textarea id="foster-description" name="description" class="inp" rows="3" placeholder="¿Tenés patio? ¿Experiencia con perros?"></textarea>
+
+              <div class="row-two">
+                <div>
+                  <label for="foster-city">Ciudad</label>
+                  <input id="foster-city" name="city" type="text" class="inp">
+                </div>
+                <div>
+                  <label for="foster-country">País</label>
+                  <input id="foster-country" name="country" type="text" class="inp">
+                </div>
+              </div>
+
+              <label for="foster-capacity">Capacidad (cuántos perros podés recibir)</label>
+              <input id="foster-capacity" name="capacity" type="number" min="1" value="1" class="inp">
+
+              <button type="submit" class="btn btn-primary">Registrar mi casa de paso</button>
+            </form>
+
+            <h3 class="section-subtitle">Casas de paso disponibles</h3>
+            <div id="foster-list" class="foster-list">
+              <p class="empty-text">No hay casas de paso aprobadas.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- More -->
+        <div id="more-view" class="view">
+          <div class="panel">
+            <h2 class="panel-title">Más</h2>
+            <div class="more-grid">
+              <button class="btn btn-ghost more-btn" data-view="refuges">
+                <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M12 3L4 9v12h6v-7h4v7h6V9L12 3z" fill="currentColor"/></svg>
+                Refugios
+              </button>
+              <button class="btn btn-ghost more-btn" data-view="ranking">
+                <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M7.5 21H2V9h5.5v12zm7-9H9v9h5.5v-9zM22 11h-5.5v10H22V11z" fill="currentColor"/></svg>
+                Ranking
+              </button>
+              <button class="btn btn-ghost more-btn" data-view="foster">
+                <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9z" fill="currentColor"/></svg>
+                Casa de paso
+              </button>
+              <button class="btn btn-ghost more-btn" id="more-logout">
+                <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z" fill="currentColor"/></svg>
+                Salir
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- Bottom nav -->
+      <nav class="bottom-nav">
+        <button class="nav-item active" data-view="discover" aria-label="Discover">
+          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor"/>
+          </svg>
+          <span>Discover</span>
+        </button>
+        <button class="nav-item" data-view="matches" aria-label="Matches">
+          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+            <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" fill="currentColor"/>
+          </svg>
+          <span>Matches</span>
+        </button>
+        <button class="nav-item nav-fab" data-view="publish" aria-label="Publicar">
+          <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
+            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" fill="currentColor"/>
+          </svg>
+        </button>
+        <button class="nav-item" data-view="shop" aria-label="Tienda">
+          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+            <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z" fill="currentColor"/>
+          </svg>
+          <span>Tienda</span>
+        </button>
+        <button class="nav-item" data-view="lost" aria-label="Perdidos">
+          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
+          </svg>
+          <span>Perdidos</span>
+        </button>
+        <button class="nav-item" data-view="more" aria-label="Más">
+          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+            <path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" fill="currentColor"/>
+          </svg>
+          <span>Más</span>
+        </button>
+      </nav>
+    </section>
+
+    <!-- Cart modal -->
+    <div id="cart-modal" class="modal hidden">
+      <div class="modal-backdrop"></div>
+      <div class="modal-card modal-card-wide">
+        <h2>Tu carrito</h2>
+        <div id="cart-items" class="cart-items">
+          <p class="empty-text">El carrito está vacío.</p>
+        </div>
+        <div class="cart-total">Total: <strong id="cart-total">$0</strong></div>
+        <label for="cart-address">Dirección de envío</label>
+        <textarea id="cart-address" class="inp" rows="2" placeholder="Calle, número, ciudad, código postal"></textarea>
+        <button id="cart-checkout" class="btn btn-primary">Hacer pedido</button>
+        <button id="cart-close" class="btn btn-ghost">Seguir comprando</button>
+      </div>
+    </div>
+
+    <!-- Reminders modal -->
+    <div id="reminders-modal" class="modal hidden">
+      <div class="modal-backdrop"></div>
+      <div class="modal-card modal-card-wide">
+        <h2>Recordatorios</h2>
+        <form id="reminder-form" class="form-stack">
+          <input type="hidden" id="reminder-match-id">
+          <label for="reminder-title">Título</label>
+          <input id="reminder-title" type="text" class="inp" placeholder="Vacuna anual" required>
+
+          <label for="reminder-type">Tipo</label>
+          <select id="reminder-type" class="inp" required>
+            <option value="">Seleccionar</option>
+            <option value="vaccine">Vacuna</option>
+            <option value="check-in">Check-in</option>
+            <option value="vet">Veterinario</option>
+            <option value="medication">Medicación</option>
+            <option value="other">Otro</option>
+          </select>
+
+          <label for="reminder-due">Fecha y hora</label>
+          <input id="reminder-due" type="datetime-local" class="inp" required>
+
+          <button type="submit" class="btn btn-primary">Crear recordatorio</button>
+        </form>
+        <div id="reminders-list-modal" class="reminders-list"></div>
+        <button id="reminders-close" class="btn btn-ghost">Cerrar</button>
+      </div>
+    </div>
+
+    <!-- Match modal -->
+    <div id="match-modal" class="modal hidden">
+      <div class="modal-backdrop"></div>
+      <div class="modal-card">
+        <div class="modal-icon">
+          <svg viewBox="0 0 24 24" width="56" height="56" aria-hidden="true">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#FF8A5C"/>
+          </svg>
+        </div>
+        <h2>¡Es un match!</h2>
+        <p>A vos y a <strong id="match-dog-name"></strong> les gustaría conocerse.</p>
+        <button id="match-questionnaire" class="btn btn-primary">Llenar cuestionario</button>
+        <button id="match-close" class="btn btn-ghost">Después</button>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </div>
+
+  <script src="app-mvp.js"></script>
+</body>
+</html>

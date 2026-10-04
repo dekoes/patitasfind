@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PatitasFind — Encuentra a tu mejor amigo perdido</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Patrick+Hand&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="anim.css?v=10">
+<link rel="stylesheet" href="landing.css?v=3">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="paw" viewBox="0 0 64 64"><ellipse cx="32" cy="40" rx="15" ry="12" fill="currentColor"/><ellipse cx="14" cy="26" rx="7" ry="9" fill="currentColor" transform="rotate(-18 14 26)"/><ellipse cx="26" cy="17" rx="7" ry="9" fill="currentColor"/><ellipse cx="40" cy="17" rx="7" ry="9" fill="currentColor"/><ellipse cx="51" cy="26" rx="7" ry="9" fill="currentColor" transform="rotate(18 51 26)"/></symbol></defs></svg>
+<div id="page-loader" aria-hidden="true"><div id="pl-dog"></div><div class="pl-title">PatitasFind</div><div class="bone-bar indeterminate" style="width:200px"><div class="fill"></div></div></div>
+<div id="scroll-dog" aria-hidden="true"></div>
+
+<header class="header">
+  <div class="wrap">
+    <a href="#" class="logo">
+      <div class="logo-icon">
+        <svg width="22" height="22" viewBox="0 0 64 64" style="color:#fff">
+          <ellipse cx="32" cy="40" rx="15" ry="12" fill="currentColor"/>
+          <ellipse cx="14" cy="26" rx="7" ry="9" fill="currentColor" transform="rotate(-18 14 26)"/>
+          <ellipse cx="26" cy="17" rx="7" ry="9" fill="currentColor"/>
+          <ellipse cx="40" cy="17" rx="7" ry="9" fill="currentColor"/>
+          <ellipse cx="51" cy="26" rx="7" ry="9" fill="currentColor" transform="rotate(18 51 26)"/>
+        </svg>
+      </div>
+      PatitasFind
+    </a>
+    <nav class="nav">
+      <a href="#como-funciona">Cómo funciona</a>
+      <a href="#donde-buscamos">Dónde buscamos</a>
+      <a href="#match">Compatibilidad</a>
+      <a href="/app/" class="btn">Probar app</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="badge"><svg class="badge-paw" width="14" height="14" viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="32" cy="40" rx="15" ry="12" fill="currentColor"/><ellipse cx="14" cy="26" rx="7" ry="9" fill="currentColor" transform="rotate(-18 14 26)"/><ellipse cx="26" cy="17" rx="7" ry="9" fill="currentColor"/><ellipse cx="40" cy="17" rx="7" ry="9" fill="currentColor"/><ellipse cx="51" cy="26" rx="7" ry="9" fill="currentColor" transform="rotate(18 51 26)"/></svg> Más que una app, una red de héroes</span>
+      <h1 class="hero-title">Encuentra a tu <span>mejor amigo</span> perdido</h1>
+      <p class="hero-lead">
+        PatitasFind une inteligencia artificial, una base de datos propia y búsqueda en
+        grupos de Facebook y sitios de mascotas extraviadas para reunir a los perritos con sus familias.
+      </p>
+      <div class="hero-btns">
+        <a href="/app/" class="btn">Comenzar a buscar</a>
+        <a href="#como-funciona" class="btn btn-ghost">Ver cómo funciona</a>
+      </div>
+    </div>
+    <div class="hero-img">
+      <img src="img/hero.png" alt="Chica encontrando a su perro con la app">
+    </div>
+  </div>
+</section>
+
+<section id="como-funciona" class="wrap center">
+  <span class="badge">Cómo funciona</span>
+  <h2 class="section-title">Tres pasos para volver a abrazarlo</h2>
+  <p class="section-lead">Súbele una foto, comparte la alerta y deja que la comunidad y la IA hagan el resto.</p>
+  <div class="sources">
+    <div class="cards" style="margin-top:44px">
+      <div class="source-card">
+        <div class="icon"><span class="step-num">1</span></div>
+        <div class="step-img"><img src="img/step-1-photo.png" alt="Escaneo facial de un perro en el celular"></div>
+        <h3>Sube una foto</h3>
+        <p>Escaneamos 130 puntos del rostro para crear un perfil visual único de tu perrito.</p>
+      </div>
+      <div class="source-card">
+        <div class="icon"><span class="step-num">2</span></div>
+        <div class="step-img"><img src="img/step-2-alert.png" alt="Alerta activada en la app"></div>
+        <h3>Activa la alerta</h3>
+        <p>Publicamos en segundos y avisamos a vecinos, refugios y rescatistas cerca de ti.</p>
+      </div>
+      <div class="source-card">
+        <div class="icon"><span class="step-num">3</span></div>
+        <div class="step-img"><img src="img/step-3-reunion.png" alt="Reencuentro seguro con el perro"></div>
+        <h3>Reencuentro seguro</h3>
+        <p>Chatea de forma privada, confirma con un código y recibe a tu peludo de vuelta.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="donde-buscamos" class="wrap center" style="background:var(--butter)">
+  <span class="badge">Buscamos en todos lados</span>
+  <h2 class="section-title">No solo dentro de la app</h2>
+  <p class="section-lead">
+    Tu alerta cruza fronteras digitales. Rastreamos coincidencias en múltiples fuentes
+    para que nada se escape.
+  </p>
+  <div class="sources">
+    <div class="cards" style="margin-top:44px">
+      <div class="source-card">
+        <div class="source-img"><img src="img/search-fb.png" alt="Búsqueda en grupos de Facebook"></div>
+        <h3>Grupos de Facebook</h3>
+        <p>Revisamos comunidades de perritos perdidos y encontrados en tu ciudad.</p>
+      </div>
+      <div class="source-card">
+        <div class="source-img"><img src="img/database.png" alt="Base de datos propia"></div>
+        <h3>Base de datos propia</h3>
+        <p>Miles de reportes verificados cruzados con IA de reconocimiento facial.</p>
+      </div>
+      <div class="source-card">
+        <div class="source-img"><img src="img/map.png" alt="Otras plataformas"></div>
+        <h3>Otras páginas</h3>
+        <p>Conectamos con sitios de mascotas extraviadas y refugios aliados.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="feature alt">
+  <div class="wrap">
+    <div>
+      <span class="badge">Adopción con sentido</span>
+      <h2 class="section-title">Encuentra a tu compañero ideal</h2>
+      <p class="section-lead" style="margin:0 0 18px">
+        Desliza perfiles como en una red social, pero con un propósito: conectar perros
+        que necesitan hogar con personas que encajan con su personalidad.
+      </p>
+      <ul class="feature-list">
+        <li>Filtros por tamaño, edad, energía y compatibilidad de hogar.</li>
+        <li>Perfiles verificados de refugios y rescatistas.</li>
+        <li>Cuestionario de hogar para proteger a ambos.</li>
+      </ul>
+    </div>
+    <div class="feature-img">
+      <img src="img/swipe.png" alt="Perfil de Luna lista para adoptar">
+    </div>
+  </div>
+</section>
+
+<section id="match" class="feature">
+  <div class="wrap">
+    <div class="feature-img">
+      <img src="img/match.png" alt="Pantalla de match con Luna">
+    </div>
+    <div>
+      <span class="badge">Compatibilidad real</span>
+      <h2 class="section-title">Match que va más allá de lo visual</h2>
+      <p class="section-lead" style="margin:0 0 18px">
+        Comparamos tu estilo de vida con el perfil del perro: espacio, actividad,
+        experiencia y convivencia con niños u otras mascotas.
+      </p>
+      <ul class="feature-list">
+        <li>Porcentaje de compatibilidad claro y divertido.</li>
+        <li>Consejos personalizados para cada match.</li>
+        <li>Chat seguro para coordinar la adopción.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="feature alt">
+  <div class="wrap">
+    <div>
+      <span class="badge">Recompensa colectiva</span>
+      <h2 class="section-title">Ayuda a quienes ayudan</h2>
+      <p class="section-lead" style="margin:0 0 18px">
+        Cada adopción, donación o compra en la tienda solidaria beneficia a refugios
+        verificados y los impulsa en el ranking de héroes.
+      </p>
+      <ul class="feature-list">
+        <li>Tienda solidaria con productos que apoyan refugios.</li>
+        <li>Donaciones directas sin comisiones.</li>
+        <li>Ranking de refugios que más hogares logran.</li>
+      </ul>
+    </div>
+    <div class="feature-img">
+      <img src="img/compatibility.png" alt="Compatibilidad entre dueño y perro">
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <div class="cta-img">
+      <img src="img/family-hug.png" alt="Familia reencontrando a su perro">
+    </div>
+    <span class="badge">¿Listo para unirte?</span>
+    <h2 class="section-title">Cada segundo cuenta cuando se pierde un amigo</h2>
+    <p class="section-lead" style="margin:14px auto 28px">
+      Empieza ahora. Crea tu alerta, explora adopciones o apoya a un refugio.
+    </p>
+    <a href="/app/" class="btn" style="font-size:18px;padding:14px 32px">Entrar a PatitasFind</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>Hecho con amor por el equipo de PatitasFind · <a href="/app/">Abrir app</a></p>
+</footer>
+
+<script src="fx.js?v=10"></script>
+<script src="landing.js?v=3"></script>
+</body>
+</html>

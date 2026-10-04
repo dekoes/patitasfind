@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#DCC7FA">
+<title>PatitasFind</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%2333C7BE'/%3E%3Cg fill='white' transform='translate(8 8) scale(.75)'%3E%3Cellipse cx='32' cy='40' rx='15' ry='12'/%3E%3Cellipse cx='14' cy='26' rx='7' ry='9'/%3E%3Cellipse cx='26' cy='17' rx='7' ry='9'/%3E%3Cellipse cx='40' cy='17' rx='7' ry='9'/%3E%3Cellipse cx='51' cy='26' rx='7' ry='9'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Patrick+Hand&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+<link rel="stylesheet" href="/app/styles.css?v=12">
+<link rel="stylesheet" href="/app/anim.css?v=12">
+</head>
+<body>
+<div id="bg" aria-hidden="true"></div>
+<div id="stage">
+<div id="device">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<symbol id="paw" viewBox="0 0 64 64"><ellipse cx="32" cy="40" rx="15" ry="12" fill="currentColor"/><ellipse cx="14" cy="26" rx="7" ry="9" fill="currentColor" transform="rotate(-18 14 26)"/><ellipse cx="26" cy="17" rx="7" ry="9" fill="currentColor"/><ellipse cx="40" cy="17" rx="7" ry="9" fill="currentColor"/><ellipse cx="51" cy="26" rx="7" ry="9" fill="currentColor" transform="rotate(18 51 26)"/></symbol>
+<symbol id="dogface" viewBox="0 0 120 120"><path d="M22 30 Q6 34 10 62 Q13 82 30 76 Q24 55 28 38 Z" fill="#B5763F" stroke="#1D2233" stroke-width="3"/><path d="M98 30 Q114 34 110 62 Q107 82 90 76 Q96 55 92 38 Z" fill="#B5763F" stroke="#1D2233" stroke-width="3"/><circle cx="60" cy="64" r="42" fill="#FFF6EC" stroke="#1D2233" stroke-width="3"/><circle cx="45" cy="56" r="5" fill="#1D2233"/><circle cx="75" cy="56" r="5" fill="#1D2233"/><ellipse cx="60" cy="80" rx="17" ry="13" fill="#F6C8A4"/><ellipse cx="60" cy="72" rx="7" ry="5.5" fill="#1D2233"/><path d="M60 78 Q60 84 54 86 M60 78 Q60 84 66 86" stroke="#1D2233" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="34" cy="70" r="5" fill="#F49AC1" opacity=".7"/><circle cx="86" cy="70" r="5" fill="#F49AC1" opacity=".7"/></symbol>
+<symbol id="pin" viewBox="0 0 24 24"><path d="M12 22 C7 16 4 12.5 4 9.5 A8 8 0 1 1 20 9.5 C20 12.5 17 16 12 22Z" fill="#FF8A5C" stroke="#1D2233" stroke-width="2"/><circle cx="12" cy="9.5" r="3" fill="#fff"/></symbol>
+<symbol id="bell" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0-6 6c0 5-2 6-2 6h16s-2-1-2-6a6 6 0 0 0-6-6Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M10 19a2 2 0 0 0 4 0" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+<symbol id="search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></symbol>
+<symbol id="home" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7v8a1 1 0 0 1-1 1h-5v-6h-4v6H5a1 1 0 0 1-1-1Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></symbol>
+<symbol id="chat" viewBox="0 0 24 24"><path d="M4 6a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3H9l-5 4Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><circle cx="9" cy="10" r="1.4" fill="currentColor"/><circle cx="13" cy="10" r="1.4" fill="currentColor"/><circle cx="17" cy="10" r="1.4" fill="currentColor"/></symbol>
+<symbol id="heart" viewBox="0 0 24 24"><path d="M12 20.5C6 16 3.5 12.8 3.5 9.6A4.6 4.6 0 0 1 12 7a4.6 4.6 0 0 1 8.5 2.6c0 3.2-2.5 6.4-8.5 10.9Z" fill="currentColor" stroke="#1D2233" stroke-width="1.8"/></symbol>
+<symbol id="shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6Z" fill="#86E0D4" stroke="#1D2233" stroke-width="2" stroke-linejoin="round"/><path d="M8.5 12l2.4 2.4 4.6-4.8" fill="none" stroke="#1D2233" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="camera" viewBox="0 0 24 24"><path d="M4 8h3l2-2.5h6L17 8h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><circle cx="12" cy="14" r="3.6" fill="none" stroke="currentColor" stroke-width="2.2"/></symbol>
+<symbol id="arrow-left" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7" stroke="#1D2233" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/></symbol>
+<symbol id="close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/></symbol>
+<symbol id="send" viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="gps" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="12" cy="12" r="2.6" fill="currentColor"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+<symbol id="map" viewBox="0 0 24 24"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2Z M9 4v14 M15 6v14" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linejoin="round"/></symbol>
+<symbol id="store" viewBox="0 0 24 24"><path d="M4 9l1.5-5h13L20 9M4 9h16v2a3 3 0 0 1-5.3 2 3 3 0 0 1-5.4 0A3 3 0 0 1 4 11Z M5 13v7h14v-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+<symbol id="cart" viewBox="0 0 24 24"><path d="M3 4h2.5l2.2 10.2a1.5 1.5 0 0 0 1.5 1.2h8.3a1.5 1.5 0 0 0 1.4-1.1L21 8H6.3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9.5" cy="19.5" r="1.6" fill="currentColor"/><circle cx="17" cy="19.5" r="1.6" fill="currentColor"/></symbol>
+<symbol id="user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M4 20c0-4 3.6-6 8-6s8 2 8 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+<symbol id="check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="sparkle" viewBox="0 0 24 24"><path d="M12 2l2.2 6.3L20 10l-5.8 1.7L12 18l-2.2-6.3L4 10l5.8-1.7Z M19 15l1 2.6 2.5 1-2.5 1L19 22l-1-2.4-2.5-1 2.5-1Z" fill="currentColor"/></symbol>
+<symbol id="trophy" viewBox="0 0 24 24"><path d="M7 4h10v5a5 5 0 0 1-10 0Z M7 6H4a3 3 0 0 0 3 4 M17 6h3a3 3 0 0 1-3 4 M12 14v4 M8 21h8 M9 18h6" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="gift" viewBox="0 0 24 24"><path d="M4 10h16v10H4Z M3 7h18v3H3Z M12 7v13 M12 7c-2-4-6-3-5 0 M12 7c2-4 6-3 5 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+<symbol id="edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16Z M13 7l4 4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></symbol>
+<symbol id="logout" viewBox="0 0 24 24"><path d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4 M10 16l-4-4 4-4 M6 12h10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7 M20 4v7h-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="9" cy="10" r="2" fill="currentColor"/><path d="M4 18l5-5 4 4 3-3 4 4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></symbol>
+</defs>
+</svg>
+
+<div id="screens">
+
+<!-- ================= SPLASH ================= -->
+<section class="screen active" data-s="splash">
+  <div class="splash">
+    <div class="splash-logo"><svg width="56" height="56"><use href="#paw"/></svg></div>
+    <div class="splash-title" id="splash-title"></div>
+    <p class="body splash-sub">Encuentra, adopta y reúne perritos</p>
+    <div class="splash-run" id="splash-run"></div>
+    <div style="width:220px"><div class="bone-bar"><div class="fill" id="splash-bar"></div></div></div>
+    <div class="splash-tip" id="splash-tip"></div>
+    <div class="splash-steps" id="splash-steps"></div>
+  </div>
+</section>
+
+<!-- ================= ONBOARDING ================= -->
+<section class="screen" data-s="onboarding">
+  <div class="topbar"><span class="grow"></span><button class="link small" id="ob-skip">Saltar</button></div>
+  <div style="flex:1;position:relative">
+    <div class="ob-slide on" data-i="0"><div class="ob-art" style="background:var(--yellow)" id="ob-art-0"></div><h2 class="h1">Súbele una foto<br>y la IA lo busca</h2><p class="body mt8">Comparamos la foto de tu perrito con reportes de perdidos, encontrados y adopciones cerca de ti.</p></div>
+    <div class="ob-slide" data-i="1"><div class="ob-art" style="background:var(--lila)" id="ob-art-1"></div><h2 class="h1">Adopta con<br>un deslizón</h2><p class="body mt8">Desliza perfiles verificados, llena un cuestionario y chatea seguro con refugios y rescatistas.</p></div>
+    <div class="ob-slide" data-i="2"><div class="ob-art" style="background:var(--green)" id="ob-art-2"></div><h2 class="h1">Ayuda a quienes<br>ayudan</h2><p class="body mt8">Donaciones y tienda solidaria que impulsan a los refugios del ranking de héroes.</p></div>
+  </div>
+  <div class="pad" style="padding-bottom:30px">
+    <div class="dotnav" id="ob-dots"><i class="on"></i><i></i><i></i></div>
+    <button class="btn block btn-orange shine mt20" id="ob-next">Siguiente</button>
+  </div>
+</section>
+
+<!-- ================= AUTH ================= -->
+<section class="screen" data-s="auth">
+  <div class="scroll">
+    <div class="pad center" style="padding-top:34px">
+      <div id="auth-dog" style="display:inline-block"></div>
+      <h1 class="h1 mt8" id="auth-title">¡Hola de nuevo!</h1>
+      <p class="body" id="auth-sub">Inicia sesión para seguir ayudando</p>
+    </div>
+    <form id="auth-form" class="pad col mt20" novalidate>
+      <div id="f-name" class="hidden"><label class="lbl" for="auth-name">Nombre completo</label><input id="auth-name" class="inp" autocomplete="name" placeholder="Tu nombre"></div>
+      <div id="f-phone" class="hidden"><label class="lbl" for="auth-phone">Teléfono (WhatsApp)</label><input id="auth-phone" class="inp" type="tel" autocomplete="tel" placeholder="55 1234 5678"></div>
+      <div id="f-email"><label class="lbl" for="auth-email">Correo electrónico</label><input id="auth-email" class="inp" type="email" autocomplete="email" placeholder="hola@correo.com"></div>
+      <div id="f-pass"><label class="lbl" for="auth-password">Contraseña</label><input id="auth-password" class="inp" type="password" autocomplete="current-password" placeholder="Mínimo 8 caracteres"></div>
+      <div id="f-forgot" class="between"><span></span><button type="button" class="link small" id="auth-forgot-link">¿Olvidaste tu contraseña?</button></div>
+      <button type="submit" class="btn block shine" id="auth-submit">Entrar</button>
+      <p class="center small" id="f-toggle"><span id="auth-toggle-text">¿No tienes cuenta?</span> <button type="button" class="link" id="auth-toggle">Regístrate</button></p>
+      <p class="center small hidden" id="f-back"><button type="button" class="link" id="auth-back">Volver a iniciar sesión</button></p>
+      <div id="f-social" class="col">
+        <div class="or">o</div>
+        <button type="button" id="google-login" class="btn block btn-white hidden"><svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg> Continuar con Google</button>
+        <button type="button" id="demo-login" class="btn block btn-ghost hidden">Entrar en modo demo</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ================= VERIFICAR TELÉFONO ================= -->
+<section class="screen" data-s="verify-phone">
+  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t">Verifica tu teléfono</div></div>
+  <div class="scroll pad center">
+    <div class="mt20" id="verify-art"></div>
+    <p class="body mt12">Te enviamos un código a <b id="verify-phone-num"></b>. Así protegemos a los perritos de estafas.</p>
+    <div class="code-row mt20">
+      <input class="inp code-box" maxlength="1" inputmode="numeric" aria-label="Dígito 1"><input class="inp code-box" maxlength="1" inputmode="numeric" aria-label="Dígito 2"><input class="inp code-box" maxlength="1" inputmode="numeric" aria-label="Dígito 3"><input class="inp code-box" maxlength="1" inputmode="numeric" aria-label="Dígito 4"><input class="inp code-box" maxlength="1" inputmode="numeric" aria-label="Dígito 5"><input class="inp code-box" maxlength="1" inputmode="numeric" aria-label="Dígito 6">
+    </div>
+    <button class="btn block mt24" id="verify-submit">Verificar</button>
+    <p class="small mt16"><button class="link" id="verify-resend">Reenviar código</button> · <button class="link" id="verify-skip">Hacerlo después</button></p>
+  </div>
+</section>
+
+<!-- ================= HOME ================= -->
+<section class="screen has-nav" data-s="home">
+  <div class="topbar">
+    <button class="loc-btn grow" id="home-loc"><small><svg width="12" height="12"><use href="#pin"/></svg> Tu ubicación</small><b><span id="home-location" class="ellipsis">Ciudad de México</span> <span style="font-size:12px">▾</span></b></button>
+    <div class="iconbtn" id="home-photo" title="Buscar por foto"><svg width="20" height="20"><use href="#camera"/></svg></div>
+    <div class="iconbtn" id="home-notif" title="Notificaciones"><svg width="20" height="20"><use href="#bell"/></svg><span class="dotb hidden" id="notif-badge">0</span></div>
+  </div>
+  <div class="scroll">
+    <div class="pad mt8">
+      <div class="hero-card">
+        <div class="grow">
+          <div style="font-weight:800;font-size:17px;line-height:1.15">¿Perdiste a tu perro?</div>
+          <div class="small muted" style="margin:3px 0 10px">Sube una foto y la IA lo busca por ti</div>
+          <div class="row" style="gap:8px;flex-wrap:wrap">
+            <button class="btn btn-sm btn-white" id="home-lost-btn">Reportar perdido</button>
+            <button class="btn btn-sm btn-orange" id="home-photo-btn">Buscar por foto</button>
+          </div>
+        </div>
+        <div class="hc-dog" id="home-dog"></div>
+      </div>
+    </div>
+    <div class="pad between mt20"><span class="h2">Categorías</span></div>
+    <div class="pad cats mt12">
+      <button class="cat" data-cat="lost"><div class="ci" style="background:var(--pink)"><svg width="30" height="30"><use href="#pin"/></svg></div><span>Perdidos<br>cerca</span></button>
+      <button class="cat" data-cat="adopt"><div class="ci" style="background:var(--yellow)"><svg width="34" height="34"><use href="#dogface"/></svg></div><span>En<br>adopción</span></button>
+      <button class="cat" data-cat="found"><div class="ci" style="background:var(--green)"><svg width="26" height="26"><use href="#search"/></svg></div><span>Encon-<br>trados</span></button>
+      <button class="cat" data-cat="refuges"><div class="ci" style="background:var(--blue)"><svg width="26" height="26"><use href="#home"/></svg></div><span>Refugios</span></button>
+    </div>
+    <div class="pad between mt20"><span class="h2">En adopción cerca</span><button class="link small" id="home-see-all">Ver todos</button></div>
+    <div class="hscroll mt8" id="home-carousel"></div>
+    <div class="pad between mt12"><span class="h2">Alertas de tu zona</span><button class="link small" id="home-map">Ver mapa</button></div>
+    <div class="pad col mt12" id="home-alerts"></div>
+    <div class="pad mt20">
+      <div class="card p row tap" id="home-shop" style="background:var(--lila)">
+        <div style="width:52px;height:52px;flex-shrink:0;display:flex;align-items:center;justify-content:center"><svg width="34" height="34"><use href="#store"/></svg></div>
+        <div class="grow"><b>Tienda solidaria</b><div class="small muted">Cada compra apoya a un refugio verificado</div></div><b>→</b>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DISCOVER ================= -->
+<section class="screen" data-s="discover">
+  <div class="topbar">
+    <div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div>
+    <div class="t">Descubrir perritos<small id="discover-sub">Cerca de ti</small></div>
+    <div class="iconbtn sm" id="discover-filter" title="Filtros"><svg width="18" height="18"><use href="#search"/></svg></div>
+  </div>
+  <div class="pad chips scrollx" id="discover-sizes">
+    <span class="chip on" data-size="">Todos</span><span class="chip" data-size="Pequeño">Pequeños</span><span class="chip" data-size="Mediano">Medianos</span><span class="chip" data-size="Grande">Grandes</span>
+  </div>
+  <div class="deck" id="deck"></div>
+</section>
+
+<!-- ================= PERFIL PERRO ================= -->
+<section class="screen" data-s="dog">
+  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><span class="grow"></span><div class="iconbtn sm" id="dog-share" title="Compartir"><svg width="18" height="18"><use href="#send"/></svg></div></div>
+  <div class="scroll pad" id="dog-body"></div>
+  <div class="sticky-cta" id="dog-cta"><button class="btn block btn-orange shine" id="dog-adopt"><svg width="18" height="18" style="color:#fff"><use href="#heart"/></svg> Solicitar adopción</button></div>
+</section>
+
+<!-- ================= CUESTIONARIO ================= -->
+<section class="screen" data-s="questionnaire">
+  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t">Solicitud para <span id="q-dog-name"></span><small>Este cuestionario protege al perrito y a ti</small></div></div>
+  <form id="questionnaire-form" class="scroll pad col">
+    <div><span class="lbl">1. ¿Dónde vives?</span><div class="chips" data-q="housing"><span class="chip" data-v="casa_con_jardin">Casa con patio</span><span class="chip" data-v="casa_sin_jardin">Casa sin patio</span><span class="chip" data-v="departamento_grande">Depa grande</span><span class="chip" data-v="departamento_chico">Depa chico</span></div></div>
+    <div><span class="lbl">2. Experiencia con perros</span><div class="chips" data-q="experience"><span class="chip" data-v="mucha">Toda la vida</span><span class="chip" data-v="alguna">Alguna</span><span class="chip" data-v="poca">Poca</span><span class="chip" data-v="ninguna">Sería mi primero</span></div></div>
+    <div><span class="lbl">3. ¿Hay niños en casa?</span><div class="chips" data-q="children"><span class="chip" data-v="si_chicos">Menores de 10</span><span class="chip" data-v="si_grandes">Mayores de 10</span><span class="chip" data-v="no">No</span></div></div>
+    <div><span class="lbl">4. ¿Otras mascotas?</span><div class="chips" data-q="other_pets"><span class="chip" data-v="perros">Perros</span><span class="chip" data-v="gatos">Gatos</span><span class="chip" data-v="otros">Otros</span><span class="chip" data-v="no">No</span></div></div>
+    <div><span class="lbl">5. Presupuesto mensual para su cuidado</span><div class="chips" data-q="budget"><span class="chip" data-v="0-800">Menos de $800</span><span class="chip" data-v="800-1500">$800 – $1,500</span><span class="chip" data-v="1500-3000">$1,500 – $3,000</span><span class="chip" data-v="3000+">Más de $3,000</span></div></div>
+    <div><span class="lbl">6. ¿Cuántas horas estaría solo al día?</span><div class="chips" data-q="hours_alone"><span class="chip" data-v="0-4">0 – 4 h</span><span class="chip" data-v="4-8">4 – 8 h</span><span class="chip" data-v="8+">Más de 8 h</span></div></div>
+    <div><label class="lbl" for="q-why">7. ¿Por qué quieres adoptarlo?</label><textarea id="q-why" class="inp" rows="3" placeholder="Cuéntale un poquito sobre ti y tu hogar"></textarea></div>
+    <label class="row small"><input type="checkbox" id="q-commit" style="width:20px;height:20px"> Me comprometo a esterilizarlo, vacunarlo y aceptar seguimiento post-adopción.</label>
+    <button type="submit" class="btn block btn-orange shine">Enviar solicitud</button>
+  </form>
+</section>
+
+<!-- ================= BUSCAR POR FOTO ================= -->
+<section class="screen" data-s="photo-search">
+  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t">Buscar con una foto<small>Perdidos, encontrados y adopciones</small></div></div>
+  <div class="scroll pad" id="ps-body">
+    <div id="ps-pick" class="center">
+      <div class="scan-box mt12" id="ps-preview"><span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span><div id="ps-preview-inner" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center"></div></div>
+      <p class="small muted mt12">Encuadra el rostro del perrito, con buena luz</p>
+      <div class="seg mt16" id="ps-type"><button class="on" data-v="">Todo</button><button data-v="lost">Perdidos</button><button data-v="found">Encontrados</button><button data-v="adoption">Adopción</button></div>
+      <input type="file" id="ps-file" accept="image/*" capture="environment" class="hidden">
+      <input type="file" id="ps-gallery" accept="image/*" class="hidden">
+      <div class="row mt20" style="justify-content:center;gap:18px">
+        <div class="iconbtn" id="ps-gallery-btn" title="Galería"><svg width="22" height="22"><use href="#image"/></svg></div>
+        <button class="round" id="ps-shoot" style="width:76px;height:76px;background:var(--orange);color:#fff" title="Tomar foto"><svg width="32" height="32"><use href="#camera"/></svg></button>
+        <div class="iconbtn" id="ps-reset" title="Otra foto"><svg width="20" height="20"><use href="#refresh"/></svg></div>
+      </div>
+      <button class="btn block mt20 hidden" id="ps-go"><svg width="18" height="18"><use href="#sparkle"/></svg> Analizar con IA</button>
+    </div>
+    <div id="ps-scan" class="center hidden">
+      <div class="scan-box mt12" id="ps-scan-box"><span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span><div class="glow"></div><div class="laser"></div></div>
+      <h2 class="h2 mt20">Analizando con IA...</h2>
+      <p class="small muted" id="ps-scan-msg">Detectando rasgos del rostro</p>
+      <div class="bone-bar mt16" style="width:220px;margin:16px auto 0"><div class="fill" id="ps-bar"></div></div>
+    </div>
+    <div id="ps-results" class="hidden"></div>
+  </div>
+</section>
+
+<!-- ================= CHATS ================= -->
+<section class="screen has-nav" data-s="chat-list">
+  <div class="topbar"><div class="t">Conversaciones<small>Chat seguro, tus datos están protegidos</small></div></div>
+  <div class="scroll pad col" id="chat-list"></div>
+</section>
+
+<section class="screen" data-s="chat">
+  <div class="topbar" style="border-bottom:2px solid rgba(29,34,51,.1)">
+    <div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div>
+    <div class="avatar" id="chat-avatar" style="width:42px;height:42px"></div>
+    <div class="t"><span id="chat-title">Chat</span><small id="chat-subtitle"></small></div>
+    <div class="iconbtn sm hidden" id="chat-open-ref" title="Ver perrito"><svg width="18" height="18"><use href="#paw"/></svg></div>
+  </div>
+  <div class="chat-safety mt8">🛡️ PatitasFind nunca pide depósitos. Si alguien te pide dinero por adelantado, repórtalo.</div>
+  <div class="chat-area" id="chat-messages"></div>
+  <form class="chat-form" id="chat-form" autocomplete="off">
+    <input id="chat-input" class="inp grow" placeholder="Escribe un mensaje..." maxlength="2000">
+    <button type="submit" class="round" style="width:50px;height:50px;background:var(--orange);color:#fff" aria-label="Enviar"><svg width="20" height="20"><use href="#send"/></svg></button>
+  </form>
+</section>
+
+<!-- ================= PUBLICAR ADOPCIÓN ================= -->
+<section class="screen" data-s="publish">
+  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t" id="publish-title">Publicar en adopción<small>Gratis · visible para miles de adoptantes</small></div></div>
+  <form id="publish-form" class="scroll pad col" novalidate>
+    <div><span class="lbl">Fotos (mínimo 1, máximo 5)</span><div class="photo-drop" data-photos="pub"></div></div>
+    <div class="ai-hint hidden" id="pub-ai"><svg width="22" height="22" style="color:var(--purple);flex-shrink:0"><use href="#sparkle"/></svg><span id="pub-ai-text">La IA está mirando la foto...</span></div>
+    <div><label class="lbl" for="pub-name">Nombre</label><input id="pub-name" class="inp" placeholder="Canela" required></div>
+    <div class="row"><div class="grow"><label class="lbl" for="pub-breed">Raza</label><input id="pub-breed" class="inp" placeholder="Mestiza"></div><div class="grow"><label class="lbl" for="pub-color">Color</label><input id="pub-color" class="inp" placeholder="Café"></div></div>
+    <div class="row"><div class="grow"><label class="lbl" for="pub-age-years">Años</label><input id="pub-age-years" class="inp" type="number" min="0" max="25" value="0"></div><div class="grow"><label class="lbl" for="pub-age-months">Meses</label><input id="pub-age-months" class="inp" type="number" min="0" max="11" value="6"></div></div>
+    <div><span class="lbl">Tamaño</span><div class="chips" data-single="pub-size"><span class="chip" data-v="Pequeño">Pequeño</span><span class="chip on" data-v="Mediano">Mediano</span><span class="chip" data-v="Grande">Grande</span></div></div>
+    <div><label class="lbl" for="pub-description">Su historia</label><textarea id="pub-description" class="inp" rows="3" placeholder="Carácter, salud, vacunas, esterilización..."></textarea></div>
+    <div><span class="lbl">Ubicación</span><div class="loc-pick" data-loc="pub"><svg width="22" height="22"><use href="#gps"/></svg><div class="grow small" data-loc-text>Usar mi ubicación actual</div><button type="button" class="btn btn-sm btn-ghost" data-loc-btn>Ubicar</button></div></div>
+    <div class="row"><div class="grow"><label class="lbl" for="pub-city">Ciudad</label><input id="pub-city" class="inp" placeholder="Ciudad de México"></div><div class="grow"><label class="lbl" for="pub-country">País</label><input id="pub-country" class="inp" value="México"></div></div>
+    <div class="card p small" style="background:var(--yellow)">🛡️ Revisamos que no sea una venta encubierta. Las publicaciones con precio se eliminan.</div>
+    <button type="submit" class="btn block btn-orange shine" id="publish-submit">Publicar</button>
+  </form>
+</section>
+
+<!-- ================= REPORTE PERDIDO / ENCONTRADO ================= -->
+<section class="screen" data-s="report-form">
+  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t" id="rf-title">Reportar perro perdido<small id="rf-sub">Cada minuto cuenta</small></div></div>
+  <form id="report-form" class="scroll pad col" novalidate>
+    <div class="seg" id="rf-type"><button type="button" data-v="lost" class="on">Lo perdí</button><button type="button" data-v="found">Lo encontré</button></div>
+    <div><span class="lbl">Fotos (cara y cuerpo)</span><div class="photo-drop" data-photos="rf"></div></div>
+    <div class="ai-hint hidden" id="rf-ai"><svg width="22" height="22" style="color:var(--purple);flex-shrink:0"><use href="#sparkle"/></svg><span id="rf-ai-text">La IA está mirando la foto...</span></div>
+    <div><label class="lbl" for="rf-name" id="rf-name-lbl">Nombre del perro</label><input id="rf-name" class="inp" placeholder="Rocky"></div>
+    <div><label class="lbl" for="rf-description">Señas particulares</label><textarea id="rf-description" class="inp" rows="3" placeholder="Collar rojo, mancha blanca en el pecho, renguea de la pata trasera..."></textarea></div>
+    <div><span class="lbl" id="rf-loc-lbl">¿Dónde se perdió?</span><div class="loc-pick" data-loc="rf"><svg width="22" height="22"><use href="#gps"/></svg><div class="grow small" data-loc-text>Usar mi ubicación actual</div><button type="button" class="btn btn-sm btn-ghost" data-loc-btn>Ubicar</button></div></div>
+    <div class="row"><div class="grow"><label class="lbl" for="rf-city">Colonia / Ciudad</label><input id="rf-city" class="inp" placeholder="Roma Norte, CDMX"></div><div style="width:110px"><label class="lbl" for="rf-country">País</label><input id="rf-country" class="inp" value="México"></div></div>
+    <div class="card p small" style="background:var(--blue)">🔒 Entrega segura: solo entrega al perrito si la persona confirma señas que no están en el reporte. Reúnanse siempre en un lugar público.</div>
+    <button type="submit" class="btn block btn-orange shine" id="rf-submit">Publicar y buscar coincidencias</button>
+  </form>
+</section>
+
+<!-- ================= DETALLE REPORTE ================= -->
+<section class="screen" data-s="report">
+  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t" id="report-title">Reporte</div></div>
+  <div class="scroll pad" id="report-body"></div>
+</section>
+
+<!-- ================= LISTA GENÉRICA ================= -->
+<section class="screen" data-s="list">
+  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t" id="list-title">Lista<small id="list-sub"></small></div><div class="iconbtn sm hidden" id="list-action"><svg width="18" height="18"><use href="#plus"/></svg></div></div>
+  <div class="pad chips scrollx hidden" id="list-chips"></div>
+  <div class="scroll pad col" id="list-container"></div>
+</section>
+
+<!-- ================= REFUGIO ================= -->
+<section class="screen" data-s="refuge">
+  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><span class="grow"></span></div>
+  <div class="scroll" id="refuge-body"></div>
+</section>
+
+<section class="screen" data-s="refuge-register">
+  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t">Registrar refugio<small>Lo revisamos en menos de 48 h</small></div></div>
+  <form id="refuge-form" class="scroll pad col">
+    <div><label class="lbl" for="rg-name">Nombre del refugio</label><input id="rg-name" class="inp" required placeholder="Refugio Corazón Peludo"></div>
+    <div><label class="lbl" for="rg-desc">¿A qué se dedican?</label><textarea id="rg-desc" class="inp" rows="3" placeholder="Rescate, rehabilitación, adopciones..."></textarea></div>
+    <div class="row"><div class="grow"><label class="lbl" for="rg-city">Ciudad</label><input id="rg-city" class="inp"></div><div class="grow"><label class="lbl" for="rg-country">País</label><input id="rg-country" class="inp" value="México"></div></div>
+    <div><span class="lbl">Documentos (acta constitutiva, INE del responsable, fotos de instalaciones)</span><div class="photo-drop" data-photos="rg"></div></div>
+    <button type="submit" class="btn block shine">Enviar para revisión</button>
+  </form>
+</section>
+
+<section class="screen" data-s="foster-register">
+  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t">Ser casa de paso<small>Recibe perritos mientras encuentran hogar</small></div></div>
+  <form id="foster-form" class="scroll pad col">
+    <div class="center mt8" id="foster-art"></div>
+    <div><label class="lbl" for="fh-desc">Cuéntanos de tu hogar</label><textarea id="fh-desc" class="inp" rows="3" placeholder="Tipo de vivienda, patio, horarios, otras mascotas..."></textarea></div>
+    <div class="row"><div class="grow"><label class="lbl" for="fh-city">Ciudad</label><input id="fh-city" class="inp"></div><div class="grow"><label class="lbl" for="fh-country">País</label><input id="fh-country" class="inp" value="México"></div></div>
+    <div><label class="lbl" for="fh-cap">¿Cuántos perritos puedes recibir?</label><input id="fh-cap" class="inp" type="number" min="1" max="10" value="1"></div>
+    <button type="submit" class="btn block btn-green shine">Postularme</button>
+  </form>
+</section>
+
+<section class="screen" data-s="my-refuge">
+  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t">Mi refugio<small id="mr-status"></small></div></div>
+  <div class="scroll pad" id="my-refuge-body"></div>
+</section>
+
+<!-- ================= RANKING ================= -->
+<section class="screen" data-s="ranking">
+  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t">Ranking de héroes<small>Refugios que más hogares dan</small></div></div>
+  <div class="pad row"><input id="ranking-city" class="inp grow" placeholder="Filtrar por ciudad"><button class="btn btn-sm" id="ranking-filter-btn">Filtrar</button></div>
+  <div class="scroll pad" id="ranking-list"></div>
+</section>
+
+<!-- ================= TIENDA ================= -->
+<section class="screen has-nav" data-s="shop">
+  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t">Tienda solidaria<small>Las ganancias van a refugios verificados</small></div><div class="iconbtn" id="cart-btn" title="Carrito"><svg width="22" height="22"><use href="#cart"/></svg><span class="dotb hidden" id="cart-count">0</span></div></div>
+  <div class="scroll pad"><div id="shop-list" style="display:grid;grid-template-columns:1fr 1fr;gap:12px"></div></div>
+</section>
+
+<!-- ================= MAPA ================= -->
+<section class="screen" data-s="map">
+  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t">Mapa de tu zona<small id="map-sub">Perdidos, encontrados y adopciones</small></div><div class="iconbtn sm" id="map-locate" title="Mi ubicación"><svg width="18" height="18"><use href="#gps"/></svg></div></div>
+  <div class="pad chips" style="margin-bottom:10px" id="map-filters"><span class="chip on" data-k="lost">🔴 Perdidos</span><span class="chip on" data-k="found">🟢 Encontrados</span><span class="chip on" data-k="dog">🟣 Adopción</span></div>
+  <div id="leaflet-map"></div>
+</section>
+
+<!-- ================= NOTIFICACIONES ================= -->
+<section class="screen has-nav" data-s="notifications">
+  <div class="topbar"><div class="t">Alertas<small>Coincidencias, mensajes y solicitudes</small></div><button class="link small" id="notif-read-all">Marcar leídas</button></div>
+  <div class="scroll pad col" id="notifications-list"></div>
+</section>
+
+<!-- ================= PERFIL ================= -->
+<section class="screen has-nav" data-s="profile">
+  <div class="topbar"><div class="t">Mi perfil</div><div class="iconbtn sm" id="profile-edit" title="Editar"><svg width="18" height="18"><use href="#edit"/></svg></div></div>
+  <div class="scroll pad" id="profile-body"></div>
+</section>
+
+<section class="screen" data-s="edit-profile">
+  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t">Editar perfil</div></div>
+  <form id="edit-profile-form" class="scroll pad col">
+    <div class="center"><div class="avatar" id="ep-avatar" style="width:96px;height:96px;margin:0 auto;font-size:32px;cursor:pointer"></div><button type="button" class="link small mt8" id="ep-avatar-btn">Cambiar foto</button><input type="file" id="ep-avatar-file" accept="image/*" class="hidden"></div>
+    <div><label class="lbl" for="ep-name">Nombre</label><input id="ep-name" class="inp" required></div>
+    <div><label class="lbl" for="ep-phone">Teléfono</label><input id="ep-phone" class="inp" type="tel"></div>
+    <div class="row"><div class="grow"><label class="lbl" for="ep-city">Ciudad</label><input id="ep-city" class="inp"></div><div class="grow"><label class="lbl" for="ep-country">País</label><input id="ep-country" class="inp"></div></div>
+    <button type="submit" class="btn block">Guardar cambios</button>
+  </form>
+</section>
+
+<!-- ================= SOLICITUD (dueño) ================= -->
+<section class="screen" data-s="application">
+  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t" id="app-title">Solicitud</div></div>
+  <div class="scroll pad" id="application-body"></div>
+</section>
+
+</div><!-- /screens -->
+
+<nav class="nav hidden" id="nav">
+  <div class="nav-item" data-go="home" title="Inicio"><svg width="24" height="24"><use href="#home"/></svg></div>
+  <div class="nav-item" data-go="chat-list" title="Chats"><svg width="24" height="24"><use href="#chat"/></svg><span class="dotb hidden" id="nav-chat-badge"></span></div>
+  <div class="fab" id="nav-fab" title="Publicar"><svg width="26" height="26"><use href="#plus"/></svg></div>
+  <div class="nav-item" data-go="notifications" title="Alertas"><svg width="24" height="24"><use href="#bell"/></svg><span class="dotb hidden" id="nav-notif-badge"></span></div>
+  <div class="nav-item" data-go="profile" title="Perfil"><svg width="24" height="24"><use href="#user"/></svg></div>
+  <div class="nav-ind" id="nav-ind"><svg viewBox="0 0 64 64"><use href="#paw"/></svg></div>
+</nav>
+
+<!-- Modales -->
+<div class="modal" id="publish-menu">
+  <div class="sheet"><div class="grab"></div>
+    <h2 class="h2">¿Qué quieres hacer?</h2>
+    <div class="col mt16 stagger">
+      <div class="card p row tap" data-pub="lost" style="--i:0;background:var(--pink)"><svg width="34" height="34"><use href="#pin"/></svg><div class="grow"><b>Perdí a mi perro</b><div class="small muted">Activa la alerta y la IA lo busca</div></div></div>
+      <div class="card p row tap" data-pub="found" style="--i:1;background:var(--green)"><svg width="30" height="30"><use href="#search"/></svg><div class="grow"><b>Encontré un perro</b><div class="small muted">Ayúdalo a volver a casa</div></div></div>
+      <div class="card p row tap" data-pub="adopt" style="--i:2;background:var(--yellow)"><svg width="34" height="34"><use href="#dogface"/></svg><div class="grow"><b>Dar en adopción</b><div class="small muted">Publica gratis un perrito rescatado</div></div></div>
+      <div class="card p row tap" data-pub="photo" style="--i:3;background:var(--lila)"><svg width="30" height="30"><use href="#camera"/></svg><div class="grow"><b>Buscar por foto</b><div class="small muted">¿Viste un perrito? Compáralo</div></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="location-modal">
+  <div class="sheet"><div class="grab"></div>
+    <h2 class="h2">¿Dónde estás?</h2>
+    <button class="btn block mt12" id="loc-gps"><svg width="18" height="18"><use href="#gps"/></svg> Usar mi ubicación</button>
+    <div class="or mt12">o elige una ciudad</div>
+    <div class="col mt12" id="loc-cities"></div>
+  </div>
+</div>
+
+<div class="modal" id="cart-modal">
+  <div class="sheet"><div class="grab"></div>
+    <div class="between"><h2 class="h2">Tu carrito</h2><div class="iconbtn sm" id="cart-close"><svg width="16" height="16"><use href="#close"/></svg></div></div>
+    <div id="cart-items" class="col mt12"></div>
+    <div class="between mt16"><b>Total</b><b id="cart-total" style="font-size:20px">$0</b></div>
+    <label class="lbl mt12" for="cart-address">Dirección de envío</label>
+    <textarea id="cart-address" class="inp" rows="2" placeholder="Calle, número, colonia, C.P., ciudad"></textarea>
+    <button id="cart-checkout" class="btn block btn-orange mt16">Pagar con Mercado Pago</button>
+  </div>
+</div>
+
+<div class="modal" id="product-modal">
+  <div class="sheet"><div class="grab"></div>
+    <h2 class="h2" id="pm-title">Nuevo producto</h2>
+    <form id="product-form" class="col mt12">
+      <div><span class="lbl">Fotos</span><div class="photo-drop" data-photos="pm"></div></div>
+      <div><label class="lbl" for="pm-name">Nombre</label><input id="pm-name" class="inp" required></div>
+      <div><label class="lbl" for="pm-desc">Descripción</label><textarea id="pm-desc" class="inp" rows="2"></textarea></div>
+      <div class="row"><div class="grow"><label class="lbl" for="pm-price">Precio (MXN)</label><input id="pm-price" class="inp" type="number" min="1" step="0.01" required></div><div class="grow"><label class="lbl" for="pm-stock">Inventario</label><input id="pm-stock" class="inp" type="number" min="0" value="10"></div></div>
+      <button type="submit" class="btn block">Guardar</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal center" id="match-modal">
+  <div class="mm-card">
+    <span class="badge b-green">SOLICITUD INICIADA</span>
+    <div class="mm-title" id="mm-title"></div>
+    <div class="mm-faces mt8"><div class="mm-face l" id="mm-me"></div><div class="mm-heart"><svg viewBox="0 0 24 24" width="100%" height="100%"><use href="#heart"/></svg></div><div class="mm-face r" id="mm-dog"></div></div>
+    <p class="body mt12">A ti te encantó <b id="match-dog-name"></b>. Llena el cuestionario para que su familia temporal te conozca.</p>
+    <button id="match-questionnaire" class="btn block btn-orange shine mt16">Llenar cuestionario</button>
+    <button id="match-close" class="btn block btn-ghost mt12">Seguir descubriendo</button>
+  </div>
+</div>
+
+<div id="loading-overlay" role="status" aria-live="polite"><div class="lo-art"></div><div class="lo-msg"></div><div class="lo-sub"></div><div class="bone-bar indeterminate"><div class="fill"></div></div></div>
+<div id="success-pop" aria-live="polite"><div class="sp-card"><div class="sp-dog"></div><div class="sp-shadow"></div><div class="sp-title"></div><div class="sp-sub"></div></div></div>
+<div id="fxLayer" aria-hidden="true"></div>
+<div id="pawLayer" aria-hidden="true"></div>
+<div id="toast" role="status" aria-live="polite"><span class="tface"><svg width="20" height="20" viewBox="0 0 120 120"><use href="#dogface"/></svg></span><span id="toast-msg"></span></div>
+</div><!-- /device -->
+</div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script src="/app/fx.js?v=12"></script>
+<script src="/app/app.js?v=12"></script>
+</body>
+</html>

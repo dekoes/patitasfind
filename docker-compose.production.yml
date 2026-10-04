@@ -1,0 +1,162 @@
+# Infraestructura de PatitasFind lista para producción
+# Escalable hasta 5.000 usuarios concurrentes con:
+# - PostgreSQL (datos persistentes + backups diarios)
+# - Redis (cache, broker de Celery, sesiones)
+# - Backend FastAPI (múltiples workers Uvicorn)
+# - Celery Worker (WhatsApp, Facebook, coincidencias por foto, pagos)
+# - Celery Beat (recordatorios diarios, Páginas de Facebook, firmas de fotos)
+# - Nginx (reverse proxy, SSL, compresión, cache estático)
+#
+# Uso:
+#   cp .env.example .env   # y completa los valores reales
+#   docker compose -f docker-compose.production.yml up -d --build
+#   docker exec patitasfind-backend python -m app.cli create-admin tu@correo.mx 'ContraseñaSegura'
+
+x-backend-env: &backend-env
+  DATABASE_URL: ${DATABASE_URL:-postgresql+psycopg2://patitasfind:patitasfind@postgres:5432/patitasfind}
+  SECRET_KEY: ${SECRET_KEY:?Define SECRET_KEY en .env}
+  ALGORITHM: ${ALGORITHM:-HS256}
+  ACCESS_TOKEN_EXPIRE_MINUTES: ${ACCESS_TOKEN_EXPIRE_MINUTES:-10080}
+  ENVIRONMENT: production
+  PUBLIC_BASE_URL: ${PUBLIC_BASE_URL:?Define PUBLIC_BASE_URL en .env (p. ej. https://patitasfind.mx)}
+  ALLOW_DEMO_LOGIN: ${ALLOW_DEMO_LOGIN:-false}
+  CORS_ORIGINS: ${CORS_ORIGINS:-}
+  CORS_ORIGIN_REGEX: ${CORS_ORIGIN_REGEX:-}
+  UPLOAD_DIR: /app/uploads
+  REDIS_URL: ${REDIS_URL:-redis://redis:6379/0}
+  GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+  GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+  GOOGLE_REDIRECT_URI: ${GOOGLE_REDIRECT_URI:-}
+  ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+  ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-claude-opus-5-5}
+  ANTHROPIC_EFFORT: ${ANTHROPIC_EFFORT:-low}
+  MATCH_SCORE_THRESHOLD: ${MATCH_SCORE_THRESHOLD:-60}
+  MERCADOPAGO_ACCESS_TOKEN: ${MERCADOPAGO_ACCESS_TOKEN:-}
+  MERCADOPAGO_WEBHOOK_SECRET: ${MERCADOPAGO_WEBHOOK_SECRET:-}
+  TWILIO_ACCOUNT_SID: ${TWILIO_ACCOUNT_SID:-}
+  TWILIO_AUTH_TOKEN: ${TWILIO_AUTH_TOKEN:-}
+  TWILIO_VERIFY_SERVICE_SID: ${TWILIO_VERIFY_SERVICE_SID:-}
+  TWILIO_CHANNEL: ${TWILIO_CHANNEL:-sms}
+  SMTP_HOST: ${SMTP_HOST:-}
+  SMTP_PORT: ${SMTP_PORT:-587}
+  SMTP_USER: ${SMTP_USER:-}
+  SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+  SMTP_FROM: ${SMTP_FROM:-}
+  WHATSAPP_VERIFY_TOKEN: ${WHATSAPP_VERIFY_TOKEN:-}
+  WHATSAPP_ACCESS_TOKEN: ${WHATSAPP_ACCESS_TOKEN:-}
+  WHATSAPP_PHONE_NUMBER_ID: ${WHATSAPP_PHONE_NUMBER_ID:-}
+  WHATSAPP_APP_SECRET: ${WHATSAPP_APP_SECRET:-}
+  GRAPH_API_VERSION: ${GRAPH_API_VERSION:-v21.0}
+  FACEBOOK_PAGE_ACCESS_TOKEN: ${FACEBOOK_PAGE_ACCESS_TOKEN:-}
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: patitasfind-postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-patitasfind}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-patitasfind}
+      POSTGRES_DB: ${POSTGRES_DB:-patitasfind}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backups:/backups
+    ports:
+      - "127.0.0.1:5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-patitasfind} -d ${POSTGRES_DB:-patitasfind}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: patitasfind-redis
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: patitasfind-backend
+    environment:
+      <<: *backend-env
+      RUN_MIGRATIONS: "false"
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./backend/uploads:/app/uploads
+    # --proxy-headers: respeta X-Forwarded-Proto/For que envía Nginx
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 4 --proxy-headers --forwarded-allow-ips="*"
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+
+  celery-worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: patitasfind-celery-worker
+    environment:
+      <<: *backend-env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./backend/uploads:/app/uploads
+    command: celery -A app.celery_app worker -l info -Q whatsapp,facebook,default --concurrency=4
+    restart: unless-stopped
+
+  celery-beat:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: patitasfind-celery-beat
+    environment:
+      <<: *backend-env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: celery -A app.celery_app beat -l info --schedule /tmp/celerybeat-schedule
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:alpine
+    container_name: patitasfind-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      # Todo el frontend (app, landing, admin e imágenes) se monta una sola vez;
+      # nginx.conf decide qué archivo se sirve en cada ruta.
+      - ./app:/usr/share/nginx/html/app:ro
+      - ./backend/uploads:/usr/share/nginx/html/uploads:ro
+      - ./certbot/conf:/etc/letsencrypt:ro
+      - ./certbot/www:/var/www/certbot:ro
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:

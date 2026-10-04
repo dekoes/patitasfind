@@ -1,0 +1,320 @@
+/* ============================================================
+   PatitasFind — Animaciones perrunas
+   Loaders, splash, botones con orejitas/colita, estados vacíos,
+   éxito, match, escaneo IA y transiciones de pantalla.
+   ============================================================ */
+
+/* ---------- Perrito corriendo (loader principal) ---------- */
+.run-dog{width:150px;height:100px;overflow:visible}
+.run-dog .rd-all{animation:rdBob .32s ease-in-out infinite alternate}
+.run-dog .rd-leg{transform-box:fill-box;transform-origin:50% 8%;animation:rdLeg .32s ease-in-out infinite alternate}
+.run-dog .rd-leg.b{animation-delay:-.32s}
+.run-dog .rd-tail{transform-box:fill-box;transform-origin:100% 100%;animation:rdTail .16s ease-in-out infinite alternate}
+.run-dog .rd-ear{transform-box:fill-box;transform-origin:50% 0;animation:rdEar .32s ease-in-out infinite alternate}
+.run-dog .rd-tongue{transform-box:fill-box;transform-origin:50% 0;animation:rdTongue .16s ease-in-out infinite alternate}
+.run-dog .rd-ground{animation:rdGround .5s linear infinite}
+.run-dog .rd-dust{animation:rdDust .64s ease-out infinite;transform-box:fill-box;transform-origin:center}
+.run-dog .rd-dust.d2{animation-delay:-.32s}
+@keyframes rdBob{0%{transform:translateY(0)}100%{transform:translateY(-6px)}}
+@keyframes rdLeg{0%{transform:rotate(38deg)}100%{transform:rotate(-38deg)}}
+@keyframes rdTail{0%{transform:rotate(-14deg)}100%{transform:rotate(22deg)}}
+@keyframes rdEar{0%{transform:rotate(-8deg)}100%{transform:rotate(24deg)}}
+@keyframes rdTongue{0%{transform:scaleY(.8)}100%{transform:scaleY(1.15)}}
+@keyframes rdGround{0%{stroke-dashoffset:0}100%{stroke-dashoffset:28}}
+@keyframes rdDust{0%{opacity:.7;transform:translateX(0) scale(.4)}100%{opacity:0;transform:translateX(-26px) scale(1.4)}}
+
+/* ---------- Rastro de huellitas (loader secundario) ---------- */
+.paw-trail{position:relative;width:120px;height:56px}
+.paw-trail i{position:absolute;width:18px;height:18px;color:var(--ink);opacity:0;animation:trailStep 2.4s ease-in-out infinite}
+.paw-trail i svg{width:100%;height:100%;display:block}
+.paw-trail i:nth-child(1){left:0;top:30px;--r:80deg;animation-delay:0s}
+.paw-trail i:nth-child(2){left:20px;top:10px;--r:100deg;animation-delay:.3s}
+.paw-trail i:nth-child(3){left:40px;top:30px;--r:80deg;animation-delay:.6s}
+.paw-trail i:nth-child(4){left:60px;top:10px;--r:100deg;animation-delay:.9s}
+.paw-trail i:nth-child(5){left:80px;top:30px;--r:80deg;animation-delay:1.2s}
+.paw-trail i:nth-child(6){left:100px;top:10px;--r:100deg;animation-delay:1.5s}
+@keyframes trailStep{
+  0%{opacity:0;transform:rotate(var(--r)) scale(.3)}
+  10%{opacity:.9;transform:rotate(var(--r)) scale(1.15)}
+  18%{opacity:.85;transform:rotate(var(--r)) scale(1)}
+  70%{opacity:.85}
+  100%{opacity:0;transform:rotate(var(--r)) scale(.8)}
+}
+
+/* ---------- Perrito persiguiendo su cola (spinner circular) ---------- */
+.tail-chase{position:relative;width:74px;height:74px}
+.tail-chase .tc-track{position:absolute;inset:6px;border:3px dashed rgba(29,34,51,.18);border-radius:50%}
+.tail-chase .tc-spin{position:absolute;inset:0;animation:tcSpin 1.1s linear infinite}
+.tail-chase .tc-dog{position:absolute;left:50%;top:-4px;width:30px;height:30px;margin-left:-15px;animation:tcHop .28s ease-in-out infinite alternate}
+.tail-chase .tc-tail{position:absolute;left:50%;bottom:-3px;width:16px;height:16px;margin-left:-8px;border:4px solid var(--caramel);border-color:var(--caramel) transparent transparent transparent;border-radius:50%;animation:tcWag .15s ease-in-out infinite alternate}
+@keyframes tcSpin{to{transform:rotate(360deg)}}
+@keyframes tcHop{0%{transform:translateY(0) rotate(90deg)}100%{transform:translateY(-4px) rotate(90deg)}}
+@keyframes tcWag{0%{transform:rotate(-30deg)}100%{transform:rotate(30deg)}}
+
+/* ---------- Hueso que gira (spinner pequeño) ---------- */
+.bone-spin{width:42px;height:42px;animation:boneSpin 1s var(--bounce) infinite}
+@keyframes boneSpin{0%{transform:rotate(0) scale(1)}50%{transform:rotate(200deg) scale(.85)}100%{transform:rotate(360deg) scale(1)}}
+
+/* ---------- Barra de progreso tipo hueso ---------- */
+.bone-bar{position:relative;height:18px;border:2.5px solid var(--ink);border-radius:99px;background:var(--white);overflow:visible;margin:0 12px}
+.bone-bar::before,.bone-bar::after{content:"";position:absolute;top:50%;width:20px;height:28px;margin-top:-14px;background:
+  radial-gradient(circle at 50% 28%,var(--white) 6px,var(--ink) 6.5px,var(--ink) 8.5px,transparent 9px),
+  radial-gradient(circle at 50% 72%,var(--white) 6px,var(--ink) 6.5px,var(--ink) 8.5px,transparent 9px)}
+.bone-bar::before{left:-15px}
+.bone-bar::after{right:-15px}
+.bone-bar .fill{position:absolute;left:2px;top:2px;bottom:2px;width:0;border-radius:99px;background:var(--orange);overflow:hidden;transition:width .5s var(--bounce);z-index:1}
+.bone-bar .fill::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(-45deg,rgba(255,255,255,.35) 0 8px,transparent 8px 16px);animation:barStripes .7s linear infinite}
+.bone-bar.indeterminate .fill{width:40%;animation:boneIndet 1.4s ease-in-out infinite}
+@keyframes barStripes{to{background-position:22px 0}}
+@keyframes boneIndet{0%{left:2px}50%{left:58%}100%{left:2px}}
+
+/* ---------- Splash ---------- */
+.splash{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:0 30px;text-align:center;position:relative;overflow:hidden}
+.splash-logo{width:104px;height:104px;border-radius:32px;background:var(--teal);border:3px solid var(--ink);display:flex;align-items:center;justify-content:center;box-shadow:0 7px 0 var(--ink);animation:logoDrop .9s var(--spring) both, logoBeat 1.8s ease-in-out 1s infinite}
+.splash-logo svg{color:#fff;animation:pawPress 1.8s ease-in-out 1s infinite}
+@keyframes logoDrop{0%{transform:translateY(-260px) rotate(-30deg)}70%{transform:translateY(12px) rotate(4deg)}100%{transform:translateY(0) rotate(0)}}
+@keyframes logoBeat{0%,100%{transform:scale(1)}12%{transform:scale(1.1) rotate(-4deg)}24%{transform:scale(.97)}36%{transform:scale(1.04) rotate(3deg)}48%{transform:scale(1)}}
+@keyframes pawPress{0%,100%{transform:scale(1)}12%{transform:scale(.82)}24%{transform:scale(1.08)}}
+.splash-title{font-size:38px;font-weight:800;margin-top:22px;display:flex;justify-content:center}
+.splash-title span{display:inline-block;animation:letterJump .6s var(--spring) both;animation-delay:calc(.5s + var(--i) * .06s)}
+@keyframes letterJump{0%{opacity:0;transform:translateY(30px) scale(.4)}100%{opacity:1;transform:none}}
+.splash-sub{margin-top:6px;opacity:0;animation:fadeUp .5s ease 1.2s forwards}
+.splash-run{margin-top:46px;position:relative;width:100%;height:100px}
+.splash-run .run-dog{position:absolute;left:50%;margin-left:-75px;top:0}
+.splash-tip{margin-top:22px;min-height:42px;font-size:13.5px;font-weight:700;opacity:.65;transition:opacity .35s}
+.splash-steps{position:absolute;bottom:0;left:0;right:0;height:60px;pointer-events:none}
+.splash-steps i{position:absolute;bottom:14px;width:16px;height:16px;color:rgba(29,34,51,.18);opacity:0;animation:stepIn 4.8s linear infinite}
+@keyframes stepIn{0%{opacity:0}5%{opacity:1}60%{opacity:1}75%,100%{opacity:0}}
+@keyframes fadeUp{0%{opacity:0;transform:translateY(12px)}100%{opacity:.75;transform:none}}
+
+/* ---------- Overlay de carga a pantalla completa ---------- */
+#loading-overlay{position:absolute;inset:0;z-index:90;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+  background:rgba(240,232,253,.94);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .25s}
+#loading-overlay.show{opacity:1;pointer-events:auto}
+#loading-overlay .lo-msg{font-weight:800;font-size:17px;text-align:center;padding:0 40px}
+#loading-overlay .lo-sub{font-weight:600;font-size:13px;opacity:.6;margin-top:-8px;text-align:center;padding:0 40px;min-height:18px}
+#loading-overlay .bone-bar{width:200px}
+
+/* ---------- Perrito olfateando con lupa (búsqueda) ---------- */
+.sniff-dog{width:130px;height:110px}
+.sniff-dog .sd-head{transform-box:fill-box;transform-origin:30% 80%;animation:sniff .5s ease-in-out infinite alternate}
+.sniff-dog .sd-nose{animation:noseTwitch .18s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:center}
+.sniff-dog .sd-lens{transform-box:fill-box;transform-origin:20% 90%;animation:lensSwing 1.6s ease-in-out infinite}
+.sniff-dog .sd-tail{transform-box:fill-box;transform-origin:100% 100%;animation:rdTail .2s ease-in-out infinite alternate}
+@keyframes sniff{0%{transform:rotate(0)}100%{transform:rotate(7deg) translateY(2px)}}
+@keyframes noseTwitch{0%{transform:scale(1)}100%{transform:scale(1.18)}}
+@keyframes lensSwing{0%,100%{transform:rotate(-8deg) translateX(0)}50%{transform:rotate(10deg) translateX(8px)}}
+
+/* ---------- Skeletons con huellita ---------- */
+.skel{position:relative;overflow:hidden;background:rgba(255,255,255,.55);border:2px solid rgba(29,34,51,.12);border-radius:22px}
+.skel::after{content:"";position:absolute;inset:0;transform:translateX(-100%);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.75),transparent);animation:skelShine 1.3s ease-in-out infinite}
+.skel .skel-paw{position:absolute;right:12px;bottom:10px;width:22px;height:22px;color:rgba(29,34,51,.09);animation:skelPaw 1.3s ease-in-out infinite}
+@keyframes skelShine{to{transform:translateX(100%)}}
+@keyframes skelPaw{0%,100%{transform:scale(1)}50%{transform:scale(1.25) rotate(-10deg)}}
+.skel-line{height:12px;border-radius:99px;background:rgba(29,34,51,.09);margin-top:8px}
+
+/* ---------- Estado vacío: perrito dormido ---------- */
+.empty{text-align:center;padding:30px 20px}
+.sleep-dog{width:150px;height:110px;margin:0 auto;display:block}
+.sleep-dog .sl-body{animation:breathe 2.6s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+.sleep-dog .sl-tail{transform-box:fill-box;transform-origin:0 100%;animation:sleepTail 3.2s ease-in-out infinite}
+.sleep-dog .sl-z{font-family:'Patrick Hand',cursive;font-weight:800;fill:var(--purple);opacity:0;animation:zzz 3s ease-in-out infinite}
+.sleep-dog .sl-z.z2{animation-delay:1s}
+.sleep-dog .sl-z.z3{animation-delay:2s}
+@keyframes breathe{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.06)}}
+@keyframes sleepTail{0%,80%,100%{transform:rotate(0)}85%{transform:rotate(-14deg)}90%{transform:rotate(6deg)}}
+@keyframes zzz{0%{opacity:0;transform:translate(0,0) scale(.6)}30%{opacity:1}100%{opacity:0;transform:translate(16px,-30px) scale(1.3)}}
+.empty h3{font-size:19px;font-weight:800;margin-top:10px}
+.empty p{font-size:13.5px;font-weight:600;opacity:.65;margin-top:4px}
+.empty .btn{margin-top:14px}
+
+/* ---------- Éxito: perrito saltando feliz ---------- */
+#success-pop{position:absolute;inset:0;z-index:95;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;opacity:0;transition:opacity .2s;background:rgba(240,232,253,.6)}
+#success-pop.show{opacity:1}
+#success-pop .sp-card{background:var(--white);border:3px solid var(--ink);border-radius:30px;box-shadow:0 8px 0 var(--ink);padding:22px 30px;text-align:center;transform:scale(.3);transition:transform .45s var(--spring)}
+#success-pop.show .sp-card{transform:scale(1)}
+#success-pop .sp-dog{width:110px;height:110px;animation:happyJump .55s cubic-bezier(.3,0,.5,1) infinite alternate}
+#success-pop .sp-title{font-size:22px;font-weight:800;margin-top:6px}
+#success-pop .sp-sub{font-size:13px;font-weight:600;opacity:.65;margin-top:2px;max-width:220px}
+#success-pop .sp-shadow{width:70px;height:10px;border-radius:50%;background:rgba(29,34,51,.15);margin:2px auto 0;animation:shadowPulse .55s cubic-bezier(.3,0,.5,1) infinite alternate}
+@keyframes happyJump{0%{transform:translateY(0) scaleY(.92) scaleX(1.06)}30%{transform:translateY(-6px) scale(1)}100%{transform:translateY(-34px) rotate(-6deg)}}
+@keyframes shadowPulse{0%{transform:scale(1);opacity:1}100%{transform:scale(.55);opacity:.5}}
+
+/* ---------- Cara de perrito animada (guiño + orejas) ---------- */
+.dog-anim .da-ear{transform-box:fill-box;transform-origin:50% 10%;animation:earFlop 2.4s ease-in-out infinite}
+.dog-anim .da-ear.r{animation-delay:.15s}
+.dog-anim .da-eye{transform-box:fill-box;transform-origin:center;animation:blink 3.6s infinite}
+.dog-anim .da-tongue{transform-box:fill-box;transform-origin:50% 0;animation:rdTongue .25s ease-in-out infinite alternate}
+@keyframes earFlop{0%,70%,100%{transform:rotate(0)}78%{transform:rotate(-12deg)}86%{transform:rotate(8deg)}}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+
+/* ============================================================
+   BOTONES PERRUNOS
+   ============================================================ */
+/* Orejitas que se asoman por arriba del botón */
+.btn .ears{position:absolute;left:0;right:0;top:0;height:0;pointer-events:none;z-index:2}
+.btn .ears i{position:absolute;top:0;width:18px;height:22px;background:var(--ear,var(--caramel));border:2.5px solid var(--ink);border-radius:60% 60% 40% 40%/80% 80% 30% 30%;
+  transform:translateY(8px) rotate(var(--er)) scale(.2);opacity:0;transition:transform .35s var(--spring),opacity .2s}
+.btn .ears i:first-child{left:22%;--er:-22deg}
+.btn .ears i:last-child{right:22%;--er:22deg}
+.btn-wrap{position:relative;display:inline-flex}
+.btn{overflow:visible}
+.btn .btn-clip{position:absolute;inset:0;border-radius:inherit;overflow:hidden;pointer-events:none}
+@media (hover:hover){
+  .btn:hover .ears i{opacity:1;transform:translateY(-16px) rotate(var(--er)) scale(1)}
+  .btn:hover .ears i:first-child{animation:earWiggleL .6s ease .35s}
+  .btn:hover .ears i:last-child{animation:earWiggleR .6s ease .4s}
+}
+.btn.pressed .ears i{opacity:1;transform:translateY(-18px) rotate(var(--er)) scale(1)}
+@keyframes earWiggleL{0%,100%{transform:translateY(-16px) rotate(-22deg)}35%{transform:translateY(-16px) rotate(-38deg)}70%{transform:translateY(-16px) rotate(-14deg)}}
+@keyframes earWiggleR{0%,100%{transform:translateY(-16px) rotate(22deg)}35%{transform:translateY(-16px) rotate(38deg)}70%{transform:translateY(-16px) rotate(14deg)}}
+
+/* Colita que se mueve a la derecha del botón */
+.btn .tail{position:absolute;right:-13px;top:50%;width:18px;height:8px;margin-top:-10px;border:2.5px solid var(--ink);border-left:none;background:var(--ear,var(--caramel));border-radius:0 99px 99px 0;
+  transform-origin:0 50%;transform:scaleX(0) rotate(-30deg);transition:transform .3s var(--spring);pointer-events:none;z-index:-1}
+@media (hover:hover){.btn:hover .tail{transform:scaleX(1) rotate(-30deg);animation:tailWag .18s ease-in-out .3s infinite alternate}}
+@keyframes tailWag{0%{transform:scaleX(1) rotate(-38deg)}100%{transform:scaleX(1) rotate(8deg)}}
+
+/* Squish elástico al presionar */
+.btn{transition:transform .2s var(--bounce),box-shadow .15s,background .25s,filter .2s}
+.btn:active{transform:translateY(3px) scale(.95,.9);box-shadow:0 1px 0 var(--ink)}
+.btn:disabled{filter:grayscale(.5) opacity(.7);cursor:not-allowed}
+
+/* Ripple */
+.btn .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.6);transform:scale(0);pointer-events:none;animation:rippleGo .65s ease-out forwards}
+.btn-ghost .ripple{background:rgba(51,199,190,.3)}
+@keyframes rippleGo{to{transform:scale(4);opacity:0}}
+
+/* Destello */
+.btn.shine .btn-clip::after{content:"";position:absolute;top:-20%;bottom:-20%;left:-40%;width:30%;
+  background:linear-gradient(105deg,transparent,rgba(255,255,255,.8),transparent);transform:skewX(-20deg);animation:shineGo 3s ease-in-out infinite}
+@keyframes shineGo{0%,60%{left:-40%}90%,100%{left:130%}}
+
+/* Estado cargando: tres huellitas que saltan */
+.btn .btn-label{display:inline-flex;align-items:center;gap:8px;transition:opacity .15s}
+.btn .btn-paws{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:6px;opacity:0;pointer-events:none}
+.btn .btn-paws i{width:16px;height:16px;color:currentColor}
+.btn .btn-paws i svg{width:100%;height:100%;display:block}
+.btn.loading{pointer-events:none}
+.btn.loading .btn-label{opacity:0}
+.btn.loading .btn-paws{opacity:1}
+.btn.loading .btn-paws i{animation:pawHop .6s ease-in-out infinite}
+.btn.loading .btn-paws i:nth-child(2){animation-delay:.15s}
+.btn.loading .btn-paws i:nth-child(3){animation-delay:.3s}
+@keyframes pawHop{0%,100%{transform:translateY(2px) rotate(-10deg) scale(.85);opacity:.6}50%{transform:translateY(-6px) rotate(10deg) scale(1.1);opacity:1}}
+
+/* Botón de like: latido + anillo */
+.like-btn{position:relative}
+.like-btn::before{content:"";position:absolute;inset:-6px;border-radius:50%;border:3px solid var(--orange);opacity:0;pointer-events:none}
+.like-btn.boom::before{animation:ringOut .55s ease-out}
+.like-btn.boom svg{animation:heartBeat .55s var(--spring)}
+@keyframes ringOut{0%{opacity:.9;transform:scale(.7)}100%{opacity:0;transform:scale(1.6)}}
+@keyframes heartBeat{0%{transform:scale(1)}30%{transform:scale(1.45)}60%{transform:scale(.9)}100%{transform:scale(1)}}
+.nope-btn.boom svg{animation:shakeNo .45s ease}
+@keyframes shakeNo{0%,100%{transform:rotate(0)}25%{transform:rotate(-25deg)}50%{transform:rotate(20deg)}75%{transform:rotate(-10deg)}}
+
+/* Iconbtn rebote */
+.iconbtn{transition:transform .25s var(--bounce),box-shadow .15s}
+.iconbtn:active{transform:translateY(2px) scale(.9);box-shadow:0 1px 0 var(--ink)}
+@media (hover:hover){.iconbtn:hover{transform:translateY(-2px) rotate(-6deg)}}
+
+/* FAB con forma de hueso al presionar */
+.nav .fab{transition:transform .3s var(--spring)}
+.nav .fab:active{transform:scale(.85) rotate(90deg)}
+
+/* Indicador de navegación: huellita que salta al ícono activo */
+.nav{isolation:isolate}
+.nav .nav-ind{position:absolute;bottom:4px;width:14px;height:14px;color:var(--teal);transition:left .45s var(--spring);pointer-events:none}
+.nav .nav-ind svg{width:100%;height:100%;display:block;animation:indHop .45s var(--spring)}
+@keyframes indHop{0%{transform:translateY(-14px) scale(.4) rotate(-40deg)}100%{transform:none}}
+.nav .nav-item{position:relative;display:flex;align-items:center;justify-content:center;width:44px;height:44px;cursor:pointer;color:var(--ink)}
+.nav .nav-item.on{color:var(--teal)}
+.nav .nav-item svg{transition:transform .25s var(--bounce)}
+.nav .nav-item.on svg{transform:translateY(-3px) scale(1.12)}
+.nav .nav-item .dotb{position:absolute;top:4px;right:4px;min-width:16px;height:16px;padding:0 4px;border-radius:99px;background:var(--orange);color:#fff;border:2px solid var(--ink);font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center;animation:badgePop .4s var(--spring)}
+@keyframes badgePop{0%{transform:scale(0)}100%{transform:scale(1)}}
+
+/* ============================================================
+   TRANSICIONES DE PANTALLA
+   ============================================================ */
+.screen{transition:opacity .32s ease,transform .42s var(--bounce);will-change:transform,opacity}
+.screen:not(.active){transform:translateX(60px)}
+.screen.leave-left:not(.active){transform:translateX(-60px)}
+.screen.active{transform:none}
+.screen.enter-back{transform:translateX(-60px)}
+.stagger > *{animation:entUp .5s var(--bounce) both;animation-delay:calc(var(--i,0) * 55ms)}
+@keyframes entUp{0%{opacity:0;transform:translateY(26px)}100%{opacity:1;transform:none}}
+.pop-in{animation:popIn .5s var(--spring) both}
+@keyframes popIn{0%{opacity:0;transform:scale(.4)}100%{opacity:1;transform:scale(1)}}
+
+/* ============================================================
+   MATCH
+   ============================================================ */
+#match-modal{opacity:0;transition:opacity .25s}
+#match-modal.show{opacity:1}
+#match-modal .mm-card{transform:scale(.4) rotate(-8deg);transition:transform .55s var(--spring)}
+#match-modal.show .mm-card{transform:none}
+.mm-faces{position:relative;height:120px;display:flex;justify-content:center;align-items:center;gap:0}
+.mm-face{width:96px;height:96px;border-radius:28px;border:3px solid var(--ink);overflow:hidden;background:var(--sand);display:flex;align-items:center;justify-content:center;box-shadow:0 5px 0 var(--ink)}
+.mm-face img{width:100%;height:100%;object-fit:cover}
+.mm-face.l{transform:rotate(-10deg) translateX(14px);animation:mmL .9s var(--spring) both}
+.mm-face.r{transform:rotate(10deg) translateX(-14px);animation:mmR .9s var(--spring) both}
+.mm-heart{position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;color:var(--orange);z-index:2;animation:mmHeart 1.1s ease-in-out .6s infinite both}
+@keyframes mmL{0%{transform:translateX(-160px) rotate(-40deg)}100%{transform:rotate(-10deg) translateX(14px)}}
+@keyframes mmR{0%{transform:translateX(160px) rotate(40deg)}100%{transform:rotate(10deg) translateX(-14px)}}
+@keyframes mmHeart{0%,100%{transform:scale(1)}15%{transform:scale(1.35)}30%{transform:scale(.95)}45%{transform:scale(1.2)}60%{transform:scale(1)}}
+.mm-title{font-family:'Patrick Hand',cursive;font-size:clamp(26px,9vw,38px);font-weight:800;margin-top:12px;display:flex;flex-wrap:wrap;justify-content:center;align-items:baseline;gap:1px;line-height:1.1}
+.mm-title .mm-word{display:inline-flex;white-space:nowrap;margin:0 5px}
+.mm-title .mm-word span{display:inline-block;animation:letterJump .5s var(--spring) both;animation-delay:calc(.4s + var(--i) * .05s)}
+
+/* ============================================================
+   ESCANEO IA
+   ============================================================ */
+.scan-box{position:relative;width:250px;height:250px;margin:0 auto;border-radius:34px;border:3px solid var(--ink);overflow:hidden;background:var(--sand);box-shadow:0 6px 0 var(--ink)}
+.scan-box img{width:100%;height:100%;object-fit:cover}
+.scan-box .corner{position:absolute;width:34px;height:34px;border:5px solid var(--ink);z-index:3}
+.scan-box .corner.tl{top:12px;left:12px;border-right:none;border-bottom:none;border-radius:12px 0 0 0}
+.scan-box .corner.tr{top:12px;right:12px;border-left:none;border-bottom:none;border-radius:0 12px 0 0}
+.scan-box .corner.bl{bottom:12px;left:12px;border-right:none;border-top:none;border-radius:0 0 0 12px}
+.scan-box .corner.br{bottom:12px;right:12px;border-left:none;border-top:none;border-radius:0 0 12px 0}
+.scan-box .laser{position:absolute;left:6%;right:6%;height:4px;border-radius:99px;background:var(--orange);box-shadow:0 0 16px 4px rgba(142,102,217,.8);animation:laserSweep 1.5s ease-in-out infinite alternate;z-index:2}
+.scan-box .glow{position:absolute;left:0;right:0;height:60px;background:linear-gradient(180deg,transparent,rgba(51,199,190,.35));animation:laserSweep 1.5s ease-in-out infinite alternate;margin-top:-60px;z-index:1}
+@keyframes laserSweep{0%{top:8%}100%{top:92%}}
+.scan-box .pt{position:absolute;width:10px;height:10px;margin:-5px;border-radius:50%;background:var(--teal);border:2px solid #fff;box-shadow:0 0 0 3px rgba(51,199,190,.35);opacity:0;animation:ptIn .4s var(--spring) forwards, ptPulse 1.2s ease-in-out infinite;z-index:2}
+@keyframes ptIn{0%{opacity:0;transform:scale(0)}100%{opacity:1;transform:scale(1)}}
+@keyframes ptPulse{0%,100%{box-shadow:0 0 0 3px rgba(51,199,190,.35)}50%{box-shadow:0 0 0 8px rgba(51,199,190,0)}}
+.score-ring{--p:0;width:70px;height:70px;border-radius:50%;background:conic-gradient(var(--teal) calc(var(--p)*1%),rgba(29,34,51,.08) 0);display:flex;align-items:center;justify-content:center;border:2.5px solid var(--ink);flex-shrink:0;transition:--p 1s}
+.score-ring b{width:54px;height:54px;border-radius:50%;background:var(--white);border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800}
+
+/* ============================================================
+   CHAT: huellitas escribiendo
+   ============================================================ */
+.typing{align-self:flex-start;display:flex;gap:5px;background:#fff;border:2px solid var(--ink);border-radius:20px 20px 20px 6px;padding:10px 14px}
+.typing i{width:13px;height:13px;color:var(--ink)}
+.typing i svg{width:100%;height:100%;display:block}
+.typing i{animation:pawHop .7s ease-in-out infinite}
+.typing i:nth-child(2){animation-delay:.12s}
+.typing i:nth-child(3){animation-delay:.24s}
+
+/* ============================================================
+   Tinder: pila de tarjetas
+   ============================================================ */
+.card-under{position:absolute;inset:0;border-radius:30px;border:2.5px solid var(--ink);background:var(--white);transform:translateY(12px) scale(.94);opacity:.85;transition:transform .35s var(--bounce)}
+.card-under.u2{transform:translateY(24px) scale(.88);opacity:.55}
+.stamp{position:absolute;top:26px;font-size:30px;font-weight:800;padding:4px 14px;border-radius:14px;border:4px solid;opacity:0;pointer-events:none;z-index:4;background:rgba(255,255,255,.75)}
+.stamp.like{left:20px;color:#1E9E8F;border-color:#1E9E8F;transform:rotate(-14deg)}
+.stamp.nope{right:20px;color:var(--orange-d);border-color:var(--orange-d);transform:rotate(14deg)}
+
+/* Pull to refresh */
+.ptr{height:0;overflow:hidden;display:flex;align-items:center;justify-content:center;transition:height .25s}
+.ptr.show{height:70px}
+
+/* Huellitas al tocar */
+.touch-paw{position:absolute;width:30px;height:30px;color:var(--ink);pointer-events:none;animation:pawLife 2.2s ease forwards}
+@keyframes pawLife{0%{opacity:0;transform:scale(.2) rotate(var(--rot,0deg))}8%{opacity:.55;transform:scale(1) rotate(var(--rot,0deg))}60%{opacity:.5}100%{opacity:0;transform:scale(.5) rotate(var(--rot,0deg))}}
+
+/* Accesibilidad: menos movimiento */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}

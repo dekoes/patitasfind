@@ -1,0 +1,20 @@
+# Secretos y entorno
+.env
+.env.*
+!.env.example
+
+# Dependencias y artefactos
+node_modules/
+__pycache__/
+*.pyc
+.pytest_cache/
+celerybeat-schedule*
+.DS_Store
+
+# Datos locales (fotos subidas, respaldos, capturas de tests)
+backend/uploads/*
+!backend/uploads/.gitkeep
+backups/
+app/e2e-shots/
+app/test-*-fail.png
+certbot/conf/

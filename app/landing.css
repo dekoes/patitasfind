@@ -1,0 +1,224 @@
+:root{
+  --cream:#FFF4E8; --ink:#1D2233; --orange:#FF8A5C; --orange-d:#E86A5E;
+  --lila:#DCC7FA; --pink:#F6C8A4; --blue:#A9D6F9; --green:#86E0D4;
+  --teal:#33C7BE; --mint:#86E0D4; --lavender:#B794F4; --purple:#8E66D9;
+  --butter:#FFF4E8; --charcoal:#1D2233; --soft-gray:#8A8FA3;
+  --white:#FFFFFF; --red:#FF5A5A;
+  --bounce:cubic-bezier(.34,1.56,.64,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Baloo 2','Arial Rounded MT Bold',sans-serif;
+  color:var(--ink);background:var(--butter);line-height:1.55;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+
+/* Header */
+.header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(255,244,232,.92);backdrop-filter:blur(8px);
+  border-bottom:2px solid var(--ink);
+}
+.header .wrap{
+  max-width:1100px;margin:0 auto;padding:14px 22px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:22px}
+.logo-icon{
+  width:40px;height:40px;border-radius:14px;background:var(--teal);
+  border:2.5px solid var(--ink);display:flex;align-items:center;justify-content:center;
+  box-shadow:0 3px 0 var(--ink);
+}
+.nav{display:flex;gap:28px;align-items:center;font-weight:700}
+.nav a:hover{color:var(--teal)}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  background:var(--teal);color:#fff;border:2.5px solid var(--ink);
+  border-radius:999px;padding:12px 26px;font-weight:800;font-size:16px;
+  box-shadow:0 4px 0 var(--ink);cursor:pointer;position:relative;overflow:hidden;
+  transition:background .25s,box-shadow .15s,transform .15s;
+  animation:btnFloat 3.2s ease-in-out infinite;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-ghost{background:#fff;color:var(--ink)}
+
+@keyframes btnFloat{0%,100%{translate:0 0}50%{translate:0 -3px}}
+
+/* Efecto 1 — SQUISH: se aplasta y rebota con elasticidad */
+.fx-squish{transition:transform .18s var(--bounce),box-shadow .15s}
+.fx-squish:active{transform:scale(.85,.78);box-shadow:0 1px 0 var(--ink)}
+
+/* Efecto 2 — RIPPLE: onda que nace del punto tocado */
+.fx-ripple .ripple{
+  position:absolute;border-radius:50%;background:rgba(255,255,255,.65);
+  transform:scale(0);pointer-events:none;animation:rippleGo .65s ease-out forwards;
+}
+@keyframes rippleGo{to{transform:scale(4);opacity:0}}
+
+/* Efecto 3 — MAGNET: el botón se acerca al cursor como imán */
+.fx-magnet{transition:transform .3s var(--bounce),box-shadow .15s;will-change:transform}
+
+/* Efecto 4 — WIGGLE: se sacude divertido al pasar el cursor */
+.fx-wiggle:hover{animation:wiggleGo .5s ease}
+@keyframes wiggleGo{
+  0%,100%{transform:rotate(0)}
+  20%{transform:rotate(-4deg) scale(1.05)}
+  45%{transform:rotate(4deg) scale(1.06)}
+  70%{transform:rotate(-2.5deg) scale(1.03)}
+}
+
+/* Efecto 5 — SHINE: destello que barre el botón */
+.fx-shine::after{
+  content:"";position:absolute;top:-20%;bottom:-20%;left:-30%;width:34%;
+  background:linear-gradient(105deg,transparent,rgba(255,255,255,.85),transparent);
+  transform:skewX(-20deg);animation:shineGo 2.4s ease-in-out infinite;
+}
+@keyframes shineGo{0%,55%{left:-40%}90%,100%{left:130%}}
+
+/* Huellitas negras al tocar: 2 s sólidas + 1 s desvaneciendo */
+#pawLayer{position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:visible}
+.touch-paw{position:absolute;width:34px;height:34px;color:var(--ink);pointer-events:none;
+  animation:pawLife 3s ease forwards}
+@keyframes pawLife{
+  0%{opacity:0;transform:scale(.2) rotate(var(--rot,0deg))}
+  7%{opacity:.9;transform:scale(1) rotate(var(--rot,0deg))}
+  66%{opacity:.9;transform:scale(1) rotate(var(--rot,0deg))}
+  100%{opacity:0;transform:scale(.45) rotate(var(--rot,0deg))}
+}
+/* mini huellitas que saltan de los botones */
+.mini-paw{position:absolute;width:16px;height:16px;color:var(--ink);pointer-events:none;
+  animation:miniPawUp .9s ease-out forwards}
+@keyframes miniPawUp{
+  0%{opacity:1;transform:translate(0,0) scale(.4) rotate(var(--rot,0deg))}
+  100%{opacity:0;transform:translate(var(--dx,0),-58px) scale(1.05) rotate(var(--rot,0deg))}
+}
+
+/* Badge con huella */
+.badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--lila);border:2px solid var(--ink);border-radius:999px;
+  padding:6px 16px;font-weight:800;font-size:13px;margin-bottom:14px;
+}
+.badge-paw{color:currentColor;flex-shrink:0}
+
+/* Círculos numerados para pasos */
+.step-num{
+  width:52px;height:52px;border-radius:50%;background:var(--teal);color:#fff;
+  border:2.5px solid var(--ink);display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:22px;box-shadow:0 4px 0 var(--ink);
+}
+
+/* Utilidades */
+.wrap{max-width:1100px;margin:0 auto;padding:80px 22px}
+.center{text-align:center}
+.section-title{font-size:clamp(30px,5vw,44px);font-weight:800;line-height:1.15;margin-bottom:16px}
+.section-lead{font-size:18px;opacity:.8;max-width:620px;margin:0 auto}
+
+/* Hero */
+.hero{background:linear-gradient(135deg,#E8F8F6 0%,#DCC7FA 55%,#F6C8A4 100%);border-bottom:2px solid var(--ink)}
+.hero .wrap{padding:60px 22px;display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.hero-title{font-size:clamp(38px,6vw,58px);font-weight:800;line-height:1.1}
+.hero-title span{color:var(--teal)}
+.hero-lead{font-size:20px;opacity:.85;margin:18px 0 28px}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.hero-img{border:3px solid var(--ink);border-radius:34px;background:#fff;box-shadow:0 14px 0 var(--ink);overflow:hidden}
+.hero-img img{width:100%;height:auto}
+
+/* Sources */
+.sources .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px}
+.source-card{
+  background:#fff;border:2px solid var(--ink);border-radius:26px;
+  padding:28px 22px;text-align:center;box-shadow:0 5px 0 var(--ink);
+}
+.source-card .icon{display:flex;justify-content:center;margin-bottom:14px}
+.step-img{
+  width:180px;margin:0 auto 16px;
+}
+.step-img img{width:100%;height:auto;display:block}
+.source-card h3{font-size:20px;font-weight:800;margin-bottom:8px}
+.source-card p{font-size:15px;opacity:.75}
+
+/* Feature rows */
+.feature{background:#fff;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+.feature.alt{background:var(--mint)}
+.feature .wrap{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.feature-img{border:3px solid var(--ink);border-radius:30px;box-shadow:0 10px 0 var(--ink);overflow:hidden;background:var(--butter)}
+.feature-img img{width:100%;height:auto}
+.feature-list{list-style:none;display:flex;flex-direction:column;gap:14px;margin-top:20px}
+.feature-list li{display:flex;gap:12px;align-items:flex-start;font-weight:700;font-size:17px}
+.feature-list li::before{
+  content:"";flex-shrink:0;width:28px;height:28px;border-radius:50%;
+  background:var(--teal) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12l6 6 10-14'/%3E%3C/svg%3E") center/14px no-repeat;
+  border:2px solid var(--ink);
+}
+
+/* CTA */
+.cta{
+  background:var(--lila);text-align:center;border-top:2px solid var(--ink);
+}
+.cta .wrap{padding:90px 22px}
+.cta-img{width:260px;margin:0 auto 24px;border-radius:30px;border:3px solid var(--ink);box-shadow:0 10px 0 var(--ink);overflow:hidden;background:#fff}
+.cta-img img{width:100%;height:auto}
+
+/* Footer */
+.footer{background:var(--charcoal);color:var(--butter);text-align:center;padding:34px 22px;font-weight:700}
+.footer a{color:var(--mint)}
+
+/* Responsive */
+@media (max-width:800px){
+  .hero .wrap,.feature .wrap{grid-template-columns:1fr}
+  .sources .cards{grid-template-columns:1fr}
+  .nav{display:none}
+}
+
+/* ============================================================
+   Globos cómicos ¡GUAU! / ¡MIAU!
+   ============================================================ */
+.guau-pop{
+  position:fixed;z-index:9998;pointer-events:none;
+  display:flex;gap:1px;align-items:baseline;
+  background:var(--white);border:3px solid var(--ink);border-radius:20px;
+  padding:6px 16px 8px;box-shadow:0 5px 0 var(--ink);
+  transform:rotate(-6deg);
+}
+.guau-pop::after{ /* colita del globo */
+  content:"";position:absolute;left:24px;bottom:-13px;
+  width:16px;height:16px;background:var(--white);
+  border-right:3px solid var(--ink);border-bottom:3px solid var(--ink);
+  transform:rotate(45deg) skew(12deg,12deg);
+}
+.guau-pop.flip{transform:rotate(5deg)}
+.guau-pop.flip::after{left:auto;right:24px}
+.guau-letter{
+  display:inline-block;
+  font-family:'Patrick Hand','Comic Sans MS',cursive;
+  font-size:30px;font-weight:800;color:var(--ink);line-height:1;
+  transform-origin:50% 100%;
+}
+.guau-letter.yellow{color:var(--orange-d)}
+.guau-letter.red{color:var(--red)}
+
+/* ¡MIAU! — variante gatuna */
+.miau-pop{background:var(--lila);transform:rotate(-5deg)}
+.miau-pop::after{background:var(--lila)}
+.miau-pop.flip{transform:rotate(6deg)}
+.guau-letter.pink{color:#D4689A}
+
+/* ============================================================
+   Animaciones perrunas (loader, perrito de scroll, orejitas)
+   ============================================================ */
+.btn{overflow:visible}
+.btn .btn-clip{position:absolute;inset:0;border-radius:inherit;overflow:hidden;pointer-events:none}
+#page-loader{position:fixed;inset:0;z-index:200;background:var(--butter);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;transition:opacity .5s,visibility .5s}
+#page-loader.done{opacity:0;visibility:hidden}
+#page-loader .pl-title{font-size:30px;font-weight:800}
+#scroll-dog{position:fixed;bottom:6px;left:0;width:90px;height:60px;z-index:40;pointer-events:none;transition:transform .15s linear}
+#scroll-dog .run-dog{width:90px;height:60px}
+#scroll-dog.idle .run-dog *{animation-play-state:paused}
+#scroll-dog.rev{--flip:-1}
+#scroll-dog > div{transform:scaleX(var(--flip,1));transition:transform .2s}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s var(--bounce)}
+.reveal.in{opacity:1;transform:none}
+@media (max-width:640px){#scroll-dog{width:64px;height:44px}#scroll-dog .run-dog{width:64px;height:44px}}
