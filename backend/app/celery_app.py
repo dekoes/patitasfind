@@ -2,6 +2,10 @@ from celery import Celery
 from celery.schedules import crontab
 
 from app.config import settings
+from app.observability import init_sentry, setup_logging
+
+setup_logging()
+init_sentry("celery")
 
 redis_url = settings.redis_url or "redis://localhost:6379/0"
 

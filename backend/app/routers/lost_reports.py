@@ -4,7 +4,7 @@ from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query, s
 from sqlalchemy.orm import Session, joinedload
 
 from app.database import get_db
-from app.dependencies import get_current_user, require_admin
+from app.dependencies import get_current_user, require_admin, get_verified_user
 from app.models import LostReport, User
 from app.schemas import (
     ConversationSummary, LostReportAdminOut, LostReportCreate, LostReportOut, LostReportUpdate, MatchCandidate,
@@ -27,7 +27,7 @@ def _get_report(db: Session, report_id: int) -> LostReport:
 
 
 @router.post("/lost-reports", response_model=LostReportOut, status_code=status.HTTP_201_CREATED)
-def create_lost_report(payload: LostReportCreate, background_tasks: BackgroundTasks, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+def create_lost_report(payload: LostReportCreate, background_tasks: BackgroundTasks, current_user: User = Depends(get_verified_user), db: Session = Depends(get_db)):
     if payload.report_type not in VALID_TYPES:
         raise HTTPException(status_code=400, detail="El tipo de reporte debe ser 'lost' (perdido) o 'found' (encontrado).")
     if not payload.dog_name.strip():
@@ -96,7 +96,7 @@ def get_report_matches(id: int, db: Session = Depends(get_db)):
 
 
 @router.patch("/lost-reports/{id}/resolve", response_model=LostReportOut)
-def resolve_lost_report(id: int, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+def resolve_lost_report(id: int, current_user: User = Depends(get_verified_user), db: Session = Depends(get_db)):
     report = _get_report(db, id)
     if report.reporter_id != current_user.id:
         raise HTTPException(status_code=403, detail="Solo quien creó el reporte puede marcarlo como resuelto.")
@@ -108,7 +108,7 @@ def resolve_lost_report(id: int, current_user: User = Depends(get_current_user),
 
 
 @router.post("/lost-reports/{id}/contact", response_model=ConversationSummary)
-def contact_reporter(id: int, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+def contact_reporter(id: int, current_user: User = Depends(get_verified_user), db: Session = Depends(get_db)):
     report = _get_report(db, id)
     if not report.reporter_id:
         raise HTTPException(

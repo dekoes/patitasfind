@@ -19,16 +19,16 @@ UPLOAD_DIR = Path(settings.upload_dir)
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
 NAMES = [
-    ("Lucía Martínez", "lucia@patitas.com", "5511111111"),
-    ("Carlos Ruiz", "carlos@patitas.com", "5522222222"),
-    ("Ana Gómez", "ana@patitas.com", "5533333333"),
-    ("Pedro Hernández", "pedro@patitas.com", "5544444444"),
-    ("María López", "maria@patitas.com", "5555555555"),
-    ("Jorge Sánchez", "jorge@patitas.com", "5566666666"),
-    ("Diana Flores", "diana@patitas.com", "5577777777"),
-    ("Roberto Torres", "roberto@patitas.com", "5588888888"),
-    ("Sofía Vargas", "sofia@patitas.com", "5599999999"),
-    ("Andrés Castillo", "andres@patitas.com", "5500000000"),
+    ("Lucía Martínez", "lucia@patitas.com", "+525511111111"),
+    ("Carlos Ruiz", "carlos@patitas.com", "+525522222222"),
+    ("Ana Gómez", "ana@patitas.com", "+525533333333"),
+    ("Pedro Hernández", "pedro@patitas.com", "+525544444444"),
+    ("María López", "maria@patitas.com", "+525555555555"),
+    ("Jorge Sánchez", "jorge@patitas.com", "+525566666666"),
+    ("Diana Flores", "diana@patitas.com", "+525577777777"),
+    ("Roberto Torres", "roberto@patitas.com", "+525588888888"),
+    ("Sofía Vargas", "sofia@patitas.com", "+525599999999"),
+    ("Andrés Castillo", "andres@patitas.com", "+525500000000"),
 ]
 
 CITIES = [
@@ -229,7 +229,8 @@ def seed():
             demo_user = User(
                 email="demo@patitasfind.example.com",
                 full_name="Usuario Demo",
-                phone="5512345678",
+                phone="+525512345678",
+                phone_verified=True,
                 city="Ciudad de México",
                 country="México",
                 latitude=19.4326,

@@ -20,6 +20,8 @@ class UserBase(BaseModel):
 
 class UserCreate(UserBase):
     password: str
+    accepted_terms: bool = False
+    marketing_opt_in: bool = False
 
 
 class UserLogin(BaseModel):
@@ -34,7 +36,13 @@ class User(UserBase, ORM):
     latitude: float | None = None
     longitude: float | None = None
     phone_verified: bool = False
+    phone_verification_required: bool = False
+    has_password: bool = False
     avatar_url: str | None = None
+    terms_accepted_at: datetime | None = None
+    terms_version: str | None = None
+    privacy_version: str | None = None
+    marketing_opt_in: bool = False
     created_at: datetime
 
 
@@ -46,6 +54,7 @@ class UserUpdate(BaseModel):
     latitude: float | None = None
     longitude: float | None = None
     avatar_url: str | None = None
+    marketing_opt_in: bool | None = None
 
 
 class UserMini(ORM):
@@ -70,6 +79,25 @@ class ResetPasswordRequest(BaseModel):
 
 class PhoneVerifyRequest(BaseModel):
     code: str
+
+
+class PhoneSendRequest(BaseModel):
+    phone: str | None = None
+
+
+class PasswordChangeRequest(BaseModel):
+    current_password: str | None = None
+    new_password: str
+
+
+class AccountDeleteRequest(BaseModel):
+    password: str | None = None
+    confirm: str
+
+
+class TermsAcceptRequest(BaseModel):
+    accepted_terms: bool
+    marketing_opt_in: bool | None = None
 
 
 # ---------------------------------------------------------------- Perros
@@ -344,6 +372,7 @@ class AdminOrderOut(OrderOut):
 class DonationCreate(BaseModel):
     refuge_id: int
     amount: Decimal = Field(..., ge=10)
+    share_name: bool = False  # True = el refugio puede ver tu nombre; si no, "Donante anónimo"
 
 
 class DonationCheckoutOut(BaseModel):
@@ -361,6 +390,7 @@ class DonationOut(ORM):
     status: str
     provider: str | None = None
     provider_payment_id: str | None = None
+    share_name: bool = False
     created_at: datetime
 
 

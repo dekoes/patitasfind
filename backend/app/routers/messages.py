@@ -6,7 +6,9 @@ from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from app.database import SessionLocal, get_db
-from app.dependencies import _user_from_token, get_current_user
+from app.dependencies import (
+    PHONE_VERIFICATION_CODE, PHONE_VERIFICATION_MESSAGE, _user_from_token, get_current_user, get_verified_user,
+)
 from app.models import Conversation, Message, User
 from app.schemas import ConversationSummary, MessageCreate, MessageOut
 from app.services import chat
@@ -61,7 +63,7 @@ def get_messages(
 
 
 @router.post("/conversations/{conversation_id}/messages", response_model=MessageOut, status_code=status.HTTP_201_CREATED)
-def post_message(conversation_id: int, payload: MessageCreate, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+def post_message(conversation_id: int, payload: MessageCreate, current_user: User = Depends(get_verified_user), db: Session = Depends(get_db)):
     conv = _get_conversation(db, conversation_id, current_user)
     content = (payload.content or "").strip()
     if not content:
@@ -80,7 +82,7 @@ def mark_conversation_read(conversation_id: int, current_user: User = Depends(ge
 
 
 # --------------------------------------------------------------------------- WebSocket
-def _ws_authorize(token: str, conversation_id: int) -> tuple[int, str] | None:
+def _ws_authorize(token: str, conversation_id: int) -> tuple[int, bool] | None:
     db = SessionLocal()
     try:
         user = _user_from_token(token, db)
@@ -89,7 +91,7 @@ def _ws_authorize(token: str, conversation_id: int) -> tuple[int, str] | None:
         conv = db.query(Conversation).filter(Conversation.id == conversation_id).first()
         if not conv or not conv.has_participant(user.id):
             return None
-        return user.id, user.full_name
+        return user.id, not user.phone_verification_required
     finally:
         db.close()
 
@@ -114,7 +116,7 @@ async def chat_websocket(websocket: WebSocket, conversation_id: int):
     if not auth:
         await websocket.close(code=status.WS_1008_POLICY_VIOLATION)
         return
-    user_id, _ = auth
+    user_id, can_send = auth
     await hub.prepare()
     await websocket.accept()
     await hub.connect(conversation_id, websocket)
@@ -135,6 +137,10 @@ async def chat_websocket(websocket: WebSocket, conversation_id: int):
                 continue
             content = str(data.get("content") or "").strip()
             if not content:
+                continue
+            if not can_send:
+                await websocket.send_json({"type": "error", "code": PHONE_VERIFICATION_CODE,
+                                           "detail": PHONE_VERIFICATION_MESSAGE})
                 continue
             if len(content) > MAX_MESSAGE:
                 await websocket.send_json({"type": "error", "detail": "El mensaje es demasiado largo."})

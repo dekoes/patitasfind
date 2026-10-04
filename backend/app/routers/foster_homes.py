@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.orm import Session
 
-from app.dependencies import get_current_user
+from app.dependencies import get_current_user, get_verified_user
 from app.database import get_db
 from app.models import FosterHome, User
 from app.schemas import FosterHomeCreate, FosterHomeOut
@@ -12,7 +12,7 @@ router = APIRouter(tags=["foster_homes"])
 @router.post("/foster-homes/register", response_model=FosterHomeOut, status_code=status.HTTP_201_CREATED)
 def register_foster_home(
     payload: FosterHomeCreate,
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(get_verified_user),
     db: Session = Depends(get_db),
 ):
     existing = db.query(FosterHome).filter(FosterHome.user_id == current_user.id).first()

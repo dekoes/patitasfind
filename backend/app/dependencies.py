@@ -40,6 +40,21 @@ def get_current_user(
     return user
 
 
+PHONE_VERIFICATION_CODE = "phone_verification_required"
+PHONE_VERIFICATION_MESSAGE = "Verifica tu teléfono para continuar"
+
+
+class PhoneVerificationRequired(Exception):
+    """Se convierte en 403 {"detail": "...", "code": "phone_verification_required"} (ver main.py)."""
+
+
+def get_verified_user(current_user: User = Depends(get_current_user)) -> User:
+    """Usuario con teléfono verificado (o exento: admins y demo). Para acciones de escritura."""
+    if current_user.phone_verification_required:
+        raise PhoneVerificationRequired()
+    return current_user
+
+
 def get_optional_user(
     token: str | None = Depends(oauth2_scheme_optional),
     db: Session = Depends(get_db),
@@ -57,10 +72,12 @@ def require_admin(current_user: User = Depends(get_current_user)) -> User:
 
 
 def client_ip(request: Request) -> str:
+    # Nginx sobrescribe X-Real-IP con $remote_addr (no lo puede falsificar el cliente);
+    # app/server.py (desarrollo) sobrescribe X-Forwarded-For.
+    real = request.headers.get("x-real-ip")
+    if real:
+        return real.strip()
     forwarded = request.headers.get("x-forwarded-for")
     if forwarded:
         return forwarded.split(",")[0].strip()
-    real = request.headers.get("x-real-ip")
-    if real:
-        return real
     return request.client.host if request.client else "unknown"

@@ -9,8 +9,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Patrick+Hand&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
-<link rel="stylesheet" href="/app/styles.css?v=12">
-<link rel="stylesheet" href="/app/anim.css?v=12">
+<link rel="stylesheet" href="/app/styles.css?v=14">
+<link rel="stylesheet" href="/app/anim.css?v=14">
+<link rel="stylesheet" href="/app/theme.css?v=14">
+<script src="/app/theme.js?v=14"></script>
 </head>
 <body>
 <div id="bg" aria-hidden="true"></div>
@@ -19,7 +21,7 @@
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
 <defs>
 <symbol id="paw" viewBox="0 0 64 64"><ellipse cx="32" cy="40" rx="15" ry="12" fill="currentColor"/><ellipse cx="14" cy="26" rx="7" ry="9" fill="currentColor" transform="rotate(-18 14 26)"/><ellipse cx="26" cy="17" rx="7" ry="9" fill="currentColor"/><ellipse cx="40" cy="17" rx="7" ry="9" fill="currentColor"/><ellipse cx="51" cy="26" rx="7" ry="9" fill="currentColor" transform="rotate(18 51 26)"/></symbol>
-<symbol id="dogface" viewBox="0 0 120 120"><path d="M22 30 Q6 34 10 62 Q13 82 30 76 Q24 55 28 38 Z" fill="#B5763F" stroke="#1D2233" stroke-width="3"/><path d="M98 30 Q114 34 110 62 Q107 82 90 76 Q96 55 92 38 Z" fill="#B5763F" stroke="#1D2233" stroke-width="3"/><circle cx="60" cy="64" r="42" fill="#FFF6EC" stroke="#1D2233" stroke-width="3"/><circle cx="45" cy="56" r="5" fill="#1D2233"/><circle cx="75" cy="56" r="5" fill="#1D2233"/><ellipse cx="60" cy="80" rx="17" ry="13" fill="#F6C8A4"/><ellipse cx="60" cy="72" rx="7" ry="5.5" fill="#1D2233"/><path d="M60 78 Q60 84 54 86 M60 78 Q60 84 66 86" stroke="#1D2233" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="34" cy="70" r="5" fill="#F49AC1" opacity=".7"/><circle cx="86" cy="70" r="5" fill="#F49AC1" opacity=".7"/></symbol>
+<symbol id="dogface" viewBox="0 0 120 120"><path d="M22 30 Q6 34 10 62 Q13 82 30 76 Q24 55 28 38 Z" style="fill:var(--dog-ear,#B5763F)" stroke="#1D2233" stroke-width="3"/><path d="M98 30 Q114 34 110 62 Q107 82 90 76 Q96 55 92 38 Z" style="fill:var(--dog-ear,#B5763F)" stroke="#1D2233" stroke-width="3"/><circle cx="60" cy="64" r="42" style="fill:var(--dog-fur,#FFF6EC)" stroke="#1D2233" stroke-width="3"/><circle cx="45" cy="56" r="5" fill="#1D2233"/><circle cx="75" cy="56" r="5" fill="#1D2233"/><ellipse cx="60" cy="80" rx="17" ry="13" fill="#F6C8A4"/><ellipse cx="60" cy="72" rx="7" ry="5.5" fill="#1D2233"/><path d="M60 78 Q60 84 54 86 M60 78 Q60 84 66 86" stroke="#1D2233" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="34" cy="70" r="5" fill="#F49AC1" opacity=".7"/><circle cx="86" cy="70" r="5" fill="#F49AC1" opacity=".7"/></symbol>
 <symbol id="pin" viewBox="0 0 24 24"><path d="M12 22 C7 16 4 12.5 4 9.5 A8 8 0 1 1 20 9.5 C20 12.5 17 16 12 22Z" fill="#FF8A5C" stroke="#1D2233" stroke-width="2"/><circle cx="12" cy="9.5" r="3" fill="#fff"/></symbol>
 <symbol id="bell" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0-6 6c0 5-2 6-2 6h16s-2-1-2-6a6 6 0 0 0-6-6Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M10 19a2 2 0 0 0 4 0" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
 <symbol id="search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></symbol>
@@ -44,6 +46,8 @@
 <symbol id="edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16Z M13 7l4 4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></symbol>
 <symbol id="logout" viewBox="0 0 24 24"><path d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4 M10 16l-4-4 4-4 M6 12h10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 <symbol id="refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7 M20 4v7h-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18c1.2 0 1.8-.8 1.8-1.7 0-1.2-1-1.6-1-2.6 0-1 .8-1.7 1.8-1.7H17a4 4 0 0 0 4-4C21 6.6 17 3 12 3Z" fill="none" stroke="currentColor" stroke-width="2.1"/><circle cx="7.5" cy="11" r="1.4" fill="currentColor"/><circle cx="10" cy="7" r="1.4" fill="currentColor"/><circle cx="14.5" cy="7" r="1.4" fill="currentColor"/></symbol>
+<symbol id="chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
 <symbol id="image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="9" cy="10" r="2" fill="currentColor"/><path d="M4 18l5-5 4 4 3-3 4 4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></symbol>
 </defs>
 </svg>
@@ -87,9 +91,14 @@
     </div>
     <form id="auth-form" class="pad col mt20" novalidate>
       <div id="f-name" class="hidden"><label class="lbl" for="auth-name">Nombre completo</label><input id="auth-name" class="inp" autocomplete="name" placeholder="Tu nombre"></div>
-      <div id="f-phone" class="hidden"><label class="lbl" for="auth-phone">Teléfono (WhatsApp)</label><input id="auth-phone" class="inp" type="tel" autocomplete="tel" placeholder="55 1234 5678"></div>
+      <div id="f-phone" class="hidden"><label class="lbl" for="auth-phone">Celular (te enviaremos un código por SMS)</label><input id="auth-phone" class="inp" type="tel" inputmode="tel" autocomplete="tel" placeholder="55 1234 5678"></div>
       <div id="f-email"><label class="lbl" for="auth-email">Correo electrónico</label><input id="auth-email" class="inp" type="email" autocomplete="email" placeholder="hola@correo.com"></div>
       <div id="f-pass"><label class="lbl" for="auth-password">Contraseña</label><input id="auth-password" class="inp" type="password" autocomplete="current-password" placeholder="Mínimo 8 caracteres"></div>
+      <div id="f-consent" class="hidden col" style="gap:8px">
+        <div class="card p small" id="privacy-short" style="background:rgba(255,255,255,.7);max-height:120px;overflow-y:auto;font-weight:600;line-height:1.4"><b>Aviso de privacidad simplificado.</b> PatitasFind trata tu nombre, correo, teléfono, ciudad, ubicación (opcional), fotos, respuestas del cuestionario de adopción, mensajes, pedidos, donativos y datos técnicos. No pedimos datos sensibles. Los usamos para crear y proteger tu cuenta, verificar tu teléfono y operar adopciones, reportes, chat, tienda y donativos. Con tu consentimiento, que puedes negar o revocar sin perder el servicio: novedades, encuestas y analítica. Compartimos lo necesario con refugios y proveedores, algunos fuera de México. Ejerce tus derechos ARCO desde tu perfil. <a href="/app/legal/privacidad.html" target="_blank" rel="noopener">Aviso de Privacidad Integral</a>.</div>
+        <label class="row small" style="align-items:flex-start"><input type="checkbox" id="auth-terms" style="width:20px;height:20px;flex-shrink:0;margin-top:2px"> <span>Tengo 18 años o más y acepto los <a href="/app/legal/terminos.html" target="_blank" rel="noopener">Términos y Condiciones</a> y el <a href="/app/legal/privacidad.html" target="_blank" rel="noopener">Aviso de Privacidad</a>.</span></label>
+        <label class="row small" style="align-items:flex-start"><input type="checkbox" id="auth-marketing" style="width:20px;height:20px;flex-shrink:0;margin-top:2px"> <span>Quiero recibir noticias de adopciones y campañas (opcional).</span></label>
+      </div>
       <div id="f-forgot" class="between"><span></span><button type="button" class="link small" id="auth-forgot-link">¿Olvidaste tu contraseña?</button></div>
       <button type="submit" class="btn block shine" id="auth-submit">Entrar</button>
       <p class="center small" id="f-toggle"><span id="auth-toggle-text">¿No tienes cuenta?</span> <button type="button" class="link" id="auth-toggle">Regístrate</button></p>
@@ -108,12 +117,15 @@
   <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t">Verifica tu teléfono</div></div>
   <div class="scroll pad center">
     <div class="mt20" id="verify-art"></div>
-    <p class="body mt12">Te enviamos un código a <b id="verify-phone-num"></b>. Así protegemos a los perritos de estafas.</p>
+    <p class="body mt12" id="verify-intro">Te enviamos un código por SMS a <b id="verify-phone-num"></b>. Así protegemos a los perritos de estafas.</p>
+    <div id="verify-phone-edit" class="hidden mt12" style="text-align:left"><label class="lbl" for="verify-phone-input">Tu celular</label><div class="row"><input id="verify-phone-input" class="inp grow" type="tel" inputmode="tel" placeholder="55 1234 5678"><button class="btn btn-sm" id="verify-phone-save">Enviar código</button></div></div>
     <div class="code-row mt20">
       <input class="inp code-box" maxlength="1" inputmode="numeric" aria-label="Dígito 1"><input class="inp code-box" maxlength="1" inputmode="numeric" aria-label="Dígito 2"><input class="inp code-box" maxlength="1" inputmode="numeric" aria-label="Dígito 3"><input class="inp code-box" maxlength="1" inputmode="numeric" aria-label="Dígito 4"><input class="inp code-box" maxlength="1" inputmode="numeric" aria-label="Dígito 5"><input class="inp code-box" maxlength="1" inputmode="numeric" aria-label="Dígito 6">
     </div>
     <button class="btn block mt24" id="verify-submit">Verificar</button>
-    <p class="small mt16"><button class="link" id="verify-resend">Reenviar código</button> · <button class="link" id="verify-skip">Hacerlo después</button></p>
+    <p class="small mt16"><button class="link" id="verify-resend">Reenviar código</button><span id="verify-countdown" class="muted"></span> · <button class="link" id="verify-change">Cambiar número</button><span id="verify-skip-wrap"> · <button class="link" id="verify-skip">Hacerlo después</button></span></p>
+    <p class="small muted mt12" id="verify-why">Para publicar, adoptar o chatear necesitamos verificar que eres una persona real.</p>
+    <button class="link small mt12" id="verify-logout">Salir</button>
   </div>
 </section>
 
@@ -121,6 +133,7 @@
 <section class="screen has-nav" data-s="home">
   <div class="topbar">
     <button class="loc-btn grow" id="home-loc"><small><svg width="12" height="12"><use href="#pin"/></svg> Tu ubicación</small><b><span id="home-location" class="ellipsis">Ciudad de México</span> <span style="font-size:12px">▾</span></b></button>
+    <div class="iconbtn" id="home-theme" title="Apariencia"><svg width="20" height="20"><use href="#palette"/></svg></div>
     <div class="iconbtn" id="home-photo" title="Buscar por foto"><svg width="20" height="20"><use href="#camera"/></svg></div>
     <div class="iconbtn" id="home-notif" title="Notificaciones"><svg width="20" height="20"><use href="#bell"/></svg><span class="dotb hidden" id="notif-badge">0</span></div>
   </div>
@@ -186,7 +199,7 @@
     <div><span class="lbl">2. Experiencia con perros</span><div class="chips" data-q="experience"><span class="chip" data-v="mucha">Toda la vida</span><span class="chip" data-v="alguna">Alguna</span><span class="chip" data-v="poca">Poca</span><span class="chip" data-v="ninguna">Sería mi primero</span></div></div>
     <div><span class="lbl">3. ¿Hay niños en casa?</span><div class="chips" data-q="children"><span class="chip" data-v="si_chicos">Menores de 10</span><span class="chip" data-v="si_grandes">Mayores de 10</span><span class="chip" data-v="no">No</span></div></div>
     <div><span class="lbl">4. ¿Otras mascotas?</span><div class="chips" data-q="other_pets"><span class="chip" data-v="perros">Perros</span><span class="chip" data-v="gatos">Gatos</span><span class="chip" data-v="otros">Otros</span><span class="chip" data-v="no">No</span></div></div>
-    <div><span class="lbl">5. Presupuesto mensual para su cuidado</span><div class="chips" data-q="budget"><span class="chip" data-v="0-800">Menos de $800</span><span class="chip" data-v="800-1500">$800 – $1,500</span><span class="chip" data-v="1500-3000">$1,500 – $3,000</span><span class="chip" data-v="3000+">Más de $3,000</span></div></div>
+    <div><span class="lbl">5. Presupuesto mensual para su cuidado <span class="muted">(opcional)</span></span><label class="row small" style="align-items:flex-start;margin-bottom:8px"><input type="checkbox" id="q-budget-consent" style="width:20px;height:20px;flex-shrink:0;margin-top:2px"> <span>Acepto compartir mi rango de presupuesto con quien publica al perrito (dato patrimonial; puedes no compartirlo).</span></label><div class="chips" data-q="budget" data-optional="1"><span class="chip" data-v="0-800">Menos de $800</span><span class="chip" data-v="800-1500">$800 – $1,500</span><span class="chip" data-v="1500-3000">$1,500 – $3,000</span><span class="chip" data-v="3000+">Más de $3,000</span></div></div>
     <div><span class="lbl">6. ¿Cuántas horas estaría solo al día?</span><div class="chips" data-q="hours_alone"><span class="chip" data-v="0-4">0 – 4 h</span><span class="chip" data-v="4-8">4 – 8 h</span><span class="chip" data-v="8+">Más de 8 h</span></div></div>
     <div><label class="lbl" for="q-why">7. ¿Por qué quieres adoptarlo?</label><textarea id="q-why" class="inp" rows="3" placeholder="Cuéntale un poquito sobre ti y tu hogar"></textarea></div>
     <label class="row small"><input type="checkbox" id="q-commit" style="width:20px;height:20px"> Me comprometo a esterilizarlo, vacunarlo y aceptar seguimiento post-adopción.</label>
@@ -365,6 +378,12 @@
   </form>
 </section>
 
+<!-- ================= APARIENCIA ================= -->
+<section class="screen" data-s="appearance">
+  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t">Apariencia<small>Haz PatitasFind a tu manera</small></div><svg width="26" height="26" style="color:var(--orange)"><use href="#palette"/></svg></div>
+  <div class="scroll pad" id="appearance-body"></div>
+</section>
+
 <!-- ================= SOLICITUD (dueño) ================= -->
 <section class="screen" data-s="application">
   <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t" id="app-title">Solicitud</div></div>
@@ -428,6 +447,48 @@
   </div>
 </div>
 
+<div class="modal" id="password-modal">
+  <div class="sheet"><div class="grab"></div>
+    <h2 class="h2">Cambiar contraseña</h2>
+    <form id="password-form" class="col mt12">
+      <div id="pw-current-wrap"><label class="lbl" for="pw-current">Contraseña actual</label><input id="pw-current" class="inp" type="password" autocomplete="current-password"></div>
+      <div><label class="lbl" for="pw-new">Nueva contraseña</label><input id="pw-new" class="inp" type="password" autocomplete="new-password" placeholder="Mínimo 8 caracteres"></div>
+      <div><label class="lbl" for="pw-new2">Repite la nueva contraseña</label><input id="pw-new2" class="inp" type="password" autocomplete="new-password"></div>
+      <button type="submit" class="btn block">Guardar contraseña</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal" id="delete-modal">
+  <div class="sheet"><div class="grab"></div>
+    <div class="center" id="delete-art"></div>
+    <h2 class="h2 center">¿Eliminar tu cuenta?</h2>
+    <p class="body center mt8">Borraremos tus datos personales y retiraremos tus publicaciones. Los registros de pedidos y donaciones se conservan solo por obligación fiscal. Esta acción no se puede deshacer.</p>
+    <form id="delete-form" class="col mt16">
+      <div id="del-pass-wrap"><label class="lbl" for="del-pass">Tu contraseña</label><input id="del-pass" class="inp" type="password" autocomplete="current-password"></div>
+      <div><label class="lbl" for="del-confirm">Escribe <b>ELIMINAR</b> para confirmar</label><input id="del-confirm" class="inp" autocomplete="off" placeholder="ELIMINAR"></div>
+      <button type="submit" class="btn block" style="background:var(--red)">Eliminar mi cuenta</button>
+      <button type="button" class="btn block btn-ghost" id="delete-cancel">Mejor no</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal center" id="terms-modal">
+  <div class="mm-card" style="text-align:left">
+    <h2 class="h2 center">Antes de continuar</h2>
+    <p class="body mt8">Para usar PatitasFind necesitamos que aceptes nuestras reglas y sepas cómo cuidamos tus datos.</p>
+    <label class="row small mt12" style="align-items:flex-start"><input type="checkbox" id="tm-terms" style="width:20px;height:20px;flex-shrink:0;margin-top:2px"> <span>Tengo 18 años o más y acepto los <a href="/app/legal/terminos.html" target="_blank" rel="noopener">Términos y Condiciones</a> y el <a href="/app/legal/privacidad.html" target="_blank" rel="noopener">Aviso de Privacidad</a>.</span></label>
+    <label class="row small mt8" style="align-items:flex-start"><input type="checkbox" id="tm-marketing" style="width:20px;height:20px;flex-shrink:0;margin-top:2px"> <span>Quiero recibir noticias de adopciones y campañas (opcional).</span></label>
+    <button class="btn block mt16" id="tm-accept">Aceptar y continuar</button>
+    <button class="link small mt12" id="tm-logout" style="display:block;margin:12px auto 0">Salir</button>
+  </div>
+</div>
+
+<div id="cookie-banner" class="hidden" role="dialog" aria-label="Preferencias de cookies">
+  <div class="row" style="align-items:flex-start"><span style="font-size:24px">🍪</span><div class="grow small" style="font-weight:600">Usamos almacenamiento esencial para que la app funcione. Con tu permiso, también medimos el uso de forma anónima para mejorarla. <a href="/app/legal/privacidad.html#cookies" target="_blank" rel="noopener">Más información</a></div></div>
+  <div class="row mt12"><button class="btn btn-sm btn-ghost grow" id="cookie-essential">Solo esenciales</button><button class="btn btn-sm grow" id="cookie-accept">Aceptar</button></div>
+</div>
+
 <div class="modal center" id="match-modal">
   <div class="mm-card">
     <span class="badge b-green">SOLICITUD INICIADA</span>
@@ -447,7 +508,7 @@
 </div><!-- /device -->
 </div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-<script src="/app/fx.js?v=12"></script>
-<script src="/app/app.js?v=12"></script>
+<script src="/app/fx.js?v=14"></script>
+<script src="/app/app.js?v=14"></script>
 </body>
 </html>

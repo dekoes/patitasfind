@@ -115,6 +115,11 @@ async function api(path, opts = {}) {
     if (Array.isArray(d)) d = d.map(e => e.msg).join(', ');
     const err = new Error(d || `Error ${res.status}`);
     err.status = res.status;
+    err.code = data && data.code;
+    if (err.code === 'phone_verification_required' && !opts.noVerifyRedirect && current !== 'verify-phone') {
+      setTimeout(() => startPhoneVerify(), 50);
+      err.message = 'Primero verifica tu teléfono 📲';
+    }
     throw err;
   }
   return data;
@@ -163,6 +168,7 @@ let stack = [];
 
 function navigate(name, opts = {}) {
   if (!screens[name]) return;
+  if (name !== current) track('$pageview', { $current_url: `${location.origin}/app/#${name}`, screen: name });
   const prev = screens[current];
   const next = screens[name];
   if (name === current) { onEnter(name, opts); return; }
@@ -209,7 +215,7 @@ function onEnter(name, opts) {
   const fn = {
     home: loadHome, discover: loadDiscover, 'chat-list': loadChatList, notifications: loadNotifications,
     profile: loadProfile, shop: loadShop, ranking: loadRanking, map: loadMap, 'edit-profile': loadEditProfile,
-    'my-refuge': loadMyRefuge,
+    'my-refuge': loadMyRefuge, appearance: () => Theme.mount($('#appearance-body')),
   }[name];
   if (fn) fn(opts);
   FX.decorate(screens[name]);
@@ -256,6 +262,7 @@ function setAuthMode(mode) {
   const reg = mode === 'register', login = mode === 'login', forgot = mode === 'forgot', reset = mode === 'reset';
   $('#f-name').classList.toggle('hidden', !reg);
   $('#f-phone').classList.toggle('hidden', !reg);
+  $('#f-consent').classList.toggle('hidden', !reg);
   $('#f-email').classList.toggle('hidden', reset);
   $('#f-pass').classList.toggle('hidden', forgot);
   $('#f-forgot').classList.toggle('hidden', !login);
@@ -316,17 +323,22 @@ async function submitAuth(e) {
       const full_name = $('#auth-name').value.trim();
       const phone = $('#auth-phone').value.trim();
       if (full_name.length < 2) throw new Error('Escribe tu nombre');
-      const tk = await api('/auth/register', { method: 'POST', body: { email, password, full_name, phone: phone || null, city: state.city, country: state.country }, noLogout: true });
+      if (phone.replace(/\D/g, '').length < 10) throw new Error('Escribe tu celular a 10 dígitos');
+      if (!$('#auth-terms').checked) throw new Error('Para crear tu cuenta acepta los Términos y el Aviso de Privacidad');
+      const tk = await api('/auth/register', { method: 'POST', body: {
+        email, password, full_name, phone, city: state.city, country: state.country,
+        accepted_terms: true, marketing_opt_in: $('#auth-marketing').checked,
+      }, noLogout: true });
       await setToken(tk.access_token);
-      await FX.success(`¡Bienvenido, ${state.me.full_name.split(' ')[0]}!`, 'Ya eres parte de la manada 🐾');
-      if (phone) return startPhoneVerify();
-      return enterApp();
+      track('signup', { method: 'email' });
+      await FX.success(`¡Bienvenido, ${state.me.full_name.split(' ')[0]}!`, 'Solo falta verificar tu celular 📲');
+      return startPhoneVerify();
     }
     const form = new URLSearchParams({ username: email, password });
     const tk = await api('/auth/login', { method: 'POST', body: form, headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, noLogout: true });
     await setToken(tk.access_token);
     toast(`¡Hola, ${state.me.full_name.split(' ')[0]}! 🐶`, 'ok');
-    enterApp();
+    afterLogin();
   });
 }
 
@@ -335,16 +347,29 @@ async function demoLogin() {
     const tk = await api('/auth/demo-login', { method: 'POST', noLogout: true });
     await setToken(tk.access_token);
     toast('Entraste en modo demo 🐶', 'ok');
-    enterApp();
+    afterLogin();
   });
 }
 
 function logout(silent = false) {
   state.token = ''; state.me = null;
+  try { window.posthog && posthog.reset(); } catch { }
   localStorage.removeItem('patitas_token');
   closeWS();
   if (!silent) toast('Sesión cerrada. ¡Vuelve pronto! 👋');
   showAuth('login');
+}
+
+function needsPhoneVerification() {
+  return state.config.require_phone_verification && state.me && !state.me.phone_verified && !['admin', 'superadmin'].includes(state.me.role);
+}
+function afterLogin() {
+  identify();
+  if (state.me && !state.me.terms_accepted_at && !['admin', 'superadmin'].includes(state.me.role)) {
+    $('#terms-modal').classList.add('open'); FX.decorate($('#terms-modal')); return;
+  }
+  if (needsPhoneVerification()) return startPhoneVerify();
+  enterApp();
 }
 
 function enterApp() {
@@ -355,29 +380,71 @@ function enterApp() {
 }
 
 /* ---------- verificación de teléfono ---------- */
-async function startPhoneVerify() {
-  $('#verify-phone-num').textContent = state.me.phone || '';
+let cooldownTimer;
+function startPhoneVerify() {
+  const required = state.config.require_phone_verification;
+  $('#verify-skip-wrap').classList.toggle('hidden', !!required);
+  $('#verify-why').classList.toggle('hidden', !required);
+  $('[data-s="verify-phone"] .nav-back').classList.toggle('hidden', !!required);
   $('#verify-art').innerHTML = FX.dogFace(110, { fur: '#86E0D4' });
   $$('.code-box').forEach(b => { b.value = ''; });
-  navigate('verify-phone', { push: false });
-  await sendCode();
+  navigate('verify-phone', { push: false, reset: true });
+  if (!state.me.phone) return showPhoneEdit(true);
+  showPhoneEdit(false);
+  sendCode();
+}
+function showPhoneEdit(on) {
+  $('#verify-phone-edit').classList.toggle('hidden', !on);
+  $('#verify-intro').classList.toggle('hidden', on);
+  $('#verify-phone-num').textContent = state.me && state.me.phone || '';
+  if (on) { $('#verify-phone-input').value = state.me && state.me.phone || ''; setTimeout(() => $('#verify-phone-input').focus(), 300); }
+  FX.decorate(screens['verify-phone']);
+}
+async function savePhoneAndSend() {
+  const phone = $('#verify-phone-input').value.trim();
+  if (phone.replace(/\D/g, '').length < 10) return toast('Escribe tu celular a 10 dígitos', 'error');
+  await withBtn($('#verify-phone-save'), async () => {
+    state.me = await api('/users/me', { method: 'PATCH', body: { phone }, noVerifyRedirect: true });
+    showPhoneEdit(false);
+    await sendCode();
+  });
+}
+function startCooldown(sec) {
+  const btn = $('#verify-resend'), cd = $('#verify-countdown');
+  clearInterval(cooldownTimer);
+  let t = sec;
+  btn.disabled = true; btn.style.opacity = .5;
+  const tick = () => {
+    if (t <= 0) { clearInterval(cooldownTimer); btn.disabled = false; btn.style.opacity = 1; cd.textContent = ''; return; }
+    cd.textContent = ` (${t}s)`; t--;
+  };
+  tick();
+  cooldownTimer = setInterval(tick, 1000);
 }
 async function sendCode() {
   try {
-    const r = await api('/users/me/phone/send-code', { method: 'POST' });
+    const r = await api('/users/me/phone/send-code', { method: 'POST', noVerifyRedirect: true });
+    if (r && r.phone) { state.me.phone = r.phone; $('#verify-phone-num').textContent = r.phone; }
+    startCooldown((r && r.cooldown) || 60);
     if (r && r.dev_code) {
       toast(`Código de prueba: ${r.dev_code}`);
       [...String(r.dev_code)].forEach((c, i) => { const b = $$('.code-box')[i]; if (b) b.value = c; });
-    } else toast('Código enviado 📲', 'ok');
-  } catch (e) { toast(e.message, 'error'); }
+    } else toast('Te enviamos un SMS con tu código 📲', 'ok');
+    const first = $$('.code-box').find(b => !b.value); if (first) first.focus();
+  } catch (e) {
+    toast(e.message, 'error');
+    if (e.status === 409 || e.status === 400) showPhoneEdit(true);
+  }
 }
 async function verifyCode() {
   const code = $$('.code-box').map(b => b.value).join('');
   if (code.length < 4) return toast('Escribe el código completo', 'error');
   await withBtn($('#verify-submit'), async () => {
-    await api('/users/me/phone/verify', { method: 'POST', body: { code } });
+    try { await api('/users/me/phone/verify', { method: 'POST', body: { code }, noVerifyRedirect: true }); }
+    catch (e) { $$('.code-box').forEach(b => { b.value = ''; }); $$('.code-box')[0].focus(); const row = $('.code-row'); row.style.animation = 'shakeNo .4s'; setTimeout(() => row.style.animation = '', 400); throw e; }
     state.me.phone_verified = true;
-    await FX.success('¡Teléfono verificado!', 'Tu perfil ahora es de confianza');
+    track('phone_verified');
+    await FX.success('¡Teléfono verificado!', 'Tu perfil ahora es de confianza ✅');
     enterApp();
   });
 }
@@ -621,7 +688,14 @@ async function submitQuestionnaire(e) {
   e.preventDefault();
   const answers = {};
   let missing = false;
-  $$('#questionnaire-form [data-q]').forEach(g => { const on = $('.chip.on', g); if (!on) missing = true; else answers[g.dataset.q] = on.dataset.v; });
+  const budgetOk = $('#q-budget-consent').checked;
+  $$('#questionnaire-form [data-q]').forEach(g => {
+    const on = $('.chip.on', g);
+    if (g.dataset.optional) { if (budgetOk && on) answers[g.dataset.q] = on.dataset.v; return; }
+    if (!on) missing = true; else answers[g.dataset.q] = on.dataset.v;
+  });
+  if (budgetOk && !answers.budget) return toast('Elige tu rango de presupuesto o desmarca la casilla', 'error');
+  if (budgetOk) answers.budget_consent = true;
   if (missing) return toast('Responde todas las preguntas 🐾', 'error');
   if (!$('#q-commit').checked) return toast('Acepta el compromiso de adopción responsable', 'error');
   answers.why = $('#q-why').value.trim();
@@ -629,6 +703,7 @@ async function submitQuestionnaire(e) {
   const btn = $('#questionnaire-form button[type=submit]');
   await withBtn(btn, async () => {
     await api(`/matches/${state.matchId}/apply`, { method: 'POST', body: { answers } });
+    track('adoption_application_sent', { dog_id: state.matchDog && state.matchDog.id });
     await FX.success('¡Solicitud enviada!', `Te avisaremos cuando respondan por ${state.matchDog.name}`);
     state.matchId = null;
     navigate('home', { reset: true });
@@ -750,6 +825,7 @@ async function submitPublish(e) {
       latitude: c ? c.lat : null, longitude: c ? c.lon : null, photos,
     } });
     FX.hideLoading();
+    track('dog_published');
     await FX.success('¡Publicado!', `${name} ya está buscando familia`);
     stack = ['home'];
     openDog(dog.id, { push: false });
@@ -798,6 +874,7 @@ async function submitReport(e) {
       latitude: c ? c.lat : null, longitude: c ? c.lon : null, photos,
     } });
     FX.hideLoading();
+    track('report_created', { type: state.reportType });
     await FX.success(lost ? '¡Alerta activada!' : '¡Reporte publicado!', lost ? 'Avisamos a la comunidad de tu zona' : 'Ojalá vuelva pronto a casa');
     stack = ['home'];
     openReport(r.id, { push: false });
@@ -1173,6 +1250,7 @@ async function openRefuge(id) {
         <p class="small muted">100% llega al refugio. Cada $10 suma 1 punto en el ranking.</p>
         <div class="chips mt12" id="don-amounts">${[50, 100, 250, 500].map((a, i) => `<span class="chip ${i === 1 ? 'on' : ''}" data-v="${a}">${money(a)}</span>`).join('')}<span class="chip" data-v="other">Otro</span></div>
         <input id="don-other" class="inp mt12 hidden" type="number" min="10" placeholder="Monto en MXN">
+        <label class="row small mt12" style="align-items:flex-start"><input type="checkbox" id="don-share" style="width:20px;height:20px;flex-shrink:0;margin-top:2px"> <span>Compartir mi nombre con el refugio (si no, tu donativo es anónimo).</span></label>
         <button class="btn block btn-orange shine mt12" id="don-btn">Donar con Mercado Pago</button></div></div>`;
     FX.decorate(body);
     $$('#don-amounts .chip').forEach(c => c.onclick = () => { $$('#don-amounts .chip').forEach(x => x.classList.remove('on')); c.classList.add('on'); $('#don-other').classList.toggle('hidden', c.dataset.v !== 'other'); });
@@ -1186,7 +1264,7 @@ async function donate(r) {
   if (!amount || amount < 10) return toast('El monto mínimo es $10', 'error');
   const btn = $('#don-btn');
   await withBtn(btn, async () => {
-    const d = await api('/payments/donations', { method: 'POST', body: { refuge_id: r.id, amount } });
+    const d = await api('/payments/donations', { method: 'POST', body: { refuge_id: r.id, amount, share_name: $('#don-share').checked } });
     if (d.checkout_url) { FX.showLoading('Te llevamos a Mercado Pago', ['Pago 100% seguro 🔒'], 'run'); location.href = d.checkout_url; return; }
     FX.boneBurst(btn, 8);
     await FX.success('¡Gracias por donar!', `${money(amount)} para ${r.name}`);
@@ -1244,7 +1322,11 @@ async function loadMyRefuge() {
       <div class="row"><button class="btn btn-sm btn-orange grow" id="mr-publish">+ Publicar perrito</button><button class="btn btn-sm btn-green grow" id="mr-rescue">+ Registrar rescate</button></div></div>
     <div class="between mt20"><span class="h2">Mis productos</span><button class="btn btn-sm btn-lila" id="mr-add-product">+ Agregar</button></div>
     <div class="col mt12">${products.length ? products.map(p => `<div class="card p row"><div class="thumb">${imgOrDog(photo(p), 30)}</div><div class="grow"><b class="ellipsis">${esc(p.name)}</b><div class="small muted">${money(p.price)} · ${p.stock} en inventario</div></div><div class="iconbtn sm" data-edit-product="${p.id}"><svg width="16" height="16"><use href="#edit"/></svg></div></div>`).join('') : '<p class="small muted">Vende playeras, correas o placas QR para financiar tu refugio.</p>'}</div>
+    <div class="mt20"><div class="between"><span class="h2">Puntos por semana</span><svg width="22" height="22" style="color:var(--orange)"><use href="#chart"/></svg></div><div class="card p mt12"><div id="mr-chart-points" style="height:200px"></div></div></div>
+    <div class="row mt12" style="align-items:stretch;gap:12px"><div class="card p grow"><b class="small">Perritos por estado</b><div id="mr-chart-status" style="height:170px"></div></div></div>
+    <div class="card p mt12"><b class="small">¿De dónde vienen tus puntos?</b><div id="mr-chart-actions" style="height:170px"></div></div>
     <div class="mt20"><span class="h2">Historial de puntos</span><div class="col mt12" id="mr-points">${FX.skeletonList(2)}</div></div>`;
+  chart('#mr-chart-status', { type: 'donut', labels: ['Disponibles', 'En proceso', 'Adoptados', 'Casa de paso'], series: [{ name: 'Perritos', data: [byStatus.available || 0, byStatus.in_process || 0, byStatus.adopted || 0, byStatus.in_foster || 0] }], height: 170, centerLabel: 'perritos' });
   FX.decorate(body);
   $('#mr-apps').onclick = openMyMatches;
   $('#mr-publish').onclick = openPublish;
@@ -1253,6 +1335,7 @@ async function loadMyRefuge() {
   $$('[data-edit-product]', body).forEach(b => b.onclick = () => openProductModal(products.find(p => p.id == b.dataset.editProduct)));
   try {
     const pts = await api(`/refuges/${r.id}/points`);
+    renderPointCharts(pts);
     $('#mr-points').innerHTML = pts.length ? pts.slice(0, 15).map(p => `<div class="card p between"><div><b>${esc(p.description || p.action)}</b><div class="small muted">${timeAgo(p.created_at)}</div></div><span class="badge b-green">+${p.points}</span></div>`).join('') : '<p class="small muted">Aún sin movimientos.</p>';
   } catch { $('#mr-points').innerHTML = ''; }
 }
@@ -1299,7 +1382,10 @@ async function loadRanking() {
       <div class="small mt8 ellipsis" style="font-weight:800">${esc(r.name)}</div><div class="small muted">${r.points} pts</div>
       <div class="blk mt8" style="height:${H[i]}px;background:${C[i]};animation-delay:${i * .15}s">${N[i]}</div></div>` : '<div class="pd"></div>').join('')}</div>
       <div class="col mt16 stagger">${rs.slice(3).map((r, i) => `<div class="card p row tap" data-refuge="${r.id}" style="--i:${i}"><b style="width:28px">${i + 4}</b>${avatarHtml({ full_name: r.name }, 40)}<div class="grow"><b class="ellipsis">${esc(r.name)}</b><div class="small muted">${r.adopted_count} adopciones · ${esc(r.city || '')}</div></div><span class="badge b-yellow">${r.points} pts</span></div>`).join('')}</div>
+      <div class="card p mt16"><b class="small">Puntos del top 8</b><div id="rank-chart" style="height:${Math.min(8, rs.length) * 30 + 40}px"></div></div>
       <div class="card p mt16 small" style="background:var(--lila)">🏆 El top 3 de cada mes recibe las ganancias de la tienda solidaria.</div>`;
+    const top8 = rs.slice(0, 8);
+    chart('#rank-chart', { type: 'hbar', labels: top8.map(r => r.name), series: [{ name: 'Puntos', data: top8.map(r => r.points) }], valueLabels: true, height: Math.min(8, rs.length) * 30 + 40 });
   } catch (e) { toast(e.message, 'error'); list.innerHTML = ''; }
 }
 
@@ -1376,7 +1462,7 @@ async function loadMap() {
   const center = state.coords ? [state.coords.lat, state.coords.lon] : (CITIES.find(c => c[0] === state.city) || CITIES[0]).slice(1);
   if (!state.map) {
     state.map = L.map('leaflet-map', { zoomControl: false, attributionControl: true }).setView(center, 13);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap' }).addTo(state.map);
+    setMapTiles();
     ['lost', 'found', 'dog'].forEach(k => { state.mapLayers[k] = L.layerGroup().addTo(state.map); });
     state.mapLayers.me = L.layerGroup().addTo(state.map);
   } else state.map.setView(center, state.map.getZoom());
@@ -1417,7 +1503,7 @@ async function loadNotifications() {
   try {
     const ns = await api('/notifications');
     list.innerHTML = ns.length ? `<div class="col stagger">${ns.map((n, i) => { const [ic, bg] = NOTIF_ICON[n.type] || ['🔔', 'var(--white)']; return `
-      <div class="card p row tap" data-notif="${n.type}" data-ndata="${esc(JSON.stringify(n.data || {}))}" style="--i:${Math.min(i, 10)};${n.is_read ? '' : 'border-width:2.5px;box-shadow:0 4px 0 var(--ink)'}">
+      <div class="card p row tap" data-notif="${n.type}" data-ndata="${esc(JSON.stringify(n.data || {}))}" style="--i:${Math.min(i, 10)};${n.is_read ? '' : 'border-width:2.5px;box-shadow:var(--sh-btn)'}">
         <div class="avatar" style="background:${bg};font-size:20px">${ic}</div>
         <div class="grow"><b>${esc(n.title)}</b><div class="small muted">${esc(n.body)}</div><div class="small muted mt8">${timeAgo(n.created_at)}</div></div>
         ${n.is_read ? '' : '<span style="width:10px;height:10px;border-radius:50%;background:var(--orange);flex-shrink:0"></span>'}</div>`; }).join('')}</div>`
@@ -1465,7 +1551,9 @@ async function loadProfile() {
       <div class="h2 mt8">${esc(u.full_name)}</div><div class="small muted">${esc(u.email)}</div>
       <div class="chips mt8" style="justify-content:center">${u.phone ? (u.phone_verified ? '<span class="badge b-green">✓ Teléfono verificado</span>' : '<span class="badge b-yellow tap" id="pf-verify" style="cursor:pointer">Verificar teléfono</span>') : ''}${u.role === 'refuge' ? '<span class="badge b-lila">Refugio</span>' : ''}${u.role === 'foster' ? '<span class="badge b-blue">Casa de paso</span>' : ''}${isAdmin ? '<span class="badge b-orange">Admin</span>' : ''}</div></div>
     <div class="mt20"><div class="between"><span class="h2">Recordatorios</span></div><div class="col mt12" id="pf-reminders">${FX.skeletonList(1)}</div></div>
+    <div class="mt20"><div class="between"><span class="h2">Mi actividad</span><div class="chips" id="act-types"></div></div><div class="card p mt12"><div id="act-chart" style="height:190px"></div></div></div>
     <div class="col mt20 stagger">
+      ${item('appearance', svg('palette'), 'Apariencia', 'Colores, botones, animaciones y gráficas', 'linear-gradient(135deg,var(--lila),var(--green))')}
       ${item('matches', svg('heart'), 'Solicitudes de adopción', 'Enviadas y recibidas')}
       ${item('my-dogs', svg('paw'), 'Mis publicaciones')}
       ${item('my-reports', svg('search'), 'Mis reportes', 'Perdidos y encontrados')}
@@ -1476,12 +1564,21 @@ async function loadProfile() {
       ${item('shop', svg('store'), 'Tienda solidaria')}
       ${item('map', svg('map'), 'Mapa de mi zona')}
       ${isAdmin ? item('admin', svg('shield'), 'Panel de administración', '', 'var(--yellow)') : ''}
+      <div class="lbl mt12">Seguridad y privacidad</div>
+      ${item('password', svg('shield'), 'Cambiar contraseña')}
+      ${item('export', svg('send'), 'Descargar mis datos', 'Copia de tu información (derecho de acceso)')}
+      ${item('consent', svg('sparkle'), 'Preferencias de cookies', localStorage.getItem('patitas_consent') === 'all' ? 'Analítica activada' : 'Solo esenciales')}
+      ${item('terms', svg('edit'), 'Términos y condiciones')}
+      ${item('privacy', svg('shield'), 'Aviso de privacidad')}
       <button class="btn block btn-ghost mt8" id="logout-btn">${svg('logout')} Cerrar sesión</button>
+      <button class="link small mt8" id="delete-account-btn" style="color:var(--red)">Eliminar mi cuenta</button>
     </div>`;
   FX.decorate(body);
   const v = $('#pf-verify'); if (v) v.onclick = startPhoneVerify;
   $('#logout-btn').onclick = () => logout();
+  $('#delete-account-btn').onclick = openDeleteAccount;
   loadReminders();
+  loadActivityChart();
 }
 async function loadReminders() {
   const box = $('#pf-reminders');
@@ -1516,6 +1613,162 @@ async function submitEditProfile(e) {
     if (phoneChanged) return startPhoneVerify();
     back();
   });
+}
+
+/* ============================================================
+   Gráficas (PFCharts) y cambios de tema
+   ============================================================ */
+const liveCharts = {};
+function chart(sel, opts) {
+  const el = typeof sel === 'string' ? $(sel) : sel;
+  if (!el) return null;
+  if (!window.PFCharts) { const box = el.closest('.card'); (box && box.parentElement && box.parentElement.classList.contains('mt20') ? box.parentElement : box || el).classList.add('hidden'); return null; }
+  const key = el.id || sel;
+  if (liveCharts[key] && liveCharts[key].destroy) liveCharts[key].destroy();
+  try { liveCharts[key] = PFCharts.render(el, { ...Theme.chartDefaults(), ...opts }); } catch (e) { console.warn('chart', e); return null; }
+  return liveCharts[key];
+}
+function weekKey(d) { const x = new Date(d); x.setHours(0, 0, 0, 0); x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); return x; }
+function renderPointCharts(pts) {
+  const weeks = [];
+  const now = weekKey(new Date());
+  for (let i = 7; i >= 0; i--) { const w = new Date(now); w.setDate(w.getDate() - i * 7); weeks.push(w); }
+  const sum = weeks.map(w => pts.filter(p => +weekKey(parseDate(p.created_at)) === +w).reduce((a, p) => a + p.points, 0));
+  chart('#mr-chart-points', { type: ['donut', 'radar'].includes(Theme.chartType()) ? 'area' : Theme.chartType(), labels: weeks.map(w => w.toLocaleDateString('es-MX', { day: 'numeric', month: 'short' })), series: [{ name: 'Puntos', data: sum }], height: 200 });
+  const ACT = { rescue: 'Rescates', adopted_to_home: 'Adopciones', foster_home: 'Casas de paso', donation: 'Donaciones' };
+  const by = {};
+  pts.forEach(p => { const k = ACT[p.action] || 'Otros'; by[k] = (by[k] || 0) + p.points; });
+  const labels = Object.keys(by);
+  chart('#mr-chart-actions', { type: 'bar', labels, series: [{ name: 'Puntos', data: labels.map(l => by[l]) }], height: 170, valueLabels: true });
+}
+let actType = null;
+async function loadActivityChart() {
+  const types = [['bar', '📊'], ['line', '📈'], ['donut', '🍩'], ['radar', '🕸️']];
+  actType = actType || (['bar', 'line', 'donut', 'radar'].includes(Theme.chartType()) ? Theme.chartType() : 'bar');
+  if (!window.PFCharts) { const sec = $('#act-chart') && $('#act-chart').closest('.mt20'); if (sec) sec.classList.add('hidden'); return; }
+  $('#act-types').innerHTML = types.map(([t, i]) => `<span class="chip ${t === actType ? 'on' : ''}" data-act-type="${t}" style="padding:4px 9px">${i}</span>`).join('');
+  $$('[data-act-type]').forEach(c => c.onclick = () => { actType = c.dataset.actType; loadActivityChart(); });
+  try {
+    const [dogs, reports, matches, orders] = await Promise.all([api('/dogs/me'), api('/lost-reports/me').catch(() => []), api('/matches'), api('/orders').catch(() => [])]);
+    const mine = matches.filter(m => m.user_id === state.me.id).length, received = matches.length - mine;
+    chart('#act-chart', { type: actType, labels: ['Publicados', 'Reportes', 'Solicitudes', 'Recibidas', 'Pedidos'], series: [{ name: 'Mi actividad', data: [dogs.length, reports.length, mine, received, orders.length] }], height: 190, centerLabel: 'acciones', emptyText: 'Aún no tienes actividad 🐾' });
+  } catch { }
+}
+function setMapTiles() {
+  if (!state.map) return;
+  const t = Theme.mapTiles();
+  if (state.tileLayer) state.map.removeLayer(state.tileLayer);
+  state.tileLayer = L.tileLayer(t.url, { maxZoom: 19, attribution: t.attr, subdomains: t.url.includes('cartocdn') ? 'abcd' : 'abc' }).addTo(state.map);
+}
+function onThemeChange() {
+  setMapTiles();
+  if (current === 'home') { $('#home-dog').innerHTML = FX.dogFace(92); }
+}
+
+/* ============================================================
+   Cuenta: contraseña, exportar, eliminar
+   ============================================================ */
+function openPassword() {
+  $('#password-form').reset();
+  $('#pw-current-wrap').classList.toggle('hidden', state.me && state.me.has_password === false);
+  $('#password-modal').classList.add('open');
+  FX.decorate($('#password-modal'));
+}
+async function submitPassword(e) {
+  e.preventDefault();
+  const current_password = $('#pw-current').value, new_password = $('#pw-new').value;
+  if (new_password.length < 8) return toast('La nueva contraseña debe tener al menos 8 caracteres', 'error');
+  if (new_password !== $('#pw-new2').value) return toast('Las contraseñas no coinciden', 'error');
+  await withBtn($('#password-form button[type=submit]'), async () => {
+    await api('/users/me/password', { method: 'POST', body: { current_password: current_password || null, new_password }, noLogout: true });
+    $('#password-modal').classList.remove('open');
+    toast('Contraseña actualizada 🔒', 'ok');
+  });
+}
+async function exportMyData() {
+  FX.showLoading('Preparando tus datos...', ['Juntando publicaciones, mensajes y pedidos'], 'sniff');
+  try {
+    const res = await fetch('/users/me/export', { headers: { Authorization: `Bearer ${state.token}` } });
+    if (!res.ok) throw new Error('No pudimos generar tu archivo');
+    const blob = await res.blob();
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `patitasfind-mis-datos-${new Date().toISOString().slice(0, 10)}.json`;
+    document.body.appendChild(a); a.click(); a.remove();
+    toast('Descarga lista 📦', 'ok');
+  } catch (e) { toast(e.message, 'error'); }
+  finally { FX.hideLoading(); }
+}
+function openDeleteAccount() {
+  $('#delete-form').reset();
+  $('#delete-art').innerHTML = FX.sleepDog();
+  $('#del-pass-wrap').classList.toggle('hidden', state.me && state.me.has_password === false);
+  $('#delete-modal').classList.add('open');
+  FX.decorate($('#delete-modal'));
+}
+async function submitDelete(e) {
+  e.preventDefault();
+  if ($('#del-confirm').value.trim().toUpperCase() !== 'ELIMINAR') return toast('Escribe ELIMINAR para confirmar', 'error');
+  await withBtn($('#delete-form button[type=submit]'), async () => {
+    await api('/users/me', { method: 'DELETE', body: { password: $('#del-pass').value || null, confirm: 'ELIMINAR' }, noLogout: true });
+    track('account_deleted');
+    $('#delete-modal').classList.remove('open');
+    localStorage.removeItem('patitas_cart');
+    toast('Tu cuenta fue eliminada. Gracias por ayudar a los perritos 💚', 'ok');
+    logout(true);
+  });
+}
+
+/* ============================================================
+   Analítica (PostHog con consentimiento) y monitoreo (Sentry)
+   ============================================================ */
+function loadScript(src) {
+  return new Promise((ok, fail) => { const s = document.createElement('script'); s.src = src; s.async = true; s.crossOrigin = 'anonymous'; s.onload = ok; s.onerror = fail; document.head.appendChild(s); });
+}
+async function initAnalytics() {
+  const c = state.config;
+  if (c.sentry_dsn_frontend && !window.Sentry) {
+    try {
+      await loadScript('https://browser.sentry-cdn.com/8.55.0/bundle.min.js');
+      Sentry.init({ dsn: c.sentry_dsn_frontend, environment: c.environment, tracesSampleRate: 0.1, sendDefaultPii: false,
+        beforeSend(ev) { if (ev.request && ev.request.url) ev.request.url = ev.request.url.replace(/token=[^&]+/, 'token=[filtrado]'); return ev; } });
+    } catch { }
+  }
+  if (c.posthog_key) {
+    const consent = localStorage.getItem('patitas_consent');
+    if (!consent) showCookieBanner();
+    else if (consent === 'all') startPosthog();
+  }
+}
+function showCookieBanner(force = false) {
+  if (!state.config.posthog_key && !force) return;
+  $('#cookie-banner').classList.remove('hidden');
+  FX.decorate($('#cookie-banner'));
+}
+function setConsent(v) {
+  localStorage.setItem('patitas_consent', v);
+  $('#cookie-banner').classList.add('hidden');
+  if (v === 'all') startPosthog();
+  else { try { window.posthog && posthog.opt_out_capturing(); } catch { } }
+  toast(v === 'all' ? '¡Gracias! Nos ayudas a mejorar 💜' : 'Listo, solo usaremos lo esencial', 'ok');
+  if (current === 'profile') loadProfile();
+}
+async function startPosthog() {
+  const c = state.config;
+  if (!c.posthog_key || window.posthog) { try { window.posthog && posthog.opt_in_capturing(); } catch { } return; }
+  try {
+    const assets = c.posthog_host.replace('.i.posthog.com', '-assets.i.posthog.com');
+    await loadScript(`${assets}/static/array.js`);
+    posthog.init(c.posthog_key, { api_host: c.posthog_host, person_profiles: 'identified_only', autocapture: true, capture_pageview: false, persistence: 'localStorage', mask_all_text: false, disable_session_recording: true });
+    identify();
+  } catch { }
+}
+function identify() {
+  try { if (window.posthog && posthog.__loaded && state.me) posthog.identify(String(state.me.id), { role: state.me.role, city: state.me.city }); } catch { }
+  try { if (window.Sentry && state.me) Sentry.setUser({ id: String(state.me.id) }); } catch { }
+}
+function track(event, props = {}) {
+  try { if (window.posthog && posthog.__loaded) posthog.capture(event, props); } catch { }
 }
 
 /* ============================================================
@@ -1571,6 +1824,8 @@ function bindEvents() {
       matches: openMyMatches, 'my-dogs': openMyDogs, 'my-reports': openMyReports, orders: openMyOrders, 'my-refuge': () => navigate('my-refuge'),
       foster: () => { $('#foster-art').innerHTML = FX.dogFace(100, { fur: '#86E0D4' }); $('#fh-city').value = state.me.city || ''; navigate('foster-register'); },
       ranking: () => navigate('ranking'), shop: () => navigate('shop'), map: () => navigate('map'), admin: () => { location.href = '/admin/'; },
+      appearance: () => navigate('appearance'), password: openPassword, export: exportMyData, consent: () => showCookieBanner(true),
+      terms: () => window.open('/app/legal/terminos.html', '_blank'), privacy: () => window.open('/app/legal/privacidad.html', '_blank'),
     }[t.dataset.act] || (() => {}))();
     else if (t.dataset.emptyAction) ({
       'reload-discover': loadDiscover, 'go-discover': () => navigate('discover'), publish: openPublish, shop: () => navigate('shop'),
@@ -1590,8 +1845,26 @@ function bindEvents() {
   $('#verify-submit').addEventListener('click', verifyCode);
   $('#verify-resend').addEventListener('click', sendCode);
   $('#verify-skip').addEventListener('click', enterApp);
+  $('#verify-change').addEventListener('click', () => showPhoneEdit(true));
+  $('#verify-phone-save').addEventListener('click', savePhoneAndSend);
+  $('#verify-phone-input').addEventListener('keydown', e => { if (e.key === 'Enter') savePhoneAndSend(); });
+  $('#verify-logout').addEventListener('click', () => logout());
+  $('#password-form').addEventListener('submit', submitPassword);
+  $('#delete-form').addEventListener('submit', submitDelete);
+  $('#delete-cancel').addEventListener('click', () => $('#delete-modal').classList.remove('open'));
+  $('#cookie-accept').addEventListener('click', () => setConsent('all'));
+  $('#tm-accept').addEventListener('click', e => {
+    if (!$('#tm-terms').checked) return toast('Marca la casilla para continuar', 'error');
+    withBtn(e.currentTarget, async () => {
+      state.me = await api('/users/me/terms', { method: 'POST', body: { accepted_terms: true, marketing_opt_in: $('#tm-marketing').checked }, noVerifyRedirect: true });
+      $('#terms-modal').classList.remove('open');
+      afterLogin();
+    });
+  });
+  $('#tm-logout').addEventListener('click', () => { $('#terms-modal').classList.remove('open'); logout(); });
+  $('#cookie-essential').addEventListener('click', () => setConsent('essential'));
   $$('.code-box').forEach((b, i, all) => {
-    b.addEventListener('input', () => { b.value = b.value.replace(/\D/g, '').slice(0, 1); if (b.value && all[i + 1]) all[i + 1].focus(); });
+    b.addEventListener('input', () => { b.value = b.value.replace(/\D/g, '').slice(0, 1); if (b.value && all[i + 1]) all[i + 1].focus(); if (b.value && i === all.length - 1) verifyCode(); });
     b.addEventListener('keydown', e => { if (e.key === 'Backspace' && !b.value && all[i - 1]) all[i - 1].focus(); });
     b.addEventListener('paste', e => { const t = (e.clipboardData.getData('text') || '').replace(/\D/g, ''); if (t) { e.preventDefault(); [...t].slice(0, all.length).forEach((c, j) => { all[j].value = c; }); } });
   });
@@ -1604,6 +1877,7 @@ function bindEvents() {
     await saveLocation(c, g ? (g.city || g.area || 'Mi ubicación') : 'Mi ubicación');
   }));
   $('#home-notif').addEventListener('click', () => navigate('notifications'));
+  $('#home-theme').addEventListener('click', () => navigate('appearance'));
   $('#home-photo').addEventListener('click', openPhotoSearch);
   $('#home-photo-btn').addEventListener('click', openPhotoSearch);
   $('#home-lost-btn').addEventListener('click', () => openReportForm('lost'));
@@ -1686,6 +1960,8 @@ function bindEvents() {
    ============================================================ */
 async function init() {
   FX.init(device);
+  Theme.initInteractions(device);
+  document.addEventListener('themechange', onThemeChange);
   initPhotoDrops();
   initLocPickers();
   bindEvents();
@@ -1709,7 +1985,8 @@ async function init() {
   await sleep(300);
 
   if (state.resetToken) return showAuth('reset');
-  if (logged) return enterApp();
+  initAnalytics();
+  if (logged) return afterLogin();
   if (!localStorage.getItem('patitas_onboarded')) return showOnboarding();
   showAuth('login');
 }

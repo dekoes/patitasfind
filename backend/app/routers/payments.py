@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from app.config import settings
 from app.database import get_db
-from app.dependencies import get_current_user
+from app.dependencies import get_current_user, get_verified_user
 from app.models import Donation, Order, User
 from app.schemas import DonationCheckoutOut, DonationCreate, DonationOut
 from app.services import payments
@@ -17,8 +17,8 @@ logger = logging.getLogger(__name__)
 
 
 @router.post("/payments/donations", response_model=DonationCheckoutOut, status_code=201)
-def create_donation(payload: DonationCreate, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
-    return create_donation_checkout(db, current_user, payload.refuge_id, payload.amount)
+def create_donation(payload: DonationCreate, current_user: User = Depends(get_verified_user), db: Session = Depends(get_db)):
+    return create_donation_checkout(db, current_user, payload.refuge_id, payload.amount, share_name=payload.share_name)
 
 
 @router.get("/payments/donations/me", response_model=list[DonationOut])

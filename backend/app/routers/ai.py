@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
 from fastapi.concurrency import run_in_threadpool
 
-from app.dependencies import get_current_user
+from app.dependencies import get_verified_user
 from app.models import User
 from app.services import images, vision
 
@@ -9,8 +9,8 @@ router = APIRouter(tags=["ai"])
 
 
 @router.post("/ai/analyze-photo")
-async def analyze_photo(file: UploadFile = File(...), current_user: User = Depends(get_current_user)):
-    """Analiza una foto con Claude para autollenar el formulario (raza, tamaño, color, descripción)."""
+async def analyze_photo(file: UploadFile = File(...), current_user: User = Depends(get_verified_user)):
+    """Analiza una foto con el modelo de visión (Qwen3-VL/GLM) para autollenar el formulario (raza, tamaño, color, descripción)."""
     if not vision.is_configured():
         raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail="IA no configurada")
     data = await file.read(images.max_bytes() + 1)

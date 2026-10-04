@@ -20,10 +20,11 @@ if [ -n "$DATABASE_URL" ]; then
   echo "PostgreSQL listo."
 fi
 
-# Ejecutar migraciones de Alembic automáticamente en producción
+# Migraciones de Alembic (producción). Si la base ya existía sin Alembic, se marca la
+# baseline (stamp) en lugar de recrear tablas. Ver app/migrate.py.
 if [ "$RUN_MIGRATIONS" = "true" ]; then
   echo "Ejecutando migraciones..."
-  alembic upgrade head
+  python -m app.migrate
 fi
 
 # Ejecutar comando recibido (por defecto uvicorn)

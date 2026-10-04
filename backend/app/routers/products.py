@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
 from sqlalchemy.orm import Session
 
 from app.database import get_db
-from app.dependencies import get_current_user
+from app.dependencies import get_current_user, get_verified_user
 from app.models import Product, Refuge, User
 from app.schemas import ProductCreate, ProductOut, ProductUpdate
 
@@ -29,7 +29,7 @@ def _owned_product(db: Session, product_id: int, user: User) -> Product:
 
 
 @router.post("/products", response_model=ProductOut, status_code=status.HTTP_201_CREATED)
-def create_product(payload: ProductCreate, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+def create_product(payload: ProductCreate, current_user: User = Depends(get_verified_user), db: Session = Depends(get_db)):
     refuge = _get_approved_refuge_for_user(current_user, db)
     if payload.price <= 0:
         raise HTTPException(status_code=400, detail="El precio debe ser mayor a 0.")
@@ -60,7 +60,7 @@ def get_product(id: int, db: Session = Depends(get_db)):
 
 
 @router.patch("/products/{id}", response_model=ProductOut)
-def update_product(id: int, payload: ProductUpdate, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+def update_product(id: int, payload: ProductUpdate, current_user: User = Depends(get_verified_user), db: Session = Depends(get_db)):
     product = _owned_product(db, id, current_user)
     data = payload.model_dump(exclude_unset=True)
     if "price" in data and (data["price"] is None or data["price"] <= 0):
@@ -77,7 +77,7 @@ def update_product(id: int, payload: ProductUpdate, current_user: User = Depends
 
 
 @router.delete("/products/{id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_product(id: int, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+def delete_product(id: int, current_user: User = Depends(get_verified_user), db: Session = Depends(get_db)):
     product = _owned_product(db, id, current_user)
     product.is_active = False
     db.commit()

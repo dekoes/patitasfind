@@ -12,13 +12,16 @@ from sqlalchemy import text
 from app.config import settings
 from app.database import Base, engine
 from app import models  # noqa: F401 - registra los modelos en Base.metadata
+from app.dependencies import PHONE_VERIFICATION_CODE, PHONE_VERIFICATION_MESSAGE, PhoneVerificationRequired
+from app.observability import RequestContextMiddleware, init_sentry, setup_logging
 from app.routers import (
     admin, ai, auth, dogs, facebook, foster_homes, lost_reports, matches, messages, notifications, orders,
     payments, products, refuges, reminders, search, uploads, users, whatsapp,
 )
 from app.services.realtime import hub
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s [%(name)s] %(message)s")
+setup_logging()
+init_sentry("backend")
 logger = logging.getLogger("patitasfind")
 
 # Migraciones ligeras e idempotentes (ADD COLUMN IF NOT EXISTS). Solo PostgreSQL.
@@ -35,6 +38,30 @@ STARTUP_MIGRATIONS = [
     "ALTER TABLE users ADD COLUMN IF NOT EXISTS phone_otp_hash VARCHAR(128)",
     "ALTER TABLE users ADD COLUMN IF NOT EXISTS phone_otp_expires_at TIMESTAMP",
     "ALTER TABLE users ADD COLUMN IF NOT EXISTS avatar_url VARCHAR(500)",
+    # --- verificación de teléfono, cuenta y consentimiento legal ---
+    "ALTER TABLE users ADD COLUMN IF NOT EXISTS phone_otp_attempts INTEGER NOT NULL DEFAULT 0",
+    "ALTER TABLE users ADD COLUMN IF NOT EXISTS phone_otp_sent_at TIMESTAMP",
+    "ALTER TABLE users ADD COLUMN IF NOT EXISTS phone_verified_at TIMESTAMP",
+    "ALTER TABLE users ADD COLUMN IF NOT EXISTS google_sub VARCHAR(64)",
+    "ALTER TABLE users ADD COLUMN IF NOT EXISTS terms_accepted_at TIMESTAMP",
+    "ALTER TABLE users ADD COLUMN IF NOT EXISTS terms_version VARCHAR(20)",
+    "ALTER TABLE users ADD COLUMN IF NOT EXISTS privacy_version VARCHAR(20)",
+    "ALTER TABLE users ADD COLUMN IF NOT EXISTS marketing_opt_in BOOLEAN NOT NULL DEFAULT FALSE",
+    "ALTER TABLE users ADD COLUMN IF NOT EXISTS deleted_at TIMESTAMP",
+    "CREATE INDEX IF NOT EXISTS ix_users_google_sub ON users(google_sub)",
+    # Teléfonos a E.164 (+52 y 10 dígitos) para poder compararlos
+    r"UPDATE users SET phone = '+52' || phone WHERE phone ~ '^[2-9][0-9]{9}$'",
+    r"UPDATE users SET phone = '+52' || substr(phone, 3) WHERE phone ~ '^52[2-9][0-9]{9}$'",
+    r"UPDATE users SET phone = '+52' || substr(phone, 4) WHERE phone ~ '^521[2-9][0-9]{9}$'",
+    r"UPDATE users SET phone = '+52' || substr(phone, 5) WHERE phone ~ '^\+521[2-9][0-9]{9}$'",
+    # Usuario demo pre-verificado (si nadie más tiene ese teléfono verificado)
+    """UPDATE users u SET phone_verified = TRUE WHERE u.email = 'demo@patitasfind.example.com' AND NOT u.phone_verified
+       AND u.phone IS NOT NULL AND NOT EXISTS (SELECT 1 FROM users o WHERE o.id <> u.id AND o.phone = u.phone
+       AND o.phone_verified AND o.is_active)""",
+    # Un teléfono verificado por cuenta activa: si había duplicados se conserva el más antiguo
+    """UPDATE users u SET phone_verified = FALSE WHERE u.phone_verified AND u.is_active AND u.phone IS NOT NULL
+       AND EXISTS (SELECT 1 FROM users o WHERE o.phone = u.phone AND o.phone_verified AND o.is_active AND o.id < u.id)""",
+    "CREATE UNIQUE INDEX IF NOT EXISTS uq_users_verified_phone ON users(phone) WHERE phone_verified AND is_active AND phone IS NOT NULL",
     # --- perros ---
     "ALTER TABLE dogs ADD COLUMN IF NOT EXISTS ai_analysis JSON",
     "ALTER TABLE dogs ADD COLUMN IF NOT EXISTS photo_signature JSON",
@@ -61,6 +88,8 @@ STARTUP_MIGRATIONS = [
     "ALTER TABLE notifications ADD COLUMN IF NOT EXISTS data JSON",
     "ALTER TABLE reminders ADD COLUMN IF NOT EXISTS notified_at TIMESTAMP",
     # --- tienda ---
+    "ALTER TABLE donations ADD COLUMN IF NOT EXISTS share_name BOOLEAN NOT NULL DEFAULT FALSE",
+    "ALTER TABLE bot_interactions ADD COLUMN IF NOT EXISTS opted_out_at TIMESTAMP",
     "ALTER TABLE orders ADD COLUMN IF NOT EXISTS provider VARCHAR(30)",
     "ALTER TABLE orders ADD COLUMN IF NOT EXISTS provider_preference_id VARCHAR(255)",
     "ALTER TABLE orders ADD COLUMN IF NOT EXISTS provider_payment_id VARCHAR(255)",
@@ -86,6 +115,11 @@ STARTUP_MIGRATIONS = [
     "CREATE INDEX IF NOT EXISTS idx_users_email ON users(email)",
     "CREATE INDEX IF NOT EXISTS idx_messages_conv ON messages(conversation_id, id)",
     "CREATE INDEX IF NOT EXISTS idx_conversations_users ON conversations(user_a_id, user_b_id)",
+    # índices declarados en los modelos que create_all no agrega a tablas existentes
+    "CREATE INDEX IF NOT EXISTS ix_bot_interactions_phone ON bot_interactions(phone)",
+    "CREATE INDEX IF NOT EXISTS ix_conversations_user_a_id ON conversations(user_a_id)",
+    "CREATE INDEX IF NOT EXISTS ix_conversations_user_b_id ON conversations(user_b_id)",
+    "CREATE INDEX IF NOT EXISTS ix_messages_conversation_id ON messages(conversation_id)",
 ]
 
 
@@ -110,16 +144,23 @@ async def lifespan(app: FastAPI):
     await hub.shutdown()
 
 
-app = FastAPI(title="PatitasFind API", version="2.0.0", lifespan=lifespan)
+app = FastAPI(title="PatitasFind API", version="2.1.0", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.cors_origin_list,
-    allow_origin_regex=settings.cors_origin_regex or None,
+    allow_origin_regex=settings.effective_cors_origin_regex,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["X-Request-ID", "Content-Disposition"],
 )
+app.add_middleware(RequestContextMiddleware)
+
+
+@app.exception_handler(PhoneVerificationRequired)
+async def phone_verification_handler(request: Request, exc: PhoneVerificationRequired):
+    return JSONResponse(status_code=403, content={"detail": PHONE_VERIFICATION_MESSAGE, "code": PHONE_VERIFICATION_CODE})
 
 
 @app.exception_handler(RequestValidationError)

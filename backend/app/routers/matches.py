@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from app.database import get_db
-from app.dependencies import get_current_user
+from app.dependencies import get_current_user, get_verified_user
 from app.models import AdoptionApplication, Dog, Match, PointLog, Refuge, Reminder, User
 from app.schemas import AdoptionApplicationCreate, AdoptionApplicationOut, ConversationOut, MatchOut
 from app.services.chat import get_or_create_match_conversation
@@ -32,7 +32,7 @@ def _require_owner(match: Match, user: User):
 
 
 @router.post("/dogs/{dog_id}/like", response_model=MatchOut)
-def like_dog(dog_id: int, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+def like_dog(dog_id: int, current_user: User = Depends(get_verified_user), db: Session = Depends(get_db)):
     dog = db.query(Dog).filter(Dog.id == dog_id).first()
     if not dog:
         raise HTTPException(status_code=404, detail="No encontramos ese perrito.")
@@ -72,12 +72,18 @@ def get_match(match_id: int, current_user: User = Depends(get_current_user), db:
 
 
 @router.post("/matches/{match_id}/apply", response_model=AdoptionApplicationOut)
-def submit_application(match_id: int, payload: AdoptionApplicationCreate, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+def submit_application(match_id: int, payload: AdoptionApplicationCreate, current_user: User = Depends(get_verified_user), db: Session = Depends(get_db)):
     match = _get_match(db, match_id)
     if match.user_id != current_user.id:
         raise HTTPException(status_code=403, detail="Solo quien solicitó la adopción puede enviar el cuestionario.")
     if match.status in ("completed", "rejected"):
         raise HTTPException(status_code=400, detail="Esta solicitud ya está cerrada.")
+    answers = dict(payload.answers or {})
+    # El presupuesto solo se guarda con consentimiento explícito (casilla aparte en el formulario)
+    if answers.get("budget_consent") not in (True, "true", "si", "sí", 1, "1"):
+        for key in ("budget", "presupuesto"):
+            answers.pop(key, None)
+    payload.answers = answers
     application = match.application
     if application:
         application.answers = payload.answers
@@ -108,7 +114,7 @@ def get_application(match_id: int, current_user: User = Depends(get_current_user
 
 
 @router.post("/matches/{match_id}/approve", response_model=ConversationOut)
-def approve_match(match_id: int, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+def approve_match(match_id: int, current_user: User = Depends(get_verified_user), db: Session = Depends(get_db)):
     match = _get_match(db, match_id)
     _require_owner(match, current_user)
     if match.status in ("rejected", "completed"):
@@ -136,7 +142,7 @@ def approve_match(match_id: int, current_user: User = Depends(get_current_user),
 
 
 @router.post("/matches/{match_id}/complete", response_model=MatchOut)
-def complete_match(match_id: int, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+def complete_match(match_id: int, current_user: User = Depends(get_verified_user), db: Session = Depends(get_db)):
     match = _get_match(db, match_id)
     _require_owner(match, current_user)
     if match.status == "completed":
@@ -162,7 +168,7 @@ def complete_match(match_id: int, current_user: User = Depends(get_current_user)
 
 
 @router.post("/matches/{match_id}/reject", response_model=MatchOut)
-def reject_match(match_id: int, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+def reject_match(match_id: int, current_user: User = Depends(get_verified_user), db: Session = Depends(get_db)):
     match = _get_match(db, match_id)
     _require_owner(match, current_user)
     match.status = "rejected"

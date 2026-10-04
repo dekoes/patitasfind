@@ -127,7 +127,7 @@ def donation_points(amount) -> int:
     return max(1, int(Decimal(str(amount)) // 10))
 
 
-def create_donation_checkout(db: Session, user: User, refuge_id: int, amount) -> dict:
+def create_donation_checkout(db: Session, user: User, refuge_id: int, amount, share_name: bool = False) -> dict:
     _require_payments_or_dev()
     amount = Decimal(str(amount))
     if amount < 10:
@@ -138,7 +138,7 @@ def create_donation_checkout(db: Session, user: User, refuge_id: int, amount) ->
     if refuge.status != "approved":
         raise HTTPException(status_code=400, detail="Este refugio todavía no está verificado.")
 
-    donation = Donation(user_id=user.id, refuge_id=refuge.id, amount=amount, status="pending")
+    donation = Donation(user_id=user.id, refuge_id=refuge.id, amount=amount, status="pending", share_name=bool(share_name))
     db.add(donation)
     db.flush()
     checkout_url, simulated = None, False
@@ -175,13 +175,13 @@ def approve_donation(db: Session, donation: Donation, payment_id: str | None, pr
     refuge = donation.refuge
     points = donation_points(donation.amount)
     refuge.points += points
-    donor = donation.user
+    donor_name = donation.donor_display_name  # "Donante anónimo" salvo que la persona aceptara compartirlo
     db.add(PointLog(refuge_id=refuge.id, action="donation", points=points,
-                    description=f"Donación de ${donation.amount} MXN de {donor.full_name if donor else 'un donante'}"))
+                    description=f"Donación de ${donation.amount} MXN de {donor_name}"))
     db.commit()
     create_notification(
         db, user_id=refuge.user_id, type="donation_received", title="¡Recibiste una donación!",
-        body=f"{donor.full_name if donor else 'Alguien'} donó ${donation.amount} MXN a {refuge.name}. +{points} puntos.",
+        body=f"{donor_name} donó ${donation.amount} MXN a {refuge.name}. +{points} puntos.",
         data={"donation_id": donation.id},
     )
     return True

@@ -1,0 +1,17 @@
+# Nunca copiar a la imagen: datos locales, secretos ni artefactos
+.env
+.env.*
+uploads/
+backups/
+__pycache__/
+**/__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+celerybeat-schedule*
+*.log
+.DS_Store
+.git

@@ -1,0 +1,84 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend-tests:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: patitasfind
+          POSTGRES_PASSWORD: patitasfind
+          POSTGRES_DB: patitasfind
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U patitasfind" --health-interval 5s --health-timeout 5s --health-retries 10
+      redis:
+        image: redis:7-alpine
+        ports: ["6379:6379"]
+        options: >-
+          --health-cmd "redis-cli ping" --health-interval 5s --health-timeout 3s --health-retries 10
+    env:
+      ENVIRONMENT: development
+      DATABASE_URL: postgresql+psycopg2://patitasfind:patitasfind@localhost:5432/patitasfind
+      REDIS_URL: redis://localhost:6379/0
+      USE_CELERY: "false"        # sin worker: las tareas corren en proceso (BackgroundTasks)
+      SMS_PROVIDER: dev
+      UPLOAD_DIR: /tmp/uploads
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+      - name: Migraciones de Alembic sobre base vacía
+        run: python -m app.migrate
+      - name: Pruebas
+        run: pytest -q
+      - name: Migración idempotente (segunda corrida = no-op)
+        run: python -m app.migrate
+
+  frontend-syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: node --check app/*.js
+        run: for f in app/*.js; do echo "$f"; node --check "$f"; done
+
+  docker-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Construir imagen del backend
+        run: docker build -t patitasfind-backend:ci backend
+      - name: Validar docker-compose de producción
+        run: |
+          DOMAIN=ci.example.com SECRET_KEY=ci-secret-ci-secret-ci-secret POSTGRES_PASSWORD=ci-password \
+            docker compose -f docker-compose.production.yml config -q
+          docker compose -f docker-compose.yml config -q
+      - name: nginx -t (plantilla HTTPS con certificado autofirmado)
+        run: |
+          docker run --rm --add-host backend:127.0.0.1 -e DOMAIN=ci.example.com -e NGINX_ENVSUBST_FILTER=DOMAIN \
+            -v "$PWD/nginx/nginx.conf:/etc/nginx/nginx.conf:ro" -v "$PWD/nginx/templates/https:/etc/nginx/templates:ro" \
+            -v "$PWD/nginx/snippets:/etc/nginx/snippets:ro" nginx:alpine sh -c '
+              apk add -q openssl >/dev/null && mkdir -p /etc/letsencrypt/live/ci.example.com &&
+              openssl req -x509 -newkey rsa:2048 -nodes -days 1 -subj "/CN=ci.example.com" \
+                -keyout /etc/letsencrypt/live/ci.example.com/privkey.pem -out /etc/letsencrypt/live/ci.example.com/fullchain.pem 2>/dev/null &&
+              /docker-entrypoint.sh nginx -t'

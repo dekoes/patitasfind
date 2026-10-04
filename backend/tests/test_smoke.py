@@ -9,29 +9,33 @@ def test_health_and_config(client):
     r = client.get("/health")
     assert r.status_code == 200 and r.json()["checks"]["database"] == "ok"
     cfg = client.get("/auth/config").json()
-    for key in ("google_enabled", "demo_enabled", "otp_enabled", "payments_enabled", "ai_enabled", "environment"):
+    for key in ("google_enabled", "demo_enabled", "otp_enabled", "payments_enabled", "ai_enabled", "environment",
+                "require_phone_verification", "sms_provider", "sentry_dsn_frontend", "posthog_key", "posthog_host",
+                "legal_versions"):
         assert key in cfg
+    assert set(cfg["legal_versions"]) == {"terms", "privacy"}
+    assert cfg["ai_enabled"] == bool(settings.ai_api_key)
+    assert r.headers.get("x-request-id")
+    assert client.get("/health", headers={"X-Request-ID": "abc-123"}).headers["x-request-id"] == "abc-123"
 
 
 def test_register_validation_and_login(client):
-    assert client.post("/auth/register", json={"email": "x@pruebas.mx", "password": "123", "full_name": "X"}).status_code == 400
-    assert client.post("/auth/register", json={"email": "nope", "password": "Segura123", "full_name": "X"}).status_code == 400
+    base = {"email": "x@pruebas.mx", "password": "Segura123", "full_name": "X", "phone": "5512345678", "accepted_terms": True}
+    assert client.post("/auth/register", json={**base, "password": "123"}).status_code == 400
+    assert client.post("/auth/register", json={**base, "email": "nope"}).status_code == 400
 
 
-def test_me_patch_and_otp(client, user):
+def test_me_patch_resets_verification(client, user):
     h = user["h"]
     me = client.get("/users/me", headers=h).json()
-    assert {"latitude", "longitude", "phone_verified", "avatar_url"} <= set(me)
-    r = client.patch("/users/me", headers=h, json={"phone": "5512345678", "latitude": 19.4, "longitude": -99.1})
-    assert r.status_code == 200 and r.json()["latitude"] == 19.4
-    sent = client.post("/users/me/phone/send-code", headers=h).json()
-    assert sent["sent"] is True
-    if settings.is_development and not settings.otp_enabled:
-        assert client.post("/users/me/phone/verify", headers=h, json={"code": "xxxx"}).status_code == 400
-        assert client.post("/users/me/phone/verify", headers=h, json={"code": sent["dev_code"]}).json() == {"verified": True}
-        assert client.get("/users/me", headers=h).json()["phone_verified"] is True
-        client.patch("/users/me", headers=h, json={"phone": "5500000000"})
-        assert client.get("/users/me", headers=h).json()["phone_verified"] is False
+    assert {"latitude", "longitude", "phone_verified", "avatar_url", "has_password", "terms_version"} <= set(me)
+    assert me["phone_verified"] is True and me["phone_verification_required"] is False and me["has_password"] is True
+    r = client.patch("/users/me", headers=h, json={"latitude": 19.4, "longitude": -99.1})
+    assert r.status_code == 200 and r.json()["latitude"] == 19.4 and r.json()["phone_verified"] is True
+    r = client.patch("/users/me", headers=h, json={"phone": "+52 55 " + user["phone"][-8:-4] + " " + user["phone"][-4:]})
+    assert r.json()["phone_verified"] is True  # mismo número con otro formato: no cambia
+    r = client.patch("/users/me", headers=h, json={"phone": "abc"})
+    assert r.status_code == 400
 
 
 def test_adoption_flow_and_chat(client, user, owner, jpeg):

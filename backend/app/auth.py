@@ -69,5 +69,6 @@ def password_fingerprint_matches(payload: dict, hashed_password: str | None) -> 
     return hmac.compare_digest(payload.get("fp", ""), _password_fingerprint(hashed_password))
 
 
-def hash_otp(user_id: int, code: str) -> str:
-    return hmac.new(settings.secret_key.encode(), f"{user_id}:{code}".encode(), hashlib.sha256).hexdigest()
+def hash_otp(user_id: int, phone: str, code: str) -> str:
+    """HMAC del código ligado al usuario y al teléfono: si cambia el número, el código deja de servir."""
+    return hmac.new(settings.secret_key.encode(), f"otp:{user_id}:{phone}:{code}".encode(), hashlib.sha256).hexdigest()

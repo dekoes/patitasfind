@@ -1,9 +1,10 @@
 import datetime
 from sqlalchemy import (
-    Column, Integer, String, Boolean, DateTime, Text, Float, Numeric, ForeignKey, JSON, UniqueConstraint,
+    Column, Integer, String, Boolean, DateTime, Text, Float, Numeric, ForeignKey, JSON, UniqueConstraint, Index, text,
 )
 from sqlalchemy.orm import relationship
 
+from app.config import DEMO_EMAIL, settings
 from app.database import Base
 
 
@@ -13,6 +14,11 @@ def _now():
 
 class User(Base):
     __tablename__ = "users"
+    __table_args__ = (
+        # Un teléfono verificado solo puede pertenecer a una cuenta activa
+        Index("uq_users_verified_phone", "phone", unique=True,
+              postgresql_where=text("phone_verified AND is_active AND phone IS NOT NULL")),
+    )
 
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String(255), unique=True, index=True, nullable=False)
@@ -22,6 +28,10 @@ class User(Base):
     phone_verified = Column(Boolean, default=False, nullable=False)
     phone_otp_hash = Column(String(128), nullable=True)
     phone_otp_expires_at = Column(DateTime, nullable=True)
+    phone_otp_attempts = Column(Integer, default=0, nullable=False)
+    phone_otp_sent_at = Column(DateTime, nullable=True)
+    phone_verified_at = Column(DateTime, nullable=True)
+    google_sub = Column(String(64), nullable=True, index=True)
     avatar_url = Column(String(500), nullable=True)
     role = Column(String(50), default="user", nullable=False)
     city = Column(String(100), nullable=True)
@@ -29,6 +39,11 @@ class User(Base):
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
     is_active = Column(Boolean, default=True, nullable=False)
+    terms_accepted_at = Column(DateTime, nullable=True)
+    terms_version = Column(String(20), nullable=True)
+    privacy_version = Column(String(20), nullable=True)
+    marketing_opt_in = Column(Boolean, default=False, nullable=False)
+    deleted_at = Column(DateTime, nullable=True)
     created_at = Column(DateTime, default=_now, nullable=False)
 
     dogs = relationship("Dog", back_populates="owner")
@@ -40,6 +55,20 @@ class User(Base):
     orders = relationship("Order", back_populates="user")
     foster_homes = relationship("FosterHome", back_populates="user")
     reminders = relationship("Reminder", back_populates="user")
+
+    @property
+    def has_password(self) -> bool:
+        return bool(self.hashed_password)
+
+    @property
+    def is_phone_exempt(self) -> bool:
+        """Admins y el usuario demo no necesitan verificar teléfono."""
+        return self.role in ("admin", "superadmin") or (self.email or "").lower() == DEMO_EMAIL
+
+    @property
+    def phone_verification_required(self) -> bool:
+        """True si este usuario aún debe verificar su teléfono para acciones de escritura."""
+        return bool(settings.require_phone_verification and not self.phone_verified and not self.is_phone_exempt)
 
 
 class Dog(Base):
@@ -269,6 +298,7 @@ class BotInteraction(Base):
     stage = Column(String(100), default="welcome", nullable=False)
     data = Column(JSON, default=dict, nullable=False)
     last_message = Column(Text, nullable=True)
+    opted_out_at = Column(DateTime, nullable=True)  # escribió BAJA/STOP: no se le envían mensajes proactivos
     created_at = Column(DateTime, default=_now, nullable=False)
     updated_at = Column(DateTime, default=_now, onupdate=_now, nullable=False)
 
@@ -331,10 +361,18 @@ class Donation(Base):
     provider = Column(String(30), nullable=True)
     provider_preference_id = Column(String(255), nullable=True)
     provider_payment_id = Column(String(255), nullable=True)
+    share_name = Column(Boolean, default=False, nullable=False)  # el refugio solo ve el nombre si es True
     created_at = Column(DateTime, default=_now, nullable=False)
 
     user = relationship("User")
     refuge = relationship("Refuge")
+
+    @property
+    def donor_display_name(self) -> str:
+        """Nombre que puede ver el refugio."""
+        if self.share_name and self.user and self.user.is_active:
+            return self.user.full_name
+        return "Donante anónimo"
 
 
 class FosterHome(Base):
@@ -367,3 +405,17 @@ class Reminder(Base):
 
     user = relationship("User", back_populates="reminders")
     match = relationship("Match")
+
+
+class PhoneVerificationLog(Base):
+    """Bitácora de envíos de código (auditoría, costos y límite de envíos cuando no hay Redis)."""
+
+    __tablename__ = "phone_verification_logs"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=True, index=True)
+    phone = Column(String(20), nullable=False, index=True)
+    ip = Column(String(64), nullable=True, index=True)
+    provider = Column(String(20), nullable=False)
+    success = Column(Boolean, default=False, nullable=False)
+    created_at = Column(DateTime, default=_now, nullable=False, index=True)

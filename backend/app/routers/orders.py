@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from app.database import get_db
-from app.dependencies import get_current_user
+from app.dependencies import get_current_user, get_verified_user
 from app.models import Order, User
 from app.schemas import OrderCheckoutOut, OrderCreate, OrderOut
 from app.services.payment_flow import create_order_checkout
@@ -11,7 +11,7 @@ router = APIRouter(tags=["orders"])
 
 
 @router.post("/orders", response_model=OrderCheckoutOut, status_code=status.HTTP_201_CREATED)
-def create_order(payload: OrderCreate, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+def create_order(payload: OrderCreate, current_user: User = Depends(get_verified_user), db: Session = Depends(get_db)):
     if not payload.shipping_address or not payload.shipping_address.strip():
         raise HTTPException(status_code=400, detail="Escribe la dirección de envío.")
     order, checkout_url, simulated = create_order_checkout(db, current_user, payload.items, payload.shipping_address.strip())

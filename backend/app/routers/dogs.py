@@ -3,7 +3,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session, joinedload
 
 from app.database import get_db
-from app.dependencies import get_current_user
+from app.dependencies import get_current_user, get_verified_user
 from app.models import Dog, DogPass, FosterHome, Match, User
 from app.schemas import DogCreate, DogOut, DogUpdate, DogUpdateStatus
 from app.services.background import dispatch
@@ -29,7 +29,7 @@ def _owned_dog(db: Session, dog_id: int, user: User) -> Dog:
 
 
 @router.post("/dogs", response_model=DogOut, status_code=status.HTTP_201_CREATED)
-def create_dog(payload: DogCreate, background_tasks: BackgroundTasks, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+def create_dog(payload: DogCreate, background_tasks: BackgroundTasks, current_user: User = Depends(get_verified_user), db: Session = Depends(get_db)):
     if not payload.name.strip():
         raise HTTPException(status_code=400, detail="Escribe el nombre del perrito.")
     data = payload.model_dump()
@@ -73,7 +73,7 @@ def discover_dogs(
 
 
 @router.post("/dogs/{dog_id}/pass", status_code=status.HTTP_204_NO_CONTENT)
-def pass_dog(dog_id: int, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+def pass_dog(dog_id: int, current_user: User = Depends(get_verified_user), db: Session = Depends(get_db)):
     _get_dog(db, dog_id)
     exists = db.query(DogPass).filter(DogPass.user_id == current_user.id, DogPass.dog_id == dog_id).first()
     if not exists:
@@ -149,7 +149,7 @@ def get_dog(
 
 
 @router.patch("/dogs/{id}", response_model=DogOut)
-def update_dog(id: int, payload: DogUpdate, background_tasks: BackgroundTasks, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+def update_dog(id: int, payload: DogUpdate, background_tasks: BackgroundTasks, current_user: User = Depends(get_verified_user), db: Session = Depends(get_db)):
     dog = _owned_dog(db, id, current_user)
     data = payload.model_dump(exclude_unset=True)
     if "name" in data and not (data["name"] or "").strip():
@@ -167,7 +167,7 @@ def update_dog(id: int, payload: DogUpdate, background_tasks: BackgroundTasks, c
 
 
 @router.patch("/dogs/{id}/status", response_model=DogOut)
-def update_dog_status(id: int, payload: DogUpdateStatus, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+def update_dog_status(id: int, payload: DogUpdateStatus, current_user: User = Depends(get_verified_user), db: Session = Depends(get_db)):
     if payload.status not in VALID_STATUSES:
         raise HTTPException(status_code=400, detail=f"Estado inválido. Usa: {', '.join(sorted(VALID_STATUSES))}.")
     dog = _owned_dog(db, id, current_user)
@@ -186,7 +186,7 @@ def delete_dog(id: int, current_user: User = Depends(get_current_user), db: Sess
 
 
 @router.post("/dogs/{id}/assign-foster/{foster_home_id}", response_model=DogOut)
-def assign_foster_home(id: int, foster_home_id: int, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+def assign_foster_home(id: int, foster_home_id: int, current_user: User = Depends(get_verified_user), db: Session = Depends(get_db)):
     dog = _owned_dog(db, id, current_user)
     foster_home = db.query(FosterHome).filter(FosterHome.id == foster_home_id).first()
     if not foster_home:

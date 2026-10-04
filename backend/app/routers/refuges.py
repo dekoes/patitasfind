@@ -6,7 +6,7 @@ from sqlalchemy import func
 from sqlalchemy.orm import Session, joinedload
 
 from app.database import get_db
-from app.dependencies import get_current_user
+from app.dependencies import get_current_user, get_verified_user
 from app.models import AdoptionApplication, Dog, Donation, Match, PointLog, Product, Refuge, User
 from app.schemas import (
     DogOut, DonationCheckoutOut, PointLogOut, ProductOut, RefugeAction, RefugeCreate, RefugeOut, RefugeStats,
@@ -18,6 +18,7 @@ router = APIRouter(tags=["refuges"])
 
 class DonationPayload(BaseModel):
     amount: Decimal
+    share_name: bool = False
 
 
 def _my_refuge(db: Session, user: User) -> Refuge:
@@ -28,7 +29,7 @@ def _my_refuge(db: Session, user: User) -> Refuge:
 
 
 @router.post("/refuges/register", response_model=RefugeOut, status_code=status.HTTP_201_CREATED)
-def register_refuge(payload: RefugeCreate, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+def register_refuge(payload: RefugeCreate, current_user: User = Depends(get_verified_user), db: Session = Depends(get_db)):
     if db.query(Refuge).filter(Refuge.user_id == current_user.id).first():
         raise HTTPException(status_code=400, detail="Ya tienes un refugio registrado.")
     refuge = Refuge(
@@ -113,7 +114,7 @@ def _log_points(db: Session, refuge: Refuge, action: str, points: int, descripti
 
 
 @router.post("/refuges/{id}/rescue", response_model=RefugeOut)
-def rescue_dog(id: int, payload: RefugeAction | None = None, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+def rescue_dog(id: int, payload: RefugeAction | None = None, current_user: User = Depends(get_verified_user), db: Session = Depends(get_db)):
     refuge = _require_approved_refuge(id, current_user, db)
     refuge.rescued_count += 1
     refuge.points += 5
@@ -124,7 +125,7 @@ def rescue_dog(id: int, payload: RefugeAction | None = None, current_user: User 
 
 
 @router.post("/refuges/{id}/adopt", response_model=RefugeOut)
-def adopt_dog(id: int, payload: RefugeAction | None = None, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+def adopt_dog(id: int, payload: RefugeAction | None = None, current_user: User = Depends(get_verified_user), db: Session = Depends(get_db)):
     refuge = _require_approved_refuge(id, current_user, db)
     refuge.adopted_count += 1
     refuge.points += 5
@@ -135,7 +136,7 @@ def adopt_dog(id: int, payload: RefugeAction | None = None, current_user: User =
 
 
 @router.post("/refuges/{id}/foster", response_model=RefugeOut)
-def foster_dog(id: int, payload: RefugeAction | None = None, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+def foster_dog(id: int, payload: RefugeAction | None = None, current_user: User = Depends(get_verified_user), db: Session = Depends(get_db)):
     refuge = _require_approved_refuge(id, current_user, db)
     refuge.foster_count += 1
     refuge.points += 3
@@ -175,6 +176,6 @@ def get_refuge(id: int, db: Session = Depends(get_db)):
 
 
 @router.post("/refuges/{id}/donate", response_model=DonationCheckoutOut)
-def donate_to_refuge(id: int, payload: DonationPayload, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+def donate_to_refuge(id: int, payload: DonationPayload, current_user: User = Depends(get_verified_user), db: Session = Depends(get_db)):
     """Compatibilidad: usa el mismo flujo de Mercado Pago que POST /payments/donations."""
-    return create_donation_checkout(db, current_user, id, payload.amount)
+    return create_donation_checkout(db, current_user, id, payload.amount, share_name=payload.share_name)

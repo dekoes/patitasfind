@@ -178,10 +178,32 @@ def run_report_matching(db: Session, report_id: int) -> list[dict]:
 _wa_sent: set[str] = set()
 
 
+def is_whatsapp_opted_out(phone: str | None) -> bool:
+    """True si ese número escribió BAJA/STOP al bot (se compara por los últimos 10 dígitos)."""
+    import re
+
+    from app.database import SessionLocal
+    from app.models import BotInteraction
+
+    digits = re.sub(r"\D", "", phone or "")
+    if len(digits) < 10:
+        return False
+    db = SessionLocal()
+    try:
+        return db.query(BotInteraction.id).filter(
+            BotInteraction.phone.like(f"%{digits[-10:]}"), BotInteraction.opted_out_at.isnot(None)
+        ).first() is not None
+    finally:
+        db.close()
+
+
 def _notify_whatsapp(target: LostReport, new_report: LostReport, score: int, key: str):
     from app import cache
     from app.services import whatsapp_api
 
+    if is_whatsapp_opted_out(target.contact_phone):
+        logger.info("No se envía alerta por WhatsApp al reporte %s: el número se dio de baja.", target.id)
+        return
     dedupe = f"wa-match:{key}"
     if dedupe in _wa_sent or cache.get(dedupe):
         return

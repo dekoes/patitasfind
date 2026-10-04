@@ -12,6 +12,7 @@ sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 from app.database import Base
 from app.config import settings
+from app import models  # noqa: F401 - registra las tablas en Base.metadata
 
 config = context.config
 
@@ -20,7 +21,7 @@ if config.config_file_name is not None:
 
 target_metadata = Base.metadata
 
-config.set_main_option("sqlalchemy.url", settings.database_url)
+config.set_main_option("sqlalchemy.url", settings.database_url.replace("%", "%%"))
 
 
 def run_migrations_offline() -> None:
@@ -37,6 +38,14 @@ def run_migrations_offline() -> None:
 
 
 def run_migrations_online() -> None:
+    # app.migrate pasa su propia conexión (con advisory lock tomado)
+    existing = config.attributes.get("connection")
+    if existing is not None:
+        context.configure(connection=existing, target_metadata=target_metadata)
+        with context.begin_transaction():
+            context.run_migrations()
+        return
+
     connectable = engine_from_config(
         config.get_section(config.config_ini_section, {}),
         prefix="sqlalchemy.",

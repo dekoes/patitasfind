@@ -1,42 +1,61 @@
-# Infraestructura de PatitasFind lista para producción
-# Escalable hasta 5.000 usuarios concurrentes con:
-# - PostgreSQL (datos persistentes + backups diarios)
-# - Redis (cache, broker de Celery, sesiones)
-# - Backend FastAPI (múltiples workers Uvicorn)
-# - Celery Worker (WhatsApp, Facebook, coincidencias por foto, pagos)
-# - Celery Beat (recordatorios diarios, Páginas de Facebook, firmas de fotos)
-# - Nginx (reverse proxy, SSL, compresión, cache estático)
+# Infraestructura de PatitasFind para producción.
+# - PostgreSQL 16 + respaldos diarios (pg_dump + uploads, 14 días, copia externa opcional S3/R2)
+# - Redis (caché, broker de Celery, pub/sub del chat, límites)
+# - Backend FastAPI (4 workers), Celery worker y beat
+# - Nginx con HTTPS (Let's Encrypt), HSTS, CSP y renovación automática con certbot
 #
-# Uso:
-#   cp .env.example .env   # y completa los valores reales
-#   docker compose -f docker-compose.production.yml up -d --build
+# Uso (ver README-despliegue.md, incluye el arranque del primer certificado):
+#   cp .env.example .env   # y completa los valores reales (DOMAIN, SECRET_KEY, POSTGRES_PASSWORD, ...)
+#   NGINX_MODE=http-only docker compose -f docker-compose.production.yml up -d --build   # 1a vez
+#   docker compose -f docker-compose.production.yml run --rm certbot certonly ...      # emitir cert
+#   docker compose -f docker-compose.production.yml up -d                               # HTTPS
 #   docker exec patitasfind-backend python -m app.cli create-admin tu@correo.mx 'ContraseñaSegura'
 
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "5"
+
 x-backend-env: &backend-env
-  DATABASE_URL: ${DATABASE_URL:-postgresql+psycopg2://patitasfind:patitasfind@postgres:5432/patitasfind}
+  DATABASE_URL: postgresql+psycopg2://${POSTGRES_USER:-patitasfind}:${POSTGRES_PASSWORD:?Define POSTGRES_PASSWORD en .env}@postgres:5432/${POSTGRES_DB:-patitasfind}
+  POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
   SECRET_KEY: ${SECRET_KEY:?Define SECRET_KEY en .env}
   ALGORITHM: ${ALGORITHM:-HS256}
   ACCESS_TOKEN_EXPIRE_MINUTES: ${ACCESS_TOKEN_EXPIRE_MINUTES:-10080}
   ENVIRONMENT: production
-  PUBLIC_BASE_URL: ${PUBLIC_BASE_URL:?Define PUBLIC_BASE_URL en .env (p. ej. https://patitasfind.mx)}
-  ALLOW_DEMO_LOGIN: ${ALLOW_DEMO_LOGIN:-false}
-  CORS_ORIGINS: ${CORS_ORIGINS:-}
+  PUBLIC_BASE_URL: ${PUBLIC_BASE_URL:-https://${DOMAIN}}
+  ALLOW_DEMO_LOGIN: "false"
+  CORS_ORIGINS: ${CORS_ORIGINS:-https://${DOMAIN}}
   CORS_ORIGIN_REGEX: ${CORS_ORIGIN_REGEX:-}
   UPLOAD_DIR: /app/uploads
   REDIS_URL: ${REDIS_URL:-redis://redis:6379/0}
   GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
   GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
   GOOGLE_REDIRECT_URI: ${GOOGLE_REDIRECT_URI:-}
-  ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
-  ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-claude-opus-5-5}
-  ANTHROPIC_EFFORT: ${ANTHROPIC_EFFORT:-low}
+  AI_PROVIDER: ${AI_PROVIDER:-openai_compatible}
+  AI_API_KEY: ${AI_API_KEY:-}
+  AI_BASE_URL: ${AI_BASE_URL:-https://dashscope-intl.aliyuncs.com/compatible-mode/v1}
+  AI_MODEL: ${AI_MODEL:-qwen3-vl-flash}
+  AI_EXTRA_BODY: ${AI_EXTRA_BODY:-}
   MATCH_SCORE_THRESHOLD: ${MATCH_SCORE_THRESHOLD:-60}
   MERCADOPAGO_ACCESS_TOKEN: ${MERCADOPAGO_ACCESS_TOKEN:-}
   MERCADOPAGO_WEBHOOK_SECRET: ${MERCADOPAGO_WEBHOOK_SECRET:-}
+  SMS_PROVIDER: ${SMS_PROVIDER:-smsmasivos}
+  REQUIRE_PHONE_VERIFICATION: ${REQUIRE_PHONE_VERIFICATION:-true}
+  SMSMASIVOS_API_KEY: ${SMSMASIVOS_API_KEY:-}
+  SMSMASIVOS_SANDBOX: ${SMSMASIVOS_SANDBOX:-false}
   TWILIO_ACCOUNT_SID: ${TWILIO_ACCOUNT_SID:-}
   TWILIO_AUTH_TOKEN: ${TWILIO_AUTH_TOKEN:-}
-  TWILIO_VERIFY_SERVICE_SID: ${TWILIO_VERIFY_SERVICE_SID:-}
-  TWILIO_CHANNEL: ${TWILIO_CHANNEL:-sms}
+  TWILIO_FROM_NUMBER: ${TWILIO_FROM_NUMBER:-}
+  TWILIO_MESSAGING_SERVICE_SID: ${TWILIO_MESSAGING_SERVICE_SID:-}
+  LEGAL_TERMS_VERSION: ${LEGAL_TERMS_VERSION:-}
+  LEGAL_PRIVACY_VERSION: ${LEGAL_PRIVACY_VERSION:-}
+  SENTRY_DSN: ${SENTRY_DSN:-}
+  SENTRY_TRACES_SAMPLE_RATE: ${SENTRY_TRACES_SAMPLE_RATE:-0.1}
+  SENTRY_DSN_FRONTEND: ${SENTRY_DSN_FRONTEND:-}
+  POSTHOG_KEY: ${POSTHOG_KEY:-}
+  POSTHOG_HOST: ${POSTHOG_HOST:-}
   SMTP_HOST: ${SMTP_HOST:-}
   SMTP_PORT: ${SMTP_PORT:-587}
   SMTP_USER: ${SMTP_USER:-}
@@ -55,11 +74,10 @@ services:
     container_name: patitasfind-postgres
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-patitasfind}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-patitasfind}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Define POSTGRES_PASSWORD en .env}
       POSTGRES_DB: ${POSTGRES_DB:-patitasfind}
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./backups:/backups
     ports:
       - "127.0.0.1:5432:5432"
     healthcheck:
@@ -68,10 +86,12 @@ services:
       timeout: 5s
       retries: 5
     restart: unless-stopped
+    logging: *default-logging
 
   redis:
     image: redis:7-alpine
     container_name: patitasfind-redis
+    command: redis-server --appendonly yes
     volumes:
       - redis_data:/data
     healthcheck:
@@ -80,15 +100,18 @@ services:
       timeout: 3s
       retries: 5
     restart: unless-stopped
+    logging: *default-logging
 
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
+    image: patitasfind-backend:latest
     container_name: patitasfind-backend
     environment:
       <<: *backend-env
-      RUN_MIGRATIONS: "false"
+      # Alembic: crea/actualiza el esquema; en bases antiguas marca la baseline (app/migrate.py)
+      RUN_MIGRATIONS: "true"
     ports:
       - "127.0.0.1:8000:8000"
     depends_on:
@@ -100,7 +123,14 @@ services:
       - ./backend/uploads:/app/uploads
     # --proxy-headers: respeta X-Forwarded-Proto/For que envía Nginx
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 4 --proxy-headers --forwarded-allow-ips="*"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=5).status == 200 else 1)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     restart: unless-stopped
+    logging: *default-logging
     deploy:
       resources:
         limits:
@@ -111,33 +141,43 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
+    image: patitasfind-backend:latest
     container_name: patitasfind-celery-worker
     environment:
       <<: *backend-env
     depends_on:
-      postgres:
-        condition: service_healthy
+      backend:
+        condition: service_started
       redis:
         condition: service_healthy
     volumes:
       - ./backend/uploads:/app/uploads
     command: celery -A app.celery_app worker -l info -Q whatsapp,facebook,default --concurrency=4
+    healthcheck:
+      test: ["CMD-SHELL", "celery -A app.celery_app inspect ping -d celery@$$HOSTNAME --timeout 10 | grep -q pong"]
+      interval: 60s
+      timeout: 30s
+      retries: 3
+      start_period: 60s
     restart: unless-stopped
+    logging: *default-logging
 
   celery-beat:
     build:
       context: ./backend
       dockerfile: Dockerfile
+    image: patitasfind-backend:latest
     container_name: patitasfind-celery-beat
     environment:
       <<: *backend-env
     depends_on:
-      postgres:
-        condition: service_healthy
+      backend:
+        condition: service_started
       redis:
         condition: service_healthy
     command: celery -A app.celery_app beat -l info --schedule /tmp/celerybeat-schedule
     restart: unless-stopped
+    logging: *default-logging
 
   nginx:
     image: nginx:alpine
@@ -145,17 +185,88 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    environment:
+      DOMAIN: ${DOMAIN:?Define DOMAIN en .env (p. ej. patitasfind.mx, sin https://)}
+      NGINX_ENVSUBST_FILTER: "^DOMAIN$$"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      # Todo el frontend (app, landing, admin e imágenes) se monta una sola vez;
-      # nginx.conf decide qué archivo se sirve en cada ruta.
+      # NGINX_MODE=https (normal) | http-only (solo para emitir el primer certificado)
+      - ./nginx/templates/${NGINX_MODE:-https}:/etc/nginx/templates:ro
+      - ./nginx/snippets:/etc/nginx/snippets:ro
+      # Todo el frontend se monta una sola vez; las location deciden qué se sirve
+      # (y bloquean archivos de desarrollo: *.py, *.mjs, node_modules/, test-*, etc.)
       - ./app:/usr/share/nginx/html/app:ro
       - ./backend/uploads:/usr/share/nginx/html/uploads:ro
       - ./certbot/conf:/etc/letsencrypt:ro
       - ./certbot/www:/var/www/certbot:ro
+    # Recarga la configuración cada 12 h para tomar certificados renovados por certbot
+    entrypoint: ["/bin/sh", "-c", "(while :; do sleep 12h; nginx -s reload; done) & exec /docker-entrypoint.sh nginx -g 'daemon off;'"]
     depends_on:
       - backend
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1/nginx-health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
     restart: unless-stopped
+    logging: *default-logging
+
+  certbot:
+    image: certbot/certbot:latest
+    container_name: patitasfind-certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    # Intenta renovar cada 12 h (solo renueva si faltan < 30 días); nginx recarga cada 12 h.
+    # Para emitir el primer certificado: docker compose ... run --rm certbot certonly ... (ver README)
+    entrypoint: ["/bin/sh", "-c", "trap exit TERM; while :; do certbot renew --webroot -w /var/www/certbot --quiet; sleep 12h & wait $${!}; done"]
+    restart: unless-stopped
+    logging: *default-logging
+
+  backup:
+    image: postgres:16-alpine
+    container_name: patitasfind-backup
+    environment:
+      PGHOST: postgres
+      PGUSER: ${POSTGRES_USER:-patitasfind}
+      PGPASSWORD: ${POSTGRES_PASSWORD}
+      PGDATABASE: ${POSTGRES_DB:-patitasfind}
+      BACKUP_RETENTION_DAYS: ${BACKUP_RETENTION_DAYS:-14}
+      BACKUP_INTERVAL_SECONDS: ${BACKUP_INTERVAL_SECONDS:-86400}
+      TZ: America/Mexico_City
+    volumes:
+      - ./backups:/backups
+      - ./backend/uploads:/uploads
+      - ./backend/scripts:/scripts:ro
+    entrypoint: ["/bin/sh", "/scripts/backup.sh", "loop"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    logging: *default-logging
+
+  # Copia externa opcional de ./backups a S3 / Cloudflare R2 (rclone). Si BACKUP_S3_BUCKET
+  # está vacío, el servicio queda inactivo sin hacer nada.
+  backup-offsite:
+    image: rclone/rclone:latest
+    container_name: patitasfind-backup-offsite
+    environment:
+      BACKUP_S3_BUCKET: ${BACKUP_S3_BUCKET:-}
+      BACKUP_S3_PREFIX: ${BACKUP_S3_PREFIX:-patitasfind}
+      BACKUP_INTERVAL_SECONDS: ${BACKUP_INTERVAL_SECONDS:-86400}
+      RCLONE_CONFIG_OFFSITE_TYPE: s3
+      RCLONE_CONFIG_OFFSITE_PROVIDER: ${BACKUP_S3_PROVIDER:-Cloudflare}
+      RCLONE_CONFIG_OFFSITE_ACCESS_KEY_ID: ${BACKUP_S3_ACCESS_KEY_ID:-}
+      RCLONE_CONFIG_OFFSITE_SECRET_ACCESS_KEY: ${BACKUP_S3_SECRET_ACCESS_KEY:-}
+      RCLONE_CONFIG_OFFSITE_ENDPOINT: ${BACKUP_S3_ENDPOINT:-}
+      RCLONE_CONFIG_OFFSITE_REGION: ${BACKUP_S3_REGION:-auto}
+      RCLONE_CONFIG_OFFSITE_NO_CHECK_BUCKET: "true"
+    volumes:
+      - ./backups:/backups:ro
+      - ./backend/scripts:/scripts:ro
+    entrypoint: ["/bin/sh", "/scripts/backup-offsite.sh"]
+    restart: unless-stopped
+    logging: *default-logging
 
 volumes:
   postgres_data:

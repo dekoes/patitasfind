@@ -7,7 +7,6 @@ email-validator
 python-jose[cryptography]
 bcrypt
 python-multipart
-authlib
 requests
 itsdangerous
 alembic
@@ -16,5 +15,5 @@ httpx
 redis>=5
 celery[redis]
 Pillow
-anthropic
 websockets
+sentry-sdk[fastapi,celery]>=2

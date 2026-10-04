@@ -17,7 +17,8 @@ const FX = (() => {
 
   /* Cara de perrito frontal animada (orejas, parpadeo, lengua) */
   function dogFace(size = 90, o = {}) {
-    const fur = o.fur || '#FFF6EC', ear = o.ear || '#B5763F', snout = o.snout || '#F6C8A4';
+    const m = (window.Theme && Theme.mascot()) || ['#FFF6EC', '#B5763F'];
+    const fur = o.fur || m[0], ear = o.ear || m[1], snout = o.snout || '#F6C8A4';
     return `<svg class="dog-anim" viewBox="0 0 120 120" width="${size}" height="${size}" aria-hidden="true">
       <path class="da-ear" d="M24 28 Q4 32 9 62 Q12 84 31 77 Q24 55 30 37 Z" fill="${ear}" stroke="${INK}" stroke-width="3"/>
       <path class="da-ear r" d="M96 28 Q116 32 111 62 Q108 84 89 77 Q96 55 90 37 Z" fill="${ear}" stroke="${INK}" stroke-width="3"/>
@@ -108,7 +109,9 @@ const FX = (() => {
 
   /* Loader en línea para listas */
   function inlineLoader(msg = 'Buscando perritos...') {
-    return `<div class="center" style="padding:36px 0">${pawTrail().replace('class="paw-trail"', 'class="paw-trail" style="margin:0 auto"')}<div class="small muted mt12">${msg}</div></div>`;
+    const pref = window.Theme ? Theme.loader() : 'trail';
+    const art = pref === 'chase' ? tailChase().replace('class="tail-chase"', 'class="tail-chase" style="margin:0 auto"') : pref === 'run' ? `<div style="transform:scale(.7);height:80px">${runDog()}</div>` : pref === 'sniff' ? `<div style="height:90px">${sniffDog()}</div>` : pawTrail().replace('class="paw-trail"', 'class="paw-trail" style="margin:0 auto"');
+    return `<div class="center" style="padding:36px 0">${art}<div class="small muted mt12">${msg}</div></div>`;
   }
 
   function skeletonList(n = 4) {
@@ -181,6 +184,8 @@ const FX = (() => {
   }
 
   function confetti(n = 34) {
+    n = Math.round(n * (window.Theme ? Theme.confettiFactor() : 1));
+    if (!n) return;
     const colors = ['#8E66D9', '#F6C8A4', '#A9D6F9', '#DCC7FA', '#86E0D4', '#33C7BE'];
     const w = device.clientWidth;
     for (let i = 0; i < n; i++) {
@@ -227,7 +232,9 @@ const FX = (() => {
   let loTimer = null;
   function showLoading(msg = 'Cargando...', tips = [], kind = 'run') {
     const o = document.getElementById('loading-overlay');
-    o.querySelector('.lo-art').innerHTML = kind === 'sniff' ? sniffDog() : kind === 'chase' ? tailChase() : runDog();
+    const pref = window.Theme && Theme.loader();
+    if (pref && pref !== 'run' && kind === 'run') kind = pref;
+    o.querySelector('.lo-art').innerHTML = kind === 'sniff' ? sniffDog() : kind === 'chase' ? tailChase() : kind === 'trail' ? pawTrail() : runDog();
     o.querySelector('.lo-msg').textContent = msg;
     const sub = o.querySelector('.lo-sub');
     sub.textContent = tips[0] || '';

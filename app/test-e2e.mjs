@@ -42,8 +42,14 @@ async function run() {
     await page.fill('#auth-name', 'Prueba E2E');
     await page.fill('#auth-email', email);
     await page.fill('#auth-password', 'Patitas123!');
+    await page.fill('#auth-phone', '55' + String(Date.now()).slice(-8));
+    await page.check('#auth-terms');
     await shot('registro');
     await page.click('#auth-submit');
+    await active('verify-phone');
+    await page.waitForFunction(() => [...document.querySelectorAll('.code-box')].filter(b => b.value).length >= 4, null, { timeout: 15000 });
+    await shot('verificar-telefono');
+    await page.click('#verify-submit');
     await active('home');
     await page.waitForTimeout(1500); await shot('home');
   });
@@ -170,10 +176,42 @@ async function run() {
     await page.waitForTimeout(1000); await shot('chats');
   });
 
+  await t('cuenta: contraseña y exportar', async () => {
+    await page.click('#nav .nav-item[data-go="profile"]');
+    await active('profile');
+    await page.click('[data-act="password"]');
+    await page.fill('#pw-current', 'Patitas123!');
+    await page.fill('#pw-new', 'Patitas456!');
+    await page.fill('#pw-new2', 'Patitas456!');
+    await page.click('#password-form button[type=submit]');
+    await page.waitForSelector('#password-modal:not(.open)', { state: 'attached', timeout: 10000 });
+    const [dl] = await Promise.all([page.waitForEvent('download', { timeout: 15000 }), page.click('[data-act="export"]')]);
+    if (!(await dl.suggestedFilename()).endsWith('.json')) throw new Error('export no es JSON');
+  });
+
   await t('logout', async () => {
     await page.click('#nav .nav-item[data-go="profile"]');
     await page.click('#logout-btn');
     await active('auth');
+  });
+
+  await t('eliminar cuenta', async () => {
+    await page.fill('#auth-email', email);
+    await page.fill('#auth-password', 'Patitas456!');
+    await page.click('#auth-submit');
+    await active('home');
+    await page.click('#nav .nav-item[data-go="profile"]');
+    await page.click('#delete-account-btn');
+    await page.fill('#del-pass', 'Patitas456!');
+    await page.fill('#del-confirm', 'ELIMINAR');
+    await shot('eliminar-cuenta');
+    await page.click('#delete-form button[type=submit]');
+    await active('auth');
+    await page.fill('#auth-email', email);
+    await page.fill('#auth-password', 'Patitas456!');
+    await page.click('#auth-submit');
+    await page.waitForTimeout(2000);
+    if (await page.isVisible('[data-s="home"].active')) throw new Error('la cuenta eliminada todavía puede entrar');
   });
 
   await browser.close();

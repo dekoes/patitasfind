@@ -23,6 +23,8 @@ logger = logging.getLogger(__name__)
 IDLE_RESET = datetime.timedelta(hours=24)
 MAX_PHOTOS = 3
 GREETINGS = {"hola", "menu", "inicio", "empezar", "buenas", "buenos dias", "buenas tardes", "buenas noches", "hi", "hello", "ayuda"}
+OPT_OUT_WORDS = {"baja", "stop", "darme de baja", "dar de baja", "unsubscribe"}
+OPT_OUT_TEXT = "Listo, ya no te enviaremos mensajes. Escribe HOLA si quieres volver."
 SKIP_WORDS = {"no se", "nose", "no lo se", "ninguno", "nada", "no", "saltar", "omitir"}
 
 MENU_BUTTONS = [
@@ -203,6 +205,17 @@ def handle_event(db: Session, event: dict) -> dict:
     has_location = event.get("latitude") is not None and event.get("longitude") is not None
     stage = interaction.stage
 
+    # Baja de mensajes (BAJA/STOP) y re-suscripción con HOLA
+    if t in OPT_OUT_WORDS:
+        interaction.opted_out_at = datetime.datetime.utcnow()
+        _set(interaction, "welcome")
+        return _reply(interaction, OPT_OUT_TEXT)
+    if interaction.opted_out_at is not None:
+        if t in GREETINGS:
+            interaction.opted_out_at = None
+            return _menu(interaction)
+        return _reply(interaction, "")  # dado de baja: no respondemos hasta que escriba HOLA
+
     if t in GREETINGS or t == "menu":
         return _menu(interaction)
     if stage in ("welcome", "done"):
@@ -293,7 +306,7 @@ def _details_prompt(interaction: BotInteraction) -> str:
 def process_event(db: Session, event: dict, send: bool = True) -> dict:
     result = handle_event(db, event)
     db.commit()
-    if send:
+    if send and result.get("response"):
         if result.get("buttons"):
             whatsapp_api.send_buttons(event["phone"], result["response"], result["buttons"])
         else:

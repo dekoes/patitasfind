@@ -3,9 +3,11 @@
 Dos capas independientes:
 1. Firma visual local (siempre disponible): dHash de 64 bits (imagen completa y recorte
    central) + histograma de color RGB 4x4x4. Solo requiere Pillow.
-2. Análisis con Claude (opcional, requiere ANTHROPIC_API_KEY): raza, tamaño, colores,
-   pelaje, señas particulares, edad aproximada y descripción en español. Se usa salida
-   estructurada (output_config.format con JSON Schema) para obtener JSON válido.
+2. Análisis con un modelo de visión (opcional, requiere AI_API_KEY): raza, tamaño, colores,
+   pelaje, señas particulares, edad aproximada y descripción en español. Se usa cualquier API
+   compatible con OpenAI Chat Completions (por defecto Qwen3-VL de Alibaba Model Studio; también
+   Z.ai GLM-4.6V). No dependemos de `response_format`: se pide "responde SOLO con JSON" y la
+   respuesta se extrae y valida de forma tolerante.
 
 La similitud combina ambas: si hay atributos de IA en los dos lados pesa 55% atributos y
 45% visual; si no, solo la parte visual (modo "hash-only").
@@ -16,8 +18,10 @@ import io
 import json
 import logging
 import re
+import time
 import unicodedata
 
+import requests
 from PIL import Image, ImageOps
 
 from app import cache
@@ -26,22 +30,6 @@ from app.config import settings
 logger = logging.getLogger(__name__)
 
 SIZES = ["Pequeño", "Mediano", "Grande"]
-
-ANALYSIS_SCHEMA = {
-    "type": "object",
-    "properties": {
-        "is_dog": {"type": "boolean"},
-        "breed_guess": {"type": "string"},
-        "size": {"type": "string", "enum": SIZES},
-        "colors": {"type": "array", "items": {"type": "string"}},
-        "coat": {"type": "string"},
-        "distinctive_marks": {"type": "array", "items": {"type": "string"}},
-        "approx_age": {"type": "string"},
-        "description_es": {"type": "string"},
-    },
-    "required": ["is_dog", "breed_guess", "size", "colors", "coat", "distinctive_marks", "approx_age", "description_es"],
-    "additionalProperties": False,
-}
 
 SYSTEM_PROMPT = (
     "Eres un asistente de PatitasFind, una plataforma mexicana para reunir perros perdidos con sus familias "
@@ -54,8 +42,6 @@ SYSTEM_PROMPT = (
     "identificarlo (manchas, orejas caídas o paradas, collar, cicatrices, cola cortada). approx_age: 'cachorro', "
     "'joven', 'adulto' o 'senior'. description_es: 1 o 2 oraciones claras y cálidas que sirvan para un anuncio."
 )
-
-FALLBACK_MODELS = ("claude-opus-5-5", "claude-opus-5", "claude-fable-5-1", "claude-sonnet-5-5")
 
 _memory_cache: dict[str, dict] = {}
 
@@ -220,7 +206,7 @@ def combined_score(sig_a, attrs_a, sig_b, attrs_b) -> int:
     return int(round(max(0.0, min(1.0, score)) * 100))
 
 
-# --------------------------------------------------------------------------- Claude
+# --------------------------------------------------------------------------- IA de visión
 def is_configured() -> bool:
     return settings.ai_enabled
 
@@ -237,11 +223,148 @@ def _prepare_image(data: bytes) -> tuple[str, str]:
 
 
 def _cache_key(key: str) -> str:
-    return "vision:v1:" + hashlib.sha256(key.encode()).hexdigest()
+    return f"vision:v2:{settings.ai_model}:" + hashlib.sha256(key.encode()).hexdigest()
+
+
+def _extra_body() -> dict:
+    if not settings.ai_extra_body:
+        return {}
+    try:
+        extra = json.loads(settings.ai_extra_body)
+        return extra if isinstance(extra, dict) else {}
+    except json.JSONDecodeError:
+        logger.warning("AI_EXTRA_BODY no es JSON válido; se ignora.")
+        return {}
+
+
+def _message_text(content) -> str:
+    """El contenido puede venir como texto o como lista de partes [{type: text, text: ...}]."""
+    if isinstance(content, str):
+        return content
+    if isinstance(content, list):
+        return "".join(p.get("text", "") for p in content if isinstance(p, dict))
+    return ""
+
+
+def extract_json(text: str) -> dict | None:
+    """Obtiene el primer objeto JSON de una respuesta de texto (tolera ```json, <think> y texto extra)."""
+    if not text:
+        return None
+    text = re.sub(r"<think>.*?</think>", "", text, flags=re.S | re.I)
+    text = re.sub(r"```(?:json|JSON)?", "", text).strip()
+    try:
+        value = json.loads(text)
+        if isinstance(value, dict):
+            return value
+    except json.JSONDecodeError:
+        pass
+    decoder = json.JSONDecoder()
+    for match in re.finditer(r"\{", text):
+        try:
+            value, _ = decoder.raw_decode(text[match.start():])
+        except json.JSONDecodeError:
+            continue
+        if isinstance(value, dict):
+            return value
+    return None
+
+
+def _as_str(value, limit: int = 300) -> str:
+    if value is None:
+        return ""
+    if isinstance(value, (list, tuple)):
+        value = ", ".join(str(v) for v in value if v)
+    return str(value).strip()[:limit]
+
+
+def _as_list(value, limit: int = 8) -> list[str]:
+    if value is None:
+        return []
+    if isinstance(value, str):
+        value = [v for v in re.split(r"[,;/]| y ", value)]
+    if not isinstance(value, (list, tuple)):
+        value = [value]
+    out = []
+    for v in value:
+        s = _as_str(v, 80)
+        if s and s.lower() not in (o.lower() for o in out):
+            out.append(s)
+    return out[:limit]
+
+
+def _as_bool(value) -> bool:
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, (int, float)):
+        return value != 0
+    return _norm(value) in ("true", "si", "yes", "1", "verdadero")
+
+
+def _normalize_size(value) -> str:
+    return {"pequeno": "Pequeño", "mediano": "Mediano", "grande": "Grande"}.get(_size_key(value), "Mediano")
+
+
+_AGES = {"cachorro": "cachorro", "puppy": "cachorro", "joven": "joven", "young": "joven",
+         "adulto": "adulto", "adult": "adulto", "senior": "senior", "viejo": "senior", "mayor": "senior"}
+
+
+def normalize_analysis(raw: dict) -> dict:
+    """Valida y normaliza los campos que devuelve el modelo."""
+    age_raw = _norm(raw.get("approx_age"))
+    age = next((v for k, v in _AGES.items() if k in age_raw), _as_str(raw.get("approx_age"), 40))
+    result = {
+        "is_dog": _as_bool(raw.get("is_dog", True)),
+        "breed_guess": _as_str(raw.get("breed_guess") or raw.get("breed"), 80),
+        "size": _normalize_size(raw.get("size")),
+        "colors": [c.lower() for c in _as_list(raw.get("colors") or raw.get("color"))],
+        "coat": _as_str(raw.get("coat"), 80),
+        "distinctive_marks": _as_list(raw.get("distinctive_marks")),
+        "approx_age": age,
+        "description_es": _as_str(raw.get("description_es") or raw.get("description"), 600),
+    }
+    if not result["is_dog"]:
+        result.update({"breed_guess": "", "colors": [], "coat": "", "distinctive_marks": [], "approx_age": ""})
+    return result
+
+
+USER_PROMPT = (
+    "Analiza al perro de esta foto. Responde SOLO con un objeto JSON válido (sin texto adicional, sin ```), "
+    "exactamente con este esquema:\n"
+    '{"is_dog": true, "breed_guess": "string", "size": "Pequeño|Mediano|Grande", "colors": ["string"], '
+    '"coat": "string", "distinctive_marks": ["string"], "approx_age": "cachorro|joven|adulto|senior", '
+    '"description_es": "string"}'
+)
+
+
+class _Retryable(Exception):
+    pass
+
+
+def _post_chat(payload: dict, deadline: float) -> dict | None:
+    """POST a /chat/completions con 1 reintento en 429/5xx/errores de red (si queda tiempo)."""
+    url = f"{settings.ai_base_url}/chat/completions"
+    headers = {"Authorization": f"Bearer {settings.ai_api_key}", "Content-Type": "application/json"}
+    for attempt in range(2):
+        remaining = deadline - time.monotonic()
+        if remaining <= 1:
+            break
+        try:
+            resp = requests.post(url, json=payload, headers=headers, timeout=min(settings.ai_timeout_seconds, remaining))
+            if resp.status_code == 429 or resp.status_code >= 500:
+                raise _Retryable(f"HTTP {resp.status_code}: {resp.text[:300]}")
+            if resp.status_code >= 400:
+                logger.error("La API de visión rechazó la petición (HTTP %s): %s", resp.status_code, resp.text[:300])
+                return None
+            return resp.json()
+        except (requests.RequestException, _Retryable, ValueError) as exc:
+            logger.warning("Error con la API de visión (intento %s): %s", attempt + 1, exc)
+            if attempt == 0:
+                time.sleep(1.0)
+    return None
 
 
 def analyze_image_bytes(data: bytes, cache_key: str | None = None) -> dict | None:
-    """Analiza una foto con Claude. Lanza AINotConfigured si falta la llave; None si falla."""
+    """Analiza una foto con el modelo de visión. Lanza AINotConfigured si falta la llave; None si falla."""
     if not is_configured():
         raise AINotConfigured("IA no configurada")
 
@@ -253,62 +376,40 @@ def analyze_image_bytes(data: bytes, cache_key: str | None = None) -> dict | Non
         _memory_cache[key] = cached
         return cached
 
-    import anthropic
-
     try:
         media_type, b64 = _prepare_image(data)
     except Exception as exc:  # noqa: BLE001
         logger.warning("Imagen inválida para análisis IA: %s", exc)
         return None
 
-    client = anthropic.Anthropic(api_key=settings.anthropic_api_key, timeout=90.0, max_retries=2)
-    request = dict(
-        model=settings.anthropic_model,
-        max_tokens=8000,
-        system=SYSTEM_PROMPT,
-        output_config={"effort": settings.anthropic_effort, "format": {"type": "json_schema", "schema": ANALYSIS_SCHEMA}},
-        messages=[{
-            "role": "user",
-            "content": [
-                {"type": "image", "source": {"type": "base64", "media_type": media_type, "data": b64}},
-                {"type": "text", "text": "Analiza al perro de esta foto y devuelve el JSON solicitado."},
-            ],
-        }],
-    )
-
-    try:
-        response = None
-        if settings.anthropic_use_fallbacks and settings.anthropic_model in FALLBACK_MODELS:
-            try:
-                # Si un clasificador de seguridad rechaza la petición, la API la reintenta en otro modelo
-                response = client.beta.messages.create(
-                    **request, betas=["server-side-fallback-2026-07-01"], fallbacks="default"
-                )
-            except anthropic.BadRequestError as exc:
-                logger.info("Fallbacks no disponibles (%s); se reintenta sin ellos.", exc.message)
-        if response is None:
-            response = client.messages.create(**request)
-    except anthropic.APIStatusError as exc:
-        logger.error("Error de la API de Anthropic (%s): %s", exc.status_code, exc.message)
-        return None
-    except anthropic.APIConnectionError as exc:
-        logger.error("Sin conexión con la API de Anthropic: %s", exc)
-        return None
-
-    if response.stop_reason == "refusal":
-        logger.warning("Claude rechazó analizar la imagen: %s", getattr(response, "stop_details", None))
-        return None
-    text = next((b.text for b in response.content if getattr(b, "type", "") == "text"), None)
-    if not text:
+    payload = {
+        "model": settings.ai_model,
+        "temperature": 0.2,
+        "max_tokens": 800,
+        "messages": [
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": [
+                {"type": "image_url", "image_url": {"url": f"data:{media_type};base64,{b64}"}},
+                {"type": "text", "text": USER_PROMPT},
+            ]},
+        ],
+        **_extra_body(),
+    }
+    # Plazo total: un intento completo + el reintento solo si queda tiempo
+    body = _post_chat(payload, deadline=time.monotonic() + settings.ai_timeout_seconds * 1.5)
+    if not body:
         return None
     try:
-        result = json.loads(text)
-    except json.JSONDecodeError:
-        logger.warning("Respuesta IA no es JSON válido: %s", text[:200])
+        text = _message_text(body["choices"][0]["message"].get("content"))
+    except (KeyError, IndexError, TypeError, AttributeError):
+        logger.warning("Respuesta de visión inesperada: %s", str(body)[:300])
         return None
-    if result.get("size") not in SIZES:
-        result["size"] = "Mediano"
-    result["model"] = getattr(response, "model", settings.anthropic_model)
+    raw = extract_json(text)
+    if raw is None:
+        logger.warning("La respuesta de visión no contiene JSON: %s", (text or "")[:200])
+        return None
+    result = normalize_analysis(raw)
+    result["model"] = body.get("model") or settings.ai_model
 
     _memory_cache[key] = result
     cache.set(key, result, ttl=60 * 60 * 24 * 30)
