@@ -42,8 +42,8 @@ if [ "$PROVIDER" = "zernio" ]; then
     grep -q '^ZERNIO_FROM=' .env && sed -i \"s|^ZERNIO_FROM=.*|ZERNIO_FROM=${Z_FROM}|\" .env || echo \"ZERNIO_FROM=${Z_FROM}\" >> .env
     sed -i 's|^SMS_PROVIDER=.*|SMS_PROVIDER=zernio|' .env
     sed -i 's|^REQUIRE_PHONE_VERIFICATION=.*|REQUIRE_PHONE_VERIFICATION=true|' .env
-    sed -i 's|^GOOGLE_CLIENT_ID=.*|GOOGLE_CLIENT_ID=624836350477-bf6rcrcdi9qt448skplersfvb37aduof.apps.googleusercontent.com|' .env
-    sed -i 's|^GOOGLE_CLIENT_SECRET=.*|GOOGLE_CLIENT_SECRET=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|' .env
+    sed -i 's|^GOOGLE_CLIENT_ID=.*|GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID:?Define GOOGLE_CLIENT_ID}|' .env
+    sed -i 's|^GOOGLE_CLIENT_SECRET=.*|GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET:?Define GOOGLE_CLIENT_SECRET}|' .env
     docker compose -f docker-compose.production.yml build backend
     docker compose -f docker-compose.production.yml up -d --no-deps backend celery-worker celery-beat
   "

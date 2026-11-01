@@ -6,8 +6,8 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SSH_KEY="$ROOT/.vps_ssh_key"
 VPS_HOST="root@2.24.30.179"
 
-CLIENT_ID="${1:-624836350477-bf6rcrcdi9qt448skplersfvb37aduof.apps.googleusercontent.com}"
-CLIENT_SECRET="${2:-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}"
+CLIENT_ID="${1:?Uso: ./activar-google.sh CLIENT_ID CLIENT_SECRET}"
+CLIENT_SECRET="${2:?Uso: ./activar-google.sh CLIENT_ID CLIENT_SECRET}"
 
 chmod 600 "$SSH_KEY"
 

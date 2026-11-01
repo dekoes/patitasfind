@@ -31,8 +31,8 @@ COPYFILE_DISABLE=1 tar --no-xattrs -czf - \
 echo "2/3 Configurando Google OAuth y desplegando contenedores en la VPS..."
 ssh -i "$SSH_KEY" -o StrictHostKeyChecking=accept-new "$VPS_HOST" "
   cd $REMOTE_DIR
-  sed -i 's|^GOOGLE_CLIENT_ID=.*|GOOGLE_CLIENT_ID=624836350477-bf6rcrcdi9qt448skplersfvb37aduof.apps.googleusercontent.com|' .env
-  sed -i 's|^GOOGLE_CLIENT_SECRET=.*|GOOGLE_CLIENT_SECRET=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|' .env
+  sed -i 's|^GOOGLE_CLIENT_ID=.*|GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID:?Define GOOGLE_CLIENT_ID}|' .env
+  sed -i 's|^GOOGLE_CLIENT_SECRET=.*|GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET:?Define GOOGLE_CLIENT_SECRET}|' .env
   chmod +x backend/scripts/deploy.sh
   ./backend/scripts/deploy.sh --allow-legal-placeholders --skip-backup
 "
