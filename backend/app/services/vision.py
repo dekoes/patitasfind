@@ -12,27 +12,32 @@ Dos capas independientes:
 La similitud combina ambas: si hay atributos de IA en los dos lados pesa 55% atributos y
 45% visual; si no, solo la parte visual (modo "hash-only").
 """
+import asyncio
 import base64
 import hashlib
 import io
 import json
 import logging
 import re
+import threading
 import time
 import unicodedata
+from collections import OrderedDict
 
 import requests
+from fastapi.concurrency import run_in_threadpool
 from PIL import Image, ImageOps
 
 from app import cache
 from app.config import settings
+from app.services import images
 
 logger = logging.getLogger(__name__)
 
 SIZES = ["Pequeño", "Mediano", "Grande"]
 
 SYSTEM_PROMPT = (
-    "Eres un asistente de PatitasFind, una plataforma mexicana para reunir perros perdidos con sus familias "
+    "Eres un asistente de GuauWoow, una plataforma mexicana para reunir perros perdidos con sus familias "
     "y promover la adopción. Analizas una foto y describes al perro con precisión para poder compararlo con "
     "otros reportes. Responde siempre en español de México. Si la foto no muestra un perro, marca is_dog=false "
     "y llena los demás campos con cadenas vacías o listas vacías (size='Mediano'). Para breed_guess usa nombres "
@@ -43,7 +48,44 @@ SYSTEM_PROMPT = (
     "'joven', 'adulto' o 'senior'. description_es: 1 o 2 oraciones claras y cálidas que sirvan para un anuncio."
 )
 
-_memory_cache: dict[str, dict] = {}
+
+
+class _LRUCache:
+    """Caché en memoria acotada: al llenarse sale la entrada usada hace más tiempo. Segura entre hilos."""
+
+    def __init__(self, maxsize: int):
+        self.maxsize = maxsize
+        self._data: OrderedDict[str, dict] = OrderedDict()
+        self._lock = threading.Lock()
+
+    def get(self, key: str):
+        with self._lock:
+            value = self._data.get(key)
+            if value is not None:
+                self._data.move_to_end(key)
+            return value
+
+    def set(self, key: str, value: dict) -> None:
+        with self._lock:
+            self._data[key] = value
+            self._data.move_to_end(key)
+            while len(self._data) > self.maxsize:
+                self._data.popitem(last=False)
+
+    def clear(self) -> None:
+        with self._lock:
+            self._data.clear()
+
+    def __contains__(self, key: str) -> bool:
+        with self._lock:
+            return key in self._data
+
+    def __len__(self) -> int:
+        return len(self._data)
+
+
+# Respaldo local de Redis para análisis repetidos (p. ej. la misma foto en búsqueda y luego en la consulta)
+_memory_cache = _LRUCache(maxsize=256)
 
 
 class AINotConfigured(RuntimeError):
@@ -74,9 +116,9 @@ def _histogram(img: Image.Image) -> list[float]:
 
 def image_signature(data: bytes) -> dict | None:
     try:
-        img = Image.open(io.BytesIO(data))
-        img.load()
-        img = ImageOps.exif_transpose(img).convert("RGB")
+        # open_image valida el tope de megapíxeles y decodifica los JPEG grandes ya reducidos
+        with images.open_image(data) as raw:
+            img = ImageOps.exif_transpose(raw).convert("RGB")
     except Exception as exc:  # noqa: BLE001
         logger.warning("No se pudo calcular la firma de la imagen: %s", exc)
         return None
@@ -213,12 +255,12 @@ def is_configured() -> bool:
 
 def _prepare_image(data: bytes) -> tuple[str, str]:
     """Reduce a máx. 1024 px y recodifica como JPEG (menos tokens, formato soportado)."""
-    img = Image.open(io.BytesIO(data))
-    img.load()
-    img = ImageOps.exif_transpose(img).convert("RGB")
+    with images.open_image(data, draft_size=(1024, 1024)) as raw:
+        img = ImageOps.exif_transpose(raw).convert("RGB")
     img.thumbnail((1024, 1024), Image.LANCZOS)
     buf = io.BytesIO()
     img.save(buf, "JPEG", quality=85)
+    img.close()
     return "image/jpeg", base64.standard_b64encode(buf.getvalue()).decode("utf-8")
 
 
@@ -367,13 +409,20 @@ def analyze_image_bytes(data: bytes, cache_key: str | None = None) -> dict | Non
     """Analiza una foto con el modelo de visión. Lanza AINotConfigured si falta la llave; None si falla."""
     if not is_configured():
         raise AINotConfigured("IA no configurada")
+    from app.services import staydown
+
+    if staydown.is_quarantined_bytes(data):
+        # Material en cuarentena (abuso sexual infantil): nunca se manda a un proveedor de IA
+        logger.warning("Se omitió el análisis IA de una imagen en cuarentena.")
+        return None
 
     key = _cache_key(cache_key or hashlib.sha256(data).hexdigest())
-    if key in _memory_cache:
-        return _memory_cache[key]
+    cached = _memory_cache.get(key)
+    if cached is not None:
+        return cached
     cached = cache.get(key)
     if isinstance(cached, dict):
-        _memory_cache[key] = cached
+        _memory_cache.set(key, cached)
         return cached
 
     try:
@@ -411,14 +460,49 @@ def analyze_image_bytes(data: bytes, cache_key: str | None = None) -> dict | Non
     result = normalize_analysis(raw)
     result["model"] = body.get("model") or settings.ai_model
 
-    _memory_cache[key] = result
+    _memory_cache.set(key, result)
     cache.set(key, result, ttl=60 * 60 * 24 * 30)
     return result
 
 
+_ai_slots: asyncio.Semaphore | None = None
+_ai_slots_loop = None
+
+
+def _slots() -> asyncio.Semaphore:
+    """Semáforo por proceso (y por event loop: las pruebas crean varios)."""
+    global _ai_slots, _ai_slots_loop
+    loop = asyncio.get_running_loop()
+    if _ai_slots is None or _ai_slots_loop is not loop:
+        _ai_slots = asyncio.Semaphore(max(1, settings.ai_max_concurrency))
+        _ai_slots_loop = loop
+    return _ai_slots
+
+
+async def analyze_image_bytes_async(data: bytes, cache_key: str | None = None) -> dict | None:
+    """Para handlers async: como máximo AI_MAX_CONCURRENCY análisis a la vez por proceso.
+
+    Las peticiones que esperan turno no ocupan hilos del threadpool (que comparten todos los endpoints
+    síncronos). Si no hay turno en AI_TIMEOUT_SECONDS se devuelve None, igual que si la IA fallara.
+    """
+    slots = _slots()
+    try:
+        await asyncio.wait_for(slots.acquire(), timeout=settings.ai_timeout_seconds)
+    except asyncio.TimeoutError:
+        logger.warning("La IA de visión está saturada: se omitió un análisis.")
+        return None
+    try:
+        return await run_in_threadpool(analyze_image_bytes, data, cache_key)
+    finally:
+        slots.release()
+
+
 def analyze_url(url: str) -> dict | None:
+    from app.services import staydown
     from app.services.images import load_image_bytes
 
+    if staydown.is_quarantined_url(url):
+        return None  # en cuarentena: ni se lee ni se manda a la IA
     data = load_image_bytes(url)
     if not data:
         return None

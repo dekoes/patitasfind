@@ -25,9 +25,9 @@ def test_donation_anonymous_by_default(client, user, owner):
         return
     refuge_id, owner_id = _refuge_for(owner["email"])
     me = client.get("/users/me", headers=user["h"]).json()
-    d1 = client.post("/payments/donations", headers=user["h"], json={"refuge_id": refuge_id, "amount": 50}).json()
+    d1 = client.post("/payments/donations", headers=user["h"], json={"accepted_policy": True, "refuge_id": refuge_id, "amount": 50}).json()
     d2 = client.post("/payments/donations", headers=user["h"],
-                     json={"refuge_id": refuge_id, "amount": 60, "share_name": True}).json()
+                     json={"accepted_policy": True, "refuge_id": refuge_id, "amount": 60, "share_name": True}).json()
     assert d1["status"] == "approved" and d2["status"] == "approved"
     db = SessionLocal()
     try:
@@ -38,7 +38,8 @@ def test_donation_anonymous_by_default(client, user, owner):
         db.close()
     assert any(b.startswith("Donante anónimo donó $50") for b in bodies)
     assert any(b.startswith(f"{me['full_name']} donó $60") for b in bodies)
-    assert any("Donante anónimo" in l for l in logs) and not any(me["full_name"] in l and "50" in l for l in logs)
+    # Los donativos ya no dejan registro de puntos (donativos.html §12): ni con nombre ni anónimos
+    assert not any("Donación" in l for l in logs) and not any(me["full_name"] in l for l in logs)
     mine = client.get("/payments/donations/me", headers=user["h"]).json()
     assert {d["share_name"] for d in mine} == {True, False}
 
@@ -48,9 +49,11 @@ def test_whatsapp_opt_out_and_resubscribe(client, monkeypatch):
     sim = lambda msg: client.post("/whatsapp/webhook", json={"phone": phone, "message": msg}).json()
     assert sim("hola")["stage"] == "menu"
     r = sim("Bája")
-    assert r["response"] == "Listo, ya no te enviaremos mensajes. Escribe HOLA si quieres volver."
+    assert r["response"].startswith("Listo, ya no te enviaremos avisos por WhatsApp") and "ALTA" in r["response"]
     assert matching.is_whatsapp_opted_out(phone) is True
-    assert sim("1")["response"] == ""  # dado de baja: silencio
+    # Dado de baja puede seguir usando el bot (la conversación la inicia la persona), sin avisos proactivos
+    assert sim("1")["stage"] == "photos"
+    assert matching.is_whatsapp_opted_out(phone) is True
     # Las alertas de coincidencia no se envían
     sent = []
     monkeypatch.setattr(whatsapp_api, "send_text", lambda to, body: sent.append(to) or True)
@@ -58,7 +61,10 @@ def test_whatsapp_opt_out_and_resubscribe(client, monkeypatch):
     new = LostReport(id=999998, report_type="found", dog_name="y")
     matching._notify_whatsapp(target, new, 90, f"test-{phone}")
     assert sent == []
+    # HOLA reabre la conversación pero no reactiva los avisos; solo ALTA (comunicaciones.html §5)
     assert sim("HOLA")["stage"] == "menu"
+    assert matching.is_whatsapp_opted_out(phone) is True
+    assert "BAJA" in sim("ALTA")["response"]
     assert matching.is_whatsapp_opted_out(phone) is False
     assert sim("stop")["response"].startswith("Listo")
     db = SessionLocal()

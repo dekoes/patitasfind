@@ -1,0 +1,389 @@
+{
+  "domain": "datos-personales",
+  "generated_at": "2026-10-17",
+  "disclaimer": "No es asesoría legal. Síntesis de investigación verificada (LFPDPPP 2025, Reglamento 2011, Lineamientos 2013, RI SABG 2025, criterios SABG 2026). Los puntos con confianza media/baja y los marcados como derivado (dNN) requieren validación de abogado mexicano en datos personales; los plazos fiscales, de contador.",
+  "finding_ids": [
+    "datos-personales-01", "datos-personales-02", "datos-personales-03", "datos-personales-04", "datos-personales-05",
+    "datos-personales-06", "datos-personales-07", "datos-personales-08", "datos-personales-09", "datos-personales-10",
+    "datos-personales-11", "datos-personales-12", "datos-personales-13", "datos-personales-14", "datos-personales-15",
+    "datos-personales-16", "datos-personales-17", "datos-personales-18", "datos-personales-19", "datos-personales-20",
+    "datos-personales-21", "datos-personales-22", "datos-personales-23", "datos-personales-24", "datos-personales-25",
+    "datos-personales-26", "datos-personales-27", "datos-personales-28", "datos-personales-29", "datos-personales-30",
+    "datos-personales-31", "datos-personales-32", "datos-personales-33", "datos-personales-34", "datos-personales-35",
+    "datos-personales-v01", "datos-personales-v02", "datos-personales-v03", "datos-personales-v04", "datos-personales-v05",
+    "datos-personales-d01", "datos-personales-d02", "datos-personales-d03", "datos-personales-d04", "datos-personales-d05", "datos-personales-d06"
+  ],
+  "pages": [
+    {
+      "slug": "transparencia",
+      "title": "Transparencia y centro legal",
+      "purpose": "Portada de la sección legal: índice de las páginas, responsable de datos personales, versión vigente del aviso, quién es responsable de qué datos y, opcionalmente, informe anual con cifras agregadas.",
+      "required_contents": [
+        "Índice de las 13 páginas con una línea cada una y fecha 'vigente al'",
+        "Nombre y contacto de la persona o departamento de datos personales (art. 29)",
+        "Versión y fecha del aviso integral vigente y enlace al historial",
+        "Explicación de quién es responsable de qué datos: GuauWoow, refugios y publicadores (responsables propios), Mercado Pago y Google (responsables independientes)",
+        "Opcional: informe de transparencia anual solo con datos agregados y disociados (solicitudes ARCO y tiempos, requerimientos de autoridad, incidentes, retiros de contenido importado)",
+        "Enlace a la matriz de riesgos y a la política de evaluación de impacto (resumen)",
+        "Enlazada desde el pie de la landing, de la app y del menú del bot"
+      ],
+      "legal_basis": ["LFPDPPP arts. 14, 15 y 29", "Reglamento LFPDPPP arts. 23-25 y 48", "Lineamientos Vigésimo octavo, Vigésimo noveno y Trigésimo séptimo", "ids: datos-personales-34, -24, -23, -33, -v04"]
+    },
+    {
+      "slug": "privacidad",
+      "title": "Aviso de privacidad integral",
+      "purpose": "Documento principal exigido por la ley; ya existe en app/legal/privacidad.html (versión 2026-10-16) y debe completarse y alinearse con el código antes del lanzamiento.",
+      "required_contents": [
+        "Identidad y domicilio completo del responsable (calle, número, colonia, municipio o alcaldía, C.P., entidad; el de notificaciones) y RFC",
+        "Persona o departamento de datos personales con correo, teléfono y horario",
+        "Datos tratados por categoría, señalando que no se recaban sensibles a propósito y cómo se manejan los incidentales; sin 'por ejemplo' ni 'entre otros'; sin datos que el código no recaba (p. ej. vivienda 'propia o rentada')",
+        "Finalidades necesarias y finalidades que requieren consentimiento, separadas; alertas por cercanía, puntaje de compatibilidad, mercadotecnia (nombrada como 'mercadotecnia, publicidad y prospección comercial', opt-in) y compartir contacto como finalidades no necesarias",
+        "Datos financieros o patrimoniales (presupuesto, pagos, CLABE de refugios, datos fiscales) y su base (consentimiento expreso o relación jurídica)",
+        "Transferencias: tabla con destinatario, datos (incluidos correo y teléfono del adoptante), finalidad y base; cláusula de aceptación o no (art. 35)",
+        "Encargados y flujos internacionales proveedor por proveedor con país (EE. UU., Singapur, UE/Irlanda, Reino Unido; China solo si se activa el alterno)",
+        "Opciones para limitar uso o divulgación; procedimiento ARCO con plazos de 20 y 15 días hábiles ampliables una vez; revocación; listado de exclusión",
+        "Decisiones automatizadas: puntaje de compatibilidad descrito como real (no hipotético), factores, acceso y reconsideración",
+        "Cookies y tecnologías de rastreo, con cómo deshabilitarlas",
+        "Datos obtenidos de forma indirecta (reportes con terceros, bot, Facebook) con la advertencia de 5 días hábiles",
+        "Conservación por categoría y bloqueo",
+        "Medidas de seguridad (resumen) y aviso de vulneraciones con los 5 elementos del Reglamento art. 65",
+        "Menores de edad: servicio para mayores de 18; imágenes de NNA",
+        "Casas de paso, refugios, veterinarias y tienda: secciones específicas",
+        "Procedimiento de cambios (15 días naturales de aviso, historial, reaceptación en cambios sustanciales)",
+        "Autoridad: SABG, Dirección General de Datos Personales en el Sector Privado, y derecho a acudir a ella",
+        "Marco legal con fecha de corte y fórmula de aplicación supletoria del Reglamento de 2011 y Lineamientos de 2013"
+      ],
+      "legal_basis": ["LFPDPPP arts. 7, 8, 9, 11, 12, 14, 15, 16, 17, 19, 21-36, 58 fr. V, 59 fr. II", "Reglamento LFPDPPP arts. 14, 24, 27, 30, 41-42, 65, 112", "Lineamientos Vigésimo a Vigésimo octavo, Trigésimo primero a Trigésimo tercero, Anexos Quinto a Séptimo", "ids: datos-personales-01, -02, -03, -04, -06, -07, -08, -09, -10, -12, -15, -16, -19, -20, -22, -24, -25, -28, -29, -30, -31, -32, -v05, -d01, -d04"]
+    },
+    {
+      "slug": "aviso-simplificado",
+      "title": "Aviso de privacidad simplificado",
+      "purpose": "Versión corta que se muestra en cada punto de recolección electrónica antes de enviar datos, con bloques variables por flujo.",
+      "required_contents": [
+        "Identidad y domicilio del responsable",
+        "Datos que se recaban en ese punto, señalando que no se recaban sensibles",
+        "Finalidades necesarias y finalidades que se pueden negar con casillas sin premarcar",
+        "Opciones para limitar el uso o divulgación y enlace al centro de derechos",
+        "Sitio del aviso integral",
+        "Variantes: registro (correo/Google), verificación de teléfono, bot de WhatsApp, registro de refugio y carga de INE/acta (representantes), casa de paso, reporte perdido/encontrado, cuestionario de adopción, carrito/checkout/donativo, formulario ARCO/contacto, banner de cookies, registro de veterinaria, reseña interna",
+        "Registro de la versión mostrada a cada persona (prueba, Reglamento art. 31)"
+      ],
+      "legal_basis": ["LFPDPPP art. 16 fr. II y 15 fr. I-IV", "Reglamento LFPDPPP arts. 27-28, 31", "Lineamientos Decimonoveno, Trigésimo cuarto a Trigésimo séptimo", "ids: datos-personales-05, -07, -20, -27, -d01, -d03"]
+    },
+    {
+      "slug": "cookies",
+      "title": "Cookies y tecnologías de rastreo",
+      "purpose": "Inventario real de cookies y almacenamiento local, qué datos obtienen, proveedor, duración y cómo deshabilitarlas; se revisa en cada despliegue.",
+      "required_contents": [
+        "Tabla: nombre (patitas_*, ph_*), tipo (esencial/analítica), proveedor, finalidad, duración, cómo deshabilitar",
+        "PostHog solo con consentimiento 'aceptar todas'; región del proveedor",
+        "Sentry: monitoreo de errores sin PII y sin grabación de sesiones",
+        "Teselas de OpenStreetMap: exposición de la IP a la fundación OSM (Reino Unido) o proxy propio",
+        "Google (inicio de sesión y, si aplica, Places en el navegador): IP como dato obtenido",
+        "Enlace permanente 'Preferencias de privacidad' en el pie",
+        "Texto del banner con 'Solo esenciales', 'Aceptar todas' y 'Preferencias'"
+      ],
+      "legal_basis": ["Reglamento LFPDPPP art. 14 último párrafo", "Lineamientos Vigésimo fr. XI y Trigésimo primero", "LFPDPPP arts. 7 y 15", "ids: datos-personales-25, -d06"]
+    },
+    {
+      "slug": "proveedores",
+      "title": "Proveedores, transferencias y flujos internacionales",
+      "purpose": "Tabla pública de encargados y responsables independientes con país, finalidad y datos; se actualiza al cambiar de proveedor y se revisa cada año.",
+      "required_contents": [
+        "Tabla: proveedor, servicio, datos, finalidad, tipo (encargado/responsable independiente), país y región, fecha de revisión",
+        "Encargados: hosting/VPS, Cloudflare (CDN, proxy, R2), SMS Masivos, Twilio, Meta WhatsApp Cloud API (retención 30 días), Sentry, PostHog, SMTP, Alibaba Cloud Model Studio (Singapur; sin entrenamiento), Apify, PAC de CFDI, paquetería",
+        "Responsables independientes: Mercado Pago, Google (OAuth y Places), OpenStreetMap",
+        "Transferencias a terceros: refugios, publicadores, casas de paso y vendedores, con la base (consentimiento del art. 35 o art. 36 fr. IV/VII)",
+        "Declaración de que las remisiones a encargados no requieren consentimiento y se publican por transparencia",
+        "Nota sobre el proveedor alterno de IA (China): no activado / activado con evaluación",
+        "Respaldos cifrados con llaves propias antes de subir a R2 y jurisdicción de los buckets"
+      ],
+      "legal_basis": ["LFPDPPP arts. 2 fr. XII y XX, 35 y 36", "Reglamento LFPDPPP arts. 47, 49-55, 67-76", "Lineamientos Vigésimo sexto", "ids: datos-personales-13, -14, -15, -16, -27, -29, -d02, -d04, -d06"]
+    },
+    {
+      "slug": "derechos",
+      "title": "Centro de derechos (ARCO, revocación y exclusión)",
+      "purpose": "Formulario y explicación de cómo ejercer acceso, rectificación, cancelación, oposición, revocación del consentimiento y baja de mercadotecnia, con plazos y acreditación de identidad.",
+      "required_contents": [
+        "Formulario con folio y acuse automático con fecha de recepción",
+        "Requisitos de la solicitud (art. 28) y acreditación de identidad (sesión + OTP; representante; sin cuenta: código al WhatsApp o identificación testada; menores por representación)",
+        "Plazos: 20 días hábiles para responder, 15 para hacer efectiva, ampliables una vez; requerimiento de información una vez en 5 días con 10 para contestar",
+        "Causas de negativa (art. 33) y derecho a acudir a la SABG en 15 días hábiles",
+        "Gratuidad y cobro máximo de 3 UMA en solicitudes repetidas en 12 meses",
+        "Descarga 'Mis datos' (contenido completo, JSON y resumen legible) y aclaración de que la portabilidad no es un derecho legal pero se ofrece",
+        "Revocación: interruptores en Ajustes, BAJA en WhatsApp, enlace de baja en correos, listado de exclusión con constancia",
+        "Oposición al puntaje de compatibilidad y a finalidades secundarias",
+        "Bloqueo y cancelación: qué pasa con los datos y cuándo se suprimen",
+        "Contacto del departamento de datos personales"
+      ],
+      "legal_basis": ["LFPDPPP arts. 2 fr. VIII, 7, 21-34, 40", "Reglamento LFPDPPP arts. 21, 87-111", "LFPA art. 28", "LFPC arts. 18 Bis y 76 Bis fr. VI", "ids: datos-personales-03, -08, -17, -18, -19, -20, -24"]
+    },
+    {
+      "slug": "conservacion",
+      "title": "Conservación y eliminación de datos",
+      "purpose": "Tabla pública por categoría con plazo, fundamento y qué ocurre al vencer (supresión o anonimización); respaldo de las tareas automáticas de purga.",
+      "required_contents": [
+        "Tabla por categoría: cuenta y perfil, consentimientos y evidencia de cumplimiento (5 años), incumplimientos contractuales (72 meses), registros de verificación e IP (90 días), bot (12 meses), mensajes en Meta (30 días), ubicación para alertas, chats, INE/acta/cédula, reportes resueltos, reportes importados de Facebook (30 días), caché de IA, pedidos/donativos/CFDI (según fiscal), respaldos, Sentry/PostHog, notificaciones",
+        "Explicación del bloqueo (igual al plazo de prescripción) y del aviso al titular y a terceros al suprimir",
+        "Qué se anonimiza y qué se borra; procedimiento de disociación irreversible",
+        "Excepciones a la cancelación (art. 25)",
+        "Fecha de última revisión y nota de que los plazos fueron validados por abogado y contador"
+      ],
+      "legal_basis": ["LFPDPPP arts. 2 fr. III, V y IX, 9 fr. III, 10, 24 y 25", "Reglamento LFPDPPP arts. 37-39, 105-108", "LFPC art. 14", "CCF art. 1159", "LFPA art. 79", "ids: datos-personales-11, -19, -33, -v04, -d01, -d02, -d04"]
+    },
+    {
+      "slug": "seguridad",
+      "title": "Seguridad y vulneraciones",
+      "purpose": "Resumen público de las medidas de seguridad sin detalles explotables, el programa de seguridad (SGSDP) y el procedimiento de aviso de vulneraciones.",
+      "required_contents": [
+        "Resumen de medidas administrativas, técnicas y físicas (cifrado en tránsito y en reposo, MFA de administradores, mínimo privilegio, bitácora de accesos, respaldos cifrados, parches)",
+        "Mención de que el programa sigue las Recomendaciones de la autoridad (DOF 30-10-2013) e ISO/IEC 27001",
+        "Política de acceso de moderación a chats solo con reporte o requerimiento de autoridad, con registro",
+        "Qué es una vulneración y cómo se avisa a los titulares (los 5 elementos del Reglamento art. 65), con enlace a la sección del aviso",
+        "Canal para reportar vulnerabilidades (security.txt) y contacto de incidentes",
+        "Registro público de incidentes notificados (si los hay) y lecciones aprendidas",
+        "Acuerdos de confidencialidad del personal y voluntarios"
+      ],
+      "legal_basis": ["LFPDPPP arts. 18, 19, 20, 58 fr. VIII y XI, 62-64", "Reglamento LFPDPPP arts. 57-66", "Recomendaciones en materia de seguridad (DOF 30-10-2013)", "ids: datos-personales-21, -22, -23, -31, -v03"]
+    },
+    {
+      "slug": "ia",
+      "title": "IA y decisiones automatizadas",
+      "purpose": "Explica el análisis de fotos con IA (proveedor, país, qué se envía, qué no) y el puntaje de compatibilidad (factores, intervención humana, derechos de acceso, rectificación, oposición y reconsideración).",
+      "required_contents": [
+        "Análisis de fotos: proveedor Alibaba Cloud Model Studio (Qwen3-VL), región Singapur, qué se envía (foto sin EXIF y descripción del perro) y qué no (nombres, teléfonos), no entrenamiento, retención del caché",
+        "Que las fotos de reportes importados de Facebook también pasan por la IA",
+        "Proveedor alterno (China): estado y condiciones",
+        "Puntaje de compatibilidad: factores (vivienda, horas solo, niños, experiencia, presupuesto solo con consentimiento), rango 0-100, quién lo ve, decisión humana obligatoria, motivo humano al rechazar",
+        "Derechos: ver el puntaje y los factores, corregir datos, pedir no ser puntuado sin perder la solicitud, pedir reconsideración",
+        "Suspensiones automáticas por fraude o rate-limit: revisión humana",
+        "Prohibición interna de reconocimiento facial, comparación de selfies y extracción biométrica",
+        "Seguimiento de la iniciativa de reforma sobre IA (22-09-2026)"
+      ],
+      "legal_basis": ["LFPDPPP arts. 2 fr. VI, 8, 14, 26 fr. II", "Reglamento LFPDPPP arts. 49-53, 112", "Lineamientos Anexo Sexto", "ids: datos-personales-10, -12, -13, -35, -v04"]
+    },
+    {
+      "slug": "fuentes-indirectas",
+      "title": "Fuentes indirectas: Facebook, WhatsApp y retiro de contenido",
+      "purpose": "Página-medida compensatoria y aviso para titulares cuyos datos llegan sin contacto directo (autores de publicaciones de grupos de Facebook, terceros citados en reportes o en el bot, reenvíos de voluntarios, reseñas de Google); incluye el formulario de retiro en 48 horas.",
+      "required_contents": [
+        "Identidad y domicilio del responsable, finalidades y enlace al aviso integral (Reglamento art. 27; Criterio Undécimo)",
+        "Qué se importa (foto, texto sin nombres ni teléfonos, enlace al post, fecha, estado), de dónde (grupos públicos por estado mediante Apify; reenvíos de voluntarios; bot de WhatsApp) y que no se usa para mercadotecnia ni se vende",
+        "Que las fotos se analizan con IA de un proveedor fuera de México",
+        "Conservación de 30 días y purga automática",
+        "Advertencia de 5 días hábiles para negarse a finalidades secundarias y canal para hacerlo",
+        "Formulario de retiro o corrección (enlace del post, relación con la publicación, contacto) con compromiso de 48 horas",
+        "Reseñas de Google: se muestran desde la API sin almacenarse; cómo pedir el retiro ante Google",
+        "Texto de la etiqueta que lleva cada reporte importado",
+        "Estado de la autorización de medida compensatoria ante la SABG o de la vía elegida (aviso directo al autor), según decisión del abogado"
+      ],
+      "legal_basis": ["LFPDPPP arts. 2 fr. X, 6, 9, 12, 17", "Reglamento LFPDPPP arts. 14 párr. 2, 27, 29, 31, 32-35", "Lineamientos Quinto y Vigésimo quinto", "Criterios Generales DOF 18-04-2012", "RI SABG art. 30-B fr. VI", "ids: datos-personales-26, -27, -v01, -v05, -d02, -d03, -d05"]
+    },
+    {
+      "slug": "refugios-datos",
+      "title": "Acuerdo de datos para refugios, publicadores y casas de paso",
+      "purpose": "Contrato versionado que aceptan refugios, colectivos, personas que publican perros, casas de paso y vendedores al recibir datos de adoptantes, donantes y compradores; incluye plantilla de aviso propio para refugios.",
+      "required_contents": [
+        "Tres perfiles: refugio persona moral, colectivo sin personalidad jurídica (integrantes responsables), persona física que publica a su propio perro",
+        "Qué datos recibe y para qué (solo esa adopción, reencuentro o pedido)",
+        "Prohibiciones: mercadotecnia, cesión, perfiles, contacto fuera del proceso, publicar",
+        "Seguridad y confidencialidad básicas; borrado en plazo fijo; aviso de incidentes en 24 horas",
+        "Atención de ARCO reenviadas y propagación de rectificaciones y cancelaciones",
+        "Reconocimiento de que el receptor asume las mismas obligaciones (art. 35) y necesita aviso propio; plantilla de aviso para refugios",
+        "Tienda: cláusula de encargado o de tercero según el modelo; enmascarado del domicilio al cerrar el pedido",
+        "Datos del representante: INE testada, almacenamiento privado, plazo de conservación; CLABE con consentimiento expreso y acceso restringido",
+        "Casas de paso: nunca se publica el domicilio exacto; detalles solo a refugios verificados con aceptación previa",
+        "Consecuencias del incumplimiento y responsabilidad propia ante la SABG",
+        "Registro de aceptación con versión y fecha"
+      ],
+      "legal_basis": ["LFPDPPP arts. 1 fr. II, 2 fr. XIV y XVI, 7 párr. 5, 13, 24, 35, 36 fr. IV y VII", "Reglamento LFPDPPP arts. 5, 6, 8, 50-51, 68-69, 72-73", "LFPC art. 76 Bis fr. I", "ids: datos-personales-06, -09, -11, -16, -29, -30, -v02"]
+    },
+    {
+      "slug": "autoridad",
+      "title": "Quejas ante la autoridad (SABG)",
+      "purpose": "Explica las dos vías ante la Secretaría Anticorrupción y Buen Gobierno (solicitud de protección de datos y denuncia), plazos, requisitos y contactos oficiales confirmados.",
+      "required_contents": [
+        "Autoridad: SABG, Unidad de Protección de Datos Personales, Dirección General de Datos Personales en el Sector Privado",
+        "Vía 1: solicitud de protección de datos en 15 días hábiles desde la respuesta o vencimiento del plazo (art. 40), contenido (art. 41), plazos de resolución (art. 42), conciliación (art. 49), amparo (art. 51), indemnización (art. 53)",
+        "Vía 2: denuncia (contenido del Reglamento art. 131) que abre verificación (arts. 54-55)",
+        "Contactos oficiales confirmados (Insurgentes Sur 1735, Guadalupe Inn, C.P. 01020, Álvaro Obregón, CDMX; 55 2000 3000); correo y formato de denuncia solo tras confirmarlos en gob.mx/buengobierno",
+        "Enlaces oficiales: gob.mx/buengobierno y texto de la LFPDPPP",
+        "Recomendación de escribir primero al correo de privacidad",
+        "Fecha de última revisión (semestral)"
+      ],
+      "legal_basis": ["LFPDPPP arts. 38-55", "Reglamento LFPDPPP arts. 100 y 131", "RI SABG (DOF 21-03-2025) arts. 2 ap. A fr. I inciso f), 30-B fr. VI y VII, 30-F fr. I-III", "ids: datos-personales-03, -17"]
+    },
+    {
+      "slug": "historial",
+      "title": "Historial de versiones",
+      "purpose": "Versiones anteriores del aviso integral, simplificado, Términos y acuerdo de datos, descargables, con resumen de cambios y fechas; prueba del procedimiento de cambios.",
+      "required_contents": [
+        "Lista de versiones con número, fecha de publicación, fecha de vigencia, hash y resumen de cambios",
+        "Indicación de cuáles fueron cambios sustanciales que requirieron reaceptación",
+        "Descarga de cada versión",
+        "Aviso de que los cambios se comunican con 15 días naturales de anticipación por correo y en la app"
+      ],
+      "legal_basis": ["LFPDPPP arts. 11 y 15 fr. VI", "Lineamientos Trigésimo segundo y Trigésimo tercero", "ids: datos-personales-32, -33"]
+    },
+    {
+      "slug": "marco-normativo",
+      "title": "Marco normativo",
+      "purpose": "Lista de leyes, reglamentos, lineamientos y criterios aplicados, con estado de vigencia, enlaces oficiales y fecha de corte; registro del seguimiento regulatorio trimestral.",
+      "required_contents": [
+        "CPEUM arts. 16 y 73 fr. XXIX-O; LFPDPPP 2025 (DOF 20-03-2025, reforma DOF 14-11-2025); Reglamento 2011; Lineamientos 2013; Criterios de medidas compensatorias 2012; Recomendaciones de seguridad 2013; RI SABG 2025; LFPA; CCF; LFPC; LGDNNA; UMA 2026",
+        "Fórmula de aplicación supletoria del Reglamento y Lineamientos en lo que no se opongan a la ley de 2025",
+        "Aclaración de que la autoridad es la SABG y no el INAI, y que la ley de 2010 está abrogada",
+        "Fecha de corte y calendario de revisión trimestral (DOF, gob.mx/buengobierno, Gaceta Parlamentaria)",
+        "Iniciativas en seguimiento (reforma de IA del 22-09-2026; actualización de la LFPDPPP; Decreto NNA del 14-10-2026 pendiente de análisis)"
+      ],
+      "legal_basis": ["LFPDPPP arts. 1, 2, 4, 39 fr. IV y V; transitorios Primero, Segundo, Cuarto y Décimo Segundo", "CPEUM arts. 16 y 73 fr. XXIX-O", "ids: datos-personales-01, -02, -35"]
+    }
+  ],
+  "product_requirements": [
+    "[04/32] Bloquear el despliegue mientras app/legal/datos-legales.json tenga marcadores (razón social, RFC, domicilio completo, correo de privacidad, departamento de datos personales); no lanzar con identidad pendiente.",
+    "[04] Limpiar el aviso integral: quitar 'por ejemplo' (~11 veces) y 'entre otros'; eliminar datos que el código no recaba; declarar que no se recaban sensibles.",
+    "[05] Componente reutilizable de aviso simplificado + enlace al integral, mostrado antes de enviar en: registro (correo/Google), verificación de teléfono, bot de WhatsApp, registro de refugio y carga de INE/acta, casa de paso, reporte perdido/encontrado, cuestionario de adopción, carrito/checkout/donativo, formulario ARCO/contacto, banner de cookies, registro de veterinaria y reseñas internas; registrar la versión vista.",
+    "[08/33] Tabla consent_log: usuario o teléfono, finalidad, valor, versión y hash del texto, canal, fecha y hora, IP y agente, revocación; casillas sin premarcar y separadas de los Términos; conservar 5 años.",
+    "[08/20] Alinear el aviso con el código: mercadotecnia es opt-in (marketing_opt_in=False); nombrar la finalidad 'mercadotecnia, publicidad y prospección comercial'; enlace de baja en cada correo; BAJA en WhatsApp; listado de exclusión con constancia; cruce con REPEP antes de campañas.",
+    "[06] Decisión del dueño: (a) contacto solo por chat, dejando de exponer correo y teléfono del adoptante, o (b) casilla sin premarcar en el cuestionario para compartirlos al aprobar, con registro y revocación; en ambos casos actualizar la tabla de transferencias y el acuerdo de datos.",
+    "[07] Separar permiso del navegador de guardar la zona en el servidor; guardar coordenadas redondeadas (3 decimales o geohash), nunca 5 decimales; borrar la ubicación al apagar alertas o eliminar la cuenta; clasificar las alertas como finalidad no necesaria; recomendado opt-in (resolver VERIFICAR_ALERTAS_POR_DEFECTO).",
+    "[12] Advertencia previa sobre el puntaje de compatibilidad en el cuestionario; el solicitante ve su puntaje y factores; puede optar por no ser puntuado sin perder la postulación; sin rechazo ni ordenamiento automático; motivo humano al rechazar; revisión humana en suspensiones automáticas.",
+    "[09] Presupuesto solo con casilla y registro de fecha/versión; CLABE de refugios con casilla expresa, cifrada y visible solo al rol de finanzas; nunca PAN ni CVV; del webhook de Mercado Pago guardar solo id, estado, monto y fecha.",
+    "[10] Política interna: prohibido reconocimiento facial, comparación de selfies y extracción biométrica de fotos de personas e INE; sin campos estructurados de salud.",
+    "[11/d01] INE, acta y cédula profesional: aceptar copias testadas, almacenamiento privado cifrado con URL firmada de corta duración, acceso solo al rol verificador con AdminAuditLog, borrado al resolver la verificación (+30 días) conservando solo la constancia; aviso simplificado propio al subirlas.",
+    "[13] Expediente de Alibaba Cloud (entidad, región Singapur, ámbito de cómputo con límites geográficos, términos, retención, no entrenamiento, migración del dominio DashScope); enviar solo foto sin EXIF y descripción del perro; considerar difuminar personas; fijar retención del caché ai_analysis/photo_signature; no activar el alterno en China sin evaluación y aviso.",
+    "[14/d02/d04] Registro interno de encargados (incluidos Apify, PAC y paquetería) y página pública de proveedores; contratos o anexos con proveedores nacionales sin acuerdo estándar; revisión anual.",
+    "[15] Fijar y documentar regiones de Sentry, PostHog, R2 y VPS; cifrar respaldos con llaves propias antes de subirlos a R2.",
+    "[16/v02] Acuerdo de datos para refugios, publicadores y casas de paso con tres perfiles, aceptado con clic y registrado; recordatorio en la interfaz al revelar datos; reenvío automático de cancelaciones y rectificaciones a refugios; plantilla de aviso propio para refugios; capturar en el registro si el refugio tiene personalidad jurídica.",
+    "[17] Centro de derechos con formulario, folio, acuse automático, contador de días hábiles (LFPA art. 28) y alertas a los 15 y 18 días; identidad por sesión + OTP; vía para personas sin cuenta; plantillas de requerimiento, ampliación, procedencia, negativa (con vía SABG) y constancia; mapa de datos por usuario; expediente 5 años.",
+    "[18] 'Descargar mis datos' completo (perfil, consentimientos, ubicación, cuestionarios y puntaje, mensajes propios, pedidos/donativos, bot, reportes y análisis IA, OTP, reseñas, transferencias) en JSON más resumen legible con glosario.",
+    "[19/v04] Tareas programadas de purga y anonimización por tabla (OTP e IP 90 días, bot 12 meses, reportes importados 30 días, INE, mensajes de cuentas eliminadas, ai_analysis, notificaciones); estado 'bloqueado'; bitácora de supresiones; caducidad de respaldos; aviso al titular al terminar la cancelación; propagación a refugios y encargados.",
+    "[21/v03] Documento de seguridad interno (Reglamento art. 61) estructurado como SGSDP; MFA de administradores; mínimo privilegio; cifrado en reposo; AdminAuditLog en accesos de alto riesgo; parches; prueba de restauración; security.txt; acuerdos de confidencialidad del equipo y voluntarios.",
+    "[22] Plan de respuesta a incidentes con contacto 24/7, matriz de afectación significativa, plantillas de aviso con los 5 elementos del Reglamento art. 65, bitácora, cláusula de aviso de encargados en 24-72 h, simulacro anual.",
+    "[23] Plantilla de evaluación de impacto obligatoria antes de lanzar o cambiar funciones (tienda, alertas, puntaje, importación de Facebook, IA, veterinarias, nuevos proveedores); prueba automatizada que compare finalidades declaradas con endpoints.",
+    "[24] Nombrar persona o departamento de datos personales y suplente; alias privacidad@[dominio] con respuesta automática con folio; mostrarlo en aviso, pie, centro de derechos y bot.",
+    "[25/d06] Banner con 'Solo esenciales'/'Aceptar todas'/'Preferencias'; página de cookies con inventario real revisado en cada despliegue; Sentry sin PII ni grabación de sesiones; proxy para teselas de OSM o informarlo; Places API desde el backend.",
+    "[26/v01/d02] Importación de Facebook: no activar hasta resolver la base jurídica con abogado; filtro automático que quita teléfonos, correos, domicilios y nombres del texto antes de persistir; etiqueta en cada reporte importado con enlace al original y formulario de retiro en 48 h; caducidad a 30 días; purga en Apify; corridas limitadas a texto, fotos y enlace; evaluación de impacto previa.",
+    "[27/d03] Bot de WhatsApp: aviso simplificado en el primer mensaje o antes de pedir foto/ubicación; guardar fecha y versión en BotInteraction; comandos DATOS y BAJA; confirmación explícita antes de vincular con una cuenta; aviso al voluntario antes del botón 'enviar a GuauWoow'.",
+    "[v05] Cuando un reporte o el bot incluya un teléfono de tercero, enviarle el aviso simplificado con la advertencia de 5 días hábiles (si hay canal) y registrar fecha y canal; no usar datos de terceros para finalidades secundarias.",
+    "[28] Mantener la casilla 18+ sin premarcar (sujeto al análisis del Decreto NNA 14-10-2026); botón para reportar cuentas de menores; sugerencia y difuminado rápido al subir fotos con menores; prioridad máxima de retiro; revisar fotos importadas.",
+    "[30] Casas de paso: nunca publicar domicilio exacto; detalles solo a refugios verificados con aceptación previa; coordenadas redondeadas para alertas.",
+    "[31] Acceso de moderación a chats solo con ContentReport o requerimiento de autoridad, registrado en AdminAuditLog; leyenda en el chat; detección y advertencia de teléfonos o datos de pago; considerar cifrado en reposo de messages.",
+    "[32] Flujo de reaceptación al iniciar sesión cuando privacy_version cambie de forma sustancial; aviso con 15 días naturales; historial de versiones descargables.",
+    "[d01] Registro de veterinaria con casilla para mostrar públicamente nombre y cédula del veterinario responsable (o declaración de autorización y reenvío del aviso cuando registra un tercero).",
+    "[d05] Reseñas de Google mostradas desde la API en caliente, con atribución, sin persistirlas ni respaldarlas; reseñas internas con aviso al publicar, borrado por el autor, reporte y moderación registrada.",
+    "[34/35] Sección /legal/ con las 13 páginas y portada, fecha 'vigente al' en cada una, enlace desde landing, app y bot; revisión regulatoria trimestral."
+  ],
+  "shop_requirements": [
+    "[29] Definir antes de operar si GuauWoow vende (refugio = encargado, contrato con el contenido del Reglamento arts. 50-51) o el refugio vende y la plataforma intermedia (refugio = tercero responsable, arts. 35 y 36 fr. IV); reflejarlo en aviso, Términos y acuerdo de datos.",
+    "[29] Checkout con aviso simplificado y nota de seguridad: 'pagos procesados por Mercado Pago; no almacenamos tu tarjeta; conexión cifrada' (LFPC art. 76 Bis fr. II).",
+    "[29] Pedir los mínimos: nombre de quien recibe, domicilio y teléfono de entrega; el refugio ve el domicilio solo mientras el pedido está activo y se enmascara al entregarse más el plazo de garantía o devolución.",
+    "[29/16] No transmitir datos del comprador a proveedores ajenos a la transacción sin autorización expresa (LFPC art. 76 Bis fr. I).",
+    "[09/d04] Datos fiscales (RFC, nombre o razón social, C.P., régimen, uso de CFDI) solo a solicitud de factura, en formulario separado y posterior al pago, con leyenda de que van al PAC para timbrar; base: relación jurídica (art. 9 fr. IV).",
+    "[d04/14] Añadir PAC y paquetería al registro de encargados y a la página de proveedores con país e instrumento contractual; definir si son encargados (remisión) o terceros (transferencia).",
+    "[d04] Número de guía y estado del envío visibles solo al comprador y al refugio vendedor; conservar el rastreo mientras haya acciones posibles y luego anonimizar.",
+    "[09] CLABE y datos bancarios de refugios persona física: consentimiento expreso con casilla y acuerdo firmado electrónicamente, cifrado, acceso solo al rol de finanzas; del webhook de Mercado Pago guardar solo id, estado, monto y fecha; nunca PAN ni CVV.",
+    "[16] Donantes: nombre y correo al refugio solo con casilla (ya implementado); conservar el registro del consentimiento.",
+    "[19/29] Plazos de conservación de pedidos, CFDI, devoluciones y dispersiones coordinados con los dominios fiscal-tienda y donativos (referencias: CFF art. 30, LFPIORPI); bloqueo y supresión al vencer.",
+    "[20] Derecho a no recibir avisos comerciales en comercio electrónico (LFPC art. 76 Bis fr. VI) y prohibición de publicidad a quien la rechazó o está en el REPEP (art. 18 Bis)."
+  ],
+  "retention": [
+    {"category": "Cuenta y perfil (activos)", "period": "Mientras la cuenta exista; tras la eliminación, bloqueo por el plazo de prescripción de la relación jurídica y luego supresión", "basis": "LFPDPPP arts. 10 y 24; CCF art. 1159 (10 años general); LFPC art. 14 (1 año; 10 si afecta NNA). Plazo exacto: abogado (id 19)"},
+    {"category": "Registro de consentimientos, versiones de avisos, expedientes ARCO, contratos con encargados, bitácora de incidentes (evidencia de cumplimiento)", "period": "5 años desde la revocación, el cierre de la solicitud o el fin de la relación", "basis": "LFPA art. 79 (prescripción de la facultad sancionadora); Reglamento arts. 20, 31 y 39 (carga de la prueba) (ids 08, 17, 33)"},
+    {"category": "Datos de incumplimientos contractuales (fraudes, suspensiones)", "period": "72 meses", "basis": "LFPDPPP art. 10 (id 19)"},
+    {"category": "Registros de verificación OTP (phone_verification_logs) e IP en registros de abuso", "period": "90 días (propuesto)", "basis": "LFPDPPP arts. 2 fr. V y 12; Reglamento art. 37 (id 19)"},
+    {"category": "Interacciones del bot de WhatsApp (bot_interactions)", "period": "12 meses (propuesto), luego anonimización", "basis": "LFPDPPP art. 12; art. 9 fr. III para la anonimización (ids 19, v04)"},
+    {"category": "Mensajes procesados por Meta (WhatsApp Cloud API)", "period": "Hasta 30 días en Meta", "basis": "Documentación oficial de Meta Cloud API (términos del encargado) (ids 14, 27)"},
+    {"category": "Ubicación guardada para alertas por cercanía (redondeada)", "period": "Hasta que se desactiven las alertas o se elimine la cuenta; supresión inmediata", "basis": "LFPDPPP art. 12; Reglamento arts. 45-46 (id 07)"},
+    {"category": "Chats entre usuarios", "period": "Pendiente (pregunta abierta); los ligados a reportes de abuso o posibles delitos según abogado", "basis": "LFPDPPP arts. 11, 12 y 20 (ids 19, 31)"},
+    {"category": "Imagen de INE, acta constitutiva y cédula profesional", "period": "Hasta resolver la verificación + 30 días (propuesto); se conserva solo la constancia (quién, cuándo, resultado, vigencia). El aviso actual dice 24 meses: reducir", "basis": "LFPDPPP arts. 10 y 12; Reglamento arts. 45-46 y 60 (ids 11, d01); plazo final: abogado"},
+    {"category": "Reportes perdido/encontrado resueltos o caducados", "period": "[N] meses y luego anonimización (conservar ciudad, fecha y resultado)", "basis": "LFPDPPP arts. 9 fr. III y 10 (ids 19, v04)"},
+    {"category": "Reportes importados de grupos de Facebook, reenvíos y bot (foto, texto, enlace)", "period": "30 días (decisión del dueño; la investigación sugería 60-90) y purga en Apify", "basis": "LFPDPPP art. 12; Reglamento art. 32-35 (medida compensatoria) (ids 26, v01, d02)"},
+    {"category": "Caché de IA (ai_analysis, photo_signature)", "period": "Fijar; propuesto: vida del reporte + 30 días, sin identificadores de usuario", "basis": "LFPDPPP arts. 9 fr. III y 12 (ids 13, v04)"},
+    {"category": "Pedidos, donativos, CFDI, dispersiones y datos fiscales", "period": "Según dominios fiscal-tienda y donativos (referencias: CFF art. 30, 5 años; LFPIORPI para donativos); bloqueo y supresión al vencer", "basis": "Reglamento art. 37 (aspectos contables y fiscales); LFPDPPP art. 10 (ids 09, 19, 29, d04); contador"},
+    {"category": "Respaldos cifrados en Cloudflare R2", "period": "PLAZO_DE_CONSERVACION_DE_RESPALDOS (pendiente); caducidad automática", "basis": "LFPDPPP art. 18; Reglamento art. 37 (ids 15, 19)"},
+    {"category": "Eventos en Sentry y PostHog", "period": "Según retención configurada por región (pendiente); purga del proveedor; identificador borrado al revocar", "basis": "LFPDPPP art. 12; Reglamento art. 21 (ids 19, 20, 25)"},
+    {"category": "Notificaciones y recordatorios", "period": "[N] meses (propuesto)", "basis": "LFPDPPP art. 12 (id 19)"},
+    {"category": "Reseñas de Google (Places API)", "period": "No se almacenan; se muestran desde la API", "basis": "LFPDPPP arts. 2 fr. X, 12 y 17 (id d05, derivado; abogado)"},
+    {"category": "Reseñas internas de veterinarias", "period": "Mientras la cuenta del autor exista o hasta que las borre; anonimización al eliminar la cuenta", "basis": "LFPDPPP arts. 24 y 26 (id d05, derivado)"}
+  ],
+  "subprocessors": [
+    {"name": "Hosting / VPS (por definir)", "purpose": "Alojamiento de la aplicación y la base de datos", "data": "Todos los datos de la plataforma", "country": "Por definir (PAIS_O_REGION_DEL_HOSTING)", "type": "encargado"},
+    {"name": "Cloudflare (CDN, proxy, R2)", "purpose": "Entrega de contenido, protección y respaldos cifrados", "data": "Tráfico (IP, cabeceras), archivos públicos, respaldos cifrados con llaves propias", "country": "Estados Unidos (jurisdicción de los buckets R2 por definir)", "type": "encargado"},
+    {"name": "SMS Masivos", "purpose": "Envío de códigos OTP", "data": "Número de teléfono, código, fecha", "country": "México (confirmar contrato o acuerdo de datos)", "type": "encargado"},
+    {"name": "Twilio", "purpose": "Envío de códigos OTP (alterno o principal)", "data": "Número de teléfono, código, fecha", "country": "Estados Unidos", "type": "encargado"},
+    {"name": "Meta Platforms (WhatsApp Cloud API; Facebook Pages Graph API)", "purpose": "Bot de WhatsApp y plantillas; publicación en páginas propias", "data": "Número, nombre de perfil, mensajes, fotos y ubicación enviadas al bot (retención máxima 30 días en Meta)", "country": "Estados Unidos", "type": "encargado (Cloud API, según documentación de Meta)"},
+    {"name": "Sentry", "purpose": "Monitoreo de errores", "data": "Eventos técnicos sin PII, sin grabación de sesiones", "country": "Estados Unidos o UE según región elegida (pendiente)", "type": "encargado"},
+    {"name": "PostHog", "purpose": "Analítica de producto, solo con consentimiento", "data": "Identificador seudónimo, eventos de uso, IP truncada", "country": "Estados Unidos o UE según región elegida (pendiente)", "type": "encargado"},
+    {"name": "Proveedor SMTP (por definir)", "purpose": "Correos transaccionales y, con opt-in, mercadotecnia", "data": "Correo, nombre, contenido del mensaje", "country": "Por definir (PAIS_DEL_PROVEEDOR_DE_CORREO)", "type": "encargado"},
+    {"name": "Alibaba Cloud Model Studio / DashScope (Qwen3-VL)", "purpose": "Análisis de fotos de perros y comparación de reportes", "data": "Foto sin EXIF y descripción del perro (sin nombres ni teléfonos); incluye fotos de reportes importados", "country": "Singapur (ap-southeast-1); cómputo posible en ámbito 'Global' cifrado: fijar ámbito geográfico", "type": "encargado (servicio de cómputo en la nube, Reglamento art. 52); sin DPA específico localizado"},
+    {"name": "Zhipu / Z.ai (proveedor alterno de IA)", "purpose": "Análisis de fotos si se activa el alterno", "data": "Igual que Alibaba", "country": "China (posible)", "type": "encargado; no activar sin evaluación y aviso"},
+    {"name": "Apify", "purpose": "Raspado de publicaciones públicas de grupos de Facebook sobre perros perdidos o encontrados por estado", "data": "Texto, fotos y enlace de publicaciones públicas (datasets temporales en su plataforma)", "country": "Por confirmar (entidad contratante y región); fuera de México", "type": "encargado (derivado d02; abogado)"},
+    {"name": "PAC de CFDI (por definir)", "purpose": "Timbrado de facturas de la tienda", "data": "RFC, nombre o razón social, C.P., régimen, uso de CFDI, montos", "country": "México", "type": "encargado o tercero según contrato (derivado d04; coordinar con fiscal-tienda)"},
+    {"name": "Paquetería (por definir)", "purpose": "Entrega de pedidos con rastreo", "data": "Nombre de quien recibe, domicilio, teléfono, número de guía", "country": "México", "type": "encargado o tercero según contrato"},
+    {"name": "Mercado Pago", "purpose": "Cobro de compras y donativos; dispersión a refugios", "data": "Datos de pago (capturados por Mercado Pago), id de pago, estado, monto, fecha", "country": "México (Mercado Libre; términos propios)", "type": "responsable independiente"},
+    {"name": "Google (OAuth)", "purpose": "Inicio de sesión con Google", "data": "Identificador, nombre, correo, avatar", "country": "Estados Unidos", "type": "responsable independiente"},
+    {"name": "Google Maps Platform (Places API)", "purpose": "Datos de clínicas veterinarias y reseñas de Google mostradas con atribución", "data": "Datos de la clínica; reseñas de terceros (no almacenadas); IP del usuario si se consulta desde el navegador", "country": "Estados Unidos", "type": "responsable independiente (derivado d05/d06)"},
+    {"name": "OpenStreetMap (teselas)", "purpose": "Mapas", "data": "IP del usuario al cargar teselas (o proxy propio)", "country": "Reino Unido (fundación OSM)", "type": "responsable independiente"},
+    {"name": "Refugios, colectivos, publicadores, casas de paso y vendedores", "purpose": "Adopciones, reencuentros, donativos y pedidos", "data": "Correo y teléfono del adoptante (solo con autorización), cuestionario y puntaje, nombre y correo de donantes (con casilla), datos de entrega", "country": "México", "type": "tercero responsable (o encargado en la tienda según el modelo); acuerdo de datos obligatorio"}
+  ],
+  "owner_data_needed": [
+    "Identidad del responsable: persona física o moral, nombre o razón social y RFC (si cambia de persona física a sociedad después del lanzamiento, aviso nuevo).",
+    "Domicilio completo para oír y recibir notificaciones: calle, número exterior e interior, colonia, municipio o alcaldía, código postal y entidad.",
+    "Nombre de la persona o departamento de datos personales y su suplente, correo de privacidad, teléfono y horario de atención.",
+    "Dominio definitivo y número oficial de WhatsApp.",
+    "Proveedor de hosting o VPS, país y región del centro de datos, y si hay acuerdo de tratamiento de datos.",
+    "Proveedor SMTP y región; región elegida para Sentry y PostHog; jurisdicción y ubicación de los buckets R2; quién guarda las llaves de cifrado de los respaldos.",
+    "Proveedor de SMS definitivo (SMS Masivos, Twilio o ambos) y contratos o acuerdos de datos firmados.",
+    "Cuenta de Alibaba Cloud: entidad contratante, región del endpoint, ámbito de cómputo fijado, términos aceptados, plan de migración del dominio DashScope y decisión sobre el proveedor alterno de IA (Zhipu/Z.ai, China).",
+    "Apify: entidad contratante, país, términos o DPA, retención de datasets, campos que descarga cada corrida y lista de grupos por estado que se monitorean.",
+    "Decisión con abogado sobre la base jurídica de la importación de Facebook: aviso directo al autor, excepción del art. 9 o solicitud de medida compensatoria a la SABG.",
+    "Modelo comercial de la tienda y de los donativos: quién es el vendedor, cuenta de Mercado Pago, comisiones, paquetería, PAC de CFDI, quién factura y cómo se dispersa a los refugios.",
+    "Número y relación de las personas con acceso a datos (administradores, moderadores, voluntarios, finanzas) para los acuerdos de confidencialidad.",
+    "Decisiones de producto: compartir correo y teléfono al aprobar o solo chat; alertas por cercanía opt-in u opt-out y precisión de la zona; puntaje de compatibilidad visible y a quién; plazo de conservación de INE y cédula; autorización del veterinario para mostrar su cédula; reseñas de Google sin almacenar.",
+    "Plazos de conservación por categoría validados por abogado y contador (chats, respaldos, registros de moderación, fiscal).",
+    "Contacto 24/7 para incidentes de seguridad y abogado externo en datos personales.",
+    "Fecha prevista de lanzamiento para fijar versión y fecha del aviso.",
+    "Confirmación en gob.mx/buengobierno del correo updp.privado@buengobierno.gob.mx y del formato de denuncia de la SABG antes de publicarlos."
+  ],
+  "lawyer_points": [
+    "[26/v01/d02; confianza media-baja] Base jurídica de la importación de publicaciones de grupos de Facebook vía Apify, reenvíos y bot: aviso directo al autor, emergencia del art. 9 fr. V (interpretación de confianza baja) o medida compensatoria con autorización de la Unidad de Protección de Datos Personales; ¿mantiene la SABG los Criterios Generales de 2012? Sin esto no activar la ingesta.",
+    "[28; gap del crítico; urgente] Decreto de entornos digitales seguros para NNA (DOF 14-10-2026): ¿aplica a un servicio 18+ con contenido de usuarios? ¿exige verificación de edad más allá de la casilla, informe de implementación (plazo cercano al 13-11-2026) y contacto 24/7 para autoridades?",
+    "[31; gap del crítico] Reforma al art. 16 de la CPEUM (DOF 07-10-2026): efecto en la confidencialidad de chats y en requerimientos de autoridad.",
+    "[02; confianza media] Aplicación supletoria del Reglamento de 2011 y los Lineamientos de 2013 frente a la LFPDPPP de 2025 y artículos en conflicto (fuente de acceso público: Reglamento art. 7 fr. I vs art. 2 fr. X).",
+    "[06] Base para compartir correo y teléfono del adoptante: cláusula del art. 35 con casilla o art. 36 fr. IV/VII documentado; redacción de la tabla de transferencias.",
+    "[04/32] Revisión final del aviso integral sin marcadores ni frases vagas, con domicilio completo; confirmación de artículos citados; consecuencias de lanzar como persona física y luego constituir sociedad.",
+    "[10/11/d01; confianza media] INE y cédula profesional como datos de alto riesgo pero no sensibles mientras no haya tratamiento biométrico, a la luz del criterio SABG-FMF; plazo de conservación de imagen y constancia.",
+    "[12; confianza media] ¿Aplica el art. 26 fr. II al puntaje de compatibilidad aunque la decisión final sea humana?",
+    "[07] Alertas por cercanía activadas por defecto: ¿basta informar y ofrecer la negativa antes de crear la cuenta (Reglamento art. 14) o debe ser opt-in?",
+    "[19; abogado y contador] Plazos de bloqueo y conservación por categoría: LFPC art. 14, CCF art. 1159, CFF art. 30, LFPIORPI, chats ligados a abuso o delitos, respaldos, registros de moderación.",
+    "[17] Cómputo de días hábiles ARCO con el calendario de la LFPA art. 28 para un responsable privado.",
+    "[03; confianza media] Confirmación de los canales de la SABG (correo, formato de denuncia, nombres de unidades) antes de publicar la página de quejas.",
+    "[13; confianza media] Alibaba Cloud/DashScope: ¿cumplen sus términos el Reglamento art. 52 sin DPA específico? ¿Entidad contratante, retención, ámbito de cómputo? ¿Puede activarse el alterno en China?",
+    "[d02] Apify como encargado: términos frente al Reglamento arts. 50-52 y licitud contractual del raspado de Facebook (riesgo de plataforma, dominio contenido-plataforma).",
+    "[d05; confianza baja] Reseñas de Google mostradas sin almacenarse: ¿tratamiento que exige medida compensatoria o aviso? Datos de autores de reseñas internas.",
+    "[d01] Cédula profesional y Registro Nacional de Profesionistas: ¿fuente de acceso público bajo el art. 2 fr. X? ¿Basta mostrar el número sin la captura?",
+    "[v02] Reparto de responsabilidad con refugios informales y particulares que publican a su propio perro; redacción del acuerdo de datos con tres perfiles y de la plantilla de aviso para refugios.",
+    "[29/d04] Modelo de la tienda: encargado vs tercero según quién vende; cláusulas con PAC y paquetería; LFPC art. 76 Bis.",
+    "[22] Política de acompañamiento voluntario a la SABG ante vulneraciones y matriz de 'afectación significativa'.",
+    "[08/20] Alineación de la finalidad de mercadotecnia (aviso dice tácito, código es opt-in) y cruce con el REPEP.",
+    "[35] Seguimiento de la iniciativa de IA del 22-09-2026 y del proceso de actualización de la LFPDPPP; conveniencia de adoptar ya el deber de informar sobre IA.",
+    "[09; contador] CLABE de refugios persona física como dato patrimonial con consentimiento expreso; conservación fiscal de CFDI y expedientes; coordinación con fiscal-tienda y donativos."
+  ],
+  "key_risks": [
+    "[04/32] Lanzar con identidad o domicilio del responsable pendientes o con aviso incompleto: infracción art. 58 fr. V, multa de 100 a 160,000 UMA ($11,731 a $18,769,600).",
+    "[26/v01/d02] Importar y publicar publicaciones de Facebook sin base jurídica ni medida compensatoria autorizada: tratamiento sin aviso ni consentimiento de terceros; además riesgo contractual con Meta.",
+    "[06] Compartir correo y teléfono del adoptante sin cláusula del art. 35 ni base documentada, o con un aviso que no coincide con lo que hace el código: arts. 6, 35, 58 fr. IV, X y XV.",
+    "[07] Guardar coordenadas precisas y activar alertas por defecto sin distinguirlas como finalidad no necesaria: arts. 12 y 14; Reglamento arts. 14 y 41.",
+    "[10/11] Tratar INE o fotos con biometría, o recabar algo sensible con una sola casilla: precedente FMF $42.8 M; sanciones hasta el doble (arts. 8, 59 fr. IV, 64).",
+    "[27] Bot de WhatsApp sin aviso simplificado aunque el integral dice que lo muestra: art. 16 fr. II y 58 fr. V.",
+    "[13/14/15] Encargados en el extranjero (Alibaba, Apify, Meta) sin expediente ni instrumento contractual que cumpla el Reglamento arts. 51-52.",
+    "[21/22] Vulneración imputable al responsable: art. 58 fr. XI, 200 a 320,000 UMA ($23,462 a $37,539,200); la SABG investiga de oficio con monitoreo forense.",
+    "[12] Mostrar un puntaje de compatibilidad sin informar previamente ni permitir acceso, oposición y reconsideración: arts. 14 y 26 fr. II; Reglamento art. 112.",
+    "[32] Cambiar de persona física a sociedad sin aviso nuevo y reaceptación: Lineamientos Trigésimo tercero; art. 58 fr. IX.",
+    "[08/20/04] Aviso inconsistente con el código (mercadotecnia tácita vs opt-in, 'por ejemplo', datos que no se recaban): principio de información y art. 58 fr. V.",
+    "[31] Acceso de moderación a chats sin política ni bitácora: confidencialidad, art. 58 fr. VIII (200 a 320,000 UMA).",
+    "[28; gap] Si el Decreto NNA del 14-10-2026 aplica, la casilla 18+ podría ser insuficiente y habría un informe con plazo inminente.",
+    "[09/d04] Recabar CLABE, presupuesto o datos fiscales sin consentimiento expreso cuando sea exigible: art. 58 fr. XIII (200 a 320,000 UMA)."
+  ]
+}

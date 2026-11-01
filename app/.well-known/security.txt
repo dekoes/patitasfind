@@ -1,0 +1,6 @@
+Contact: mailto:seguridad@guauwoow.com
+Expires: 2027-04-17T00:00:00.000Z
+Acknowledgments: https://guauwoow.com/app/legal/seguridad.html#reportar
+Preferred-Languages: es, en
+Canonical: https://guauwoow.com/.well-known/security.txt
+Policy: https://guauwoow.com/app/legal/seguridad.html#reportar

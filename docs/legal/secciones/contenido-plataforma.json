@@ -1,0 +1,394 @@
+{
+  "domain": "contenido-plataforma",
+  "as_of": "2026-10-17",
+  "disclaimer": "No es asesoría legal. Los puntos con confianza media o baja, veredicto 'corregido' o 'agregado_por_verificador', o marcados 'sin hallazgo verificado', requieren confirmación de abogado(a) mexicano(a) antes de publicarse.",
+  "hard_deadlines": [
+    {"date": "2026-11-13", "what": "Informe de acciones implementadas bajo el Decreto de entornos digitales seguros para NNA (DOF 14-10-2026, transitorio Cuarto, 30 días naturales).", "findings": ["contenido-plataforma-11"]},
+    {"date": "2027-02-03", "what": "Entrada en vigor aproximada del Capítulo V del Reglamento de la LFDA (arts. 37 Bis a 37 Nonies, DOF 24-09-2026): formulario obligatorio de aviso y contra-aviso. Puede ser 04-02-2027 según días inhábiles.", "findings": ["contenido-plataforma-02", "contenido-plataforma-03"]},
+    {"date": "2027-04-01", "what": "Límite de aplicación gradual del Código Nacional de Procedimientos Civiles y Familiares (prueba electrónica, sumisión expresa).", "findings": ["contenido-plataforma-15", "contenido-plataforma-19"]}
+  ],
+  "pages": [
+    {
+      "slug": "legal",
+      "title": "Centro legal y de transparencia",
+      "purpose": "Índice único de todas las páginas legales, enlazado desde el pie de la landing, la app (Perfil → Legal), el bot de WhatsApp y los correos.",
+      "required_contents": [
+        "Lista de todas las páginas con fecha de última actualización",
+        "Enlace al historial de versiones y al contacto legal",
+        "Leyenda de que las versiones anteriores siguen disponibles en URL inmutable"
+      ],
+      "legal_basis": ["LFDA art. 114 Octies fr. II inc. c)", "Reglamento LFDA art. 37 Sexies", "Decreto NNA (DOF 14-10-2026) arts. 4 y 5", "LFPC art. 76 Bis fr. III y V", "Meta Platform Terms §4", "Google API Services User Data Policy"],
+      "findings": ["contenido-plataforma-28"]
+    },
+    {
+      "slug": "terminos",
+      "title": "Términos y Condiciones",
+      "purpose": "Contrato de adhesión exigible: formación por clickwrap, licencia válida sobre contenido, moderación con debido proceso, cambios con aceptación expresa y jurisdicción a elección del consumidor.",
+      "required_contents": [
+        "Cláusula 1.2 sin aceptación 'por el simple uso'; el contrato se forma al marcar la casilla y crear la cuenta",
+        "Declaración expresa de 18 años o más, registrada, y consecuencias si se detecta a un menor (cláusula 5)",
+        "Cláusula 5.4: inicio de sesión con Google (openid, email, profile) con remisión al aviso",
+        "Cláusula 8: texto generado por IA es contenido propio, etiquetado y corregible; la IA no identifica personas",
+        "Cláusula 13.3: bot de WhatsApp (aceptación previa, BAJA, ELIMINAR, hablar con una persona, nunca datos bancarios ni INE, opt-in separado para alertas)",
+        "Cláusula 13.4: método real de importación, retiro sin cuenta, caducidad 30 días, etiqueta de importado; alineada con el aviso 21.2 y con el código",
+        "Cláusula 14: prohibición de productos no licenciados; revisión previa; reporte de propiedad intelectual",
+        "Cláusula 16: cita correcta de la ley CDMX (art. 25 fr. V, VI y XXI, no 28 Bis) y de la reforma G.O. CDMX 23-07-2026 (art. 25 Bis) con fecha exacta",
+        "Cláusula 17: acusaciones contra personas identificables, menores reconocibles, contenido íntimo, rifas o animales como premio, reseñas falsas",
+        "Cláusula 18.2: licencia no exclusiva, temporal, de fines limitados, con contraprestación (el servicio) y revocable; sin 'gratuita' a secas",
+        "Cláusula 18.4: declaración de consentimiento de las personas que aparecen; GuauWoow puede difuminar o retirar; sin referencia al art. 87 LFDA",
+        "Cláusula 18.6: remisión a /legal/derechos-de-autor y a la política de reincidentes",
+        "Cláusula 19: política de reincidentes, escala de sanciones, filtros automáticos de seguridad informados, chat solo revisado por reporte de un participante",
+        "Cláusulas 15.3, 19.5 y 30.1: leyenda 'procedimiento opcional, no requisito para acudir a PROFECO o tribunales; no modifica plazos legales'",
+        "Cláusula 27: cambios de fondo con 15 días de aviso y aceptación expresa; derecho a cerrar la cuenta y descargar datos; pedidos previos con su versión",
+        "Cláusula 28: suspensión con declaración de motivos, apelación con cuenta suspendida, ARCO y exportación disponibles, pedidos en curso y fondos de refugios",
+        "Cláusula 29: avisos del usuario recibidos al entrar al correo o formulario oficial (CCom 91); el acuse solo confirma",
+        "Cláusula 31.2: consumidor elige PROFECO, tribunales de su domicilio o del Operador; ley federal mexicana; sin tribunales extranjeros",
+        "Anexo de plazos: SLA de retiro, restauración 10 a 15 días hábiles, 15 días hábiles para iniciar procedimiento, apelaciones, conservación 10 años y 90 días hábiles",
+        "Cada versión en URL inmutable con SHA-256 y PDF descargable"
+      ],
+      "legal_basis": ["CCF arts. 1797, 1803 fr. I, 1811, 1834 bis, 640, 646", "CCom arts. 49, 89 bis, 90 bis, 91, 92, 93, 1047, 1093", "LFPC arts. 10, 14, 76 Bis fr. V, 76 Bis 1, 85, 90", "LFDA arts. 30, 31, 33, 114 Octies", "SCJN 1a./J. 93/2025 (11a.) y 1a./J. 1/2019 (10a.)", "Decreto NNA art. 4 fr. I y II"],
+      "findings": ["contenido-plataforma-01", "contenido-plataforma-05", "contenido-plataforma-08", "contenido-plataforma-12", "contenido-plataforma-13", "contenido-plataforma-14", "contenido-plataforma-17", "contenido-plataforma-18", "contenido-plataforma-19", "contenido-plataforma-20", "contenido-plataforma-23", "contenido-plataforma-24", "contenido-plataforma-25", "contenido-plataforma-27", "contenido-plataforma-v01", "contenido-plataforma-v02", "contenido-plataforma-v03"]
+    },
+    {
+      "slug": "privacidad",
+      "title": "Aviso de Privacidad (aportes de este dominio)",
+      "purpose": "La página la escribe el dominio datos-personales; aquí se listan solo las subsecciones que este dominio exige.",
+      "required_contents": [
+        "Subsección 'Datos de tu cuenta de Google': solo openid, email y profile; finalidades; plazo; no se venden ni comparten para publicidad; cómo desvincular y borrar",
+        "Fuentes indirectas: publicaciones públicas de grupos de Facebook (vía proveedor externo), envíos de voluntarios y bot de WhatsApp; medida compensatoria del art. 17 y derecho de oposición",
+        "Bot de WhatsApp (21.3): aviso breve antes de publicar, qué se guarda, comandos BAJA y ELIMINAR; envío de fotos a la IA solo tras aceptar publicar",
+        "Filtros automáticos de seguridad en el chat, sin lectura humana salvo reporte de un participante",
+        "Conservación: bitácora de aceptaciones 10 años (seudonimizada al borrar la cuenta); evidencia de contenido retirado al menos 90 días hábiles en almacén aislado",
+        "Derechos ARCO y exportación disponibles aunque la cuenta esté suspendida",
+        "Transferencias a autoridades solo con requerimiento formal (LFPDPPP 36 fr. I y V)"
+      ],
+      "legal_basis": ["LFPDPPP arts. 2 fr. X, 6, 7, 9, 14 a 17, 21 a 26, 31, 36", "Google API Services User Data Policy", "Meta Platform Terms §4", "Decreto NNA art. 5 fr. II", "CCom art. 49"],
+      "findings": ["contenido-plataforma-06", "contenido-plataforma-11", "contenido-plataforma-12", "contenido-plataforma-13", "contenido-plataforma-15", "contenido-plataforma-22", "contenido-plataforma-24", "contenido-plataforma-25", "contenido-plataforma-v04"]
+    },
+    {
+      "slug": "normas-comunidad",
+      "title": "Normas de la Comunidad",
+      "purpose": "Criterios públicos de identificación y retiro de contenido (Decreto NNA) y conductas prohibidas; sirven de estándar de diligencia.",
+      "required_contents": [
+        "Lista de categorías prohibidas con ejemplo, acción y plazo objetivo: acusaciones contra personas identificables; fotos o datos de personas sin consentimiento; menores reconocibles; contenido íntimo real o simulado; contenidos prohibidos para menores (Decreto NNA art. 3); venta, rifa, sorteo o animales como premio; estafas y anticipos; derechos de autor y marcas; suplantación; reseñas falsas",
+        "Qué categorías se detectan con filtros automáticos y cuáles solo por reporte",
+        "Canalización de denuncias de maltrato a la autoridad (CDMX: PAOT o Brigada de Vigilancia Animal)",
+        "Botón 'Reportar' visible y permanente, con formulario público para personas sin cuenta",
+        "Motivos de reporte: derechos de autor o marca; mi imagen o mis datos; involucra a un menor; contenido íntimo sin consentimiento; difamación; suplantación; venta, rifa o animal como premio; estafa; reseña falsa"
+      ],
+      "legal_basis": ["Decreto NNA arts. 3 y 4 fr. II, III, IV y V", "LFDA art. 114 Octies fr. II inc. c) y fr. IV", "CCF art. 1916", "LGDNNA art. 76", "LGAMVLV arts. 20 Quáter a 20 Sexies", "Ley de Protección y Bienestar de los Animales CDMX art. 25 (texto reformado G.O. 23-07-2026)"],
+      "findings": ["contenido-plataforma-01", "contenido-plataforma-07", "contenido-plataforma-09", "contenido-plataforma-10", "contenido-plataforma-11", "contenido-plataforma-v01", "contenido-plataforma-v02"]
+    },
+    {
+      "slug": "moderacion-y-apelaciones",
+      "title": "Moderación, sanciones y apelaciones",
+      "purpose": "Debido proceso en retiros y suspensiones; reglas del chat; filtros automáticos; estadísticas. Equivale a /legal/moderacion de buenas-practicas-16.",
+      "required_contents": [
+        "Cómo se reporta y qué pasa después, con plazos objetivo publicados",
+        "Escala de sanciones: advertencia, ocultar contenido, suspensión temporal, cancelación definitiva; excepciones por riesgo inminente u orden de autoridad",
+        "Declaración de motivos: regla incumplida, contenido afectado, origen de la detección, duración, cómo apelar",
+        "Apelación en 15 días, resuelta por una persona distinta en 10 días hábiles, con respuesta razonada; accesible con cuenta suspendida",
+        "Procedimiento opcional que no sustituye PROFECO ni tribunales",
+        "ARCO y exportación disponibles con cuenta suspendida",
+        "Chat privado: solo se revisa lo que un participante reporta y autoriza; los administradores no navegan chats; cada acceso queda en bitácora",
+        "Filtros automáticos solo en categorías de seguridad; no hay vigilancia general de derechos de autor",
+        "Neutralidad en disputas de derechos de autor: decide la autoridad",
+        "Estadísticas semestrales (enlace al informe de transparencia)"
+      ],
+      "legal_basis": ["LFDA art. 114 Octies fr. II inc. b) y fr. IV", "LFPC arts. 10 y 90 fr. I", "LFPDPPP arts. 21 a 24 y 31", "Decreto NNA art. 4 fr. II", "CPEUM art. 16", "CPF art. 177"],
+      "findings": ["contenido-plataforma-03", "contenido-plataforma-07", "contenido-plataforma-10", "contenido-plataforma-12", "contenido-plataforma-13", "contenido-plataforma-v01", "contenido-plataforma-v02"]
+    },
+    {
+      "slug": "derechos-de-autor",
+      "title": "Derechos de autor y avisos de infracción",
+      "purpose": "Política de Proveedor de Servicios en Línea: aviso, contra-aviso, staydown, reincidentes y marcas en la tienda. Equivale a /legal/propiedad-intelectual de identidad-contratos-18 y buenas-practicas-17, pero con el formulario del Reglamento LFDA 2026.",
+      "required_contents": [
+        "Explicación del procedimiento y plazos internos (SLA de retiro, 10 a 15 días hábiles de restauración, 15 días hábiles para iniciar procedimiento)",
+        "Subpágina /aviso: formulario público sin cuenta con los campos del art. 37 Quáter fr. I a VII (ubicación electrónica, hechos, nombre y carácter, contacto con correo alterno, domicilio, declaración bajo protesta y buena fe, conocimiento de la sanción del art. 232 Quinquies); captcha; acuse con folio y sello de tiempo; sin exigir certificados",
+        "Subpágina /contra-aviso: campos del art. 37 Septies fr. I a V (identidad y carácter, contacto, domicilio, contrato o licencia o declaración de excepción o dominio público, conocimiento de la sanción); adjuntos",
+        "Advertencia visible de la multa de 1,000 a 20,000 UMA por declaración falsa",
+        "Política pública de reincidentes con cifras (propuesta: 2 avisos procedentes en 12 meses → 30 días; 3 → cancelación)",
+        "Descripción general del staydown por hash sin detalles que permitan evadirlo",
+        "Neutralidad de la plataforma; no valida autenticidad de documentos",
+        "Apartado de marcas y personajes en la tienda; canal para quejas de marca; atención a órdenes del IMPI",
+        "Correo legal, correo alterno y domicilio para avisos"
+      ],
+      "legal_basis": ["LFDA arts. 114 Septies fr. II inc. b), 114 Octies fr. II a) a e), III, IV y V, 231, 232 Quinquies fr. I, II y III, 232 Sexies", "Reglamento LFDA arts. 37 Bis a 37 Nonies (DOF 24-09-2026)", "LFPPI arts. 344 fr. VII y 386 fr. II"],
+      "findings": ["contenido-plataforma-01", "contenido-plataforma-02", "contenido-plataforma-03", "contenido-plataforma-04", "contenido-plataforma-05", "contenido-plataforma-06"]
+    },
+    {
+      "slug": "imagen-y-menores",
+      "title": "Imagen de personas y menores en fotos",
+      "purpose": "Reglas sobre personas y menores que aparecen en fotos, difuminado, consentimiento de imagen y retiro a petición de la persona fotografiada.",
+      "required_contents": [
+        "Fundamento correcto: propia imagen como derecho de la personalidad (ley CDMX, códigos civiles, CCF 1916 fr. IV, LFPDPPP); no el art. 87 LFDA",
+        "Aviso en la subida: evitar fotos con personas; si aparecen, deben estar de acuerdo; difuminar a menores",
+        "Difuminado automático o herramienta de difuminado",
+        "Consentimiento separado, registrado y revocable para historias de éxito, campañas y redes; con menores, firma de quien ejerce la patria potestad y opinión del menor",
+        "Formulario público 'Aparezco en una foto y quiero que se retire' con retiro preventivo y plazo",
+        "Reporte prioritario 'involucra a un menor'"
+      ],
+      "legal_basis": ["LFDA art. 87 (ref. DOF 14-05-2026) y 231 fr. II", "Ley de Responsabilidad Civil CDMX arts. 16 a 21 y 26", "CCF art. 1916 fr. IV", "LFPDPPP arts. 2 y 7", "LGDNNA arts. 76 y 80", "LFPC art. 14 segundo párrafo"],
+      "findings": ["contenido-plataforma-08", "contenido-plataforma-09"]
+    },
+    {
+      "slug": "proteccion-nna",
+      "title": "Protección de niñas, niños y adolescentes",
+      "purpose": "Versión pública del expediente de cumplimiento del Decreto NNA (DOF 14-10-2026): política 18+, verificación de edad, criterios, reporte, contacto 24/7 y conservación.",
+      "required_contents": [
+        "Declaración de servicio exclusivo para mayores de 18 años y evaluación de riesgos",
+        "Mecanismo de verificación de edad: casilla expresa registrada más medida proporcional (verificación con tercero al aprobar adopción, vender o concertar encuentro); reconocer que el SMS no prueba edad",
+        "Criterios de clasificación y moderación (enlaces a Normas y Moderación)",
+        "Mecanismo de reporte visible y permanente con motivo prioritario de menores",
+        "Configuración más estricta por defecto",
+        "Existencia del contacto 24/7 para autoridades (sin datos personales)",
+        "Conservación de evidencia al menos 90 días hábiles en almacén aislado",
+        "Alerta inmediata a autoridades ante contenido contra menores",
+        "Calendario de evaluaciones periódicas y reportes estadísticos",
+        "Consecuencias si se detecta a un menor: cierre de cuenta, reembolso, borrado salvo evidencia"
+      ],
+      "legal_basis": ["Decreto NNA (DOF 14-10-2026) arts. 1 a 5, transitorios Segundo y Cuarto", "LGDNNA arts. 76, 101 Bis 2 y 101 Bis 3", "CCF arts. 640 y 646"],
+      "findings": ["contenido-plataforma-09", "contenido-plataforma-11", "contenido-plataforma-v03"]
+    },
+    {
+      "slug": "autoridades",
+      "title": "Solicitudes de autoridades y violencia digital",
+      "purpose": "Canal y reglas para requerimientos de autoridad, identificación de presuntos infractores y órdenes de la Ley Olimpia.",
+      "required_contents": [
+        "Correo legal, correo alterno, domicilio y contacto 24/7 para autoridades de procuración e impartición de justicia",
+        "Requisitos de un requerimiento: autoridad competente, fundamento, expediente, datos concretos, firma o sello",
+        "Qué se entrega y qué no: solo con requerimiento formal y solo lo pedido; chats privados solo con mandato judicial",
+        "Aviso a la persona usuaria salvo prohibición legal o de la autoridad",
+        "Violencia digital: cumplimiento inmediato de órdenes de interrupción, bloqueo, destrucción o eliminación; resguardo del contenido; aviso al usuario con la leyenda del art. 20 Sexies; audiencia en 5 días",
+        "Reporte sin cuenta de contenido íntimo sin consentimiento con ocultamiento en menos de 24 h",
+        "Enlaces a la Línea de las Mujeres y a las fiscalías",
+        "Estadísticas en el informe de transparencia"
+      ],
+      "legal_basis": ["LFDA art. 232 Quinquies fr. III y 232 Sexies", "LFPDPPP arts. 9 fr. I y VII y 36 fr. I y V", "Decreto NNA art. 5 fr. I a III", "LGAMVLV arts. 20 Quáter, 20 Quinquies y 20 Sexies", "CPF arts. 177, 199 Octies, 199 Nonies y 199 Decies", "CPEUM art. 16"],
+      "findings": ["contenido-plataforma-06", "contenido-plataforma-10", "contenido-plataforma-11"]
+    },
+    {
+      "slug": "contenido-importado",
+      "title": "Contenido importado y bot de WhatsApp",
+      "purpose": "Transparencia sobre grupos públicos de Facebook (vía Apify), envíos de voluntarios, bot de WhatsApp y texto generado por IA; retiro sin cuenta. Se relaciona con /legal/perdidos-y-encontrados (buenas-practicas-15) y /legal/whatsapp (comunicaciones-cookies-27).",
+      "required_contents": [
+        "Origen del contenido importado: grupos públicos por estado (lista), proveedor externo sin cuenta de Facebook, voluntarios, bot",
+        "Qué se guarda (fotos del perro, descripción sin teléfonos ni nombres, zona aproximada, enlace al original) y qué no; nunca se contactan los teléfonos de la publicación",
+        "Etiqueta 'Importado; su autor no es usuario de GuauWoow' con atribución y fecha",
+        "Caducidad de 30 días y qué se conserva después",
+        "Botón 'Soy el autor: retirar o reclamar' sin cuenta; retiro en menos de 72 h; ARCO",
+        "Leyenda de aceptación para voluntarios y prueba de autorización del autor cuando exista",
+        "Texto generado por IA: etiqueta y corrección",
+        "Bot de WhatsApp: aceptación previa a publicar, BAJA, ELIMINAR, hablar con una persona, nunca se piden tarjetas, cuentas ni INE, opt-in separado para alertas, alertas solo con enlace al reporte público",
+        "Envío de fotos del bot a la IA: solo tras aceptar publicar; pendiente de confirmación con Meta o BSP (confianza baja)",
+        "Advertencia interna: la importación por Apify no fue analizada por la investigación; requiere abogado"
+      ],
+      "legal_basis": ["LFPDPPP arts. 2 fr. X, 6, 7, 9 fr. II y V, 14 a 17, 26", "LFDA arts. 114 Octies primer párrafo y 148 fr. II, 30", "CCF arts. 1910 y 1916 último párrafo", "Meta Automated Data Collection Terms §2 y §3", "Meta Platform Terms §3.a, §3.d y §4", "WhatsApp Business Messaging Policy (23-09-2026) secciones 1 a 4", "Meta Terms for WhatsApp Business Platform (23-09-2026) §4.1 y §4.7"],
+      "findings": ["contenido-plataforma-21", "contenido-plataforma-22", "contenido-plataforma-23", "contenido-plataforma-24", "contenido-plataforma-27", "contenido-plataforma-v04"]
+    },
+    {
+      "slug": "refugios",
+      "title": "Contrato y normas para refugios y casas de paso",
+      "purpose": "Contrato entre negocios firmado electrónicamente con garantías sobre el contenido; el resto (comisión, CFDI, bienestar animal) lo escriben otros dominios.",
+      "required_contents": [
+        "Garantía de titularidad o licencia sobre fotos, diseños y textos y del consentimiento de personas y menores que aparecen",
+        "Licencia expresa, no exclusiva y temporal a GuauWoow",
+        "Retiro a primer requerimiento, respuesta ante reclamos, sacar en paz y a salvo al Operador",
+        "Normas de productos: sin piratería, marcas o personajes ajenos, animales vivos ni rifas",
+        "Moderación y suspensión con declaración de motivos y apelación; retención de fondos solo por fraude o contracargos, con plazo y rendición de cuentas",
+        "Roles de datos: el refugio es responsable de los datos de adoptantes que recibe",
+        "Jurisdicción pactada y mecanismo alterno de solución",
+        "Firma con proveedor de firma electrónica con constancia NOM-151 o e.firma del SAT; expediente con versión y hash"
+      ],
+      "legal_basis": ["CCom arts. 89, 93, 97 y 1093", "LFDA arts. 30 y 114 Octies fr. II inc. e)", "Ley de Responsabilidad Civil CDMX art. 18", "LGDNNA art. 76", "LFPDPPP (responsable y encargado)", "NOM-151-SCFI-2016"],
+      "findings": ["contenido-plataforma-26", "contenido-plataforma-05", "contenido-plataforma-13"]
+    },
+    {
+      "slug": "tienda",
+      "title": "Normas de la Tienda (contenido)",
+      "purpose": "Reglas de contenido y propiedad intelectual para productos; el resto lo escriben consumidor-ecommerce y fiscal-tienda.",
+      "required_contents": [
+        "Revisión previa de cada producto con lista de verificación de propiedad intelectual",
+        "Prohibición de productos no licenciados, con personajes, marcas deportivas o de entretenimiento, o fotos de stock sin licencia",
+        "Prohibición de campañas 'compra y llévate un perrito', animales como premio o gancho, rifas y sorteos",
+        "Descripciones generadas por IA solo con revisión del refugio",
+        "Reseñas de compradores verificados: política de retiro (solo ilícito, ofensivo o con datos personales), sin edición por el refugio, etiqueta de incentivadas (coordinado con consumidor-ecommerce-29)",
+        "Motivo de reporte 'propiedad intelectual' y canal para quejas de marca"
+      ],
+      "legal_basis": ["LFDA art. 114 Octies fr. II inc. e) y 231 fr. I", "LFPPI arts. 344 fr. VII y 386 fr. II", "LFPC art. 76 Bis fr. IV", "Ley de Protección y Bienestar de los Animales CDMX art. 25 fr. III"],
+      "findings": ["contenido-plataforma-05", "contenido-plataforma-27", "contenido-plataforma-v02", "contenido-plataforma-26"]
+    },
+    {
+      "slug": "veterinarias",
+      "title": "Clínicas veterinarias: reseñas y verificación",
+      "purpose": "Página nueva sin hallazgo verificado (la sección se decidió después de la investigación); reglas derivadas de daño moral, debido proceso y responsabilidad por afirmaciones propias.",
+      "required_contents": [
+        "Reglas de reseñas internas: experiencia propia, sin acusaciones de delitos ni datos personales del personal; prohibidas las reseñas de la propia clínica, competidores o pagadas sin etiqueta",
+        "Política de retiro de reseñas: solo ilicitud, ofensa, datos personales o falsedad; nunca reseñas negativas legítimas; derecho de réplica y apelación",
+        "Reseñas de Google: reproducidas sin alterar, con atribución visible y separadas de las internas; términos de Google Maps Platform pendientes de revisión por abogado",
+        "Qué significa el sello 'verificada' (cédula profesional consultada en el registro público de la SEP, con fecha) y qué no se verifica",
+        "Canal para reportar clínicas y reseñas"
+      ],
+      "legal_basis": ["CCF arts. 1910 y 1916 (incluido el último párrafo sobre reproducción fiel citando la fuente)", "Ley de Responsabilidad Civil CDMX arts. 13, 25 y 32", "LFPC art. 76 Bis fr. IV", "Términos de Google Maps Platform (no verificados)"],
+      "findings": ["contenido-plataforma-07", "contenido-plataforma-13", "contenido-plataforma-27"]
+    },
+    {
+      "slug": "versiones",
+      "title": "Historial de versiones",
+      "purpose": "Prueba de integridad y fecha de cada versión de los documentos legales y de la bitácora de aceptaciones.",
+      "required_contents": [
+        "Por versión: fecha, resumen de cambios, SHA-256, URL inmutable, PDF, folio de constancia NOM-151 cuando exista",
+        "Diferencias entre versiones",
+        "Explicación de la bitácora de aceptaciones (qué se registra, 10 años, seudonimización al borrar la cuenta)",
+        "Explicación de la constancia diaria de lotes"
+      ],
+      "legal_basis": ["CCom arts. 49, 93 bis, 95 bis 2, 95 bis 3, 1298-A", "CNPCF arts. 348 a 350", "NOM-151-SCFI-2016 numerales 4.2, 5.1, 6.2, 6.3 y Apéndice A", "LFPC art. 76 Bis 1 fr. IV"],
+      "findings": ["contenido-plataforma-14", "contenido-plataforma-15", "contenido-plataforma-16", "contenido-plataforma-17", "contenido-plataforma-v03"]
+    },
+    {
+      "slug": "transparencia",
+      "title": "Informe de transparencia",
+      "purpose": "Informe semestral con estadísticas de moderación, derechos de autor, apelaciones y requerimientos de autoridad; apoya los reportes del Decreto NNA.",
+      "required_contents": [
+        "Reportes recibidos por motivo y resultado",
+        "Retiros por categoría y origen de detección",
+        "Avisos de derechos de autor, procedentes, contra-avisos y restauraciones",
+        "Suspensiones, cancelaciones, apelaciones y resultado",
+        "Requerimientos de autoridad recibidos, atendidos y rechazados por tipo",
+        "Órdenes de violencia digital atendidas",
+        "Retiros de contenido importado a petición del autor",
+        "Tiempos medianos frente a los plazos publicados"
+      ],
+      "legal_basis": ["Decreto NNA art. 4 fr. IX y transitorio Cuarto", "LFDA art. 232 Quinquies (contexto)"],
+      "findings": ["contenido-plataforma-06", "contenido-plataforma-13", "contenido-plataforma-28"]
+    },
+    {
+      "slug": "contacto",
+      "title": "Contacto legal",
+      "purpose": "Identidad y medios de contacto del Operador exigidos antes de cualquier transacción y para avisos legales.",
+      "required_contents": [
+        "Razón social, RFC, domicilio físico y fiscal",
+        "Correo legal, correo alterno, correo de privacidad, teléfono y horario",
+        "Canal 24/7 para autoridades (sin datos personales del titular)",
+        "Medios de reclamación y enlace a PROFECO"
+      ],
+      "legal_basis": ["LFPC art. 76 Bis fr. III", "Reglamento LFDA art. 37 Quáter (datos para avisos)", "Decreto NNA art. 5 fr. I"],
+      "findings": ["contenido-plataforma-06", "contenido-plataforma-28"]
+    }
+  ],
+  "product_requirements": [
+    {"id": "contenido-plataforma-14", "priority": "obligatorio", "requirement": "Clickwrap: quitar 'o al usar la Plataforma' de 1.2; casillas desmarcadas de 18+ y de Términos/Aviso con enlaces junto al texto; botón 'Crear cuenta' deshabilitado hasta marcarlas; en Google OAuth mostrar las casillas antes de redirigir y registrar al volver; checkout con resumen, enlace a condiciones y confirmación tras ver el total; HTML imprimible y PDF por versión."},
+    {"id": "contenido-plataforma-15", "priority": "obligatorio", "requirement": "Tabla de solo inserción legal_acceptances (user_id o hash de wa_id, document, version, sha256 del HTML mostrado, accepted_at UTC, ip, user_agent, channel, checkbox_text, locale, request_id, prev_hash), sin UPDATE/DELETE, encadenada por hash; versiones en URL inmutable con SHA-256 visible; conservar 10 años; seudonimizar al borrar cuenta; correo de acuse con versión y hash; aplicar a pedidos, bot y contrato con refugios."},
+    {"id": "contenido-plataforma-16", "priority": "recomendado", "requirement": "Constancia NOM-151 por cada versión publicada; tarea diaria de hash/Merkle del lote de legal_acceptances y evidencias de moderación con constancia (.tsr guardado); mostrar folio en /legal/versiones."},
+    {"id": "contenido-plataforma-17", "priority": "obligatorio", "requirement": "Cambios de fondo a los Términos: comparar legal_versions con la última fila de legal_acceptances por documento y mostrar modal bloqueante de aceptación expresa (TermsAcceptRequest) con 15 días de aviso; opción de cerrar cuenta y descargar datos; diff entre versiones en /legal/versiones."},
+    {"id": "contenido-plataforma-v03", "priority": "recomendado", "requirement": "Casilla separada 'Declaro que tengo 18 años o más' en registro, Google OAuth y bot de WhatsApp; guardar texto exacto, versión y sello en legal_acceptances; flujo de cierre de cuenta, reembolso y borrado al detectar a un menor."},
+    {"id": "contenido-plataforma-11", "priority": "obligatorio", "requirement": "Antes del 13-11-2026: expediente de cumplimiento del Decreto NNA (PDF firmado); verificación de edad proporcional más allá de la casilla (tercero al aprobar adopción, vender o concertar encuentro; señales de riesgo en chat); configuración más estricta por defecto; almacén aislado y cifrado para contenido y cuentas retirados durante al menos 90 días hábiles con borrado posterior y registro de accesos; contacto 24/7 con capacidad técnica de retiro; botón 'Reportar' en todo contenido y chat."},
+    {"id": "contenido-plataforma-02", "priority": "obligatorio", "requirement": "Endpoint público sin login (POST /api/legal/copyright-notices) con captcha y rate limit; formulario /legal/derechos-de-autor/aviso con campos del art. 37 Quáter fr. I a VII, casilla de protesta y texto de la multa; acuse con folio y sello de tiempo; aviso guardado íntegro con SHA-256; sin exigir certificados."},
+    {"id": "contenido-plataforma-01", "priority": "obligatorio", "requirement": "Tipo de caso 'copyright' con estados received → incomplete → removed → counter_notice → restored → final; SLA interno de retiro menor a 24 h hábiles; notificación automática a quien subió el contenido con copia del aviso; contador de avisos procedentes por usuario y suspensión/cancelación por reincidencia; registro en AdminAuditLog."},
+    {"id": "contenido-plataforma-03", "priority": "obligatorio", "requirement": "Formulario /legal/derechos-de-autor/contra-aviso (art. 37 Septies) con adjuntos; reenvío inmediato de copia a quien avisó; tarea programada de restauración entre el día hábil 10 y 15 con calendario de días hábiles de México, cancelable si llega prueba de procedimiento; expediente con sellos de tiempo."},
+    {"id": "contenido-plataforma-04", "priority": "obligatorio", "requirement": "Lista de bloqueo con hash perceptual (pHash/dHash, reutilizando photo_signature) de imágenes retiradas por aviso u orden; comparación en cada subida (rechazo o retención para revisión humana); hash normalizado de textos de productos."},
+    {"id": "contenido-plataforma-06", "priority": "obligatorio", "requirement": "Procedimiento de requerimientos de autoridad: verificación de autenticidad, extracción mínima (registro de cuenta, IP de alta, teléfono verificado, bitácoras), entrega con acuse, registro en AdminAuditLog, aviso al usuario salvo prohibición; advertencia de multa por falsedad en ambos formularios; contador para el informe de transparencia."},
+    {"id": "contenido-plataforma-07", "priority": "recomendado", "requirement": "Motivos de reporte 'difamación', 'mi imagen o mis datos', 'suplantación', 'reseña falsa'; formulario público de reporte sin cuenta; SLA de revisión 72 h hábiles (propuesta) y retiro preventivo de lo manifiestamente ilícito; conservación de evidencia."},
+    {"id": "contenido-plataforma-08", "priority": "obligatorio", "requirement": "Aviso en la pantalla de subida sobre personas en fotos; herramienta de difuminado o difuminado automático de caras; consentimiento de imagen separado, registrado y revocable (document = image_consent) antes de reutilizar fotos en redes, campañas o historias; formulario público de retiro para la persona fotografiada con retiro preventivo."},
+    {"id": "contenido-plataforma-09", "priority": "recomendado", "requirement": "Difuminado automático de caras que parezcan de menores con revisión humana en duda; motivo de reporte prioritario 'involucra a un menor' con retiro inmediato y alerta a autoridad si hay indicios de delito; consentimiento de patria potestad para historias con menores."},
+    {"id": "contenido-plataforma-10", "priority": "obligatorio", "requirement": "Motivo de reporte 'contenido íntimo sin consentimiento o violencia digital' disponible sin cuenta; ocultamiento en menos de 24 h con reporte creíble; bloqueo por hash; canal de órdenes con atención inmediata y verificación; plantilla de aviso al usuario con la leyenda del art. 20 Sexies; almacén separado y cifrado con cadena de custodia."},
+    {"id": "contenido-plataforma-12", "priority": "recomendado", "requirement": "Al reportar un mensaje, casilla de autorización del participante para compartir el mensaje y su contexto inmediato; los administradores solo ven la conversación reportada; cada acceso en AdminAuditLog; filtros antifraude del chat solo marcan y avisan, sin lectura humana salvo reporte; declararlo en aviso y Términos."},
+    {"id": "contenido-plataforma-13", "priority": "recomendado", "requirement": "moderation.suspend debe enviar declaración de motivos (regla, contenido, origen de detección, duración, cómo apelar) salvo riesgo inminente u orden; endpoint POST /appeals con token del correo accesible con cuenta suspendida, resuelto por admin distinto (appeal_resolved_by ≠ resolved_by) en 10 días hábiles; exportación de datos y ARCO con enlace firmado para cuentas suspendidas; campos notified_at, appeal_status, appeal_reason, detection_source en ContentReport; pedidos en curso se completan o reembolsan."},
+    {"id": "contenido-plataforma-v01", "priority": "recomendado", "requirement": "Filtros automáticos limitados a categorías de seguridad (estafas/anticipos, venta o rifa de animales, maltrato, contenido sexual o con menores, apología de delitos); registro de cada acción automatizada (regla, puntuación, resultado, revisión humana); aviso a quien publicó; no citar la LFTR abrogada."},
+    {"id": "contenido-plataforma-v02", "priority": "recomendado", "requirement": "Motivo de reporte 'venta, rifa o regalo de animales como premio'; regla automática con palabras clave ('rifa', 'sorteo', 'precio', '$', 'apartado') en fichas de adopción; canalización de maltrato a autoridad; corrección de la sección 16 de los Términos (art. 25 fr. V, VI y XXI; reforma G.O. CDMX 23-07-2026 citada con exactitud)."},
+    {"id": "contenido-plataforma-20", "priority": "recomendado", "requirement": "Reescribir 18.2 como licencia no exclusiva, temporal, de fines limitados, con contraprestación y revocable; licencia específica y separada para campañas e historias de éxito; guardar la aceptación como forma escrita."},
+    {"id": "contenido-plataforma-21", "priority": "obligatorio", "requirement": "Para Graph API: aceptar solo page_id de páginas administradas (validar con /me/accounts) o desactivar fuentes ajenas hasta tener PPCA; nunca automatizar grupos ni perfiles desde la app de Meta; prueba de autorización del autor en importaciones manuales; borrado a petición y al vencer, con registro; enlazar la política de privacidad en el panel de la app de Meta; alinear 13.4 y 21.2 con el código. Para Apify (decisión posterior): revisar con abogado antes del lanzamiento."},
+    {"id": "contenido-plataforma-22", "priority": "obligatorio", "requirement": "En create_report_from_post: eliminar teléfonos, correos, nombres propios, direcciones exactas y enlaces de pago (regex 10 dígitos, +52, CLABE); conservar solo datos del perro, zona aproximada y enlace al original; mostrar como cita fiel con atribución o resumen; miniatura enlazada al original; etiqueta 'Importado; su autor no es usuario de GuauWoow'; botón 'Soy el autor: retirar o reclamar' sin cuenta con retiro en menos de 72 h; caducidad automática a 30 días (decisión del dueño); declarar fuente indirecta y medida compensatoria en el aviso."},
+    {"id": "contenido-plataforma-23", "priority": "obligatorio", "requirement": "Alertas cercanas por WhatsApp como plantilla de utilidad con enlace al reporte público, nunca con el contenido del chat de otra persona; opt-in separado 'alertas cercanas por WhatsApp' con registro (fecha, texto, versión); opción 'Hablar con una persona' en el menú del bot; el bot nunca pide datos bancarios, tarjeta ni INE; bot solo para perdidos y encontrados e información de adopción; perfil de empresa con datos reales."},
+    {"id": "contenido-plataforma-24", "priority": "obligatorio", "requirement": "Mensaje del bot con aviso breve, enlaces a aviso integral y Términos, declaración de 18+ y botones 'Acepto y publicar' / 'Cancelar' antes de crear el reporte; registro en legal_acceptances (channel = whatsapp, id del mensaje, hash del número, versión, texto del botón); si no acepta, no se publica; comandos BAJA y ELIMINAR."},
+    {"id": "contenido-plataforma-v04", "priority": "recomendado", "requirement": "No enviar fotos del bot a DashScope hasta que la persona acepte publicar (la foto pasa a ser contenido de usuario de GuauWoow); confirmar con Meta o BSP el alcance de 'Datos de la plataforma de WhatsApp Business'; contratar DashScope sin uso de datos para entrenar; no compartir datos del bot con refugios ni terceros fuera del reporte público."},
+    {"id": "contenido-plataforma-25", "priority": "obligatorio", "requirement": "Subsección 'Datos de tu cuenta de Google' en el aviso; enlace a la política en el pie de la landing igual al de la pantalla OAuth; dominio verificado en Search Console y verificación de marca; botón conforme a guías de Google; confirmar que solo se piden openid, email y profile; mención en 5.4."},
+    {"id": "contenido-plataforma-27", "priority": "buena_practica", "requirement": "Etiqueta 'Generado automáticamente por IA; puede contener errores' separada del texto del autor; prompt que impida describir personas, placas, domicilios o hechos sobre personas; corrección o reporte de la descripción; sin IA en descripciones de productos sin revisión del refugio."},
+    {"id": "contenido-plataforma-28", "priority": "recomendado", "requirement": "Índice /legal/ con las páginas de este dominio, enlazado desde landing, app (Perfil → Legal), bot y correos; informe de transparencia semestral."},
+    {"id": "contenido-plataforma-18", "priority": "recomendado", "requirement": "Ninguna cláusula importante en letra menor ni en acordeones ocultos; leyenda de opcionalidad en 15.3, 19.5 y 30.1; regla de recepción de avisos (CCom 91) en 29; revisión legal antes del lanzamiento con registro de cambios."},
+    {"id": "contenido-plataforma-19", "priority": "recomendado", "requirement": "Nueva cláusula 31.2 con elección del consumidor (PROFECO, tribunales de su domicilio o del Operador); el Operador demanda en el domicilio del consumidor; ley federal mexicana; sin tribunales extranjeros."}
+  ],
+  "shop_requirements": [
+    {"id": "contenido-plataforma-05", "priority": "recomendado", "requirement": "Revisión previa de cada producto (estado 'en revisión') con lista de verificación de propiedad intelectual: sin personajes, marcas deportivas o de entretenimiento ni fotos de stock sin licencia; motivo de reporte 'propiedad intelectual'; canal para quejas de marca; atención a órdenes del IMPI (LFPPI 344 fr. VII) por el canal de autoridades."},
+    {"id": "contenido-plataforma-26", "priority": "recomendado", "requirement": "Contrato de Refugio Verificado y Vendedor con garantía de titularidad o licencia sobre fotos, diseños y textos, consentimiento de personas y menores, licencia expresa, retiro a primer requerimiento, indemnidad, normas de productos, moderación con debido proceso y retención de fondos solo por fraude o contracargos, roles de datos, jurisdicción; firmado con proveedor con constancia NOM-151 o e.firma; expediente con versión y hash."},
+    {"id": "contenido-plataforma-13", "priority": "recomendado", "requirement": "Al suspender a un refugio: pedidos en curso se completan o se reembolsan; retención de fondos solo por fraude o contracargos, con plazo y rendición de cuentas, pactado en el contrato."},
+    {"id": "contenido-plataforma-v02", "priority": "recomendado", "requirement": "Normas de la Tienda y de campañas de donativos: prohibir rifas, sorteos o campañas 'dona o compra y llévate un perrito', animales como premio o gancho comercial, crías en venta y ventas en vía pública (ley CDMX art. 25 fr. III, V, VI y XXI, texto 2026)."},
+    {"id": "contenido-plataforma-27", "priority": "buena_practica", "requirement": "No usar IA para redactar descripciones de productos sin revisión del refugio; las afirmaciones engañosas sobre productos son práctica prohibida (LFPC 76 Bis fr. IV)."},
+    {"id": "contenido-plataforma-14", "priority": "obligatorio", "requirement": "Checkout: resumen del pedido, enlace a las condiciones de la tienda y confirmación después de ver el total; registro de la aceptación de las condiciones de cada pedido en legal_acceptances (document = order_terms)."},
+    {"id": "contenido-plataforma-07", "priority": "recomendado", "requirement": "Reseñas de productos y de clínicas: política pública de retiro (solo ilícito, ofensivo, con datos personales o falso), sin edición por el vendedor, etiqueta de incentivadas, réplica y apelación; coordinado con consumidor-ecommerce-29."}
+  ],
+  "retention": [
+    {"category": "Bitácora de aceptaciones legales (legal_acceptances): Términos, Aviso, declaración 18+, condiciones de pedido, contrato con refugios, consentimiento del bot, opt-in de alertas, licencias de imagen", "period": "10 años desde la aceptación y mientras dure la relación; seudonimizada (hash de correo y teléfono) al borrar la cuenta", "basis": "CCom arts. 49 y 1047; LFPC art. 76 Bis 1 fr. IV; LFPDPPP art. 25 fr. I y II. Conflicto con los 5 años del CFF (cláusula 28.1, fiscal-tienda, donativos): usar el plazo más largo aplicable y unificar en el aviso."},
+    {"category": "Versiones publicadas de documentos legales (HTML, PDF, SHA-256) y constancias NOM-151", "period": "Mientras exista cualquier aceptación vigente y 10 años después de la última", "basis": "CCom art. 49 segundo párrafo; NOM-151-SCFI-2016 numeral 6.3"},
+    {"category": "Expedientes de avisos y contra-avisos de derechos de autor (aviso íntegro, hash, acuses, notificaciones, prueba de procedimiento)", "period": "Mientras dure el procedimiento y 10 años (prescripción mercantil, por analogía; confirmar con abogado)", "basis": "CCom art. 1047; LFDA art. 232 Quinquies (prueba frente a multas)"},
+    {"category": "Evidencia digital de contenido y cuentas retirados (almacén aislado y cifrado)", "period": "Al menos 90 días hábiles; más si hay retención legal u orden de autoridad; luego borrado con registro", "basis": "Decreto NNA (DOF 14-10-2026) art. 5 fr. II"},
+    {"category": "Contenido inhabilitado por orden de violencia digital (Ley Olimpia)", "period": "Mientras la autoridad lo solicite, con cadena de custodia", "basis": "LGAMVLV arts. 20 Quinquies y 20 Sexies"},
+    {"category": "Reportes de contenido resueltos, declaraciones de motivos, apelaciones, acciones automatizadas y AdminAuditLog", "period": "24 meses (propuesta; placeholder PLAZO_DE_CONSERVACION_DE_REPORTES_DE_MODERACION); 10 años si involucra a menores", "basis": "Ley de Responsabilidad Civil CDMX art. 38 (2 años); LFPC art. 14 (1 año; 10 años si afecta a menores); Decreto NNA art. 5 fr. II (mínimo 90 días hábiles)"},
+    {"category": "Reportes importados de Facebook (fotos y texto sin datos de contacto)", "period": "30 días desde la importación (decisión del dueño; la investigación proponía 60 días sin actividad); se conserva solo el registro de existencia y de solicitudes de retiro", "basis": "LFPDPPP arts. 17 y 26; Meta Platform Terms §3.d"},
+    {"category": "Prueba de autorización del autor en importaciones manuales o envíos de voluntarios", "period": "Mientras el reporte esté publicado y 2 años después", "basis": "Ley de Responsabilidad Civil CDMX art. 38; contenido-plataforma-21"},
+    {"category": "Requerimientos de autoridad y respuestas entregadas", "period": "Mientras el expediente esté abierto y 10 años (propuesta; confirmar con abogado)", "basis": "AdminAuditLog; CCom art. 1047 por analogía; LFDA art. 232 Quinquies fr. III"},
+    {"category": "Registros de opt-in y bajas del bot de WhatsApp", "period": "Mientras dure la relación y 10 años como parte de la bitácora de aceptaciones", "basis": "WhatsApp Business Messaging Policy sección 1; CCom art. 49"}
+  ],
+  "subprocessors": [
+    {"name": "Meta Platforms (WhatsApp Cloud API)", "purpose": "Bot de perdidos y encontrados, alertas cercanas por plantilla, aceptación previa a publicar", "data": "Número de teléfono, mensajes, fotos y ubicación enviados por la persona; id de mensajes; opt-in y bajas", "country": "Estados Unidos (procesamiento global de Meta)", "type": "Proveedor de plataforma de mensajería bajo Meta Terms for WhatsApp Business Platform (23-09-2026) y WhatsApp Business Messaging Policy (23-09-2026); contractual, no legal"},
+    {"name": "Meta Platforms (Facebook Pages Graph API)", "purpose": "Lectura de publicaciones de páginas que GuauWoow administra (solo con Page Access Token propio; PPCA pendiente para páginas ajenas)", "data": "Publicaciones públicas de páginas propias: texto, fotos, fecha, enlace", "country": "Estados Unidos", "type": "Proveedor de API bajo Meta Platform Terms (03-02-2026) y Automated Data Collection Terms (07-10-2024)"},
+    {"name": "Apify (proveedor de scraping de grupos públicos de Facebook)", "purpose": "Ingesta de publicaciones de grupos públicos de perros perdidos por estado, sin cuenta de Facebook (decisión del dueño posterior a la investigación; sin hallazgo verificado)", "data": "Fotos y texto de publicaciones públicas; GuauWoow elimina teléfonos, correos y nombres antes de guardar y conserva el enlace al original; caducidad 30 días", "country": "Pendiente de confirmar con el contrato de Apify (empresa con sede en República Checa; ubicación de procesamiento por confirmar)", "type": "Encargado o fuente externa; contrato y riesgo contractual frente a Meta pendientes de revisión por abogado (confianza baja)"},
+    {"name": "Alibaba Cloud (DashScope, Qwen3-VL)", "purpose": "Análisis de fotos para coincidencias y descripciones generadas por IA (description_es)", "data": "Fotos de perros de reportes, fichas, importaciones y bot (estas últimas solo tras aceptación de publicar); texto descriptivo", "country": "Fuera de México (servidores de Alibaba Cloud; región por confirmar)", "type": "Encargado de tratamiento; contratar modalidad sin uso de datos para entrenar y documentarlo en el aviso; alcance frente a Meta Terms for WhatsApp Business Platform §4.1(b) y §4.7 pendiente (confianza baja)"},
+    {"name": "Google LLC (Google Identity / OAuth)", "purpose": "Inicio de sesión con Google", "data": "openid, email, profile (correo, nombre, foto)", "country": "Estados Unidos", "type": "Proveedor de identidad bajo Google API Services User Data Policy (15-02-2024); requiere política de privacidad en el mismo dominio y verificación de marca"},
+    {"name": "Google LLC (Google Maps Platform / Places API)", "purpose": "Mostrar reseñas y datos de clínicas veterinarias con atribución (sección nueva, sin hallazgo verificado)", "data": "Reseñas públicas de Google, calificación, nombre y dirección de la clínica; no datos de usuarios de GuauWoow", "country": "Estados Unidos", "type": "Proveedor de contenido de terceros; términos de atribución y caché de Google Maps Platform pendientes de revisión por abogado"},
+    {"name": "Prestador de Servicios de Certificación acreditado por la Secretaría de Economía (por elegir)", "purpose": "Constancias de conservación NOM-151 de versiones legales, lotes diarios de aceptaciones y evidencias; firma electrónica del contrato con refugios", "data": "Solo la huella digital (hash) de cada mensaje de datos; para firma, los datos del firmante que el prestador requiera", "country": "México", "type": "Prestador acreditado (CCom arts. 95 bis 3 y 102; NOM-151-SCFI-2016 Apéndice A.2.4); pendiente de elección y presupuesto del dueño"}
+  ],
+  "owner_data_needed": [
+    "Razón social, RFC, domicilio físico y fiscal del Operador y su forma legal (define si es comerciante para CCom 49, qué código civil y ley de honor aplican y qué tribunales).",
+    "Correo legal para avisos y contra-avisos de derechos de autor y requerimientos de autoridad, correo alterno y teléfono.",
+    "Nombre, cargo y medio de contacto de la persona designada como contacto 24/7 para autoridades (Decreto NNA art. 5 fr. I) y de su suplente.",
+    "Lista de páginas de Facebook administradas (page_id) y estado de la verificación del negocio en Meta Business Manager; lista de estados y grupos públicos que se importarán vía Apify; contrato o términos de Apify.",
+    "Datos del perfil de WhatsApp Business (nombre, correo, sitio, horario) y el canal para pasar con una persona.",
+    "Dominio definitivo para Search Console, pantalla de consentimiento OAuth y enlace de privacidad.",
+    "Plazos internos cumplibles: revisión de reportes (propuesta 72 h hábiles), retiro por derechos de autor (propuesta < 24 h hábiles), retiro por Ley Olimpia o menores (< 24 h), apelaciones (10 días hábiles), retiro de contenido importado a petición del autor (propuesta 72 h).",
+    "Número de avisos procedentes que activa la suspensión por reincidencia y su duración (propuesta: 2 en 12 meses → 30 días; 3 → cancelación definitiva).",
+    "Prestador de Servicios de Certificación (NOM-151) o proveedor de firma electrónica elegido y presupuesto.",
+    "Si existe o se contratará seguro de responsabilidad civil o ciberriesgos que cubra contenido de usuarios.",
+    "Decisión sobre verificación de edad más allá de la casilla (qué tercero y en qué momento) y quién prepara y entrega el informe del Decreto NNA del 13-11-2026.",
+    "Decisión sobre revisión previa de productos en la tienda o publicación inmediata.",
+    "Decisión sobre difuminado automático de caras o consentimiento de imagen caso por caso.",
+    "Para veterinarias: qué campos de Google Places se muestran, cuántas reseñas, tiempo en caché, y el texto exacto del sello 'verificada'.",
+    "Si el chat admitirá imágenes en el futuro.",
+    "Si la caducidad de 30 días del contenido importado aplica también a envíos de voluntarios y al bot."
+  ],
+  "lawyer_points": [
+    "Confirmar con las sentencias oficiales la validez del régimen de puerto seguro de la LFDA (AI 217/2020 y acumulada 249/2020; AR 556/2022) antes de citarla en textos públicos (CP-01, CP-04).",
+    "Confirmar la fecha exacta de entrada en vigor del Capítulo V del Reglamento LFDA según los días inhábiles del DOF (03 o 04-02-2027) (CP-02).",
+    "Si el inciso e) del art. 114 Octies fr. II LFDA alcanza a una tienda con comisión y revisión previa (CP-05; interpretación, no criterio judicial).",
+    "Daño moral: código civil y ley de honor aplicables según el domicilio del Operador; estado del amparo directo 8/2023 (Richter vs. Google); si la ley CDMX de honor e imagen cambió de nombre en 2025 (CP-07).",
+    "Si algún precedente sigue aplicando la regla anterior del 'retrato' del art. 87 LFDA tras la reforma DOF 14-05-2026; obtener el texto oficial vigente de la ley CDMX de honor e imagen (CP-08).",
+    "Aplicabilidad y exigibilidad del Decreto NNA (DOF 14-10-2026) a una plataforma solo para adultos; qué verificación de edad es proporcional; a qué autoridad y por qué medio se entrega el informe del 13-11-2026; posibilidad de impugnación. Conflicto entre dominios sobre si la casilla 18+ basta (CP-11, CP-v03).",
+    "Si la reforma constitucional del DOF 07-10-2026 modificó los párrafos del art. 16 sobre comunicaciones privadas o acceso de autoridades; si un filtro automatizado del propio prestador sobre el chat es 'intervención' (CP-12, CP-v01). Conflicto con seguridad-incidentes-v01 y buenas-practicas-18.",
+    "Validez del modelo 'aviso + aceptación expresa + derecho a terminar' para cambios a los Términos (CP-17); revisión de cláusulas abusivas (CP-18); nueva cláusula 31.2 y si la tesis I.10o.C. J/2 C (12a.), registro 2032333, ya es jurisprudencia aplicable (CP-19).",
+    "Si el carácter 'oneroso' del art. 30 LFDA aplica a licencias no exclusivas sobre contenido de usuarios; redacción final de la cláusula 18.2 (CP-20).",
+    "Apify y grupos de Facebook (sin hallazgo verificado): riesgo contractual con Meta (Automated Data Collection Terms §2; Platform Terms) para un desarrollador que usa WhatsApp Cloud API y Pages Graph API; revisión del contrato de Apify; si el texto con teléfonos y nombres eliminados sigue siendo 'reproducción fiel' (CCF 1916 último párrafo); aplicabilidad del art. 148 fr. II LFDA; medidas compensatorias del art. 17 LFPDPPP sin reglamento (CP-21, CP-22). Conflicto entre dominios sobre el grado de certeza de que las redes sociales no son fuente de acceso público.",
+    "Si una plantilla de WhatsApp con enlace al reporte público consentido cumple la regla de no compartir información de un chat con otro cliente; alcance de 'Datos de la plataforma de WhatsApp Business' frente al contenido de los mensajes y envío de fotos a DashScope (CP-23, CP-v04; confianza baja).",
+    "Ley de Protección y Bienestar de los Animales de la CDMX: usar el texto reformado G.O. 23-07-2026 (art. 25 Bis) documentado por bienestar-animal y corregir la sección 16 de los Términos; alcance de 'ferias' y 'obras benéficas' frente a ferias de adopción (CP-v02).",
+    "Capacidad de menores, nulidad relativa y dolo del menor en el código civil del estado del Operador (CP-v03).",
+    "Google Maps Platform: términos de atribución y caché de reseñas para la sección de veterinarias; responsabilidad por el sello 'verificada' como afirmación propia (sin hallazgo verificado).",
+    "Unificar el plazo de conservación de aceptaciones y contratos: 10 años (CCom 49 y 1047) frente a 5 años (CFF) en fiscal-tienda, donativos y el aviso actual; una sola tabla con el plazo más largo y su punto de inicio (CP-15). El contador concilia el efecto fiscal.",
+    "Confirmar que la NOM-151-SCFI-2016 no se modificó ni canceló en 2025-2026 y si la NMX-COE-001-SCFI-2018 sigue vigente (CP-14, CP-16).",
+    "Confirmar si el Reglamento LFDA permite pedir documentos en el contra-aviso pero no en el aviso, tal como se implementará (art. 37 Quinquies) (CP-03)."
+  ],
+  "key_risks": [
+    "Incumplir el informe del Decreto NNA del 13-11-2026 o no tener verificación de edad más allá de la casilla, criterios publicados, contacto 24/7 y conservación de evidencia 90 días hábiles (CP-11).",
+    "Perder el puerto seguro de derechos de autor por no retirar de forma expedita, no notificar al usuario, no tener política pública de reincidentes o no evitar la resubida; multa de 1,000 a 20,000 UMA por no retirar o no entregar información a la autoridad (CP-01, CP-04, CP-06).",
+    "No tener el formulario de aviso y contra-aviso del Reglamento LFDA listo para febrero de 2027 y exigir certificados o cuenta para reportar (CP-02, CP-03).",
+    "Responder como editor por fotos y textos importados de Facebook (GuauWoow inicia la conducta; sin puerto seguro) y por el texto generado por IA (CP-22, CP-27).",
+    "Riesgo contractual con Meta por scraping vía Apify mientras GuauWoow depende de WhatsApp Cloud API y Pages Graph API: pérdida de la app, de la API o del número de WhatsApp Business (CP-21; sin hallazgo verificado, confianza baja).",
+    "Tratar datos personales de autores de publicaciones públicas sin base (las redes sociales no son fuente de acceso público) ni medida compensatoria (CP-22).",
+    "Términos inexigibles: aceptación por simple uso, cambios por uso posterior, bitácora que se sobrescribe sin IP ni hash, licencia 'gratuita', cláusula de jurisdicción CDMX con renuncia de fuero frente a consumidores de otros estados (CP-14, CP-15, CP-17, CP-19, CP-20).",
+    "Daño moral por acusaciones contra personas identificables, imagen de personas y menores sin consentimiento, y reseñas de clínicas veterinarias; el estándar de diligencia será lo que GuauWoow publique (CP-07, CP-08, CP-09).",
+    "Violencia digital: no ocultar de inmediato contenido íntimo, no avisar al usuario con la leyenda legal o no resguardar el contenido para la autoridad (CP-10).",
+    "Delito de intervención de comunicaciones si administradores leen chats sin reporte de un participante ni mandato judicial (CP-12).",
+    "Bot de WhatsApp que publica sin aviso ni aceptación, sin opt-in para alertas, sin vía a una persona, o que reenvía contenido de un chat a otro cliente; envío de fotos del bot a la IA sin confirmar con Meta (CP-23, CP-24, CP-v04).",
+    "Suspensión de cuentas sin declaración de motivos ni apelación y con bloqueo de derechos ARCO (CP-13).",
+    "Tienda con productos que usen marcas o personajes ajenos: responsabilidad directa, órdenes del IMPI y pérdida del puerto seguro por beneficio financiero con control (CP-05).",
+    "Cita errónea de la ley de animales de la CDMX en los Términos (art. 28 Bis en lugar del 25 fr. V, VI y XXI) y versión desactualizada (usar reforma G.O. 23-07-2026) (CP-v02)."
+  ]
+}

@@ -10,12 +10,16 @@ logger = logging.getLogger(__name__)
 
 def send_email(to: str, subject: str, text: str, html: str | None = None) -> bool:
     if not settings.smtp_enabled:
-        logger.info("SMTP no configurado; correo para %s no enviado. Asunto: %s\n%s", to, subject, text)
-        print(f"[email:dev] Para: {to} | Asunto: {subject}\n{text}", flush=True)
+        # El cuerpo puede traer enlaces de un solo uso (restablecer contraseña, verificar correo):
+        # solo se imprime en desarrollo, nunca en los logs de producción
+        if settings.is_development:
+            print(f"[email:dev] Para: {to} | Asunto: {subject}\n{text}", flush=True)
+        else:
+            logger.warning("SMTP no configurado; no se envió el correo «%s».", subject)
         return False
     msg = EmailMessage()
     msg["Subject"] = subject
-    msg["From"] = settings.smtp_from or settings.smtp_user or "PatitasFind <no-reply@patitasfind.mx>"
+    msg["From"] = settings.smtp_from or settings.smtp_user or "GuauWoow <no-reply@guauwoow.com>"
     msg["To"] = to
     msg.set_content(text)
     if html:

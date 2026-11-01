@@ -482,3 +482,23 @@ button:disabled {
   opacity: 0.45;
   cursor: not-allowed;
 }
+
+/* Moderación: controles compactos dentro de la tabla de reportes */
+td .actions { align-items: center; }
+td .actions select, td .actions input { width: auto; min-width: 140px; padding: 0.35rem 0.5rem; font-size: 0.85rem; }
+td .actions button { padding: 0.35rem 0.7rem; font-size: 0.85rem; }
+td small { color: var(--muted); }
+#doc-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
+
+/* Moderación legal: vista protegida de una cuarentena preventiva (solo metadatos, nunca el material) */
+.ml-signals {
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgba(127, 127, 127, 0.08);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+.ml-signals.hidden { display: none; }

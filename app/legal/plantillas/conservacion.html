@@ -1,0 +1,274 @@
+<!doctype html>
+<!-- PLANTILLA: edita este archivo y genera app/legal/conservacion.html con python3 scripts/render-legal.py -->
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conservación de datos · GuauWoow</title>
+<meta name="description" content="Cuánto tiempo conserva GuauWoow cada tipo de dato, desde cuándo se cuenta, qué pasa al vencer el plazo, cómo funciona el bloqueo y qué se anonimiza o se borra.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#33C7BE">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<link rel="canonical" href="%%SITE_URL%%/app/legal/conservacion.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="legal.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+<header class="site-header">
+  <a class="brand" href="/" aria-label="GuauWoow, ir al inicio">
+    <span class="brand-badge" aria-hidden="true"><svg viewBox="0 0 64 64"><ellipse cx="32" cy="40" rx="15" ry="12"/><ellipse cx="14" cy="26" rx="7" ry="9" transform="rotate(-18 14 26)"/><ellipse cx="26" cy="17" rx="7" ry="9"/><ellipse cx="40" cy="17" rx="7" ry="9"/><ellipse cx="51" cy="26" rx="7" ry="9" transform="rotate(18 51 26)"/></svg></span>
+    <span>Guau<b>Woow</b></span>
+  </a>
+  <!--INCLUIR:nav-legal-->
+</header>
+
+<div class="shell">
+
+  <aside class="card toc" aria-label="Índice del documento">
+    <details open>
+      <summary>Índice</summary>
+      <ol>
+        <li><a href="#lo-esencial"><span class="n">★</span>Lo esencial</a></li>
+        <li><a href="#criterios"><span class="n">1</span>Cómo fijamos los plazos</a></li>
+        <li><a href="#tabla-vigente"><span class="n">2</span>Plazos vigentes</a></li>
+        <li><a href="#resumen"><span class="n">3</span>Resumen del calendario</a></li>
+        <li><a href="#bloqueo"><span class="n">4</span>Qué es el bloqueo</a></li>
+        <li><a href="#anonimizacion"><span class="n">5</span>Qué anonimizamos y qué borramos</a></li>
+        <li><a href="#excepciones"><span class="n">6</span>Cuándo no podemos borrar</a></li>
+        <li><a href="#respaldos"><span class="n">7</span>Respaldos</a></li>
+        <li><a href="#evidencia"><span class="n">8</span>Contenido retirado</a></li>
+        <li><a href="#revision"><span class="n">9</span>Revisión de los plazos</a></li>
+        <li><a href="#versiones"><span class="n">V</span>Versiones</a></li>
+      </ol>
+      <div class="toc-cross">Documentos relacionados:<br><a href="privacidad.html#conservacion">Aviso de Privacidad →</a><br><a href="eliminacion-datos.html">Eliminar tu cuenta y tus datos →</a><br><a href="derechos-arco.html">Tus derechos ARCO →</a></div>
+    </details>
+  </aside>
+
+  <main class="doc" id="contenido">
+
+    <section class="card doc-hero" aria-labelledby="titulo">
+      <span class="eyebrow">Privacidad</span>
+      <h1 id="titulo">Conservación y eliminación de datos</h1>
+      <p class="lead">Cuánto tiempo guardamos cada dato, desde cuándo se cuenta y qué pasa cuando vence el plazo.</p>
+      <ul class="meta">
+        <li>Actualizada: 17 de octubre de 2026</li>
+        <li>Aplica a: <span class="ph">[DOMINIO]</span>, la app /app/ y el bot de WhatsApp</li>
+      </ul>
+      <div class="ai-note" role="note">
+        <span class="ico" aria-hidden="true">⚠️</span>
+        <span>Documento base preparado con apoyo de IA; debe ser revisado por un abogado antes de su publicación definitiva.</span>
+      </div>
+      <div class="callout lila" id="lo-esencial">
+        <h2 class="callout-title">Lo esencial</h2>
+        <ul>
+          <li>Guardamos tus datos solo el tiempo necesario para lo que pediste o para cumplir la ley.</li>
+          <li>La tabla de plazos vigentes sale directamente de la configuración de nuestro sistema, que borra o anonimiza los datos de forma automática cuando vence cada plazo.</li>
+          <li>Si la ley nos obliga a guardar algo, lo <strong>bloqueamos</strong>: nadie lo usa, solo se guarda hasta que vence el plazo.</li>
+          <li>Las imágenes de identificaciones y documentos que se usan para verificar se borran 30 días después de la decisión. Solo queda la constancia.</li>
+          <li>Las publicaciones importadas de Facebook, cuando esa función esté activa, se borran de verdad a los 30 días.</li>
+          <li>Los respaldos están cifrados y caducan solos.</li>
+          <li>Algunos plazos dependen de la forma jurídica del operador y los deben validar un abogado y un contador.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 1 -->
+    <section class="card section" id="criterios" aria-labelledby="h-criterios">
+      <h2 id="h-criterios"><span class="num">1</span>Cómo fijamos los plazos</h2>
+      <!-- PLANTILLA: req conservacion-rc01 (LFPDPPP arts. 10, 12, 24 y 25; conflicto 4: calendario único con el plazo más largo aplicable) -->
+      <ul>
+        <li>Conservamos cada dato mientras sirve para la finalidad para la que lo obtuvimos. Después lo bloqueamos y lo suprimimos (LFPDPPP, art. 10).</li>
+        <li>Si varias leyes nos piden guardar el mismo dato, aplicamos el plazo más largo y te decimos desde cuándo se cuenta. Por ejemplo, el Código de Comercio pide 10 años para contratos y comprobantes de un comerciante, y el Código Fiscal de la Federación pide 5 años para la contabilidad. Con 10 años cumplimos ambos.</li>
+        <li>Los datos sobre incumplimientos de un contrato (por ejemplo, un fraude) nunca se guardan más de 72 meses (LFPDPPP, art. 10).</li>
+        <li>Guardamos solo lo mínimo para cumplir cada obligación. Por eso, al eliminar tu cuenta, lo que queda se guarda sin tu nombre ni tus datos de contacto, salvo lo que la ley exige identificar.</li>
+      </ul>
+    </section>
+
+    <!-- 2 -->
+    <section class="card section" id="tabla-vigente" aria-labelledby="h-tabla-vigente">
+      <h2 id="h-tabla-vigente"><span class="num">2</span>Plazos vigentes</h2>
+      <!-- PLANTILLA: req conservacion-rc01 (I07; contrato L-seguridad: purgas automáticas según la tabla publicada en /cumplimiento/conservacion) -->
+      <p>Esta tabla se genera con la configuración que usa el sistema para borrar o anonimizar los datos de forma automática. <strong>Es la que vale.</strong></p>
+      <div id="tabla-conservacion"></div><script src="js/conservacion.js" defer></script>
+      <p>Si la tabla no carga, consulta el resumen de la sección <a href="#resumen">3</a> o escríbenos a <span class="ph">[CORREO DE PRIVACIDAD]</span>.</p>
+    </section>
+
+    <!-- 3 -->
+    <section class="card section" id="resumen" aria-labelledby="h-resumen">
+      <h2 id="h-resumen"><span class="num">3</span>Resumen del calendario</h2>
+      <!-- PLANTILLA: req conservacion-rc01 (retention R01 a R48 de docs/legal/requisitos.json; B07 R15; D07 R30; I08 R38; I09 R37; K03 R25) -->
+      <div class="callout peach" role="note">
+        <span class="callout-title">Resumen</span>
+        <p>Este es un resumen del calendario de conservación preparado con la investigación legal. Puede no estar al día. Si algo no coincide con la tabla de plazos vigentes (sección <a href="#tabla-vigente">2</a>), vale la tabla vigente.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <caption class="legal-refs">Resumen del calendario de conservación por categoría</caption>
+          <thead><tr><th scope="col">Categoría</th><th scope="col">Plazo</th><th scope="col">Desde</th><th scope="col">Al vencer</th><th scope="col">Fundamento</th></tr></thead>
+          <tbody>
+            <!-- PLANTILLA: R01 sin plazo de inactividad (no está en CONTRACTS) -->
+            <tr><th scope="row">Cuenta y perfil activos</th><td>Mientras la cuenta exista <span class="ph" data-clave="VERIFICAR_CUENTAS_INACTIVAS">[VERIFICAR: si adoptarás un plazo de inactividad (la investigación propone avisar y suprimir tras 24 meses sin actividad), escribe aquí el texto que sigue a «Mientras la cuenta exista», p. ej. «y, tras 24 meses sin actividad, aviso y supresión»; si no, pon true]</span></td><td>Eliminación de la cuenta</td><td>Supresión; solo quedan bloqueados los mínimos de una cuenta eliminada (fila siguiente)</td><td>LFPDPPP arts. 10 y 12</td></tr>
+            <tr><th scope="row">Cuenta eliminada: mínimos bloqueados (id, fechas, versiones aceptadas)</th><td>Supresión general en 30 días o menos; mínimos bloqueados 10 años si hubo compra, donativo o contrato; si no, 1 año</td><td>Fecha de eliminación</td><td>Supresión definitiva</td><td>LFPDPPP arts. 24 y 25 fr. I a III; CCom art. 1047; LFPC art. 14</td></tr>
+            <tr><th scope="row">Bitácora de aceptaciones y consentimientos (Términos, Aviso, 18+ y fecha de nacimiento, condiciones de compra, convenios, opt-in de WhatsApp, licencias de imagen)</th><td>10 años</td><td>La aceptación o el fin de la relación, lo que ocurra después</td><td>Al borrar la cuenta queda ligada a un identificador sin datos de perfil (la IP y el navegador de cada aceptación se conservan bloqueados); supresión al vencer</td><td>CCom arts. 49 y 1047; LFPC art. 76 Bis 1 fr. IV; CCF art. 640</td></tr>
+            <tr><th scope="row">Versiones publicadas de documentos legales (HTML, PDF, SHA-256, constancias NOM-151)</th><td>Mientras exista una aceptación vigente y 10 años después de la última; la publicación del historial es permanente</td><td>Fin de vigencia de la versión</td><td>Archivo</td><td>CCom art. 49 párr. 2; NOM-151-SCFI-2016</td></tr>
+            <tr><th scope="row">Pedidos, comprobantes, aceptación de condiciones, reclamaciones, revocaciones, reembolsos, garantías y requerimientos de PROFECO</th><td>10 años</td><td>Fecha de la operación</td><td>Bloqueo con datos mínimos; supresión al vencer</td><td>CCom arts. 38 y 49 (operador comerciante); LFPC arts. 13, 14 y 55; cubre los 5 años del CFF art. 30</td></tr>
+            <tr><th scope="row">Domicilio y teléfono de envío del comprador</th><td>Visibles para el Refugio mientras el pedido está abierto y hasta 2 meses después de que se cierra (completado, cancelado o reembolsado); anonimizar al vencer el plazo de reclamación más 1 año, salvo lo que conste en el comprobante o CFDI</td><td>Cierre del pedido / entrega</td><td>Ocultar y luego anonimizar</td><td>LFPC arts. 14, 76 Bis fr. I y 93; LFPDPPP art. 12</td></tr>
+            <tr><th scope="row">CFDI emitidos y recibidos, contabilidad y datos fiscales del comprador que pidió factura</th><td>5 años desde la declaración relacionada (CFF) y no menos que el expediente del pedido (10 años)</td><td>Presentación de la declaración relacionada / fecha de la operación</td><td>Bloqueo; fuera del borrado ARCO mientras corre el plazo</td><td>CFF art. 30; CCom art. 38</td></tr>
+            <tr><th scope="row">Base por transacción para el acceso en línea del SAT (solo si hay comisión)</th><td>5 años, disponible de forma permanente</td><td>Registro de la transacción</td><td>Sin borrado por ARCO durante el plazo</td><td>CFF arts. 30 y 30-B; RMF 2026 regla 2.9.21</td></tr>
+            <tr><th scope="row">Expediente fiscal y de identificación del Refugio vendedor o receptor de fondos (RFC, constancia, oficio de donataria, beneficiario controlador)</th><td>10 años</td><td>Última operación</td><td>Bloqueo y supresión</td><td>CFF art. 30; LFPIORPI art. 18 fr. IV (si aplica la fr. XI o XIII)</td></tr>
+            <tr><th scope="row">Registro de pagos, liquidaciones, comisiones, contracargos y conciliaciones de Mercado Pago</th><td>10 años</td><td>Cada operación</td><td>Bloqueo</td><td>CFF art. 30; CCom arts. 38, 49 y 298; LFPIORPI art. 18 fr. IV</td></tr>
+            <tr><th scope="row">Donativos (folio, ID de pago, monto, Refugio, comisiones, neto) y datos fiscales del donante que pidió CFDI</th><td>10 años; si el donante borra su cuenta, datos bloqueados sin uso operativo</td><td>Fecha del donativo</td><td>Supresión</td><td>CFF art. 30; CCom arts. 38 y 49; LFPIORPI art. 18 fr. IV</td></tr>
+            <tr><th scope="row">Expediente de identificación de donantes de 1,605 UMA o más (a cargo del Refugio sujeto obligado)</th><td>10 años</td><td>Fecha de la actividad vulnerable</td><td>Lo conserva el Refugio</td><td>LFPIORPI arts. 17 fr. XIII y 18 fr. IV</td></tr>
+            <tr><th scope="row">Credenciales OAuth de Refugios en Mercado Pago (tokens cifrados)</th><td>Mientras la vinculación esté activa; borrado inmediato al revocarse; bitácora de vinculación y revocación 10 años</td><td>Revocación</td><td>Borrado seguro</td><td>Términos de Mercado Pago para Desarrolladores; LFPDPPP arts. 12 y 18</td></tr>
+            <tr><th scope="row">Comprobantes de entrega y evidencia presentada en contracargos</th><td>Mínimo 1 año (Mercado Pago 5.7); se conservan con el pedido (10 años)</td><td>Liberación o retiro de los fondos</td><td>Con el expediente del pedido</td><td>Términos y condiciones de Mercado Pago 5.7 (contractual); CCom art. 49</td></tr>
+            <!-- PLANTILLA: R15 ajustada a contrato L-edad -->
+            <tr><th scope="row">Imagen de INE, CURP, pasaporte, acta o cédula usada para verificar</th><td>30 días o menos tras aprobar o rechazar; se conserva solo la constancia. La verificación reforzada de edad no guarda copias de identificaciones.</td><td>Decisión de verificación</td><td>Borrado seguro de la imagen</td><td>LFPDPPP arts. 8, 10, 12 y 18</td></tr>
+            <tr><th scope="row">Constancias de verificación de Refugios, rescatistas y Clínicas (quién, cuándo, método, resultado, vigencia; captura del Registro Nacional de Profesionistas)</th><td>Mientras la verificación esté vigente y 2 años después (12 meses para Clínicas)</td><td>Pérdida de la verificación o baja</td><td>Supresión</td><td>LFPDPPP art. 12; CCF art. 1910</td></tr>
+            <!-- PLANTILLA: R17 alineada a L-seguridad (30 días) -->
+            <tr><th scope="row">Documentos de solicitudes de verificación rechazadas</th><td>30 días o menos tras el rechazo; se conserva solo la constancia</td><td>Rechazo</td><td>Borrado documentado</td><td>LFPDPPP art. 12</td></tr>
+            <!-- PLANTILLA: fila de CLABE retirada: GuauWoow no pide ni guarda la CLABE de los Refugios (Split con OAuth de Mercado Pago; models.py sin campo CLABE) -->
+            <tr><th scope="row">Cuestionarios de adopción</th><td>12 meses tras cerrar la postulación (en poder del Refugio, el plazo del acuerdo de datos)</td><td>Cierre de la postulación</td><td>Supresión</td><td>LFPDPPP arts. 10, 12 y 35</td></tr>
+            <tr><th scope="row">Constancia de la carta responsiva de adopción</th><td>Mientras dure el seguimiento y el plazo de prescripción civil del estado que fije el abogado <em>(propuesta, por validar)</em></td><td>Entrega del animal</td><td>Supresión</td><td>CCF arts. 2341 a 2344 y códigos estatales</td></tr>
+            <tr><th scope="row">Chats entre personas usuarias</th><td>90 días tras eliminar la cuenta; con reporte, hasta resolverlo más 12 meses; si hay retiro, lo que pida la evidencia de contenido retirado</td><td>Eliminación de la cuenta o resolución del reporte</td><td>Supresión</td><td>LFPDPPP arts. 10, 12 y 25 fr. III</td></tr>
+            <tr><th scope="row">Zona de ubicación guardada para alertas</th><td>Hasta que la persona la cambie, apague las alertas (se borra en ese momento) o elimine la cuenta <span class="ph" data-clave="VERIFICAR_PRECISION_UBICACION">[VERIFICAR: precisión real con la que se guarda la ubicación; si se redondea (se recomiendan 3 decimales, unos 110 m), ajusta este texto]</span></td><td>—</td><td>Supresión inmediata</td><td>LFPDPPP art. 12</td></tr>
+            <tr><th scope="row">Reportes de perdidos y encontrados resueltos o caducados</th><td>Según la tarea de expiración vigente; luego anonimizar conservando ciudad, fecha y resultado</td><td>Resolución o caducidad</td><td>Anonimización</td><td>LFPDPPP arts. 9 fr. III y 10</td></tr>
+            <tr><th scope="row">Evidencia del flujo «encontrado» (microchip, aviso a la autoridad, excepción de Refugio)</th><td>5 años <em>(propuesta, por validar)</em></td><td>Cierre del caso</td><td>Supresión</td><td>CCF arts. 775 y 874 y códigos estatales</td></tr>
+            <tr><th scope="row">Reportes importados de grupos de Facebook, reenvíos y envíos de voluntarios (foto, texto depurado, enlace)</th><td>30 días con borrado real (antes si el autor lo pide), contados desde la publicación original en Facebook, así que nunca más de 30 días desde la importación; queda solo el registro de existencia y de retiros</td><td>Publicación original</td><td>Borrado de fotos y texto; purga en Apify</td><td>LFPDPPP arts. 10, 12 y 17; Meta Platform Terms 3.d</td></tr>
+            <tr><th scope="row">Prueba de autorización del autor en envíos de voluntarios</th><td>Mientras esté publicado y 2 años después</td><td>Retiro de la publicación</td><td>Supresión</td><td>Ley de Responsabilidad Civil CDMX art. 38</td></tr>
+            <tr><th scope="row">Interacciones del bot de WhatsApp</th><td>Al cumplir la finalidad y máximo 12 meses; de inmediato si la persona lo pide</td><td>Última interacción</td><td>Anonimización</td><td>Meta Platform Terms 3.d; LFPDPPP arts. 10 y 24</td></tr>
+            <tr><th scope="row">Mensajes procesados por Meta (WhatsApp Cloud API)</th><td>Hasta 30 días en Meta</td><td>Recepción</td><td>Los borra Meta</td><td>Documentación de Meta Cloud API (contractual)</td></tr>
+            <tr><th scope="row">Caché de IA (análisis de fotos, firmas)</th><td>Vida del reporte más 3 meses (se borra con la anonimización del reporte), sin identificadores de la persona usuaria</td><td>Cierre del reporte</td><td>Supresión</td><td>LFPDPPP arts. 9 fr. III y 12</td></tr>
+            <tr><th scope="row">Bóveda de evidencia de cuentas y contenidos retirados</th><td>Al menos 90 días hábiles (135 naturales como margen); más con retención legal, apelación u orden de conservación</td><td>Retiro</td><td>Borrado con registro</td><td>Decreto NNA art. 5 fr. II; LFPA art. 28; LFPDPPP art. 25 fr. II y III; CNPP art. 303</td></tr>
+            <tr><th scope="row">Material de abuso sexual infantil detectado</th><td>Solo el original, con acceso bloqueado, hasta recibir instrucciones de la autoridad</td><td>Detección</td><td>Según instrucción de la autoridad</td><td>Decreto NNA art. 5 fr. II y III; CNPP art. 222; CPF arts. 202 y 202 Bis</td></tr>
+            <tr><th scope="row">Reportes de moderación, decisiones, apelaciones, acciones automatizadas y evidencias de retiro por venta o cobro</th><td>24 meses; 10 años si involucra a menores o hubo remisión a una autoridad</td><td>Resolución</td><td>Supresión o anonimización</td><td>Ley de Responsabilidad Civil CDMX art. 38 (2 años); LFPC art. 14 (10 años si afecta a niñas, niños o adolescentes)</td></tr>
+            <tr><th scope="row">Expedientes de derechos de autor (aviso, contra-aviso, acuses) y hashes de bloqueo</th><td>10 años los expedientes; hashes mientras opere el servicio</td><td>Cierre del procedimiento</td><td>Supresión</td><td>CCom art. 1047 (por analogía); LFDA arts. 114 Octies y 232 Quinquies</td></tr>
+            <tr><th scope="row">Requerimientos y alertas a autoridades, denuncias presentadas</th><td>10 años <em>(propuesta, por validar)</em></td><td>Respuesta</td><td>Supresión</td><td>Propuesta operativa; CCom art. 1047 por analogía</td></tr>
+            <tr><th scope="row">Expedientes ARCO, contratos con encargados, bitácora de vulneraciones y evidencias de cumplimiento</th><td>5 años</td><td>Cierre de la solicitud, fin del contrato o cierre del incidente</td><td>Supresión</td><td>LFPA art. 79 (prescripción de la facultad sancionadora); LFPDPPP arts. 13 y 18</td></tr>
+            <tr><th scope="row">Bitácora de administración</th><td>5 años</td><td>Registro</td><td>Supresión</td><td>LFPDPPP arts. 13 y 18</td></tr>
+            <tr><th scope="row">Registros técnicos con IP y registros de OTP</th><td>90 días; IP truncada o seudonimizada a los 30 días; los ligados a incidentes, hasta el cierre más 12 meses <span class="ph" data-clave="VERIFICAR_REGISTROS_TECNICOS">[VERIFICAR: que la rotación de los registros del servidor web y de la app cumpla 90 días y acorte la IP a los 30; al 17-10-2026 rotan por tamaño]</span></td><td>Registro</td><td>Supresión</td><td>LFPDPPP arts. 2 fr. V, 10 y 12</td></tr>
+            <tr><th scope="row">Respaldos cifrados</th><td>Copia local <span class="ph">[PLAZO LOCAL DE RESPALDOS]</span>; copia externa <span class="ph">[PLAZO DE CONSERVACIÓN DE RESPALDOS EXTERNOS]</span></td><td>Fecha del respaldo</td><td>Caducidad automática</td><td>LFPDPPP arts. 10, 13 y 18</td></tr>
+            <tr><th scope="row">Analítica (PostHog) y errores (Sentry)</th><td>PostHog 12 meses; Sentry según la retención del plan; identificador borrado al revocar el consentimiento</td><td>Evento</td><td>Purga del proveedor</td><td>LFPDPPP art. 12</td></tr>
+            <tr><th scope="row">Elección de cookies (patitas_consent)</th><td>Hasta que la persona cambie su elección o borre los datos del sitio; volver a preguntar a los 12 meses o al cambiar la política <em>(propuesta, por validar)</em></td><td>Elección</td><td>Volver a preguntar</td><td>Buena práctica</td></tr>
+            <tr><th scope="row">Datos de incumplimientos contractuales (fraude, sanciones)</th><td>Máximo 72 meses</td><td>Fecha del incumplimiento</td><td>Eliminación obligatoria</td><td>LFPDPPP art. 10, último párrafo</td></tr>
+            <tr><th scope="row">Cuentas sancionadas (correo, teléfono y cuenta de Google que se quedan en el perfil cancelado, sin copia aparte, para impedir el re-registro)</th><td>Mientras la cancelación siga vigente, máximo 24 meses</td><td>Cancelación de la cuenta</td><td>Se borran del perfil cancelado</td><td>LFPDPPP arts. 10 y 12</td></tr>
+            <tr><th scope="row">Reseñas internas de Clínicas</th><td>Mientras exista la cuenta o hasta que su autor la borre; anonimizar al eliminar la cuenta; las retiradas, con el plazo de los reportes de moderación</td><td>Publicación</td><td>Anonimización</td><td>LFPDPPP arts. 24 y 26</td></tr>
+            <tr><th scope="row">Contenido de Google Places (reseñas, calificación, autores)</th><td>No se almacena; place_id indefinido</td><td>—</td><td>—</td><td>Términos de servicio de Google Maps Platform 3.2.3 (contractual)</td></tr>
+            <tr><th scope="row">Datos de tarjeta</th><td>Nunca se almacenan; solo identificador, monto y estado del pago</td><td>—</td><td>—</td><td>NMX num. 8.1 d) y e); PCI DSS (contractual)</td></tr>
+            <tr><th scope="row">Informe del Decreto NNA, evaluaciones de riesgo, reportes estadísticos y acuses</th><td>10 años <em>(propuesta, por validar)</em></td><td>Entrega</td><td>Archivo</td><td>Propuesta; CCom art. 1047 por analogía</td></tr>
+            <tr><th scope="row">Copias fechadas de contratos de terceros (Mercado Pago, Meta, Google, Apify), excepciones y dictámenes</th><td>10 años desde que dejen de estar vigentes <em>(propuesta, por validar)</em></td><td>Fin de vigencia</td><td>Archivo</td><td>Propuesta; CCom art. 1047 por analogía</td></tr>
+            <tr><th scope="row">Comprobantes de descarga del REPEP (solo si hay publicidad a teléfonos)</th><td>Conservar cada comprobante mientras se haga publicidad telefónica (plazo final: abogado)</td><td>Descarga</td><td>—</td><td>Reglas del REPEP arts. 28 y 30</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="legal-refs">Abreviaturas: LFPDPPP (Ley Federal de Protección de Datos Personales en Posesión de los Particulares), LFPC (Ley Federal de Protección al Consumidor), CFF (Código Fiscal de la Federación), CCom (Código de Comercio), CCF (Código Civil Federal), LFPIORPI (Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita), LFPA (Ley Federal de Procedimiento Administrativo), CNPP (Código Nacional de Procedimientos Penales), CPF (Código Penal Federal), LFDA (Ley Federal del Derecho de Autor), RMF (Resolución Miscelánea Fiscal), NMX (Norma Mexicana NMX-COE-001-SCFI-2018 de comercio electrónico), Decreto NNA (decreto sobre entornos digitales de niñas, niños y adolescentes, DOF 14-10-2026), UMA (Unidad de Medida y Actualización).</p>
+      <p><span class="ph" data-clave="VERIFICAR_CALENDARIO_CONSERVACION">[VERIFICAR: tu abogado y tu contador deben validar este calendario, en especial los plazos marcados como propuesta y los 10 años que dependen de que el operador sea comerciante; si el operador es persona física no comerciante, el calendario cambia]</span></p>
+    </section>
+
+    <!-- 4 -->
+    <section class="card section" id="bloqueo" aria-labelledby="h-bloqueo">
+      <h2 id="h-bloqueo"><span class="num">4</span>Qué es el bloqueo</h2>
+      <!-- PLANTILLA: req conservacion-rc02 (LFPDPPP arts. 2 fr. III y 24; datos-personales-19; seguridad-incidentes-v03) -->
+      <p>Cuando ya no necesitamos un dato, o cuando pides cancelarlo, primero lo <strong>bloqueamos</strong>:</p>
+      <ul>
+        <li>El dato se aparta y deja de usarse. No aparece en búsquedas, listados, envíos ni análisis.</li>
+        <li>Solo se guarda para responder por posibles responsabilidades derivadas de su uso (LFPDPPP, art. 2 fr. III).</li>
+        <li>El bloqueo dura lo mismo que el plazo de prescripción de las acciones que podrían surgir de esa relación (LFPDPPP, art. 24).</li>
+      </ul>
+      <p>Al terminar el bloqueo, suprimimos el dato. Si todavía tenemos un medio para contactarte, te avisamos. Si antes compartimos ese dato con alguien (por ejemplo, un Refugio), también le avisamos para que lo borre (LFPDPPP, art. 24). <span class="ph" data-clave="VERIFICAR_AVISO_SUPRESION">[VERIFICAR: que exista el procedimiento para avisar al titular y a los terceros receptores cuando se suprimen datos tras el bloqueo]</span></p>
+    </section>
+
+    <!-- 5 -->
+    <section class="card section" id="anonimizacion" aria-labelledby="h-anonimizacion">
+      <h2 id="h-anonimizacion"><span class="num">5</span>Qué anonimizamos y qué borramos</h2>
+      <!-- PLANTILLA: req conservacion-rc03 (B15; datos-personales-v04; LFPDPPP arts. 2 fr. IX, 9 fr. III y 10) -->
+      <p><strong>Anonimizar</strong> (la ley dice «disociar») quiere decir quitar todo lo que permita saber de quién es un dato, de forma que ya no se pueda volver a ligar a ti (LFPDPPP, art. 2 fr. IX). Un dato anonimizado deja de ser dato personal. Si se puede revertir con una llave o una tabla, no lo consideramos anonimizado: lo seguimos tratando como dato personal.</p>
+      <h3>Lo que anonimizamos</h3>
+      <ul>
+        <li><strong>Reportes de perros perdidos o encontrados</strong> ya resueltos o caducados: conservamos solo la ciudad, la fecha y el resultado, para estadísticas.</li>
+        <li><strong>Cuentas eliminadas:</strong> al eliminar tu cuenta, borramos tu nombre, correo, teléfono, foto, ubicación y contraseña. Lo que la ley nos pide guardar (por ejemplo, pedidos y donativos) se queda sin esos datos, salvo los datos que constan en una factura (CFDI), que se conservan bloqueados el plazo fiscal.</li>
+        <li><strong>Interacciones con el bot de WhatsApp</strong>, al vencer su plazo.</li>
+        <li><strong>Reseñas de Clínicas</strong>, cuando se elimina la cuenta de quien las escribió.</li>
+        <li><strong>Estadísticas:</strong> las cifras que publicamos en el <a href="informe-transparencia.html">informe de transparencia</a> son agregadas.</li>
+      </ul>
+      <h3>Lo que borramos</h3>
+      <ul>
+        <li>Imágenes de identificaciones, actas y cédulas usadas para verificar: 30 días después de la decisión. Solo queda la constancia de verificación, sin la imagen. La Constancia de Situación Fiscal se conserva cifrada con el expediente fiscal del Refugio, 10 años desde la última operación (ver la tabla).</li>
+        <li>Publicaciones importadas de Facebook (cuando esa función esté activa): fotos y texto, a más tardar 30 días después de la publicación original, o antes si su autor lo pide.</li>
+        <li>Tu zona guardada: cuando la cambias, apagas las alertas cercanas o eliminas tu cuenta.</li>
+        <li>Lo que tu navegador guarda: cuando tú lo borras (ver <a href="cookies.html">Política de cookies</a>).</li>
+        <li>Todo dato bloqueado, al vencer su plazo.</li>
+      </ul>
+    </section>
+
+    <!-- 6 -->
+    <section class="card section" id="excepciones" aria-labelledby="h-excepciones">
+      <h2 id="h-excepciones"><span class="num">6</span>Cuándo no podemos borrar de inmediato</h2>
+      <!-- PLANTILLA: req conservacion-rc04 (LFPDPPP art. 25 fr. I, II, III y VI; seguridad-incidentes-v03) -->
+      <p>La ley no nos obliga a cancelar datos en algunos casos (LFPDPPP, art. 25). Los principales son:</p>
+      <ol>
+        <li>Se refieren a las partes de un contrato y son necesarios para cumplirlo (por ejemplo, un pedido en curso).</li>
+        <li>Debemos tratarlos por disposición de una ley (por ejemplo, la conservación fiscal).</li>
+        <li>Borrarlos estorbaría actuaciones judiciales o administrativas ligadas a obligaciones fiscales o la investigación de un delito.</li>
+        <li>Son necesarios para cumplir una obligación que tú adquiriste legalmente.</li>
+      </ol>
+      <p>En esos casos los bloqueamos (sección <a href="#bloqueo">4</a>) y te explicamos el motivo. Si te negamos una cancelación, te diremos la razón y cómo acudir a la autoridad: <a href="derechos-arco.html#negativa">Centro de privacidad</a>.</p>
+    </section>
+
+    <!-- 7 -->
+    <section class="card section" id="respaldos" aria-labelledby="h-respaldos">
+      <h2 id="h-respaldos"><span class="num">7</span>Respaldos</h2>
+      <!-- PLANTILLA: req conservacion-rc01 (I08; R38; seguridad-incidentes-19; contrato L-seguridad: respaldos cifrados) -->
+      <ul>
+        <li>Hacemos respaldos cifrados de la base de datos y de los archivos.</li>
+        <li>La copia en nuestro servidor se conserva <span class="ph">[PLAZO LOCAL DE RESPALDOS]</span>. La copia externa, también cifrada, se conserva <span class="ph">[PLAZO DE CONSERVACIÓN DE RESPALDOS EXTERNOS]</span>. Después caducan solas.</li>
+        <li>Por eso, un dato que borramos puede seguir dentro de un respaldo cifrado hasta que ese respaldo caduque. Nadie lo usa mientras tanto. <span class="ph" data-clave="VERIFICAR_RESTAURACION">[VERIFICAR: cuando el procedimiento de restauración reaplique los borrados y bloqueos posteriores a la fecha del respaldo, escribe aquí: «Si alguna vez restauramos un respaldo, volvemos a aplicar los borrados hechos después de su fecha.»; si no, pon true]</span></li>
+      </ul>
+    </section>
+
+    <!-- 8 -->
+    <section class="card section" id="evidencia" aria-labelledby="h-evidencia">
+      <h2 id="h-evidencia"><span class="num">8</span>Contenido retirado por moderación</h2>
+      <!-- PLANTILLA: req conservacion-rc01 (D07; R30 R31; contrato L-reportes) -->
+      <ul>
+        <li>Cuando retiramos una cuenta o un contenido, guardamos la evidencia cifrada al menos 90 días hábiles. Ese plazo puede ser mayor si hay una apelación, una investigación o una orden de conservación de una autoridad.</li>
+        <li>Si detectamos material de abuso sexual infantil, lo aislamos de inmediato: nunca se muestra ni se envía a la IA, se denuncia ante el Ministerio Público y solo se conserva el original, con acceso bloqueado, hasta recibir instrucciones de la autoridad.</li>
+      </ul>
+      <p>Más información en <a href="moderacion.html">Moderación</a> y <a href="proteccion-nna.html">Protección de niñas, niños y adolescentes</a>.</p>
+    </section>
+
+    <!-- 9 -->
+    <section class="card section" id="revision" aria-labelledby="h-revision">
+      <h2 id="h-revision"><span class="num">9</span>Revisión de los plazos</h2>
+      <!-- PLANTILLA: req conservacion-rc05 (datos-personales-19; L39) -->
+      <p>Revisamos este calendario cuando cambia una ley o cuando agregamos un tipo de dato nuevo. Si un cambio te afecta de forma importante, te avisamos con 30 días de anticipación.</p>
+      <p class="signature">Última revisión: <span class="ph">[FECHA DE ÚLTIMA REVISIÓN LEGAL]</span> · Plazos validados por abogado y contador el <span class="ph">[FECHA DE VALIDACIÓN DE PLAZOS]</span></p>
+    </section>
+
+    <!-- VERSIONES -->
+    <section class="card section" id="versiones" aria-labelledby="h-versiones">
+      <h2 id="h-versiones"><span class="num">V</span>Versiones</h2>
+      <!-- PLANTILLA: req conservacion-rc05 (contrato L-legal) -->
+      <ul>
+        <li>Versión: 2026-10-17</li>
+        <li>Vigente desde: <span class="ph">[FECHA DE ENTRADA EN VIGOR]</span></li>
+      </ul>
+      <p>Primera versión de esta página. Consulta todas las versiones y sus cambios en el <a href="historial.html">historial de versiones</a>.</p>
+    </section>
+
+    <footer class="card doc-footer">
+      <span>© 2026 GuauWoow · <span class="ph">[RAZÓN SOCIAL]</span></span>
+      <!--INCLUIR:pie-legal-->
+    </footer>
+
+  </main>
+</div>
+
+<a class="to-top" href="#top" aria-label="Volver al inicio del documento">↑</a>
+</body>
+</html>

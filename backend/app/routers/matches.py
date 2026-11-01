@@ -1,7 +1,7 @@
 import datetime
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, defer, selectinload
 
 from app.database import get_db
 from app.dependencies import get_current_user, get_verified_user
@@ -34,7 +34,11 @@ def _require_owner(match: Match, user: User):
 @router.post("/dogs/{dog_id}/like", response_model=MatchOut)
 def like_dog(dog_id: int, current_user: User = Depends(get_verified_user), db: Session = Depends(get_db)):
     dog = db.query(Dog).filter(Dog.id == dog_id).first()
-    if not dog:
+    if not dog or dog.is_hidden:  # oculto por moderación: para el público no existe
+        raise HTTPException(status_code=404, detail="No encontramos ese perrito.")
+    from app.services import reglas
+
+    if reglas.found_hold_active(dog, db):  # perro encontrado en resguardo: todavía no se ofrece en adopción
         raise HTTPException(status_code=404, detail="No encontramos ese perrito.")
     if dog.owner_id == current_user.id:
         raise HTTPException(status_code=400, detail="No puedes dar like a tu propio perrito.")
@@ -55,8 +59,13 @@ def like_dog(dog_id: int, current_user: User = Depends(get_verified_user), db: S
 @router.get("/matches", response_model=list[MatchOut])
 def list_matches(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     owned = db.query(Dog.id).filter(Dog.owner_id == current_user.id)
+    # Relaciones de MatchOut (usuario, perro, conversación, cuestionario) en 4 consultas fijas, no 4 por fila
     return (
         db.query(Match)
+        .options(
+            selectinload(Match.user), selectinload(Match.dog).options(defer(Dog.photo_signature)),
+            selectinload(Match.conversation), selectinload(Match.application),
+        )
         .filter((Match.user_id == current_user.id) | (Match.dog_id.in_(owned)))
         .order_by(Match.created_at.desc())
         .all()

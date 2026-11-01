@@ -1,0 +1,1703 @@
+{
+  "_instrucciones": "Este archivo solo DOCUMENTA las claves (qué es cada una, un ejemplo y, en las notas VERIFICAR, qué confirmar y el valor sugerido). Los valores reales van en app/legal/datos-legales.json (mismas claves, valores de texto; créalo o complétalo con: python3 scripts/render-legal.py --init). Después corre python3 scripts/render-legal.py para generar todas las páginas de app/legal/, security.txt, versiones.json, el sitemap y el aviso del registro en app/index.html, y python3 scripts/render-legal.py --check para ver qué falta. Las claves VERIFICAR_* son notas para tu abogado, tu contador o el equipo: pon true cuando se confirme la cláusula tal cual (la nota desaparece) o escribe el texto que la sustituye. Un valor vacío deja el marcador resaltado en la página. Guía paso a paso: docs/legal/LLENAR-DATOS.md.",
+  "_grupos": {
+    "identidad": "Identidad y empresa",
+    "contacto": "Contacto y canales",
+    "proveedores": "Proveedores y países",
+    "plazos": "Plazos y políticas",
+    "tienda": "Tienda y donativos",
+    "decisiones": "Decisiones de negocio (fechas, estados y compromisos)",
+    "verificar-abogado": "Notas VERIFICAR para tu abogado",
+    "verificar-contador": "Notas VERIFICAR para tu contador",
+    "verificar-equipo": "Notas VERIFICAR para el equipo técnico (que la app haga lo que dice la página)",
+    "verificar-dueno": "Notas VERIFICAR que decides tú (dueño u operador)"
+  },
+  "RAZON_SOCIAL": {
+    "grupo": "identidad",
+    "descripcion": "Denominación o razón social exacta del operador de GuauWoow, con su tipo societario (o nombre completo de la persona física con actividad empresarial), tal como aparece en la constancia de situación fiscal del SAT. Escríbela igual en todas partes.",
+    "ejemplo": "GuauWoow México, S.A.S."
+  },
+  "FORMA_JURIDICA": {
+    "grupo": "identidad",
+    "descripcion": "Tipo de persona y forma jurídica del operador.",
+    "ejemplo": "persona moral, Sociedad por Acciones Simplificada (S.A.S.)"
+  },
+  "RFC": {
+    "grupo": "identidad",
+    "descripcion": "Registro Federal de Contribuyentes del operador (12 caracteres persona moral, 13 persona física).",
+    "ejemplo": "PFM2601011A2"
+  },
+  "REGIMEN_FISCAL": {
+    "grupo": "identidad",
+    "descripcion": "Régimen fiscal del operador como aparece en su constancia de situación fiscal.",
+    "ejemplo": "Régimen General de Ley Personas Morales"
+  },
+  "FOLIO_MERCANTIL_ELECTRONICO": {
+    "grupo": "identidad",
+    "descripcion": "Folio mercantil electrónico del Registro Público de Comercio; si no aplica, escribe «No aplica».",
+    "ejemplo": "N-2026012345"
+  },
+  "REPRESENTANTE_LEGAL": {
+    "grupo": "identidad",
+    "descripcion": "Nombre completo de la persona representante legal del operador.",
+    "ejemplo": "María Pérez López"
+  },
+  "DOMICILIO_FISCAL": {
+    "grupo": "identidad",
+    "descripcion": "Domicilio físico en México donde se reciben reclamaciones, notificaciones de PROFECO, oficios de autoridades y solicitudes ARCO (no un apartado postal ni una oficina virtual sin confirmar): calle, número, colonia, alcaldía o municipio, código postal y entidad.",
+    "ejemplo": "Av. Insurgentes Sur 1234, piso 5, Col. Del Valle, Benito Juárez, 03100, Ciudad de México"
+  },
+  "DOMICILIO_ANTE_EL_SAT_SI_ES_DISTINTO": {
+    "grupo": "identidad",
+    "descripcion": "Domicilio fiscal registrado ante el SAT, solo si es distinto de DOMICILIO_FISCAL; si es el mismo, escribe «Es el mismo».",
+    "ejemplo": "Es el mismo"
+  },
+  "DEPARTAMENTO_DE_DATOS_PERSONALES": {
+    "grupo": "identidad",
+    "descripcion": "Persona o área designada para atender solicitudes de datos personales (LFPDPPP).",
+    "ejemplo": "Departamento de Datos Personales, a cargo de María Pérez López"
+  },
+  "REGISTRO_DE_MARCA": {
+    "grupo": "identidad",
+    "descripcion": "Estado de la marca GuauWoow ante el IMPI: solicitud en trámite con número de expediente o registro otorgado con su número. Mientras no esté registrada, las páginas no usan ® ni «M.R.».",
+    "ejemplo": "solicitud en trámite, expediente 3123456"
+  },
+  "DOMINIO": {
+    "grupo": "identidad",
+    "descripcion": "Dominio público del sitio, sin https:// ni / final. Debe coincidir con DOMAIN del .env (--check lo compara). También sustituye %%SITE_URL%% (https://DOMINIO) en las páginas legales.",
+    "ejemplo": "guauwoow.com"
+  },
+  "OTROS_DOMINIOS_OFICIALES": {
+    "grupo": "identidad",
+    "descripcion": "Otros dominios del operador (redirecciones, .com.mx, etc.) o «Ninguno».",
+    "ejemplo": "patitasfind.com.mx (redirige a guauwoow.com)"
+  },
+  "CORREO_DE_CONTACTO": {
+    "grupo": "contacto",
+    "descripcion": "Correo de atención a clientes, aclaraciones, quejas, revocación de compras y reportes (LFPC, art. 76 Bis). Conviene que sea el mismo que SUPPORT_EMAIL del .env (--check avisa si no).",
+    "ejemplo": "hola@guauwoow.com"
+  },
+  "CORREO_DE_PRIVACIDAD": {
+    "grupo": "contacto",
+    "descripcion": "Correo del Departamento de Datos Personales para solicitudes ARCO, revocación del consentimiento y el listado de exclusión.",
+    "ejemplo": "privacidad@guauwoow.com"
+  },
+  "CORREO_DE_FACTURACION": {
+    "grupo": "contacto",
+    "descripcion": "Correo donde se piden facturas (CFDI) de las comisiones de GuauWoow y dudas de facturación. Puede ser el mismo de contacto.",
+    "ejemplo": "facturacion@guauwoow.com"
+  },
+  "CORREO_DE_SEGURIDAD": {
+    "grupo": "contacto",
+    "descripcion": "Buzón para reportar vulnerabilidades e incidentes de seguridad; también va en «Contact» de /.well-known/security.txt.",
+    "ejemplo": "seguridad@guauwoow.com"
+  },
+  "CORREO_LEGAL": {
+    "grupo": "contacto",
+    "descripcion": "Correo para avisos legales y requerimientos, propiedad intelectual (avisos y contra-avisos de derechos de autor), uso de la marca y créditos de autoría.",
+    "ejemplo": "legal@guauwoow.com"
+  },
+  "CORREO_DE_ACCESIBILIDAD": {
+    "grupo": "contacto",
+    "descripcion": "Correo para pedir ajustes razonables y reportar barreras de accesibilidad.",
+    "ejemplo": "accesibilidad@guauwoow.com"
+  },
+  "CORREO_ALTERNO": {
+    "grupo": "contacto",
+    "descripcion": "Correo de respaldo por si falla el principal (lo usan autoridades y titulares de derechos). Debe ser de otro proveedor o buzón.",
+    "ejemplo": "contacto.alterno@guauwoow.com"
+  },
+  "CORREOS_REMITENTES_OFICIALES": {
+    "grupo": "contacto",
+    "descripcion": "Direcciones desde las que salen los correos automáticos (SMTP_FROM) y, si los hay, los promocionales. Sirve para reconocer correos falsos.",
+    "ejemplo": "avisos@guauwoow.com y novedades@guauwoow.com"
+  },
+  "TELEFONO": {
+    "grupo": "contacto",
+    "descripcion": "Teléfono de atención con lada, como lo marcaría una persona en México.",
+    "ejemplo": "55 1234 5678"
+  },
+  "HORARIO_DE_ATENCION": {
+    "grupo": "contacto",
+    "descripcion": "Días y horario de atención telefónica y presencial (zona horaria del centro de México).",
+    "ejemplo": "lunes a viernes de 9:00 a 18:00 h (hora del centro de México)"
+  },
+  "NUMERO_DE_WHATSAPP": {
+    "grupo": "contacto",
+    "descripcion": "Número oficial del bot de WhatsApp (el de WHATSAPP_PHONE_NUMBER_ID), con lada internacional.",
+    "ejemplo": "+52 55 9876 5432"
+  },
+  "NOMBRE_VISIBLE_EN_WHATSAPP": {
+    "grupo": "contacto",
+    "descripcion": "Nombre visible del perfil de WhatsApp Business del número oficial, como lo aprobó Meta; debe coincidir con el texto del permiso de avisos por WhatsApp.",
+    "ejemplo": "GuauWoow"
+  },
+  "REMITENTE_DE_SMS": {
+    "grupo": "contacto",
+    "descripcion": "Número o código corto desde el que llega el código de verificación por SMS.",
+    "ejemplo": "el remitente «GuauWoow» o el número +52 55 0000 0000"
+  },
+  "CUENTAS_OFICIALES_EN_REDES_SOCIALES": {
+    "grupo": "contacto",
+    "descripcion": "Perfiles oficiales en redes sociales con su usuario; si no hay, escribe «Por ahora no tenemos cuentas oficiales en redes sociales».",
+    "ejemplo": "Facebook: facebook.com/patitasfind · Instagram: @patitasfind"
+  },
+  "CONTACTO_24_7_PARA_AUTORIDADES": {
+    "grupo": "contacto",
+    "descripcion": "Teléfono y correo dedicados, atendidos las 24 horas todos los días, solo para requerimientos de autoridades y emergencias (Decreto NNA, art. 5).",
+    "ejemplo": "55 1234 0000 y autoridades@guauwoow.com"
+  },
+  "RESPONSABLE_DE_RECLAMACIONES_DE_CONTENIDO": {
+    "grupo": "contacto",
+    "descripcion": "Nombre o área responsable de atender reclamaciones de contenido (honor, imagen, reseñas, derechos de autor).",
+    "ejemplo": "Equipo de Moderación, a cargo de Juan López"
+  },
+  "PROVEEDOR_DE_HOSTING": {
+    "grupo": "proveedores",
+    "descripcion": "Empresa donde corren el servidor y la base de datos (encargado del tratamiento).",
+    "ejemplo": "Hetzner Online GmbH"
+  },
+  "PAIS_O_REGION_DEL_HOSTING": {
+    "grupo": "proveedores",
+    "descripcion": "País o región del centro de datos contratado.",
+    "ejemplo": "Estados Unidos (Ashburn, Virginia)"
+  },
+  "CERTIFICACIONES_DEL_HOSTING": {
+    "grupo": "proveedores",
+    "descripcion": "Certificaciones de seguridad del proveedor de hosting, según su sitio oficial; si no las publica, escribe «No publicadas».",
+    "ejemplo": "ISO/IEC 27001"
+  },
+  "PROVEEDOR_DE_CORREO": {
+    "grupo": "proveedores",
+    "descripcion": "Proveedor SMTP que envía los correos (SMTP_HOST del .env).",
+    "ejemplo": "Amazon Web Services (Amazon SES)"
+  },
+  "PAIS_DEL_PROVEEDOR_DE_CORREO": {
+    "grupo": "proveedores",
+    "descripcion": "País o región donde el proveedor de correo procesa los mensajes.",
+    "ejemplo": "Estados Unidos"
+  },
+  "PROVEEDOR_DE_SMS": {
+    "grupo": "proveedores",
+    "descripcion": "Proveedor que envía los códigos de verificación por SMS (SMS_PROVIDER del .env: SMS Masivos o Twilio).",
+    "ejemplo": "Twilio Inc."
+  },
+  "PAIS_DEL_PROVEEDOR_DE_SMS": {
+    "grupo": "proveedores",
+    "descripcion": "País donde el proveedor de SMS procesa los números y los códigos.",
+    "ejemplo": "Estados Unidos"
+  },
+  "PROVEEDOR_DE_RESPALDOS_EXTERNOS": {
+    "grupo": "proveedores",
+    "descripcion": "Servicio donde se guarda la copia externa cifrada de los respaldos y la bóveda de evidencia (BACKUP_S3_* del .env).",
+    "ejemplo": "Cloudflare, Inc. (Cloudflare R2)"
+  },
+  "PAIS_O_REGION_DE_LOS_RESPALDOS_EXTERNOS": {
+    "grupo": "proveedores",
+    "descripcion": "País o jurisdicción del bucket externo de respaldos y evidencia.",
+    "ejemplo": "Estados Unidos (región automática de Cloudflare R2)"
+  },
+  "REGION_DE_SENTRY": {
+    "grupo": "proveedores",
+    "descripcion": "Región de datos de la organización de Sentry (no se puede cambiar después de crearla).",
+    "ejemplo": "Estados Unidos"
+  },
+  "REGION_DE_POSTHOG": {
+    "grupo": "proveedores",
+    "descripcion": "Región de datos del proyecto de PostHog (POSTHOG_HOST).",
+    "ejemplo": "Estados Unidos"
+  },
+  "PAC_DE_CFDI": {
+    "grupo": "proveedores",
+    "descripcion": "Proveedor autorizado de certificación (PAC) que timbra las facturas de GuauWoow (PAC_PROVIDER del .env); solo se usa si la comisión es mayor que 0 %.",
+    "ejemplo": "Facturama"
+  },
+  "PAIS_DEL_PROVEEDOR_DE_IMPORTACION": {
+    "grupo": "proveedores",
+    "descripcion": "País o entidad contratante de Apify, el proveedor que haría la importación de grupos públicos de Facebook (apagada en producción).",
+    "ejemplo": "República Checa (Apify Technologies s.r.o.)"
+  },
+  "PLAZO_DE_PRIMERA_RESPUESTA": {
+    "grupo": "plazos",
+    "descripcion": "Plazo de la primera respuesta a dudas, aclaraciones y quejas.",
+    "ejemplo": "2 días hábiles"
+  },
+  "PLAZO_DE_RESPUESTA_A_QUEJAS": {
+    "grupo": "plazos",
+    "descripcion": "Plazo máximo para responder y resolver aclaraciones y quejas (Términos, Condiciones de compra, Atención y quejas, Compromisos).",
+    "ejemplo": "10 días hábiles"
+  },
+  "PLAZO_PARA_APELAR": {
+    "grupo": "plazos",
+    "descripcion": "Tiempo que tiene una persona para apelar una sanción de moderación.",
+    "ejemplo": "15 días naturales"
+  },
+  "PLAZO_PARA_RESOLVER_APELACIONES": {
+    "grupo": "plazos",
+    "descripcion": "Plazo máximo para que una persona distinta de quien decidió resuelva una apelación.",
+    "ejemplo": "10 días hábiles"
+  },
+  "PLAZO_OBJETIVO_DE_REVISION_DE_REPORTES": {
+    "grupo": "plazos",
+    "descripcion": "Plazo objetivo general para revisar reportes de contenido y reseñas retenidas.",
+    "ejemplo": "72 horas hábiles"
+  },
+  "PLAZO_OBJETIVO_DE_REPORTES_URGENTES": {
+    "grupo": "plazos",
+    "descripcion": "Plazo objetivo para reportes urgentes: venta o cobro por animales, crueldad, zoofilia o peleas, y contenido íntimo sin consentimiento.",
+    "ejemplo": "24 horas"
+  },
+  "PLAZO_DE_REVISION_DE_CONTENIDO_RETENIDO": {
+    "grupo": "plazos",
+    "descripcion": "Plazo objetivo para que una persona revise las publicaciones de adopción y las reseñas de clínicas que el filtro automático retuvo.",
+    "ejemplo": "24 horas hábiles"
+  },
+  "PLAZO_DE_RESPUESTA_A_REPORTES_SOBRE_MENORES": {
+    "grupo": "plazos",
+    "descripcion": "Plazo para responder a madres, padres o tutores que reportan la cuenta o la foto de una persona menor de edad.",
+    "ejemplo": "72 horas"
+  },
+  "PLAZO_DE_PRIMERA_RESPUESTA_A_AUTORIDADES": {
+    "grupo": "plazos",
+    "descripcion": "Tiempo objetivo de primera respuesta a un requerimiento de autoridad.",
+    "ejemplo": "1 hora si hay menores o riesgo para la vida y 24 horas en los demás casos"
+  },
+  "PLAZO_OBJETIVO_DE_RETIRO_POR_DERECHOS_DE_AUTOR": {
+    "grupo": "plazos",
+    "descripcion": "Plazo objetivo para retirar contenido después de un aviso de derechos de autor procedente.",
+    "ejemplo": "menos de 24 horas hábiles"
+  },
+  "PLAZO_PARA_ACLARAR_UNA_CEDULA": {
+    "grupo": "plazos",
+    "descripcion": "Tiempo que tiene una Clínica para aclarar una cédula reportada como falsa o prestada antes de perder la verificación.",
+    "ejemplo": "5 días hábiles"
+  },
+  "PLAZO_DE_RESGUARDO_DE_PERROS_ENCONTRADOS": {
+    "grupo": "plazos",
+    "descripcion": "Espera mínima antes de ofrecer en adopción a un perro encontrado. Debe coincidir con FOUND_DOG_HOLD_DAYS del servidor (30 por defecto); --check lo compara.",
+    "ejemplo": "30 días naturales"
+  },
+  "PLAZO_DE_BORRADO_PARA_ALIADOS": {
+    "grupo": "plazos",
+    "descripcion": "Plazo en que Refugios, Casas de paso y vendedores deben borrar los datos de adoptantes y compradores al cerrar un proceso.",
+    "ejemplo": "30 días naturales"
+  },
+  "PLAZO_LOCAL_DE_RESPALDOS": {
+    "grupo": "plazos",
+    "descripcion": "Cuánto se conserva la copia local cifrada de los respaldos en el servidor (BACKUP_RETENTION_DAYS de backup.sh; 14 por defecto); --check lo compara.",
+    "ejemplo": "14 días naturales"
+  },
+  "PLAZO_DE_CONSERVACION_DE_RESPALDOS_EXTERNOS": {
+    "grupo": "plazos",
+    "descripcion": "Cuánto se conserva la copia externa cifrada (BACKUP_OFFSITE_RETENTION_DAYS de backup-offsite.sh; 30 por defecto); --check lo compara.",
+    "ejemplo": "30 días naturales"
+  },
+  "PLAZO_DE_CONSERVACION_DE_REPORTES_DE_MODERACION": {
+    "grupo": "plazos",
+    "descripcion": "Cuánto se guardan los reportes de contenido resueltos y la bitácora de acciones de administradores (debe coincidir con la tabla de conservacion.html).",
+    "ejemplo": "24 meses"
+  },
+  "PERIODICIDAD_DE_REVERIFICACION_DE_REFUGIOS": {
+    "grupo": "plazos",
+    "descripcion": "Cada cuánto se vuelve a verificar a los Refugios.",
+    "ejemplo": "cada año"
+  },
+  "PERIODICIDAD_DE_LA_EVALUACION_DE_RIESGOS": {
+    "grupo": "plazos",
+    "descripcion": "Cada cuánto se repite la evaluación de riesgos para niñas, niños y adolescentes (Decreto NNA).",
+    "ejemplo": "cada seis meses"
+  },
+  "PERIODICIDAD_DEL_INFORME_DE_TRANSPARENCIA": {
+    "grupo": "plazos",
+    "descripcion": "Cada cuánto se publica un corte del informe de transparencia.",
+    "ejemplo": "semestral"
+  },
+  "COMISION_TIENDA": {
+    "grupo": "tienda",
+    "descripcion": "Comisión que GuauWoow cobra a los Refugios por cada venta de la tienda (porcentaje con el signo %). Debe coincidir con MERCADOPAGO_MARKETPLACE_FEE_PERCENT del servidor y ser 0 % mientras VERIFICAR_REGIMEN_PLATAFORMAS no sea true; --check lo compara.",
+    "ejemplo": "0 %"
+  },
+  "COMISION_DONATIVOS": {
+    "grupo": "tienda",
+    "descripcion": "Comisión que GuauWoow descuenta de los donativos (porcentaje, o 0 % si no cobra). Debe coincidir con MERCADOPAGO_DONATION_FEE_PERCENT; --check lo compara.",
+    "ejemplo": "0 %"
+  },
+  "TARIFA_DE_MERCADO_PAGO": {
+    "grupo": "tienda",
+    "descripcion": "Tarifa estándar de Mercado Pago para cobros en línea (porcentaje más cuota fija, más IVA), tomada de tu cuenta o de mercadopago.com.mx.",
+    "ejemplo": "3.49 % + $4 MXN más IVA"
+  },
+  "FECHA_DE_ACTIVACION_DE_LA_COMISION": {
+    "grupo": "tienda",
+    "descripcion": "Fecha en que se activó una comisión mayor que 0 %, o «sin comisión» mientras siga en 0 %.",
+    "ejemplo": "sin comisión"
+  },
+  "FECHA_DE_ADOPCION_DEL_MODELO_DE_COBRO": {
+    "grupo": "tienda",
+    "descripcion": "Fecha desde la que todos los cobros (tienda y donativos) usan el cobro dividido (Split) de Mercado Pago directo a la cuenta del Refugio.",
+    "ejemplo": "2026-11-20"
+  },
+  "VERSION_DE_LOS_TERMINOS_DE_MERCADO_PAGO_ACEPTADA": {
+    "grupo": "tienda",
+    "descripcion": "Fecha de la versión de los Términos y Condiciones de Mercado Pago que aceptó GuauWoow.",
+    "ejemplo": "2026-09-01"
+  },
+  "AUTORIZACION_DE_MERCADO_PAGO_PARA_DONATIVOS": {
+    "grupo": "tienda",
+    "descripcion": "Número de caso y fecha de la respuesta escrita de Mercado Pago que autoriza recibir donativos por GuauWoow (sus términos los prohíben salvo excepción).",
+    "ejemplo": "caso 123456789, respuesta del 30 de octubre de 2026"
+  },
+  "TOPE_POR_DONATIVO": {
+    "grupo": "tienda",
+    "descripcion": "Monto máximo de un solo donativo. Debe coincidir con DONATION_MAX_MXN del servidor (50,000 por defecto); --check lo compara.",
+    "ejemplo": "$50,000 MXN"
+  },
+  "TOPE_DIARIO_DE_DONATIVOS": {
+    "grupo": "tienda",
+    "descripcion": "Lo máximo que una misma cuenta puede donar en un día. Debe coincidir con DONATION_DAILY_MAX_MXN; --check lo compara.",
+    "ejemplo": "$50,000 MXN"
+  },
+  "PAQUETERIA": {
+    "grupo": "tienda",
+    "descripcion": "Paquetería con la que se envían los pedidos (si cada Refugio elige la suya, escribe «La paquetería que elija cada Refugio vendedor»).",
+    "ejemplo": "La paquetería que elija cada Refugio vendedor"
+  },
+  "ZONAS_DE_COBERTURA": {
+    "grupo": "tienda",
+    "descripcion": "Aclaración de las zonas de envío dentro de México (aparece entre paréntesis después de «República Mexicana»).",
+    "ejemplo": "excepto zonas extendidas de la paquetería"
+  },
+  "COSTO_DE_ENVIO": {
+    "grupo": "tienda",
+    "descripcion": "Política de costo de envío de la Tienda Solidaria (cada producto muestra su costo antes de pagar).",
+    "ejemplo": "cada Refugio fija el costo de envío de sus productos"
+  },
+  "PLAZO_DE_ENTREGA": {
+    "grupo": "tienda",
+    "descripcion": "Plazo estimado de entrega desde la confirmación del pago.",
+    "ejemplo": "3 a 10 días hábiles"
+  },
+  "PLAZO_DE_REEMBOLSO": {
+    "grupo": "tienda",
+    "descripcion": "Plazo máximo para reembolsar tras una revocación o cancelación.",
+    "ejemplo": "10 días hábiles"
+  },
+  "ORDEN_DE_LOS_PRODUCTOS_EN_LA_TIENDA": {
+    "grupo": "tienda",
+    "descripcion": "Criterio real con el que la tienda ordena los productos (pregúntalo al equipo técnico).",
+    "ejemplo": "más recientes primero"
+  },
+  "FECHA_DE_LA_OPINION_DE_CUMPLIMIENTO_DEL_SAT": {
+    "grupo": "tienda",
+    "descripcion": "Fecha de la última opinión positiva de cumplimiento de obligaciones fiscales del SAT (CFF, art. 32-D), o «no publicada».",
+    "ejemplo": "1 de octubre de 2026"
+  },
+  "FECHA_DE_ENTRADA_EN_VIGOR": {
+    "grupo": "decisiones",
+    "descripcion": "Fecha en que entra en vigor esta versión de los documentos, en formato AAAA-MM-DD. Se imprime en «Vigente desde» de cada página y se guarda en versiones.json; cuando llega, queda fija para esa versión. Para cambios importantes a personas que ya tienen cuenta, deja al menos 30 días naturales desde el aviso.",
+    "ejemplo": "2026-11-20"
+  },
+  "FECHA_DE_ULTIMA_REVISION_LEGAL": {
+    "grupo": "decisiones",
+    "descripcion": "Fecha de la última revisión de los documentos por tu abogado (y, en las páginas fiscales y de vendedores, por tu contador).",
+    "ejemplo": "10 de noviembre de 2026"
+  },
+  "FECHA_DE_VALIDACION_DE_PLAZOS": {
+    "grupo": "decisiones",
+    "descripcion": "Fecha en que tu abogado y tu contador validaron el calendario de conservación de datos.",
+    "ejemplo": "10 de noviembre de 2026"
+  },
+  "FECHA_DE_LA_ULTIMA_EVALUACION_DE_ACCESIBILIDAD": {
+    "grupo": "decisiones",
+    "descripcion": "Fecha de la última evaluación de accesibilidad del sitio.",
+    "ejemplo": "5 de noviembre de 2026"
+  },
+  "METODO_DE_EVALUACION_DE_ACCESIBILIDAD": {
+    "grupo": "decisiones",
+    "descripcion": "Herramientas y pruebas usadas en esa evaluación.",
+    "ejemplo": "revisión automática con axe y Lighthouse y pruebas manuales con VoiceOver y TalkBack"
+  },
+  "FECHA_DE_VERIFICACION_DEL_DIRECTORIO_DE_AUTORIDADES": {
+    "grupo": "decisiones",
+    "descripcion": "Fecha en que se comprobaron en sitios oficiales los datos del directorio para denunciar maltrato.",
+    "ejemplo": "5 de noviembre de 2026"
+  },
+  "FECHA_DEL_PRIMER_CORTE_DEL_INFORME_DE_TRANSPARENCIA": {
+    "grupo": "decisiones",
+    "descripcion": "Fecha del primer corte del informe de transparencia.",
+    "ejemplo": "30 de junio de 2027"
+  },
+  "AUTORIDAD_RECEPTORA_DEL_INFORME_NNA": {
+    "grupo": "decisiones",
+    "descripcion": "Autoridad a la que se entrega el informe del transitorio Cuarto del Decreto NNA.",
+    "ejemplo": "Agencia de Transformación Digital y Telecomunicaciones (ATDT), con copia a la Consejería Jurídica del Ejecutivo Federal"
+  },
+  "FECHA_Y_FOLIO_DEL_ENVIO_DEL_INFORME_NNA": {
+    "grupo": "decisiones",
+    "descripcion": "Fecha y folio o acuse de entrega del informe del Decreto NNA. Mientras no lo entregues, escribe que está pendiente y su fecha límite.",
+    "ejemplo": "pendiente; lo entregaremos a más tardar el 12 de noviembre de 2026"
+  },
+  "ESTADO_DEL_DICTAMEN_NMX": {
+    "grupo": "decisiones",
+    "descripcion": "Si hay dictamen de verificación de la NMX-COE-001-SCFI-2018 (número y vigencia) o «no contamos con dictamen todavía».",
+    "ejemplo": "no contamos con dictamen todavía"
+  },
+  "ESTADO_DE_ADHESION_AL_CODIGO_DE_ETICA": {
+    "grupo": "decisiones",
+    "descripcion": "Estado de adhesión al Código de Ética de comercio electrónico de PROFECO, con la fecha y el enlace al padrón si te adheriste.",
+    "ejemplo": "no estamos adheridos"
+  },
+  "ESTADO_DE_AUDITORIA_EXTERNA": {
+    "grupo": "decisiones",
+    "descripcion": "Frase sobre auditorías externas de privacidad o seguridad (con quién y cuándo).",
+    "ejemplo": "Por ahora no contamos con una auditoría externa de privacidad"
+  },
+  "COLABORADORES_CON_MENCION_DE_AUTORIA": {
+    "grupo": "decisiones",
+    "descripcion": "Nombres de quienes pidieron crédito como autores (LFDA, art. 83) o «Por ahora nadie lo ha solicitado».",
+    "ejemplo": "Por ahora nadie lo ha solicitado"
+  },
+  "ESTADOS_CON_IMPORTACION": {
+    "grupo": "decisiones",
+    "descripcion": "Estados (y grupos públicos) de los que se importarían publicaciones cuando se active la importación de Facebook; mientras siga apagada, escribe «ninguno por ahora (la importación está apagada)».",
+    "ejemplo": "ninguno por ahora (la importación está apagada)"
+  },
+  "CIUDAD_DE_JURISDICCION": {
+    "grupo": "decisiones",
+    "descripcion": "Ciudad cuyos tribunales resuelven controversias con Refugios y Clínicas (convenios entre aliados; a los consumidores no se les impone).",
+    "ejemplo": "Ciudad de México"
+  },
+  "TOPE_DE_RESPONSABILIDAD_CON_ALIADOS": {
+    "grupo": "decisiones",
+    "descripcion": "Monto máximo en pesos de responsabilidad entre GuauWoow y cada Refugio, según decidas con tu abogado.",
+    "ejemplo": "$50,000 MXN"
+  },
+  "VERIFICAR_ACEPTACION_SEPARADA": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "la casilla de registro reúne la aceptación de los Términos y el acuse del Aviso de Privacidad; confirma con tu abogado si basta o si el Aviso debe tener su propia casilla",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_ADOPCION_NO_CONSUMO": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "confirma con tu abogado si la LFPC alcanza a las adopciones gratuitas que entregan los refugios; la investigación tiene confianza baja en este punto",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_APIFY": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "contrato, entidad, país y retención de datos de Apify, y riesgo frente a los términos de Meta / entidad con la que se contrata Apify, país de procesamiento y retención de los datos; condición de no activar sin las opiniones legales",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_AUTODECLARACION_MALTRATO": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "si se agregará la autodeclaración del adoptante sobre sanciones por maltrato y con qué base",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_AVISO_SUPRESION": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "que exista el procedimiento para avisar al titular y a los terceros receptores cuando se suprimen datos tras el bloqueo",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_CALENDARIO_CONSERVACION": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado y contador",
+    "descripcion": "tu abogado y tu contador deben validar este calendario, en especial los plazos marcados como propuesta y los 10 años que dependen de que el operador sea comerciante; si el operador es persona física no comerciante, el calendario cambia",
+    "sugerencia": "`true` cuando tu abogado y tu contador aprueben el texto tal cual. Si piden otra redacción, escribe aquí la frase que te den."
+  },
+  "VERIFICAR_CASAS_DE_PASO_UMBRAL": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "confirmar con el abogado o con la AGATAN a partir de cuántos animales una casa de paso necesita autorización en la Ciudad de México",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_CESIONES": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "confirma que tienes por escrito la cesión de derechos de cada persona que hizo código, diseño, fotos o textos (incluido el fundador) antes de afirmar la titularidad",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_CLINICAS_LFSA": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "el abogado sanitario confirma el alcance del aviso de inicio de funcionamiento y del médico veterinario responsable autorizado (LFSA arts. 105 y 110) para clínicas de pequeñas especies que solo dan consulta, las autorizaciones locales (LPBA CDMX art. 43; Ley Edomex art. 49) y que el art. 83 de la Ley General de Salud aplica a veterinarios",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_COMPATIBILIDAD": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "cómo se atiende la oposición al puntaje (postulación sin puntaje) y si aplica el art. 26, fr. II, de la LFPDPPP",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_CONDICION_RESOLUTORIA": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "con un abogado civilista, si esta resolución por incumplimiento de las cargas es exigible en cada estado, dado que las donaciones solo se revocan en los casos de ley (Código Civil Federal, art. 2338)",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_CONSERVACION": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado y contador",
+    "descripcion": "que este resumen coincide con la configuración de conservación del sistema y que los plazos de 10 años aplican porque el operador es comerciante (CCom, arts. 38 y 49); si no, ajústalos con el abogado y el contador",
+    "sugerencia": "`true` cuando tu abogado y tu contador aprueben el texto tal cual. Si piden otra redacción, escribe aquí la frase que te den."
+  },
+  "VERIFICAR_CONSERVACION_10_ANIOS": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "el plazo de 10 años aplica si el operador es comerciante (persona moral mercantil); si opera una persona física no comerciante, tu abogado debe revisar el calendario",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_CONSERVACION_ACEPTACIONES": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "confirma con tu abogado el plazo de 10 años (depende de que el operador sea comerciante) y que la seudonimización al borrar la cuenta ya ocurre en el sistema",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_CONTACTO_ADOPCION": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "base para compartir el contacto al aprobar una adopción: casilla de consentimiento (art. 35) o contrato en interés del titular (art. 36, fr. IV y VII), o limitar el contacto al chat",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_CSAM": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "obtén la postura penal escrita de tu abogado sobre la conservación y entrega de este material antes de operar este paso (CPF arts. 202 y 202 Bis)",
+    "sugerencia": "`true` solo con la postura penal escrita de tu abogado sobre conservar y entregar ese material."
+  },
+  "VERIFICAR_CUENTA_DE_MENOR": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "confirma el procedimiento cuando se confirma que una cuenta es de una persona menor de edad (suspensión, cierre, reembolso de compras en curso y borrado salvo evidencia)",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_DECRETO_NNA": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "con tu abogado la verificación de edad por capas, la lectura «por diseño» de las fracciones III, VI y VIII del art. 4 y el canal de entrega del informe",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_DENUNCIA_POR_PATITASFIND": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "con tu abogado penalista en qué casos GuauWoow presenta la denuncia por su cuenta (propuesta: zoofilia, peleas, crueldad grave y venta reincidente) y quién la firma",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_DEPOSITO_CASAS_DE_PASO": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "el abogado confirma el encuadre del hogar temporal como depósito (Código Civil Federal, arts. 2516 a 2522), la cláusula de gratuidad (art. 2517) y la responsabilidad por daños a terceros durante la guarda (arts. 1910 y 1929), y revisa el código civil de los estados de lanzamiento",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_DESGLOSE_DONATIVO": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "la pantalla de donativo aún no muestra la comisión estimada de Mercado Pago, la de GuauWoow ni el neto para el Refugio. Decide con tu abogado si se agregan (LFPC, art. 7 Bis). Cuando la pantalla los muestre, pon como valor «En esa pantalla también ves las comisiones estimadas y cuánto recibirá el Refugio.»; si no se agregarán, pon true y la página remite a la sección 4",
+    "sugerencia": "Cuando se cumpla, escribe exactamente «En esa pantalla también ves las comisiones estimadas y cuánto recibirá el Refugio.»; mientras no, `true` (no se publica nada en su lugar)."
+  },
+  "VERIFICAR_DONACION_FORMA": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "el abogado confirma que la aceptación general y anticipada y la constancia electrónica de cada donativo bastan como forma de la donación (Código Civil Federal, arts. 2340 a 2344) en los estados de lanzamiento",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_FIRMA_CONVENIOS": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "decide si los convenios con Refugios se firmarán con e.firma o con constancia NOM-151 y, en su caso, descríbelo aquí; si no, borra esta nota / confirmar el método de firma del Convenio: casilla en la app con nombre y cargo de quien representa al Refugio y, si se contrata, firma electrónica con constancia NOM-151-SCFI-2016 o e.firma del SAT",
+    "sugerencia": "`true` si basta la casilla en la app con nombre y cargo; si contratas firma electrónica: «Además, el Convenio se firma con e.firma del SAT (o con constancia NOM-151).»"
+  },
+  "VERIFICAR_FUENTE_INDIRECTA": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "vía elegida por el abogado para la importación (aviso directo al autor, medida compensatoria autorizada por la SABG o no operar) y su estado; publica aquí el estado de la autorización o de la vía elegida / vía elegida por el abogado para la importación (aviso directo al autor, medida compensatoria autorizada por la SABG o no operar) y su estado",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_GOOGLE_MAPS": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "el abogado de tecnología opina sobre el ejemplo prohibido 3.2.3(d)(iii) de los términos de Google Maps Platform aplicado al directorio y la conveniencia de pedir revisión a Google / con tu abogado de tecnología los términos de Google Maps Platform aplicados a este directorio",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_HOMOLOGACION": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "confirma si los localizadores u otros equipos con radio requieren homologación de telecomunicaciones antes de venderse",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_IA_FOTOS_BOT": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "con Meta o un proveedor de soluciones de WhatsApp, que enviar a un proveedor de IA las fotos recibidas por el bot es compatible con los términos de WhatsApp Business (confianza baja)",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_IMPORTACION": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "la importación de grupos de Facebook está apagada en producción; deja este párrafo en condicional hasta que tu abogado la apruebe y actívala solo entonces",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_INE_SENSIBLE": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "si la imagen de la identificación debe tratarse como dato sensible y si el formulario de verificación recaba consentimiento expreso para ella",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_INFORME_NNA": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "el Decreto no dice a qué autoridad ni por qué medio se entrega; confirma el canal con la ATDT y la CJEF y, al entregar el informe, registra aquí la fecha, la autoridad que lo recibió, el folio del acuse y la huella SHA-256 del PDF",
+    "sugerencia": "Al entregar: «Entregado el 10-11-2026 a la ATDT, con copia a la CJEF; acuse con folio …; SHA-256 del PDF: …». Antes, `true` solo si tu abogado confirmó el canal de entrega."
+  },
+  "VERIFICAR_INFORME_NNA_ENVIADO": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "al entregar el informe, sustituye esta nota por la fecha de entrega y el folio o acuse; confirma con tu abogado la autoridad receptora y el cómputo del plazo (12 o 13 de noviembre de 2026)",
+    "sugerencia": "Al entregar el informe, la frase real, p. ej. «Lo entregamos el 10 de noviembre de 2026 a la ATDT; acuse con folio ATDT-2026-0000.»"
+  },
+  "VERIFICAR_JURISDICCION": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "tu abogado debe confirmar esta cláusula de jurisdicción (LFPC arts. 85 y 90; Código de Comercio art. 1093)",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_JURISDICCION_ALIADOS": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "el abogado confirma la mediación previa (Ley General de Mecanismos Alternativos de Solución de Controversias), la conveniencia de un arbitraje y la ciudad de jurisdicción para los convenios con refugios, casas de paso, vendedores y clínicas",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_KYC_REFUGIOS": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado y contador",
+    "descripcion": "confirmar con el abogado y el contador qué documentos son obligatorios en cada perfil (beneficiario controlador, constancia fiscal, autorización local), que el formulario de registro los pide y el plazo de conservación del expediente fiscal",
+    "sugerencia": "`true` cuando tu abogado y tu contador aprueben el texto tal cual. Si piden otra redacción, escribe aquí la frase que te den."
+  },
+  "VERIFICAR_LEYES_ESTATALES": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "con tu abogado, los artículos citados por estado; la ley de Nuevo León se tomó de una compilación no oficial y debe cotejarse con el Periódico Oficial",
+    "sugerencia": "`true` cuando tu abogado coteje el texto con el periódico oficial del estado; si cambió algún artículo, pide la corrección en la plantilla."
+  },
+  "VERIFICAR_LEY_BAJA_CALIFORNIA": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "cotejar la ley de Baja California; se revisó la versión de 2024 y hay tres reformas de 2026 sin cotejar",
+    "sugerencia": "`true` cuando tu abogado coteje el texto con el periódico oficial del estado; si cambió algún artículo, pide la corrección en la plantilla."
+  },
+  "VERIFICAR_LEY_GENERAL": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "antes de publicar, confirma en la Gaceta Parlamentaria, el SIL y el DOF si la comisión de Diputados ya dictaminó la minuta",
+    "sugerencia": "`true` si la minuta sigue sin dictaminarse en la Cámara de Diputados; si ya se publicó en el DOF, hay que actualizar la página."
+  },
+  "VERIFICAR_LEY_JALISCO": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "cotejar la ley de Jalisco en el Periódico Oficial; solo se revisó la compilación de la CNDH con reformas hasta 2021",
+    "sugerencia": "`true` cuando tu abogado coteje el texto con el periódico oficial del estado; si cambió algún artículo, pide la corrección en la plantilla."
+  },
+  "VERIFICAR_LEY_MICHOACAN": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "cotejar la ley de Michoacán; se revisó la versión de 2022 y hay reformas de 2024 y 2025 sin cotejar",
+    "sugerencia": "`true` cuando tu abogado coteje el texto con el periódico oficial del estado; si cambió algún artículo, pide la corrección en la plantilla."
+  },
+  "VERIFICAR_LEY_NUEVO_LEON": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "cotejar la ley de Nuevo León en el Periódico Oficial; solo se revisó la compilación legismex de 2025",
+    "sugerencia": "`true` cuando tu abogado coteje el texto con el periódico oficial del estado; si cambió algún artículo, pide la corrección en la plantilla."
+  },
+  "VERIFICAR_LEY_QUERETARO": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "cotejar la ley de Querétaro en su periódico oficial; se revisó una compilación con reformas hasta 2021",
+    "sugerencia": "`true` cuando tu abogado coteje el texto con el periódico oficial del estado; si cambió algún artículo, pide la corrección en la plantilla."
+  },
+  "VERIFICAR_LEY_SONORA": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "cotejar la ley de Sonora; se revisó un Boletín Oficial escaneado y la numeración de algunas fracciones puede variar",
+    "sugerencia": "`true` cuando tu abogado coteje el texto con el periódico oficial del estado; si cambió algún artículo, pide la corrección en la plantilla."
+  },
+  "VERIFICAR_LEY_VERACRUZ": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "cotejar la ley de Veracruz; se revisó una compilación con reformas hasta 2020 y el Congreso aprobó una reforma el 15-10-2026 aún sin publicar",
+    "sugerencia": "`true` cuando tu abogado coteje el texto con el periódico oficial del estado; si cambió algún artículo, pide la corrección en la plantilla."
+  },
+  "VERIFICAR_LIMITACION_RESPONSABILIDAD": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "tu abogado debe revisar que esta sección no excluya responsabilidad por incumplir la LFPDPPP ni derechos del consumidor",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_MASC": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "revisa con tu abogado la Ley General de Mecanismos Alternativos de Solución de Controversias y si conviene ofrecer un mediador o centro concreto",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_MENSAJES": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "si los mensajes de una cuenta eliminada se muestran como «Usuario eliminado» durante ese plazo o deben borrarse antes",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_MODELO_COMISION": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado y contador",
+    "descripcion": "el abogado y el contador confirman la calificación del modelo con Split (refugio que vende y cobra directamente; GuauWoow como intermediario tecnológico, Código de Comercio art. 285 o LIVA art. 18-B fr. II) y su efecto frente a PROFECO, en el CFDI y en las retenciones / con abogado y contador si GuauWoow responde frente al comprador junto con el Refugio vendedor o solo como intermediario (Código de Comercio arts. 284 y 285; LFPC art. 2), y refléjalo igual en estos Términos, en las Condiciones de compra y en los Términos para Refugios vendedores",
+    "sugerencia": "`true` cuando tu abogado y tu contador aprueben el texto tal cual. Si piden otra redacción, escribe aquí la frase que te den."
+  },
+  "VERIFICAR_NATURALEZA_ADOPCION": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "con tu abogado civilista la calificación de la adopción como donación con cargas y de cualquier pago ligado a la entrega como compraventa / con un abogado civilista, la calificación de la adopción con cargas como donación onerosa, el umbral de $5,000 y la forma escrita en los códigos civiles de los estados de lanzamiento / el abogado confirma la calificación de la adopción con cargas como donación onerosa y de cualquier pago ligado a la entrega como compraventa, y el alcance del art. 25 Bis de la CDMX y del art. 40 fr. V del Estado de México",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_NMX_REDES_SOCIALES": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "la NMX-COE-001-SCFI-2018, numeral 8.1, inciso k), pide que el tratamiento de datos de redes sociales sea informado y consentido; la licitud de la importación está pendiente de dictamen",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_NORMAS_PRODUCTOS": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "el abogado confirma qué normas aplican al catálogo real (alimentos y premios desregulados, NOM-050, NOM-004-SE-2021, NOM-024, NOM-012-SAG/ZOO-2020) y si los localizadores GPS requieren homologación",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_OBRAS_ASISTIDAS_IA": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "alcance de la protección de obras hechas con apoyo de IA; la investigación tiene confianza media",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_PEDIDOS_EN_CURSO": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "confirma esta regla para pedidos pagados pendientes de envío, o pide esperar la entrega antes de eliminar la cuenta",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_PERSONALIZADOS": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "tu abogado debe confirmar si los productos personalizados pueden excluirse de la revocación; mientras tanto, no se excluyen / con tu abogado si los productos hechos a la medida pueden excluirse; hasta entonces se mantiene la revocación",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_PLAZO_ART_93": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "la ley no dice si los 15 días son naturales o hábiles; se usa la lectura más protectora",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_PLD": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "estas conclusiones dependen de la forma jurídica del operador y del modelo de cobro; requieren la opinión escrita de un abogado especialista en prevención de lavado antes de publicarse",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_PLD_REFUGIOS": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "el abogado de prevención de lavado confirma el alcance de las medidas de las reglas 38 Bis a 38 Bis 2 para refugios A.C. y qué datos del donante debe entregar GuauWoow",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_PUERTO_SEGURO": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "redacción final del compromiso de no denunciar a quien investiga de buena fe, sin prometer inmunidad penal",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_REGLA_ENCONTRADOS": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "con tu abogado la regla de espera para perros encontrados frente a los códigos civiles estatales y si habrá excepción con constancia para Refugios verificados y autoridades",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_REQUISITOS_CLINICAS": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "con tu abogado sanitario el alcance del aviso de funcionamiento, del responsable autorizado y de las autorizaciones locales para clínicas que solo dan consulta",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_RESENAS_RESPONSABILIDAD": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "el abogado confirma el estándar de responsabilidad por reseñas (Código Civil Federal arts. 1910 y 1916), si GuauWoow es sujeto obligado de la Ley de réplica y si los plazos de moderación son suficientes; aprueba la insignia, el deslinde y el aviso de urgencias",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_RESPONSABILIDAD_ENVIOS": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "confirma con tu abogado quién responde ante la persona compradora por pérdida, daño o retraso en el envío (Refugio vendedor, GuauWoow o ambos) y ajusta la frase a lo que diga el contrato con los Refugios",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_ROL_REFUGIOS": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "el abogado confirma que refugios, colectivos, rescatistas, casas de paso y refugios vendedores reciben los datos de adoptantes, donantes y compradores como responsables independientes (art. 35) y no como encargados / confirma con tu abogado si el Refugio recibe una transferencia como responsable propio o actúa como encargado de GuauWoow, y ajusta esta fila",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_RUAC": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "obligación y gratuidad del RUAC (LPBA CDMX art. 4 BIS 1 fr. I); confianza media",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_SANCION_25_BIS": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "el art. 65 fr. IV de la ley de la CDMX cita fracciones V Bis y V Ter del art. 25 que no aparecen en el texto compilado; confírmalo con la Consejería Jurídica",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_SENASICA": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "antes de habilitar alimentos y premios, valida con un especialista en regulación de SENASICA qué productos requieren registro o autorización",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_SUPLETORIEDAD": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "postura sobre la aplicación supletoria del Reglamento de 2011 y los Lineamientos de 2013 (confianza media)",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_TOPE_ALIADOS": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "el abogado confirma si un tope de responsabilidad en este contrato de adhesión es válido frente a personas rescatistas y colectivos que son personas físicas y podrían considerarse consumidores (LFPC, arts. 85 y 90, fr. II), y fija el monto",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_TRANSPARENCIA_PERSONAS_FISICAS": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "confirmar si aceptar el Convenio para Refugios y el Acuerdo de datos basta como consentimiento expreso de personas físicas para publicar sus montos en el informe de transparencia o si hace falta una casilla separada",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_VETERINARIOS": {
+    "grupo": "verificar-abogado",
+    "revisa": "abogado",
+    "descripcion": "que el Registro Nacional de Profesionistas cuenta como fuente de acceso público (LFPDPPP, art. 2, fr. X) y si se enviará un aviso directo a la persona veterinaria cuando no es quien registra / el abogado de datos confirma que el Registro Nacional de Profesionistas es fuente de acceso público (LFPDPPP art. 2 fr. X) y que publicar nombre, cédula e institución con base en el art. 83 de la Ley General de Salud no requiere un consentimiento adicional",
+    "sugerencia": "`true` si tu abogado aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_CFDI_DONATIVO": {
+    "grupo": "verificar-contador",
+    "revisa": "contador",
+    "descripcion": "describe cómo pide la persona donante su CFDI de donativo (casilla al donar con datos fiscales o solicitud directa al Refugio) y cómo se avisa al Refugio para que lo emita en 24 horas",
+    "sugerencia": "`true` si tu contador aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_CONCILIACION": {
+    "grupo": "verificar-contador",
+    "revisa": "contador",
+    "descripcion": "confirma la frecuencia con que se concilian los pagos contra los reportes de Mercado Pago (propuesta: diaria) y escríbela aquí, o borra la frase",
+    "sugerencia": "La frecuencia real, p. ej. «Conciliamos a diario los pagos con los reportes de Mercado Pago.»; o `true` para quitar la nota."
+  },
+  "VERIFICAR_DESGLOSE_IVA": {
+    "grupo": "verificar-contador",
+    "revisa": "contador",
+    "descripcion": "confirma que la ficha del producto, el carrito y «Revisa tu pedido» muestran la leyenda «IVA incluido» y el monto del IVA por separado cuando la venta causa IVA, y la leyenda de venta exenta cuando el Refugio vendedor es donataria, según el régimen de cada Refugio vendedor (Ley del IVA, arts. 18-J, fr. I, y 18-K) / confirma que la ficha del producto, el carrito y «Revisa tu pedido» muestran la leyenda «IVA incluido» y el monto del IVA por separado (Ley del IVA, arts. 18-J, fr. I, y 18-K)",
+    "sugerencia": "`true` si tu contador aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_FACTURACION": {
+    "grupo": "verificar-contador",
+    "revisa": "contador",
+    "descripcion": "confirma con tu contador que el refugio vendedor emite el CFDI de cada venta, que GuauWoow solo factura su comisión y el plazo para pedir factura / con tu contador, el plazo para pedir la factura, el CFDI global del Refugio vendedor y la meta de 24 horas",
+    "sugerencia": "`true` si tu contador aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_FISCAL_REFUGIOS": {
+    "grupo": "verificar-contador",
+    "revisa": "contador",
+    "descripcion": "el contador confirma la lectura de la UMA anual para la exención de personas físicas, el régimen de las asociaciones no donatarias y el efecto de las comisiones en el límite del 5 % de gastos de administración",
+    "sugerencia": "`true` si tu contador aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_IVA_COMISION": {
+    "grupo": "verificar-contador",
+    "revisa": "contador",
+    "descripcion": "confirma con tu contador si el porcentaje de comisión ya incluye el IVA o si el IVA se suma, y si se calcula sobre el total con envío",
+    "sugerencia": "`true` si tu contador aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_REGIMEN_PLATAFORMAS": {
+    "grupo": "verificar-contador",
+    "revisa": "contador",
+    "descripcion": "no actives una comisión mayor que 0 % hasta que tu contador confirme el alta como retenedor, el CFDI de comisión y de retenciones, la declaración informativa mensual y el acceso en línea del SAT",
+    "sugerencia": "`true` cuando tu contador confirme las obligaciones de plataforma. Mientras no sea true, --check exige que ambas comisiones del servidor sean 0."
+  },
+  "VERIFICAR_REGISTROS_FISCALES": {
+    "grupo": "verificar-contador",
+    "revisa": "contador",
+    "descripcion": "con el contador que los registros bloqueados y anonimizados de cuentas eliminadas bastan para la contabilidad y las aclaraciones con Mercado Pago",
+    "sugerencia": "`true` si tu contador aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_RETENCIONES": {
+    "grupo": "verificar-contador",
+    "revisa": "contador",
+    "descripcion": "el contador confirma que con comisión de 0 % GuauWoow no retiene ISR ni IVA ni presenta la informativa como plataforma de intermediación; hoy la app retiene 2.5 % de ISR y 50 % de IVA a las personas físicas aunque la comisión sea 0 %: ajustar la app o este texto / con tu contador, si con Split de Mercado Pago y comisión mayor que 0 aplican las retenciones de ISR e IVA a plataformas (LIF 2026 art. 25 fr. VI y IX; LIVA art. 18-J) y el acceso del SAT (CFF art. 30-B) / el contador confirma, para una comisión mayor que 0 % con Split, si GuauWoow debe retener ISR e IVA (regla 12.2.5), si la retención alcanza a asociaciones y donatarias del Título III, el CFDI de la comisión y las obligaciones de los días 5, 10 y 17",
+    "sugerencia": "`true` si tu contador aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_SAT_PLATAFORMAS": {
+    "grupo": "verificar-contador",
+    "revisa": "contador",
+    "descripcion": "con el contador, qué información se entrega al SAT con comisión mayor a 0 y con pago dividido",
+    "sugerencia": "`true` si tu contador aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_TOPE_DEDUCCIONES": {
+    "grupo": "verificar-contador",
+    "revisa": "contador",
+    "descripcion": "confirma con tu contador si, para personas físicas, los donativos cuentan además dentro del tope global de deducciones personales del art. 151 de la Ley del ISR; su último párrafo parece excluir la fr. III, donativos. Si cuentan, pon como valor la frase que lo explique; si no, pon true",
+    "sugerencia": "`true` si tu contador aprueba el texto tal cual. Si pide otra redacción, escribe aquí la frase que te dé (sustituye la nota)."
+  },
+  "VERIFICAR_ACEPTACION_ANEXOS": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "confirmar que la app pide este documento con casilla propia sin premarcar al (registrar el Refugio / la Casa de paso / la Clínica / publicar el primer producto / publicar el primer perro), que lo guarda en la bitácora de aceptaciones con su versión y su huella y que bloquea verificación, donativos y ventas sin la versión vigente",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "Cierto en parte (no pongas true todavía): la app pide la casilla propia sin premarcar al registrar el Refugio, la Casa de paso (con el Acuerdo de datos), la Clínica y el primer producto; queda en la bitácora con versión y huella, y en producción (LEGAL_ANNEX_REQUIRED) bloquea verificación, donativos y ventas sin la versión vigente. No hay casilla al publicar el primer perro: acuerdo-datos-refugios 1.3 ya lo dice así; quita esa opción de la nota antes de poner true."
+  },
+  "VERIFICAR_AUTODECLARACION": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "el cuestionario de adopción todavía no incluye esta autodeclaración; agrégala o quita este párrafo",
+    "sugerencia": "`true` cuando el cuestionario de adopción incluya la autodeclaración; si no se agregará, pide quitar el párrafo de adopcion-responsable.html.",
+    "estado_codigo": "Todavía NO es cierto (no pongas true): el cuestionario de adopción no tiene esa autodeclaración."
+  },
+  "VERIFICAR_AVISOS_CHAT": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "cuando la app muestre avisos automáticos en el chat (al acordar un encuentro o al detectar CLABE, tarjeta, «depósito» o «anticipo»), el botón Bloquear o el mensaje de seguridad del bot al reportar un perro perdido, descríbelos aquí; si no, borra esta nota",
+    "sugerencia": "Cuando existan, descríbelos, p. ej. «El chat te muestra un aviso de seguridad al acordar un encuentro o si alguien pide un depósito.»; mientras no, `true` (se quita la nota y su párrafo).",
+    "estado_codigo": "Todavía NO es cierto (no pongas true): el chat no muestra avisos automáticos al detectar CLABE, tarjeta, «depósito» o «anticipo», y no hay botón Bloquear; el bot no manda un mensaje de seguridad al reportar."
+  },
+  "VERIFICAR_AVISOS_DE_SESION": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "confirma que la app avisa por correo de los inicios de sesión desde un dispositivo nuevo y de los cambios de contraseña, correo o teléfono; si no, quita la última frase",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "Todavía NO es cierto (no pongas true): no se envían correos por inicios de sesión desde un dispositivo nuevo ni por cambios de correo o teléfono."
+  },
+  "VERIFICAR_AVISO_BOT": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "que el bot muestra el aviso simplificado y el enlace en el primer contacto y tras 12 meses sin actividad, y que registra la versión mostrada; si no, agrégalo o ajusta esta sección / que el bot muestra el aviso simplificado y el enlace en el primer contacto y tras 12 meses sin actividad; si no, agrégalo o ajusta esta frase",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "Ya es cierto: el bot manda el aviso simplificado (privacidad-simplificado §5.1) con el enlace en el primer contacto y otra vez a los 12 meses, en un mensaje aparte, y guarda su versión y fecha (services/whatsapp_bot.py, notice_v y notice_at)."
+  },
+  "VERIFICAR_AVISO_DE_MOTIVOS": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "confirma que el aviso de moderación incluye el contenido afectado, la regla aplicada, el origen de la detección, la duración de la medida y cómo apelar",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "Ya es cierto: el aviso de moderación (services/legal_moderation._notice_body) incluye el contenido, la regla, el origen de la detección, la duración y cómo apelar; revisa el texto final con tu abogado."
+  },
+  "VERIFICAR_BAJAS_WHATSAPP": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "que el bot reconoce STOP, ALTO, CANCELAR y frases similares como baja, y que HOLA no reactiva los avisos",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "Ya es cierto: el bot reconoce BAJA, STOP, ALTO, CANCELAR y frases como «no me escriban»; HOLA no reactiva los avisos, solo ALTA."
+  },
+  "VERIFICAR_BANNER_COOKIES": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "que el aviso muestre Aceptar y Rechazar con el mismo peso visual y que, al rechazar o retirar el permiso, PostHog deje de enviar datos y no se vuelva a cargar",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "Ya es cierto: app/legal/js/cookies.js muestra Aceptar y Rechazar con el mismo peso, no carga PostHog sin aceptación y lo detiene y borra sus claves al retirar el permiso."
+  },
+  "VERIFICAR_BORRADO_CEDULA": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "hoy la app conserva la imagen de la cédula y la evidencia 12 meses después de un rechazo, una revocación o un vencimiento; ajustar el borrado de la imagen a 30 días (dejando 12 meses solo la constancia del cotejo) o cambiar este texto y la tabla de conservación",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "Ya es cierto: retention.purge_verification_documents borra la imagen de la cédula 30 días después de la decisión y deja solo la constancia del cotejo."
+  },
+  "VERIFICAR_BORRAR_UBICACION": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "si Preferencias tendrá un botón para borrar la ubicación guardada; si no, explica aquí cómo pedir que se borre / la app no tiene todavía un botón «Borrar mi ubicación»; agrégalo o deja este párrafo así",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "Ya es cierto: apagar las alertas cercanas en Perfil → Preferencias borra la ubicación guardada en la cuenta (consent.set_preference) y la app ya no la guarda con las alertas apagadas; no hay un botón aparte."
+  },
+  "VERIFICAR_BOT_ACEPTACION": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "que el bot pide aceptar antes de publicar, que la foto se envía a la IA solo después de esa aceptación y que pregunta si quieres avisos por ese chat",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "Ya es cierto: el bot muestra que el reporte será público con zona aproximada y pide PUBLICAR antes de crearlo; la foto va a la IA solo después (matching corre al publicar) y al final pregunta si quieres avisos por ese chat (sin un sí no se te escribe)."
+  },
+  "VERIFICAR_CAMPOS_FICHA": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "que la ficha y “Revisa tu pedido” muestran garantía, perecederos y promociones antes de afirmarlo",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "Cierto en parte (no pongas true todavía): la ficha y «Revisa tu pedido» muestran la garantía y si el producto es perecedero; no hay promociones en la tienda."
+  },
+  "VERIFICAR_CASILLAS_DE_COMPRA": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "confirma que “Revisa tu pedido” tiene casillas no marcadas de antemano para aceptar estas Condiciones (con su versión) y para autorizar el cobro antes de la entrega, y que el pedido guarda versión, huella SHA-256, fecha, IP y navegador",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "Ya es cierto: «Revisa tu pedido» tiene dos casillas sin marcar (condiciones de compra y cobro antes de la entrega) y el pedido guarda la aceptación en la bitácora (versión, huella, fecha, IP y navegador)."
+  },
+  "VERIFICAR_COBROS_RECURRENTES": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "que la Plataforma no tenga hoy donativos ni compras recurrentes",
+    "sugerencia": "`true` mientras no existan donativos ni compras recurrentes.",
+    "estado_codigo": "Ya es cierto: no existen donativos ni compras recurrentes en el código."
+  },
+  "VERIFICAR_COMISION_CONFIGURADA": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "confirma que MERCADOPAGO_MARKETPLACE_FEE_PERCENT y MERCADOPAGO_DONATION_FEE_PERCENT del servidor coinciden con COMISION_TIENDA y COMISION_DONATIVOS; al 17-10-2026 el valor por defecto de la tienda en backend/app/config.py y .env.example era 10, no 0. Mientras VERIFICAR_REGIMEN_PLATAFORMAS no esté confirmado, ambos deben ser 0",
+    "sugerencia": "`true` cuando `python3 scripts/render-legal.py --check` en el servidor no reporte diferencias de comisión (compara COMISION_TIENDA y COMISION_DONATIVOS con el .env).",
+    "estado_codigo": "Ya es cierto: por defecto ambas comisiones son 0 en backend/app/config.py; render-legal --check compara COMISION_TIENDA y COMISION_DONATIVOS con el .env del servidor."
+  },
+  "VERIFICAR_COMISION_PRODUCTOS_INFRACTORES": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "si activas una comisión, confirma que no se cobra sobre ventas de productos retirados por infringir derechos de terceros",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "No depende del código o no se puede comprobar en el repositorio: hoy la comisión es 0 %; si la activas, revisa que no se cobre sobre productos retirados."
+  },
+  "VERIFICAR_COMPROBANTE_DONATIVO": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "la app aún no tiene una vista «Mis donativos» que entregue a la persona donante un comprobante de operación (donativos-26). Cuando exista, pon como valor «GuauWoow también te muestra cada donativo en la app con su folio, el identificador de pago de Mercado Pago, la fecha, el Refugio y el monto, con la leyenda “Comprobante de operación: no es CFDI ni recibo deducible”.»; mientras no exista, pon true",
+    "sugerencia": "Cuando se cumpla, escribe exactamente «GuauWoow también te muestra cada donativo en la app con su folio, el identificador de pago de Mercado Pago, la fecha, el Refugio y el monto, con la leyenda “Comprobante de operación: no es CFDI ni recibo deducible”.»; mientras no, `true` (no se publica nada en su lugar).",
+    "estado_codigo": "Cierto en parte (no pongas true todavía): al aprobarse un donativo la persona donante recibe su comprobante de operación en la app y por correo (folio, Refugio, monto, fecha e identificador de Mercado Pago; payment_flow._notify_donor_receipt), pero todavía no existe la vista «Mis donativos»."
+  },
+  "VERIFICAR_COOKIES_CLOUDFLARE": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "qué funciones de Cloudflare están activas (protección contra robots, límites de solicitudes, Turnstile, sala de espera, balanceo de carga, Web Analytics o Zaraz) y deja en la tabla solo sus cookies",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "No depende del código o no se puede comprobar en el repositorio: depende de las funciones activas en tu cuenta de Cloudflare."
+  },
+  "VERIFICAR_CORREO_FACTURA": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "si el Refugio vendedor ve el correo que la persona captura al pedir factura (OrderInvoice.email aparece en InvoiceOut), escribe aquí: «También el correo que indicas para recibirla.»; si no lo ve, pon true",
+    "sugerencia": "Cuando se cumpla, escribe exactamente «También el correo que indicas para recibirla.»; mientras no, `true` (no se publica nada en su lugar).",
+    "estado_codigo": "El Refugio vendedor sí ve el correo que la persona captura al pedir factura (InvoiceOut.email en /refuges/me/invoice-requests): escribe el texto que propone la nota en lugar de true."
+  },
+  "VERIFICAR_DATOS_PAGADOR_MP": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "qué datos del pagador ve el Refugio en su cuenta de Mercado Pago con Checkout Pro y Split",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "No depende del código o no se puede comprobar en el repositorio: lo decide Mercado Pago (Checkout Pro con Split)."
+  },
+  "VERIFICAR_DATOS_VENDEDOR": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "lista exacta de datos del Refugio vendedor que se muestran antes de pagar",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "Ya es cierto: la ficha y el comprobante muestran la identidad del Refugio vendedor (reglas.seller_identity); compara la lista de la página con esos campos."
+  },
+  "VERIFICAR_DECLARACION_AL_PUBLICAR": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "la casilla de declaración todavía no está en el formulario para publicar un perro; agrégala o quita este párrafo",
+    "sugerencia": "`true` cuando el formulario para publicar un perro tenga la casilla «No vendo ni cobro por este perro»; si no se agregará, pide quitar el párrafo.",
+    "estado_codigo": "Todavía NO es cierto (no pongas true): el formulario para publicar un perro no tiene esa casilla."
+  },
+  "VERIFICAR_DOCUMENTOS_CLINICAS": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "que el alta de Clínicas pida y revise una identificación de la persona responsable y un comprobante del establecimiento, o quita este texto",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "Todavía NO es cierto (no pongas true): el alta de Clínicas pide solo la cédula profesional y la declaración; no pide identificación ni comprobante del establecimiento."
+  },
+  "VERIFICAR_DONATIVO_NETO": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "confirma que la pantalla de donativo muestra el monto neto que recibirá el Refugio; si no, quita la última frase y deja solo la comisión",
+    "sugerencia": "`true` solo si la pantalla de donar ya muestra el monto neto para el Refugio; si no, pide quitar la última frase de la sección 17.2 de terminos.html.",
+    "estado_codigo": "Todavía NO es cierto (no pongas true): la pantalla de donativo no muestra el monto neto que recibirá el Refugio."
+  },
+  "VERIFICAR_DURACION_CONSENTIMIENTO": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "si el aviso de cookies ya guarda la fecha y la versión de la elección y vuelve a preguntar a los 12 meses o al cambiar esta política, escribe aquí: «También guardamos la fecha y la versión de esta política, y te volvemos a preguntar a los 12 meses o si la política cambia.»; si no, pon true",
+    "sugerencia": "Cuando se cumpla, escribe exactamente «También guardamos la fecha y la versión de esta política, y te volvemos a preguntar a los 12 meses o si la política cambia.»; mientras no, `true` (no se publica nada en su lugar).",
+    "estado_codigo": "Ya es cierto: cookies.js guarda la versión de la política y la fecha (v y at) y vuelve a preguntar a los 12 meses o si cambia la política: escribe el texto que propone la nota."
+  },
+  "VERIFICAR_ELIMINAR_BOT": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "qué borra exactamente el comando ELIMINAR, si se aplica al momento y si responde con un número de referencia",
+    "sugerencia": "La descripción real, p. ej. «ELIMINAR borra al momento tus mensajes con el bot y los reportes que enviaste por WhatsApp, y te responde con un número de referencia.»",
+    "estado_codigo": "Ya es cierto: ELIMINAR pide confirmación, borra al momento la conversación y el contenido de los reportes creados desde ese número, apaga los avisos y responde con un folio de solicitud de cancelación."
+  },
+  "VERIFICAR_ENLACE_DE_BAJA": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "si cada correo de alertas y cada correo promocional ya trae un enlace de baja en un clic que funciona sin iniciar sesión, escribe aquí: «También puedes usar el enlace para darte de baja en un clic que viene en esos correos.»; si no, pon true",
+    "sugerencia": "Cuando se cumpla, escribe exactamente «También puedes usar el enlace para darte de baja en un clic que viene en esos correos.»; mientras no, `true` (no se publica nada en su lugar).",
+    "estado_codigo": "Los correos no traen enlace de baja en un clic (el pie dice que cambies tus avisos en tu perfil): como indica la nota, pon true; no escribas la frase opcional."
+  },
+  "VERIFICAR_ESTADO_ACCESIBILIDAD": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "antes de publicar, confirma en la versión desplegada que cada punto de esta lista y de la sección 6 sigue funcionando, en especial que todas las tablas de las páginas legales tengan encabezados de fila o de columna; quita el que no",
+    "sugerencia": "`true` después de probar cada punto en el sitio publicado; si alguno falla, pide quitarlo de la lista.",
+    "estado_codigo": "No depende del código o no se puede comprobar en el repositorio: es una revisión manual de la versión desplegada."
+  },
+  "VERIFICAR_ESTADO_TABLERO": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "confirma qué componentes, qué periodos de disponibilidad (30 y 90 días), qué mantenimientos y qué resúmenes de incidentes muestra el tablero publicado; ajusta las secciones 1, 3 y 4 o quita las frases que no apliquen",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "Cierto en parte (no pongas true todavía): /cumplimiento/estado muestra componentes, incidentes públicos de los últimos 90 días y mantenimientos; no calcula porcentajes de disponibilidad de 30 y 90 días: quita esa parte."
+  },
+  "VERIFICAR_ETIQUETA_IA": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "que los reportes con descripción generada por IA muestran la etiqueta «Texto generado por IA» / si la publicación ya mostrada al público debe llevar la etiqueta «descripción sugerida por IA» cuando la persona no la cambió / confirma que la app marca como “sugerida por IA” las descripciones generadas y que la persona puede corregirlas antes y después de publicar",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "Todavía NO es cierto (no pongas true): los reportes con descripción generada por IA no muestran la etiqueta «Texto generado por IA»."
+  },
+  "VERIFICAR_EXCLUSIONES_REVOCACION": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "confirma que la ficha del producto y el paso «Revisa tu pedido» avisan cuando un producto es perecedero y no admite revocación",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "Ya es cierto: la ficha y «Revisa tu pedido» avisan cuando un producto es perecedero y no admite revocación."
+  },
+  "VERIFICAR_FILTRO_VENTA_IMPORTADOS": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "que el filtro de palabras de venta o cobro se aplica a reenvíos, envíos de voluntarios e importaciones antes de guardar",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "Todavía NO es cierto (no pongas true): el filtro de palabras de venta o cobro (reglas.adoption_terms) solo se aplica a las fichas de adopción, no a reenvíos, envíos de voluntarios ni importaciones."
+  },
+  "VERIFICAR_FUENTE_UNICA_PROVEEDORES": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "antes de publicar, que esta lista y las secciones de encargados, transferencias y flujos internacionales del Aviso de Privacidad digan lo mismo; lo ideal es generarlas de una sola fuente",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "No depende del código o no se puede comprobar en el repositorio: las listas están escritas a mano en las plantillas; compáralas antes de publicar."
+  },
+  "VERIFICAR_HISTORIAL_CAMPOS": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "confirma que el registro publicado muestra todos estos datos para cada versión; quita de la lista lo que no muestre",
+    "sugerencia": "`true` cuando historial.html muestre, para cada versión, sus fechas, el resumen, la huella SHA-256 y si pide aceptarla otra vez (los datos salen de versiones.json por /cumplimiento/documentos).",
+    "estado_codigo": "Ya es cierto: historial.js muestra de /cumplimiento/documentos la versión, la fecha de entrada en vigor, la huella SHA-256, el resumen y la dirección fija de cada versión."
+  },
+  "VERIFICAR_IA_RECORTES": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "se recomienda enviar a la IA solo recortes del perro y difuminar rostros en fotos importadas; ajusta este párrafo si se implementa",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "Todavía NO es cierto (no pongas true): a la IA se envía la foto completa; no hay recortes ni difuminado de rostros."
+  },
+  "VERIFICAR_IMPORTACION_VENTA": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "que la importación de grupos de Facebook descarte las ofertas de venta antes de guardarlas",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "Todavía NO es cierto (no pongas true): la importación de grupos de Facebook no descarta ofertas de venta antes de guardarlas (el filtro solo aplica a fichas de adopción)."
+  },
+  "VERIFICAR_INDICADORES_TRANSPARENCIA": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "confirma que el informe de transparencia publicado muestra cada indicador nombrado en esta tabla; cambia el nombre o quita el que no aparezca",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "No depende del código o no se puede comprobar en el repositorio: compara los nombres de la tabla con lo que muestra transparencia.js en la versión desplegada."
+  },
+  "VERIFICAR_INVENTARIO_COOKIES": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "antes de publicar, compara esta tabla con las claves que realmente usan app/*.js y los scripts de app/legal/js; al 18-10-2026 la Plataforma usa sessionStorage solo para patitas_anexos_pospuestos y no usa service worker ni cookies propias",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "Ya es cierto: al 2026-10-18 la tabla coincide con las claves de app/*.js y app/legal/js, incluidas patitas_legal_avisos, patitas_alertas_invite y patitas_anexos_pospuestos (sessionStorage)."
+  },
+  "VERIFICAR_INVENTARIO_LICENCIAS": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "antes de publicar, compara esta página con las librerías de app/vendor, las fuentes y los íconos que usa la versión desplegada, y agrega el origen de los íconos de la app",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "No depende del código o no se puede comprobar en el repositorio: es una revisión manual de app/vendor, fuentes e íconos."
+  },
+  "VERIFICAR_LISTADO_EXCLUSION": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "que al atender una solicitud de limitación por publicidad se apaguen todas las comunicaciones promocionales de esa persona en todos los canales y quede registrada la fecha",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "Ya es cierto: al hacer efectiva una solicitud de limitación por publicidad se apagan los correos promocionales y los avisos por WhatsApp de la cuenta, con constancia y fecha en consent_records (solicitudes.apply_permission_changes)."
+  },
+  "VERIFICAR_METODOLOGIA_TRANSPARENCIA": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "confirma que el tablero muestra la fecha de cálculo de cada cifra y aplica la regla de umbral de 5 casos; si no, ajusta o borra estas frases",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "Ya es cierto: cada respuesta trae calculado_en y los desgloses con menos de 5 casos se publican como «menos de 5»; las cifras se guardan en caché hasta 1 hora."
+  },
+  "VERIFICAR_MONITOREO_DONATIVOS": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "hoy el sistema no revisa los donativos acumulados por persona y por Refugio. Si se agrega una revisión en periodos de seis meses con aviso al Refugio cuando se acerquen al umbral de identificación, pon como valor «GuauWoow también revisa los donativos acumulados por persona y por Refugio en periodos de seis meses y avisa al Refugio si se acercan al umbral de identificación.»; si no, pon true",
+    "sugerencia": "Cuando se cumpla, escribe exactamente «GuauWoow también revisa los donativos acumulados por persona y por Refugio en periodos de seis meses y avisa al Refugio si se acercan al umbral de identificación.»; mientras no, `true` (no se publica nada en su lugar).",
+    "estado_codigo": "Ya es cierto: reglas.check_aml_thresholds revisa el acumulado de 6 meses por persona y Refugio al aprobar cada donativo y avisa al Refugio y al equipo: escribe el texto que propone la nota."
+  },
+  "VERIFICAR_MOTIVOS_DE_REPORTE": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "que el botón Reportar y el formulario público ofrezcan los motivos que menciona esta página (venta o cobro por un animal, mi imagen o mis datos, contenido íntimo, difamación, suplantación, reseña falsa o pagada, cédula falsa, condiciones sanitarias, publicidad engañosa); si alguno falta, agrégalo o ajusta el texto",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "No depende del código o no se puede comprobar en el repositorio: compara la lista de la página con los motivos de reportes.js y del botón Reportar de la app."
+  },
+  "VERIFICAR_NOMINATIM": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "si la consulta a Nominatim ya se hace desde nuestro servidor con coordenadas redondeadas; si es así, actualiza este párrafo / si la geocodificación inversa pasa al servidor con coordenadas redondeadas, actualiza esta frase",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "Todavía NO es cierto (no pongas true): la geocodificación inversa se hace desde el navegador (app.js llama a nominatim.openstreetmap.org con las coordenadas)."
+  },
+  "VERIFICAR_PIXELES": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "si en el futuro agregas un píxel de Meta, Google u otra red, actualiza esta sección y pide consentimiento en el aviso de cookies / que no hay píxeles de redes sociales en la app ni en la página de inicio y que el proveedor de correo tiene desactivado el seguimiento de aperturas y clics",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "Ya es cierto: no hay píxeles de redes sociales en la app ni en la página de inicio; el seguimiento del proveedor de correo se revisa aparte (VERIFICAR_RASTREO_CORREOS)."
+  },
+  "VERIFICAR_PLANTILLAS_WHATSAPP": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "qué otras plantillas de utilidad están aprobadas en Meta (por ejemplo, estado de postulaciones o pedidos); que todas terminan con «Responde BAJA para no recibir más avisos» y que no se envía mercadotecnia por WhatsApp / que las plantillas aprobadas en Meta son de categoría utilidad, terminan con «Responde BAJA para no recibir más avisos» y que no se envía mercadotecnia por WhatsApp",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "No depende del código o no se puede comprobar en el repositorio: las plantillas se aprueban en Meta; en el código solo existen WHATSAPP_TEMPLATE_MATCH y la de alertas cercanas."
+  },
+  "VERIFICAR_PLAZO_RECLAMACION": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "la app calcula este plazo como 60 días naturales desde la entrega; confirma que nunca resulte menor a dos meses calendario",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "Todavía NO es cierto (no pongas true): la app usa 60 días naturales (RETURN_CLAIM_WINDOW_DAYS); algunos periodos de 2 meses calendario tienen 61 o 62 días."
+  },
+  "VERIFICAR_POSTHOG": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "activa en el proyecto de PostHog la opción de descartar la IP de los clientes",
+    "sugerencia": "`true` cuando actives en PostHog «Discard client IP data».",
+    "estado_codigo": "No depende del código o no se puede comprobar en el repositorio: es una opción del proyecto de PostHog."
+  },
+  "VERIFICAR_PRECISION_COORDS": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "precisión real que guarda patitas_coords; al 17-10-2026 son 5 decimales, cerca de 1 metro",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "Ya es cierto: app.js redondea a 5 decimales (cerca de 1 metro) antes de guardar patitas_coords."
+  },
+  "VERIFICAR_PRECISION_UBICACION": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "precisión real con la que se guarda la ubicación; si se redondea (se recomiendan 3 decimales, unos 110 m), ajusta este texto",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "Ya es cierto: la ubicación de la cuenta se guarda con los 5 decimales que manda la app; solo se guarda con las alertas cercanas encendidas."
+  },
+  "VERIFICAR_PRUEBAS_SEGURIDAD": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "cuando existan el escaneo de dependencias en CI y una prueba de penetración, escribe aquí el texto, p. ej. «Aplicamos actualizaciones de seguridad al software y sus dependencias, y hacemos pruebas de seguridad; la última fue el ...»; si no existen, pon true y no se publica nada",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "Cierto en parte (no pongas true todavía): el CI ya corre pip-audit sobre requirements.txt; todavía no hay prueba de penetración."
+  },
+  "VERIFICAR_PUNTOS_DONATIVOS": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "al 17-10-2026 el código aún suma puntos por donativo (backend/app/services/payment_flow.py, PointLog «donation» y su reverso «donation_refund») y la app dice «Cada $10 suma 1 punto en el ranking» (app/app.js). No publiques esta página hasta que ese cambio esté desplegado; después pon true",
+    "sugerencia": "`true` solo cuando esté desplegado el cambio que quita los puntos por donativo (payment_flow.py y app.js). Antes no publiques donativos.html.",
+    "estado_codigo": "Ya es cierto: los donativos ya no suman puntos (sin PointLog «donation»; la migración 0004 descontó los anteriores) y la app dice que los donativos no suman puntos."
+  },
+  "VERIFICAR_RASTREO_CORREOS": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "que el proveedor de correo tenga desactivado el seguimiento de aperturas y de clics",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "No depende del código o no se puede comprobar en el repositorio: es una opción del proveedor de correo."
+  },
+  "VERIFICAR_REGISTROS_TECNICOS": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "que la rotación de los registros del servidor web y de la app cumpla 90 días y acorte la IP a los 30; al 17-10-2026 rotan por tamaño",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "Todavía NO es cierto (no pongas true): los registros rotan por tamaño, no a 90 días, y la IP de los registros del servidor web no se acorta a los 30 días (solo la de la base de datos, retention.purge_technical_logs)."
+  },
+  "VERIFICAR_REGISTRO_PERMISOS": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "si ya se registra cada permiso que se da o se retira (avisos por WhatsApp, correos promocionales, analítica) con canal, versión del texto y fecha, escribe aquí: «También guardamos un registro de cada permiso que das o retiras: qué aceptaste, por qué canal, la versión del texto y la fecha.»; si no, pon true",
+    "sugerencia": "Cuando se cumpla, escribe exactamente «También guardamos un registro de cada permiso que das o retiras: qué aceptaste, por qué canal, la versión del texto y la fecha.»; mientras no, `true` (no se publica nada en su lugar).",
+    "estado_codigo": "Ya es cierto: cada permiso que se da o se retira queda en consent_records (de solo inserción) con canal, versión del texto y fecha: escribe el texto que propone la nota."
+  },
+  "VERIFICAR_RESPALDOS": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "cuando la llave de los respaldos esté fuera del servidor, exista una prueba periódica de restauración registrada y el procedimiento de restauración reaplique los borrados, escribe aquí: «La llave para descifrarlos se guarda fuera del servidor. Probamos que se puedan restaurar y, si restauramos un respaldo, volvemos a aplicar los borrados hechos después de su fecha para no recuperar cuentas ya eliminadas.»; si no, pon true",
+    "sugerencia": "Cuando se cumpla, escribe exactamente «La llave para descifrarlos se guarda fuera del servidor. Probamos que se puedan restaurar y, si restauramos un respaldo, volvemos a aplicar los borrados hechos después de su fecha para no recuperar cuentas ya eliminadas.»; mientras no, `true` (no se publica nada en su lugar).",
+    "estado_codigo": "Todavía NO es cierto (no pongas true): backend/scripts/restore.sh no vuelve a aplicar los borrados posteriores al respaldo; la llave externa y la prueba periódica de restauración dependen de tu operación."
+  },
+  "VERIFICAR_RESTAURACION": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "cuando el procedimiento de restauración reaplique los borrados y bloqueos posteriores a la fecha del respaldo, escribe aquí: «Si alguna vez restauramos un respaldo, volvemos a aplicar los borrados hechos después de su fecha.»; si no, pon true",
+    "sugerencia": "Cuando se cumpla, escribe exactamente «Si alguna vez restauramos un respaldo, volvemos a aplicar los borrados hechos después de su fecha.»; mientras no, `true` (no se publica nada en su lugar).",
+    "estado_codigo": "backend/scripts/restore.sh no vuelve a aplicar los borrados posteriores a la fecha del respaldo: como indica la nota, pon true; no escribas la frase opcional."
+  },
+  "VERIFICAR_REVISION_DE_CHAT": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "confirma que el panel de administración solo muestra los mensajes reportados y que cada acceso queda en la bitácora de administración",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "No depende del código o no se puede comprobar en el repositorio: compara con el panel de administración desplegado (mensajes reportados y bitácora de administración)."
+  },
+  "VERIFICAR_SENTRY": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "que el proyecto de Sentry del navegador no tenga activada la grabación de sesiones (Session Replay)",
+    "sugerencia": "`true` cuando confirmes que Session Replay está apagado en el proyecto de Sentry del navegador.",
+    "estado_codigo": "No depende del código o no se puede comprobar en el repositorio: es una opción del proyecto de Sentry."
+  },
+  "VERIFICAR_SIMPLIFICADO_PUNTOS": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "que cada flujo de la app muestra su variante antes de que la persona envíe sus datos; hoy está confirmado solo en el registro",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "Cierto en parte (no pongas true todavía): confirmado en el registro y en el primer contacto del bot de WhatsApp; revisa los demás flujos."
+  },
+  "VERIFICAR_TABLA_CANALES": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "que esta tabla coincida con los interruptores de Perfil → Preferencias y con los canales que usa cada aviso en el código",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "No depende del código o no se puede comprobar en el repositorio: compara con Perfil → Preferencias y con services/notify.py (los mensajes del chat solo llegan dentro de la app)."
+  },
+  "VERIFICAR_TABLA_VISIBILIDAD": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "que esta tabla coincida con lo que muestran las respuestas públicas de la API y las pantallas de la app, en especial nombre, foto y ubicación aproximada",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "Cierto en parte (no pongas true todavía): lo público de reportes y perros incluye el nombre y la foto del perfil de quien publica (UserMini.full_name) y la zona redondeada; revisa la tabla con eso."
+  },
+  "VERIFICAR_TABLERO_FONDOS": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "describe solo lo que el tablero de /cumplimiento/transparencia muestre de verdad. Si además muestra la fecha de actualización, la forma jurídica de cada Refugio, desde cuándo está verificado, si es donataria, los reembolsos, contracargos y reclamaciones de la tienda atendidas en plazo por mes, o el enlace al informe de uso de fondos de cada Refugio, pon como valor la frase que lo diga; si no, pon true. Antes, confirma que los montos de Refugios que son personas físicas solo se muestran con su consentimiento (donativos-22). Si el tablero llegara a mostrar la comisión de Mercado Pago, confirma que la toma de los datos de cada pago (fee_details) y ajusta la definición de neto",
+    "sugerencia": "`true` cuando el equipo técnico confirme en la versión desplegada que la app ya lo hace. Si todavía no, no pongas true: pide el cambio en el código o que se ajuste la frase de la página.",
+    "estado_codigo": "Cierto en parte (no pongas true todavía): el tablero muestra por Refugio el bruto, la comisión de GuauWoow, las retenciones y los reembolsos de ventas, el neto antes de la comisión de Mercado Pago, la forma jurídica, la fecha de verificación, si es donataria y la fecha de cálculo; no muestra la comisión de Mercado Pago."
+  },
+  "VERIFICAR_URL_VERSIONES": {
+    "grupo": "verificar-equipo",
+    "revisa": "equipo técnico",
+    "descripcion": "confirma que cada versión anterior queda publicada en una dirección fija que no cambia; si no, borra la frase anterior",
+    "sugerencia": "`true`: scripts/render-legal.py guarda cada versión anterior en /app/legal/<página>-<versión>.html y versiones.json apunta a esa dirección fija.",
+    "estado_codigo": "Ya es cierto: scripts/render-legal.py archiva cada versión anterior en app/legal/<slug>-<versión>.html (dirección fija) y comprueba su huella SHA-256."
+  },
+  "VERIFICAR_ALIBABA_REGION": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "entidad contratante, región del servicio y ámbito de cómputo fijado en Singapur",
+    "sugerencia": "`true` cuando confirmes en tu contrato con Alibaba Cloud la entidad contratante, la región y que el cómputo queda en Singapur."
+  },
+  "VERIFICAR_APELACION_PERSONA_DISTINTA": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "que haya al menos dos personas con rol de moderación para que la apelación la resuelva alguien distinto de quien decidió",
+    "sugerencia": "`true` si hay al menos dos personas con rol de moderación."
+  },
+  "VERIFICAR_CERTIFICACIONES_PROVEEDORES": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "si quieres publicar las certificaciones de seguridad de cada proveedor (por ejemplo, ISO/IEC 27001 o SOC 2), escribe aquí la lista con su fuente; si no, pon true",
+    "sugerencia": "La lista con su fuente, p. ej. «Hetzner: ISO/IEC 27001 (hetzner.com); Cloudflare: ISO/IEC 27001 y SOC 2 (cloudflare.com/trust-hub).»; si no quieres publicarla, `true`."
+  },
+  "VERIFICAR_COBRO_REITERADAS": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "decide si GuauWoow renuncia a ese cobro también en solicitudes repetidas; si es así, cambia este párrafo por «Tampoco cobramos si repites una solicitud»",
+    "sugerencia": "Si GuauWoow renuncia también a ese cobro, escribe «Tampoco cobramos si repites una solicitud.»; si lo mantiene, `true`."
+  },
+  "VERIFICAR_CONCILIANET": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "no menciones Concilianet hasta firmar el Convenio de Colaboración con PROFECO; cuando lo firmes, agrega aquí el enlace",
+    "sugerencia": "`true` (no se menciona Concilianet). Cuando firmes el convenio con PROFECO: «También puedes conciliar en línea con Concilianet.»"
+  },
+  "VERIFICAR_CONFIDENCIALIDAD": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "cuando cada persona con acceso al panel haya firmado un acuerdo de confidencialidad antes de recibir acceso, escribe aquí: «Por eso, las personas del equipo, moderadoras y voluntarias que acceden a datos firman un acuerdo de confidencialidad.»; si no, pon true",
+    "sugerencia": "Cuando se cumpla, escribe exactamente «Por eso, las personas del equipo, moderadoras y voluntarias que acceden a datos firman un acuerdo de confidencialidad.»; mientras no, `true` (no se publica nada en su lugar)."
+  },
+  "VERIFICAR_CONFIDENCIALIDAD_VERIFICADORES": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "que las personas que revisan documentos firmaron un convenio de confidencialidad",
+    "sugerencia": "`true` si confirmas la regla tal como está escrita. Si decides otra cosa, escribe la frase que debe publicarse en su lugar."
+  },
+  "VERIFICAR_CONTENIDO_IA": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "lista o describe qué piezas del sitio se generaron con IA según tu inventario",
+    "sugerencia": "Una frase con tu inventario, p. ej. «Las ilustraciones de perritos de la app y de la página de inicio se generaron con apoyo de IA y las revisó el equipo.»"
+  },
+  "VERIFICAR_CUENTAS_INACTIVAS": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "si adoptarás un plazo de inactividad (la investigación propone avisar y suprimir tras 24 meses sin actividad), escribe aquí el texto que sigue a «Mientras la cuenta exista», p. ej. «y, tras 24 meses sin actividad, aviso y supresión»; si no, pon true",
+    "sugerencia": "Si adoptas un plazo de inactividad: «y, tras 24 meses sin actividad, aviso y supresión»; si no, `true`."
+  },
+  "VERIFICAR_DATOS_PROFECO": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "reconfirma en gob.mx/profeco los teléfonos, el horario, el sitio y el domicilio de PROFECO antes de publicar / confirma en gob.mx/profeco los teléfonos y el domicilio vigentes de PROFECO antes de publicarlos",
+    "sugerencia": "`true` después de cotejar en gob.mx/profeco; si algún dato cambió, pide corregirlo en la plantilla antes."
+  },
+  "VERIFICAR_DIRECTORIO_AUTORIDADES": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "agrega teléfono, sitio y canal de cada autoridad solo después de comprobarlos en su sitio oficial, anota la fecha y define quién revisa este directorio cada trimestre",
+    "sugerencia": "`true` después de agregar al directorio (en la plantilla) los datos comprobados y anotar la fecha en FECHA_DE_VERIFICACION_DEL_DIRECTORIO_DE_AUTORIDADES."
+  },
+  "VERIFICAR_DIRECTORIO_CASAS_DE_PASO": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "hoy la app solo registra y aprueba Casas de paso y no muestra un directorio; confirmar cómo se pondrán en contacto los Refugios y las Casas de paso (directorio en la app, contacto por el equipo de GuauWoow u otro medio) y ajustar las secciones 2, 3, 6 y 9",
+    "sugerencia": "`true` si confirmas la regla tal como está escrita. Si decides otra cosa, escribe la frase que debe publicarse en su lugar."
+  },
+  "VERIFICAR_DOCUMENTOS_POR_ESTADO": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "confirma que el equipo de verificación pedirá estos documentos según el estado del Refugio y qué hará si un estado no tiene registro disponible",
+    "sugerencia": "`true` si confirmas la regla tal como está escrita. Si decides otra cosa, escribe la frase que debe publicarse en su lugar."
+  },
+  "VERIFICAR_DOCUMENTO_SEGURIDAD": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "cuando exista el documento de seguridad interno con inventario de datos, análisis de riesgos y plan de trabajo, escribe aquí: «También mantenemos un documento de seguridad interno con el inventario de datos, los riesgos y las medidas.»; si no, pon true",
+    "sugerencia": "Cuando se cumpla, escribe exactamente «También mantenemos un documento de seguridad interno con el inventario de datos, los riesgos y las medidas.»; mientras no, `true` (no se publica nada en su lugar)."
+  },
+  "VERIFICAR_DOMICILIO_FISICO": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "confirma que es un lugar físico en México donde realmente se reciben documentos; un apartado postal o una oficina virtual pueden no bastar",
+    "sugerencia": "`true` cuando confirmes que en DOMICILIO_FISCAL se reciben documentos en persona."
+  },
+  "VERIFICAR_DONATARIAS": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "hoy nadie coteja el estatus de donataria que declara el Refugio. Si el equipo de GuauWoow lo va a verificar (oficio de autorización, Anexo 14, directorio y listado de pendientes de publicar del SAT), pon como valor una frase que diga cómo y cada cuánto, por ejemplo «GuauWoow coteja ese estatus con el Anexo 14 y el directorio del SAT cada …»; si no, pon true",
+    "sugerencia": "`true` si confirmas la regla tal como está escrita. Si decides otra cosa, escribe la frase que debe publicarse en su lugar."
+  },
+  "VERIFICAR_DPA_ARCHIVADOS": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "si ya tienes archivados, con fecha, los contratos o acuerdos de tratamiento de datos de cada proveedor de la sección 2 (al 17-10-2026 no se localizó un acuerdo específico con Alibaba Cloud), escribe aquí: «Guardamos una copia fechada del contrato, los términos o el acuerdo de tratamiento de datos que aceptamos con cada uno.»; si no, pon true",
+    "sugerencia": "Cuando se cumpla, escribe exactamente «Guardamos una copia fechada del contrato, los términos o el acuerdo de tratamiento de datos que aceptamos con cada uno.»; mientras no, `true` (no se publica nada en su lugar)."
+  },
+  "VERIFICAR_ESCALAMIENTO": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "define quién revisa los escalamientos (de preferencia una persona distinta de quien respondió) y en qué plazo",
+    "sugerencia": "Quién y en qué plazo, p. ej. «Si no estás de acuerdo con la respuesta, la revisa otra persona del equipo en un máximo de 5 días hábiles.»"
+  },
+  "VERIFICAR_ESCALA_DE_SANCIONES": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "confirma la escala de sanciones, la duración de las suspensiones y la escala especial para Refugios verificados que cobren o vendan",
+    "sugerencia": "`true` si confirmas la regla tal como está escrita. Si decides otra cosa, escribe la frase que debe publicarse en su lugar."
+  },
+  "VERIFICAR_ESTADO_DEL_REPORTE": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "confirma si avisarás el resultado a quien reporta y si podrá consultar el estado de su reporte",
+    "sugerencia": "P. ej. «Te avisamos por correo el resultado de tu reporte y puedes consultar su estado con tu folio.»; o `true` si la página ya dice lo que harás."
+  },
+  "VERIFICAR_ESTANDAR_DE_ENTREGA": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "confirma el estándar de entrega que pedirás a los Refugios (esterilizado o fecha comprometida, vacunado, desparasitado y adopciones a otra ciudad solo con Refugios verificados)",
+    "sugerencia": "`true` si confirmas la regla tal como está escrita. Si decides otra cosa, escribe la frase que debe publicarse en su lugar."
+  },
+  "VERIFICAR_EXCEPCION_MP_DONATIVOS": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "los Términos de Mercado Pago listan los donativos como actividad prohibida salvo excepción escrita; no actives los donativos sin esa respuesta y confirma si cada Refugio necesita la suya / confirmar por escrito con Mercado Pago si cada refugio necesita su propia excepción o inscripción para recibir donativos y si en Split se puede pagar con tarjeta",
+    "sugerencia": "`true` solo con la excepción escrita de Mercado Pago (anota el caso en AUTORIZACION_DE_MERCADO_PAGO_PARA_DONATIVOS). Sin ella no actives los donativos."
+  },
+  "VERIFICAR_HORARIO_SILENCIOSO": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "si las alertas por WhatsApp y correo respetarán un horario silencioso (propuesta: de 22:00 a 8:00) y si cada correo de alerta traerá un enlace para apagarlas en un clic; si es así, agrégalo a esta lista",
+    "sugerencia": "Si se implementa: «No enviamos alertas por WhatsApp ni por correo de 22:00 a 8:00, y cada correo de alerta trae un enlace para apagarlas en un clic.»; si no, `true`."
+  },
+  "VERIFICAR_IA_ENTRENAMIENTO": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "que el proveedor de IA contratado no use las fotos para entrenar modelos, y la entidad contratante / revisa los términos vigentes del proveedor de IA contratado sobre el uso del contenido para entrenar modelos",
+    "sugerencia": "`true` si los términos del proveedor de IA contratado (AI_BASE_URL) dicen que no entrena modelos con tus fotos."
+  },
+  "VERIFICAR_IDENTIDAD_WHATSAPP": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "cómo se comprueba la identidad de quien solo usó el bot",
+    "sugerencia": "P. ej. «Si solo usaste el bot, comprobamos tu identidad con un código que enviamos a ese mismo número de WhatsApp.»"
+  },
+  "VERIFICAR_INFORME_TRANSPARENCIA": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "confirma la periodicidad de los cortes, la fecha del primero y qué cifras del corte periódico se publicarán; ajusta la tabla de la sección 3",
+    "sugerencia": "`true` si confirmas la regla tal como está escrita. Si decides otra cosa, escribe la frase que debe publicarse en su lugar."
+  },
+  "VERIFICAR_INSIGNIAS_REFUGIOS": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "hoy el perfil del Refugio muestra una sola insignia; confirma si mostrará la fecha de verificación y si se agregarán insignias separadas (donataria autorizada comprobada en el SAT, padrón oficial), o ajusta este texto",
+    "sugerencia": "`true` si confirmas la regla tal como está escrita. Si decides otra cosa, escribe la frase que debe publicarse en su lugar."
+  },
+  "VERIFICAR_INSIGNIA_WHATSAPP": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "confirma si el número oficial tiene la insignia de cuenta verificada de Meta; si la tiene, menciónalo aquí",
+    "sugerencia": "Si tiene la insignia: «La cuenta muestra la insignia de cuenta verificada de Meta.»; si no, `true`."
+  },
+  "VERIFICAR_MANTENIMIENTOS": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "define con cuánta anticipación y por qué medio se anunciarán los mantenimientos, y confirma que el tablero puede mostrarlos",
+    "sugerencia": "P. ej. «Anunciamos los mantenimientos programados con al menos 48 horas de anticipación en este tablero y en la app.»"
+  },
+  "VERIFICAR_MEDIDAS_FISICAS": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "cuando definas dónde se guardan los escritos en papel que lleguen al domicilio, escribe aquí: «Los escritos en papel que nos entregues (por ejemplo, una solicitud de derechos) se guardan bajo llave y solo los consulta el personal autorizado.»; si no, pon true",
+    "sugerencia": "Cuando se cumpla, escribe exactamente «Los escritos en papel que nos entregues (por ejemplo, una solicitud de derechos) se guardan bajo llave y solo los consulta el personal autorizado.»; mientras no, `true` (no se publica nada en su lugar)."
+  },
+  "VERIFICAR_META_72_HORAS": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "si el equipo puede comprometerse públicamente a un plazo, escribe aquí: «Nuestra meta interna es avisarte dentro de las 72 horas siguientes a confirmar el incidente, y antes si hay riesgo de fraude.»; si no, pon true",
+    "sugerencia": "Cuando se cumpla, escribe exactamente «Nuestra meta interna es avisarte dentro de las 72 horas siguientes a confirmar el incidente, y antes si hay riesgo de fraude.»; mientras no, `true` (no se publica nada en su lugar)."
+  },
+  "VERIFICAR_METRICAS_IA": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "si el informe de transparencia incluirá métricas de la IA, como cuántas coincidencias sugeridas terminaron en reencuentro; si no, quita esta nota",
+    "sugerencia": "`true` si no se publicarán; si sí: «El informe de transparencia incluye cuántas coincidencias sugeridas por la IA terminaron en reencuentro.»"
+  },
+  "VERIFICAR_MODELO_CLINICAS": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "el dueño confirma el modelo de la sección de clínicas: gratuita, sin cobro de consultas, sin agenda con pago, sin venta de productos y sin perfiles destacados de pago",
+    "sugerencia": "`true` si confirmas la regla tal como está escrita. Si decides otra cosa, escribe la frase que debe publicarse en su lugar."
+  },
+  "VERIFICAR_MOTIVO_RECHAZO": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "si la app pedirá a quien publica escribir un motivo al rechazar una solicitud y si mostrará el puntaje a quien se postula",
+    "sugerencia": "`true` si confirmas la regla tal como está escrita. Si decides otra cosa, escribe la frase que debe publicarse en su lugar."
+  },
+  "VERIFICAR_NMX": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "publica esta frase solo después de completar la lista de verificación del numeral 14.3 de la NMX / publica esta frase solo después de completar la lista de verificación de la tabla 14.3 de la NMX; si aún no está completa, quítala",
+    "sugerencia": "`true` cuando completes la lista de verificación del numeral 14.3 de la NMX-COE-001-SCFI-2018; si no la completarás, pide quitar la frase de la plantilla."
+  },
+  "VERIFICAR_PAIS_CARTO": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "país o región de los servidores de CARTO y sus términos",
+    "sugerencia": "El país o región real, p. ej. «CARTO (Estados Unidos) sirve los mosaicos del mapa conforme a sus términos de uso.»"
+  },
+  "VERIFICAR_PCI": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "si ya respondiste y tienes archivado el cuestionario de seguridad de pagos PCI (SAQ A) que pide Mercado Pago, escribe aquí: «Respondemos cada año el cuestionario de seguridad de pagos (PCI) que Mercado Pago pide a los comercios.»; si no, pon true",
+    "sugerencia": "Cuando se cumpla, escribe exactamente «Respondemos cada año el cuestionario de seguridad de pagos (PCI) que Mercado Pago pide a los comercios.»; mientras no, `true` (no se publica nada en su lugar)."
+  },
+  "VERIFICAR_PLAZOS_DIVULGACION": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "si el equipo puede comprometerse a acusar recibo en 3 días hábiles y a corregir las fallas críticas en 7 días; si es así, agrega esos plazos",
+    "sugerencia": "Si el equipo se compromete: «Acusamos recibo en 3 días hábiles y corregimos las fallas críticas en 7 días.»; si no, `true`."
+  },
+  "VERIFICAR_PUBLICIDAD": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "confirma que no hay anuncios ni contenido patrocinado; si los habrá, define cómo se identificará al anunciante",
+    "sugerencia": "`true` si no hay anuncios ni contenido patrocinado; si los habrá, escribe cómo se identificará al anunciante."
+  },
+  "VERIFICAR_PUBLICIDAD_TELEFONICA": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "confirma que no harás publicidad por llamada, SMS o WhatsApp; si la harás, pide un permiso aparte por canal y consulta el REPEP antes de cada campaña",
+    "sugerencia": "`true` si no harás publicidad por llamada, SMS ni WhatsApp."
+  },
+  "VERIFICAR_REINCIDENTES": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "confirma las cifras de la política de reincidentes",
+    "sugerencia": "`true` si confirmas la regla tal como está escrita. Si decides otra cosa, escribe la frase que debe publicarse en su lugar."
+  },
+  "VERIFICAR_RESCATISTAS": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "decidir si los colectivos y las personas rescatistas personas físicas pueden recibir donativos por la Plataforma y con qué límites / decide si habrá un tipo de cuenta propio para rescatistas independientes y si podrán recibir donativos por la Plataforma, con qué límites y transparencia / la app no tiene un tipo de cuenta separado para rescatistas independientes; define cómo se verifican y si pueden recibir donativos",
+    "sugerencia": "`true` si mantienes la regla actual (las personas rescatistas se registran como Refugio); si creas otro tipo de cuenta, escribe la regla."
+  },
+  "VERIFICAR_REVISION_CONTENIDO_IMPORTADO": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "hoy los reportes del bot, de personas voluntarias e importados se publican sin revisión humana previa; decide si deben pasar por revisión antes de mostrarse (bienestar-animal-v04) y ajusta este texto",
+    "sugerencia": "`true` si confirmas la regla tal como está escrita. Si decides otra cosa, escribe la frase que debe publicarse en su lugar."
+  },
+  "VERIFICAR_REVISION_FISCAL_REFUGIOS": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "hoy el sistema solo comprueba que el Refugio esté verificado y tenga una cuenta de Mercado Pago vinculada; no coteja quién es el titular de esa cuenta ni consulta el listado del SAT de contribuyentes con operaciones presuntamente inexistentes (Código Fiscal de la Federación, art. 69-B). Si se agregan esas revisiones para los Refugios que reciben dinero, pon como valor una frase que diga qué se revisa y cada cuánto; si no, pon true",
+    "sugerencia": "`true` si confirmas la regla tal como está escrita. Si decides otra cosa, escribe la frase que debe publicarse en su lugar."
+  },
+  "VERIFICAR_REVISION_META": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "responsable y calendario de la revisión semestral de las políticas de Meta y de su copia fechada",
+    "sugerencia": "`true` si confirmas la regla tal como está escrita. Si decides otra cosa, escribe la frase que debe publicarse en su lugar."
+  },
+  "VERIFICAR_REVISION_PREVIA_PRODUCTOS": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "hoy los productos de un Refugio verificado se publican sin revisión previa. Si se agrega una revisión de cada producto antes de publicarse, con lista de verificación de marcas y obras ajenas, pon como valor «También revisamos cada producto antes de publicarlo, incluida una lista de verificación de marcas y obras ajenas.»; si no, pon true / si un administrador aprueba cada producto antes de publicarlo, vuelve a decir «Revisamos cada producto antes de publicarlo»",
+    "sugerencia": "Cuando se cumpla, escribe exactamente «También revisamos cada producto antes de publicarlo, incluida una lista de verificación de marcas y obras ajenas.»; mientras no, `true` (no se publica nada en su lugar)."
+  },
+  "VERIFICAR_SABG_CANALES": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "confirma en gob.mx el sitio y los canales vigentes de la SABG antes de publicar / confirma en gob.mx el domicilio, el teléfono y los canales electrónicos vigentes de la SABG y de la PROFECO antes de publicar",
+    "sugerencia": "`true` después de cotejar en gob.mx; si algún dato cambió, pide corregirlo en la plantilla antes."
+  },
+  "VERIFICAR_TELEFONO_SIN_COSTO": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "el número no debe generar cargos especiales a quien llama; confirma que no es de tarificación adicional",
+    "sugerencia": "`true` si TELEFONO es una línea normal o un 800 sin cargos extra para quien llama."
+  },
+  "VERIFICAR_TIPO_SOCIETARIO": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "la razón social debe llevar el tipo societario o su abreviatura (por ejemplo, S.A.S. o S.A. de C.V.) y escribirse igual en todos los documentos",
+    "sugerencia": "`true` cuando RAZON_SOCIAL lleve el tipo societario (p. ej. «S.A.S.») escrito igual que en tu acta constitutiva."
+  },
+  "VERIFICAR_VIGILANCIA_NORMATIVA": {
+    "grupo": "verificar-dueno",
+    "revisa": "dueño",
+    "descripcion": "confirma que tienes una persona responsable y un calendario para estas revisiones y para actualizar los documentos en 30 días / designa a la persona responsable de la vigilancia normativa y confirma este calendario",
+    "sugerencia": "`true` cuando haya una persona responsable y un calendario (p. ej. revisión cada trimestre y documentos actualizados en 30 días)."
+  }
+}

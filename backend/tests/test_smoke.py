@@ -30,7 +30,8 @@ def test_me_patch_resets_verification(client, user):
     me = client.get("/users/me", headers=h).json()
     assert {"latitude", "longitude", "phone_verified", "avatar_url", "has_password", "terms_version"} <= set(me)
     assert me["phone_verified"] is True and me["phone_verification_required"] is False and me["has_password"] is True
-    r = client.patch("/users/me", headers=h, json={"latitude": 19.4, "longitude": -99.1})
+    # La ubicación se guarda en la cuenta solo con las alertas cercanas encendidas (privacidad.html §8)
+    r = client.patch("/users/me", headers=h, json={"latitude": 19.4, "longitude": -99.1, "notify_nearby": True})
     assert r.status_code == 200 and r.json()["latitude"] == 19.4 and r.json()["phone_verified"] is True
     r = client.patch("/users/me", headers=h, json={"phone": "+52 55 " + user["phone"][-8:-4] + " " + user["phone"][-4:]})
     assert r.json()["phone_verified"] is True  # mismo número con otro formato: no cambia
@@ -116,9 +117,15 @@ def test_lost_reports_matching_contact_resolve(client, user, owner, jpeg):
         "dog_name": "Manchas", "report_type": "lost", "city": "Puebla", "latitude": 19.04, "longitude": -98.2, "photos": [url]}).json()
     found = client.post("/lost-reports", headers=owner["h"], json={
         "dog_name": "Sin nombre", "report_type": "found", "city": "Puebla", "latitude": 19.041, "longitude": -98.201, "photos": [url]}).json()
-    matches = client.get(f"/lost-reports/{lost['id']}/matches").json()
-    top = next(m for m in matches if m["id"] == found["id"])
-    assert top["type"] == "found" and top["score"] >= 90
+    # Las firmas de las fotos se calculan en segundo plano (Celery o BackgroundTasks), no en la petición
+    top = None
+    for _ in range(40):
+        matches = client.get(f"/lost-reports/{lost['id']}/matches").json()
+        top = next((m for m in matches if m["id"] == found["id"]), None)
+        if top:
+            break
+        time.sleep(0.5)
+    assert top and top["type"] == "found" and top["score"] >= 90
 
     listing = client.get("/lost-reports", params={"lat": 19.04, "lon": -98.2, "radius_km": 20}).json()
     assert all("contact_phone" not in r for r in listing)
@@ -158,14 +165,16 @@ def test_orders_and_donations_simulated(client, user):
     refuges = client.get("/refuges").json()
     if products:
         order = client.post("/orders", headers=user["h"], json={
-            "items": [{"product_id": products[0]["id"], "quantity": 1}], "shipping_address": "Calle 1, CDMX"}).json()
+            "items": [{"product_id": products[0]["id"], "quantity": 1}], "shipping_address": "Calle 1, CDMX",
+            "accepted_terms": True, "consent_prepayment": True}).json()
         assert order["simulated"] is True and order["status"] == "paid" and order["checkout_url"] is None
         assert client.get("/payments/status", headers=user["h"], params={"order": order["id"]}).json()["status"] == "paid"
     if refuges:
         before = client.get(f"/refuges/{refuges[0]['id']}").json()["points"]
-        d = client.post("/payments/donations", headers=user["h"], json={"refuge_id": refuges[0]["id"], "amount": 100}).json()
+        d = client.post("/payments/donations", headers=user["h"], json={"accepted_policy": True, "refuge_id": refuges[0]["id"], "amount": 100}).json()
         assert d["simulated"] is True and d["status"] == "approved"
-        assert client.get(f"/refuges/{refuges[0]['id']}").json()["points"] == before + 10
+        # Los donativos no suman puntos de ranking (donativos.html §12)
+        assert client.get(f"/refuges/{refuges[0]['id']}").json()["points"] == before
     wh = client.post("/payments/mercadopago/webhook?type=payment&data.id=999", json={"type": "payment", "data": {"id": "999"}})
     assert wh.status_code == 200
 
@@ -181,9 +190,10 @@ def test_whatsapp_webhook(client):
     assert r.status_code == 200 and r.json()["events"] == 1
     if not settings.is_production:
         sim = client.post("/whatsapp/webhook", json={"phone": "sim-pytest", "message": "hola"}).json()
-        assert sim["stage"] == "menu" and "PatitasFind" in sim["response"]
+        assert sim["stage"] == "menu" and "GuauWoow" in sim["response"]
         sim = client.post("/whatsapp/webhook", json={"phone": "sim-pytest", "message": "3"}).json()
-        assert sim["stage"] == "adopt"
+        # El bot no gestiona adopciones: solo envía el enlace a la app (terminos.html 11.3)
+        assert "/app/" in sim["response"] and "buscan hogar" not in sim["response"]
 
 
 def test_forgot_and_reset(client, user):

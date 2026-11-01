@@ -1,0 +1,285 @@
+/* ============================================================
+   Compatibilidad: la app revisa rasgo por rasgo y sale ¡95%!
+   Ciclo de --T: 9-35% las palomitas entran una por una y los íconos de cada fila brincan ·
+   33-42% el porcentaje gira como tragamonedas mientras la barra se llena · 43% ¡equipo!
+   (corazón del centro, ondas, corazoncitos, chispas) · 46-72% la chica y Luna se inclinan una
+   hacia la otra · 62-76% los íconos se sacuden en cascada · 74-88% el título y la barra de abajo
+   brincan · 92-95% las palomitas se van para volver a revisar.
+   ============================================================ */
+.scene-compatibility{--T:9s}
+
+/* ---------- perfiles ---------- */
+.scene-compatibility .g-tu{animation:ctTu var(--T) infinite}
+@keyframes ctTu{
+  0%,100%{transform:none}
+  10%{transform:rotate(-4deg)}
+  20%{transform:rotate(3deg)}
+  30%{transform:rotate(-3deg)}
+  40%{transform:none}
+  43%{transform:scale(1.07)}
+  46%{transform:scale(.98)}
+  52%{transform:rotate(9deg)}
+  57%{transform:rotate(6deg) scale(1.02)}
+  62%{transform:rotate(10deg)}
+  67%{transform:rotate(7deg)}
+  74%{transform:none}
+}
+.scene-compatibility .g-su{animation:ctSu var(--T) infinite}
+@keyframes ctSu{
+  0%,100%{transform:none}
+  10%{transform:rotate(4deg)}
+  20%{transform:rotate(-3deg)}
+  30%{transform:rotate(3deg)}
+  40%{transform:none}
+  43.5%{transform:scale(1.07)}
+  46.5%{transform:scale(.98)}
+  52.5%{transform:rotate(-9deg)}
+  57.5%{transform:rotate(-6deg) scale(1.02)}
+  62.5%{transform:rotate(-10deg)}
+  67.5%{transform:rotate(-7deg)}
+  74%{transform:none}
+}
+.scene-compatibility .p-cola{animation:aWag .32s ease-in-out infinite alternate;--wag:-14deg}
+.scene-compatibility .p-oreja-izq{animation:ctOrejaI 1.5s ease-in-out infinite}
+.scene-compatibility .p-oreja-der{animation:ctOrejaD 1.5s ease-in-out infinite}
+@keyframes ctOrejaI{0%,40%,100%{transform:none}10%{transform:rotate(-8deg)}20%{transform:rotate(4deg)}30%{transform:rotate(-3deg)}}
+@keyframes ctOrejaD{0%,45%,100%{transform:none}15%{transform:rotate(8deg)}25%{transform:rotate(-4deg)}35%{transform:rotate(3deg)}}
+.scene-compatibility .p-pildora-tu,.scene-compatibility .p-pildora-su{animation:ctPildora var(--T) infinite}
+.scene-compatibility .p-pildora-su{animation-delay:.1s}
+@keyframes ctPildora{0%,42%,52%,100%{transform:none}45%{transform:scale(1.12,1.18)}48%{transform:scale(.97,1)}50%{transform:scale(1.03)}}
+.scene-compatibility .p-corazon-tu{animation:ctCorTu var(--T) infinite}
+@keyframes ctCorTu{
+  0%,100%{transform:none}
+  15%{transform:translateY(-14%) rotate(-10deg)}
+  30%{transform:translateY(-4%) rotate(6deg)}
+  42%{transform:none}
+  45%{transform:scale(1.5) rotate(-12deg)}
+  48%{transform:scale(.9)}
+  51%{transform:scale(1.1)}
+  54%{transform:none}
+  70%{transform:translateY(-16%) rotate(8deg)}
+  85%{transform:translateY(-6%) rotate(-6deg)}
+}
+
+/* ---------- corazón del centro ---------- */
+.scene-compatibility .p-corazon-medio{animation:ctCorMedio var(--T) infinite}
+@keyframes ctCorMedio{
+  0%,8%,14%,19%,24%,29%,34%,42%,58%,100%{transform:none}
+  10.5%,15.5%,20.5%,25.5%,30.5%{transform:scale(1.18)}
+  44%{transform:scale(1.75) rotate(-8deg)}
+  47%{transform:scale(.88) rotate(4deg)}
+  50%{transform:scale(1.22)}
+  53%{transform:scale(.97)}
+  55%{transform:scale(1.08)}
+}
+.scene-compatibility .f-onda i{position:absolute;inset:0;border-radius:50%;border:.6cqw solid #FF7A5C;opacity:0;animation:ctOnda var(--T) infinite}
+.scene-compatibility .f-onda i+i{animation-delay:.2s;border-color:#B794F4}
+@keyframes ctOnda{0%,43%{transform:scale(.6);opacity:0}44%{opacity:.95}58%,100%{transform:scale(2.4);opacity:0}}
+.scene-compatibility .f-corazones i{position:absolute;left:46%;top:58%;width:8%;aspect-ratio:1;opacity:0;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23FF7A5C' d='M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.6 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z'/%3E%3C/svg%3E") center/contain no-repeat;
+  animation:ctCorazones var(--T) infinite}
+.scene-compatibility .f-corazones i:nth-child(1){--x:-160%;--r:-20deg;animation-delay:.05s}
+.scene-compatibility .f-corazones i:nth-child(2){--x:150%;--r:18deg;animation-delay:.15s;width:6%}
+.scene-compatibility .f-corazones i:nth-child(3){--x:-60%;--r:-8deg;animation-delay:.3s;width:10%;filter:hue-rotate(250deg)}
+.scene-compatibility .f-corazones i:nth-child(4){--x:80%;--r:12deg;animation-delay:.42s;width:7%;filter:hue-rotate(140deg)}
+.scene-compatibility .f-corazones i:nth-child(5){--x:-250%;--r:-30deg;animation-delay:.55s;width:5%}
+.scene-compatibility .f-corazones i:nth-child(6){--x:240%;--r:28deg;animation-delay:.25s;width:6%;filter:hue-rotate(250deg)}
+.scene-compatibility .f-corazones i:nth-child(7){--x:10%;--r:4deg;animation-delay:.7s;width:9%}
+@keyframes ctCorazones{
+  0%,43%{transform:translate(0,0) scale(.3);opacity:0}
+  45%{transform:translate(0,-40%) scale(.8);opacity:1}
+  60%{transform:translate(var(--x),-420%) rotate(var(--r)) scale(1.1);opacity:.9}
+  66%,100%{transform:translate(var(--x),-520%) rotate(var(--r)) scale(.7);opacity:0}
+}
+
+/* fila 1: palomita en 9% */
+.scene-compatibility .p-palomita-1{animation:ctPal1 var(--T) infinite}
+@keyframes ctPal1{
+  0%,8.9%{transform:scale(0) rotate(-40deg);opacity:0}
+  11%{transform:scale(1.45) rotate(10deg);opacity:1}
+  12.5%{transform:scale(.84) rotate(-4deg)}
+  14%{transform:scale(1.1)}
+  15.5%,92%{transform:none;opacity:1}
+  95%,100%{transform:scale(0) rotate(30deg);opacity:0}
+}
+.scene-compatibility .p-icono-1a,.scene-compatibility .p-icono-1b{animation:ctIco1 var(--T) infinite}
+.scene-compatibility .p-icono-1b{animation-delay:.08s}
+@keyframes ctIco1{
+  0%,9%,15.5%,62%,68%,100%{transform:none}
+  11%{transform:translateY(-34%) scale(1.18) rotate(-8deg)}
+  13%{transform:translateY(0) scale(1.14,.84)}
+  14.3%{transform:scale(.97,1.04)}
+  63.5%{transform:rotate(-14deg) scale(1.1)}
+  65%{transform:rotate(11deg) scale(1.1)}
+  66.5%{transform:rotate(-5deg)}
+}
+.scene-compatibility .p-rasgo-1{animation:ctTxt1 var(--T) infinite}
+@keyframes ctTxt1{0%,10%,15%,100%{transform:none}11.5%{transform:translateX(5%) scale(1.05)}13.2%{transform:translateX(-1.5%)}}
+/* fila 2: palomita en 14% */
+.scene-compatibility .p-palomita-2{animation:ctPal2 var(--T) infinite}
+@keyframes ctPal2{
+  0%,13.9%{transform:scale(0) rotate(-40deg);opacity:0}
+  16%{transform:scale(1.45) rotate(10deg);opacity:1}
+  17.5%{transform:scale(.84) rotate(-4deg)}
+  19%{transform:scale(1.1)}
+  20.5%,92%{transform:none;opacity:1}
+  95%,100%{transform:scale(0) rotate(30deg);opacity:0}
+}
+.scene-compatibility .p-icono-2a,.scene-compatibility .p-icono-2b{animation:ctIco2 var(--T) infinite}
+.scene-compatibility .p-icono-2b{animation-delay:.08s}
+@keyframes ctIco2{
+  0%,14%,20.5%,64%,70%,100%{transform:none}
+  16%{transform:translateY(-34%) scale(1.18) rotate(-8deg)}
+  18%{transform:translateY(0) scale(1.14,.84)}
+  19.3%{transform:scale(.97,1.04)}
+  65.5%{transform:rotate(-14deg) scale(1.1)}
+  67%{transform:rotate(11deg) scale(1.1)}
+  68.5%{transform:rotate(-5deg)}
+}
+.scene-compatibility .p-rasgo-2{animation:ctTxt2 var(--T) infinite}
+@keyframes ctTxt2{0%,15%,20%,100%{transform:none}16.5%{transform:translateX(5%) scale(1.05)}18.2%{transform:translateX(-1.5%)}}
+/* fila 3: palomita en 19% */
+.scene-compatibility .p-palomita-3{animation:ctPal3 var(--T) infinite}
+@keyframes ctPal3{
+  0%,18.9%{transform:scale(0) rotate(-40deg);opacity:0}
+  21%{transform:scale(1.45) rotate(10deg);opacity:1}
+  22.5%{transform:scale(.84) rotate(-4deg)}
+  24%{transform:scale(1.1)}
+  25.5%,92%{transform:none;opacity:1}
+  95%,100%{transform:scale(0) rotate(30deg);opacity:0}
+}
+.scene-compatibility .p-icono-3a,.scene-compatibility .p-icono-3b{animation:ctIco3 var(--T) infinite}
+.scene-compatibility .p-icono-3b{animation-delay:.08s}
+@keyframes ctIco3{
+  0%,19%,25.5%,66%,72%,100%{transform:none}
+  21%{transform:translateY(-34%) scale(1.18) rotate(-8deg)}
+  23%{transform:translateY(0) scale(1.14,.84)}
+  24.3%{transform:scale(.97,1.04)}
+  67.5%{transform:rotate(-14deg) scale(1.1)}
+  69%{transform:rotate(11deg) scale(1.1)}
+  70.5%{transform:rotate(-5deg)}
+}
+.scene-compatibility .p-rasgo-3{animation:ctTxt3 var(--T) infinite}
+@keyframes ctTxt3{0%,20%,25%,100%{transform:none}21.5%{transform:translateX(5%) scale(1.05)}23.2%{transform:translateX(-1.5%)}}
+/* fila 4: palomita en 24% */
+.scene-compatibility .p-palomita-4{animation:ctPal4 var(--T) infinite}
+@keyframes ctPal4{
+  0%,23.9%{transform:scale(0) rotate(-40deg);opacity:0}
+  26%{transform:scale(1.45) rotate(10deg);opacity:1}
+  27.5%{transform:scale(.84) rotate(-4deg)}
+  29%{transform:scale(1.1)}
+  30.5%,92%{transform:none;opacity:1}
+  95%,100%{transform:scale(0) rotate(30deg);opacity:0}
+}
+.scene-compatibility .p-icono-4a,.scene-compatibility .p-icono-4b{animation:ctIco4 var(--T) infinite}
+.scene-compatibility .p-icono-4b{animation-delay:.08s}
+@keyframes ctIco4{
+  0%,24%,30.5%,68%,74%,100%{transform:none}
+  26%{transform:translateY(-34%) scale(1.18) rotate(-8deg)}
+  28%{transform:translateY(0) scale(1.14,.84)}
+  29.3%{transform:scale(.97,1.04)}
+  69.5%{transform:rotate(-14deg) scale(1.1)}
+  71%{transform:rotate(11deg) scale(1.1)}
+  72.5%{transform:rotate(-5deg)}
+}
+.scene-compatibility .p-rasgo-4{animation:ctTxt4 var(--T) infinite}
+@keyframes ctTxt4{0%,25%,30%,100%{transform:none}26.5%{transform:translateX(5%) scale(1.05)}28.2%{transform:translateX(-1.5%)}}
+/* fila 5: palomita en 29% */
+.scene-compatibility .p-palomita-5{animation:ctPal5 var(--T) infinite}
+@keyframes ctPal5{
+  0%,28.9%{transform:scale(0) rotate(-40deg);opacity:0}
+  31%{transform:scale(1.45) rotate(10deg);opacity:1}
+  32.5%{transform:scale(.84) rotate(-4deg)}
+  34%{transform:scale(1.1)}
+  35.5%,92%{transform:none;opacity:1}
+  95%,100%{transform:scale(0) rotate(30deg);opacity:0}
+}
+.scene-compatibility .p-icono-5a,.scene-compatibility .p-icono-5b{animation:ctIco5 var(--T) infinite}
+.scene-compatibility .p-icono-5b{animation-delay:.08s}
+@keyframes ctIco5{
+  0%,29%,35.5%,70%,76%,100%{transform:none}
+  31%{transform:translateY(-34%) scale(1.18) rotate(-8deg)}
+  33%{transform:translateY(0) scale(1.14,.84)}
+  34.3%{transform:scale(.97,1.04)}
+  71.5%{transform:rotate(-14deg) scale(1.1)}
+  73%{transform:rotate(11deg) scale(1.1)}
+  74.5%{transform:rotate(-5deg)}
+}
+.scene-compatibility .p-rasgo-5{animation:ctTxt5 var(--T) infinite}
+@keyframes ctTxt5{0%,30%,35%,100%{transform:none}31.5%{transform:translateX(5%) scale(1.05)}33.2%{transform:translateX(-1.5%)}}
+
+/* ---------- porcentaje: la barra se llena y los dígitos giran como tragamonedas ---------- */
+.scene-compatibility .f-relleno i{position:absolute;inset:4% 1%;border-radius:999px;transform-origin:0 50%;opacity:0;
+  background:linear-gradient(90deg,rgba(51,199,190,.16),rgba(51,199,190,.34));animation:ctRelleno var(--T) infinite}
+@keyframes ctRelleno{
+  0%,32%{transform:scaleX(0);opacity:0}
+  33%{transform:scaleX(.05);opacity:1}
+  41%{transform:scaleX(.95);opacity:1}
+  43%{transform:scaleX(1);opacity:1}
+  50%,100%{transform:scaleX(1);opacity:0}
+}
+.scene-compatibility [class*="p-digito-"]{animation:ctDigito var(--T) infinite}
+.scene-compatibility .p-digito-2{animation-delay:.12s}
+.scene-compatibility .p-digito-3{animation-delay:.24s}
+@keyframes ctDigito{
+  0%,33%{transform:none;animation-timing-function:ease-in}
+  34%{transform:translateY(-120%);animation-timing-function:steps(1,end)}
+  34.01%{transform:translateY(120%);animation-timing-function:linear}
+  35.5%{transform:translateY(-120%);animation-timing-function:steps(1,end)}
+  35.51%{transform:translateY(120%);animation-timing-function:linear}
+  37%{transform:translateY(-120%);animation-timing-function:steps(1,end)}
+  37.01%{transform:translateY(120%);animation-timing-function:ease-out}
+  39.5%{transform:translateY(-12%)}
+  41%{transform:translateY(5%)}
+  42.5%,100%{transform:none}
+}
+.scene-compatibility .p-huella-95{animation:ctHuella95 var(--T) infinite}
+@keyframes ctHuella95{0%,38%,50%,100%{transform:none}41%{transform:translateY(-22%) rotate(-18deg) scale(1.3)}44%{transform:scale(1.16,.82)}47%{transform:rotate(6deg)}}
+.scene-compatibility .f-chispas i{position:absolute;left:49%;top:45%;width:2.4%;aspect-ratio:1;border-radius:50%;background:#33C7BE;opacity:0;
+  animation:ctChispa var(--T) infinite}
+.scene-compatibility .f-chispas i:nth-child(1){--x:-900%;--y:-500%}
+.scene-compatibility .f-chispas i:nth-child(2){--x:900%;--y:-520%;background:#FFC857}
+.scene-compatibility .f-chispas i:nth-child(3){--x:-1500%;--y:-150%;background:#FF7A5C}
+.scene-compatibility .f-chispas i:nth-child(4){--x:1500%;--y:-180%;background:#B794F4}
+.scene-compatibility .f-chispas i:nth-child(5){--x:-400%;--y:-750%;background:#FFC857}
+.scene-compatibility .f-chispas i:nth-child(6){--x:420%;--y:-760%;background:#FF7A5C}
+.scene-compatibility .f-chispas i:nth-child(7){--x:-1200%;--y:-640%;background:#B794F4}
+.scene-compatibility .f-chispas i:nth-child(8){--x:1250%;--y:-620%}
+@keyframes ctChispa{
+  0%,41.5%{transform:translate(0,0) scale(.3);opacity:0}
+  42.5%{opacity:1}
+  50%{transform:translate(var(--x),var(--y)) scale(1);opacity:1}
+  56%,100%{transform:translate(var(--x),calc(var(--y) + 300%)) scale(.4);opacity:0}
+}
+.scene-compatibility .p-equipo{animation:ctEquipo var(--T) infinite}
+@keyframes ctEquipo{0%,42%,54%,100%{transform:none}45%{transform:scale(1.18) rotate(-3deg)}48%{transform:scale(.95) rotate(2deg)}51%{transform:scale(1.05)}}
+
+/* ---------- encabezado y título ---------- */
+.scene-compatibility .p-corazon-titulo{animation:aBeat 1.2s infinite}
+.scene-compatibility [class*="p-titulo-"]{animation:ctTitulo var(--T) infinite}
+.scene-compatibility .p-titulo-perfil{animation-delay:.08s}
+.scene-compatibility .p-titulo-su{animation-delay:.24s}
+.scene-compatibility .p-titulo-perfil2{animation-delay:.32s}
+@keyframes ctTitulo{0%,74%,82%,100%{transform:none}76.5%{transform:translateY(-20%) rotate(-4deg)}79%{transform:translateY(3%) scale(1.04,.94)}}
+.scene-compatibility .p-titulo-mas{animation:ctMas var(--T) .16s infinite}
+@keyframes ctMas{0%,74%,84%,100%{transform:none}78%{transform:rotate(180deg) scale(1.5)}81%{transform:rotate(360deg) scale(.9)}}
+.scene-compatibility .p-subtitulo{animation:ctSub var(--T) infinite}
+@keyframes ctSub{0%,80%,88%,100%{transform:none}84%{transform:scale(1.04)}}
+.scene-compatibility .p-compatibilidad{animation:ctCompat var(--T) infinite}
+@keyframes ctCompat{0%,2%,9%,42%,52%,100%{transform:none}4.5%{transform:scale(1.1) rotate(-2deg)}7%{transform:scale(.97)}46%{transform:scale(1.12)}49%{transform:scale(.98)}}
+.scene-compatibility .p-huella-header{animation:ctHuella var(--T) infinite}
+@keyframes ctHuella{0%,3%,14%,100%{transform:none}6%{transform:translateY(-26%) rotate(-14deg) scale(1.15)}9.5%{transform:translateY(0) scale(1.14,.84)}12%{transform:rotate(8deg)}}
+.scene-compatibility .p-avatar{animation:ctAvatar var(--T) infinite}
+@keyframes ctAvatar{0%,54%,68%,100%{transform:none}56%{transform:rotate(-16deg) scale(1.08)}59%{transform:rotate(13deg) scale(1.08)}62%{transform:rotate(-8deg)}65%{transform:rotate(4deg)}}
+.scene-compatibility [class*="p-menu-"]{animation:ctMenu var(--T) infinite}
+.scene-compatibility .p-menu-2{animation-delay:.08s}
+.scene-compatibility .p-menu-3{animation-delay:.16s}
+@keyframes ctMenu{0%,70%,80%,100%{transform:none}73%{transform:scaleX(.45)}76.5%{transform:scaleX(1.12)}}
+
+/* ---------- barra de navegación ---------- */
+.scene-compatibility [class*="p-nav-"]{animation:ctNav var(--T) infinite}
+.scene-compatibility .p-nav-2{animation-delay:.12s}
+.scene-compatibility .p-nav-3{animation-delay:.24s}
+.scene-compatibility .p-nav-4{animation-delay:.36s}
+@keyframes ctNav{0%,82%,92%,100%{transform:none}84.5%{transform:translateY(-24%) scale(1.12,.92)}87%{transform:translateY(0) scale(1.12,.86)}89.5%{transform:scale(.97,1.03)}}
+

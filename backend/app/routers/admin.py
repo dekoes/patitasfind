@@ -1,14 +1,18 @@
-from fastapi import APIRouter, Depends, HTTPException, status, Query
+import datetime
+
+from fastapi import APIRouter, Depends, HTTPException, Request, status, Query
 from pydantic import BaseModel
 from sqlalchemy import func
-from sqlalchemy.orm import Session, joinedload
+from sqlalchemy.orm import Session, joinedload, selectinload
 
-from app.dependencies import get_current_user, require_admin
+from app.dependencies import get_current_user, require_admin, require_superadmin
 from app.database import get_db
 from app.models import (
+    AdminAuditLog,
     BotInteraction,
     Donation,
     Order,
+    OrderItem,
     Dog,
     FosterHome,
     LostReport,
@@ -19,10 +23,12 @@ from app.models import (
     User,
 )
 from app.schemas import (
+    AdminAuditLogOut,
     AdoptionApplicationOut,
     AdminStats,
     BotInteractionOut,
     DogOut,
+    DogPrivateOut,
     DogUpdateStatus,
     FosterHomeOut,
     LostReportAdminOut,
@@ -31,14 +37,18 @@ from app.schemas import (
     MatchWithApplicationOut,
     ProductOut,
     RefugeOut,
+    RefugePrivateOut,
     User as UserSchema,
+    UserActiveUpdate,
     UserRoleUpdate,
 )
+from app.services.audit import record_admin_action
 from app.utils.notifications import create_notification
 
 router = APIRouter(tags=["admin"])
 
 VALID_ROLES = {"user", "refuge", "admin", "superadmin", "foster"}
+ADMIN_ROLES = {"admin", "superadmin"}
 
 
 class RejectPayload(BaseModel):
@@ -150,10 +160,40 @@ def list_users(
     )
 
 
+def check_user_management(
+    db: Session, actor: User, target: User, new_role: str | None = None, deactivate: bool = False
+) -> None:
+    """Reglas para cambiar el rol o desactivar una cuenta (también las usa la moderación).
+
+    - Nadie puede cambiar su propio rol ni desactivarse.
+    - Solo un superadmin otorga o quita admin/superadmin, o desactiva a un administrador.
+    - El último superadmin activo no se puede degradar ni desactivar.
+    """
+    if actor.id == target.id:
+        detail = "No puedes desactivar tu propia cuenta." if deactivate else "No puedes cambiar tu propio rol."
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=detail)
+    touches_admin = target.role in ADMIN_ROLES or (new_role in ADMIN_ROLES and new_role != target.role)
+    if touches_admin and actor.role != "superadmin":
+        detail = ("Solo un superadmin puede desactivar a un administrador." if deactivate
+                  else "Solo un superadmin puede otorgar o quitar permisos de administrador.")
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=detail)
+    loses_superadmin = deactivate or (new_role is not None and new_role != "superadmin")
+    if target.role == "superadmin" and target.is_active and loses_superadmin:
+        others = (
+            db.query(User)
+            .filter(User.role == "superadmin", User.is_active.is_(True), User.id != target.id)
+            .count()
+        )
+        if not others:
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
+                                detail="No puedes quitar al último superadmin activo.")
+
+
 @router.patch("/admin/users/{id}/role", response_model=UserSchema)
 def update_user_role(
     id: int,
     payload: UserRoleUpdate,
+    request: Request,
     admin_user: User = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
@@ -166,14 +206,82 @@ def update_user_role(
     user = db.query(User).filter(User.id == id).first()
     if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No encontramos ese usuario.")
+    if user.role == payload.role:
+        return user
+    check_user_management(db, admin_user, user, new_role=payload.role)
 
+    old_role = user.role
     user.role = payload.role
+    if old_role in ADMIN_ROLES or payload.role in ADMIN_ROLES:
+        # Cierra sus sesiones: los tokens de administrador duran 8 horas y los permisos cambiaron
+        user.token_version = (user.token_version or 0) + 1
+    record_admin_action(db, admin_user, "user.role_change", "user", user.id,
+                        {"from": old_role, "to": payload.role}, request)
     db.commit()
     db.refresh(user)
     return user
 
 
-@router.get("/admin/dogs", response_model=list[DogOut])
+@router.patch("/admin/users/{id}/active", response_model=UserSchema)
+def update_user_active(
+    id: int,
+    payload: UserActiveUpdate,
+    request: Request,
+    admin_user: User = Depends(require_admin),
+    db: Session = Depends(get_db),
+):
+    """Suspende (is_active=false) o reactiva una cuenta."""
+    user = db.query(User).filter(User.id == id).first()
+    if not user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No encontramos ese usuario.")
+    if user.deleted_at is not None:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
+                            detail="Esa cuenta fue eliminada por su titular y no se puede reactivar.")
+    if user.is_active == payload.is_active:
+        return user
+    check_user_management(db, admin_user, user, deactivate=not payload.is_active)
+
+    user.is_active = payload.is_active
+    if payload.is_active:
+        user.suspended_at = None
+    else:
+        user.suspended_at = datetime.datetime.utcnow()
+        user.token_version = (user.token_version or 0) + 1
+    record_admin_action(db, admin_user, "user.activate" if payload.is_active else "user.deactivate", "user", user.id,
+                        None, request)
+    db.commit()
+    db.refresh(user)
+    return user
+
+
+@router.get("/admin/audit-log", response_model=list[AdminAuditLogOut])
+def list_audit_log(
+    skip: int = Query(0, ge=0),
+    limit: int = Query(50, ge=1, le=200),
+    action: str | None = Query(None),
+    target_type: str | None = Query(None),
+    actor_id: int | None = Query(None),
+    admin_user: User = Depends(require_superadmin),
+    db: Session = Depends(get_db),
+):
+    query = db.query(AdminAuditLog).options(joinedload(AdminAuditLog.actor))
+    if action:
+        query = query.filter(AdminAuditLog.action == action)
+    if target_type:
+        query = query.filter(AdminAuditLog.target_type == target_type)
+    if actor_id is not None:
+        query = query.filter(AdminAuditLog.actor_id == actor_id)
+    rows = query.order_by(AdminAuditLog.created_at.desc(), AdminAuditLog.id.desc()).offset(skip).limit(limit).all()
+    out = []
+    for row in rows:
+        item = AdminAuditLogOut.model_validate(row).model_dump()
+        item["actor_email"] = row.actor.email if row.actor else None
+        item["actor_name"] = row.actor.full_name if row.actor else None
+        out.append(item)
+    return out
+
+
+@router.get("/admin/dogs", response_model=list[DogPrivateOut])
 def list_all_dogs(
     skip: int = Query(0, ge=0),
     limit: int = Query(50, ge=1, le=200),
@@ -190,10 +298,11 @@ def list_all_dogs(
     return query.order_by(Dog.created_at.desc()).offset(skip).limit(limit).all()
 
 
-@router.patch("/admin/dogs/{id}/status", response_model=DogOut)
+@router.patch("/admin/dogs/{id}/status", response_model=DogPrivateOut)
 def update_dog_status_admin(
     id: int,
     payload: DogUpdateStatus,
+    request: Request,
     admin_user: User = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
@@ -204,6 +313,8 @@ def update_dog_status_admin(
 
     if payload.status not in VALID_STATUSES:
         raise HTTPException(status_code=400, detail=f"Estado inválido. Usa: {', '.join(sorted(VALID_STATUSES))}.")
+    record_admin_action(db, admin_user, "dog.status_change", "dog", dog.id,
+                        {"from": dog.status, "to": payload.status}, request)
     dog.status = payload.status
     db.commit()
     db.refresh(dog)
@@ -236,7 +347,7 @@ def get_application(
     return application
 
 
-@router.get("/admin/refuges/pending", response_model=list[RefugeOut])
+@router.get("/admin/refuges/pending", response_model=list[RefugePrivateOut])
 def list_pending_refuges(
     skip: int = Query(0, ge=0),
     limit: int = Query(50, ge=1, le=200),
@@ -268,6 +379,7 @@ def get_refuge_documents(
 @router.post("/admin/refuges/{id}/approve", response_model=RefugeOut)
 def approve_refuge(
     id: int,
+    request: Request,
     admin_user: User = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
@@ -279,8 +391,16 @@ def approve_refuge(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=f"El refugio ya tiene estado: {refuge.status}.",
         )
+    # terminos-refugios 1.3: aceptar la versión vigente de los anexos es requisito para la verificación
+    from app.services.legal_acceptance import require_ally_annexes
+
+    require_ally_annexes(db, refuge.user, ("refugio",), status_code=400,
+                         detail="El refugio aún no acepta la versión vigente de los Términos para Refugios y del "
+                                "Acuerdo de tratamiento de datos. Le pedimos aceptarlos en la app; apruébalo después.",
+                         notify_title="Acepta tus condiciones de refugio para tu verificación")
 
     refuge.status = "approved"
+    record_admin_action(db, admin_user, "refuge.approve", "refuge", refuge.id, None, request)
     db.commit()
     db.refresh(refuge)
 
@@ -298,6 +418,7 @@ def approve_refuge(
 @router.post("/admin/refuges/{id}/reject", response_model=RefugeOut)
 def reject_refuge(
     id: int,
+    request: Request,
     payload: RejectPayload | None = None,
     admin_user: User = Depends(require_admin),
     db: Session = Depends(get_db),
@@ -312,6 +433,8 @@ def reject_refuge(
         )
 
     refuge.status = "rejected"
+    record_admin_action(db, admin_user, "refuge.reject", "refuge", refuge.id,
+                        {"reason": payload.reason} if payload and payload.reason else None, request)
     db.commit()
     db.refresh(refuge)
 
@@ -368,12 +491,20 @@ def list_orders(
     skip: int = Query(0, ge=0),
     limit: int = Query(50, ge=1, le=200),
     status: str | None = Query(None),
+    refuge_id: int | None = Query(None, ge=1),
     admin_user: User = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
-    query = db.query(Order)
+    # Carga anticipada: 200 pedidos sin esto serían cientos de consultas (productos, refugio, cliente, factura)
+    query = db.query(Order).options(
+        selectinload(Order.items).selectinload(OrderItem.product).joinedload(Product.refuge),
+        joinedload(Order.refuge), joinedload(Order.user),
+        selectinload(Order.invoice),
+    )
     if status:
         query = query.filter(Order.status == status)
+    if refuge_id:
+        query = query.filter(Order.refuge_id == refuge_id)
     return query.order_by(Order.created_at.desc()).offset(skip).limit(limit).all()
 
 
@@ -417,6 +548,7 @@ def list_pending_foster_homes(
 @router.post("/admin/foster-homes/{id}/approve", response_model=FosterHomeOut)
 def approve_foster_home(
     id: int,
+    request: Request,
     admin_user: User = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
@@ -428,8 +560,15 @@ def approve_foster_home(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=f"La casa de paso ya tiene estado: {foster_home.status}.",
         )
+    from app.services.legal_acceptance import require_ally_annexes
+
+    require_ally_annexes(db, foster_home.user, ("casa_de_paso",), status_code=400,
+                         detail="La casa de paso aún no acepta la versión vigente de los Términos para casas de paso. "
+                                "Le pedimos aceptarlos en la app; apruébala después.",
+                         notify_title="Acepta tus condiciones de casa de paso para tu verificación")
 
     foster_home.status = "approved"
+    record_admin_action(db, admin_user, "foster_home.approve", "foster_home", foster_home.id, None, request)
     db.commit()
     db.refresh(foster_home)
 
@@ -447,6 +586,7 @@ def approve_foster_home(
 @router.post("/admin/foster-homes/{id}/reject", response_model=FosterHomeOut)
 def reject_foster_home(
     id: int,
+    request: Request,
     payload: RejectPayload | None = None,
     admin_user: User = Depends(require_admin),
     db: Session = Depends(get_db),
@@ -461,6 +601,8 @@ def reject_foster_home(
         )
 
     foster_home.status = "rejected"
+    record_admin_action(db, admin_user, "foster_home.reject", "foster_home", foster_home.id,
+                        {"reason": payload.reason} if payload and payload.reason else None, request)
     db.commit()
     db.refresh(foster_home)
 

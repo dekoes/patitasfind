@@ -10,6 +10,8 @@ const adminState = {
   orders: { status: "" },
   donations: { status: "" },
   lost: { status: "", source: "" },
+  reports: { status: "open", page: 0 },
+  audit: { page: 0, action: "" },
 };
 
 const $ = (s) => document.querySelector(s);
@@ -18,17 +20,33 @@ const $$ = (s) => [...document.querySelectorAll(s)];
 async function api(path, options = {}) {
   const headers = { ...(options.headers || {}) };
   if (currentToken) headers.Authorization = `Bearer ${currentToken}`;
-  const res = await fetch(`${API_BASE}${path}`, { ...options, headers });
+  let res;
+  try { res = await fetch(`${API_BASE}${path}`, { ...options, headers }); }
+  catch { throw new Error("Sin conexión con el servidor."); }
   let body = null;
   const text = await res.text();
+  // Las páginas de error HTML (p. ej. el 429 de Nginx) no se muestran tal cual
   if (text) {
-    try { body = JSON.parse(text); } catch { body = { detail: text }; }
+    try { body = JSON.parse(text); } catch { body = null; }
   }
   if (res.status === 401) {
-    logout();
-    throw new Error("Tu sesión expiró. Inicia sesión de nuevo.");
+    // Token vencido (las sesiones de admin duran 8 horas) o revocado
+    logout("Tu sesión expiró. Inicia sesión de nuevo.");
+    const err = new Error("Tu sesión expiró. Inicia sesión de nuevo.");
+    err.silent = true;
+    throw err;
   }
-  if (!res.ok) throw new Error(typeof body?.detail === "string" ? body.detail : `Error ${res.status}`);
+  if (!res.ok) {
+    let detail = body?.detail;
+    if (Array.isArray(detail)) detail = detail.map((d) => d.msg).join(", ");
+    if (typeof detail !== "string" || !detail) {
+      detail = res.status === 429 ? "Demasiadas solicitudes seguidas. Espera un momento e inténtalo de nuevo."
+        : res.status >= 500 ? "Error del servidor. Inténtalo de nuevo en un momento." : `Error ${res.status}`;
+    }
+    const err = new Error(detail);
+    err.status = res.status;
+    throw err;
+  }
   return body;
 }
 
@@ -40,16 +58,31 @@ const jsonOpts = (method, data) => ({
 
 // Ejecuta una acción y muestra el error en un alert en lugar de fallar en silencio
 async function run(fn) {
-  try { return await fn(); } catch (err) { alert(err.message); }
+  try { return await fn(); } catch (err) { if (!err.silent) alert(err.message); }
 }
 
+// Escapa también comillas: los valores se usan dentro de atributos (href, src, title)
 function escapeHtml(text) {
-  const div = document.createElement("div");
-  div.textContent = text == null ? "" : String(text);
-  return div.innerHTML;
+  return String(text ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
 
-const fmtDate = (d) => (d ? new Date(d).toLocaleString("es-MX") : "-");
+// Solo se enlazan rutas /uploads/ del sitio, blob: (documentos descargados) y https:
+function safeUrl(url) {
+  const s = String(url ?? "").trim();
+  return /^(\/uploads\/|blob:|https:\/\/)[^\s"'<>`]+$/i.test(s) ? s : "";
+}
+
+function link(url, label) {
+  const safe = safeUrl(url);
+  return safe ? `<a href="${escapeHtml(safe)}" target="_blank" rel="noopener noreferrer">${escapeHtml(label ?? url)}</a>` : escapeHtml(label ?? url ?? "-");
+}
+
+// El backend guarda UTC sin zona ("2026-10-17T17:55:06"): sin "Z" el navegador lo leería como hora local
+const fmtDate = (d) => {
+  if (!d) return "-";
+  const iso = String(d);
+  return new Date(/[zZ]|[+-]\d\d:?\d\d$/.test(iso) || !iso.includes("T") ? iso : iso + "Z").toLocaleString("es-MX");
+};
 const fmtMoney = (n) => Number(n || 0).toLocaleString("es-MX", { style: "currency", currency: "MXN" });
 
 function el(tag, attrs = {}, children = []) {
@@ -95,8 +128,10 @@ function renderTable(containerId, headers, rows) {
     row.forEach((cell) => {
       const td = el("td");
       if (cell instanceof Node || Array.isArray(cell)) {
-        td.className = "actions";
-        [].concat(cell).forEach((c) => td.append(c));
+        // El flex va en un div interno: un <td> con display:flex rompe la tabla
+        const box = el("div", { class: "actions" });
+        [].concat(cell).forEach((c) => box.append(c));
+        td.append(box);
       } else {
         td.innerHTML = cell == null ? "-" : String(cell);
       }
@@ -119,18 +154,43 @@ function renderPagination(containerId, page, hasMore, onPage) {
   );
 }
 
+/* Miniatura con respaldo a la imagen completa: data-full + listener global de "error"
+   (sin onerror en línea, que la CSP bloquea) */
 function thumb(photos) {
-  const url = (photos || [])[0];
+  const url = safeUrl((photos || [])[0]);
   if (!url) return "-";
-  const small = url.startsWith("/uploads/") ? url.replace(/\.(jpg|jpeg|png|webp)$/i, "_thumb.jpg") : url;
-  return `<a href="${escapeHtml(url)}" target="_blank"><img class="thumb" src="${escapeHtml(small)}" alt="" onerror="this.src='${escapeHtml(url)}'"></a>`;
+  const small = /^\/uploads\/[^/]+\.(jpe?g|png|webp)$/i.test(url) ? url.replace(/\.(jpe?g|png|webp)$/i, "_thumb.jpg") : url;
+  return `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer"><img class="thumb" src="${escapeHtml(small)}" data-full="${escapeHtml(url)}" alt="" loading="lazy" decoding="async"></a>`;
 }
 
-const statusBadge = (status) => {
-  const cls = { paid: "ok", approved: "ok", completed: "ok", active: "warn", pending: "warn", pending_payment: "warn",
-    pending_application: "warn", cancelled: "bad", rejected: "bad" }[status] || "";
-  return `<span class="badge ${cls}">${escapeHtml(status)}</span>`;
+document.addEventListener("error", (e) => {
+  const img = e.target;
+  if (img instanceof HTMLImageElement && img.dataset.full && img.getAttribute("src") !== img.dataset.full) img.src = img.dataset.full;
+}, true);
+
+const STATUS_ES = {
+  paid: "pagado", approved: "aprobado", completed: "completado", active: "activo", pending: "pendiente",
+  pending_payment: "pago pendiente", pending_application: "pendiente", cancelled: "cancelado", rejected: "rechazado",
+  shipped: "enviado", delivered: "entregado", refunded: "reembolsado", refund_pending: "reembolso pendiente",
+  amount_mismatch: "monto distinto", expired: "expirado", resolved: "resuelto", closed: "cerrado", open: "abierto",
+  dismissed: "descartado", suspended: "suspendido", charged_back: "contracargo",
 };
+const statusBadge = (status) => {
+  const cls = { paid: "ok", approved: "ok", completed: "ok", delivered: "ok", resolved: "ok", shipped: "ok", active: "warn",
+    pending: "warn", pending_payment: "warn", pending_application: "warn", open: "warn", amount_mismatch: "bad",
+    refund_pending: "bad", cancelled: "bad", rejected: "bad", refunded: "bad", suspended: "bad", expired: "" }[status] || "";
+  return `<span class="badge ${cls}" title="${escapeHtml(status)}">${escapeHtml(STATUS_ES[status] || status)}</span>`;
+};
+const hiddenBadge = (item) => (item.is_hidden ? ' <span class="badge bad">oculto</span>' : "");
+
+/* Ocultar o volver a mostrar contenido (moderación) */
+function hideButton(type, item, reload) {
+  return button(item.is_hidden ? "Mostrar" : "Ocultar", () => run(async () => {
+    if (!item.is_hidden && !confirm("¿Ocultar este contenido del público?")) return;
+    await api(`/admin/content/${type}/${item.id}`, jsonOpts("PATCH", { hidden: !item.is_hidden }));
+    reload();
+  }), item.is_hidden ? "btn-secondary" : "btn-danger");
+}
 
 /* ------------------------------------------------------------------ sesión */
 function showLogin() {
@@ -145,13 +205,22 @@ function showApp(name) {
   loadDashboard();
 }
 
-function logout() {
+function logout(message = "") {
   currentToken = null;
   localStorage.removeItem(TOKEN_KEY);
   showLogin();
+  $("#login-error").textContent = typeof message === "string" ? message : "";
 }
 
 async function init() {
+  // Google OAuth de un admin: el segundo paso llega en el fragmento (#mfa=<token>&enroll=0|1)
+  const hash = new URLSearchParams(location.hash.slice(1));
+  if (hash.get("mfa")) {
+    history.replaceState(null, "", location.pathname);
+    showLogin();
+    startMfaStep(hash.get("mfa"), hash.get("enroll") === "1");
+    return;
+  }
   if (!currentToken) { showLogin(); return; }
   try {
     const me = await api("/users/me");
@@ -160,6 +229,44 @@ async function init() {
   } catch {
     logout();
   }
+}
+
+/* Sesión lista (contraseña, o contraseña + verificación en dos pasos) */
+async function finishLogin(token) {
+  currentToken = token;
+  localStorage.setItem(TOKEN_KEY, currentToken);
+  const me = await api("/users/me");
+  if (!["admin", "superadmin"].includes(me.role)) {
+    logout();
+    $("#login-error").textContent = "Esta cuenta no tiene permisos de administrador.";
+    return;
+  }
+  resetMfaStep();
+  showApp(me.full_name);
+}
+
+/* Verificación en dos pasos: código de la app (o de recuperación); el alta la dibuja admin-seguridad.js */
+let mfaToken = null;
+function resetMfaStep() {
+  mfaToken = null;
+  $("#mfa-form").classList.add("hidden");
+  $("#mfa-enroll").classList.add("hidden");
+  $("#mfa-enroll").innerHTML = "";
+  $("#login-form").classList.remove("hidden");
+}
+function startMfaStep(token, enroll) {
+  mfaToken = token;
+  $("#login-form").classList.add("hidden");
+  $("#mfa-error").textContent = "";
+  if (enroll) {
+    if (!window.AdminSeguridad) { $("#login-error").textContent = "No se pudo cargar la configuración de seguridad."; resetMfaStep(); return; }
+    $("#mfa-enroll").classList.remove("hidden");
+    window.AdminSeguridad.startEnrollment($("#mfa-enroll"), token, (session) => finishLogin(session), resetMfaStep);
+    return;
+  }
+  $("#mfa-form").classList.remove("hidden");
+  $("#mfa-code").value = "";
+  $("#mfa-code").focus();
 }
 
 $("#login-form").addEventListener("submit", async (e) => {
@@ -176,21 +283,37 @@ $("#login-form").addEventListener("submit", async (e) => {
     });
     const body = await res.json();
     if (!res.ok) throw new Error(body.detail || "No se pudo iniciar sesión");
-    currentToken = body.access_token;
-    localStorage.setItem(TOKEN_KEY, currentToken);
-    const me = await api("/users/me");
-    if (!["admin", "superadmin"].includes(me.role)) {
-      logout();
-      $("#login-error").textContent = "Esta cuenta no tiene permisos de administrador.";
-      return;
-    }
-    showApp(me.full_name);
+    $("#password").value = "";
+    if (body.mfa_required) { startMfaStep(body.mfa_token, !!body.mfa_enrollment_required); return; }
+    await finishLogin(body.access_token);
   } catch (err) {
     $("#login-error").textContent = err.message;
   }
 });
 
-$("#logout-btn").addEventListener("click", logout);
+$("#mfa-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  $("#mfa-error").textContent = "";
+  try {
+    const res = await fetch(`${API_BASE}/auth/mfa/verify`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ mfa_token: mfaToken, code: $("#mfa-code").value.trim() }),
+    });
+    const body = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      if (res.status === 401 && /venció/.test(body.detail || "")) resetMfaStep();
+      throw new Error(body.detail || "No se pudo verificar el código.");
+    }
+    await finishLogin(body.access_token);
+  } catch (err) {
+    ($("#mfa-form").classList.contains("hidden") ? $("#login-error") : $("#mfa-error")).textContent = err.message;
+  }
+});
+
+$("#mfa-cancel").addEventListener("click", () => resetMfaStep());
+
+$("#logout-btn").addEventListener("click", () => logout());
 
 /* ------------------------------------------------------------------ navegación */
 const loaders = {
@@ -201,9 +324,11 @@ const loaders = {
   refuges: () => loadRefuges(),
   "foster-homes": () => loadFosterHomes(),
   products: () => loadProducts(),
-  orders: () => loadOrders(),
+  orders: () => window.AdminTienda && AdminTienda.loadOrders(),  // admin-tienda.js
   donations: () => loadDonations(),
   "lost-reports": () => loadLostReports(),
+  reports: () => loadReports(),
+  audit: () => loadAudit(),
   whatsapp: () => loadWhatsappInteractions(),
   facebook: () => loadFacebook(),
 };
@@ -254,13 +379,20 @@ async function loadUsers() {
       alert("Rol actualizado");
       loadUsers();
     }));
+    const toggle = button(u.is_active ? "Suspender" : "Reactivar", () => run(async () => {
+      if (u.is_active && !confirm(`¿Suspender la cuenta de ${u.full_name}? Se cerrarán todas sus sesiones.`)) return;
+      await api(`/admin/users/${u.id}/active`, jsonOpts("PATCH", { is_active: !u.is_active }));
+      loadUsers();
+    }), u.is_active ? "btn-danger" : "btn-success");
     return [
-      u.id, escapeHtml(u.full_name), escapeHtml(u.email),
+      u.id, escapeHtml(u.full_name),
+      `${escapeHtml(u.email)} ${u.email_verified ? '<span class="badge ok">verificado</span>' : ""}`,
       `${escapeHtml(u.phone || "-")} ${u.phone_verified ? '<span class="badge ok">verificado</span>' : ""}`,
-      escapeHtml(u.city || "-"), [roleSelect, save], u.is_active ? "Sí" : "No", fmtDate(u.created_at),
+      escapeHtml(u.city || "-"), [roleSelect, save], [el("span", { text: u.is_active ? "Sí " : "No " }), toggle], fmtDate(u.created_at),
     ];
   });
   renderTable("users-table", ["ID", "Nombre", "Correo", "Teléfono", "Ciudad", "Rol", "Activo", "Creado"], rows);
+  renderPagination("users-pagination", adminState.users.page, users.length >= PAGE_SIZE, (p) => { adminState.users.page = p; run(loadUsers); });
 }
 
 /* ------------------------------------------------------------------ perros */
@@ -279,10 +411,10 @@ async function loadDogs() {
       await api(`/admin/dogs/${d.id}/status`, jsonOpts("PATCH", { status: st.value }));
       loadDogs();
     }));
-    return [d.id, thumb(d.photos), escapeHtml(d.name), escapeHtml(d.breed || "-"), escapeHtml(d.city || "-"),
-      escapeHtml(d.owner?.full_name || d.owner_id), [st, save], fmtDate(d.created_at)];
+    return [d.id, thumb(d.photos), escapeHtml(d.name) + hiddenBadge(d), escapeHtml(d.breed || "-"), escapeHtml(d.city || "-"),
+      escapeHtml(d.owner?.full_name || d.owner_id), [st, save], hideButton("dog", d, () => run(loadDogs)), fmtDate(d.created_at)];
   });
-  renderTable("dogs-table", ["ID", "Foto", "Nombre", "Raza", "Ciudad", "Publicó", "Estado", "Creado"], rows);
+  renderTable("dogs-table", ["ID", "Foto", "Nombre", "Raza", "Ciudad", "Publicó", "Estado", "Visibilidad", "Creado"], rows);
   renderPagination("dogs-pagination", adminState.dogs.page, hasMore, (p) => { adminState.dogs.page = p; run(loadDogs); });
 }
 
@@ -338,16 +470,34 @@ async function loadRefuges() {
         await api(`/admin/refuges/${r.id}/reject`, jsonOpts("POST", { reason }));
         loadRefuges();
       }), "btn-danger"),
-      button("Documentos", () => run(async () => {
-        const data = await api(`/admin/refuges/${r.id}/documents`);
-        const list = data.documents.length
-          ? data.documents.map((u) => `<li><a href="${escapeHtml(u)}" target="_blank">${escapeHtml(u)}</a></li>`).join("")
-          : "<li>Sin documentos</li>";
-        openModal(`<h3>Documentos de ${escapeHtml(r.name)}</h3><ul>${list}</ul>`);
+      button(`Documentos (${r.documents ? r.documents.length : "?"})`, () => run(async () => {
+        const docs = r.documents || (await api(`/admin/refuges/${r.id}/documents`)).documents || [];
+        openModal(`<h3>Documentos de ${escapeHtml(r.name)}</h3><p class="hint">Solo los administradores pueden verlos. No los compartas.</p><ul id="doc-list"></ul>`);
+        const ul = $("#doc-list");
+        if (!docs.length) ul.append(el("li", { text: "Sin documentos" }));
+        docs.forEach((d, i) => ul.append(el("li", {}, button(`Abrir documento ${i + 1} (${docLabel(d)})`, () => run(() => openDocument(d))))));
       })),
     ],
   ]);
   renderTable("refuges-table", ["ID", "Nombre", "Ciudad", "Usuario", "Creado", "Acciones"], rows);
+}
+
+/* Id de documento: "<uuid>.<ext>" o ruta antigua "/uploads/<archivo>" (se pide por su nombre) */
+function docId(d) { return String(d || "").replace(/^\/uploads\//, ""); }
+function docLabel(d) { const ext = (docId(d).split(".").pop() || "").toUpperCase(); return ext || "archivo"; }
+async function openDocument(d) {
+  const win = window.open("", "_blank");  // se abre antes del await para que el navegador no la bloquee
+  try {
+    const res = await fetch(`${API_BASE}/admin/documents/${encodeURIComponent(docId(d))}`, { headers: { Authorization: `Bearer ${currentToken}` } });
+    if (res.status === 401) { logout("Tu sesión expiró. Inicia sesión de nuevo."); throw Object.assign(new Error(""), { silent: true }); }
+    if (!res.ok) throw new Error(res.status === 404 ? "No encontramos ese documento." : `No se pudo abrir el documento (error ${res.status}).`);
+    const url = URL.createObjectURL(await res.blob());
+    if (win) win.location.href = url; else window.open(url, "_blank");
+    setTimeout(() => URL.revokeObjectURL(url), 60000);
+  } catch (err) {
+    if (win) win.close();
+    throw err;
+  }
 }
 
 async function loadFosterHomes() {
@@ -369,25 +519,25 @@ async function loadFosterHomes() {
 /* ------------------------------------------------------------------ tienda */
 async function loadProducts() {
   const products = await api("/admin/products");
-  const rows = products.map((p) => [p.id, thumb(p.photos), escapeHtml(p.name), p.refuge_id, fmtMoney(p.price), p.stock,
-    p.is_active ? "Sí" : "No", fmtDate(p.created_at)]);
-  renderTable("products-table", ["ID", "Foto", "Nombre", "Refugio", "Precio", "Stock", "Activo", "Creado"], rows);
+  const rows = products.map((p) => [p.id, thumb(p.photos), escapeHtml(p.name) + hiddenBadge(p), p.refuge_id, fmtMoney(p.price), p.stock,
+    p.is_active ? "Sí" : "No", hideButton("product", p, () => run(loadProducts)), fmtDate(p.created_at)]);
+  renderTable("products-table", ["ID", "Foto", "Nombre", "Refugio", "Precio", "Stock", "Activo", "Visibilidad", "Creado"], rows);
 }
 
-async function loadOrders() {
-  const params = new URLSearchParams({ limit: 200 });
-  if (adminState.orders.status) params.set("status", adminState.orders.status);
-  const orders = await api(`/admin/orders?${params}`);
-  const rows = orders.map((o) => [
-    o.id, escapeHtml(o.user?.full_name || o.user_id),
-    o.items.map((i) => `${i.quantity} × ${escapeHtml(i.product?.name || i.product_id)}`).join("<br>"),
-    fmtMoney(o.total), statusBadge(o.status), escapeHtml(o.provider || "-"), escapeHtml(o.provider_payment_id || "-"),
-    escapeHtml(o.shipping_address), fmtDate(o.paid_at), fmtDate(o.created_at),
-  ]);
-  renderTable("orders-table", ["ID", "Cliente", "Productos", "Total", "Estado", "Proveedor", "ID de pago", "Envío", "Pagado", "Creado"], rows);
-}
+/* Pedidos (filtros, reembolsos), CFDI de la plataforma y estados de cuenta: admin-tienda.js */
 
-$("#orders-filter-btn").addEventListener("click", () => { adminState.orders.status = $("#orders-filter-status").value; run(loadOrders); });
+/* Pagos en revisión (monto distinto o reembolso pendiente): aceptar el pago o reembolsarlo */
+const REVIEW_STATUSES = ["amount_mismatch", "refund_pending"];
+function resolveButtons(kind, item, reload) {
+  if (!REVIEW_STATUSES.includes(item.status)) return "-";
+  const act = (action, question) => button(action === "mark_paid" ? "Aceptar pago" : "Reembolsar", () => run(async () => {
+    if (!confirm(question)) return;
+    const notes = prompt("Nota para la bitácora (opcional):") || null;
+    await api(`/admin/${kind}/${item.id}/resolve`, jsonOpts("POST", { action, notes }));
+    reload();
+  }), action === "mark_paid" ? "btn-success" : "btn-danger");
+  return [act("mark_paid", "¿Aceptar este pago como válido?"), act("refund", "¿Reembolsar este pago en Mercado Pago?")];
+}
 
 async function loadDonations() {
   const params = new URLSearchParams({ limit: 200 });
@@ -400,8 +550,9 @@ async function loadDonations() {
   const rows = donations.map((d) => [
     d.id, escapeHtml(d.user?.full_name || d.user_id), escapeHtml(d.refuge_name || d.refuge_id), fmtMoney(d.amount),
     statusBadge(d.status), escapeHtml(d.provider || "-"), escapeHtml(d.provider_payment_id || "-"), fmtDate(d.created_at),
+    resolveButtons("donations", d, () => run(loadDonations)),
   ]);
-  renderTable("donations-table", ["ID", "Donante", "Refugio", "Monto", "Estado", "Proveedor", "ID de pago", "Fecha"], rows);
+  renderTable("donations-table", ["ID", "Donante", "Refugio", "Monto", "Estado", "Proveedor", "ID de pago", "Fecha", "Revisión"], rows);
 }
 
 $("#donations-filter-btn").addEventListener("click", () => { adminState.donations.status = $("#donations-filter-status").value; run(loadDonations); });
@@ -413,28 +564,114 @@ async function loadLostReports() {
   if (adminState.lost.source) params.set("source", adminState.lost.source);
   const reports = await api(`/admin/lost-reports?${params}`);
   const rows = reports.map((r) => {
-    const st = select([["active", "Activo"], ["resolved", "Resuelto"], ["closed", "Cerrado"]], r.status);
+    const st = select([["active", "Activo"], ["resolved", "Resuelto"], ["expired", "Expirado"], ["closed", "Cerrado"]], r.status);
     const save = button("Guardar", () => run(async () => {
       await api(`/admin/lost-reports/${r.id}/status`, jsonOpts("PATCH", { status: st.value }));
       loadLostReports();
     }));
     const contact = r.contact_phone
-      ? `<a href="https://wa.me/${escapeHtml(r.contact_phone.replace(/\D/g, ""))}" target="_blank">${escapeHtml(r.contact_phone)}</a>`
+      ? `<a href="https://wa.me/${escapeHtml(r.contact_phone.replace(/\D/g, ""))}" target="_blank" rel="noopener noreferrer">${escapeHtml(r.contact_phone)}</a>`
       : escapeHtml(r.reporter?.full_name || "-");
-    const origin = r.external_url ? ` <a href="${escapeHtml(r.external_url)}" target="_blank">↗</a>` : "";
+    const origin = safeUrl(r.external_url) ? ` ${link(r.external_url, "↗")}` : "";
     return [
-      r.id, thumb(r.photos), escapeHtml(r.dog_name), r.report_type === "lost" ? "Perdido" : "Encontrado",
+      r.id, thumb(r.photos), escapeHtml(r.dog_name) + hiddenBadge(r), r.report_type === "lost" ? "Perdido" : "Encontrado",
       `<span class="badge ${escapeHtml(r.source)}">${escapeHtml(r.source)}</span>${origin}`, contact,
-      escapeHtml(r.city || "-"), [st, save], fmtDate(r.created_at),
+      escapeHtml(r.city || "-"), [st, save], hideButton("lost_report", r, () => run(loadLostReports)), fmtDate(r.created_at),
     ];
   });
-  renderTable("lost-reports-table", ["ID", "Foto", "Nombre", "Tipo", "Fuente", "Contacto", "Ciudad", "Estado", "Creado"], rows);
+  renderTable("lost-reports-table", ["ID", "Foto", "Nombre", "Tipo", "Fuente", "Contacto", "Ciudad", "Estado", "Visibilidad", "Creado"], rows);
 }
 
 $("#lost-filter-btn").addEventListener("click", () => {
   adminState.lost.status = $("#lost-filter-status").value;
   adminState.lost.source = $("#lost-filter-source").value;
   run(loadLostReports);
+});
+
+/* ------------------------------------------------------------------ reportes de contenido (moderación) */
+const REASON_ES = { spam: "Spam o venta", fraude: "Fraude o estafa", maltrato: "Maltrato animal",
+  contenido_inapropiado: "Contenido inapropiado", datos_falsos: "Datos falsos", otro: "Otro" };
+const ACTION_ES = { hide_content: "Contenido oculto", suspend_user: "Cuenta suspendida" };
+
+function reportTarget(r) {
+  const t = r.target || {};
+  const flags = (t.is_hidden ? ' <span class="badge bad">oculto</span>' : "")
+    + (t.is_active === false ? ' <span class="badge bad">inactivo</span>' : "")
+    + (t.exists === false ? ' <span class="badge">eliminado</span>' : "");
+  const url = /^\/app\/\?(dog|report)=\d+$/.test(t.url || "") ? ` <a href="${escapeHtml(t.url)}" target="_blank" rel="noopener">ver ↗</a>` : "";
+  const owner = t.owner_name ? `<br><small>de ${escapeHtml(t.owner_name)}${t.owner_id ? ` (#${escapeHtml(t.owner_id)})` : ""}</small>` : "";
+  const pic = t.photo ? `${thumb([t.photo])} ` : "";
+  return `${pic}<strong>${escapeHtml(t.label || r.target_type)}</strong>: ${escapeHtml(t.title || `#${r.target_id}`)}${flags}${url}${owner}`;
+}
+
+function reportActions(r) {
+  const options = [["", "Sin acción"]];
+  // A un usuario no se le "oculta": se suspende su cuenta
+  if (r.target_type !== "user") options.push(["hide_content", r.target_type === "refuge" ? "Suspender refugio" : "Ocultar contenido"]);
+  options.push(["suspend_user", "Suspender usuario"]);
+  const action = select(options, "");
+  const notes = el("input", { type: "text", placeholder: "Notas (opcional)", maxlength: "2000" });
+  const send = (status) => run(async () => {
+    const chosen = status === "resolved" ? action.value || null : null;
+    if (chosen === "suspend_user" && !confirm("¿Suspender la cuenta? Se cerrarán todas sus sesiones y se ocultará su contenido.")) return;
+    await api(`/admin/reports/${r.id}`, jsonOpts("PATCH", { status, action: chosen, notes: notes.value.trim() || null }));
+    loadReports();
+  });
+  return [action, notes, button("Resolver", () => send("resolved"), "btn-success"), button("Descartar", () => send("dismissed"), "btn-secondary")];
+}
+
+async function loadReports() {
+  const st = adminState.reports;
+  const params = new URLSearchParams({ skip: st.page * PAGE_SIZE, limit: PAGE_SIZE + 1 });
+  if (st.status) params.set("status", st.status);
+  const reports = await api(`/admin/reports?${params}`);
+  const hasMore = reports.length > PAGE_SIZE;
+  const rows = reports.slice(0, PAGE_SIZE).map((r) => {
+    const done = `${escapeHtml(ACTION_ES[r.action] || "Sin acción")}${r.admin_notes ? `<br><small>${escapeHtml(r.admin_notes)}</small>` : ""}`
+      + `${r.resolved_by ? `<br><small>por ${escapeHtml(r.resolved_by.full_name)} · ${fmtDate(r.resolved_at)}</small>` : ""}`;
+    const many = r.open_reports_for_target > 1 ? ` <span class="badge bad">${r.open_reports_for_target} abiertos</span>` : "";
+    return [
+      r.id, reportTarget(r), escapeHtml(REASON_ES[r.reason] || r.reason) + many, escapeHtml(r.details || "-"),
+      r.reporter ? `${escapeHtml(r.reporter.full_name)}<br><small>${escapeHtml(r.reporter.email || "")}</small>` : "-",
+      statusBadge(r.status), r.status === "open" ? reportActions(r) : done, fmtDate(r.created_at),
+    ];
+  });
+  renderTable("reports-table", ["ID", "Contenido", "Motivo", "Detalles", "Reportó", "Estado", "Acción", "Fecha"], rows);
+  renderPagination("reports-pagination", st.page, hasMore, (p) => { st.page = p; run(loadReports); });
+}
+
+$("#reports-filter-btn").addEventListener("click", () => {
+  adminState.reports.status = $("#reports-filter-status").value;
+  adminState.reports.page = 0;
+  run(loadReports);
+});
+
+/* ------------------------------------------------------------------ bitácora de administración */
+async function loadAudit() {
+  const st = adminState.audit;
+  const params = new URLSearchParams({ skip: st.page * PAGE_SIZE, limit: PAGE_SIZE + 1 });
+  if (st.action) params.set("action", st.action);
+  let entries;
+  try { entries = await api(`/admin/audit-log?${params}`); }
+  catch (err) {
+    if (err.status !== 403) throw err;
+    $("#audit-table").innerHTML = '<p class="empty">Solo un superadmin puede ver la bitácora.</p>';
+    return;
+  }
+  const hasMore = entries.length > PAGE_SIZE;
+  const rows = entries.slice(0, PAGE_SIZE).map((a) => [
+    fmtDate(a.created_at), escapeHtml(a.actor_name || a.actor_email || a.actor_id || "-"), escapeHtml(a.action),
+    `${escapeHtml(a.target_type)}${a.target_id != null ? ` #${escapeHtml(a.target_id)}` : ""}`,
+    a.details ? `<pre>${escapeHtml(JSON.stringify(a.details, null, 1))}</pre>` : "-", escapeHtml(a.ip || "-"),
+  ]);
+  renderTable("audit-table", ["Fecha", "Quién", "Acción", "Objetivo", "Detalles", "IP"], rows);
+  renderPagination("audit-pagination", st.page, hasMore, (p) => { st.page = p; run(loadAudit); });
+}
+
+$("#audit-filter-btn").addEventListener("click", () => {
+  adminState.audit.action = $("#audit-filter-action").value.trim();
+  adminState.audit.page = 0;
+  run(loadAudit);
 });
 
 /* ------------------------------------------------------------------ WhatsApp */
@@ -484,75 +721,8 @@ $("#whatsapp-form").addEventListener("submit", (e) => {
 });
 
 /* ------------------------------------------------------------------ Facebook */
-async function loadFacebook() {
-  run(async () => {
-    const st = await api("/facebook/status");
-    $("#facebook-status").innerHTML = st.pages_enabled
-      ? `<span class="badge ok">Páginas conectadas</span> Graph API ${escapeHtml(st.graph_api_version)}. Las páginas se leen cada hora.`
-      : '<span class="badge warn">Sin token de página</span> Solo está disponible la importación manual.';
-  });
-  const sources = await api("/facebook/groups");
-  const rows = sources.map((g) => {
-    const actions = [];
-    if (g.kind === "page") {
-      actions.push(button("Leer ahora", () => run(async () => {
-        const res = await api(`/facebook/scrape?group_id=${g.id}`, { method: "POST" });
-        alert(res.message);
-        loadFacebook();
-      })));
-    }
-    actions.push(button("Eliminar", () => run(async () => {
-      if (!confirm(`¿Eliminar la fuente "${g.name}"?`)) return;
-      await api(`/facebook/groups/${g.id}`, { method: "DELETE" });
-      loadFacebook();
-    }), "btn-danger"));
-    return [
-      g.id, escapeHtml(g.name), g.kind === "page" ? "Página" : "Manual", escapeHtml(g.page_id || "-"),
-      `<a href="${escapeHtml(g.url)}" target="_blank">${escapeHtml(g.url)}</a>`, escapeHtml(g.city || "-"),
-      g.last_scraped ? fmtDate(g.last_scraped) : "Nunca", actions,
-    ];
-  });
-  renderTable("facebook-table", ["ID", "Nombre", "Tipo", "ID página", "URL", "Ciudad", "Última lectura", "Acciones"], rows);
-}
-
-$("#facebook-form").addEventListener("submit", (e) => {
-  e.preventDefault();
-  const kind = $("#fb-kind").value;
-  const data = {
-    name: $("#fb-name").value,
-    url: $("#fb-url").value,
-    kind,
-    page_id: $("#fb-page-id").value.trim() || null,
-    city: $("#fb-city").value.trim() || null,
-  };
-  run(async () => {
-    await api("/facebook/groups", jsonOpts("POST", data));
-    e.target.reset();
-    loadFacebook();
-  });
-});
-
-$("#facebook-scrape-all").addEventListener("click", () => run(async () => {
-  const res = await api("/facebook/scrape-all", { method: "POST" });
-  alert(res.message);
-  loadFacebook();
-}));
-
-$("#facebook-import-form").addEventListener("submit", (e) => {
-  e.preventDefault();
-  const data = {
-    post_url: $("#fbi-url").value.trim() || null,
-    text: $("#fbi-text").value,
-    image_urls: $("#fbi-images").value.split("\n").map((s) => s.trim()).filter(Boolean).slice(0, 3),
-    report_type: $("#fbi-type").value,
-    city: $("#fbi-city").value.trim() || null,
-  };
-  run(async () => {
-    const report = await api("/facebook/import", jsonOpts("POST", data));
-    $("#facebook-import-result").innerHTML = `Reporte #${report.id} creado con ${report.photos.length} foto(s). Buscando coincidencias…`;
-    e.target.reset();
-  });
-});
+/* La sección de Facebook (grupos públicos por estado, gasto, Páginas e importación manual)
+   vive en admin-facebook.js, que define loadFacebook(). */
 
 /* ------------------------------------------------------------------ modal */
 const modal = el("div", { id: "modal", class: "modal hidden" });

@@ -1,5 +1,5 @@
 /* ============================================================
-   PatitasFind — FX: perritos animados, loaders y efectos
+   GuauWoow — FX: perritos animados, loaders y efectos
    ============================================================ */
 'use strict';
 

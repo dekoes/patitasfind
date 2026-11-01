@@ -1,4 +1,4 @@
-"""baseline: esquema completo de PatitasFind al 2026-10-04.
+"""baseline: esquema completo de GuauWoow al 2026-10-04.
 
 Generado con autogenerate contra una base vacía. En bases creadas antes con create_all +
 STARTUP_MIGRATIONS NO se ejecuta: `python -m app.migrate` la marca (stamp) si ya existe la

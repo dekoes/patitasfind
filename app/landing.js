@@ -1,5 +1,5 @@
 /* ============================================================
-   PatitasFind — Efectos de landing (huellitas y botones)
+   GuauWoow — Efectos de landing (huellitas y botones)
    ============================================================ */
 'use strict';
 const $$ = (s, c=document) => [...c.querySelectorAll(s)];
@@ -165,9 +165,18 @@ function spawnComicBalloon(){
   else makeComicPop('¡MIAU!', x, y, 'miau');
 }
 
-/* Primer globo tras un breve instante y luego uno cada 5 s */
+/* Primer globo tras un breve instante y luego uno cada 5 s (en pausa si la pestaña no se ve) */
 setTimeout(spawnComicBalloon, 800);
-setInterval(spawnComicBalloon, 5000);
+let balloonTimer = setInterval(spawnComicBalloon, 5000);
+document.addEventListener('visibilitychange', () => {
+  clearInterval(balloonTimer);
+  if (!document.hidden) balloonTimer = setInterval(spawnComicBalloon, 5000);
+});
+
+/* ---------- Tienda: solo se menciona si está activa (/auth/config) ---------- */
+fetch('/auth/config').then(r => r.ok ? r.json() : null).then(c => {
+  if (c && c.shop_enabled) document.documentElement.classList.add('shop-on');
+}).catch(() => {});
 
 /* ============================================================
    Loader, perrito que corre con el scroll y aparición al hacer scroll
@@ -176,7 +185,11 @@ setInterval(spawnComicBalloon, 5000);
   if (typeof FX === 'undefined') return;
   const loader = document.getElementById('page-loader');
   document.getElementById('pl-dog').innerHTML = FX.runDog();
-  const hide = () => loader.classList.add('done');
+  const hide = () => {
+    if (loader.classList.contains('done')) return;
+    loader.classList.add('done');
+    document.dispatchEvent(new Event('landing:ready'));
+  };
   window.addEventListener('load', () => setTimeout(hide, 500));
   setTimeout(hide, 4000);
 
@@ -199,8 +212,10 @@ setInterval(spawnComicBalloon, 5000);
   addEventListener('scroll', place, { passive: true });
   place();
 
-  const els = document.querySelectorAll('.source-card, .feature .wrap > div, .section-title, .cta-img');
-  els.forEach(el => el.classList.add('reveal'));
-  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
-  els.forEach(el => io.observe(el));
+  // La aparición de textos y secciones vive en landing-motion.js
+
+  // Ilustraciones animadas por capas: solo se mueven mientras están en pantalla
+  const scenes = document.querySelectorAll('.scene');
+  const sio = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('on', e.isIntersecting)));
+  scenes.forEach(s => sio.observe(s));
 })();

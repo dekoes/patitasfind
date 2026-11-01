@@ -2,7 +2,6 @@ import logging
 
 from fastapi import APIRouter, Depends, HTTPException, Query, WebSocket, WebSocketDisconnect, status
 from fastapi.concurrency import run_in_threadpool
-from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from app.database import SessionLocal, get_db
@@ -29,16 +28,14 @@ def _get_conversation(db: Session, conversation_id: int, user: User) -> Conversa
 
 
 @router.get("/conversations", response_model=list[ConversationSummary])
-def list_conversations(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
-    convs = (
-        db.query(Conversation)
-        .filter((Conversation.user_a_id == current_user.id) | (Conversation.user_b_id == current_user.id))
-        .order_by(func.coalesce(Conversation.last_message_at, Conversation.created_at).desc())
-        .all()
-    )
-    summaries = [chat.summarize(db, c, current_user) for c in convs]
-    summaries.sort(key=lambda s: (s["last_message"]["created_at"] if s["last_message"] else s["created_at"]), reverse=True)
-    return summaries
+def list_conversations(
+    skip: int = Query(0, ge=0),
+    limit: int = Query(100, ge=1, le=200),
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    # Más recientes primero (último mensaje o creación); número fijo de consultas por página
+    return chat.summaries_for_user(db, current_user, skip=skip, limit=limit)
 
 
 @router.get("/conversations/{conversation_id}", response_model=ConversationSummary)
@@ -82,7 +79,33 @@ def mark_conversation_read(conversation_id: int, current_user: User = Depends(ge
 
 
 # --------------------------------------------------------------------------- WebSocket
-def _ws_authorize(token: str, conversation_id: int) -> tuple[int, bool] | None:
+AGE_DECLARATION_MESSAGE = "Indica tu fecha de nacimiento y confirma que tienes 18 años o más para continuar"
+
+
+def _ws_write_block(user: User, db=None) -> dict | None:
+    """Mismas reglas que get_verified_user para escribir: teléfono sin verificar, verificación reforzada de edad
+    pendiente (L-edad) o cuenta de Google sin declarar su edad -> evento de error en vez de guardar el mensaje."""
+    if not user.is_active:
+        return {"type": "error", "code": "account_inactive", "detail": "Tu cuenta está desactivada."}
+    if user.phone_verification_required:
+        return {"type": "error", "code": PHONE_VERIFICATION_CODE, "detail": PHONE_VERIFICATION_MESSAGE}
+    if user.age_check_required:
+        from app.services.age_check import AGE_CHECK_MESSAGE
+
+        return {"type": "error", "code": "age_check_required", "detail": AGE_CHECK_MESSAGE}
+    if user.age_declaration_required:
+        return {"type": "error", "code": "age_declaration_required", "detail": AGE_DECLARATION_MESSAGE}
+    if db is not None:
+        from app.services import legal_acceptance
+
+        if legal_acceptance.blocking_pending(db, user):  # terminos.html 29.2 (igual que get_verified_user)
+            return {"type": "error", "code": legal_acceptance.LEGAL_ACCEPTANCE_REQUIRED,
+                    "detail": legal_acceptance.LEGAL_ACCEPTANCE_MESSAGE}
+    return None
+
+
+def _ws_authorize(token: str, conversation_id: int) -> tuple[int, dict | None] | None:
+    """(user_id, bloqueo para escribir o None) o None si no puede abrir la conversación."""
     db = SessionLocal()
     try:
         user = _user_from_token(token, db)
@@ -91,18 +114,23 @@ def _ws_authorize(token: str, conversation_id: int) -> tuple[int, bool] | None:
         conv = db.query(Conversation).filter(Conversation.id == conversation_id).first()
         if not conv or not conv.has_participant(user.id):
             return None
-        return user.id, not user.phone_verification_required
+        return user.id, _ws_write_block(user, db)
     finally:
         db.close()
 
 
 def _ws_save_message(conversation_id: int, user_id: int, content: str) -> dict | None:
+    """Guarda el mensaje. Vuelve a leer la cuenta: una limitación abierta con la conexión ya abierta (p. ej. una
+    verificación de edad por un reporte) también aplica. Devuelve el evento del mensaje o un evento de error."""
     db = SessionLocal()
     try:
         conv = db.query(Conversation).filter(Conversation.id == conversation_id).first()
         user = db.query(User).filter(User.id == user_id).first()
         if not conv or not user or not conv.has_participant(user_id):
             return None
+        blocked = _ws_write_block(user, db)
+        if blocked:
+            return blocked
         msg = chat.create_message(db, conv, user, content)
         return chat.message_event(msg)
     finally:
@@ -116,7 +144,7 @@ async def chat_websocket(websocket: WebSocket, conversation_id: int):
     if not auth:
         await websocket.close(code=status.WS_1008_POLICY_VIOLATION)
         return
-    user_id, can_send = auth
+    user_id, write_block = auth
     await hub.prepare()
     await websocket.accept()
     await hub.connect(conversation_id, websocket)
@@ -129,6 +157,9 @@ async def chat_websocket(websocket: WebSocket, conversation_id: int):
             if not isinstance(data, dict):
                 continue
             kind = data.get("type", "message")
+            if kind == "ping":  # latido del cliente (cada ~25 s): mantiene viva la conexión tras proxies
+                await websocket.send_json({"type": "pong"})
+                continue
             if kind == "typing":
                 await hub.publish(conversation_id, {"type": "typing", "sender_id": user_id, "conversation_id": conversation_id},
                                   exclude=websocket)
@@ -138,15 +169,16 @@ async def chat_websocket(websocket: WebSocket, conversation_id: int):
             content = str(data.get("content") or "").strip()
             if not content:
                 continue
-            if not can_send:
-                await websocket.send_json({"type": "error", "code": PHONE_VERIFICATION_CODE,
-                                           "detail": PHONE_VERIFICATION_MESSAGE})
+            if write_block:
+                await websocket.send_json(write_block)
                 continue
             if len(content) > MAX_MESSAGE:
                 await websocket.send_json({"type": "error", "detail": "El mensaje es demasiado largo."})
                 continue
             event = await run_in_threadpool(_ws_save_message, conversation_id, user_id, content)
-            if event:
+            if event and event.get("type") == "error":
+                await websocket.send_json(event)  # solo a quien intentó escribir
+            elif event:
                 await hub.publish(conversation_id, event)
     except WebSocketDisconnect:
         pass

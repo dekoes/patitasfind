@@ -1,0 +1,4 @@
+# Salidas pesadas y temporales de los videos
+out/
+build/stills/
+build/*.log

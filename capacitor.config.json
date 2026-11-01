@@ -1,0 +1,22 @@
+{
+  "appId": "com.guauwoow.app",
+  "appName": "GuauWoow",
+  "webDir": "app",
+  "bundledWebRuntime": false,
+  "server": {
+    "url": "https://guauwoow.com/app/",
+    "cleartext": false,
+    "allowNavigation": [
+      "guauwoow.com",
+      "*.guauwoow.com",
+      "accounts.google.com"
+    ]
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 2000,
+      "backgroundColor": "#DCC7FA",
+      "showSpinner": false
+    }
+  }
+}

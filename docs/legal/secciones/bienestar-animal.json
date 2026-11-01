@@ -1,0 +1,451 @@
+{
+  "domain": "bienestar-animal",
+  "fecha_corte": "2026-10-17",
+  "aviso": "Información general, no asesoría legal. Los hallazgos con confianza 'media' y las compilaciones de Jalisco y NL requieren confirmación de un abogado mexicano. Cobertura estatal detallada: CDMX, Estado de México, Jalisco y Nuevo León.",
+  "pages": [
+    {
+      "slug": "marco-legal-bienestar-animal",
+      "title": "Marco legal de bienestar animal",
+      "purpose": "Tabla por estado con la ley aplicable, su última reforma, autoridad de denuncia, registro oficial de animales, plazos para reclamar perros, reglas de venta y sanciones; estado de la Ley General; vigilancia normativa.",
+      "required_contents": [
+        "Nota 'información general, no asesoría legal' y fecha de última revisión (bienestar-animal-31)",
+        "Base constitucional: CPEUM art. 4o., párrafo séptimo (texto vigente), art. 3o. y art. 73 fr. XXIX-G, con fecha y edición del DOF 02-12-2024 ed. vespertina (bienestar-animal-01)",
+        "Estado de la Ley General: 'aprobada por el Senado el 29-09-2026; pendiente en la Cámara de Diputados; no vigente', con fecha de revisión; separar lo confirmado por el Senado de lo que solo dice la prensa (bienestar-animal-02)",
+        "Ficha CDMX: Constitución CDMX art. 13 B (seres sintientes); LPBACDMX reforma G.O. 23-07-2026 (arts. 25 Bis, 24 Ter, rescatista independiente); RUAC gratuito; Registro de Personas Maltratadoras previsto para 2027 (bienestar-animal-03, 04, 20, v01)",
+        "Ficha Edomex: Ley nueva vigente desde 17-06-2026; RUAC de uso exclusivo de autoridades; registro administrativo de sanciones de CEPANAF; plazos y sanciones (bienestar-animal-07, v02)",
+        "Ficha Jalisco con aviso 'última reforma cotejada: 2021' (bienestar-animal-08)",
+        "Ficha Nuevo León con aviso 'cotejado en compilación 2025' (bienestar-animal-09)",
+        "Columna 'Sanción administrativa' por conducta y estado, en UMA, con artículo y enlace oficial, fechada (bienestar-animal-v03)",
+        "Columna 'Plazo para reclamar un perro en centros públicos' por estado (bienestar-animal-15)",
+        "Aclaración de que GuauWoow no es un registro oficial y de que los registros del Edomex son de uso exclusivo de autoridades (bienestar-animal-14, v02)",
+        "Historial de cambios y descripción del proceso de vigilancia normativa (semanal DOF y Gaceta; trimestral gacetas estatales) (bienestar-animal-02, 31)"
+      ],
+      "legal_basis": [
+        "CPEUM art. 4o. párr. séptimo, art. 3o. párr. duodécimo, art. 73 fr. XXIX-G; Decreto DOF 02-12-2024 Transitorios 1o y 2o",
+        "Minuta Ley General (Senado, comunicado 0167, 29-09-2026)",
+        "Constitución CDMX art. 13 B numerales 1, 2 y 3 e)",
+        "LPBACDMX arts. 4, 24 Ter, 25, 25 Bis, 32, 65",
+        "Ley Edomex arts. 34, 40, 57, 59-63, 121",
+        "Ley Jalisco arts. 11, 41, 42, 49",
+        "Ley NL arts. 15, 74, 128"
+      ]
+    },
+    {
+      "slug": "cero-venta",
+      "title": "Adoptar no es comprar: política de cero venta",
+      "purpose": "Explicar por qué en GuauWoow nunca se vende un animal, qué está prohibido, qué sanciones existen y cómo se hace cumplir.",
+      "required_contents": [
+        "Principio: adoptar es gratis en todo el país con independencia de la ley de cada estado (Términos 6.2 y 16.2) (bienestar-animal-10)",
+        "Base legal con enlaces: CPEUM art. 4o.; LPBACDMX art. 25 frs. III, IV, V, VI, XII, XXI y art. 25 Bis; Ley Edomex art. 40 frs. IV y V; Ley Jalisco arts. 41 y 42; NOM-148-SCFI-2018 (bienestar-animal-01, 04, 06, 07, 08, 10)",
+        "Lista de prohibiciones: vender, permutar, rifar, sortear o dar animales como premio; cobrar precio, cuota, apartado, anticipo, depósito, reembolso obligatorio de esterilización o envío; monta, cruzas, cachorros por encargo, criaderos; corte de orejas o cola; cobrar por el RUAC (bienestar-animal-04, 06, 10, 27, v01)",
+        "Qué sí se permite: donativos voluntarios a refugios verificados solo por el módulo de Donativos, nunca como condición ni dentro del flujo de adopción (redacción sujeta a postura del abogado) (bienestar-animal-10)",
+        "Recuadro de sanciones fechado en UMA: CDMX 25 Bis 150 a 3,000 UMA; Edomex venta en domicilios o vía pública arresto inconmutable 36 h y 25 a 30 UMA (bienestar-animal-v03)",
+        "Aviso de fraude: nunca pagues un anticipo para adoptar (bienestar-animal-29)",
+        "Cómo se hace cumplir: sin campo de precio, filtro de palabras, revisión humana, reporte 'venta_animales' con atención en 24 h o menos, retiro y suspensión, cooperación con la PAOT (bienestar-animal-04)",
+        "Texto de la declaración obligatoria al publicar un perro (bienestar-animal-04)"
+      ],
+      "legal_basis": [
+        "CPEUM art. 4o.",
+        "LPBACDMX art. 25 frs. III, IV, V, VI, XII, XIX, XX, XXI, XXVI, XXVIII; art. 25 Bis; art. 28 Bis; art. 65",
+        "Ley Edomex art. 40 frs. IV, V, XVII; art. 92; art. 121",
+        "Ley Jalisco arts. 41, 42",
+        "NOM-148-SCFI-2018 nums. 2.1, 2.3, 2.5, 4.1"
+      ]
+    },
+    {
+      "slug": "adopcion-responsable",
+      "title": "Política de adopción responsable",
+      "purpose": "Reglas de la adopción en GuauWoow: gratuidad, requisitos del adoptante, información de salud del perro, contrato, entrega, pendientes por estado, seguimiento y reubicación.",
+      "required_contents": [
+        "Principios: seres sintientes, trato digno, tutela responsable (bienestar-animal-03)",
+        "Gratuidad: ningún paso del flujo muestra montos ni pagos; refugio con cuota obligatoria no tramita en la plataforma (bienestar-animal-10)",
+        "Requisito 18+; contrato firmado por adulto; pregunta sobre niños en casa sin datos de menores (bienestar-animal-24)",
+        "Autodeclaración: 'No he sido sancionado(a) administrativamente ni sentenciado(a) por maltrato o crueldad animal'; GuauWoow no consulta ni guarda resultados de registros oficiales (bienestar-animal-20, v02)",
+        "Datos de salud declarados: esterilización con 4 opciones, antirrábica y otras vacunas, desparasitación, padecimientos, mordidas; aviso de que no sustituye al MVZ; cartilla con datos ocultos (bienestar-animal-12, 13)",
+        "Esterilización: refugios verificados entregan esterilizados salvo contraindicación; compromiso fechado y recordatorios; Jalisco art. 49; Edomex art. 40 fr. XVII; NOM-011 8.1.3.4 (bienestar-animal-12)",
+        "Contrato o carta responsiva generada al aprobar; GuauWoow no es parte (bienestar-animal-11)",
+        "Política de entrega: en persona, nunca pagar envío, transportadora ventilada, nunca cajuela, crías con su madre; adopciones a otra ciudad o extranjero solo con refugios verificados (bienestar-animal-29)",
+        "Lista de pendientes posterior a la adopción por estado: CDMX (RUAC gratuito, placa con clave), Edomex (RUAC de CEPANAF cuando opere), NL (registro en 60 días, identificación permanente), Jalisco (seguimiento y manual) (bienestar-animal-07, 09, 14, v01)",
+        "Seguimiento con consentimiento expreso; ante maltrato, denuncia o devolución voluntaria, nunca recuperación por mano propia (bienestar-animal-30)",
+        "Reubicación responsable 'Necesito reubicar a mi perro' y mensaje contra el abandono (bienestar-animal-16)",
+        "Manual de cuidados descargable (bienestar-animal-08)",
+        "Avisos: GuauWoow no es registro oficial; no verifica contra registros oficiales; información general (bienestar-animal-14, v02)"
+      ],
+      "legal_basis": [
+        "Constitución CDMX art. 13 B",
+        "LPBACDMX arts. 4 BIS 1, 24 fr. IX, 24 Bis, 24 Ter, 25 frs. IV y XX, 30, 30 Bis, 32, 44, 45 Bis, 59, 59 Bis",
+        "Ley Edomex arts. 40 frs. IV y XVII, 51, 52, 54, 55, 59-63, 84-90",
+        "Ley Jalisco art. 49",
+        "Ley NL arts. 3 frs. III y IV, 15, 15 Bis, 16, 127 fr. XV",
+        "NOM-011-SSA2-2011 nums. 8.1.3.4 y 8.3.2.1",
+        "NOM-051-ZOO-1995",
+        "CCF arts. 1929, 2332-2344",
+        "Reglamento DF art. 64 fr. II"
+      ]
+    },
+    {
+      "slug": "modelo-carta-responsiva",
+      "title": "Modelo de contrato / carta responsiva de adopción",
+      "purpose": "Publicar el modelo que la plataforma genera al aprobarse una adopción, para que las partes lo conozcan antes de firmar.",
+      "required_contents": [
+        "Partes con identificación verificada, domicilio y contacto; adoptante mayor de edad (bienestar-animal-11, 24)",
+        "Datos del perro: nombre, sexo, edad, talla, color, señas, fotos, registro oficial o microchip (bienestar-animal-11, 14)",
+        "Salud declarada: vacunas, desparasitación, esterilización o fecha comprometida, padecimientos, mordidas (bienestar-animal-12, 13)",
+        "Declaración de gratuidad (bienestar-animal-10)",
+        "Transferencia de propiedad y de responsabilidad, incluida la civil por daños desde la entrega (bienestar-animal-11)",
+        "Obligaciones del adoptante: cuidados, esterilización, no vender, no regalar como premio, no criar, no abandonar, inscribirlo en el registro oficial gratuito, placa, seguimiento pactado (bienestar-animal-11, 12, 14, 16, v01)",
+        "Devolución al publicador o reubicación por la plataforma si no puede cuidarlo (bienestar-animal-16)",
+        "Maltrato: denuncia ante la autoridad; recuperación solo por vía legal (cláusula de reversión sujeta a abogado, CCF 2338) (bienestar-animal-30)",
+        "Aviso de privacidad del publicador y consentimiento para el seguimiento (bienestar-animal-11, 30)",
+        "Valor probatorio como documento de adopción ante centros públicos (bienestar-animal-11, 15)",
+        "Cláusula: GuauWoow no es parte ni garantiza el cumplimiento (bienestar-animal-11, 28)",
+        "Lugar, fecha, firma autógrafa o aceptación electrónica con sello de tiempo (bienestar-animal-11)"
+      ],
+      "legal_basis": [
+        "CCF arts. 753, 1793, 1796, 1929, 2332, 2334, 2336, 2338, 2341-2344",
+        "LPBACDMX arts. 30, 32",
+        "Ley Edomex arts. 55, 57, 61",
+        "Ley NL art. 3 frs. III y IV, art. 29 fr. VI",
+        "Reglamento DF art. 64 fr. II",
+        "NOM-151-SCFI-2016 (a evaluar)"
+      ]
+    },
+    {
+      "slug": "perdidos-encontrados",
+      "title": "Guía legal de perros perdidos y encontrados",
+      "purpose": "Explicar que encontrar un perro no da la propiedad, qué hacer, los plazos para reclamar por estado y las pruebas de propiedad.",
+      "required_contents": [
+        "Encontrar un perro no da la propiedad; entrega a la autoridad municipal en 3 días (CCF 774, 775, 874; rige el código civil estatal) (bienestar-animal-15)",
+        "Pasos si encuentras un perro: placa, microchip en clínica, aviso al centro de atención animal o municipio, publicar reporte (bienestar-animal-14, 15)",
+        "Pasos si perdiste a tu perro; en NL reportar a la Secretaría alarga el resguardo a 20 días (bienestar-animal-09)",
+        "Tabla de plazos fechada: CDMX 5 días hábiles (arts. 31, 32, 32 Bis); Edomex 8 días hábiles (arts. 34, 57); Jalisco 5 días (art. 11); NL 10 o 20 días (art. 74) (bienestar-animal-15)",
+        "Pruebas de propiedad: clave RUAC, documentos de adopción, factura, cartilla, fotos (bienestar-animal-11, 15)",
+        "Reglas de GuauWoow: periodo mínimo antes de publicar en adopción un perro encontrado (sugerido 15 a 30 días), entrega solo a tutor verificado, recordatorio de actualizar registro oficial al cerrar por reencuentro (bienestar-animal-15)"
+      ],
+      "legal_basis": [
+        "CCF arts. 774, 775, 874",
+        "LPBACDMX arts. 31, 32, 32 Bis",
+        "Ley Edomex arts. 34, 56, 57",
+        "Ley NL art. 74",
+        "Ley Jalisco art. 11"
+      ]
+    },
+    {
+      "slug": "denunciar-maltrato",
+      "title": "Cómo denunciar maltrato animal",
+      "purpose": "Directorio de autoridades por estado, qué lleva una denuncia y qué hace GuauWoow con los reportes de maltrato.",
+      "required_contents": [
+        "Deber de informar a la autoridad: LPBACDMX art. 26; Ley Edomex arts. 112 y 115; Ley NL art. 16 frs. IX y X (bienestar-animal-18)",
+        "Qué lleva una denuncia: nombre, hechos, presunto infractor, pruebas; plazos de verificación en CDMX (10 días o 48 h); denuncia electrónica en Edomex; medios en Jalisco (bienestar-animal-18)",
+        "Directorio verificado en sitios oficiales y revisado cada trimestre: CDMX (PAOT, Brigada de Vigilancia Animal SSC, FGJ, AGATAN, alcaldías); Edomex (PROPAEM, FGJEM, municipio); NL (Secretaría de Medio Ambiente, municipio); Jalisco (municipio, Fiscalía); PROFEPA para fauna silvestre; 911 y 089 (bienestar-animal-07, 18, 26)",
+        "Delitos y penas por estado: CP DF 350 Bis, 350 Ter, 350 Quinquies; CPF 419 Bis, 420 fr. IV; CP Edomex 235 Bis a 235 Quinquies (bienestar-animal-17)",
+        "Botón 'Denunciar ante la autoridad' junto a 'Reportar' (bienestar-animal-18)",
+        "Qué hace GuauWoow: retiro, evidencia, denuncia por cuenta propia en los casos de su política interna (bienestar-animal-17, v04)",
+        "Ante maltrato del adoptante: denuncia o devolución voluntaria, nunca recuperación por la fuerza (bienestar-animal-30)"
+      ],
+      "legal_basis": [
+        "LPBACDMX arts. 10 BIS fr. II, 26, 56, 57, 59, 59 Bis",
+        "Ley Edomex arts. 112, 113, 115",
+        "Ley NL art. 16 frs. IX y X",
+        "Ley Jalisco arts. 7 Bis, 7 Ter, 68, 70",
+        "CP DF arts. 350 Bis, 350 Ter, 350 Quinquies",
+        "CPF arts. 419 Bis, 420 fr. IV",
+        "CP Edomex arts. 235 Bis, 235 Ter, 235 Quáter, 235 Quinquies"
+      ]
+    },
+    {
+      "slug": "normas-comunidad",
+      "title": "Normas de la comunidad (bloque de bienestar animal)",
+      "purpose": "Aportación de este dominio a la página compartida de Normas: prohibiciones de venta, premios, cría, mutilaciones, otras especies, crueldad y contenido de terceros.",
+      "required_contents": [
+        "Lenguaje de seres sintientes, trato digno y tutela responsable; base CPEUM art. 4o. (bienestar-animal-01, 03)",
+        "Prohibido vender, permutar, rifar, sortear o regalar animales como premio o gancho; 'adopta y gana'; alcanza Tienda, Donativos y Puntos (bienestar-animal-06)",
+        "Prohibido cobrar por entregar un perro, incluido envío (bienestar-animal-04, 10)",
+        "Prohibidos anuncios de monta, cruzas, cachorros por encargo, criaderos; camadas de particulares se dirigen a reubicación gratuita con esterilización (bienestar-animal-27)",
+        "Prohibidas mutilaciones estéticas y su anuncio; fotos de perros encadenados como algo normal (bienestar-animal-06, 27)",
+        "Solo perros; rechazo de otras especies y fauna silvestre (bienestar-animal-26)",
+        "Cero tolerancia a zoofilia, peleas y crueldad: retiro en 1 h o menos, suspensión, denuncia, evidencia cifrada, bloqueo por hash (bienestar-animal-17, v04)",
+        "Publicaciones que amenacen con abandonar o sacrificar: apoyo y canal de denuncia (bienestar-animal-16)",
+        "Fotos de animales heridos solo en rescates o denuncias, con aviso de contenido sensible (bienestar-animal-17, v04)",
+        "Contenido de terceros (Facebook, WhatsApp) no se publica en automático; filtro y revisión; takedown (bienestar-animal-v04)",
+        "Procedimiento de reporte con plazos por tipo y bitácora; botón Reportar en todo contenido (bienestar-animal-28)",
+        "Mención de sanciones administrativas y deber de denunciar (bienestar-animal-18, v03)"
+      ],
+      "legal_basis": [
+        "CPEUM art. 4o.",
+        "LPBACDMX arts. 24 frs. III, IX y XI Bis, 25 frs. III, XIV, XIX, XXVI, XXVIII, 25 Bis, 26, 28, 33",
+        "Ley Jalisco art. 42",
+        "CP DF arts. 22 fr. V, 350 Bis, 350 Ter, 350 Quinquies",
+        "CPF arts. 419 Bis, 420 fr. IV",
+        "CP Edomex arts. 235 Bis, 235 Ter, 235 Quinquies"
+      ]
+    },
+    {
+      "slug": "refugios-y-rescatistas",
+      "title": "Refugios verificados y rescatistas independientes",
+      "purpose": "Explicar cómo verifica GuauWoow a refugios y rescatistas, qué significa cada insignia y qué obligaciones asumen.",
+      "required_contents": [
+        "Lista de verificación por estado: autorización, padrón, MVZ con cédula (Registro Nacional de Profesionistas), capacidad y población, fotos y visita virtual, objeto social y RFC (bienestar-animal-21)",
+        "Jalisco: número de autorización municipal del albergue; permiso municipal para ferias de adopción (bienestar-animal-08)",
+        "Insignias 'Documentos revisados' e 'Inscrito en padrón oficial'; nunca 'verificado por la autoridad' (bienestar-animal-21)",
+        "Acuerdo de Refugio: no sacrificar sanos, sin hacinamiento, registro de ingresos y adopciones, entregar esterilizados, no vender, no cobrar por RUAC, reverificación anual, retiro ante denuncias fundadas (bienestar-animal-12, 21, v01)",
+        "Cuenta 'Rescatista independiente': persona física sin fines de lucro, declara animales y resguardo, no se llama refugio sin autorización; régimen de donativos pendiente (bienestar-animal-22)",
+        "Aviso: operar un refugio sin autorización en CDMX se multa con 1,500 a 3,000 UMA (bienestar-animal-21, v03)"
+      ],
+      "legal_basis": [
+        "LPBACDMX arts. 4 frs. XXXI Bis 3 y XXXIV Bis, 13 Bis, 14, 24 fr. I Bis, 42, 65 fr. II c)",
+        "Reglamento DF arts. 18, 64, 65",
+        "Ley Edomex arts. 17-20, 49",
+        "Ley Jalisco art. 8 frs. XV y XVI, arts. 49, 62 Quáter, 62 Quinquies"
+      ]
+    },
+    {
+      "slug": "casas-de-paso",
+      "title": "Casas de paso (hogares temporales)",
+      "purpose": "Reglas y acuerdo tipo para hogares temporales vinculados a un refugio o rescatista.",
+      "required_contents": [
+        "Solo casas de paso vinculadas a refugio o rescatista; respetar capacidad declarada; declarar animales propios; prohibido cobrar hospedaje (LPBACDMX art. 28 Bis 1); no pueden dar en adopción ni transferir (bienestar-animal-23)",
+        "Acuerdo tipo: propiedad sigue en el refugio, gastos y reembolsos, atención veterinaria, devolución, emergencias, datos personales (bienestar-animal-23)",
+        "Nuevo León: albergue temporal si más de 10 días; asesoría de MVZ, registro, no mezclar especies, certificado de salud, sin infectocontagiosos (bienestar-animal-23)",
+        "Aviso sobre el umbral no definido para requerir autorización en CDMX; consultar a AGATAN (bienestar-animal-23)",
+        "Obligaciones de tutor aplican a la casa de paso (bienestar-animal-23)"
+      ],
+      "legal_basis": [
+        "LPBACDMX arts. 4 BIS 1, 4 fr. XXXIV Bis, 28 Bis 1, 65 fr. II c)",
+        "Reglamento DF arts. 64, 65",
+        "Ley NL arts. 3 fr. I, 16, 39, 40, 41",
+        "Ley Edomex art. 20"
+      ]
+    },
+    {
+      "slug": "tienda-productos-permitidos",
+      "title": "Tienda Solidaria: productos permitidos y prohibidos",
+      "purpose": "Lista cerrada de categorías de la tienda y productos excluidos por bienestar animal y sanidad.",
+      "required_contents": [
+        "Permitidos: merch, accesorios seguros, alimento comercial con registro SENASICA (bienestar-animal-25)",
+        "Prohibidos: animales vivos; medicamentos, vacunas y antiparasitarios sin registro; alimentos caseros; collares de descarga, ahorque o púas; aditamentos que pongan en riesgo al animal (bienestar-animal-25)",
+        "Prohibido vender 'gestión de RUAC' o trámites oficiales gratuitos (bienestar-animal-v01)",
+        "Prohibidas promociones que usen perros en adopción como gancho o animales como premio (bienestar-animal-06)",
+        "Revisión previa de cada producto y botón de reporte (bienestar-animal-25, 28)"
+      ],
+      "legal_basis": [
+        "LPBACDMX art. 25 frs. III, VI, XIV, XX",
+        "Ley Edomex art. 40 fr. VI",
+        "LFSA arts. 91, 92",
+        "NOM-012-SAG/ZOO-2020"
+      ]
+    },
+    {
+      "slug": "solicitudes-autoridad",
+      "title": "Solicitudes de autoridades",
+      "purpose": "Aportación de este dominio a la página compartida: cómo atiende GuauWoow requerimientos de PAOT, SSC, AGATAN, PROPAEM, fiscalías y PROFEPA, y el informe de transparencia.",
+      "required_contents": [
+        "Contacto publicado para autoridades (bienestar-animal-19)",
+        "Procedimiento: validar identidad y fundamento, registrar plazos y respuestas, preservar datos, responder con lo mínimo (bienestar-animal-19)",
+        "Base de monitoreo de plataformas por Salud y SSC a petición de la PAOT desde julio de 2026 (bienestar-animal-19)",
+        "Informe de transparencia semestral: reportes por venta o maltrato, retiros, suspensiones, denuncias presentadas, requerimientos recibidos (bienestar-animal-19)",
+        "Procedimiento documentado de reporte y acción con bitácora, como defensa de ausencia de dolo (bienestar-animal-28)"
+      ],
+      "legal_basis": [
+        "LPBACDMX arts. 10 fr. III Bis, 10 BIS fr. III Bis, 11 frs. I y VI",
+        "CP DF art. 22 fr. V",
+        "CCF art. 1910"
+      ]
+    },
+    {
+      "slug": "terminos",
+      "title": "Términos y condiciones (aportaciones de bienestar animal)",
+      "purpose": "Correcciones y cláusulas nuevas que este dominio pide en los Términos.",
+      "required_contents": [
+        "Corregir 16.1: art. 25 frs. V, VI y XXI (no 28 Bis); art. 25 Bis vigente desde 24-07-2026; añadir Ley Edomex art. 40; CP Edomex 235 Bis a 235 Quinquies; fechar el estado de la Ley General; nueva versión con aviso (bienestar-animal-02, 05, 07, 17)",
+        "Mantener 6.2 'Adoptar es gratis' y 4.2 'GuauWoow no es parte'; ajustar 6.2 según la postura del abogado sobre donativos sugeridos y rescatistas (bienestar-animal-10, 22, 28)",
+        "Cláusula de contenido de terceros importado (Facebook, WhatsApp) y su retiro (bienestar-animal-v04)",
+        "Cláusula de perros encontrados: periodo mínimo antes de adopción y verificación del tutor (bienestar-animal-15)",
+        "Tipo de cuenta rescatista independiente y casas de paso: prohibición de cobrar hospedaje (bienestar-animal-22, 23)",
+        "Prohibición de cobrar por RUAC o registro oficial (bienestar-animal-v01)",
+        "Contrato de adopción generado por la plataforma; GuauWoow no es parte (bienestar-animal-11)",
+        "Requisito 18+ para adoptar y firma de adulto (bienestar-animal-24)",
+        "Obligaciones de refugios verificados (Acuerdo de Refugio) (bienestar-animal-21)",
+        "Sin cobro ni destacado pagado de publicaciones de animales (bienestar-animal-28)"
+      ],
+      "legal_basis": [
+        "LPBACDMX arts. 25, 25 Bis, 28 Bis",
+        "Ley Edomex art. 40; Decreto 333 art. séptimo",
+        "CP Edomex arts. 235 Bis-235 Quinquies",
+        "CP DF art. 22 fr. V; CCF art. 1910"
+      ]
+    },
+    {
+      "slug": "privacidad",
+      "title": "Aviso de privacidad (aportaciones de bienestar animal)",
+      "purpose": "Datos que este dominio introduce y que el aviso de privacidad debe cubrir.",
+      "required_contents": [
+        "Autodeclaración del adoptante sobre sanciones por maltrato: finalidad, no consulta de registros oficiales, no conservación de resultados (bienestar-animal-20, v02)",
+        "Clave RUAC o microchip como dato privado aportado por el tutor con consentimiento, nunca público (bienestar-animal-14, v02)",
+        "Conservación de evidencia cifrada de contenido delictivo fuera del plazo ordinario de borrado, para la autoridad (bienestar-animal-17, v04)",
+        "Entrega de datos a autoridades conforme al procedimiento de requerimientos (bienestar-animal-19)",
+        "Datos de salud del perro y cartilla con datos personales ocultos (bienestar-animal-13)",
+        "Datos del seguimiento posterior a la adopción con consentimiento expreso (bienestar-animal-30)"
+      ],
+      "legal_basis": [
+        "LPBACDMX arts. 24 Ter, 4 fr. XXXIV Bis 1",
+        "Ley Edomex arts. 61, 63, 121",
+        "Coordinación con el dominio datos-personales (LFPDPPP 2025)"
+      ]
+    }
+  ],
+  "product_requirements": [
+    "bienestar-animal-04: sin campo de precio en publicaciones de perros ni en reportes; filtro de palabras de venta en publicaciones, chat, bot de WhatsApp e importación de Facebook con retención para revisión humana; declaración 'no vendo ni cobro' al publicar; retiro inmediato, evidencia, suspensión del reincidente",
+    "bienestar-animal-04 / v01: añadir a ContentReport.reason el motivo 'venta_animales' (prioridad alta, atención en 24 h o menos) y el subtipo 'cobro_registro_oficial'; añadir 'especie_no_permitida'",
+    "bienestar-animal-04: la importación de Facebook descarta publicaciones con oferta de venta",
+    "bienestar-animal-06: Puntos y ranking: ningún premio puede ser un animal; no premiar número de entregas sin seguimiento confirmado; ninguna campaña de Tienda o Donativos usa perros en adopción como gancho",
+    "bienestar-animal-10: el flujo de adopción (me gusta, cuestionario, aprobación, chat, contrato) no muestra montos ni botones de pago; el donativo voluntario vive solo en el módulo de Donativos, desligado de aprobación y entrega",
+    "bienestar-animal-11: al aprobar una adopción se genera un PDF de contrato / carta responsiva con sello de tiempo; ambas partes descargan copia; GuauWoow guarda la constancia",
+    "bienestar-animal-12: campo obligatorio sterilization_status en Dog (si / no / pendiente con fecha / contraindicado por MVZ); compromiso fechado en el contrato y recordatorio automático; estatus visible en la ficha",
+    "bienestar-animal-13: campos en Dog para antirrábica (fecha), otras vacunas, desparasitación, padecimientos y antecedentes de mordidas; visibles al adoptante antes de la aprobación; recordatorio anual; subida de cartilla con datos personales ocultos",
+    "bienestar-animal-14 / v02: campo opcional y privado de clave de registro oficial o microchip en Dog y en LostReport; nunca se muestra completo; lista de pendientes posterior a la adopción por estado",
+    "bienestar-animal-15: un reporte de 'encontrado' bloquea la publicación en adopción hasta un periodo mínimo (sugerido 15 a 30 días) con reporte activo y microchip revisado, salvo canalización por refugio verificado o autoridad; verificación del tutor antes de la entrega; mensaje de cierre por reencuentro",
+    "bienestar-animal-16: función 'Necesito reubicar a mi perro' (mismo flujo de adopción, gratuito); mensajes contra el abandono; sugerencia de refugios y casas de paso cercanas en publicaciones urgentes; moderación de amenazas de abandono",
+    "bienestar-animal-17 / v04: clasificador de contenido sensible antes de publicar contenido importado (Facebook) o recibido por el bot; revisión humana si marca; imágenes de animales heridos ocultas por defecto con aviso; ante crueldad o zoofilia: no publicar, copia cifrada con acceso restringido, bloqueo por hash, suspensión, denuncia, bitácora; retiro en 1 h o menos dentro del horario de moderación",
+    "bienestar-animal-18: botón 'Denunciar ante la autoridad' junto a 'Reportar'; directorio por estado verificado en sitios oficiales y revisado cada trimestre",
+    "bienestar-animal-19: procedimiento y registro de requerimientos de autoridad; contacto publicado; informe de transparencia semestral",
+    "bienestar-animal-20 / v02: autodeclaración en el cuestionario de adopción sobre sanciones o sentencias por maltrato; no consultar ni guardar resultados de registros oficiales",
+    "bienestar-animal-21: campos estructurados en Refuge (autorización, padrón, MVZ y cédula, capacidad, población, última verificación); insignias 'Documentos revisados' e 'Inscrito en padrón oficial'; Acuerdo de Refugio; reverificación anual",
+    "bienestar-animal-22: tipo de cuenta 'Rescatista independiente' (persona física, sin fines de lucro) con declaración de animales, lugar de resguardo y casas de paso",
+    "bienestar-animal-23: casas de paso solo vinculadas a refugio o rescatista; respeto de FosterHome.capacity; declaración de animales propios; prohibido cobrar hospedaje; acuerdo tipo; en NL: MVZ, certificado de salud, sin infectocontagiosos",
+    "bienestar-animal-24: 18+ para registrarse y adoptar; contrato firmado por adulto; cuestionario sin datos de menores",
+    "bienestar-animal-26: publicaciones y reportes limitados a perros; clasificador de especie o moderación rechaza otras especies",
+    "bienestar-animal-27: sin perfiles de criadores; sin anuncios de monta, cruzas, cachorros por encargo ni mutilación estética; camadas de particulares dirigidas a reubicación gratuita con esterilización",
+    "bienestar-animal-28: botón 'Reportar' en todo contenido (chat, tienda, perdidos); bitácora de cada decisión de moderación con plazos por tipo; capacitación de moderadores; sin cobro ni destacado pagado de publicaciones de animales",
+    "bienestar-animal-29: política de entrega en persona; prohibido pedir pago de envío; adopciones a otra ciudad o extranjero solo con refugios verificados",
+    "bienestar-animal-30: módulo de seguimiento posterior a la adopción con consentimiento expreso (calendario de fotos o visitas, recordatorios); minimización de datos en el cuestionario",
+    "bienestar-animal-02: modelo de datos preparado para esterilización, identificador y folio de registro oficial, ante la futura Ley General",
+    "bienestar-animal-v01: no ofrecer 'gestión de RUAC' de pago ni como beneficio de Puntos o tienda"
+  ],
+  "shop_requirements": [
+    "bienestar-animal-25: lista cerrada de categorías en Product (merch, accesorios seguros, alimento comercial con registro SENASICA); campo de número de registro SENASICA para alimentos, antiparasitarios y medicamentos, o exclusión de esas categorías; revisión previa de cada producto; botón de reporte",
+    "bienestar-animal-25: prohibidos animales vivos, medicamentos, vacunas y antiparasitarios sin registro, alimentos caseros para venta, collares de descarga, de ahorque o de púas y cualquier aditamento que ponga en riesgo la integridad del animal (LPBACDMX art. 25 fr. XIV)",
+    "bienestar-animal-06: ninguna campaña o promoción de la tienda usa animales como premio, rifa, sorteo o gancho ('adopta y gana'); no usar perros en adopción para vender productos (LPBACDMX art. 25 fr. III)",
+    "bienestar-animal-v01: no vender 'gestión de RUAC' ni ningún trámite oficial gratuito (LPBACDMX art. 25 fr. XX)",
+    "bienestar-animal-04 / 10: ningún producto ni cobro de la tienda puede ligarse a una adopción ni funcionar como cuota encubierta"
+  ],
+  "retention": [
+    {
+      "category": "Constancia del contrato / carta responsiva de adopción (PDF con sello de tiempo)",
+      "period": "Mientras el seguimiento esté activo y después por el plazo que fije el abogado conforme a la prescripción civil del estado; GuauWoow no es parte y solo conserva la constancia",
+      "basis": "bienestar-animal-11 (CCF arts. 2341-2344; LPBACDMX art. 32; Ley Edomex arts. 57 y 61: documentos de adopción como prueba de propiedad). Plazo por definir con el dominio de datos personales"
+    },
+    {
+      "category": "Evidencia de contenido retirado por crueldad, zoofilia, peleas o venta (copia cifrada, acceso restringido, hash)",
+      "period": "Fuera del plazo ordinario de borrado; hasta su entrega a la autoridad o el cierre del caso; plazo máximo por definir con privacidad y penalista",
+      "basis": "bienestar-animal-17, v04 (CP DF art. 350 Quinquies; CP Edomex arts. 235 Ter y 235 Quinquies); LPBACDMX art. 57 (la denuncia lleva pruebas)"
+    },
+    {
+      "category": "Bitácora de moderación y registro de requerimientos de autoridad",
+      "period": "Recomendado: mientras pueda exigirse responsabilidad a la plataforma; plazo por definir con abogado",
+      "basis": "bienestar-animal-19, 28 (defensa de ausencia de dolo: CP DF art. 22 fr. V; CCF art. 1910)"
+    },
+    {
+      "category": "Reportes de perro encontrado",
+      "period": "Activos al menos el periodo mínimo (sugerido 15 a 30 días) antes de permitir la publicación en adopción; validar con abogado",
+      "basis": "bienestar-animal-15 (CCF arts. 774, 775, 874; LPBACDMX arts. 32 y 32 Bis; Ley Edomex arts. 34 y 57; Ley NL art. 74; Ley Jalisco art. 11)"
+    },
+    {
+      "category": "Clave de registro oficial (RUAC, Registro NL) o microchip del perro",
+      "period": "Mientras exista la ficha del perro; dato privado aportado por el tutor con consentimiento; nunca público",
+      "basis": "bienestar-animal-14, v02 (LPBACDMX art. 4 fr. XXXIV Bis 1; Ley Edomex art. 63)"
+    },
+    {
+      "category": "Autodeclaración del adoptante sobre sanciones o sentencias por maltrato",
+      "period": "Con el expediente de la solicitud de adopción; GuauWoow no guarda resultados de consultas a registros oficiales",
+      "basis": "bienestar-animal-20, v02 (LPBACDMX art. 24 Ter; Ley Edomex art. 121 último párrafo); coordinar con datos personales"
+    },
+    {
+      "category": "Documentos de verificación de refugios y rescatistas (autorización, padrón, cédula del MVZ)",
+      "period": "Mientras la cuenta esté activa, con reverificación anual; después, el plazo que fije el dominio de datos personales",
+      "basis": "bienestar-animal-21, 22 (LPBACDMX arts. 13 Bis, 14; Reglamento DF arts. 18, 64, 65; Ley Edomex arts. 17-20)"
+    },
+    {
+      "category": "Datos de salud del perro y cartilla (con datos personales ocultos)",
+      "period": "Mientras exista la ficha del perro y, tras la adopción, mientras dure el seguimiento",
+      "basis": "bienestar-animal-12, 13 (NOM-011-SSA2-2011; LPBACDMX art. 4 BIS 1 frs. IV, V y VII)"
+    }
+  ],
+  "subprocessors": [
+    {
+      "name": "Alibaba Cloud DashScope (Qwen3-VL)",
+      "purpose": "Clasificación previa de contenido sensible (crueldad, zoofilia, animales heridos) y de especie en fotos antes de publicar, incluido el contenido importado de Facebook y recibido por el bot (bienestar-animal-26, v04)",
+      "data": "Fotos de animales y texto de publicaciones; evitar enviar datos personales",
+      "country": "Fuera de México (región por confirmar con el dominio de datos personales)",
+      "type": "Proveedor de IA (visión)"
+    },
+    {
+      "name": "Apify",
+      "purpose": "Ingestión de grupos públicos de Facebook de perros perdidos; el contenido no se publica en automático y se descartan ofertas de venta (bienestar-animal-04, v04)",
+      "data": "Fotos y texto de publicaciones públicas con nombres y teléfonos eliminados, enlace al original",
+      "country": "Por confirmar con el dominio de datos personales",
+      "type": "Proveedor de scraping"
+    },
+    {
+      "name": "Meta (WhatsApp Cloud API)",
+      "purpose": "Bot de reportes y reenvío; aplica el filtro de venta y el clasificador de contenido antes de publicar (bienestar-animal-04, 17, v04)",
+      "data": "Fotos, texto y número de teléfono del remitente",
+      "country": "Por confirmar con el dominio de datos personales",
+      "type": "Mensajería"
+    },
+    {
+      "name": "Mercado Pago",
+      "purpose": "Donativos a refugios verificados, únicamente fuera del flujo de adopción (bienestar-animal-10)",
+      "data": "Datos de pago del donante",
+      "country": "México",
+      "type": "Pasarela de pagos"
+    }
+  ],
+  "owner_data_needed": [
+    "Estados donde operará GuauWoow al lanzar y donde ya hay refugios o usuarios (solo están cubiertos CDMX, Edomex, Jalisco y NL)",
+    "Lista de refugios iniciales con situación legal: A.C., donataria autorizada o persona física; autorización de refugio o albergue; inscripción en padrón oficial; nombre y cédula del MVZ responsable",
+    "Si los refugios aliados cobran hoy cuotas de adopción y de cuánto; si se permitirá un 'donativo sugerido' y cómo se presentará",
+    "Si las cuentas de rescatista independiente podrán recibir donativos por la plataforma y con qué límites",
+    "Si habrá ferias o eventos presenciales de adopción (en Jalisco requieren permiso municipal) y en qué municipios",
+    "Si la plataforma admitirá otras especies además de perros",
+    "Si habrá adopciones a otras ciudades o al extranjero y quién se encargará del traslado",
+    "Qué productos venderá la Tienda Solidaria y si se excluirán las categorías que exigen registro SENASICA",
+    "Nombre y contacto de quien coordine la moderación y atienda requerimientos de autoridades; correo que se publicará para autoridades",
+    "Plazo mínimo antes de dar en adopción un perro reportado como encontrado (propuesta: 15 a 30 días)",
+    "Datos verificados en sitios oficiales de las autoridades de denuncia de cada estado (teléfonos, sitios, direcciones)",
+    "Abogado o abogada mexicana que revise el modelo de contrato o carta responsiva, el acuerdo de casa de paso y el Acuerdo de Refugio",
+    "Persona designada para la vigilancia normativa semanal (DOF y Gaceta) y trimestral (gacetas estatales) y dónde se llevará el historial de cambios",
+    "Horario de moderación que se publicará para el compromiso de retiro en 1 hora o menos",
+    "Si se mantendrán el sistema de Puntos y el ranking de refugios y con qué criterios",
+    "Valor de la UMA del año si los montos de sanciones se mostrarán también en pesos"
+  ],
+  "lawyer_points": [
+    "Naturaleza jurídica de la adopción y cuotas (conflicto entre dominios; bienestar-animal-10, 11): compraventa vs. donación onerosa (CCF 2248, 2332, 2336, 2337); si cuota obligatoria o 'donativo sugerido' convierte la publicación en oferta o comercialización (LPBACDMX 25 Bis; Ley Edomex 40 fr. V; NOM-148-SCFI-2018); trato fiscal (contador); adoptante como consumidor LFPC; políticas de WhatsApp y Meta sobre animales vivos",
+    "Alcance de 'difundir' en LPBACDMX art. 25 Bis para una plataforma que aloja anuncios de terceros; si una reubicación con reembolso de gastos es oferta de venta (bienestar-animal-04, 28)",
+    "Responsabilidad de GuauWoow como intermediario y como 'difusora' de contenido delictivo importado en automático (CP DF 22 fr. V y 350 Quinquies; CCF 1910; CP Edomex 235 Ter y 235 Quinquies); penalista y civilista (bienestar-animal-28, v04)",
+    "Contrato de adopción: naturaleza, forma (CCF 2341-2344 y equivalentes estatales), exigibilidad de reversión, devolución y seguimiento (CCF 2338), compatibilidad con Ley NL art. 3 fr. III, aceptación electrónica (NOM-151-SCFI-2016) (bienestar-animal-11, 16, 30)",
+    "Plazo mínimo antes de dar en adopción un perro encontrado (bienes mostrencos CCF 774, 775, 874 y códigos civiles estatales; plazos de resguardo estatales) (bienestar-animal-15)",
+    "Umbral para que una casa de paso o rescatista se considere refugio con autorización en CDMX (LPBACDMX 4 fr. XXXIV Bis, 65 fr. II c; Reglamento 64, 65) o supervisión de CEPANAF en Edomex (art. 20); consultar a AGATAN (bienestar-animal-21, 22, 23)",
+    "Consulta del Registro de Personas Maltratadoras de la CDMX (art. 24 Ter) y tratamiento de la autodeclaración sobre sanciones conforme a la LFPDPPP 2025 (bienestar-animal-20, v02)",
+    "Cotejo de Jalisco (compilación CNDH 2021; CP Jalisco 305-308) y Nuevo León (compilación legismex 2025; art. 128) con el Periódico Oficial (bienestar-animal-08, 09, 15, 23, v03)",
+    "Fracciones 'V Bis' y 'V Ter' del art. 25 de la LPBACDMX citadas en el art. 65 fr. IV que no aparecen en el texto compilado (bienestar-animal-v03)",
+    "Categorías de la tienda que exigen registro SENASICA (LFSA 91, 92; NOM-012-SAG/ZOO-2020) y si los refugios necesitan registro para venderlas (bienestar-animal-25)",
+    "Ley General: no publicar como hecho lo que solo dice la prensa; revisar el resultado de la comisión del 14-10-2026 y, al publicarse en el DOF, texto final, transitorios y armonización estatal (bienestar-animal-02, 12, 24)",
+    "Adopciones internacionales o a otra ciudad: requisitos de SENASICA y del país de destino (bienestar-animal-29)",
+    "Régimen de donativos de rescatistas independientes frente a Términos 6.2 (abogado y contador) (bienestar-animal-22)",
+    "Redacción final de Términos 16.1 corregido, cláusulas nuevas de Términos, Acuerdo de Refugio, acuerdo de casa de paso y carta responsiva (bienestar-animal-05, 11, 21, 23)",
+    "Política interna de denuncia por parte de GuauWoow y conservación de evidencia cifrada fuera del plazo ordinario de borrado, con datos personales y seguridad (bienestar-animal-17, v04)"
+  ],
+  "key_risks": [
+    "Que una cuota, 'donativo sugerido' o reembolso ligado a la adopción convierta a GuauWoow en plataforma que 'difunde' venta de perros sin registro (LPBACDMX 25 Bis: PAOT 150 a 3,000 UMA) o venta desde domicilios en el Edomex (arresto inconmutable 36 h), además de exponer el bot de WhatsApp a suspensión (bienestar-animal-04, 07, 10, 28)",
+    "Republicar en automático contenido de Facebook o WhatsApp con zoofilia, peleas o crueldad y quedar como difusora (CP DF 350 Quinquies; CP Edomex 235 Ter y 235 Quinquies con agravante por difusión) (bienestar-animal-17, v04)",
+    "Términos vigentes con citas incorrectas (art. 28 Bis) y desactualizadas (reforma CDMX 'aprobada' cuando ya está vigente; sin la ley del Edomex), que debilitan la posición de la plataforma ante usuarios y autoridades (bienestar-animal-05)",
+    "Promociones, rifas o Puntos que usen animales como premio o gancho (LPBACDMX 25 fr. III; Ley Jalisco 42) (bienestar-animal-06)",
+    "Presentar como 'verificados' a refugios sin autorización (CDMX 1,500 a 3,000 UMA por operar sin autorización) o afirmar que se verifica a adoptantes contra registros oficiales que son de uso exclusivo de autoridades (bienestar-animal-21, v02)",
+    "Entregar en adopción perros encontrados antes de que venzan los plazos de reclamo, con conflicto de propiedad con el tutor original (bienestar-animal-15)",
+    "Cobrar o permitir que refugios cobren por el RUAC, prohibido expresamente en la CDMX (bienestar-animal-v01)",
+    "Vender en la tienda productos para uso o consumo animal sin registro SENASICA o aditamentos que pongan en riesgo al animal (bienestar-animal-25)",
+    "Publicar información legal desactualizada: la Ley General puede publicarse en cualquier momento y cambiar los requisitos de adopción y venta digital en todo el país; Jalisco y NL se cotejaron solo en compilaciones; 28 estados no se revisaron (bienestar-animal-02, 08, 09, 31)",
+    "Directorio de denuncia con teléfonos tomados de prensa que no coinciden entre sí (bienestar-animal-18)"
+  ]
+}

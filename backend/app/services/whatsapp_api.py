@@ -1,13 +1,22 @@
-"""Cliente mínimo de WhatsApp Cloud API (Graph API de Meta)."""
+"""Cliente mínimo de WhatsApp Cloud API (Graph API de Meta).
+
+Meta solo permite mensajes de texto libre dentro de la ventana de atención de 24 h (desde el último
+mensaje que nos escribió la persona). Fuera de ella solo se pueden enviar plantillas aprobadas.
+"""
 import hashlib
 import hmac
 import logging
+import re
+import time
 
 import requests
 
 from app.config import settings
 
 logger = logging.getLogger(__name__)
+
+SERVICE_WINDOW_SECONDS = 24 * 60 * 60 - 10 * 60  # 10 min de margen contra la ventana real de Meta
+TEMPLATE_PARAM_MAX = 250
 
 
 def _graph(path: str) -> str:
@@ -18,14 +27,61 @@ def _auth_headers() -> dict:
     return {"Authorization": f"Bearer {settings.whatsapp_access_token}"}
 
 
+def webhook_available() -> bool:
+    """El webhook solo existe con WhatsApp configurado (en development también sin llaves, para el simulador)."""
+    return settings.whatsapp_enabled or settings.is_development
+
+
 def verify_signature(raw_body: bytes, header: str | None) -> bool:
-    """Valida X-Hub-Signature-256 (sha256=<hex>) con WHATSAPP_APP_SECRET. Sin secreto, acepta."""
+    """Valida X-Hub-Signature-256 (sha256=<hex>) con WHATSAPP_APP_SECRET.
+
+    En producción la firma es SIEMPRE obligatoria (sin secreto se rechaza todo). Fuera de producción,
+    sin secreto se acepta para poder probar localmente.
+    """
     if not settings.whatsapp_app_secret:
-        return True
+        return not settings.is_production
     if not header or not header.startswith("sha256="):
         return False
     expected = hmac.new(settings.whatsapp_app_secret.encode(), raw_body, hashlib.sha256).hexdigest()
     return hmac.compare_digest(expected, header.split("=", 1)[1])
+
+
+def _digits(phone: str | None) -> str:
+    return re.sub(r"\D", "", phone or "")
+
+
+def _window_key(phone: str | None) -> str | None:
+    digits = _digits(phone)
+    # Se comparan los últimos 10 dígitos: Meta manda 521XXXXXXXXXX y la app guarda +52XXXXXXXXXX
+    return f"wa:inbound:{digits[-10:]}" if len(digits) >= 10 else None
+
+
+def mark_inbound(phone: str | None) -> None:
+    """Registra que este número nos escribió (abre la ventana de 24 h). Requiere Redis."""
+    from app import cache
+
+    key = _window_key(phone)
+    r = cache._get_redis()
+    if not key or r is None:
+        return
+    try:
+        r.setex(key, SERVICE_WINDOW_SECONDS, int(time.time()))
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("No se pudo registrar la ventana de WhatsApp: %s", exc)
+
+
+def in_service_window(phone: str | None) -> bool:
+    """True si el número nos escribió en las últimas 24 h. Sin Redis se asume que no (se usa plantilla)."""
+    from app import cache
+
+    key = _window_key(phone)
+    r = cache._get_redis()
+    if not key or r is None:
+        return False
+    try:
+        return bool(r.exists(key))
+    except Exception:  # noqa: BLE001
+        return False
 
 
 def _post_message(payload: dict) -> bool:
@@ -49,7 +105,25 @@ def _post_message(payload: dict) -> bool:
 
 
 def send_text(to: str, body: str) -> bool:
+    """Texto libre: solo para respuestas dentro de la ventana de 24 h (ver in_service_window)."""
     return _post_message({"to": to, "type": "text", "text": {"preview_url": True, "body": body[:4096]}})
+
+
+def _template_param(value) -> str:
+    # Meta rechaza parámetros con saltos de línea, tabuladores o más de 4 espacios seguidos
+    text = " ".join(str(value if value is not None else "").split())
+    return text[:TEMPLATE_PARAM_MAX] or "-"
+
+
+def send_template(to: str, template_name: str, language: str = "es_MX", body_params: list | None = None) -> bool:
+    """Envía una plantilla aprobada por Meta ({{1}}, {{2}}… del cuerpo en body_params)."""
+    if not template_name:
+        return False
+    template = {"name": template_name, "language": {"code": language or settings.whatsapp_template_language}}
+    params = [_template_param(p) for p in (body_params or [])]
+    if params:
+        template["components"] = [{"type": "body", "parameters": [{"type": "text", "text": p} for p in params]}]
+    return _post_message({"to": _digits(to) or to, "type": "template", "template": template})
 
 
 def send_buttons(to: str, body: str, buttons: list[dict]) -> bool:
@@ -78,9 +152,10 @@ def download_media(media_id: str) -> bytes | None:
         url = meta.json().get("url")
         if not url:
             return None
-        resp = requests.get(url, headers=_auth_headers(), timeout=30)
-        resp.raise_for_status()
-        return resp.content
+        # Solo hosts permitidos (REMOTE_MEDIA_HOSTS: lookaside.fbsbx.com...), con tope de tamaño y sin IPs privadas
+        from app.services import images
+
+        return images.fetch_remote_media(url, headers=_auth_headers())
     except requests.RequestException as exc:
         logger.error("Error descargando media de WhatsApp %s: %s", media_id, exc)
         return None

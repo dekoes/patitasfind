@@ -1,0 +1,662 @@
+{
+ "domain": "gap-naturaleza-juridica-adopcion-y-cuotas",
+ "kind": "gap",
+ "generated_at": "2026-10-17",
+ "disclaimer": "No es asesoría legal. Esta sección cierra el hueco 'naturaleza-juridica-adopcion-y-cuotas' detectado por el crítico. Las citas a textos oficiales son de confianza alta; la calificación jurídica de los cobros ligados a la adopción (compraventa, donación onerosa o remuneratoria, enajenación gravada, 'venta' para las leyes locales) es interpretación de este análisis y debe confirmarla un abogado civilista y un contador antes de usarse en textos públicos. El hallazgo 08 (LFPC en adopciones gratuitas) tiene confianza baja y el 14 (Mercado Pago) es no verificable: ambos requieren confirmación expresa.",
+ "gap": {
+  "key": "naturaleza-juridica-adopcion-y-cuotas",
+  "focus": "Postura única sobre la adopción y las cuotas de recuperación o donativos ligados a adoptar: naturaleza civil (compraventa vs donación onerosa), venta por plataforma digital (CDMX 25 Bis, Edomex 40 fr. V), NOM-148-SCFI-2018, trato fiscal (CFF 14, LIVA 2o.-A y 8, LISR 27 y 151), LFPC, y políticas de WhatsApp y Meta sobre animales vivos.",
+  "why": "Contradicción entre bienestar-animal-10, fiscal-tienda-v02, donativos-v02, identidad-contratos-12 y comunicaciones-cookies-11. Una cuota mal tratada convertiría a GuauWoow en plataforma de venta de perros y expondría el bot de WhatsApp a suspensión.",
+  "resolution": "Regla de cuatro niveles: (1) adopción gratuita con cargas no pecuniarias = donación onerosa, permitida; (2) donativo voluntario solo en el módulo de Donativos, separado del flujo de adopción, permitido; (3) cualquier pago obligatorio o esperado ligado a la entrega (cuota de recuperación, reembolso, apartado, anticipo, donativo obligatorio o sugerido con monto) = precio = compraventa, prohibido en la plataforma; (4) venta e intercambio, prohibidos. El bot de WhatsApp no gestiona adopciones; la Página de Facebook publica solo adopciones gratuitas; la importación de grupos descarta ofertas de venta o cobro.",
+  "resolves_conflicts_with": [
+   "bienestar-animal-10",
+   "fiscal-tienda-v02",
+   "donativos-v02",
+   "donativos-08",
+   "identidad-contratos-12",
+   "comunicaciones-cookies-11",
+   "contenido-plataforma-23",
+   "buenas-practicas-14",
+   "bienestar-animal-04"
+  ]
+ },
+ "owner_decision_context": "El dueño decidió tienda en línea completa y quiere la plataforma 'bien blindada'. La decisión de fondo que este gap recomienda y da por sentada: ninguna cuota ni pago ligado a la entrega de un perro dentro de GuauWoow, ni cobrado por la plataforma ni cobrado por el refugio o rescatista; el donativo voluntario vive solo en el módulo de Donativos. Si el dueño quisiera permitir 'cuotas de recuperación' de refugios, tendría que aceptar los riesgos de los hallazgos 03, 04, 05, 06 y 10 y obtener dictamen de abogado por estado; esta sección no recomienda esa vía.",
+ "pages": [
+  {
+   "slug": "adopcion-responsable",
+   "title": "Política de adopción responsable",
+   "purpose": "Explicar al adoptante y al publicador qué es la adopción en GuauWoow, por qué es gratuita, qué compromisos implica, qué se puede y no se puede pedir, y cómo reportar cobros. Ruta prevista: /legal/adopcion-responsable (página que también alimentan bienestar-animal y buenas-practicas).",
+   "required_contents": [
+    "Definición: la adopción es una entrega gratuita de la propiedad y la responsabilidad del perro a cambio de compromisos de cuidado (donación con cargas); no es compraventa ni relación de consumo [gap-naturaleza-juridica-adopcion-y-cuotas-01, 02, 08]",
+    "Regla de cuatro niveles: permitido (gratuita con cargas), permitido con separación (donativo voluntario en el módulo de Donativos), prohibido en la plataforma (cualquier pago ligado a la entrega), prohibido (venta e intercambio) [01]",
+    "Lista 'Qué sí puede pedirte un refugio' y 'Qué no' [13]",
+    "Sección '¿Por qué no hay cuotas?': 25 Bis CDMX, 40 fr. V Edomex, IVA 16 %, NOM-148, LFPC, políticas de Meta y WhatsApp, en lenguaje llano y con fecha de corte [03, 04, 05, 06, 09, 10]",
+    "Qué hacer si te piden dinero: no pagar, reportar desde la ficha o el chat con el motivo 'cobro por adopción'; plazo de atención [12]",
+    "Donativo voluntario: cuándo y dónde se puede donar; leyenda 'no es requisito para adoptar ni precio del perro' [07]",
+    "Selector de estado con el texto legal aplicable (CDMX, Edomex, NL; otros estados pendientes) [03, 04]",
+    "Enlace al modelo de carta responsiva y a Cero venta [02]",
+    "Nota sobre la Ley General pendiente y fecha de última revisión [11]"
+   ],
+   "legal_basis": [
+    "CCF arts. 2248, 2332, 2334, 2336, 2337, 2341-2344",
+    "CC DF arts. 855 Bis, 2248, 2332, 2336, 2337",
+    "LPBACDMX arts. 4 fr. XII Bis 1, 25 Bis, 28 Bis, 65 fr. IV",
+    "Ley Edomex arts. 20, 40 frs. V y VI, 121",
+    "NOM-148-SCFI-2018 numerales 1, 2.1, 2.3, 2.5",
+    "LIVA arts. 2o.-A fr. I a), 8, 9 frs. IV y X",
+    "LISR arts. 27 fr. I, 80, 93 fr. XXIII c), 151 fr. III",
+    "LFPC art. 2 frs. I y II"
+   ]
+  },
+  {
+   "slug": "cero-venta",
+   "title": "Cero venta: adoptar no es comprar",
+   "purpose": "Página corta y directa sobre la prohibición de vender y de cobrar por entregar animales en GuauWoow, con los controles técnicos y las consecuencias. Complementa la página prevista por bienestar-animal-04.",
+   "required_contents": [
+    "Por qué un cobro ligado a la entrega es una venta (CCF 2248 y 2337) [01]",
+    "CDMX: solo quienes tienen Clave de Registro pueden publicar ventas de perros y gatos en plataformas digitales; GuauWoow no es ni será comercializadora; multas de 150 a 3,000 UMA [03]",
+    "Edomex: prohibido vender desde domicilios particulares; NL: adopción sin fines de lucro [04]",
+    "NOM-148: 'adopción' y 'acogimiento' son por definición sin compraventa; GuauWoow no registra contratos de adhesión por adopciones [05]",
+    "Controles técnicos: sin campo de precio, detector de cobros, casilla de declaración, motivos de reporte, sanciones a refugios verificados [12]",
+    "Importación de Facebook y Página de Facebook: qué se descarta y qué se publica [10]"
+   ],
+   "legal_basis": [
+    "LPBACDMX arts. 25 Bis, 28 Bis fr. I, 65 fr. IV",
+    "Ley Edomex art. 40 frs. V y VI, art. 121 frs. VI y IX",
+    "NOM-148-SCFI-2018 numerales 1, 2.1, 2.3, 2.5",
+    "CCF arts. 2248 y 2337"
+   ]
+  },
+  {
+   "slug": "donativos",
+   "title": "Política de donativos (sección 'Donar no es pagar por un perro')",
+   "purpose": "Añadir a la página del dominio donativos la explicación de la separación entre donativo voluntario, cuota de recuperación y precio, y el tratamiento de donativos a rescatistas personas físicas si se habilitan.",
+   "required_contents": [
+    "El donativo nunca es requisito ni precio; no se muestra en el flujo de adopción; la aprobación no depende de él [07, donativos-v02]",
+    "Un 'donativo sugerido' al adoptar es remuneratorio: no es deducible ni puede ampararse con CFDI de donativo [07]",
+    "Cuota de recuperación: solo donatarias autorizadas, hasta su costo, fuera de GuauWoow, con CFDI de ingreso sin Complemento Donatarias [06]",
+    "Rescatistas personas físicas (si se habilitan): recibo simple no deducible; exención de ISR hasta 3 UMA anuales ($128,383.92 en 2026) [07]",
+    "Mercado Pago: el concepto de pago nunca menciona un animal; confirmación de los Términos de MP México pendiente [14]"
+   ],
+   "legal_basis": [
+    "LISR arts. 27 fr. I, 80, 82-Quáter A fr. II, 93 fr. XXIII c), 151 fr. III",
+    "CCF art. 2336",
+    "RMF 2026 regla 3.10.1.25",
+    "FAQ SAT CFDI donatarias preguntas 7 y 8",
+    "CFF art. 29-A fr. V b)"
+   ]
+  },
+  {
+   "slug": "refugios",
+   "title": "Convenio y reglas para refugios, rescatistas y casas de paso (cláusula 'No cobro por adopción')",
+   "purpose": "Obligar contractualmente a los publicadores verificados a la regla de cuatro niveles y explicarles el marco legal y fiscal.",
+   "required_contents": [
+    "Declaración de no cobro por la entrega de animales dentro o fuera de la app, y de no sugerir donativos como parte de la adopción [01, 07, 13]",
+    "Conocimiento del 25 Bis CDMX, del 40 fr. V Edomex y del carácter no lucrativo en NL [03, 04]",
+    "Distinción donativo / cuota de recuperación (solo donatarias, fuera de GuauWoow, CFDI de ingreso) / venta prohibida [06, 07]",
+    "NOM-148: si el refugio comercializa animales en un local abierto al público, lo hace fuera de GuauWoow con contrato registrado en PROFECO [05]",
+    "Escala de sanciones y derecho de réplica; pérdida de verificación y de donativos por cobro confirmado [12]",
+    "Uso de la carta responsiva modelo con cláusula de gratuidad [02]"
+   ],
+   "legal_basis": [
+    "CCF arts. 2248, 2332, 2336, 2337",
+    "LPBACDMX art. 25 Bis",
+    "Ley Edomex art. 40 fr. V",
+    "NOM-148-SCFI-2018",
+    "LISR arts. 27 fr. I y 80",
+    "LIVA arts. 8 y 9 fr. X"
+   ]
+  },
+  {
+   "slug": "modelo-carta-responsiva",
+   "title": "Modelo de carta responsiva o contrato de adopción",
+   "purpose": "Modelo orientativo entre publicador y adoptante con cláusula de gratuidad, cargas de bienestar, donativo no pactado y condición resolutoria, con selector de estado.",
+   "required_contents": [
+    "Cláusula de naturaleza: transmisión gratuita; sin precio, cuota ni contraprestación; valor estimado para efectos de forma no mayor a $5,000 [02]",
+    "Cargas de bienestar como obligaciones de hacer y no hacer [01, 02]",
+    "Cláusula 'no existe donativo pactado' [07]",
+    "Condición resolutoria por maltrato, venta o abandono, sujeta a validación por estado; prohibición de recuperar al animal por mano propia [02, bienestar-animal-11]",
+    "Responsabilidad por daños desde la entrega (CCF 1929) [01]",
+    "Cita del art. 855 Bis CC DF para adopciones en la CDMX [02]",
+    "Leyenda: modelo orientativo; GuauWoow no es parte ni da asesoría legal [identidad-contratos-12]"
+   ],
+   "legal_basis": [
+    "CCF arts. 1929, 1949, 2332, 2336, 2338, 2341-2344",
+    "CC DF art. 855 Bis",
+    "Ley NL art. 3 fr. III"
+   ]
+  },
+  {
+   "slug": "whatsapp",
+   "title": "Canal de WhatsApp: qué hace y qué no hace el bot",
+   "purpose": "Documentar que el bot solo atiende perdidos y encontrados e información general, no gestiona adopciones ni pagos, conforme a la política de mensajería de WhatsApp.",
+   "required_contents": [
+    "El bot no lista perros en adopción, no recibe solicitudes, no conecta con refugios, no agenda entregas, no menciona cuotas ni donativos; 'Quiero adoptar' remite a la app [09]",
+    "No se usan Catálogos ni funciones de comercio de WhatsApp [09, 10]",
+    "Botón de voluntarios 'enviar a GuauWoow': solo reportes de perdidos o encontrados; se descartan textos con venta, precio o cuota [09, 12]",
+    "Canales alternativos si el número se restringe [09]",
+    "Cita de la sección 4 de la WhatsApp Business Messaging Policy con fecha de la versión [09]"
+   ],
+   "legal_basis": [
+    "WhatsApp Business Messaging Policy (23-09-2026) secciones 4 y 5",
+    "Meta Commerce Policies"
+   ]
+  },
+  {
+   "slug": "contenido-importado",
+   "title": "Contenido importado de grupos de Facebook y Página de Facebook",
+   "purpose": "Añadir las reglas de descarte de ofertas de venta o cobro y las reglas de publicación de adopciones en la Página.",
+   "required_contents": [
+    "Se descartan antes de guardar las publicaciones con precio, venta, cuota, apartado, anticipo o intercambio; conteo en transparencia [10, 12]",
+    "La Página publica adopciones solo gratuitas, con enlace, nunca como productos [10]",
+    "Nunca se republica en Facebook contenido importado [10]",
+    "Revisión semestral de las políticas de Meta con copia fechada [10]"
+   ],
+   "legal_basis": [
+    "Meta Commerce Policies ('Land, Animals, and Animal Products')",
+    "Meta Community Standards 'Restricted Goods and Services'",
+    "LPBACDMX art. 25 Bis"
+   ]
+  },
+  {
+   "slug": "terminos",
+   "title": "Términos y condiciones (secciones 6.2, 16.1 y 17)",
+   "purpose": "Reescribir la cláusula de adopción gratuita, eliminar el 'donativo sugerido', añadir el cobro por adopción a las conductas prohibidas y la escala de sanciones.",
+   "required_contents": [
+    "6.2 nueva redacción (hallazgo 13 D) [13]",
+    "17: 'cobrar cuotas de recuperación, reembolsos, apartados o donativos obligatorios por entregar un animal' como conducta prohibida; sanciones [12, 13]",
+    "Declaración: GuauWoow no es parte del contrato de adopción, ni vendedor ni intermediario comercial de animales; la adopción no es relación de consumo [08]",
+    "16.1 corregido conforme a bienestar-animal-05 y fechado [11]"
+   ],
+   "legal_basis": [
+    "CCF arts. 2248 y 2332",
+    "LPBACDMX art. 25 Bis",
+    "LFPC art. 2",
+    "WhatsApp Business Messaging Policy sección 4"
+   ]
+  }
+ ],
+ "terms_and_privacy_updates": [
+  "Términos 6.2: eliminar el 'donativo sugerido' al adoptar; nueva redacción con adopción gratuita, prohibición de cobrar o sugerir donativos y separación del módulo de Donativos [gap-naturaleza-juridica-adopcion-y-cuotas-07, 13]",
+  "Términos 17: añadir el cobro por adopción (cuota de recuperación, reembolso, apartado, anticipo, donativo obligatorio) a las conductas prohibidas, con escala de sanciones y pérdida de verificación [12, 13]",
+  "Términos: declaración de que GuauWoow no es parte del contrato de adopción, ni vendedor ni intermediario comercial de animales, y de que la adopción no es una relación de consumo [01, 08]",
+  "Términos 16.1: incluir el art. 25 Bis CDMX, el art. 40 fr. V Edomex y el estado 'no vigente' de la Ley General, con fecha [03, 04, 11]",
+  "Términos 13.3 / página WhatsApp: el bot no gestiona adopciones ni pagos [09]",
+  "Convenio de refugios y rescatistas: cláusula 'No cobro por adopción' y distinción donativo / cuota de recuperación / venta [01, 06, 07]",
+  "Aviso de privacidad: sin cambios de finalidades; el motivo de reporte 'cobro_por_adopcion' usa las finalidades de moderación ya declaradas (dominio datos-personales) [12]"
+ ],
+ "product_requirements": [
+  "Modelo de adopciones sin campos de monto; ningún botón ni mención de donativo en ficha, me gusta, cuestionario, aprobación, chat de adopción ni PDF del contrato; la aprobación no consulta donativos [01, 07]",
+  "Diccionario único de términos de venta y cobro aplicado a publicaciones, chat, bot e importación; retención para revisión humana en 24 horas o menos; nunca publicación automática [12]",
+  "Nuevo motivo de reporte 'cobro_por_adopcion' (además de 'venta_animales'), prioridad alta, disponible desde chat y ficha [12]",
+  "Casilla obligatoria al publicar un perro: 'No vendo ni cobro por este perro; la adopción es gratuita' [12]",
+  "Escala de sanciones para publicadores verificados con registro en la bitácora de administración y retiro de verificación y de donativos en el tercer caso o con cobro confirmado [12]",
+  "Carta responsiva PDF con cláusula de gratuidad, valor estimado no mayor a $5,000, cargas de bienestar, 'no existe donativo pactado', condición resolutoria y selector de estado; cita del art. 855 Bis para CDMX [02]",
+  "Bot de WhatsApp: 'Quiero adoptar' responde solo con texto informativo y enlace; sin listados, sin solicitudes, sin agenda de entregas, sin catálogo [09]",
+  "Botón de voluntarios 'enviar a GuauWoow': acepta solo reportes de perdidos o encontrados; descarta textos con venta, precio, cuota o intercambio [09, 12]",
+  "Publicación en la Página de Facebook (Graph API): plantilla 'Adopción gratuita' con enlace; prohibido publicar en Marketplace, Shops o catálogo [10]",
+  "Importación de Facebook (Apify): filtro de descarte previo al almacenamiento con motivo registrado; métrica en transparencia [10, 12]",
+  "Concepto de pago enviado a Mercado Pago sin referencia a animales ni adopciones [14]",
+  "Campo de esterilización y folio de registro oficial en el modelo de perros, preparado para la Ley General [11]",
+  "Informe de transparencia: contenidos retirados por venta y por cobro, refugios sancionados, publicaciones importadas descartadas, tiempo medio de atención [10, 12]",
+  "Vigilancia legislativa: revisión semanal de DOF y Gaceta; revisión semestral de las políticas de Meta y WhatsApp con copia fechada [10, 11]"
+ ],
+ "shop_requirements": [
+  "La tienda no admite animales vivos como productos ni 'cuotas', 'apartados' o 'reembolsos de adopción' como conceptos de venta; el catálogo se limita a productos permitidos (bienestar-animal-25) [01, 06]",
+  "Un refugio donataria que cobra cuotas de recuperación por servicios veterinarios lo hace fuera de GuauWoow, con CFDI de ingreso sin Complemento Donatarias; la tienda no se usa para disfrazar cobros de adopción [06, 07]",
+  "Ninguna 'compra solidaria' se liga a una adopción ni a su aprobación (donativos-08) [07]"
+ ],
+ "retention": [
+  {
+   "category": "Evidencia de contenido retirado por venta o por cobro por adopción (publicación, mensaje o texto importado, sello de tiempo, motivo, decisión, sanción al publicador)",
+   "period": "El plazo que fije el calendario consolidado de conservación para evidencias de moderación y sanciones (dominios contenido-plataforma y seguridad-incidentes); no se fija aquí un plazo propio",
+   "basis": "Términos (conductas prohibidas y sanciones); cooperación con PAOT (LPBACDMX art. 65 fr. IV) y PROPAEM o Comisión (Ley Edomex art. 121, último párrafo) [gap-naturaleza-juridica-adopcion-y-cuotas-12]"
+  },
+  {
+   "category": "Copias fechadas de la WhatsApp Business Messaging Policy, de las Commerce Policies y de las Normas comunitarias de Meta usadas para diseñar el bot y la Página",
+   "period": "Mientras el canal esté activo y 1 año después, para acreditar el cumplimiento ante Meta",
+   "basis": "Obligación contractual con Meta [09, 10]"
+  }
+ ],
+ "subprocessors": [
+  {
+   "name": "Meta Platforms (WhatsApp Cloud API y Facebook Pages Graph API)",
+   "purpose": "Mensajería del bot de perdidos y encontrados y publicación de adopciones gratuitas en la Página; sujeto a la WhatsApp Business Messaging Policy (sección 4: animales vivos) y a las Commerce Policies",
+   "data": "Número de WhatsApp y mensajes del usuario; texto y fotos de las publicaciones de la Página (sin datos de adoptantes)",
+   "country": "Estados Unidos (ver dominio datos-personales para transferencias)",
+   "type": "Proveedor de servicio con términos propios; no procesa adopciones ni pagos"
+  },
+  {
+   "name": "Mercado Pago (México)",
+   "purpose": "Cobro de donativos y de la tienda; no procesa ningún pago ligado a un animal o adopción",
+   "data": "Datos de pago del donante o comprador gestionados por MP (ver dominios donativos y fiscal-tienda)",
+   "country": "México",
+   "type": "Procesador de pagos; Términos y Condiciones de México pendientes de lectura [14]"
+  }
+ ],
+ "owner_data_needed": [
+  "Confirmación de la decisión: ninguna cuota ni pago ligado a la entrega de un perro dentro de GuauWoow (nivel 3 prohibido), incluidos reembolsos de esterilización y apartados",
+  "Si los refugios aliados cobran hoy cuotas y cuánto; cuáles aceptarían la regla y cuáles no (afecta el lanzamiento con 5,000 usuarios)",
+  "Si las cuentas de rescatista independiente podrán recibir donativos por la plataforma (afecta el hallazgo 07: recibo simple, tope de 3 UMA anuales)",
+  "Estados en los que operará al lanzar, para extender la tabla de cobros y venta por estado (hoy CDMX, Edomex y NL)",
+  "Copia fechada de los Términos y Condiciones de Mercado Pago México y de su anexo de actividades prohibidas, o confirmación escrita de MP (hallazgo 14)",
+  "Confirmación de que la Página de Facebook de GuauWoow no usa Shops, Marketplace ni catálogo de WhatsApp",
+  "Texto actual de Términos 6.2 y 17 y del Convenio de refugios para aplicar la nueva redacción (no se releyeron en esta sesión)",
+  "Nombre del responsable de vigilancia legislativa (DOF, Gaceta) y de la revisión semestral de políticas de Meta"
+ ],
+ "lawyer_points": [
+  "Abogado civilista: confirmar la calificación de la adopción con cargas no pecuniarias como donación onerosa (CCF 2332, 2336, 2337) y de cualquier pago obligatorio ligado a la entrega como precio de compraventa (CCF 2248), y revisar los códigos civiles de los estados donde opere la plataforma (hallazgo 01, confianza media)",
+  "Abogado civilista: exigibilidad de la condición resolutoria, de la devolución del perro y de las visitas de seguimiento frente al CCF 2338; forma escrita y umbral de $5,000 (CCF 2343-2344); efecto del nuevo art. 855 Bis del CC DF en donaciones de animales (hallazgo 02)",
+  "Abogado administrativo CDMX: si una ficha de adopción con cuota es 'ofrecer, promover, publicar o difundir la venta' para el art. 25 Bis y si 'difundir' alcanza a la plataforma; confirmar la existencia de las fracciones V Bis y V Ter del art. 25 que cita el art. 65 fr. IV (hallazgo 03)",
+  "Abogado Edomex y NL: si un reembolso de gastos es 'venta' desde domicilio particular (art. 40 fr. V) o 'lucro' (NL art. 3 fr. III); cotejar NL con el Periódico Oficial (hallazgo 04)",
+  "Abogado de consumo: si la LFPC y PROFECO alcanzan a adopciones gratuitas de refugios no lucrativos, y si un domicilio con horario de visitas es 'establecimiento abierto al público' para la NOM-148 (hallazgos 05 y 08; el 08 con confianza baja)",
+  "Contador: confirmar que la adopción gratuita no causa IVA (LIVA 8), que una cuota obligatoria es enajenación gravada al 16 % (LIVA 2o.-A fr. I a) sin exención salvo donataria (9 fr. X), y si la exención de bienes muebles usados (9 fr. IV) podría aplicar a una persona física; tratamiento en ISR de personas morales no donatarias (LISR 80 párrafo sexto) y de rescatistas personas físicas (LISR 93 fr. XXIII c) (hallazgos 06 y 07)",
+  "Contador o fiscalista: confirmar que un 'donativo sugerido' al adoptar es remuneratorio (CCF 2336) y no deducible (LISR 27 fr. I, 151 fr. III), y las consecuencias para una donataria que lo ampare con CFDI de donativo (hallazgo 07)",
+  "Abogado de tecnología o contacto con Meta: confirmar por escrito que el flujo de perdidos y encontrados y el enlace informativo de adopción del bot no son 'facilitating the exchange' de animales vivos (sección 4 de la WhatsApp Business Messaging Policy), y cotejar el texto vigente de las Normas comunitarias sobre refugios y rehoming (hallazgos 09 y 10)",
+  "Abogado: leer los Términos y Condiciones de Mercado Pago México y su anexo de actividades prohibidas (hallazgo 14, no verificable en esta sesión)",
+  "Abogado: revisar que la escala de sanciones a refugios verificados y el derecho de réplica sean proporcionales y consistentes con los Términos y con el Convenio (hallazgo 12)"
+ ],
+ "key_risks": [
+  "Una ficha de adopción con cuota publicada por un refugio sin Clave de Registro en la CDMX es, literalmente, publicar la venta de un perro en una plataforma digital: multa PAOT de 150 a 3,000 UMA ($17,596.50 a $351,930.00 en 2026) y exposición de GuauWoow como quien 'difunde' [03]",
+  "Un rescatista del Edomex que condiciona la entrega a un pago vende desde domicilio particular: arresto de 36 horas y multa de 25 a 30 UMA; la plataforma alojaría la oferta [04]",
+  "Si GuauWoow cobrara o mostrara cuotas, sería intermediaria de enajenaciones gravadas al 16 % con las obligaciones de plataforma (LIVA 18-J, CFF 30-B) y la presunción de ingresos del CFF 59 fr. III [06]",
+  "Un 'donativo sugerido' al adoptar vuelve remuneratorio el donativo: deja de ser deducible y una donataria que lo ampare con CFDI de donativo arriesga su autorización [07]",
+  "Gestionar adopciones por WhatsApp, con o sin cuota, puede calificarse como 'facilitating the exchange' de animales vivos y provocar la restricción del número del bot [09]",
+  "Republicar en la Página de Facebook contenido con oferta de venta o publicar perros como productos infringe las Commerce Policies y puede costar el acceso a los servicios de Meta [10]",
+  "Sin controles técnicos y sin sanciones a refugios verificados, la regla escrita no evita que los cobros se pacten por chat o en efectivo y la plataforma pierda la defensa de 'cero venta' [12]",
+  "Los Términos de Mercado Pago México no fueron leídos por ningún dominio; un concepto de pago que mencione animales podría activar sus restricciones [14]"
+ ],
+ "open_questions": [
+  "¿Existe jurisprudencia o criterio administrativo (PROFECO, SAT, PAOT) sobre 'cuotas de recuperación' en adopciones de animales? No se localizó ninguno.",
+  "¿'Difundir' en el art. 25 Bis de la LPBACDMX alcanza a la plataforma que aloja anuncios de terceros? (Pendiente también en bienestar-animal.)",
+  "¿La Ley General, cuando se publique, definirá 'adopción', regulará cuotas o impondrá obligaciones a plataformas digitales?",
+  "¿Qué dicen las leyes de bienestar animal y los códigos civiles de los demás estados sobre cobros por adopción y venta desde domicilios?",
+  "¿Meta considera el flujo de perdidos y encontrados del bot como 'facilitating the exchange' de animales vivos? ¿Las Normas comunitarias vigentes mantienen la excepción para 'rehoming shelters' y 'legitimate websites' tras la recomendación del Oversight Board?",
+  "¿Los Términos y Condiciones de Mercado Pago México restringen cobros relacionados con animales vivos no amenazados?",
+  "¿La exención de IVA para 'bienes muebles usados' (LIVA 9 fr. IV) podría aplicar a la entrega de un animal por una persona física sin actividad empresarial, o el SAT la rechazaría?"
+ ],
+ "finding_ids": [
+  "gap-naturaleza-juridica-adopcion-y-cuotas-01",
+  "gap-naturaleza-juridica-adopcion-y-cuotas-02",
+  "gap-naturaleza-juridica-adopcion-y-cuotas-03",
+  "gap-naturaleza-juridica-adopcion-y-cuotas-04",
+  "gap-naturaleza-juridica-adopcion-y-cuotas-05",
+  "gap-naturaleza-juridica-adopcion-y-cuotas-06",
+  "gap-naturaleza-juridica-adopcion-y-cuotas-07",
+  "gap-naturaleza-juridica-adopcion-y-cuotas-08",
+  "gap-naturaleza-juridica-adopcion-y-cuotas-09",
+  "gap-naturaleza-juridica-adopcion-y-cuotas-10",
+  "gap-naturaleza-juridica-adopcion-y-cuotas-11",
+  "gap-naturaleza-juridica-adopcion-y-cuotas-12",
+  "gap-naturaleza-juridica-adopcion-y-cuotas-13",
+  "gap-naturaleza-juridica-adopcion-y-cuotas-14"
+ ],
+ "findings": [
+  {
+   "id": "gap-naturaleza-juridica-adopcion-y-cuotas-01",
+   "topic": "Postura única: la adopción es una donación con cargas; cualquier pago obligatorio ligado a la entrega del perro es precio y convierte el acto en compraventa",
+   "requirement": "Hay compraventa cuando una parte se obliga a transferir la propiedad y la otra 'a pagar por ellos un precio cierto y en dinero' (CCF 2248). Hay donación cuando se transfiere 'gratuitamente' (2332); la donación puede ser onerosa, es decir, hecha 'imponiendo algunos gravámenes' (2334 y 2336), y en ese caso 'sólo se considera donado el exceso que hubiere en el precio de la cosa, deducidas de él las cargas' (2337). El Código Civil para el Distrito Federal (CDMX) tiene los mismos textos en los mismos artículos. Consecuencias para GuauWoow: (a) una adopción con cargas NO pecuniarias a favor del animal (esterilizar, vacunar, cuidar, no vender ni abandonar, aceptar seguimiento, devolverlo al publicador) es una donación onerosa; el adoptante adquiere la propiedad y la responsabilidad (CCF 1929); (b) una 'cuota de recuperación', 'cuota de adopción', 'reembolso obligatorio de esterilización o vacunas', 'apartado', 'anticipo' o 'donativo obligatorio o esperado' cobrado como condición de la entrega es un precio cierto en dinero: el acto es compraventa (o, si el pago es menor al valor del animal, un acto mixto cuya parte onerosa sigue siendo venta); (c) el nombre que el refugio dé al cobro no cambia la naturaleza del acto: los contratos se califican por su contenido real. Lo anterior es interpretación del texto legal; no se localizó jurisprudencia específica sobre cuotas de adopción.",
+   "legal_basis": "Código Civil Federal arts. 1929, 2248, 2332, 2334, 2336 y 2337 (texto vigente, última reforma DOF 14-11-2025). Código Civil para el Distrito Federal arts. 2248, 2332, 2336 y 2337 (texto vigente, última reforma G.O. CDMX 20-08-2026). La materia civil es local: cada estado tiene su código.",
+   "source_url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/CCF.pdf",
+   "quote": "CCF 2248: 'Habrá compra-venta cuando uno de los contratantes se obliga a transferir la propiedad de una cosa o de un derecho, y el otro a su vez se obliga a pagar por ellos un precio cierto y en dinero.' CCF 2337: 'Cuando la donación sea onerosa, sólo se considera donado el exceso que hubiere en el precio de la cosa, deducidas de él las cargas.'",
+   "platform_action": "Adoptar UNA sola regla de cuatro niveles y repetirla igual en la Política de adopción responsable, en Cero venta, en Términos (6.2 y 17), en la Política de donativos, en el Convenio de refugios y rescatistas, en el bot y en moderación:\nNivel 1 PERMITIDO: adopción gratuita con cargas no pecuniarias a favor del perro (esterilización, vacunas, cuidados, no vender, no abandonar, seguimiento, devolución).\nNivel 2 PERMITIDO CON SEPARACIÓN: donativo voluntario a refugios verificados, solo en el módulo de Donativos, nunca dentro del flujo de adopción (ficha, me gusta, cuestionario, aprobación, chat, contrato), nunca como condición, nunca con monto 'sugerido' en la ficha del perro.\nNivel 3 PROHIBIDO EN LA PLATAFORMA: cualquier pago obligatorio o 'esperado' ligado a la entrega (cuota de recuperación, cuota de adopción, reembolso de esterilización o vacunas, apartado, anticipo, 'gastos de envío' del animal, depósito reembolsable), aunque se pida fuera de la app o en efectivo. Un refugio que condiciona la entrega a un pago no puede tramitar esa adopción en GuauWoow; si reincide, pierde la verificación.\nNivel 4 PROHIBIDO: venta, intercambio o 'cambio por' cualquier bien o servicio.\nLa regla se publica con su fundamento y con la explicación de por qué un cobro convierte la adopción en venta (hallazgos 03, 04, 05, 06).",
+   "priority": "obligatorio",
+   "confidence": "media",
+   "applies_to": [
+    "adopciones",
+    "refugios",
+    "rescatistas",
+    "donativos",
+    "terminos",
+    "moderacion",
+    "bot_whatsapp",
+    "importacion_facebook"
+   ],
+   "pages": [
+    "/legal/adopcion-responsable",
+    "/legal/cero-venta",
+    "/legal/terminos",
+    "/legal/donativos",
+    "/legal/refugios"
+   ],
+   "notes": "Resuelve el conflicto entre bienestar-animal-10 (admitía la 'cuota de recuperación' como concepto), fiscal-tienda-v02 y donativos-v02 (la tratan como ingreso gravado que no debe presentarse como donativo) e identidad-contratos-12 (donación onerosa): las tres posturas son compatibles si la carga es no pecuniaria; dejan de serlo cuando hay dinero de por medio. Confianza media porque la calificación del acto es interpretación del CCF; un abogado civilista debe confirmarla y revisar los códigos civiles de los estados donde opere la plataforma.",
+   "verdict": "verificado",
+   "evidence": "CCF (diputados.gob.mx, última reforma DOF 14-11-2025): arts. 2248, 2332, 2334, 2336 y 2337 leídos textualmente en el PDF oficial; art. 1929 confirmado. Código Civil para el Distrito Federal (Consejería Jurídica CDMX, versión 15.4, última reforma G.O. 20-08-2026): arts. 2248, 2332, 2336 y 2337 con texto idéntico al federal. No se localizó tesis o jurisprudencia sobre 'cuota de recuperación' en adopciones de animales en esta sesión."
+  },
+  {
+   "id": "gap-naturaleza-juridica-adopcion-y-cuotas-02",
+   "topic": "Cargas lícitas, forma del contrato de adopción y nuevo estatus de los animales como seres sintientes en el Código Civil de la CDMX",
+   "requirement": "Las cargas lícitas de la donación onerosa son obligaciones de hacer o no hacer a favor del animal, no pagos al donante. Forma: la donación de muebles puede ser verbal solo hasta $200; de $200 a $5,000 debe constar por escrito; si excede de $5,000 'se reducirá a escritura pública' (CCF 2341 a 2344; mismos umbrales en el CC DF). Las donaciones 'no pueden revocarse sino en los casos declarados en la ley' (2338), por lo que una cláusula de 'reversión' o devolución del perro por incumplimiento debe construirse como condición resolutoria o pacto comisorio (1949) y validarse en cada estado. En la CDMX, desde el 29-10-2025 el art. 855 Bis del Código Civil reconoce a los animales como 'seres sintientes' y dispone que a los actos jurídicos que los involucren se aplican las reglas de los bienes muebles 'siempre que no se contravenga a su naturaleza como seres sintientes': esto refuerza que el contrato de adopción debe incluir deberes de bienestar y no tratar al perro como mercancía. En el Edomex la ley de 2026 también los reconoce como seres sintientes (art. 1); en Nuevo León la adopción es por definición un 'contrato celebrado, sin fines de lucro' (art. 3 fr. III).",
+   "legal_basis": "CCF arts. 1949, 2338, 2341, 2342, 2343 y 2344 (última reforma DOF 14-11-2025). Código Civil para el Distrito Federal art. 855 Bis (adicionado G.O. CDMX 28-10-2025, en vigor al día siguiente; transitorio segundo del decreto) y arts. 2343 y 2344. Ley de Protección, Cuidado y Bienestar Animal del Estado de México art. 1 (Gaceta del Gobierno 16-06-2026). Ley de Protección y Bienestar Animal para la Sustentabilidad del Estado de Nuevo León art. 3 fr. III (última reforma P.O. 27-06-2025, compilación legismex).",
+   "source_url": "https://data.consejeria.cdmx.gob.mx/images/leyes/2025/CODIGOS_2025/CODIGO_CIVIL_PARA_EL_DF_15.4.pdf",
+   "quote": "CC DF 855 Bis: 'Se reconoce a los animales como seres sintientes... Tratándose de los actos jurídicos que involucren a los animales, serán aplicables las reglas relativas a los bienes muebles o inmuebles, según corresponda, siempre que no se contravenga a su naturaleza como seres sintientes.' CCF 2344: 'Si el valor de los muebles excede de doscientos pesos, pero no de cinco mil, la donación debe hacerse por escrito. Si excede de cinco mil pesos, la donación se reducirá a escritura pública.'",
+   "platform_action": "Modelo de carta responsiva o contrato de adopción (complementa identidad-contratos-12 y bienestar-animal-11): (1) cláusula de naturaleza: 'transmisión gratuita de la propiedad y la responsabilidad del animal; no existe precio, cuota ni contraprestación; para efectos de forma las partes estiman el valor del animal en una cantidad no mayor a $5,000 M.N.'; (2) cargas listadas como obligaciones de bienestar (esterilizar en plazo, vacunas, identificación, no vender ni regalar ni abandonar, aviso de cambio de domicilio, seguimiento pactado, devolución al publicador si no puede cuidarlo); (3) cláusula de donativo: 'no existe donativo pactado; cualquier aportación posterior al refugio es voluntaria, independiente y no afecta esta adopción'; (4) condición resolutoria por maltrato, venta o abandono, con leyenda 'sujeta a validación conforme al código civil del estado'; (5) en CDMX, cita del art. 855 Bis; selector de estado para ajustar referencias; (6) firma autógrafa o aceptación electrónica con sello de tiempo y copia para ambas partes.",
+   "priority": "recomendado",
+   "confidence": "media",
+   "applies_to": [
+    "adopciones",
+    "refugios",
+    "rescatistas"
+   ],
+   "pages": [
+    "/legal/modelo-carta-responsiva",
+    "/legal/adopcion-responsable"
+   ],
+   "notes": "La exigibilidad de la condición resolutoria y de las visitas de seguimiento varía por estado y debe dictaminarla un abogado. El art. 855 Bis del CC DF es nuevo (octubre de 2025) y no hay criterios judiciales sobre su efecto en donaciones de animales. Nuevo León se verificó solo en la compilación legismex (confianza media), ver bienestar-animal-09.",
+   "verdict": "verificado",
+   "evidence": "CC DF (Consejería Jurídica, versión 15.4, última reforma G.O. 20-08-2026): art. 855 Bis con la nota 'Artículo adicionado G.O. CDMX 28/10/25' y transitorio segundo del decreto ('entrará en vigor el día siguiente al de su publicación'); arts. 2343 y 2344 literales, con nota de editor que remite al decreto de la UMA. CCF arts. 1949, 2338, 2341 a 2344 literales. Ley Edomex 2026 art. 1 ('Los animales... tienen reconocimiento jurídico como seres vivos sintientes'). NL art. 3 fr. III según la verificación previa de bienestar-animal-09."
+  },
+  {
+   "id": "gap-naturaleza-juridica-adopcion-y-cuotas-03",
+   "topic": "CDMX: una ficha de adopción con cuota obligatoria publicada en GuauWoow encaja en 'publicar o difundir la venta' de perros por plataformas digitales (art. 25 Bis)",
+   "requirement": "Desde el 24-07-2026, en la CDMX 'sólo podrán ofrecer, promover, publicar, o difundir la compra o venta de perros y gatos por medios electrónicos, redes sociales, plataformas digitales o cualquier tecnología de la información, las personas físicas o morales que cuenten con los registros y autorizaciones para comercializar' (art. 25 Bis), es decir, la Clave de Registro de la Agencia de Atención Animal, que exige entre otras cosas licencia de funcionamiento de establecimiento mercantil (art. 28 Bis fr. I inciso a). La PAOT multa de 150 a 3,000 UMA por violar el 25 Bis (art. 65 fr. IV, reformado 23-07-2026): con la UMA 2026 de $117.31 son $17,596.50 a $351,930.00. Si la 'cuota' es precio (hallazgo 01), un refugio o rescatista sin Clave de Registro que publica 'cuota de recuperación $X' está ofreciendo la venta de un perro en una plataforma digital, y GuauWoow queda expuesta como quien 'difunde'. La única 'cuota de recuperación' que la ley regula es la de los Centros de Atención Canina y Felina para la entrega voluntaria de animales (art. 15 inciso b; transitorio séptimo), no la de adopciones privadas. La ley define 'animal en adopción' como el que está 'en condiciones de ser entregado a otra persona para que esta asuma la responsabilidad de su cuidado' (art. 4 fr. XII Bis 1), sin mencionar pago, y a la 'persona rescatista independiente' como quien financia su labor 'principalmente con recursos propios o donaciones' (fr. XXXI Bis 3).",
+   "legal_basis": "Ley de Protección y Bienestar de los Animales de la Ciudad de México: art. 25 Bis (adicionado G.O. CDMX 23-07-2026, en vigor el 24-07-2026); art. 28 Bis fr. I; art. 65 fr. IV (reformado G.O. 23-07-2026); art. 15 inciso b) y transitorio séptimo; art. 4 frs. XII Bis 1 y XXXI Bis 3. UMA 2026: $117.31 diarios (INEGI, DOF 09-01-2026).",
+   "source_url": "https://data.consejeria.cdmx.gob.mx/images/leyes/2025/2026/190126/LEY_DE_PROTECCION_Y_BIENESTAR_DE_LOS_ANIMALES_DE_LA_CDMX_1.2.pdf",
+   "quote": "Art. 25 Bis: 'Sólo podrán ofrecer, promover, publicar, o difundir la compra o venta de perros y gatos por medios electrónicos, redes sociales, plataformas digitales o cualquier tecnología de la información, las personas físicas o morales que cuenten con los registros y autorizaciones para comercializar; sin perjuicio del cumplimiento de las obligaciones previstas en el artículo 28 bis del presente ordenamiento.'",
+   "platform_action": "(1) Aplicar el nivel 3 de la regla (hallazgo 01) como control técnico y no solo como texto: ninguna publicación de perro admite monto, 'cuota', 'recuperación', 'apartado' ni 'anticipo'; el detector de cobros retiene el contenido (hallazgo 12). (2) GuauWoow declara en Cero venta y en Términos que no es ni será comercializadora con Clave de Registro y que no aloja ofertas de venta de perros ni gatos; cualquier anuncio así se retira y se reporta a la PAOT cuando corresponda. (3) En el Convenio de refugios y rescatistas, cláusula de no cobro con cita del 25 Bis y del 65 fr. IV. (4) Importación de Facebook: descartar publicaciones con precio o cuota antes de guardarlas, con registro del motivo. (5) Página de Marco legal: explicar que la 'cuota de recuperación' legal es solo la de los centros públicos.",
+   "priority": "obligatorio",
+   "confidence": "media",
+   "applies_to": [
+    "publicaciones_perros",
+    "adopciones",
+    "refugios",
+    "rescatistas",
+    "moderacion",
+    "importacion_facebook"
+   ],
+   "pages": [
+    "/legal/cero-venta",
+    "/legal/adopcion-responsable",
+    "/legal/refugios",
+    "/legal/marco-legal-bienestar-animal",
+    "/legal/terminos"
+   ],
+   "notes": "Texto legal de confianza alta; que una cuota obligatoria sea 'venta' para el 25 Bis y que 'difundir' alcance a la plataforma son interpretaciones (ver preguntas abiertas de bienestar-animal). Un abogado debe confirmar antes de publicar la explicación. Las multas en pesos cambian cada febrero con la UMA.",
+   "verdict": "verificado",
+   "evidence": "LPBACDMX (Consejería Jurídica, última reforma G.O. 23-07-2026): art. 25 Bis literal con la nota 'Artículo adicionado G.O. CDMX 23/07/26'; art. 28 Bis fr. I (Clave de Registro; inciso a: licencia de funcionamiento); art. 65 fr. IV ('multa de 150 a 3000 veces la Unidad de Medida y Actualización vigente por violaciones a lo dispuesto en los artículos 25, fracciones V Bis, V Ter, 25 Bis...', párrafo reformado 23/07/26); art. 15 inciso b) ('El pago de una cuota de recuperación, que será aplicada para mejorar las condiciones del Centro...') y transitorio séptimo; art. 4 frs. XII Bis 1 y XXXI Bis 3 literales. UMA 2026 $117.31 confirmada en el documento del INEGI usado por el dominio donativos; cálculo propio de los montos."
+  },
+  {
+   "id": "gap-naturaleza-juridica-adopcion-y-cuotas-04",
+   "topic": "Estado de México y Nuevo León: vender desde domicilio particular está prohibido y la adopción es sin fines de lucro",
+   "requirement": "La Ley de Protección, Cuidado y Bienestar Animal del Estado de México (vigente desde el 17-06-2026) prohíbe 'vender seres sintientes en la vía pública, en domicilios particulares o cualquier otro espacio no autorizado para ello' (art. 40 fr. V) y venderlos en establecimientos 'cuyo giro comercial autorizado sea diferente al de comercialización de animales' (fr. VI). Violar la fr. V se sanciona con arresto inconmutable de 36 horas y multa de 25 a 30 UMA (art. 121 fr. IX: $2,932.75 a $3,519.30 con la UMA 2026); la fr. VI con multa de 100 a 150 UMA (art. 121 fr. VI). La Comisión estatal supervisa los establecimientos de personas físicas que 'por cuenta propia provean respecto al rescate, cuidado, atención médica y adopción' (art. 20). Una rescatista o un refugio domiciliario del Edomex que condiciona la entrega a un pago vende desde un domicilio particular. En Nuevo León la adopción se define como 'contrato celebrado, sin fines de lucro' (art. 3 fr. III), lo que excluye el lucro pero no define si un reembolso de gastos lo es.",
+   "legal_basis": "Ley de Protección, Cuidado y Bienestar Animal del Estado de México (Decreto 333, Gaceta del Gobierno 16-06-2026, sin reforma): arts. 20, 40 frs. V y VI, 121 frs. VI y IX. Ley de Protección y Bienestar Animal para la Sustentabilidad del Estado de Nuevo León art. 3 fr. III (última reforma P.O. 27-06-2025, compilación legismex).",
+   "source_url": "https://legislacion.edomex.gob.mx/sites/legislacion.edomex.gob.mx/files/files/pdf/ley/vig/leyvig295.pdf",
+   "quote": "Edomex art. 40: 'Quedan prohibidas en el Estado de México... V. Vender seres sintientes en la vía pública, en domicilios particulares o cualquier otro espacio no autorizado para ello'. NL art. 3 fr. III: 'Adopción. Contrato celebrado, sin fines de lucro, entre un adoptante y una organización de carácter civil, oficial o privado, mediante el cual el adoptante adquiere la calidad de propietario de un animal de compañía'.",
+   "platform_action": "(1) Convenio de refugios, rescatistas y casas de paso: declaración de que no cobran por la entrega de animales y de que conocen la prohibición de venta desde domicilios particulares (Edomex) y el carácter no lucrativo de la adopción (NL). (2) Política de adopción responsable con selector de estado: en Edomex y NL, mostrar el texto legal correspondiente. (3) Motivo de reporte 'cobro por adopción' disponible para adoptantes, con revisión en 24 horas. (4) Marco legal: tabla por estado con la regla sobre cobros y venta; para los demás estados, leyenda 'pendiente de revisión' hasta que se investiguen.",
+   "priority": "obligatorio",
+   "confidence": "media",
+   "applies_to": [
+    "refugios",
+    "rescatistas",
+    "casas_de_paso",
+    "adopciones",
+    "moderacion"
+   ],
+   "pages": [
+    "/legal/refugios",
+    "/legal/adopcion-responsable",
+    "/legal/marco-legal-bienestar-animal"
+   ],
+   "notes": "Edomex verificado en el PDF oficial de Legistel. Nuevo León solo en la compilación legismex (confianza media; cotejar con el Periódico Oficial). Que un 'reembolso de gastos' sea 'venta' o 'lucro' es interpretación que debe confirmar un abogado; la regla de la plataforma lo prohíbe de todos modos para no depender de esa interpretación.",
+   "verdict": "verificado",
+   "evidence": "Ley Edomex (legislacion.edomex.gob.mx, leyvig295.pdf, 'Publicada en el Periódico Oficial Gaceta del Gobierno el 16 de junio de 2026. Sin reforma.'): art. 40 frs. V y VI literales; art. 121 fr. IX ('Arresto inconmutable de treinta y seis horas y multa de veinticinco a treinta veces el valor diario de la UMA... 40 fracciones I, IV, V, VIII y XIII') y fr. VI ('cien a ciento cincuenta veces... 40 fracciones III, VI, VII, IX, XII y XIV'); art. 20 literal. NL art. 3 fr. III tomado de la verificación de bienestar-animal-09 (legismex)."
+  },
+  {
+   "id": "gap-naturaleza-juridica-adopcion-y-cuotas-05",
+   "topic": "NOM-148-SCFI-2018: solo alcanza a proveedores con establecimiento abierto al público que cobran un precio; la adopción y el acogimiento son, por definición, sin compraventa",
+   "requirement": "La NOM-148-SCFI-2018 (DOF 28-03-2019; en vigor desde el 27-05-2019 por su transitorio primero, 60 días naturales; revisión sistemática del 07-06-2024 con resultado 'Confirmación') es obligatoria para los proveedores de comercialización de animales de compañía y los prestadores de servicios de cuidado, adiestramiento y entrenamiento 'que cuenten con establecimientos abiertos al público' (numeral 1), y no aplica a servicios veterinarios ni a mercados públicos. Define 'Comercialización de animales de compañía' como las prácticas del proveedor para transmitir el dominio 'a cambio de un precio determinado que paga el Consumidor' (2.5); 'Acogimiento' como la admisión voluntaria en el hogar 'sin que exista de por medio una condición de compra-venta' (2.1) y 'Adopción' como 'todo acto que implica acoger a un animal' (2.3). Quien comercializa debe usar un contrato de adhesión registrado en PROFECO (4.1 y 4.1.1), en español, con precio en moneda nacional (4.1.3), datos de vacunas y desparasitación (4.2.7), factura o comprobante (4.2.9) y penas convencionales (4.2.10); si ofrece acogimiento en su punto de venta debe informarlo de modo visible (3.5). Resultado: (a) adopción gratuita: fuera de la NOM; (b) refugio con local abierto al público que cobra un precio: comercializa y debe cumplir la NOM y registrar su contrato; (c) refugio o rescatista sin local que cobra: fuera de la NOM pero dentro de la LFPC (hallazgo 08) y de las prohibiciones locales (03 y 04).",
+   "legal_basis": "NOM-148-SCFI-2018, Prácticas comerciales-Comercialización de animales de compañía y prestación de servicios para su cuidado, adiestramiento y entrenamiento (DOF 28-03-2019): numerales 1, 2.1, 2.3, 2.5, 3.5, 4.1, 4.1.1, 4.1.3, 4.2.7, 4.2.9 y 4.2.10; transitorio primero. LFPC art. 86 (registro de contratos de adhesión).",
+   "source_url": "https://www.dof.gob.mx/nota_detalle.php?codigo=5555453&fecha=28/03/2019",
+   "quote": "Numeral 1: '...de observancia general y obligatoria dentro del Territorio Nacional, para los Proveedores dedicados a la Comercialización de animales de compañía y los Prestadores de Servicios de cuidado, adiestramiento y entrenamiento para los mismos, que cuenten con establecimientos abiertos al público.' 2.1: 'Acogimiento: Todo acto que implique la admisión voluntaria en el hogar de un animal sin que exista de por medio una condición de compra-venta.' 2.5: '...a cambio de un precio determinado que paga el Consumidor.'",
+   "platform_action": "(1) Cero venta y Convenio de refugios: explicar que, para la NOM-148, 'adopción' y 'acogimiento' son por definición actos sin compraventa, y que GuauWoow no registra ningún contrato de adhesión por adopciones porque no hay comercialización. (2) Si un refugio con tienda física vende animales (fuera de GuauWoow), lo hace bajo su propio contrato registrado en PROFECO; la plataforma no publica esas ofertas. (3) El modelo de carta responsiva no es un contrato de adhesión de GuauWoow: es un modelo orientativo entre publicador y adoptante (identidad-contratos-12). (4) En Marco legal, enlazar la ficha de PLATIICA y el DOF.",
+   "priority": "recomendado",
+   "confidence": "alta",
+   "applies_to": [
+    "adopciones",
+    "refugios",
+    "terminos"
+   ],
+   "pages": [
+    "/legal/cero-venta",
+    "/legal/refugios",
+    "/legal/marco-legal-bienestar-animal"
+   ],
+   "notes": "El texto y la vigencia son de confianza alta. Que un refugio sea 'proveedor' cuando cobra y si un domicilio con horario de visitas es 'establecimiento abierto al público' son interpretaciones; como la plataforma prohíbe cobrar, la NOM se cita solo para explicar la regla. Bienestar-animal-10 citó el DOF con el código 5555826 (ficha PLATIICA); el texto consultado aquí se imprimió desde el código 5555453; ambos corresponden al DOF del 28-03-2019.",
+   "verdict": "verificado",
+   "evidence": "Texto de la NOM descargado del DOF (nota_detalle codigo=5555453, 28-03-2019) y leído completo: numerales 1, 2.1, 2.3, 2.5, 3.5, 4.1 a 4.3 y transitorios primero y segundo literales. PLATIICA (consultado 17-10-2026): 'Vigente', publicación 28-03-2019, entrada en vigor 27-05-2019, revisión sistemática 07-06-2024 'Confirmación'."
+  },
+  {
+   "id": "gap-naturaleza-juridica-adopcion-y-cuotas-06",
+   "topic": "Fiscal: la adopción gratuita no causa IVA; una cuota obligatoria es precio de una enajenación gravada al 16 % y la plataforma no debe cobrarla, facturarla ni sugerirla",
+   "requirement": "Para el CFF, enajenación es 'toda transmisión de propiedad' (art. 14 fr. I), lo que incluye la donación; pero la LIVA excluye expresamente la donación: 'No se considerará enajenación, la transmisión de propiedad que se realice por causa de muerte, así como la donación, salvo que ésta la realicen empresas para las cuales el donativo no sea deducible' (art. 8, segundo párrafo). Por eso la adopción gratuita (donación con cargas no pecuniarias) no causa IVA ni exige CFDI de venta. En cambio, una cuota obligatoria es el precio de una enajenación gravada (LIVA 1 fr. I) a la tasa general del 16 %, porque la tasa 0 % para animales excluye 'el hule, perros, gatos y pequeñas especies, utilizadas como mascotas en el hogar' (2o.-A fr. I inciso a) y el art. 9 no exime a los animales. Exenciones posibles: la enajenación hecha por una donataria autorizada (9 fr. X; FAQ SAT 8: tipo factor 'E') y, discutible, la de 'bienes muebles usados, a excepción de los enajenados por empresas' (9 fr. IV; CFF 16 define empresa) si quien entrega es una persona física sin actividad empresarial. ISR: una persona moral del Título III que no es donataria y enajena bienes a personas distintas de sus miembros paga ISR por esa utilidad cuando esos ingresos exceden el 5 % de sus ingresos totales (LISR 80, párrafo sexto); una donataria puede cobrar 'cuotas de recuperación' por bienes o servicios directamente relacionados con su objeto, hasta su costo (RMF 2026 regla 3.10.1.25), que no cuentan como actividad distinta (LISR 80 penúltimo párrafo) y se facturan como ingreso 'sin Complemento de Donataria' (FAQ SAT 7; CFF 29-A fr. V inciso b); una persona física que cobra obtiene ingresos por enajenación de bienes o, si es habitual, por actividad empresarial. Si GuauWoow cobrara la cuota, sería cobro por cuenta de terceros con las obligaciones de intermediación de LIVA 18-J y CFF 30-B (fiscal-tienda) y con la presunción de ingresos propios del CFF 59 fr. III (donativos).",
+   "legal_basis": "CFF arts. 14 fr. I, 16 y 29-A fr. V inciso b) (última reforma DOF 09-04-2026). LIVA arts. 1 fr. I, 2o.-A fr. I inciso a), 8 segundo párrafo, 9 frs. IV y X (última reforma DOF 12-11-2021). LISR arts. 80 párrafos sexto y penúltimo (última reforma DOF 01-04-2024). RMF 2026 regla 3.10.1.25 (DOF 28-12-2025). SAT, Preguntas frecuentes CFDI donatarias, preguntas 7 y 8.",
+   "source_url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LIVA.pdf",
+   "quote": "LIVA 8, segundo párrafo: 'No se considerará enajenación, la transmisión de propiedad que se realice por causa de muerte, así como la donación, salvo que ésta la realicen empresas para las cuales el donativo no sea deducible para los fines del impuesto sobre la renta.' LIVA 2o.-A fr. I a): 'Animales y vegetales que no estén industrializados, salvo el hule, perros, gatos y pequeñas especies, utilizadas como mascotas en el hogar.' FAQ SAT 7: 'deberás emitir el CFDI correspondiente por concepto de ingreso, mismo que no debe contener el Complemento de Donataria por no tratarse de un donativo'.",
+   "platform_action": "(1) GuauWoow no cobra, no factura, no muestra ni 'sugiere' ninguna cuota ligada a un animal; en el módulo de Donativos solo entran donativos (hallazgo 07). (2) En el panel de administración no existe el concepto 'cuota de adopción'; el modelo de datos de adopciones no tiene campos de monto. (3) Convenio de refugios: si una donataria cobra cuotas de recuperación por servicios veterinarios, lo hace fuera de GuauWoow, con CFDI de ingreso sin Complemento Donatarias y nunca como condición de la adopción. (4) Política de adopción responsable, sección '¿Por qué no hay cuotas?': explicar en lenguaje llano que un cobro convierte la adopción en venta con IVA y en comercialización regulada. (5) Contador: confirmar la calificación fiscal descrita y revisar el tratamiento de rescatistas personas físicas (hallazgo 07).",
+   "priority": "obligatorio",
+   "confidence": "media",
+   "applies_to": [
+    "admin/fiscal",
+    "backend/pagos",
+    "donativos",
+    "refugios",
+    "terminos"
+   ],
+   "pages": [
+    "/legal/adopcion-responsable",
+    "/legal/donativos",
+    "/legal/refugios",
+    "/legal/cero-venta"
+   ],
+   "notes": "Los textos legales son de confianza alta; la calificación fiscal de cada cobro (precio, cuota de recuperación, donativo) depende de los hechos y debe confirmarla un contador. La exención de 'bienes muebles usados' aplicada a un animal no tiene criterio del SAT localizado: tratarla como duda abierta, no como regla. La LISR podría reformarse (el dominio donativos reporta un dictamen de Diputados del 14-10-2026 no publicado en el DOF).",
+   "verdict": "verificado",
+   "evidence": "CFF (diputados.gob.mx, última reforma DOF 09-04-2026): art. 14 fr. I literal; art. 16 ('Se considera empresa la persona física o moral que realice las actividades a que se refiere este artículo'). LIVA (última reforma DOF 12-11-2021): art. 1 fr. I; art. 2o.-A fr. I a) ('Párrafo reformado DOF 11-12-2013'); art. 8 segundo párrafo ('Párrafo reformado DOF 26-12-1990, 21-11-1991'); art. 9 fr. IV y fr. X ('Fracción adicionada DOF 09-12-2019'). LISR (última reforma DOF 01-04-2024): art. 80 párrafo sexto ('siempre que dichos ingresos excedan del 5% de los ingresos totales') y penúltimo ('cuotas de recuperación'). RMF 2026 regla 3.10.1.25 literal. FAQ SAT CFDI donatarias (PDF del minisitio): pregunta 7 literal con fundamento 'Artículo 29-A, fracción V, inciso b) del CFF' y pregunta 8 (tipo factor E)."
+  },
+  {
+   "id": "gap-naturaleza-juridica-adopcion-y-cuotas-07",
+   "topic": "Donativo voluntario: solo es donativo si no es condición ni retribución por la entrega; un 'donativo sugerido' al adoptar es remuneratorio y deja de serlo",
+   "requirement": "La LISR solo admite como deducibles los 'donativos no onerosos ni remunerativos' (arts. 27 fr. I y 151 fr. III). El CCF llama remuneratoria a la donación 'que se hace en atención a servicios recibidos por el donante y que éste no tenga obligación de pagar' (2336): un 'donativo sugerido' que se pide o se espera porque el refugio entregó al perro es remuneratorio u oneroso, no es deducible, no puede ampararse con CFDI de donativo (ver donativos-v02 y LISR 82-Quáter apartado A fr. II) y, si es condición de la entrega, es precio (hallazgo 01). Rescatistas personas físicas: los donativos que reciben están exentos de ISR hasta tres veces la UMA anual ($128,383.92 en 2026, con la UMA anual de $42,794.64; LISR 93 fr. XXIII inciso c), cuyo 'salario mínimo' se lee como UMA por el transitorio tercero del Decreto DOF 27-01-2016); por el excedente pagan ISR. La LFPIORPI (art. 17 fr. XIII) solo cubre donativos a asociaciones sin fines de lucro (ver dominio donativos).",
+   "legal_basis": "LISR arts. 27 fr. I, 93 fr. XXIII inciso c) y 151 fr. III (última reforma DOF 01-04-2024); LISR art. 82-Quáter apartado A fr. II (según donativos-v02). CCF art. 2336. CPEUM, transitorio tercero del Decreto DOF 27-01-2016 (desindexación del salario mínimo). UMA 2026 (INEGI): $117.31 diario, $42,794.64 anual.",
+   "source_url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LISR.pdf",
+   "quote": "LISR 27 fr. I: '...salvo que se trate de donativos no onerosos ni remunerativos...'. LISR 93 fr. XXIII c): 'Los demás donativos, siempre que el valor total de los recibidos en un año de calendario no exceda de tres veces el salario mínimo general del área geográfica del contribuyente elevado al año. Por el excedente se pagará impuesto en los términos de este Título.' CCF 2336: '...remuneratoria la que se hace en atención a servicios recibidos por el donante y que éste no tenga obligación de pagar.'",
+   "platform_action": "(1) Ningún botón, monto ni mención de donativo en la ficha de adopción, en el cuestionario, en la aprobación, en el chat de adopción ni en el PDF del contrato; la aprobación no lee si hubo donativo (donativos-v02). (2) Donar es posible en cualquier momento desde el perfil del refugio verificado, con la leyenda 'Donativo voluntario. No es requisito para adoptar ni precio del perro'. (3) Eliminar de Términos 6.2 la posibilidad de que el refugio 'sugiera' un donativo al adoptar; sustituir por: 'El refugio puede informar que recibe donativos voluntarios; no puede pedirlos, sugerir un monto ni condicionar la entrega'. (4) Moderación: pedir dinero por chat durante una adopción es causa de retiro de la verificación. (5) Rescatistas personas físicas: habilitar donativos solo si el dueño lo decide; si se habilitan, recibo simple no deducible y aviso del tope de 3 UMA anuales. (6) Política de donativos: sección 'Donar no es pagar por un perro' con esta explicación.",
+   "priority": "obligatorio",
+   "confidence": "media",
+   "applies_to": [
+    "donativos",
+    "adopciones",
+    "refugios",
+    "rescatistas",
+    "terminos",
+    "moderacion"
+   ],
+   "pages": [
+    "/legal/donativos",
+    "/legal/adopcion-responsable",
+    "/legal/terminos",
+    "/legal/refugios"
+   ],
+   "notes": "Textos legales verificados (confianza alta); calificar como remuneratorio un donativo 'esperado' es interpretación del CCF 2336 y debe confirmarla un abogado fiscalista. El monto exento de 2026 lo calculó este gap (3 x $42,794.64) y coincide con el dominio donativos.",
+   "verdict": "verificado",
+   "evidence": "LISR (última reforma DOF 01-04-2024): art. 27 fr. I, art. 151 fr. III y art. 93 fr. XXIII incisos a) a c) literales. CCF art. 2336 literal. CPEUM transitorio tercero del Decreto DOF 27-01-2016 ('todas las menciones al salario mínimo como unidad de cuenta... se entenderán referidas a la Unidad de Medida y Actualización') confirmado en el texto vigente. UMA 2026 en el documento del INEGI (diario $117.31, mensual $3,566.22, anual $42,794.64). LISR 82-Quáter A fr. II no se releyó aquí: se toma de donativos-v02 (verificado por ese dominio)."
+  },
+  {
+   "id": "gap-naturaleza-juridica-adopcion-y-cuotas-08",
+   "topic": "LFPC: con cuota el refugio es proveedor y el adoptante consumidor; sin cuota la entrega gratuita no es, en principio, relación de consumo (confirmar con abogado)",
+   "requirement": "La LFPC define proveedor como la persona física o moral 'que habitual o periódicamente ofrece, distribuye, vende, arrienda o concede el uso o disfrute de bienes, productos y servicios' (art. 2 fr. II) y consumidor como quien 'adquiere, realiza o disfruta como destinatario final bienes, productos o servicios' (fr. I). Un refugio que entrega perros a cambio de cuotas de forma habitual encaja como proveedor y el adoptante como consumidor: aplican la información y publicidad veraz, las garantías, la no discriminación (art. 58, ver consumidor-ecommerce-v02), el capítulo de comercio electrónico (76 Bis) y la competencia de PROFECO. Cuando no hay precio ni contraprestación, la entrega gratuita por un refugio no lucrativo no parece ser una relación de consumo respecto del animal; no se localizó criterio de PROFECO o judicial sobre adopciones gratuitas, así que este punto es de confianza baja. GuauWoow sigue siendo proveedor de sus servicios digitales, de la tienda y de la intermediación de donativos (dominios consumidor-ecommerce y donativos).",
+   "legal_basis": "LFPC arts. 2 frs. I y II, 58 y 76 Bis (última reforma DOF 12-12-2025).",
+   "source_url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LFPC.pdf",
+   "quote": "LFPC art. 2 fr. II: 'Proveedor: la persona física o moral en términos del Código Civil Federal, que habitual o periódicamente ofrece, distribuye, vende, arrienda o concede el uso o disfrute de bienes, productos y servicios'.",
+   "platform_action": "(1) Términos: 'La adopción no es una compraventa ni una relación de consumo entre adoptante y publicador; GuauWoow no vende animales ni actúa como intermediario comercial de animales'. (2) Mantener el criterio del art. 58 LFPC como regla de redacción del cuestionario de adopción (idoneidad del hogar sí; características personales prohibidas no), aunque la LFPC no aplique, porque la Ley Federal para Prevenir y Eliminar la Discriminación sí lo hace. (3) Si el abogado concluye que la LFPC alcanza también a adopciones gratuitas, añadir a la Política de adopción responsable la vía de queja ante PROFECO y el teléfono del consumidor. (4) No usar en la app el vocabulario de consumo para adopciones ('comprar', 'precio', 'garantía', 'devolución del producto').",
+   "priority": "recomendado",
+   "confidence": "baja",
+   "applies_to": [
+    "terminos",
+    "adopciones",
+    "legal"
+   ],
+   "pages": [
+    "/legal/terminos",
+    "/legal/adopcion-responsable"
+   ],
+   "notes": "Requiere confirmación de abogado: la conclusión sobre adopciones gratuitas es interpretación sin criterio de autoridad localizado. Identidad-contratos-12 dejó abierta la misma pregunta.",
+   "verdict": "verificado",
+   "evidence": "LFPC (diputados.gob.mx, última reforma DOF 12-12-2025): art. 2 frs. I y II literales; art. 76 Bis y 76 Bis 1 localizados; art. 58 verificado por consumidor-ecommerce-v02. No se encontró criterio de PROFECO sobre adopciones gratuitas en esta sesión."
+  },
+  {
+   "id": "gap-naturaleza-juridica-adopcion-y-cuotas-09",
+   "topic": "WhatsApp: la política de mensajería prohíbe usar WhatsApp for Business para 'facilitar el intercambio' de animales vivos no amenazados, sin excepción para adopción; el bot solo informa y remite a la app",
+   "requirement": "La WhatsApp Business Messaging Policy (última actualización 23-09-2026), sección 4, dice: 'We prohibit use of WhatsApp for Business for buying, selling, promoting, or otherwise facilitating the exchange of' una lista de bienes y servicios 'as determined in our sole discretion', que incluye 'Live non-endangered animals excluding livestock'. La política no contiene ninguna excepción para adopción, rehoming, refugios ni organizaciones sin fines de lucro. La misma sección permite a Meta restringir el uso si se usan Catálogos u otras funciones de comercio para vender bienes prohibidos por la Commerce Policy; la sección 5 (verticales reguladas) no incluye animales. 'Facilitar el intercambio' puede abarcar una adopción gratuita gestionada por WhatsApp (listar perros, recibir solicitudes, acordar la entrega), con o sin cuota; devolver un perro perdido a su dueño no es un 'intercambio' en sentido comercial, pero es una interpretación. La sanción es contractual: restricción o suspensión del número y de la cuenta de WhatsApp Business.",
+   "legal_basis": "WhatsApp Business Messaging Policy (última actualización 23-09-2026), secciones 4 y 5; Meta Commerce Policies (aplican a 'WhatsApp Commerce Features'). Obligación contractual con Meta, no ley.",
+   "source_url": "https://whatsappbusiness.com/policy/",
+   "quote": "'We prohibit use of WhatsApp for Business for buying, selling, promoting, or otherwise facilitating the exchange of... Live non-endangered animals excluding livestock' (sección 4, 'as determined in our sole discretion').",
+   "platform_action": "Regla para el bot (backend/app/services/whatsapp_bot.py): (1) no publica ni lista perros en adopción, no recibe solicitudes de adopción, no conecta adoptante con refugio, no agenda entregas, no menciona cuotas ni donativos; 'Quiero adoptar' responde con texto informativo y un enlace a la app; (2) no se usan Catálogos ni funciones de comercio de WhatsApp; (3) perdidos y encontrados: el bot recibe el reporte y responde con el enlace al reporte público; las alertas cercanas son plantillas de utilidad con enlace, sin reenviar el chat (contenido-plataforma-23); (4) botón de voluntarios 'enviar a GuauWoow': solo reportes de perdidos o encontrados; si el texto contiene oferta de venta, precio, 'cuota' o 'a cambio de', se descarta con registro; (5) documentar en /legal/whatsapp que el canal no se usa para adopciones ni pagos; (6) plan de contingencia si Meta restringe el número (correo y app como canales alternativos; aviso a usuarios); (7) pedir a Meta, por los canales de soporte de la plataforma, una confirmación escrita de que el flujo de perdidos y encontrados y el enlace informativo de adopción no infringen la sección 4, y guardarla.",
+   "priority": "obligatorio",
+   "confidence": "media",
+   "applies_to": [
+    "bot_whatsapp",
+    "backend/app/services/whatsapp_bot.py",
+    "alertas cercanas"
+   ],
+   "pages": [
+    "/legal/whatsapp",
+    "/legal/canales-oficiales",
+    "/legal/terminos"
+   ],
+   "notes": "Texto de la política verificado el 17-10-2026 (confianza alta); el alcance de 'facilitating the exchange' sobre adopciones gratuitas y sobre devolver perros perdidos es interpretación (confianza media). Coincide con comunicaciones-cookies-11 y contenido-plataforma-23 y las convierte en regla única: el bot no gestiona adopciones.",
+   "verdict": "verificado",
+   "evidence": "whatsappbusiness.com/policy consultado el 17-10-2026: 'Last updated: September 23, 2026'; sección 4 con la frase introductoria 'We prohibit use of WhatsApp for Business for buying, selling, promoting, or otherwise facilitating the exchange of' y la entrada 'Live non-endangered animals excluding livestock'; no hay texto sobre adopción, rehoming, refugios ni organizaciones sin fines de lucro; referencia a Catálogos y a la Commerce Policy; sección 5 'Regulated Verticals' sin animales."
+  },
+  {
+   "id": "gap-naturaleza-juridica-adopcion-y-cuotas-10",
+   "topic": "Meta: las Commerce Policies prohíben contenido comercial que promueva la compra, venta o intercambio de animales; las Normas comunitarias permiten publicaciones de refugios y de adopción sin venta; la Página de Facebook y la importación de grupos deben respetar ambas",
+   "requirement": "Commerce Policies de Meta (texto obtenido el 17-10-2026): 'Land, Animals, and Animal Products: Commerce content may not promote the buying, selling, or trading of animals or animal parts, or land in ecological conservation areas'; aplican a los servicios diseñados para comercio (Facebook Marketplace, Shops en Facebook e Instagram y WhatsApp Commerce Features) y su incumplimiento puede llevar al retiro de contenido y a la suspensión del acceso a los servicios de comercio de Facebook, Instagram, WhatsApp o Messenger. Normas comunitarias, 'Restricted Goods and Services' (según la página del Oversight Board sobre los casos 'Puppies seemingly for sale', 13-08-2025; la página de Meta no pudo leerse en esta sesión): se prohíbe contenido que 'attempts to buy, sell or trade live non-endangered animals', con excepción del publicado por una Página, grupo o perfil que represente 'legitimate brick-and-mortar entities, including retail businesses, legitimate websites, brands or rehoming shelters'; el Oversight Board recomendó aclarar que el comercio entre particulares con fines de lucro está prohibido y Meta respondió que haría una actualización menor. Los Ad Standards permiten anuncios de animales vivos 'solely within the context of donations, rehoming, or adoptions' (texto obtenido de un resumen de buscador). Consecuencia: publicaciones de adopción gratuita por la Página de GuauWoow (sitio legítimo y refugios) están permitidas; una ficha con cuota se parece a 'sell or trade' y puede retirarse; republicar posts de grupos con oferta de venta expone la Página.",
+   "legal_basis": "Meta Commerce Policies, apartado 'Prohibited content', 'Land, Animals, and Animal Products' y párrafo de alcance; Meta Community Standards, 'Restricted Goods and Services' (animales vivos no amenazados), citadas por el Oversight Board (13-08-2025); Meta Advertising Standards, 'Sale of non-endangered animals and endangered species'. Obligaciones contractuales con Meta; en CDMX se suma el art. 25 Bis (hallazgo 03).",
+   "source_url": "https://www.facebook.com/policies_center/commerce/",
+   "quote": "Commerce Policies: 'Land, Animals, and Animal Products. Commerce content may not promote the buying, selling, or trading of animals or animal parts, or land in ecological conservation areas.' Oversight Board sobre las Normas comunitarias: se prohíbe contenido que 'attempts to buy, sell or trade live non-endangered animals' salvo el publicado por entidades legítimas 'including retail businesses, legitimate websites, brands or rehoming shelters'.",
+   "platform_action": "(1) Página de Facebook de GuauWoow (Graph API): publicar perfiles de adopción solo con la leyenda 'Adopción gratuita' y enlace a la app; nunca precio, cuota, 'a cambio de' ni 'intercambio'; nunca como productos de Shops, Marketplace ni catálogo de WhatsApp. (2) Importación de grupos de Facebook (Apify): descartar antes de guardar las publicaciones que contengan precio, '$', 'vendo', 'venta', 'cuota', 'apartado', 'anticipo' o 'cambio por', con registro del motivo y conteo en el informe de transparencia; nunca republicar en Facebook contenido importado. (3) Informe de transparencia: número de publicaciones importadas descartadas por venta o cobro. (4) Revisar cada seis meses el texto de las Commerce Policies y de las Normas comunitarias y guardar copia fechada. (5) En /legal/contenido-importado explicar estas reglas.",
+   "priority": "obligatorio",
+   "confidence": "media",
+   "applies_to": [
+    "importacion_facebook",
+    "facebook_pages",
+    "moderacion",
+    "publicaciones_perros"
+   ],
+   "pages": [
+    "/legal/contenido-importado",
+    "/legal/cero-venta",
+    "/legal/normas-comunidad"
+   ],
+   "notes": "El texto de las Commerce Policies se obtuvo directamente (confianza alta). Las Normas comunitarias se citan por la página del Oversight Board de agosto de 2025 y los Ad Standards por un resumen de buscador: ambas fuentes son secundarias (confianza media) y deben cotejarse en transparency.meta.com antes de publicarlas como cita textual. La fecha de 'última actualización' de las Commerce Policies no pudo leerse.",
+   "verdict": "verificado",
+   "evidence": "facebook.com/policies_center/commerce (HTML descargado el 17-10-2026): texto literal 'Land, Animals, and Animal Products. Commerce content may not promote the buying, selling, or trading of animals or animal parts, or land in ecological conservation areas' y párrafo de alcance ('services designed for commerce – including, but not limited to, Facebook Marketplace, Shops on Facebook and Instagram, and WhatsApp Commerce Features'; consecuencias: 'rejection or removal of listings... or suspension or termination of access to any or all Facebook, Instagram, WhatsApp, or Messenger commerce services'). Oversight Board (oversightboard.com/?p=42155, 13-08-2025): cita de la prohibición 'attempts to buy, sell or trade live non-endangered animals' y de la excepción 'legitimate brick-and-mortar entities, including retail businesses, legitimate websites, brands or rehoming shelters'. transparency.meta.com y web.archive.org no fueron accesibles desde esta sesión."
+  },
+  {
+   "id": "gap-naturaleza-juridica-adopcion-y-cuotas-11",
+   "topic": "Ley General de Bienestar Animal (no vigente): la regla de adopción gratuita con esterilización es compatible con cualquier texto final previsible",
+   "requirement": "Al 17-10-2026 la Ley General en Materia de Bienestar, Cuidado y Protección de los Animales no está vigente: el Senado la aprobó el 29-09-2026 y la turnó a la Cámara de Diputados; en la Gaceta Parlamentaria del 13 al 16 de octubre no aparece dictamen y la búsqueda del 17-10-2026 no muestra aprobación. Según prensa (no confirmado en texto oficial), la minuta haría de la esterilización un requisito para vender y para adoptar, limitaría la venta a establecimientos registrados y restringiría la venta digital. La regla de este gap (adopción gratuita, esterilización como carga, cero venta y cero cobro en plataforma) no tendría que cambiar con ninguno de esos escenarios; sí podría cambiar la terminología ('tutela', 'Registro Nacional') y surgir obligaciones directas para plataformas.",
+   "legal_basis": "Minuta del Decreto que expide la Ley General en Materia de Bienestar, Cuidado y Protección de los Animales (Senado, comunicado 0167 del 29-09-2026), pendiente en la Cámara de Diputados; CPEUM art. 73 fr. XXIX-G y transitorio segundo del Decreto DOF 02-12-2024.",
+   "source_url": "https://comunicacionsocial.senado.gob.mx/informacion/comunicados/16318-aprueba-el-senado-la-ley-general-en-materia-de-bienestar-cuidado-y-proteccion-de-los-animales",
+   "quote": "Comunicado 0167 del Senado (paráfrasis): el Pleno aprobó el decreto que expide la Ley General, de seis títulos y 125 artículos, y lo remitió a la Cámara de Diputados.",
+   "platform_action": "(1) Mantener la vigilancia legislativa de bienestar-animal-02 y, al publicarse la ley en el DOF, revisar en 30 días si define 'adopción', regula cuotas o 'cuotas de recuperación', impone requisitos a quien da en adopción (esterilización previa, registro) o a plataformas digitales, y actualizar la regla de cuatro niveles solo si la ley la contradice. (2) Preparar desde ahora el campo de esterilización y de folio de registro en el modelo de datos de perros y en la carta responsiva. (3) En Marco legal, fechar el estado 'no vigente' y enlazar el comunicado del Senado.",
+   "priority": "recomendado",
+   "confidence": "media",
+   "applies_to": [
+    "terminos",
+    "adopciones",
+    "publicaciones_perros"
+   ],
+   "pages": [
+    "/legal/marco-legal-bienestar-animal",
+    "/legal/adopcion-responsable"
+   ],
+   "notes": "El contenido de la minuta se conoce por prensa; no publicarlo como hecho. Puede cambiar en Diputados y regresar al Senado.",
+   "verdict": "verificado",
+   "evidence": "Búsquedas del 17-10-2026: notas sobre la aprobación del Senado (29/30-09-2026) y de Infobae (14-10-2026) sobre la presión a Diputados; ningún resultado reporta aprobación en Diputados. Gacetas Parlamentarias del 13 al 15 de octubre descargadas por el dominio bienestar-animal: sin dictamen sobre esta ley. Estado coincidente con bienestar-animal-02."
+  },
+  {
+   "id": "gap-naturaleza-juridica-adopcion-y-cuotas-12",
+   "topic": "Regla operativa unificada para moderación, chat, bot e importación: detector de cobros y venta, motivos de reporte y sanciones a refugios verificados",
+   "requirement": "Para que la regla de cuatro niveles (hallazgo 01) se cumpla de hecho y no solo en texto, y para reducir la exposición de GuauWoow como quien 'difunde' ventas (LPBACDMX 25 Bis), como plataforma que aloja ventas desde domicilios particulares (Edomex 40 fr. V) y frente a Meta y WhatsApp (hallazgos 09 y 10), hacen falta controles técnicos consistentes en publicaciones, chat, bot e importación, y una escala de sanciones que alcance a los refugios verificados. Complementa bienestar-animal-04 (que ya pide filtro de palabras de venta y el motivo de reporte 'venta_animales') añadiendo las palabras de cobro por adopción y la consecuencia para refugios verificados.",
+   "legal_basis": "LPBACDMX arts. 25 Bis y 65 fr. IV; Ley Edomex art. 40 fr. V; WhatsApp Business Messaging Policy sección 4; Meta Commerce Policies; Términos de GuauWoow (secciones 6.2 y 17, con los cambios del hallazgo 13).",
+   "source_url": "https://data.consejeria.cdmx.gob.mx/images/leyes/2025/2026/190126/LEY_DE_PROTECCION_Y_BIENESTAR_DE_LOS_ANIMALES_DE_LA_CDMX_1.2.pdf",
+   "quote": "LPBACDMX 65 fr. IV: '...imponer multa de 150 a 3000 veces la Unidad de Medida y Actualización vigente por violaciones a lo dispuesto en los artículos 25, fracciones V Bis, V Ter, 25 Bis, 27, 27 Bis, 28, 28 Bis, 35 y 39 de la presente Ley.'",
+   "platform_action": "(1) Sin campo de precio ni de monto en publicaciones de perros, reportes y fichas de adopción (ya previsto en bienestar-animal-04). (2) Diccionario único de términos de venta y de cobro, aplicado a publicaciones, descripciones, chat, mensajes del bot y texto importado: 'vendo', 'venta', 'precio', '$', 'pesos', 'cuota', 'cuota de recuperación', 'cuota de adopción', 'recuperación de gastos', 'reembolso', 'apartado', 'anticipo', 'depósito', 'transferencia', 'donativo obligatorio', 'donativo sugerido', 'a cambio de', 'cambio por', 'envío del perro', 'pedigrí', 'criadero', 'monta'; el detector retiene el contenido para revisión humana en 24 horas o menos y nunca publica en automático. (3) Motivos de reporte: 'venta_animales' (bienestar-animal-04) y nuevo 'cobro_por_adopcion', ambos de prioridad alta; el adoptante puede reportar desde el chat y desde la ficha. (4) Al publicar un perro, casilla obligatoria: 'No vendo ni cobro por este perro; la adopción es gratuita'. (5) Escala para refugios y rescatistas verificados: primer caso, retiro del contenido y aviso con cita de la regla; segundo, suspensión de publicaciones 30 días; tercero o cobro confirmado por evidencia, retiro de la verificación y de la posibilidad de recibir donativos, con registro en la bitácora de administración. (6) Evidencia: conservar la publicación o el mensaje retirado con sello de tiempo conforme al calendario de conservación de los dominios de contenido y seguridad; cooperar con PAOT, PROPAEM o fiscalías cuando lo requieran (procedimiento de solicitudes de autoridad). (7) Importación de Facebook y bot: descartar antes de almacenar cualquier texto que dispare el diccionario (hallazgos 09 y 10). (8) Informe de transparencia: contenidos retirados por venta y por cobro, refugios sancionados, tiempo medio de atención.",
+   "priority": "obligatorio",
+   "confidence": "media",
+   "applies_to": [
+    "moderacion",
+    "chat",
+    "bot_whatsapp",
+    "importacion_facebook",
+    "publicaciones_perros",
+    "admin",
+    "refugios"
+   ],
+   "pages": [
+    "/legal/normas-comunidad",
+    "/legal/cero-venta",
+    "/legal/contenido-importado",
+    "/legal/transparencia"
+   ],
+   "notes": "Las sanciones internas son decisión contractual de la plataforma (Términos); su proporcionalidad y el derecho de réplica del refugio deben quedar en Términos y en el Convenio (dominio contenido-plataforma). Los plazos de conservación de evidencia no se fijan aquí: se remite al calendario consolidado.",
+   "verdict": "verificado",
+   "evidence": "Fundamentos verificados en los hallazgos 03, 04, 09 y 10 de este gap y en bienestar-animal-04 (ContentReport.reason acepta hoy spam, fraude, maltrato, contenido_inapropiado, datos_falsos y otro). No se releyó el código en esta sesión; la lista de motivos proviene de ese hallazgo."
+  },
+  {
+   "id": "gap-naturaleza-juridica-adopcion-y-cuotas-13",
+   "topic": "Textos: Política de adopción responsable, Términos 6.2 y 17, Convenio de refugios y rescatistas, y preguntas frecuentes '¿Por qué no hay cuotas?'",
+   "requirement": "La postura única debe quedar escrita con el mismo contenido en cuatro lugares. Términos 6.2 hoy permite que un Refugio Verificado 'sugiera' un donativo al adoptar (según donativos-v02) y la sección 17 prohíbe la venta; bienestar-animal-05 pide corregir la sección 16.1. Hace falta: una definición de adopción, la lista de lo que un publicador sí puede pedir y lo que no, la separación del donativo, la consecuencia para quien cobra, la indicación de que GuauWoow no es parte del contrato ni vendedor, y la vía para reportar cobros. Fundamentos: hallazgos 01 a 10 de este gap.",
+   "legal_basis": "CCF arts. 2248, 2332, 2336 y 2337; LPBACDMX arts. 4 fr. XII Bis 1 y 25 Bis; Ley Edomex art. 40 fr. V; NOM-148-SCFI-2018 numerales 2.1, 2.3 y 2.5; LISR arts. 27 fr. I y 151 fr. III; LIVA arts. 8 y 2o.-A; WhatsApp Business Messaging Policy sección 4; Meta Commerce Policies.",
+   "source_url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/CCF.pdf",
+   "quote": "LPBACDMX art. 4 fr. XII Bis 1: 'Animal en adopción: Aquel animal en condiciones de ser entregado a otra persona para que esta asuma la responsabilidad de su cuidado'.",
+   "platform_action": "Textos base (revisar por abogado antes de publicar):\nA. Política de adopción responsable, sección 'Adoptar es gratis': 'En GuauWoow adoptar no cuesta dinero. La adopción es una entrega gratuita del perro a cambio de compromisos de cuidado: esterilizarlo, vacunarlo, no venderlo, no abandonarlo, aceptar el seguimiento y devolverlo al publicador si no puedes cuidarlo. Nadie puede cobrarte por entregarte un perro: ni cuota de recuperación, ni reembolso de gastos, ni apartado, ni donativo obligatorio. Si alguien te pide dinero para entregarte un perro, no pagues y repórtalo desde la ficha o el chat.'\nB. Sección 'Qué sí puede pedirte un refugio o rescatista': cuestionario, identificación oficial para la carta responsiva, visita o videollamada al hogar, compromiso de esterilización en plazo, fotos de seguimiento, devolución si no puedes cuidarlo. 'Qué no': dinero, depósitos, 'reembolsos', compras en su tienda, donativos como condición, ni datos bancarios.\nC. Sección '¿Por qué no hay cuotas?': 'Un cobro ligado a la entrega convierte la adopción en una venta: en la CDMX solo pueden publicar ventas de perros quienes tienen Clave de Registro (art. 25 Bis), en el Estado de México está prohibido vender desde domicilios particulares (art. 40 fr. V), la venta causa IVA del 16 % y queda sujeta a la NOM-148 y a la LFPC. Los donativos voluntarios a refugios verificados se hacen aparte, desde el perfil del refugio, y nunca son requisito.'\nD. Términos 6.2 (nueva redacción): 'La adopción es gratuita. El publicador no puede cobrar, pedir ni aceptar dinero u otra contraprestación por entregar un animal, ni sugerir un donativo como parte de la adopción. Los donativos a Refugios Verificados son voluntarios, se hacen solo en el módulo de Donativos y nunca condicionan una adopción. GuauWoow no es parte del contrato de adopción ni vendedor ni intermediario comercial de animales.' Términos 17: añadir 'cobrar cuotas de recuperación, reembolsos, apartados o donativos obligatorios por entregar un animal' a la lista de conductas prohibidas, con la escala de sanciones del hallazgo 12.\nE. Convenio de refugios y rescatistas: cláusula 'No cobro por adopción' con la regla de cuatro niveles, la distinción donativo / cuota de recuperación (solo donatarias, fuera de GuauWoow, con CFDI de ingreso) / venta prohibida, y la pérdida de verificación como consecuencia.\nF. Modelo de carta responsiva: cláusulas del hallazgo 02.",
+   "priority": "obligatorio",
+   "confidence": "media",
+   "applies_to": [
+    "terminos",
+    "adopciones",
+    "refugios",
+    "rescatistas",
+    "donativos",
+    "legal"
+   ],
+   "pages": [
+    "/legal/adopcion-responsable",
+    "/legal/terminos",
+    "/legal/refugios",
+    "/legal/cero-venta",
+    "/legal/modelo-carta-responsiva",
+    "/legal/donativos"
+   ],
+   "notes": "Los textos son propuestas; las citas legales dentro de los textos públicos deben llevar la fecha de corte y revisarse cuando cambie la UMA o se publique la Ley General. La referencia a Términos 6.2 y 17 proviene de donativos-v02 y bienestar-animal-10; no se releyó terminos.html en esta sesión.",
+   "verdict": "verificado",
+   "evidence": "Fundamentos verificados en los hallazgos 01 a 10. Los textos actuales de Términos 6.2 y 17 se toman de donativos-v02, bienestar-animal-05 y bienestar-animal-10."
+  },
+  {
+   "id": "gap-naturaleza-juridica-adopcion-y-cuotas-14",
+   "topic": "Mercado Pago: los Términos y Condiciones de México no pudieron leerse; confirmar el anexo de actividades prohibidas antes del lanzamiento (ningún pago ligado a un animal pasa por Mercado Pago)",
+   "requirement": "La página de Términos y Condiciones de Mercado Pago México (ayuda/terminos-y-condiciones-de-uso_1399) se carga con JavaScript y no devolvió texto legible en esta sesión; tampoco fue accesible por archivo web. Notas de prensa de 2025 y 2026 (sobre la versión argentina) indican que las actividades prohibidas incluyen 'fauna y flora... en peligro de extinción' y productos derivados, con suspensión o cancelación de la cuenta como sanción; no se confirmó una prohibición sobre animales vivos no amenazados ni el texto mexicano. Como la regla de este gap impide cualquier cobro ligado a un animal dentro de GuauWoow, ningún pago de ese tipo se procesa por Mercado Pago; aun así, el contrato con el procesador es una fuente de riesgo contractual que debe leerse (el dominio donativos ya advirtió que ningún dominio revisó esos Términos).",
+   "legal_basis": "Términos y Condiciones de uso de Mercado Pago México (documento contractual del proveedor; no es ley); Términos y condiciones para desarrolladores de Mercado Pago, sección 7 'Actividades restringidas' (uso de la API).",
+   "source_url": "https://www.mercadopago.com.mx/ayuda/terminos-y-condiciones-de-uso_1399",
+   "quote": "No disponible: el texto de los Términos de Mercado Pago México no pudo obtenerse en esta sesión. Prensa (Argentina): las operaciones prohibidas incluyen 'fauna, flora y productos derivados (como animales en peligro de extinción, taxidermia, medicamentos veterinarios, etc.)'.",
+   "platform_action": "(1) El dueño o el abogado descargan y archivan los Términos y Condiciones de Mercado Pago México vigentes y su anexo de actividades o productos prohibidos, con fecha, y confirman que donativos a refugios y venta de productos para mascotas están permitidos y que ningún cobro se describe como 'animal', 'perro', 'adopción' o 'cuota'. (2) En el módulo de Donativos y en la tienda, el concepto de pago enviado a Mercado Pago nunca menciona un animal ni una adopción. (3) Registrar el resultado en la ficha de subencargados y en la página de Comisiones y costos.",
+   "priority": "recomendado",
+   "confidence": "baja",
+   "applies_to": [
+    "backend/pagos",
+    "donativos",
+    "tienda",
+    "admin"
+   ],
+   "pages": [
+    "/legal/comisiones",
+    "/legal/donativos"
+   ],
+   "notes": "No verificable en esta sesión: confianza baja; requiere lectura directa del contrato por el dueño o el abogado. Las notas de prensa consultadas se refieren a Argentina y pueden no coincidir con México.",
+   "verdict": "no_verificable",
+   "evidence": "Intentos del 17-10-2026: WebFetch a mercadopago.com.mx devolvió HTTP 403; curl con agente móvil devolvió solo la cáscara de la página (sin el texto de los Términos); web.archive.org no accesible. La página de desarrolladores (mercadopago.com.mx/developers/es/docs/resources/legal/terms-and-conditions) sí cargó y contiene la sección '7. Actividades restringidas', referida al uso de la API, sin mención de animales."
+  }
+ ]
+}

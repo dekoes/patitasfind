@@ -1,0 +1,2418 @@
+/* ============================================================
+   GuauWoow — Ilustraciones animadas de la landing
+   Cada ilustración está descompuesta en capas (scripts/capas-landing):
+   una base reconstruida + piezas recortadas que se animan encima.
+   Sin animación (o con "reducir movimiento"), las piezas quedan en su
+   lugar y se ve la ilustración original.
+   ============================================================ */
+.scene{position:relative;container-type:inline-size;isolation:isolate}
+.scene-base{display:block;width:100%;height:auto}
+.scene .pt,.scene .fx,.scene .grp{position:absolute;display:block}
+.scene .pt,.scene .grp{transform-origin:var(--ox,50%) var(--oy,50%)}
+.scene img.pt{height:auto;max-width:none}
+.scene .pt>img{display:block;width:100%;height:auto;max-width:none}
+.scene .grp.clip{overflow:hidden}
+.scene .fx{pointer-events:none}
+/* fuera de pantalla todo se pausa (landing.js agrega .on al verse) */
+.scene:not(.on) *,.scene:not(.on) *::before,.scene:not(.on) *::after{animation-play-state:paused!important}
+
+/* ---------- Corazón (u otro objeto) que aparece, flota y truena ---------- */
+.a-pop>img{animation:aPop var(--dur,4.6s) var(--delay,0s) infinite}
+.a-pop>.burst{position:absolute;left:50%;top:50%;width:230%;aspect-ratio:1;margin-top:-14%;opacity:0;
+  transform:translate(-50%,-50%) scale(.2);
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='21' fill='none' stroke='%23FF8A5C' stroke-width='2.6'/%3E%3Cg fill='%23FF5A5A'%3E%3Ccircle cx='50' cy='7' r='4.6'/%3E%3Ccircle cx='50' cy='93' r='4.6'/%3E%3C/g%3E%3Cg fill='%23FFC857'%3E%3Ccircle cx='80.4' cy='19.6' r='4'/%3E%3Ccircle cx='19.6' cy='80.4' r='4'/%3E%3C/g%3E%3Cg fill='%23B794F4'%3E%3Ccircle cx='93' cy='50' r='4.6'/%3E%3Ccircle cx='7' cy='50' r='4.6'/%3E%3C/g%3E%3Cg fill='%2333C7BE'%3E%3Ccircle cx='80.4' cy='80.4' r='4'/%3E%3Ccircle cx='19.6' cy='19.6' r='4'/%3E%3C/g%3E%3Cg stroke='%23FF8A5C' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M66 30l6-6M34 30l-6-6M66 70l6 6M34 70l-6 6'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;
+  animation:aBurst var(--dur,4.6s) var(--delay,0s) infinite}
+@keyframes aPop{
+  0%{transform:scale(0) rotate(-20deg);opacity:0}
+  8%{transform:scale(1.25) rotate(8deg);opacity:1}
+  13%{transform:scale(.92) rotate(-4deg)}
+  18%{transform:scale(1) rotate(0)}
+  35%{transform:translateY(-5%) rotate(-6deg)}
+  52%{transform:translateY(-9%) rotate(5deg)}
+  64%{transform:translateY(-12%) rotate(0) scale(1)}
+  70%{transform:translateY(-12%) scale(1.25,1.15)}
+  72%{transform:translateY(-12%) scale(1.42);opacity:1}
+  73.5%{transform:translateY(-12%) scale(1.65);opacity:0}
+  100%{transform:translateY(-12%) scale(0);opacity:0}
+}
+@keyframes aBurst{
+  0%,72%{transform:translate(-50%,-50%) scale(.2);opacity:0}
+  73.5%{transform:translate(-50%,-50%) scale(.55);opacity:1}
+  87%{transform:translate(-50%,-50%) scale(1.25);opacity:0}
+  100%{transform:translate(-50%,-50%) scale(1.25);opacity:0}
+}
+/* ---------- Rayitas de énfasis: salen desde su punto de origen ---------- */
+.a-flash{animation:aFlash var(--dur,2.4s) var(--delay,0s) infinite}
+@keyframes aFlash{
+  0%{transform:scale(.25);opacity:0}
+  12%{transform:scale(1.18);opacity:1}
+  22%{transform:scale(1)}
+  58%{transform:scale(1);opacity:1}
+  72%{transform:scale(.45);opacity:0}
+  100%{transform:scale(.25);opacity:0}
+}
+/* ---------- Plantas meciéndose (pivote en la base) ---------- */
+.a-sway{animation:aSway var(--dur,4.6s) var(--delay,0s) ease-in-out infinite alternate}
+@keyframes aSway{0%{transform:skewX(4deg) rotate(-1deg)}100%{transform:skewX(-4deg) rotate(1deg)}}
+/* ---------- Flotar ---------- */
+.a-bob{animation:aBob var(--dur,3.4s) var(--delay,0s) ease-in-out infinite}
+@keyframes aBob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(var(--amp,-5%)) rotate(var(--rot,0deg))}}
+/* ---------- Latido ---------- */
+.a-beat{animation:aBeat var(--dur,1.6s) var(--delay,0s) infinite}
+@keyframes aBeat{0%,45%,100%{transform:scale(1)}10%{transform:scale(1.18)}20%{transform:scale(.97)}30%{transform:scale(1.1)}}
+/* ---------- Colita / objeto que se balancea rápido ---------- */
+.a-wag{animation:aWag var(--dur,.5s) var(--delay,0s) ease-in-out infinite alternate}
+@keyframes aWag{0%{transform:rotate(var(--wag,-12deg))}100%{transform:rotate(calc(var(--wag,-12deg) * -1))}}
+/* ---------- Brinco con estiramiento ---------- */
+.a-hop{animation:aHop var(--dur,2.6s) var(--delay,0s) infinite}
+@keyframes aHop{
+  0%,55%,100%{transform:none}
+  8%{transform:scale(1.08,.88)}
+  20%{transform:translateY(var(--alto,-16%)) scale(.95,1.07)}
+  32%{transform:translateY(0) scale(1.1,.86)}
+  42%{transform:scale(.98,1.03)}
+}
+/* ---------- Sacudida (campanas, íconos) ---------- */
+.a-wiggle{animation:aWiggle var(--dur,2.4s) var(--delay,0s) infinite}
+@keyframes aWiggle{
+  0%,50%,100%{transform:rotate(0)}
+  6%{transform:rotate(-14deg)}12%{transform:rotate(12deg)}18%{transform:rotate(-9deg)}
+  24%{transform:rotate(7deg)}30%{transform:rotate(-4deg)}36%{transform:rotate(2deg)}
+}
+/* ---------- Onda de radar ---------- */
+.a-ring{border-radius:50%;border:.45cqw solid var(--ring,#33C7BE);animation:aRing var(--dur,2.2s) var(--delay,0s) ease-out infinite;opacity:0}
+@keyframes aRing{0%{transform:scale(.35);opacity:.9}100%{transform:scale(1.9);opacity:0}}
+/* ---------- Respirar (personajes) ---------- */
+.a-breathe{animation:aBreathe var(--dur,3.2s) var(--delay,0s) ease-in-out infinite}
+@keyframes aBreathe{0%,100%{transform:scale(1)}50%{transform:scale(1.012,1.022)}}
+
+/* ============================================================
+   Swipe: Luna se desliza a la derecha (¡adoptar!) como en Tinder
+   ============================================================ */
+.scene-swipe{--T:7s}
+.scene-swipe .g-tarjeta{transform-origin:50% 118%;animation:swCard var(--T) infinite}
+@keyframes swCard{
+  0%{transform:none;opacity:1}
+  9%{transform:translateX(-7%) rotate(-5deg)}
+  16%{transform:translateX(-7%) rotate(-5deg)}
+  24%{transform:none}
+  30%{transform:translateX(3%) rotate(2deg)}
+  46%{transform:translateX(15%) rotate(7deg)}
+  52%{transform:translateX(17%) rotate(8deg);animation-timing-function:cubic-bezier(.55,0,.9,.5)}
+  61%{transform:translateX(125%) rotate(28deg);opacity:1}
+  61.5%{transform:translateX(125%) rotate(28deg);opacity:0}
+  62%{transform:translateY(5%) scale(.86);opacity:0}
+  73%{transform:translateY(5%) scale(.86);opacity:0;animation-timing-function:cubic-bezier(.34,1.56,.64,1)}
+  84%{transform:none;opacity:1}
+  100%{transform:none;opacity:1}
+}
+.scene-swipe .p-cola{animation:aWag .42s ease-in-out infinite alternate;--wag:-14deg}
+.scene-swipe .f-sello,.scene-swipe .f-sello-no{display:flex;align-items:center;justify-content:center;
+  font-family:'Baloo 2',sans-serif;font-weight:800;font-size:3.7cqw;line-height:1;white-space:nowrap;
+  text-transform:uppercase;border:.5cqw solid currentColor;border-radius:1.2cqw;background:rgba(255,255,255,.6);opacity:0}
+.scene-swipe .f-sello{color:#2BB3AA;transform:rotate(-16deg);animation:swSello var(--T) infinite}
+.scene-swipe .f-sello-no{color:#E8564B;transform:rotate(14deg);animation:swSelloNo var(--T) infinite}
+@keyframes swSello{
+  0%,30%{opacity:0;transform:rotate(-16deg) scale(1.6)}
+  42%{opacity:1;transform:rotate(-16deg) scale(.92)}
+  48%,60%{opacity:1;transform:rotate(-16deg) scale(1)}
+  61.5%,100%{opacity:0;transform:rotate(-16deg) scale(1)}
+}
+@keyframes swSelloNo{
+  0%,3%{opacity:0;transform:rotate(14deg) scale(1.5)}
+  9%,16%{opacity:.9;transform:rotate(14deg) scale(1)}
+  22%,100%{opacity:0;transform:rotate(14deg) scale(1)}
+}
+.scene-swipe .p-boton-x{animation:swX var(--T) infinite}
+@keyframes swX{0%,3%,24%,100%{transform:none}10%{transform:scale(1.14) rotate(-8deg)}14%{transform:scale(1.08) rotate(6deg)}19%{transform:scale(1.1) rotate(-3deg)}}
+.scene-swipe .p-boton-corazon{animation:swH var(--T) infinite}
+@keyframes swH{
+  0%,28%{transform:none}
+  48%{transform:scale(1.12)}
+  56%{transform:scale(.86)}
+  61%{transform:scale(1.28)}
+  66%{transform:scale(.96)}
+  71%,100%{transform:none}
+}
+.scene-swipe .f-onda-corazon i{position:absolute;inset:0;border-radius:50%;border:.6cqw solid #33C7BE;opacity:0;animation:swOnda var(--T) infinite}
+.scene-swipe .f-onda-corazon i+i{animation-delay:.22s;border-color:#86E0D4}
+@keyframes swOnda{0%,58%{transform:scale(.9);opacity:0}60%{opacity:.95}76%,100%{transform:scale(1.75);opacity:0}}
+.scene-swipe .p-flecha-der{animation:swFlechaD var(--T) infinite}
+@keyframes swFlechaD{0%,28%,62%,100%{transform:none}40%{transform:scaleX(1.2) translateY(-3%)}48%{transform:scaleX(1.06)}54%{transform:scaleX(1.24) translateY(-4%)}}
+.scene-swipe .p-flecha-izq{animation:swFlechaI var(--T) infinite}
+@keyframes swFlechaI{0%,3%,22%,100%{transform:none}9%{transform:scaleX(1.22) translateY(-3%)}16%{transform:scaleX(1.12)}}
+.scene-swipe .p-huella-header{animation:swHuella var(--T) infinite}
+@keyframes swHuella{0%,62%,80%,100%{transform:none}66%{transform:translateY(-22%) rotate(-12deg) scale(1.1)}71%{transform:translateY(0) scale(1.12,.86)}75%{transform:rotate(8deg)}}
+.scene-swipe .f-corazon-nav svg{width:100%;height:100%;display:block;fill:#FF5A5A;transform:scale(0);opacity:0;animation:swNav var(--T) infinite}
+@keyframes swNav{0%,59%{transform:scale(0);opacity:0}63%{transform:scale(1.45);opacity:1}67%,78%{transform:scale(1);opacity:1}84%,100%{transform:scale(.6);opacity:0}}
+.scene-swipe .f-lluvia i{position:absolute;left:44%;top:62%;width:14%;aspect-ratio:1;opacity:0;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23FF6B6B' d='M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.6 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z'/%3E%3C/svg%3E") center/contain no-repeat;
+  animation:swLluvia var(--T) infinite}
+.scene-swipe .f-lluvia i:nth-child(2){--x:-160%;--r:-25deg;animation-delay:.08s;width:11%}
+.scene-swipe .f-lluvia i:nth-child(3){--x:150%;--r:22deg;animation-delay:.16s;filter:hue-rotate(250deg)}
+.scene-swipe .f-lluvia i:nth-child(4){--x:-260%;--r:-40deg;animation-delay:.05s;width:9%}
+.scene-swipe .f-lluvia i:nth-child(5){--x:240%;--r:35deg;animation-delay:.12s;width:10%;filter:hue-rotate(140deg)}
+.scene-swipe .f-lluvia i:nth-child(6){--x:40%;--r:8deg;animation-delay:.2s;width:12%}
+@keyframes swLluvia{
+  0%,58%{transform:translate(0,0) scale(.3);opacity:0}
+  60%{transform:translate(0,-40%) scale(.7);opacity:1}
+  78%{transform:translate(var(--x,0),-380%) rotate(var(--r,0deg)) scale(1.1);opacity:.9}
+  84%,100%{transform:translate(var(--x,0),-460%) rotate(var(--r,0deg)) scale(.8);opacity:0}
+}
+
+/* Menos movimiento: cada pieza queda quieta en su lugar (se ve la ilustración original) */
+@media (prefers-reduced-motion:reduce){
+  .scene *,.scene *::before,.scene *::after{animation:none!important}
+}
+
+/*escenas*/
+/* ---------- escena: hero (img/anim/hero/escena.css) ---------- */
+/* ============================================================
+   Hero: la chica encuadra al perrito con el celular → ¡flash! →
+   el perrito pega un brinco de gusto, le sale un corazón y chispas.
+   Ciclo de 6 s; el resto (cola, plantas, pelo, mochila, arete,
+   lengua, placa) se mueve todo el tiempo.
+   ============================================================ */
+.scene-hero{--T:6s}
+
+/* ---------- chica ---------- */
+.scene-hero .g-cabeza-chica{animation:heCabeza var(--T) ease-in-out infinite}
+@keyframes heCabeza{
+  0%,100%{transform:rotate(0)}
+  10%{transform:rotate(-1.4deg)}
+  22%{transform:rotate(1.6deg)}
+  29%{transform:rotate(2deg)}
+  33%{transform:rotate(-1.2deg)}
+  42%{transform:rotate(-2.4deg)}
+  50%{transform:rotate(.8deg)}
+  60%{transform:rotate(-1.6deg)}
+  74%{transform:rotate(1deg)}
+  86%{transform:rotate(-.6deg)}
+}
+.scene-hero .p-arete{animation:heArete 1.25s ease-in-out infinite alternate}
+@keyframes heArete{0%{transform:rotate(-16deg)}100%{transform:rotate(16deg)}}
+.scene-hero .p-ojo-chica{opacity:0;animation:heOjoChica var(--T) infinite}
+@keyframes heOjoChica{
+  0%,6%,9%,40%,52%,78%,81%,100%{opacity:0}
+  7%,8%,41.5%,50.5%,79%,80%{opacity:1}
+}
+.scene-hero .g-manos{animation:heManos var(--T) ease-in-out infinite}
+@keyframes heManos{
+  0%,100%{transform:none}
+  9%{transform:rotate(-4deg)}
+  18%{transform:rotate(2deg) translateY(-1.5%)}
+  27%{transform:rotate(1.5deg) translateY(-2%)}
+  29.5%{transform:rotate(1.5deg) translateY(-2%) scale(.95)}
+  31%{transform:rotate(-3deg) translateY(-1%) scale(1.04)}
+  36%{transform:rotate(1deg) translateY(-1.5%)}
+  46%{transform:rotate(-2deg)}
+  58%{transform:rotate(3deg) translateY(-1%)}
+  72%{transform:rotate(-1.5deg)}
+}
+.scene-hero .p-pelo-puntas{animation:hePelo 3.1s ease-in-out infinite alternate}
+@keyframes hePelo{0%{transform:rotate(-3.5deg)}100%{transform:rotate(3deg)}}
+.scene-hero .p-mochila{animation:heMochila 2.5s ease-in-out infinite alternate}
+@keyframes heMochila{0%{transform:rotate(-2.6deg)}100%{transform:rotate(2deg) translateY(.8%)}}
+
+/* ---------- flash del celular ---------- */
+.scene-hero .f-flash i{position:absolute;inset:0;opacity:0;transform:scale(.2);animation:heFlash var(--T) infinite}
+.scene-hero .f-flash i:first-child{border-radius:50%;
+  background:radial-gradient(circle,#fff 0 18%,rgba(255,255,255,.9) 26%,rgba(255,244,200,.55) 42%,rgba(255,244,200,0) 68%)}
+.scene-hero .f-flash i:last-child{animation-name:heFlashRayos;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg stroke='%23FFD45C' stroke-width='4.5' stroke-linecap='round'%3E%3Cpath d='M50 4v20M50 76v20M4 50h20M76 50h20M17 17l13 13M70 70l13 13M83 17L70 30M30 70L17 83'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat}
+@keyframes heFlash{
+  0%,28.5%{opacity:0;transform:scale(.2)}
+  30%{opacity:1;transform:scale(1.25)}
+  33%{opacity:.85;transform:scale(1.6)}
+  38%,100%{opacity:0;transform:scale(2)}
+}
+@keyframes heFlashRayos{
+  0%,29%{opacity:0;transform:scale(.3) rotate(0)}
+  30.5%{opacity:1;transform:scale(1.3) rotate(10deg)}
+  36%,100%{opacity:0;transform:scale(2.3) rotate(28deg)}
+}
+.scene-hero .f-destello{opacity:0;
+  background:radial-gradient(circle closest-side at 59% 42%,rgba(255,255,255,.95),rgba(255,255,255,.55) 40%,rgba(255,255,255,0) 100%);
+  animation:heDestello var(--T) infinite}
+@keyframes heDestello{0%,29.2%{opacity:0}30.2%{opacity:.9}31.5%{opacity:.35}32.5%{opacity:.55}37%,100%{opacity:0}}
+
+/* ---------- marco de enfoque sobre la cara del perrito ---------- */
+.scene-hero .f-enfoque{opacity:0;--c:#1FA99F;--g:.75cqw;--l:5cqw;
+  background:
+    linear-gradient(var(--c) 0 0) left top/var(--l) var(--g),linear-gradient(var(--c) 0 0) left top/var(--g) var(--l),
+    linear-gradient(var(--c) 0 0) right top/var(--l) var(--g),linear-gradient(var(--c) 0 0) right top/var(--g) var(--l),
+    linear-gradient(var(--c) 0 0) left bottom/var(--l) var(--g),linear-gradient(var(--c) 0 0) left bottom/var(--g) var(--l),
+    linear-gradient(var(--c) 0 0) right bottom/var(--l) var(--g),linear-gradient(var(--c) 0 0) right bottom/var(--g) var(--l);
+  background-repeat:no-repeat;animation:heEnfoque var(--T) infinite}
+.scene-hero .f-enfoque i{position:absolute;left:50%;top:50%;width:2.2cqw;height:.5cqw;margin:-.25cqw 0 0 -1.1cqw;
+  background:var(--c);border-radius:1cqw}
+.scene-hero .f-enfoque i+i{transform:rotate(90deg)}
+@keyframes heEnfoque{
+  0%,11%{opacity:0;transform:scale(1.45)}
+  16%{opacity:1;transform:scale(.96)}
+  19%{transform:scale(1.04)}
+  22%{transform:scale(1)}
+  25%{opacity:1}26%{opacity:.35}27%{opacity:1}
+  29.5%{opacity:1;transform:scale(1)}
+  31%{opacity:0;transform:scale(.9)}
+  100%{opacity:0;transform:scale(.9)}
+}
+
+/* ---------- perrito ---------- */
+.scene-hero .g-perro{animation:hePerro var(--T) infinite}
+@keyframes hePerro{
+  0%,25%,100%{transform:none}
+  28%{transform:scale(1.015,.985)}
+  31%{transform:scale(1.07,.9)}
+  35%{transform:scale(1,1.1);animation-timing-function:ease-out}
+  39%{transform:scale(1.05,.93)}
+  43%{transform:scale(1,1.04)}
+  47%{transform:none}
+  62%{transform:none}
+  64.5%{transform:scale(1.04,.95)}
+  67.5%{transform:scale(1,1.05)}
+  71%{transform:none}
+}
+.scene-hero .g-cabeza-perro{animation:heCabezaPerro var(--T) ease-in-out infinite}
+@keyframes heCabezaPerro{
+  0%,100%{transform:rotate(0)}
+  8%{transform:rotate(-6deg)}
+  17%{transform:rotate(-8deg)}
+  25%{transform:rotate(3deg)}
+  30%{transform:rotate(0)}
+  34%{transform:translateY(-3.5%) rotate(-5deg)}
+  38%{transform:translateY(-2%) rotate(6deg)}
+  43%{transform:rotate(-4deg)}
+  50%{transform:rotate(5deg)}
+  58%{transform:rotate(-2deg)}
+  70%{transform:rotate(7deg)}
+  84%{transform:rotate(6deg)}
+}
+.scene-hero .p-oreja-izq{animation:heOrejaIzq var(--T) ease-in-out infinite}
+@keyframes heOrejaIzq{
+  0%,100%{transform:rotate(0)}
+  8%{transform:rotate(5deg)}
+  16%{transform:rotate(-3deg)}
+  24%,30%{transform:rotate(0)}
+  33.5%{transform:rotate(17deg)}
+  37%{transform:rotate(-8deg)}
+  41%{transform:rotate(10deg)}
+  46%{transform:rotate(-4deg)}
+  51%{transform:rotate(3deg)}
+  56%{transform:rotate(0)}
+  66%{transform:rotate(7deg)}
+  71%{transform:rotate(-3deg)}
+  77%{transform:rotate(2deg)}
+}
+.scene-hero .p-oreja-der{animation:heOrejaDer var(--T) ease-in-out infinite}
+@keyframes heOrejaDer{
+  0%,100%{transform:rotate(0)}
+  9%{transform:rotate(-4deg)}
+  17%{transform:rotate(3deg)}
+  25%,30%{transform:rotate(0)}
+  34%{transform:rotate(-16deg)}
+  37.5%{transform:rotate(8deg)}
+  41.5%{transform:rotate(-9deg)}
+  46.5%{transform:rotate(4deg)}
+  51%{transform:rotate(-2deg)}
+  56%{transform:rotate(0)}
+  67%{transform:rotate(-6deg)}
+  72%{transform:rotate(3deg)}
+  78%{transform:rotate(-1deg)}
+}
+.scene-hero .p-lengua{animation:heLengua .36s ease-in-out infinite alternate}
+@keyframes heLengua{0%{transform:rotate(-4deg) scaleY(1)}100%{transform:rotate(5deg) scaleY(1.14)}}
+.scene-hero .p-ojos-perro{opacity:0;animation:heOjosPerro var(--T) infinite}
+@keyframes heOjosPerro{
+  0%,19%,22%,32%,40%,88%,91%,100%{opacity:0}
+  20%,21%,33%,39%,89%,90%{opacity:1}
+}
+.scene-hero .p-placa{animation:hePlaca var(--T) ease-in-out infinite}
+@keyframes hePlaca{
+  0%,100%{transform:rotate(0)}
+  6%{transform:rotate(9deg)}12%{transform:rotate(-8deg)}18%{transform:rotate(6deg)}24%{transform:rotate(-5deg)}
+  30%{transform:rotate(0)}
+  34%{transform:rotate(-26deg)}38%{transform:rotate(20deg)}42%{transform:rotate(-14deg)}
+  46%{transform:rotate(10deg)}50%{transform:rotate(-7deg)}55%{transform:rotate(5deg)}
+  62%{transform:rotate(-4deg)}70%{transform:rotate(6deg)}78%{transform:rotate(-6deg)}86%{transform:rotate(4deg)}
+  93%{transform:rotate(-2deg)}
+}
+.scene-hero .p-cola{animation:heCola .3s ease-in-out infinite alternate}
+@keyframes heCola{0%{transform:rotate(-12deg)}100%{transform:rotate(15deg)}}
+.scene-hero .p-ondas-cola{animation:heOndas .6s infinite}
+@keyframes heOndas{
+  0%{opacity:0;transform:scale(.4) rotate(-10deg)}
+  25%{opacity:1;transform:scale(1.15) rotate(4deg)}
+  60%{opacity:1;transform:scale(1) rotate(0)}
+  100%{opacity:0;transform:scale(1.25) rotate(6deg)}
+}
+.scene-hero .p-rayitas-rojas{animation:heRayitas var(--T) infinite}
+@keyframes heRayitas{
+  0%,6%{opacity:1;transform:none}
+  10%{opacity:0;transform:scale(.4)}
+  30%{opacity:0;transform:scale(.3) translateY(10%)}
+  33%{opacity:1;transform:scale(1.4) translateY(-14%)}
+  36%{transform:scale(.95) translateY(-12%)}
+  39%{transform:scale(1.2) translateY(-12%)}
+  42%{transform:scale(1) translateY(-8%)}
+  52%{opacity:1;transform:none}
+  64%{transform:scale(1.15)}
+  68%{transform:none}
+  100%{opacity:1;transform:none}
+}
+
+/* ---------- corazón y chispas ---------- */
+.scene-hero .f-corazon svg{display:block;width:100%;height:100%;fill:#FF5A5A;
+  filter:drop-shadow(0 .3cqw 0 rgba(160,40,40,.25));opacity:0;animation:heCorazon var(--T) infinite}
+@keyframes heCorazon{
+  0%,32%{opacity:0;transform:translate(-40%,60%) scale(0) rotate(-20deg)}
+  36%{opacity:1;transform:translate(-20%,10%) scale(1.35) rotate(10deg)}
+  39%{transform:translate(-15%,0) scale(.95) rotate(-6deg)}
+  42%{transform:translate(-10%,-10%) scale(1.1) rotate(4deg)}
+  52%{opacity:1;transform:translate(10%,-70%) scale(1) rotate(-8deg)}
+  62%{opacity:1;transform:translate(-5%,-130%) scale(1.05) rotate(8deg)}
+  70%,100%{opacity:0;transform:translate(5%,-190%) scale(.7) rotate(0)}
+}
+.scene-hero .f-chispas i{position:absolute;width:9%;aspect-ratio:1;opacity:0;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23FFC93C' d='M12 0c1 6.5 4.5 10 12 12-7.5 2-11 5.5-12 12-1-6.5-4.5-10-12-12 7.5-2 11-5.5 12-12z'/%3E%3C/svg%3E") center/contain no-repeat;
+  animation:heChispa var(--T) infinite}
+.scene-hero .f-chispas i:nth-child(1){left:2%;top:18%;animation-delay:.08s}
+.scene-hero .f-chispas i:nth-child(2){left:80%;top:2%;width:7%;animation-delay:.2s;filter:hue-rotate(150deg) saturate(1.3)}
+.scene-hero .f-chispas i:nth-child(3){left:88%;top:44%;width:6%;animation-delay:.32s}
+.scene-hero .f-chispas i:nth-child(4){left:-4%;top:56%;width:6.5%;animation-delay:.42s;filter:hue-rotate(-30deg)}
+@keyframes heChispa{
+  0%,30%{opacity:0;transform:scale(0) rotate(0)}
+  33%{opacity:1;transform:scale(1.3) rotate(45deg)}
+  37%{transform:scale(.8) rotate(70deg)}
+  41%{opacity:1;transform:scale(1.1) rotate(100deg)}
+  47%,100%{opacity:0;transform:scale(0) rotate(140deg)}
+}
+
+/* ---------- escena: step-1-photo (img/anim/step-1-photo/escena.css) ---------- */
+/* Generado por scripts/capas-landing/step-1-photo.py — no editar a mano */
+.scene-step-1-photo{--T:9.0s}
+/* el celular se balancea y hace "clic" al tomar la foto */
+.scene-step-1-photo .g-telefono{animation:s1Tel var(--T) ease-in-out infinite}
+@keyframes s1Tel{
+  0%{transform:rotate(0)}
+  3%{transform:scale(.96) rotate(-1deg)}
+  6%{transform:scale(1.03) rotate(.6deg)}
+  9%{transform:scale(1) rotate(0)}
+  25%{transform:rotate(-1.6deg)}
+  45%{transform:rotate(1.4deg)}
+  64%{transform:rotate(-1.2deg)}
+  80%{transform:translateY(-1.5%) rotate(1.6deg)}
+  100%{transform:rotate(0)}
+}
+/* el perro respira, menea la cola, mueve la cabeza y las orejas */
+.scene-step-1-photo .g-perro{animation:s1Resp 2.2s ease-in-out infinite}
+@keyframes s1Resp{0%,100%{transform:scale(1)}50%{transform:scale(1.012,1.028)}}
+.scene-step-1-photo .p-cola{animation:s1Cola .36s ease-in-out infinite alternate}
+@keyframes s1Cola{0%{transform:rotate(-11deg)}100%{transform:rotate(9deg)}}
+.scene-step-1-photo .g-cabeza{animation:s1Cabeza var(--T) ease-in-out infinite}
+@keyframes s1Cabeza{
+  0%,4%{transform:rotate(0)}
+  10%{transform:rotate(-4deg) translateY(-1%)}
+  20%{transform:rotate(-3deg)}
+  30%{transform:rotate(3.5deg)}
+  40%{transform:rotate(2deg)}
+  50%{transform:rotate(-2deg)}
+  62%{transform:rotate(4deg) translateY(-1%)}
+  70%{transform:rotate(-5deg) translateY(-1.5%)}
+  76%{transform:rotate(4deg)}
+  82%{transform:rotate(-3deg)}
+  88%,100%{transform:rotate(0)}
+}
+.scene-step-1-photo .p-oreja-izq{animation:s1OrejaI 1.6s ease-in-out infinite}
+@keyframes s1OrejaI{0%,40%,100%{transform:rotate(0)}10%{transform:rotate(7deg)}20%{transform:rotate(-3deg)}30%{transform:rotate(3deg)}}
+.scene-step-1-photo .p-oreja-der{animation:s1OrejaD 1.6s -.25s ease-in-out infinite}
+@keyframes s1OrejaD{0%,40%,100%{transform:rotate(0)}10%{transform:rotate(-6deg)}20%{transform:rotate(3deg)}30%{transform:rotate(-3deg)}}
+/* flash de la foto */
+.scene-step-1-photo .f-flash{background:#fff;opacity:0;animation:s1Flash var(--T) infinite}
+@keyframes s1Flash{0%,2%{opacity:0}3.2%{opacity:.95}9%,100%{opacity:0}}
+/* esquinas de enfoque sobre la cara */
+.scene-step-1-photo .f-enfoque{opacity:0;animation:s1Enfoque var(--T) infinite}
+.scene-step-1-photo .f-enfoque i{position:absolute;width:18%;height:16%;border:0 solid #fff;filter:drop-shadow(0 0 .3cqw rgba(0,150,140,.8))}
+.scene-step-1-photo .f-enfoque i:nth-child(1){left:0;top:0;border-width:.9cqw 0 0 .9cqw;border-radius:2cqw 0 0 0}
+.scene-step-1-photo .f-enfoque i:nth-child(2){right:0;top:0;border-width:.9cqw .9cqw 0 0;border-radius:0 2cqw 0 0}
+.scene-step-1-photo .f-enfoque i:nth-child(3){left:0;bottom:0;border-width:0 0 .9cqw .9cqw;border-radius:0 0 0 2cqw}
+.scene-step-1-photo .f-enfoque i:nth-child(4){right:0;bottom:0;border-width:0 .9cqw .9cqw 0;border-radius:0 0 2cqw 0}
+@keyframes s1Enfoque{
+  0%,1%{opacity:0;transform:scale(1.5) rotate(-6deg)}
+  4%{opacity:1;transform:scale(.92) rotate(-6deg)}
+  6%{transform:scale(1.04) rotate(-6deg)}
+  8%{opacity:1;transform:scale(1) rotate(-6deg)}
+  11%,100%{opacity:0;transform:scale(1) rotate(-6deg)}
+}
+/* línea de escaneo: baja por toda la pantalla y regresa */
+.scene-step-1-photo .f-escaneo{opacity:0;animation:s1Scan var(--T) infinite}
+.scene-step-1-photo .f-escaneo i{position:absolute;left:0;right:0;top:42%;height:16%;transform:rotate(-4.8deg);
+  background:linear-gradient(180deg,rgba(51,215,200,0),rgba(51,215,200,.45) 40%,#bff8f2 50%,rgba(51,215,200,.45) 60%,rgba(51,215,200,0));
+  box-shadow:0 0 3cqw 1cqw rgba(51,215,200,.35)}
+@keyframes s1Scan{
+  0%,6%{opacity:0;transform:translateY(0)}
+  7%{opacity:1;transform:translateY(0)}
+  36%{opacity:1;transform:translateY(758.3%)}
+  47%{opacity:1;transform:translateY(0)}
+  48.5%,100%{opacity:0;transform:translateY(0)}
+}
+/* líneas del esqueleto y conectores: se dibujan */
+.scene-step-1-photo .f-lineas-cuerpo svg,.scene-step-1-photo .f-lineas-cara svg,.scene-step-1-photo .f-conectores svg{
+  width:100%;height:100%;display:block;overflow:visible;fill:none;stroke-linecap:butt}
+.scene-step-1-photo .f-lineas-cuerpo path,.scene-step-1-photo .f-lineas-cara path{stroke:#36E4D3;stroke-width:5.4px;
+  stroke-dasharray:1 1;stroke-dashoffset:0}
+.scene-step-1-photo .f-conectores path{stroke:#DDB4FB;stroke-width:12.5px;stroke-dasharray:1 1;stroke-dashoffset:0}
+
+.scene-step-1-photo .p-punto-01{animation:s1P01 var(--T) infinite}
+@keyframes s1P01{0%,9.02%{transform:scale(0);opacity:0}10.62%{transform:scale(1.7);opacity:1}11.82%{transform:scale(.8)}13.02%{transform:scale(1)}45.28%{transform:scale(1)}46.08%{transform:scale(1.45)}47.48%{transform:scale(1)}60%{transform:scale(1)}63%{transform:scale(1.3)}66%{transform:scale(1)}93%{transform:scale(1);opacity:1}97.5%,100%{transform:scale(0);opacity:0}}
+.scene-step-1-photo .p-punto-02{animation:s1P02 var(--T) infinite}
+@keyframes s1P02{0%,10%{transform:scale(0);opacity:0}11.6%{transform:scale(1.7);opacity:1}12.8%{transform:scale(.8)}14%{transform:scale(1)}44.91%{transform:scale(1)}45.71%{transform:scale(1.45)}47.11%{transform:scale(1)}60%{transform:scale(1)}63%{transform:scale(1.3)}66%{transform:scale(1)}93%{transform:scale(1);opacity:1}97.5%,100%{transform:scale(0);opacity:0}}
+.scene-step-1-photo .p-punto-03{animation:s1P03 var(--T) infinite}
+@keyframes s1P03{0%,11.41%{transform:scale(0);opacity:0}13.01%{transform:scale(1.7);opacity:1}14.21%{transform:scale(.8)}15.41%{transform:scale(1)}44.38%{transform:scale(1)}45.18%{transform:scale(1.45)}46.58%{transform:scale(1)}60%{transform:scale(1)}63%{transform:scale(1.3)}66%{transform:scale(1)}93%{transform:scale(1);opacity:1}97.5%,100%{transform:scale(0);opacity:0}}
+.scene-step-1-photo .p-punto-04{animation:s1P04 var(--T) infinite}
+@keyframes s1P04{0%,11.9%{transform:scale(0);opacity:0}13.5%{transform:scale(1.7);opacity:1}14.7%{transform:scale(.8)}15.9%{transform:scale(1)}44.19%{transform:scale(1)}44.99%{transform:scale(1.45)}46.39%{transform:scale(1)}60%{transform:scale(1)}63%{transform:scale(1.3)}66%{transform:scale(1)}93%{transform:scale(1);opacity:1}97.5%,100%{transform:scale(0);opacity:0}}
+.scene-step-1-photo .p-punto-05{animation:s1P05 var(--T) infinite}
+@keyframes s1P05{0%,12.93%{transform:scale(0);opacity:0}14.53%{transform:scale(1.7);opacity:1}15.73%{transform:scale(.8)}16.93%{transform:scale(1)}43.8%{transform:scale(1)}44.6%{transform:scale(1.45)}46%{transform:scale(1)}60%{transform:scale(1)}63%{transform:scale(1.3)}66%{transform:scale(1)}93%{transform:scale(1);opacity:1}97.5%,100%{transform:scale(0);opacity:0}}
+.scene-step-1-photo .p-punto-06{animation:s1P06 var(--T) infinite}
+@keyframes s1P06{0%,18.22%{transform:scale(0);opacity:0}19.82%{transform:scale(1.7);opacity:1}21.02%{transform:scale(.8)}22.22%{transform:scale(1)}41.79%{transform:scale(1)}42.59%{transform:scale(1.45)}43.99%{transform:scale(1)}60%{transform:scale(1)}63%{transform:scale(1.3)}66%{transform:scale(1)}93%{transform:scale(1);opacity:1}97.5%,100%{transform:scale(0);opacity:0}}
+.scene-step-1-photo .p-punto-07{animation:s1P07 var(--T) infinite}
+@keyframes s1P07{0%,19.56%{transform:scale(0);opacity:0}21.16%{transform:scale(1.7);opacity:1}22.36%{transform:scale(.8)}23.56%{transform:scale(1)}41.28%{transform:scale(1)}42.08%{transform:scale(1.45)}43.48%{transform:scale(1)}60%{transform:scale(1)}63%{transform:scale(1.3)}66%{transform:scale(1)}93%{transform:scale(1);opacity:1}97.5%,100%{transform:scale(0);opacity:0}}
+.scene-step-1-photo .p-punto-08{animation:s1P08 var(--T) infinite}
+@keyframes s1P08{0%,19.95%{transform:scale(0);opacity:0}21.55%{transform:scale(1.7);opacity:1}22.75%{transform:scale(.8)}23.95%{transform:scale(1)}41.14%{transform:scale(1)}41.94%{transform:scale(1.45)}43.34%{transform:scale(1)}60%{transform:scale(1)}63%{transform:scale(1.3)}66%{transform:scale(1)}93%{transform:scale(1);opacity:1}97.5%,100%{transform:scale(0);opacity:0}}
+.scene-step-1-photo .p-punto-09{animation:s1P09 var(--T) infinite}
+@keyframes s1P09{0%,22.36%{transform:scale(0);opacity:0}23.96%{transform:scale(1.7);opacity:1}25.16%{transform:scale(.8)}26.36%{transform:scale(1)}40.22%{transform:scale(1)}41.02%{transform:scale(1.45)}42.42%{transform:scale(1)}60%{transform:scale(1)}63%{transform:scale(1.3)}66%{transform:scale(1)}93%{transform:scale(1);opacity:1}97.5%,100%{transform:scale(0);opacity:0}}
+.scene-step-1-photo .p-punto-10{animation:s1P10 var(--T) infinite}
+@keyframes s1P10{0%,24.35%{transform:scale(0);opacity:0}25.95%{transform:scale(1.7);opacity:1}27.15%{transform:scale(.8)}28.35%{transform:scale(1)}39.47%{transform:scale(1)}40.27%{transform:scale(1.45)}41.67%{transform:scale(1)}60%{transform:scale(1)}63%{transform:scale(1.3)}66%{transform:scale(1)}93%{transform:scale(1);opacity:1}97.5%,100%{transform:scale(0);opacity:0}}
+.scene-step-1-photo .p-punto-11{animation:s1P11 var(--T) infinite}
+@keyframes s1P11{0%,24.78%{transform:scale(0);opacity:0}26.38%{transform:scale(1.7);opacity:1}27.58%{transform:scale(.8)}28.78%{transform:scale(1)}39.31%{transform:scale(1)}40.11%{transform:scale(1.45)}41.51%{transform:scale(1)}60%{transform:scale(1)}63%{transform:scale(1.3)}66%{transform:scale(1)}93%{transform:scale(1);opacity:1}97.5%,100%{transform:scale(0);opacity:0}}
+.scene-step-1-photo .p-punto-12{animation:s1P12 var(--T) infinite}
+@keyframes s1P12{0%,26.41%{transform:scale(0);opacity:0}28.01%{transform:scale(1.7);opacity:1}29.21%{transform:scale(.8)}30.41%{transform:scale(1)}38.69%{transform:scale(1)}39.49%{transform:scale(1.45)}40.89%{transform:scale(1)}60%{transform:scale(1)}63%{transform:scale(1.3)}66%{transform:scale(1)}93%{transform:scale(1);opacity:1}97.5%,100%{transform:scale(0);opacity:0}}
+.scene-step-1-photo .p-punto-13{animation:s1P13 var(--T) infinite}
+@keyframes s1P13{0%,27.2%{transform:scale(0);opacity:0}28.8%{transform:scale(1.7);opacity:1}30%{transform:scale(.8)}31.2%{transform:scale(1)}38.38%{transform:scale(1)}39.18%{transform:scale(1.45)}40.58%{transform:scale(1)}60%{transform:scale(1)}63%{transform:scale(1.3)}66%{transform:scale(1)}93%{transform:scale(1);opacity:1}97.5%,100%{transform:scale(0);opacity:0}}
+.scene-step-1-photo .p-punto-14{animation:s1P14 var(--T) infinite}
+@keyframes s1P14{0%,29.17%{transform:scale(0);opacity:0}30.77%{transform:scale(1.7);opacity:1}31.97%{transform:scale(.8)}33.17%{transform:scale(1)}37.64%{transform:scale(1)}38.44%{transform:scale(1.45)}39.84%{transform:scale(1)}60%{transform:scale(1)}63%{transform:scale(1.3)}66%{transform:scale(1)}93%{transform:scale(1);opacity:1}97.5%,100%{transform:scale(0);opacity:0}}
+.scene-step-1-photo .p-punto-15{animation:s1P15 var(--T) infinite}
+@keyframes s1P15{0%,29.62%{transform:scale(0);opacity:0}31.22%{transform:scale(1.7);opacity:1}32.42%{transform:scale(.8)}33.62%{transform:scale(1)}37.47%{transform:scale(1)}38.27%{transform:scale(1.45)}39.67%{transform:scale(1)}60%{transform:scale(1)}63%{transform:scale(1.3)}66%{transform:scale(1)}93%{transform:scale(1);opacity:1}97.5%,100%{transform:scale(0);opacity:0}}
+.scene-step-1-photo .p-punto-16{animation:s1P16 var(--T) infinite}
+@keyframes s1P16{0%,30.56%{transform:scale(0);opacity:0}32.16%{transform:scale(1.7);opacity:1}33.36%{transform:scale(.8)}34.56%{transform:scale(1)}37.11%{transform:scale(1)}37.91%{transform:scale(1.45)}39.31%{transform:scale(1)}60%{transform:scale(1)}63%{transform:scale(1.3)}66%{transform:scale(1)}93%{transform:scale(1);opacity:1}97.5%,100%{transform:scale(0);opacity:0}}
+.scene-step-1-photo .p-punto-17{animation:s1P17 var(--T) infinite}
+@keyframes s1P17{0%,31.14%{transform:scale(0);opacity:0}32.74%{transform:scale(1.7);opacity:1}33.94%{transform:scale(.8)}35.14%{transform:scale(1)}36.89%{transform:scale(1)}37.69%{transform:scale(1.45)}39.09%{transform:scale(1)}60%{transform:scale(1)}63%{transform:scale(1.3)}66%{transform:scale(1)}93%{transform:scale(1);opacity:1}97.5%,100%{transform:scale(0);opacity:0}}
+.scene-step-1-photo .p-punto-18{animation:s1P18 var(--T) infinite}
+@keyframes s1P18{0%,32.47%{transform:scale(0);opacity:0}34.07%{transform:scale(1.7);opacity:1}35.27%{transform:scale(.8)}36.47%{transform:scale(1)}60%{transform:scale(1)}63%{transform:scale(1.3)}66%{transform:scale(1)}93%{transform:scale(1);opacity:1}97.5%,100%{transform:scale(0);opacity:0}}
+.scene-step-1-photo .p-punto-19{animation:s1P19 var(--T) infinite}
+@keyframes s1P19{0%,32.7%{transform:scale(0);opacity:0}34.3%{transform:scale(1.7);opacity:1}35.5%{transform:scale(.8)}36.7%{transform:scale(1)}60%{transform:scale(1)}63%{transform:scale(1.3)}66%{transform:scale(1)}93%{transform:scale(1);opacity:1}97.5%,100%{transform:scale(0);opacity:0}}
+.scene-step-1-photo .p-punto-20{animation:s1P20 var(--T) infinite}
+@keyframes s1P20{0%,33.32%{transform:scale(0);opacity:0}34.92%{transform:scale(1.7);opacity:1}36.12%{transform:scale(.8)}37.32%{transform:scale(1)}60%{transform:scale(1)}63%{transform:scale(1.3)}66%{transform:scale(1)}93%{transform:scale(1);opacity:1}97.5%,100%{transform:scale(0);opacity:0}}
+.scene-step-1-photo .p-punto-21{animation:s1P21 var(--T) infinite}
+@keyframes s1P21{0%,33.76%{transform:scale(0);opacity:0}35.36%{transform:scale(1.7);opacity:1}36.56%{transform:scale(.8)}37.76%{transform:scale(1)}60%{transform:scale(1)}63%{transform:scale(1.3)}66%{transform:scale(1)}93%{transform:scale(1);opacity:1}97.5%,100%{transform:scale(0);opacity:0}}
+.scene-step-1-photo .lf-1{animation:s1LF1 var(--T) infinite}
+@keyframes s1LF1{0%,16.13%{stroke-dashoffset:1;opacity:0}16.33%{stroke-dashoffset:1;opacity:1}19.33%{stroke-dashoffset:0}93%{stroke-dashoffset:0;opacity:1}97.5%,100%{stroke-dashoffset:0;opacity:0}}
+.scene-step-1-photo .lf-2{animation:s1LF2 var(--T) infinite}
+@keyframes s1LF2{0%,16.13%{stroke-dashoffset:1;opacity:0}16.33%{stroke-dashoffset:1;opacity:1}19.33%{stroke-dashoffset:0}93%{stroke-dashoffset:0;opacity:1}97.5%,100%{stroke-dashoffset:0;opacity:0}}
+.scene-step-1-photo .lc-1{animation:s1LC1 var(--T) infinite}
+@keyframes s1LC1{0%,22.76%{stroke-dashoffset:1;opacity:0}22.96%{stroke-dashoffset:1;opacity:1}25.96%{stroke-dashoffset:0}93%{stroke-dashoffset:0;opacity:1}97.5%,100%{stroke-dashoffset:0;opacity:0}}
+.scene-step-1-photo .lc-2{animation:s1LC2 var(--T) infinite}
+@keyframes s1LC2{0%,23.15%{stroke-dashoffset:1;opacity:0}23.35%{stroke-dashoffset:1;opacity:1}26.35%{stroke-dashoffset:0}93%{stroke-dashoffset:0;opacity:1}97.5%,100%{stroke-dashoffset:0;opacity:0}}
+.scene-step-1-photo .lc-3{animation:s1LC3 var(--T) infinite}
+@keyframes s1LC3{0%,25.56%{stroke-dashoffset:1;opacity:0}25.76%{stroke-dashoffset:1;opacity:1}28.76%{stroke-dashoffset:0}93%{stroke-dashoffset:0;opacity:1}97.5%,100%{stroke-dashoffset:0;opacity:0}}
+.scene-step-1-photo .lc-4{animation:s1LC4 var(--T) infinite}
+@keyframes s1LC4{0%,21.42%{stroke-dashoffset:1;opacity:0}21.62%{stroke-dashoffset:1;opacity:1}24.62%{stroke-dashoffset:0}93%{stroke-dashoffset:0;opacity:1}97.5%,100%{stroke-dashoffset:0;opacity:0}}
+.scene-step-1-photo .lc-5{animation:s1LC5 var(--T) infinite}
+@keyframes s1LC5{0%,27.55%{stroke-dashoffset:1;opacity:0}27.75%{stroke-dashoffset:1;opacity:1}30.75%{stroke-dashoffset:0}93%{stroke-dashoffset:0;opacity:1}97.5%,100%{stroke-dashoffset:0;opacity:0}}
+.scene-step-1-photo .lc-6{animation:s1LC6 var(--T) infinite}
+@keyframes s1LC6{0%,27.98%{stroke-dashoffset:1;opacity:0}28.18%{stroke-dashoffset:1;opacity:1}31.18%{stroke-dashoffset:0}93%{stroke-dashoffset:0;opacity:1}97.5%,100%{stroke-dashoffset:0;opacity:0}}
+.scene-step-1-photo .lc-7{animation:s1LC7 var(--T) infinite}
+@keyframes s1LC7{0%,27.55%{stroke-dashoffset:1;opacity:0}27.75%{stroke-dashoffset:1;opacity:1}30.75%{stroke-dashoffset:0}93%{stroke-dashoffset:0;opacity:1}97.5%,100%{stroke-dashoffset:0;opacity:0}}
+.scene-step-1-photo .lc-8{animation:s1LC8 var(--T) infinite}
+@keyframes s1LC8{0%,25.56%{stroke-dashoffset:1;opacity:0}25.76%{stroke-dashoffset:1;opacity:1}28.76%{stroke-dashoffset:0}93%{stroke-dashoffset:0;opacity:1}97.5%,100%{stroke-dashoffset:0;opacity:0}}
+.scene-step-1-photo .lc-9{animation:s1LC9 var(--T) infinite}
+@keyframes s1LC9{0%,32.37%{stroke-dashoffset:1;opacity:0}32.57%{stroke-dashoffset:1;opacity:1}35.57%{stroke-dashoffset:0}93%{stroke-dashoffset:0;opacity:1}97.5%,100%{stroke-dashoffset:0;opacity:0}}
+.scene-step-1-photo .lc-10{animation:s1LC10 var(--T) infinite}
+@keyframes s1LC10{0%,32.82%{stroke-dashoffset:1;opacity:0}33.02%{stroke-dashoffset:1;opacity:1}36.02%{stroke-dashoffset:0}93%{stroke-dashoffset:0;opacity:1}97.5%,100%{stroke-dashoffset:0;opacity:0}}
+.scene-step-1-photo .lc-11{animation:s1LC11 var(--T) infinite}
+@keyframes s1LC11{0%,33.76%{stroke-dashoffset:1;opacity:0}33.96%{stroke-dashoffset:1;opacity:1}36.96%{stroke-dashoffset:0}93%{stroke-dashoffset:0;opacity:1}97.5%,100%{stroke-dashoffset:0;opacity:0}}
+.scene-step-1-photo .lc-12{animation:s1LC12 var(--T) infinite}
+@keyframes s1LC12{0%,34.34%{stroke-dashoffset:1;opacity:0}34.54%{stroke-dashoffset:1;opacity:1}37.54%{stroke-dashoffset:0}93%{stroke-dashoffset:0;opacity:1}97.5%,100%{stroke-dashoffset:0;opacity:0}}
+.scene-step-1-photo .lc-13{animation:s1LC13 var(--T) infinite}
+@keyframes s1LC13{0%,35.67%{stroke-dashoffset:1;opacity:0}35.87%{stroke-dashoffset:1;opacity:1}38.87%{stroke-dashoffset:0}93%{stroke-dashoffset:0;opacity:1}97.5%,100%{stroke-dashoffset:0;opacity:0}}
+.scene-step-1-photo .lc-14{animation:s1LC14 var(--T) infinite}
+@keyframes s1LC14{0%,35.9%{stroke-dashoffset:1;opacity:0}36.1%{stroke-dashoffset:1;opacity:1}39.1%{stroke-dashoffset:0}93%{stroke-dashoffset:0;opacity:1}97.5%,100%{stroke-dashoffset:0;opacity:0}}
+.scene-step-1-photo .lc-15{animation:s1LC15 var(--T) infinite}
+@keyframes s1LC15{0%,36.52%{stroke-dashoffset:1;opacity:0}36.72%{stroke-dashoffset:1;opacity:1}39.72%{stroke-dashoffset:0}93%{stroke-dashoffset:0;opacity:1}97.5%,100%{stroke-dashoffset:0;opacity:0}}
+.scene-step-1-photo .lc-16{animation:s1LC16 var(--T) infinite}
+@keyframes s1LC16{0%,36.96%{stroke-dashoffset:1;opacity:0}37.16%{stroke-dashoffset:1;opacity:1}40.16%{stroke-dashoffset:0}93%{stroke-dashoffset:0;opacity:1}97.5%,100%{stroke-dashoffset:0;opacity:0}}
+.scene-step-1-photo .p-lila-1{animation:s1Lila1 var(--T) infinite}
+@keyframes s1Lila1{0%,48.6%{transform:scale(0);opacity:0}50.2%{transform:scale(1.7);opacity:1}51.4%{transform:scale(.8)}52.6%{transform:scale(1)}60%{transform:scale(1)}63%{transform:scale(1.3)}66%{transform:scale(1)}93%{transform:scale(1);opacity:1}97.5%,100%{transform:scale(0);opacity:0}}
+.scene-step-1-photo .cn-1{animation:s1Cn1 var(--T) infinite}
+@keyframes s1Cn1{0%,50.8%{stroke-dashoffset:1;opacity:0}51%{stroke-dashoffset:1;opacity:1}55%{stroke-dashoffset:0}93%{stroke-dashoffset:0;opacity:1}97.5%,100%{stroke-dashoffset:0;opacity:0}}
+.scene-step-1-photo .p-lila-2{animation:s1Lila2 var(--T) infinite}
+@keyframes s1Lila2{0%,53.6%{transform:scale(0);opacity:0}55.2%{transform:scale(1.7);opacity:1}56.4%{transform:scale(.8)}57.6%{transform:scale(1)}60%{transform:scale(1)}63%{transform:scale(1.3)}66%{transform:scale(1)}93%{transform:scale(1);opacity:1}97.5%,100%{transform:scale(0);opacity:0}}
+.scene-step-1-photo .cn-2{animation:s1Cn2 var(--T) infinite}
+@keyframes s1Cn2{0%,55.8%{stroke-dashoffset:1;opacity:0}56%{stroke-dashoffset:1;opacity:1}60%{stroke-dashoffset:0}93%{stroke-dashoffset:0;opacity:1}97.5%,100%{stroke-dashoffset:0;opacity:0}}
+/* acercamientos: aparecen, hacen zoom y flotan */
+.scene-step-1-photo .g-circ-cara{animation:s1Circ var(--T) infinite}
+.scene-step-1-photo .g-circ-cuerpo{animation:s1Circ2 var(--T) infinite}
+@keyframes s1Circ{
+  0%,53.5%{transform:scale(0) rotate(-25deg);opacity:0}
+  56.5%{transform:scale(1.14) rotate(6deg);opacity:1}
+  58.5%{transform:scale(.95) rotate(-2deg)}
+  60.5%{transform:scale(1) rotate(0)}
+  72%{transform:translateY(-2.5%) rotate(-2deg)}
+  82%{transform:translateY(1.5%) rotate(1.5deg)}
+  93%{transform:translateY(0) scale(1);opacity:1}
+  97.5%,100%{transform:scale(0);opacity:0}
+}
+@keyframes s1Circ2{
+  0%,58.5%{transform:scale(0) rotate(25deg);opacity:0}
+  61.5%{transform:scale(1.14) rotate(-6deg);opacity:1}
+  63.5%{transform:scale(.95) rotate(2deg)}
+  65.5%{transform:scale(1) rotate(0)}
+  76%{transform:translateY(2.5%) rotate(2deg)}
+  86%{transform:translateY(-1.5%) rotate(-1.5deg)}
+  93%{transform:translateY(0) scale(1);opacity:1}
+  97.5%,100%{transform:scale(0);opacity:0}
+}
+.scene-step-1-photo .p-zoom-cara{animation:s1Zoom var(--T) infinite}
+.scene-step-1-photo .p-zoom-cuerpo{animation:s1Zoom2 var(--T) infinite}
+@keyframes s1Zoom{0%,55%{transform:scale(1.7)}65%{transform:scale(1)}100%{transform:scale(1)}}
+@keyframes s1Zoom2{0%,60%{transform:scale(1.7)}70%{transform:scale(1)}100%{transform:scale(1)}}
+.scene-step-1-photo .f-brillo-cara,.scene-step-1-photo .f-brillo-cuerpo{overflow:hidden;border-radius:50%}
+.scene-step-1-photo .f-brillo-cara i,.scene-step-1-photo .f-brillo-cuerpo i{position:absolute;top:-10%;left:-60%;width:40%;height:120%;
+  background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.7),rgba(255,255,255,0));transform:translateX(0) rotate(20deg);opacity:0;
+  animation:s1Brillo var(--T) infinite}
+.scene-step-1-photo .f-brillo-cuerpo i{animation-name:s1Brillo2}
+@keyframes s1Brillo{0%,64%{transform:translateX(0) rotate(20deg);opacity:0}65%{opacity:1}71%{transform:translateX(420%) rotate(20deg);opacity:1}72%,100%{opacity:0;transform:translateX(420%) rotate(20deg)}}
+@keyframes s1Brillo2{0%,69%{transform:translateX(0) rotate(20deg);opacity:0}70%{opacity:1}76%{transform:translateX(420%) rotate(20deg);opacity:1}77%,100%{opacity:0;transform:translateX(420%) rotate(20deg)}}
+/* palomita: aparece con rebote cuando termina el análisis */
+.scene-step-1-photo .g-check{animation:s1Check var(--T) infinite}
+@keyframes s1Check{
+  0%,70%{transform:scale(0) rotate(-90deg);opacity:0}
+  70.5%{opacity:1}
+  74%{transform:scale(1.3) rotate(10deg)}
+  77%{transform:scale(.88) rotate(-4deg)}
+  80%{transform:scale(1.06) rotate(0)}
+  83%{transform:scale(1)}
+  93%{transform:scale(1);opacity:1}
+  97.5%,100%{transform:scale(0);opacity:0}
+}
+.scene-step-1-photo .p-palomita{animation:s1Palomita var(--T) infinite}
+@keyframes s1Palomita{0%,73%{transform:scale(0) rotate(-30deg)}77%{transform:scale(1.35) rotate(8deg)}80%{transform:scale(.9)}83%,86%{transform:scale(1)}88%{transform:scale(1.15) rotate(-6deg)}90%,100%{transform:scale(1) rotate(0)}}
+.scene-step-1-photo .f-onda-check i{position:absolute;inset:0;border-radius:50%;border:1.1cqw solid #FF7A55;opacity:0;animation:s1Onda var(--T) infinite}
+.scene-step-1-photo .f-onda-check i+i{animation-delay:.25s;border-color:#FFB199}
+@keyframes s1Onda{0%,73%{transform:scale(.9);opacity:0}74%{opacity:.9}85%,100%{transform:scale(1.8);opacity:0}}
+.scene-step-1-photo .p-rayita-1,.scene-step-1-photo .p-rayita-2{animation:s1Rayita var(--T) infinite}
+.scene-step-1-photo .p-rayita-2{animation-delay:calc(var(--T) * -1 + .12s)}
+@keyframes s1Rayita{
+  0%,73%{transform:scale(0);opacity:0}
+  75%{transform:scale(1.35);opacity:1}
+  77%{transform:scale(1)}
+  81%{transform:scale(1)}
+  83%{transform:scale(1.3)}
+  85%,93%{transform:scale(1);opacity:1}
+  97.5%,100%{transform:scale(0);opacity:0}
+}
+
+/* ---------- escena: step-2-alert (img/anim/step-2-alert/escena.css) ---------- */
+/* ============================================================
+   Paso 2 · Activa la alerta: el celular vibra, lanza la señal y la
+   alerta se propaga por el vecindario; cada vecino la recibe en cascada.
+   Ciclo de --T (6 s):
+     0-14 %  el celular vibra, la huella late, se enciende la pantalla y sale el aviso
+     6-26 %  las ondas se encienden de adentro hacia afuera; la campana suena
+     18-42 % caen los pines uno por uno
+     20-62 % reaccionan: chica, chico, beagle, casita, golden, señor, cachorro, niña
+   Encima: anillos de radar continuos, colitas meneándose y arbustos meciéndose.
+   Los retrasos son negativos (momento del ciclo - T) para que el ciclo arranque ya en marcha.
+   ============================================================ */
+.scene-step-2-alert{--T:6s}
+
+/* ---------- radar: anillos que barren todo el vecindario ---------- */
+.scene-step-2-alert .f-radar i{position:absolute;inset:0;border-radius:50%;border:1cqw solid #33C7BE;opacity:0;
+  transform:scale(.18);animation:s2aRadar calc(var(--T) / 2) cubic-bezier(.2,.6,.35,1) infinite}
+.scene-step-2-alert .f-radar i:nth-child(2){border-color:#FF8A5C;animation-delay:calc(var(--T) / -6)}
+.scene-step-2-alert .f-radar i:nth-child(3){border-color:#B794F4;animation-delay:calc(var(--T) / -3)}
+@keyframes s2aRadar{
+  0%{transform:scale(.18);opacity:0}
+  8%{opacity:.95}
+  70%{opacity:.4}
+  100%{transform:scale(1);opacity:0}
+}
+
+/* ---------- celular: vibra y late ---------- */
+.scene-step-2-alert .g-celular{animation:s2aVibra var(--T) infinite}
+@keyframes s2aVibra{
+  0%,15%,50%,61%,100%{transform:none}
+  1%{transform:rotate(-5deg) scale(1.04)}
+  2%{transform:rotate(5deg) scale(1.06)}
+  3%{transform:rotate(-5deg) scale(1.07)}
+  4%{transform:rotate(5deg) scale(1.07)}
+  5%{transform:rotate(-4deg) scale(1.06)}
+  6%{transform:rotate(4deg) scale(1.05)}
+  7%{transform:rotate(-3deg) scale(1.04)}
+  8%{transform:rotate(3deg) scale(1.03)}
+  10%{transform:rotate(-1.5deg) scale(1.01)}
+  12%{transform:rotate(1deg)}
+  51%{transform:rotate(-4deg) scale(1.04)}
+  52%{transform:rotate(4deg) scale(1.05)}
+  53%{transform:rotate(-4deg) scale(1.05)}
+  54%{transform:rotate(3deg) scale(1.04)}
+  55%{transform:rotate(-2deg) scale(1.02)}
+  57%{transform:rotate(1deg)}
+}
+.scene-step-2-alert .p-huella{animation:s2aHuella var(--T) infinite}
+@keyframes s2aHuella{
+  0%,24%,50%,70%,100%{transform:none}
+  4%{transform:scale(1.32) rotate(-6deg)}
+  8%{transform:scale(1.04)}
+  12%{transform:scale(1.24) rotate(5deg)}
+  17%{transform:scale(1.02)}
+  54%{transform:scale(1.28) rotate(-5deg)}
+  59%{transform:scale(1.03)}
+  63%{transform:scale(1.18) rotate(4deg)}
+}
+/* destello de la pantalla (mismo giro que el teléfono) */
+.scene-step-2-alert .f-pantalla-brillo{opacity:0}
+.scene-step-2-alert .f-pantalla-brillo::before{content:"";position:absolute;left:11%;top:2.5%;width:76%;height:93%;
+  border-radius:10%/6%;transform:rotate(8.6deg);
+  background:radial-gradient(circle at 50% 52%,rgba(51,199,190,.55),rgba(51,199,190,.18) 45%,rgba(255,255,255,0) 72%)}
+.scene-step-2-alert .f-pantalla-brillo{animation:s2aBrillo var(--T) infinite}
+@keyframes s2aBrillo{
+  0%,100%{opacity:0}
+  3%{opacity:1}
+  9%{opacity:.35}
+  13%{opacity:.9}
+  24%{opacity:0}
+  50%{opacity:0}
+  53%{opacity:.9}
+  64%{opacity:0}
+}
+/* globito rojo de notificación */
+.scene-step-2-alert .f-aviso{display:flex;align-items:center;justify-content:center;border-radius:50%;
+  background:#FF5A5A;color:#fff;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:4.6cqw;line-height:1;
+  box-shadow:0 0 0 .5cqw #fff;opacity:0;transform:scale(0);animation:s2aAviso var(--T) infinite}
+@keyframes s2aAviso{
+  0%,4%{opacity:0;transform:scale(0)}
+  8%{opacity:1;transform:scale(1.45) rotate(-12deg)}
+  11%{transform:scale(.88) rotate(6deg)}
+  14%{transform:scale(1.08)}
+  17%,40%{opacity:1;transform:scale(1)}
+  44%{transform:scale(1.2)}
+  48%,80%{opacity:1;transform:scale(1)}
+  86%,100%{opacity:0;transform:scale(0)}
+}
+
+/* ---------- ondas: se encienden de adentro hacia afuera, dos veces por ciclo ---------- */
+.scene-step-2-alert .onda{animation:s2aOnda calc(var(--T) / 2) infinite}
+.scene-step-2-alert .p-onda-izq-lila,.scene-step-2-alert .p-onda-der-lila{animation-delay:calc(var(--T) * -.96)}
+.scene-step-2-alert .p-onda-der-lila2{animation-delay:calc(var(--T) * -.925)}
+.scene-step-2-alert .p-onda-izq-naranja{animation-delay:calc(var(--T) * -.91)}
+.scene-step-2-alert .p-onda-der-naranja{animation-delay:calc(var(--T) * -.89)}
+@keyframes s2aOnda{
+  0%{transform:scale(.82);opacity:.15}
+  10%{transform:scale(1.16);opacity:1}
+  20%{transform:scale(.97)}
+  28%{transform:scale(1.03)}
+  36%,70%{transform:none;opacity:1}
+  100%{transform:scale(.82);opacity:.15}
+}
+
+/* ---------- campana ---------- */
+.scene-step-2-alert .p-campana{animation:s2aCampana var(--T) infinite}
+@keyframes s2aCampana{
+  0%,12%,40%,100%{transform:rotate(0)}
+  14%{transform:rotate(-24deg) scale(1.12)}
+  17%{transform:rotate(22deg) scale(1.14)}
+  20%{transform:rotate(-19deg) scale(1.12)}
+  23%{transform:rotate(16deg) scale(1.1)}
+  26%{transform:rotate(-12deg) scale(1.06)}
+  29%{transform:rotate(9deg) scale(1.03)}
+  32%{transform:rotate(-6deg)}
+  35%{transform:rotate(3deg)}
+  62%{transform:rotate(0)}
+  65%{transform:rotate(-10deg) scale(1.05)}
+  68%{transform:rotate(8deg) scale(1.05)}
+  71%{transform:rotate(-5deg)}
+  74%{transform:rotate(2deg)}
+  77%{transform:rotate(0)}
+}
+
+/* ---------- rayitas: destellan cuando su personaje recibe la alerta ---------- */
+.scene-step-2-alert .rayitas{animation:s2aRayitas var(--T) var(--d,0s) infinite}
+.scene-step-2-alert .p-rayos-campana-izq,.scene-step-2-alert .p-rayos-campana-der{--d:calc(var(--T) * -.87)}
+.scene-step-2-alert .p-rayitas-chica{--d:calc(var(--T) * -.8)}
+.scene-step-2-alert .p-rayitas-beagle{--d:calc(var(--T) * -.68)}
+.scene-step-2-alert .p-rayitas-casa{--d:calc(var(--T) * -.62)}
+.scene-step-2-alert .p-rayitas-golden{--d:calc(var(--T) * -.56)}
+.scene-step-2-alert .p-rayitas-senor{--d:calc(var(--T) * -.5)}
+.scene-step-2-alert .p-rayitas-cachorro{--d:calc(var(--T) * -.44)}
+.scene-step-2-alert .p-rayitas-nina{--d:calc(var(--T) * -.38)}
+@keyframes s2aRayitas{
+  0%{transform:scale(.2);opacity:0}
+  3%{transform:scale(1.45);opacity:1}
+  6%{transform:scale(.9)}
+  9%{transform:scale(1.25)}
+  12%{transform:scale(.95)}
+  15%{transform:scale(1.15)}
+  19%,55%{transform:none;opacity:1}
+  62%{transform:scale(.3);opacity:0}
+  100%{transform:scale(.2);opacity:0}
+}
+
+/* ---------- pines: caen uno por uno, rebotan y flotan ---------- */
+.scene-step-2-alert .pin{animation:s2aPin var(--T) var(--d,0s) infinite;opacity:1}
+.scene-step-2-alert .p-pin-1,.scene-step-2-alert .f-aterriza-1{--d:calc(var(--T) * -.82)}
+.scene-step-2-alert .p-pin-2,.scene-step-2-alert .f-aterriza-2{--d:calc(var(--T) * -.74)}
+.scene-step-2-alert .p-pin-3,.scene-step-2-alert .f-aterriza-3{--d:calc(var(--T) * -.66)}
+.scene-step-2-alert .p-pin-4,.scene-step-2-alert .f-aterriza-4{--d:calc(var(--T) * -.58)}
+@keyframes s2aPin{
+  0%{transform:translateY(-160%) scale(.7,1.15);opacity:0;animation-timing-function:cubic-bezier(.55,0,1,.6)}
+  2%{opacity:1}
+  6%{transform:translateY(0) scale(1.3,.68)}
+  9%{transform:translateY(-34%) scale(.9,1.14)}
+  12%{transform:translateY(0) scale(1.15,.85)}
+  14.5%{transform:translateY(-10%) scale(.97,1.04)}
+  17%{transform:none}
+  32%{transform:translateY(-9%) rotate(-5deg)}
+  47%{transform:none}
+  62%{transform:translateY(-9%) rotate(5deg)}
+  77%,84%{transform:none;opacity:1}
+  90%{transform:translateY(-50%) scale(.4);opacity:0}
+  100%{transform:translateY(-160%) scale(.7,1.15);opacity:0}
+}
+.scene-step-2-alert [class*="f-aterriza"]{border-radius:50%;border:.55cqw solid #33C7BE;opacity:0;
+  transform:scale(.2);animation:s2aAterriza var(--T) var(--d,0s) infinite}
+@keyframes s2aAterriza{
+  0%,5.5%{transform:scale(.2);opacity:0}
+  6.5%{opacity:.95}
+  20%,100%{transform:scale(1.7);opacity:0}
+}
+
+/* ---------- reacción genérica: cada vecino brinca cuando le llega la alerta ---------- */
+.scene-step-2-alert .g-chica,.scene-step-2-alert .g-beagle,.scene-step-2-alert .g-chico,.scene-step-2-alert .g-golden,
+.scene-step-2-alert .g-nina,.scene-step-2-alert .g-senor,.scene-step-2-alert .g-cachorro{
+  animation:s2aBrinco var(--T) var(--d,0s) infinite}
+.scene-step-2-alert .g-chica{--d:calc(var(--T) * -.8);--tilt:-5deg}
+.scene-step-2-alert .g-chico{--d:calc(var(--T) * -.74);--tilt:4deg;--alto:-7%}
+.scene-step-2-alert .g-beagle{--d:calc(var(--T) * -.68);--tilt:-7deg;--alto:-16%}
+.scene-step-2-alert .g-golden{--d:calc(var(--T) * -.56);--tilt:6deg;--alto:-15%}
+.scene-step-2-alert .g-senor{--d:calc(var(--T) * -.5);--tilt:-4deg;--alto:-6%}
+.scene-step-2-alert .g-cachorro{--d:calc(var(--T) * -.44);--tilt:7deg;--alto:-15%}
+.scene-step-2-alert .g-nina{--d:calc(var(--T) * -.38);--tilt:5deg;--alto:-9%}
+@keyframes s2aBrinco{
+  0%{transform:none}
+  3%{transform:scale(1.07,.9)}
+  8%{transform:translateY(var(--alto,-10%)) rotate(var(--tilt,-5deg)) scale(.95,1.07)}
+  13%{transform:translateY(0) scale(1.08,.9)}
+  16.5%{transform:translateY(calc(var(--alto,-10%) * .35)) rotate(calc(var(--tilt,-5deg) * -.6)) scale(.98,1.03)}
+  20%{transform:scale(1.03,.97)}
+  24%{transform:rotate(calc(var(--tilt,-5deg) * .4))}
+  29%,100%{transform:none}
+}
+/* respiración continua de cada cuerpo */
+.scene-step-2-alert .p-chica,.scene-step-2-alert .p-chico,.scene-step-2-alert .p-nina,.scene-step-2-alert .p-senor,
+.scene-step-2-alert .p-beagle,.scene-step-2-alert .p-golden,.scene-step-2-alert .p-cachorro{
+  transform-origin:50% 100%;animation:aBreathe 2.8s ease-in-out infinite}
+.scene-step-2-alert .p-chico{animation-delay:-.7s}
+.scene-step-2-alert .p-nina{animation-delay:-1.4s}
+.scene-step-2-alert .p-senor{animation-delay:-2.1s}
+.scene-step-2-alert .p-beagle{animation-delay:-.4s;animation-duration:1.6s}
+.scene-step-2-alert .p-golden{animation-delay:-1s;animation-duration:1.8s}
+.scene-step-2-alert .p-cachorro{animation-delay:-.2s;animation-duration:1.5s}
+
+/* ---------- manos que aplauden (chica y niña) ---------- */
+.scene-step-2-alert .p-manos-chica{animation:s2aAplauso var(--T) calc(var(--T) * -.8) infinite}
+.scene-step-2-alert .p-manos-nina{animation:s2aAplauso var(--T) calc(var(--T) * -.38) infinite}
+@keyframes s2aAplauso{
+  0%,30%,100%{transform:none}
+  3%{transform:translateY(-12%) rotate(-10deg) scale(1.08)}
+  6%{transform:translateY(2%) rotate(6deg)}
+  9%{transform:translateY(-12%) rotate(-9deg) scale(1.08)}
+  12%{transform:translateY(2%) rotate(6deg)}
+  15%{transform:translateY(-10%) rotate(-7deg) scale(1.06)}
+  18%{transform:translateY(1%) rotate(4deg)}
+  21%{transform:translateY(-6%) rotate(-4deg)}
+  25%{transform:none}
+}
+
+/* ---------- chico: su celular vibra y lo señala con el dedo ---------- */
+.scene-step-2-alert .p-cel-chico{animation:s2aCelChico var(--T) calc(var(--T) * -.76) infinite}
+@keyframes s2aCelChico{
+  0%,22%,100%{transform:none}
+  2%{transform:rotate(-9deg) scale(1.06)}
+  4%{transform:rotate(7deg) scale(1.08)}
+  6%{transform:rotate(-8deg) scale(1.08)}
+  8%{transform:rotate(6deg) scale(1.06)}
+  10%{transform:rotate(-5deg) scale(1.04)}
+  12%{transform:rotate(3deg)}
+  15%{transform:rotate(-12deg) translateY(-5%) scale(1.06)}
+  19%{transform:rotate(-2deg)}
+}
+.scene-step-2-alert .p-dedo{animation:s2aDedo var(--T) calc(var(--T) * -.74) infinite}
+@keyframes s2aDedo{
+  0%,30%,100%{transform:none}
+  4%{transform:translate(-9%,-5%) rotate(-10deg)}
+  7%{transform:translate(2%,1%) rotate(3deg)}
+  11%{transform:translate(-9%,-5%) rotate(-10deg)}
+  14%{transform:translate(2%,1%) rotate(3deg)}
+  18%{transform:translate(-6%,-3%) rotate(-6deg)}
+  23%{transform:none}
+}
+
+/* ---------- casita: rebota como resorte, late su huella, se mecen los arbustos ---------- */
+.scene-step-2-alert .g-casa{animation:s2aCasa var(--T) calc(var(--T) * -.62) infinite}
+@keyframes s2aCasa{
+  0%,30%,100%{transform:none}
+  3%{transform:scale(1.12,.84)}
+  8%{transform:translateY(-12%) scale(.92,1.14)}
+  13%{transform:translateY(0) scale(1.1,.88)}
+  17%{transform:scale(.96,1.05)}
+  21%{transform:scale(1.03,.97)}
+  25%{transform:none}
+}
+.scene-step-2-alert .p-huella-casa{animation:s2aHuellaCasa var(--T) calc(var(--T) * -.62) infinite}
+@keyframes s2aHuellaCasa{
+  0%,40%,100%{transform:none}
+  6%{transform:scale(1.5) rotate(-10deg)}
+  11%{transform:scale(1.05)}
+  16%{transform:scale(1.38) rotate(8deg)}
+  22%{transform:scale(1.02)}
+  27%{transform:scale(1.2)}
+  33%{transform:none}
+}
+.scene-step-2-alert .p-arbusto-izq,.scene-step-2-alert .p-arbusto-der{animation:s2aArbusto 1.9s ease-in-out infinite alternate}
+.scene-step-2-alert .p-arbusto-der{animation-delay:-1.1s}
+@keyframes s2aArbusto{0%{transform:skewX(5deg) scale(1.03,.96)}100%{transform:skewX(-5deg) scale(.98,1.05)}}
+
+/* ---------- señor: se ríe echando la cabeza atrás y sube el pulgar ---------- */
+.scene-step-2-alert .p-cabeza-senor{animation:s2aRisa var(--T) calc(var(--T) * -.5) infinite}
+@keyframes s2aRisa{
+  0%,34%,100%{transform:none}
+  3%{transform:rotate(-8deg) translateY(-3%)}
+  6%{transform:rotate(4deg)}
+  9%{transform:rotate(-7deg) translateY(-3%)}
+  12%{transform:rotate(4deg)}
+  15%{transform:rotate(-6deg) translateY(-2%)}
+  18%{transform:rotate(3deg)}
+  22%{transform:rotate(-3deg)}
+  27%{transform:rotate(1deg)}
+}
+.scene-step-2-alert .p-pulgar{animation:s2aPulgar var(--T) calc(var(--T) * -.5) infinite}
+@keyframes s2aPulgar{
+  0%,34%,100%{transform:none}
+  4%{transform:translateY(-16%) rotate(-16deg) scale(1.22)}
+  8%{transform:translateY(0) rotate(5deg) scale(1.05)}
+  12%{transform:translateY(-14%) rotate(-14deg) scale(1.2)}
+  16%{transform:translateY(0) rotate(4deg) scale(1.04)}
+  20%{transform:translateY(-8%) rotate(-8deg) scale(1.12)}
+  26%{transform:rotate(2deg)}
+}
+
+/* ---------- colitas (siempre) y pata del cachorro que saluda ---------- */
+.scene-step-2-alert .p-cola-beagle{animation:aWag .34s ease-in-out infinite alternate;--wag:-18deg}
+.scene-step-2-alert .p-cola-golden{animation:aWag .42s ease-in-out infinite alternate;--wag:14deg}
+.scene-step-2-alert .p-cola-cachorro{animation:aWag .28s ease-in-out infinite alternate;--wag:-20deg}
+.scene-step-2-alert .p-pata{animation:s2aPata var(--T) calc(var(--T) * -.44) infinite}
+@keyframes s2aPata{
+  0%,40%,100%{transform:none}
+  4%{transform:rotate(-28deg)}
+  8%{transform:rotate(6deg)}
+  12%{transform:rotate(-26deg)}
+  16%{transform:rotate(6deg)}
+  20%{transform:rotate(-24deg)}
+  24%{transform:rotate(4deg)}
+  28%{transform:rotate(-14deg)}
+  33%{transform:none}
+}
+
+/* ---------- escena: step-3-reunion (img/anim/step-3-reunion/escena.css) ---------- */
+/* Generado por scripts/capas-landing/step-3-reunion.py — no editar a mano */
+.scene-step-3-reunion{--T:6.4s}
+/* el abrazo aprieta dos veces por ciclo */
+.scene-step-3-reunion .g-abrazo{animation:s3Abrazo var(--T) infinite}
+@keyframes s3Abrazo{
+  0%,100%{transform:none}
+  6%{transform:scale(1.06,.94) rotate(-1deg)}
+  10%{transform:scale(.97,1.035) rotate(.6deg)}
+  14%{transform:scale(1.045,.955) rotate(-.6deg)}
+  19%{transform:scale(1) rotate(0)}
+  30%{transform:rotate(-2deg)}
+  42%{transform:rotate(1.8deg)}
+  50%{transform:rotate(0)}
+  56%{transform:scale(1.07,.93) rotate(-1.4deg)}
+  61%{transform:scale(.97,1.04) rotate(.8deg)}
+  65%{transform:scale(1.05,.95) rotate(-.6deg)}
+  71%{transform:rotate(0)}
+  80%{transform:rotate(1.8deg)}
+  90%{transform:rotate(-1.4deg)}
+}
+/* el perro restriega la cabeza contra la chica */
+.scene-step-3-reunion .g-perro{animation:s3Perro var(--T) ease-in-out infinite}
+@keyframes s3Perro{
+  0%,100%{transform:rotate(0)}
+  6%{transform:rotate(-6deg) translate(-1%,-.8%)}
+  12%{transform:rotate(4deg)}
+  18%{transform:rotate(-5deg) translate(-.6%,0)}
+  25%{transform:rotate(3deg)}
+  32%{transform:rotate(-1.5deg)}
+  40%{transform:rotate(1.5deg)}
+  48%{transform:rotate(0)}
+  56%{transform:rotate(-7deg) translate(-1.2%,-1%)}
+  62%{transform:rotate(4.5deg)}
+  68%{transform:rotate(-5deg)}
+  74%{transform:rotate(3deg)}
+  82%{transform:rotate(-2deg)}
+  90%{transform:rotate(1deg)}
+}
+.scene-step-3-reunion .p-lengua{animation:s3Lengua .9s ease-in-out infinite}
+@keyframes s3Lengua{0%,100%{transform:rotate(0)}25%{transform:rotate(9deg) scale(1.04,1.08)}50%{transform:rotate(-3deg)}70%{transform:rotate(6deg) scaleY(1.06)}}
+/* cola a toda velocidad, con rayitas */
+.scene-step-3-reunion .p-cola{animation:s3Cola .26s ease-in-out infinite alternate}
+@keyframes s3Cola{0%{transform:rotate(-16deg)}100%{transform:rotate(12deg)}}
+.scene-step-3-reunion .p-rayita-1,.scene-step-3-reunion .p-rayita-2{animation:s3Rayita .52s ease-out infinite}
+.scene-step-3-reunion .p-rayita-2{animation-delay:-.26s}
+@keyframes s3Rayita{0%{transform:translateX(-30%) scale(.6);opacity:0}30%{transform:translateX(0) scale(1.1);opacity:1}70%{transform:translateX(12%) scale(1);opacity:1}100%{transform:translateX(30%) scale(.8);opacity:0}}
+/* pelo y arete */
+.scene-step-3-reunion .p-pelo{animation:s3Pelo 3.2s ease-in-out infinite alternate}
+@keyframes s3Pelo{0%{transform:rotate(2.4deg) skewY(-1.5deg)}100%{transform:rotate(-2.6deg) skewY(1.5deg)}}
+.scene-step-3-reunion .p-arete{animation:s3Arete 1.1s ease-in-out infinite alternate}
+@keyframes s3Arete{0%{transform:rotate(-24deg)}100%{transform:rotate(24deg)}}
+/* rubor que se enciende con cada apretón */
+.scene-step-3-reunion .f-rubor-1,.scene-step-3-reunion .f-rubor-2{border-radius:50%;opacity:0;
+  background:radial-gradient(closest-side,rgba(255,110,120,.55),rgba(255,110,120,0));animation:s3Rubor var(--T) infinite}
+@keyframes s3Rubor{0%,2%,30%,50%,82%,100%{opacity:0}8%,20%{opacity:1}58%,72%{opacity:1}}
+/* corazoncitos que brotan y suben */
+.scene-step-3-reunion [class*="f-brote-"] svg{width:100%;height:100%;display:block;fill:currentColor}
+.scene-step-3-reunion [class*="f-brote-"]{opacity:0;animation:s3Brote 2.6s ease-out infinite}
+.scene-step-3-reunion .f-brote-2{animation-delay:-.45s}
+.scene-step-3-reunion .f-brote-3{animation-delay:-.9s}
+.scene-step-3-reunion .f-brote-4{animation-delay:-1.35s}
+.scene-step-3-reunion .f-brote-5{animation-delay:-1.8s}
+.scene-step-3-reunion .f-brote-6{animation-delay:-2.2s}
+@keyframes s3Brote{
+  0%{transform:translateY(40%) scale(.2) rotate(-15deg);opacity:0}
+  15%{transform:translateY(0) scale(1.15) rotate(8deg);opacity:1}
+  60%{transform:translateY(-110%) scale(1) rotate(-8deg);opacity:.9}
+  100%{transform:translateY(-200%) scale(.6) rotate(10deg);opacity:0}
+}
+/* escudo: pop con rebote, palomita que salta, onda, brillo y destellos */
+.scene-step-3-reunion .g-escudo{animation:s3Escudo var(--T) infinite}
+@keyframes s3Escudo{
+  0%,24%,100%{transform:none}
+  28%{transform:translateY(3%) scale(1.12,.86)}
+  33%{transform:translateY(-12%) scale(.92,1.1) rotate(-6deg)}
+  38%{transform:translateY(0) scale(1.14,.9) rotate(4deg)}
+  42%{transform:scale(.96,1.04) rotate(-2deg)}
+  46%{transform:scale(1)}
+  80%{transform:none}
+  84%{transform:rotate(-7deg)}
+  88%{transform:rotate(6deg)}
+  92%{transform:rotate(-3deg)}
+  96%{transform:none}
+}
+.scene-step-3-reunion .p-palomita{animation:s3Palomita var(--T) infinite}
+@keyframes s3Palomita{
+  0%,30%,100%{transform:none}
+  33%{transform:scale(0) rotate(-40deg)}
+  38%{transform:scale(1.45) rotate(8deg)}
+  42%{transform:scale(.9) rotate(-3deg)}
+  46%{transform:scale(1.08)}
+  50%{transform:none}
+}
+.scene-step-3-reunion .f-onda-escudo i{position:absolute;inset:0;border-radius:50%;border:1cqw solid #33C7BE;opacity:0;animation:s3Onda var(--T) infinite}
+.scene-step-3-reunion .f-onda-escudo i+i{animation-delay:.2s;border-color:#86E0D4}
+@keyframes s3Onda{0%,37%{transform:scale(.7);opacity:0}39%{opacity:.9}58%,100%{transform:scale(1.9);opacity:0}}
+.scene-step-3-reunion .f-brillo-escudo{overflow:hidden}
+.scene-step-3-reunion .f-brillo-escudo i{position:absolute;top:-20%;left:-50%;width:30%;height:140%;opacity:0;
+  background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.85),rgba(255,255,255,0));
+  transform:translateX(0) rotate(22deg);animation:s3Brillo var(--T) infinite}
+@keyframes s3Brillo{0%,40%{transform:translateX(0) rotate(22deg);opacity:0}41%{opacity:1}52%{transform:translateX(560%) rotate(22deg);opacity:1}53%,100%{transform:translateX(560%) rotate(22deg);opacity:0}}
+.scene-step-3-reunion [class*="f-destello-"] svg{width:100%;height:100%;display:block;fill:#FFD166}
+.scene-step-3-reunion [class*="f-destello-"]{opacity:0;animation:s3Destello var(--T) infinite}
+.scene-step-3-reunion .f-destello-2{animation-delay:.12s}
+.scene-step-3-reunion .f-destello-3{animation-delay:.24s}
+.scene-step-3-reunion .f-destello-4{animation-delay:.36s}
+@keyframes s3Destello{0%,37%{transform:scale(0) rotate(0);opacity:0}41%{transform:scale(1.3) rotate(45deg);opacity:1}46%{transform:scale(.8) rotate(70deg);opacity:1}52%,100%{transform:scale(0) rotate(120deg);opacity:0}}
+.scene-step-3-reunion .p-corazon-rojo-izq>img,.scene-step-3-reunion .p-corazon-rojo-izq>.burst{animation-duration:var(--T);animation-delay:-5.89s}
+.scene-step-3-reunion .p-corazon-rojo-der>img,.scene-step-3-reunion .p-corazon-rojo-der>.burst{animation-duration:var(--T);animation-delay:-5.18s}
+.scene-step-3-reunion .p-corazon-lila-izq>img,.scene-step-3-reunion .p-corazon-lila-izq>.burst{animation-duration:var(--T);animation-delay:-4.48s}
+.scene-step-3-reunion .p-corazon-lila-der>img,.scene-step-3-reunion .p-corazon-lila-der>.burst{animation-duration:var(--T);animation-delay:-3.78s}
+
+/* ---------- escena: search-fb (img/anim/search-fb/escena.css) ---------- */
+/* ============================================================
+   search-fb: la lupa recorre el celular y amplía lo que tiene debajo
+   (generado por scripts/capas-landing/search-fb.py: no editar a mano)
+   ============================================================ */
+.scene-search-fb{--T:11s}
+.scene-search-fb .g-lupa{animation:sfLupa var(--T) infinite}
+.scene-search-fb .p-ampliada{animation:sfAmpliada var(--T) infinite}
+@keyframes sfLupa{
+  0%{transform:translate(0cqw,0cqw) scale(1);animation-timing-function:ease-in-out}
+  2%{transform:translate(0cqw,0cqw) scale(1.06);animation-timing-function:ease-in-out}
+  4%{transform:translate(0cqw,0cqw) scale(0.98);animation-timing-function:ease-in-out}
+  6%{transform:translate(0cqw,0cqw) scale(1);animation-timing-function:cubic-bezier(.45,.05,.62,.7)}
+  13%{transform:translate(-5.821cqw,-19.458cqw) scale(1.04);animation-timing-function:cubic-bezier(.28,.42,.45,1)}
+  20%{transform:translate(-17.145cqw,-27.273cqw) scale(1);animation-timing-function:ease-in-out}
+  24%{transform:translate(-18.262cqw,-26.635cqw) scale(1);animation-timing-function:ease-in-out}
+  28%{transform:translate(-16.348cqw,-27.751cqw) scale(1);animation-timing-function:ease-in-out}
+  31%{transform:translate(-17.145cqw,-27.273cqw) scale(1);animation-timing-function:cubic-bezier(.45,.05,.62,.7)}
+  37%{transform:translate(-25.518cqw,-17.464cqw) scale(1.04);animation-timing-function:cubic-bezier(.28,.42,.45,1)}
+  42%{transform:translate(-26.715cqw,-5.263cqw) scale(1);animation-timing-function:ease-in-out}
+  44%{transform:translate(-26.715cqw,-5.263cqw) scale(1.07);animation-timing-function:ease-in-out}
+  46%{transform:translate(-26.715cqw,-5.263cqw) scale(0.98);animation-timing-function:ease-in-out}
+  48%{transform:translate(-26.715cqw,-5.263cqw) scale(1);animation-timing-function:cubic-bezier(.45,.05,.62,.7)}
+  54%{transform:translate(-29.745cqw,8.612cqw) scale(1.04);animation-timing-function:cubic-bezier(.28,.42,.45,1)}
+  60%{transform:translate(-21.611cqw,19.777cqw) scale(1);animation-timing-function:ease-in-out}
+  62%{transform:translate(-21.611cqw,19.777cqw) scale(1.07);animation-timing-function:ease-in-out}
+  64%{transform:translate(-21.611cqw,19.777cqw) scale(0.98);animation-timing-function:ease-in-out}
+  67%{transform:translate(-21.611cqw,19.777cqw) scale(1);animation-timing-function:cubic-bezier(.45,.05,.62,.7)}
+  74%{transform:translate(-7.416cqw,18.182cqw) scale(1.04);animation-timing-function:cubic-bezier(.28,.42,.45,1)}
+  81%{transform:translate(-0.797cqw,-0.638cqw) scale(1);animation-timing-function:ease-in-out}
+  84%{transform:translate(0cqw,0cqw) scale(1);animation-timing-function:ease-in-out}
+  86%{transform:translate(0cqw,0cqw) scale(1.1);animation-timing-function:ease-in-out}
+  88%{transform:translate(0cqw,0cqw) scale(0.97);animation-timing-function:ease-in-out}
+  90%{transform:translate(0cqw,0cqw) scale(1.04);animation-timing-function:ease-in-out}
+  92%{transform:translate(0cqw,0cqw) scale(1);animation-timing-function:ease-in-out}
+  100%{transform:translate(0cqw,0cqw) scale(1);animation-timing-function:ease-in-out}
+}
+@keyframes sfAmpliada{
+  0%{transform:scale(1) translate(0cqw,0cqw);animation-timing-function:ease-in-out}
+  2%{transform:scale(1.16) translate(0cqw,0cqw);animation-timing-function:ease-in-out}
+  4%{transform:scale(0.95) translate(0cqw,0cqw);animation-timing-function:ease-in-out}
+  6%{transform:scale(1) translate(0cqw,0cqw);animation-timing-function:cubic-bezier(.45,.05,.62,.7)}
+  13%{transform:scale(1) translate(12.807cqw,42.807cqw);animation-timing-function:cubic-bezier(.28,.42,.45,1)}
+  20%{transform:scale(1) translate(37.719cqw,60cqw);animation-timing-function:ease-in-out}
+  24%{transform:scale(1) translate(40.175cqw,58.596cqw);animation-timing-function:ease-in-out}
+  28%{transform:scale(1) translate(35.965cqw,61.053cqw);animation-timing-function:ease-in-out}
+  31%{transform:scale(1) translate(37.719cqw,60cqw);animation-timing-function:cubic-bezier(.45,.05,.62,.7)}
+  37%{transform:scale(1) translate(56.14cqw,38.421cqw);animation-timing-function:cubic-bezier(.28,.42,.45,1)}
+  42%{transform:scale(1) translate(58.772cqw,11.579cqw);animation-timing-function:ease-in-out}
+  44%{transform:scale(1.18) translate(58.772cqw,11.579cqw);animation-timing-function:ease-in-out}
+  46%{transform:scale(0.95) translate(58.772cqw,11.579cqw);animation-timing-function:ease-in-out}
+  48%{transform:scale(1) translate(58.772cqw,11.579cqw);animation-timing-function:cubic-bezier(.45,.05,.62,.7)}
+  54%{transform:scale(1) translate(65.439cqw,-18.947cqw);animation-timing-function:cubic-bezier(.28,.42,.45,1)}
+  60%{transform:scale(1) translate(47.544cqw,-43.509cqw);animation-timing-function:ease-in-out}
+  62%{transform:scale(1.18) translate(47.544cqw,-43.509cqw);animation-timing-function:ease-in-out}
+  64%{transform:scale(0.95) translate(47.544cqw,-43.509cqw);animation-timing-function:ease-in-out}
+  67%{transform:scale(1) translate(47.544cqw,-43.509cqw);animation-timing-function:cubic-bezier(.45,.05,.62,.7)}
+  74%{transform:scale(1) translate(16.316cqw,-40cqw);animation-timing-function:cubic-bezier(.28,.42,.45,1)}
+  81%{transform:scale(1) translate(1.754cqw,1.404cqw);animation-timing-function:ease-in-out}
+  84%{transform:scale(1) translate(0cqw,0cqw);animation-timing-function:ease-in-out}
+  86%{transform:scale(1.22) translate(0cqw,0cqw);animation-timing-function:ease-in-out}
+  88%{transform:scale(0.93) translate(0cqw,0cqw);animation-timing-function:ease-in-out}
+  90%{transform:scale(1.07) translate(0cqw,0cqw);animation-timing-function:ease-in-out}
+  92%{transform:scale(1) translate(0cqw,0cqw);animation-timing-function:ease-in-out}
+  100%{transform:scale(1) translate(0cqw,0cqw);animation-timing-function:ease-in-out}
+}
+/* el mango gira alrededor del lente: se acomoda en cada vuelta y abajo se tuerce para no salirse */
+.scene-search-fb .p-mango{animation:sfMango var(--T) ease-in-out infinite}
+@keyframes sfMango{
+  0%,6%,20%,31%,42%,48%,84%,100%{transform:none}
+  10%{transform:rotate(9deg)}14%{transform:rotate(-7deg)}17%{transform:rotate(4deg)}
+  24%{transform:rotate(-6deg)}28%{transform:rotate(6deg)}
+  35%{transform:rotate(11deg)}39%{transform:rotate(-6deg)}
+  52%{transform:rotate(-16deg)}57%{transform:rotate(-46deg)}60%,67%{transform:rotate(-40deg)}
+  62%{transform:rotate(-43deg)}64%{transform:rotate(-38deg)}
+  71%{transform:rotate(-26deg)}74%{transform:rotate(-19deg)}79%{transform:rotate(7deg)}82%{transform:rotate(-4deg)}
+}
+/* destello dentro del vidrio cada vez que encuentra una huella */
+.scene-search-fb .f-destello{border-radius:50%}
+.scene-search-fb .f-destello i{position:absolute;inset:0;border-radius:50%;opacity:0;
+  background:radial-gradient(circle,rgba(255,255,255,.95) 0,rgba(255,255,255,.55) 35%,rgba(255,255,255,0) 70%);
+  animation:sfDestello var(--T) infinite}
+@keyframes sfDestello{
+  0%,5%,42%,47%,60%,65%,84%,91%,100%{opacity:0;transform:scale(.6)}
+  1.5%,43.5%,61.5%{opacity:.8;transform:scale(1)}
+  86%{opacity:.95;transform:scale(1.05)}
+}
+.scene-search-fb .f-chispas b{position:absolute;width:10%;aspect-ratio:1;opacity:0;transform:scale(0);
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23FFC857' d='M12 0c.9 6.4 5.6 11.1 12 12-6.4.9-11.1 5.6-12 12-.9-6.4-5.6-11.1-12-12 6.4-.9 11.1-5.6 12-12z'/%3E%3C/svg%3E") center/contain no-repeat;
+  animation:sfChispa var(--T) infinite}
+.scene-search-fb .f-chispas b:nth-child(even){width:7%;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2333C7BE' d='M12 0c.9 6.4 5.6 11.1 12 12-6.4.9-11.1 5.6-12 12-.9-6.4-5.6-11.1-12-12 6.4-.9 11.1-5.6 12-12z'/%3E%3C/svg%3E")}
+.scene-search-fb .f-chispas b:nth-child(1){left:6.03%;top:22.50%;animation-delay:0.00s}
+.scene-search-fb .f-chispas b:nth-child(2){left:33.35%;top:1.53%;animation-delay:0.04s}
+.scene-search-fb .f-chispas b:nth-child(3){left:66.13%;top:5.27%;animation-delay:0.08s}
+.scene-search-fb .f-chispas b:nth-child(4){left:87.80%;top:31.09%;animation-delay:0.12s}
+.scene-search-fb .f-chispas b:nth-child(5){left:6.03%;top:67.50%;animation-delay:0.16s}
+.scene-search-fb .f-chispas b:nth-child(6){left:1.74%;top:32.60%;animation-delay:0.20s}
+@keyframes sfChispa{
+  0%,43%,61%,85%{opacity:0;transform:scale(0) rotate(0)}
+  2%,45%,63%{opacity:1;transform:scale(1.15) rotate(45deg)}
+  5%,48%,66%{opacity:0;transform:scale(.4) rotate(90deg)}
+  87.5%{opacity:1;transform:scale(1.4) rotate(45deg)}
+  91%{opacity:1;transform:scale(.9) rotate(80deg)}
+  95%,100%{opacity:0;transform:scale(.3) rotate(120deg)}
+}
+/* el logo de Facebook brinca cuando llega un aviso; las huellas laten cuando la lupa no las cubre */
+.scene-search-fb .g-fb{animation:sfFb var(--T) infinite}
+@keyframes sfFb{
+  0%,7%,43%,51%,61%,69%,85%,95%,100%{transform:none}
+  1.5%,44.5%,62.5%,86.5%{transform:scale(1.1,.86)}
+  3.5%,46.5%,64.5%,88.5%{transform:translateY(-12%) scale(.95,1.07) rotate(-4deg)}
+  5.5%,48.5%,66.5%,90.5%{transform:scale(1.06,.93) rotate(2deg)}
+  92.5%{transform:translateY(-5%) rotate(-2deg)}
+}
+.scene-search-fb .f-badge{opacity:0;transform:scale(0);animation:sfBadge var(--T) infinite}
+.scene-search-fb .f-badge i{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  border-radius:50%;background:#FF5A5A;border:.45cqw solid #fff;box-shadow:0 .3cqw .8cqw rgba(0,0,0,.18);
+  color:#fff;font:800 4.4cqw/1 'Baloo 2',sans-serif;font-style:normal;opacity:0}
+.scene-search-fb .f-badge i:nth-child(1){animation:sfB1 var(--T) infinite}
+.scene-search-fb .f-badge i:nth-child(2){animation:sfB2 var(--T) infinite}
+.scene-search-fb .f-badge i:nth-child(3){animation:sfB3 var(--T) infinite}
+@keyframes sfBadge{
+  0%,43.5%{opacity:0;transform:scale(0)}
+  45%{opacity:1;transform:scale(1.35)}47%{transform:scale(.92)}48.5%,62%{transform:scale(1)}
+  63%{transform:scale(1.3)}65%,86%{transform:scale(1)}87%{transform:scale(1.4)}89%,96%{opacity:1;transform:scale(1)}
+  98%,100%{opacity:0;transform:scale(0)}
+}
+@keyframes sfB1{0%,62.5%,100%{opacity:1}62.6%,99.9%{opacity:0}}
+@keyframes sfB2{0%,62.5%{opacity:0}62.6%,86.5%{opacity:1}86.6%,100%{opacity:0}}
+@keyframes sfB3{0%,86.5%{opacity:0}86.6%,100%{opacity:1}}
+.scene-search-fb .p-huella-1{animation:sfHuella1 var(--T) infinite}
+.scene-search-fb .p-huella-2{animation:sfHuella2 var(--T) infinite}
+.scene-search-fb .p-huella-3{animation:sfHuella3 var(--T) infinite}
+@keyframes sfHuella1{
+  0%,62%,70%,86%,94%,100%{transform:none}
+  63.5%,87.5%{transform:scale(1.12,.86)}
+  66%,90%{transform:translateY(-14%) scale(.94,1.08) rotate(-8deg)}
+  68%,92%{transform:scale(1.06,.94) rotate(4deg)}
+}
+@keyframes sfHuella2{
+  0%,21%,29%,43%,50%,100%{transform:none}
+  22.5%,44.5%{transform:scale(1.12,.86)}
+  25%,47%{transform:translateY(-14%) scale(.94,1.08) rotate(7deg)}
+  27%,49%{transform:scale(1.06,.94) rotate(-4deg)}
+}
+@keyframes sfHuella3{
+  0%,29%,37%,51%,58%,100%{transform:none}
+  30.5%,52.5%{transform:scale(1.14,.85)}
+  33%,55%{transform:translateY(-16%) scale(.94,1.1) rotate(-9deg)}
+  35%,57%{transform:scale(1.07,.93) rotate(5deg)}
+}
+/* avisos de WhatsApp y de redes que salen del celular */
+.scene-search-fb .f-aviso-wa svg,.scene-search-fb .f-aviso-fb svg{display:block;width:100%;height:100%;overflow:visible;
+  filter:drop-shadow(0 .4cqw 0 rgba(40,30,60,.18))}
+.scene-search-fb .f-aviso-wa svg{fill:#25D366;transform-origin:15% 95%}
+.scene-search-fb .f-aviso-fb svg{fill:#1877F2;transform-origin:85% 95%}
+.scene-search-fb .f-aviso-wa,.scene-search-fb .f-aviso-fb{opacity:0}
+.scene-search-fb .f-aviso-wa{animation:sfAvisoWa var(--T) infinite}
+.scene-search-fb .f-aviso-fb{animation:sfAvisoFb var(--T) infinite}
+@keyframes sfAvisoWa{
+  0%,44%{opacity:0;transform:translate(-30%,30%) scale(.2)}
+  46.5%{opacity:1;transform:translate(0,0) scale(1.15)}
+  48.5%{transform:scale(.95)}
+  50%,56%{opacity:1;transform:translate(0,-6%) scale(1) rotate(-3deg)}
+  60%,85%{opacity:0;transform:translate(10%,-30%) scale(.8)}
+  86%{opacity:0;transform:translate(-30%,30%) scale(.2)}
+  88.5%{opacity:1;transform:translate(0,0) scale(1.2) rotate(4deg)}
+  90.5%{transform:scale(.95)}
+  92%,95%{opacity:1;transform:translate(0,-6%) scale(1)}
+  99%,100%{opacity:0;transform:translate(10%,-30%) scale(.8)}
+}
+@keyframes sfAvisoFb{
+  0%,62%{opacity:0;transform:translate(30%,30%) scale(.2)}
+  64.5%{opacity:1;transform:translate(0,0) scale(1.15)}
+  66.5%{transform:scale(.95)}
+  68%,74%{opacity:1;transform:translate(0,-6%) scale(1) rotate(3deg)}
+  78%,87%{opacity:0;transform:translate(-10%,-30%) scale(.8)}
+  88%{opacity:0;transform:translate(30%,30%) scale(.2)}
+  90.5%{opacity:1;transform:translate(0,0) scale(1.2) rotate(-4deg)}
+  92.5%{transform:scale(.95)}
+  94%,96%{opacity:1;transform:translate(0,-6%) scale(1)}
+  100%{opacity:0;transform:translate(-10%,-30%) scale(.8)}
+}
+
+/* ---------- escena: database (img/anim/database/escena.css) ---------- */
+/* ============================================================
+   database: la base de datos manda datos a cada tarjeta y hacen match
+   (generado por scripts/capas-landing/database.py: no editar a mano)
+   ============================================================ */
+.scene-database{--T:9s}
+.scene-database .g-disco-1{animation:dbDisco1 var(--T) ease-in-out infinite}
+.scene-database .g-disco-2{animation:dbDisco2 var(--T) ease-in-out infinite}
+@keyframes dbDisco1{
+  0%,100%{transform:none}
+  0%{transform:none}
+  1%{transform:translateY(-2.2cqw) rotate(-2deg)}
+  2.5%{transform:translateY(-3.6cqw) rotate(3deg)}
+  4%{transform:translateY(-3cqw) rotate(-1deg)}
+  5%{transform:translateY(-.8cqw) rotate(0)}
+  6%{transform:translateY(0) scale(1.04,.93)}
+  7%{transform:none}
+  24%{transform:none}
+  25%{transform:translateY(-2.2cqw) rotate(-2deg)}
+  26.5%{transform:translateY(-3.6cqw) rotate(3deg)}
+  28%{transform:translateY(-3cqw) rotate(-1deg)}
+  29%{transform:translateY(-.8cqw) rotate(0)}
+  30%{transform:translateY(0) scale(1.04,.93)}
+  31%{transform:none}
+  48%{transform:none}
+  49%{transform:translateY(-2.2cqw) rotate(-2deg)}
+  50.5%{transform:translateY(-3.6cqw) rotate(3deg)}
+  52%{transform:translateY(-3cqw) rotate(-1deg)}
+  53%{transform:translateY(-.8cqw) rotate(0)}
+  54%{transform:translateY(0) scale(1.04,.93)}
+  55%{transform:none}
+  79%{transform:none}
+  80.5%{transform:translateY(-4cqw) rotate(-4deg)}
+  82%{transform:translateY(-5.4cqw) rotate(3deg)}
+  83.5%{transform:translateY(-2.6cqw) rotate(-1deg)}
+  84.2%{transform:translateY(0) scale(1.05,.92)}
+  85%{transform:translateY(-2.6cqw) rotate(2deg)}
+  86.5%{transform:translateY(-.4cqw)}
+  87.2%{transform:translateY(0) scale(1.03,.95)}
+  88%{transform:none}
+}
+@keyframes dbDisco2{
+  0%,100%{transform:none}
+  0%{transform:none}
+  1%{transform:translateY(-1.1cqw)}
+  2.5%{transform:translateY(-1.5cqw)}
+  4%{transform:translateY(-.6cqw)}
+  5%{transform:translateY(0) scale(1.03,.95)}
+  6%{transform:scale(.99,1.02)}
+  7%{transform:none}
+  24%{transform:none}
+  25%{transform:translateY(-1.1cqw)}
+  26.5%{transform:translateY(-1.5cqw)}
+  28%{transform:translateY(-.6cqw)}
+  29%{transform:translateY(0) scale(1.03,.95)}
+  30%{transform:scale(.99,1.02)}
+  31%{transform:none}
+  48%{transform:none}
+  49%{transform:translateY(-1.1cqw)}
+  50.5%{transform:translateY(-1.5cqw)}
+  52%{transform:translateY(-.6cqw)}
+  53%{transform:translateY(0) scale(1.03,.95)}
+  54%{transform:scale(.99,1.02)}
+  55%{transform:none}
+  79%{transform:none}
+  80.5%{transform:translateY(-2cqw)}
+  82%{transform:translateY(-2.6cqw)}
+  83.5%{transform:translateY(0) scale(1.04,.94)}
+  85%{transform:translateY(-1.4cqw)}
+  86.5%{transform:translateY(0) scale(1.03,.96)}
+  88%{transform:none}
+}
+/* brillos: se deslizan por la banda como si los discos giraran */
+.scene-database .p-ovalo-1,.scene-database .p-ovalo-2,.scene-database .p-ovalo-3{animation:dbGiro 2.6s linear infinite}
+.scene-database .p-ovalo-2{animation-delay:-.9s}
+.scene-database .p-ovalo-3{animation-delay:-1.7s}
+@keyframes dbGiro{
+  0%{transform:translateX(-1.2cqw) scaleX(.35);opacity:0}
+  12%{transform:translateX(0) scaleX(1);opacity:1}
+  55%{transform:translateX(11cqw) scaleX(1.1);opacity:.85}
+  82%{transform:translateX(18.5cqw) scaleX(.45);opacity:0}
+  100%{transform:translateX(18.5cqw) scaleX(.35);opacity:0}
+}
+/* bits que salen volando del cilindro en cada envío */
+.scene-database .f-bits i{position:absolute;bottom:0;width:11%;aspect-ratio:1;border-radius:28%;opacity:0;
+  background:#33C7BE;box-shadow:0 0 0 .3cqw #fff;animation:dbBit var(--T) infinite}
+.scene-database .f-bits i:nth-child(1){left:8%;--x:-18%}
+.scene-database .f-bits i:nth-child(2){left:28%;background:#B794F4;--x:-6%;animation-delay:.08s}
+.scene-database .f-bits i:nth-child(3){left:46%;background:#FFC857;--x:4%;animation-delay:.16s;border-radius:50%}
+.scene-database .f-bits i:nth-child(4){left:62%;--x:10%;animation-delay:.04s;border-radius:50%}
+.scene-database .f-bits i:nth-child(5){left:78%;background:#FF8A5C;--x:20%;animation-delay:.12s}
+.scene-database .f-bits i:nth-child(6){left:90%;background:#B794F4;--x:30%;animation-delay:.2s;border-radius:50%}
+@keyframes dbBit{
+  0%,0.9%,10%,24.9%,34%,48.9%,58%,80.4%,92%,100%{transform:translate(0,60%) scale(.3);opacity:0}
+  2%,26%,50%,81.5%{transform:translate(0,0) scale(1);opacity:1}
+  8%,32%,56%{transform:translate(var(--x),-260%) scale(.7) rotate(160deg);opacity:0}
+  89%{transform:translate(calc(var(--x) * 2),-360%) scale(.8) rotate(260deg);opacity:0}
+}
+/* ondas de señal que suben desde la tapa del cilindro en la fiesta final */
+.scene-database .f-senal i{position:absolute;inset:0;border-radius:50%;border:.55cqw solid #B794F4;opacity:0;
+  animation:dbSenal var(--T) ease-out infinite}
+.scene-database .f-senal i:nth-child(2){border-color:#33C7BE;animation-delay:.3s}
+.scene-database .f-senal i:nth-child(3){animation-delay:.6s}
+@keyframes dbSenal{
+  0%,80%{transform:translateY(-10%) scale(.7);opacity:0}
+  81%{opacity:.95}
+  89%,100%{transform:translateY(-150%) scale(1.25);opacity:0}
+}
+/* puntitos de datos */
+.scene-database [class*="f-dato-"] i{position:absolute;inset:0;border-radius:50%;opacity:0;
+  background:radial-gradient(circle,#fff 0 38%,#33C7BE 42% 62%,rgba(51,199,190,0) 72%);
+  animation-duration:var(--T);animation-iteration-count:infinite;animation-timing-function:linear}
+.scene-database [class*="f-dato-"] i+i{inset:22%;animation-delay:.14s;
+  background:radial-gradient(circle,#fff 0 40%,#B794F4 45% 65%,rgba(183,148,244,0) 75%)}
+.scene-database .f-dato-izq i{animation-name:dbDatoIzq}
+@keyframes dbDatoIzq{
+  0%,4.99%{transform:translate(0,0) scale(.3);opacity:0}
+  5%{transform:translate(0cqw,0cqw) scale(0.5);opacity:0}
+  5.954%{transform:translate(-1.116cqw,0cqw) scale(1.25);opacity:1}
+  7.454%{transform:translate(-2.871cqw,0cqw) scale(1.25);opacity:1}
+  8.63%{transform:translate(-4.226cqw,-0.239cqw) scale(1.25);opacity:1}
+  9.644%{transform:translate(-5.024cqw,-1.116cqw) scale(1.25);opacity:1}
+  11.034%{transform:translate(-5.343cqw,-2.711cqw) scale(1.25);opacity:1}
+  12.404%{transform:translate(-5.502cqw,-4.306cqw) scale(1.25);opacity:1}
+  13.775%{transform:translate(-6.22cqw,-5.742cqw) scale(1.25);opacity:1}
+  14.5%{transform:translate(-6.858cqw,-6.3cqw) scale(0.5);opacity:0}
+  70.99%{transform:translate(-6.858cqw,-6.3cqw) scale(.3);opacity:0}
+  71%{transform:translate(-6.858cqw,-6.3cqw) scale(0.5);opacity:0}
+  71.61%{transform:translate(-6.22cqw,-5.742cqw) scale(1.25);opacity:1}
+  72.765%{transform:translate(-5.502cqw,-4.306cqw) scale(1.25);opacity:1}
+  73.919%{transform:translate(-5.343cqw,-2.711cqw) scale(1.25);opacity:1}
+  75.09%{transform:translate(-5.024cqw,-1.116cqw) scale(1.25);opacity:1}
+  75.943%{transform:translate(-4.226cqw,-0.239cqw) scale(1.25);opacity:1}
+  76.934%{transform:translate(-2.871cqw,0cqw) scale(1.25);opacity:1}
+  78.196%{transform:translate(-1.116cqw,0cqw) scale(1.25);opacity:1}
+  79%{transform:translate(0cqw,0cqw) scale(0.5);opacity:0}
+  79.01%,100%{transform:translate(0,0) scale(.3);opacity:0}
+}
+.scene-database .f-dato-der i{animation-name:dbDatoDer}
+@keyframes dbDatoDer{
+  0%,28.99%{transform:translate(0,0) scale(.3);opacity:0}
+  29%{transform:translate(0cqw,0cqw) scale(0.5);opacity:0}
+  29.835%{transform:translate(0.957cqw,0cqw) scale(1.25);opacity:1}
+  31.089%{transform:translate(2.392cqw,0cqw) scale(1.25);opacity:1}
+  32.372%{transform:translate(3.828cqw,-0.319cqw) scale(1.25);opacity:1}
+  33.46%{transform:translate(4.625cqw,-1.276cqw) scale(1.25);opacity:1}
+  34.88%{transform:translate(4.944cqw,-2.871cqw) scale(1.25);opacity:1}
+  36.279%{transform:translate(5.104cqw,-4.466cqw) scale(1.25);opacity:1}
+  37.65%{transform:translate(5.742cqw,-5.901cqw) scale(1.25);opacity:1}
+  38.5%{transform:translate(6.3cqw,-6.699cqw) scale(0.5);opacity:0}
+  70.99%{transform:translate(6.3cqw,-6.699cqw) scale(.3);opacity:0}
+  71%{transform:translate(6.3cqw,-6.699cqw) scale(0.5);opacity:0}
+  71.716%{transform:translate(5.742cqw,-5.901cqw) scale(1.25);opacity:1}
+  72.87%{transform:translate(5.104cqw,-4.466cqw) scale(1.25);opacity:1}
+  74.049%{transform:translate(4.944cqw,-2.871cqw) scale(1.25);opacity:1}
+  75.244%{transform:translate(4.625cqw,-1.276cqw) scale(1.25);opacity:1}
+  76.16%{transform:translate(3.828cqw,-0.319cqw) scale(1.25);opacity:1}
+  77.241%{transform:translate(2.392cqw,0cqw) scale(1.25);opacity:1}
+  78.296%{transform:translate(0.957cqw,0cqw) scale(1.25);opacity:1}
+  79%{transform:translate(0cqw,0cqw) scale(0.5);opacity:0}
+  79.01%,100%{transform:translate(0,0) scale(.3);opacity:0}
+}
+.scene-database .f-dato-aba i{animation-name:dbDatoAba}
+@keyframes dbDatoAba{
+  0%,52.99%{transform:translate(0,0) scale(.3);opacity:0}
+  53%{transform:translate(0cqw,0cqw) scale(0.5);opacity:0}
+  54.5%{transform:translate(0cqw,1.435cqw) scale(1.25);opacity:1}
+  56.833%{transform:translate(0cqw,3.668cqw) scale(1.25);opacity:1}
+  59%{transform:translate(0cqw,5.742cqw) scale(0.5);opacity:0}
+  70.99%{transform:translate(0cqw,5.742cqw) scale(.3);opacity:0}
+  71%{transform:translate(0cqw,5.742cqw) scale(0.5);opacity:0}
+  73.889%{transform:translate(0cqw,3.668cqw) scale(1.25);opacity:1}
+  77%{transform:translate(0cqw,1.435cqw) scale(1.25);opacity:1}
+  79%{transform:translate(0cqw,0cqw) scale(0.5);opacity:0}
+  79.01%,100%{transform:translate(0,0) scale(.3);opacity:0}
+}
+/* latido (aro) del corazón y chispas de match */
+.scene-database [class*="f-latido-"] i{position:absolute;inset:0;border-radius:50%;border:.6cqw solid #FF6B6B;opacity:0;
+  animation-duration:var(--T);animation-iteration-count:infinite;animation-timing-function:ease-out}
+.scene-database [class*="f-chispas-"] b{position:absolute;width:10%;aspect-ratio:1;opacity:0;transform:scale(0);
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23FFC857' d='M12 0c.9 6.4 5.6 11.1 12 12-6.4.9-11.1 5.6-12 12-.9-6.4-5.6-11.1-12-12 6.4-.9 11.1-5.6 12-12z'/%3E%3C/svg%3E") center/contain no-repeat;
+  animation-duration:var(--T);animation-iteration-count:infinite}
+.scene-database [class*="f-chispas-"] b:nth-child(even){width:7%;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23FF6B6B' d='M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.6 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z'/%3E%3C/svg%3E")}
+.scene-database .g-carta-izq{animation:dbCartaIzq var(--T) ease-in-out infinite}
+.scene-database .p-cabeza-izq{animation:dbCabezaIzq var(--T) ease-in-out infinite}
+.scene-database .p-corazon-izq{animation:dbCorazonIzq var(--T) infinite}
+.scene-database .f-latido-izq i{animation-name:dbLatidoIzq}
+.scene-database .g-barra-izq-1>.pt{animation:dbBarraIzq1 var(--T) cubic-bezier(.3,.7,.4,1) infinite}
+.scene-database .g-barra-izq-2>.pt{animation:dbBarraIzq2 var(--T) cubic-bezier(.3,.7,.4,1) infinite}
+.scene-database .f-chispas-izq b{animation-name:dbChispasIzq}
+.scene-database .p-nodo-izq{animation:dbNodoIzq var(--T) infinite}
+.scene-database .f-chispas-izq b:nth-child(1){left:8%;top:18%;animation-delay:0.00s}
+.scene-database .f-chispas-izq b:nth-child(2){left:82%;top:6%;animation-delay:0.05s}
+.scene-database .f-chispas-izq b:nth-child(3){left:90%;top:52%;animation-delay:0.10s}
+.scene-database .f-chispas-izq b:nth-child(4){left:4%;top:64%;animation-delay:0.15s}
+.scene-database .f-chispas-izq b:nth-child(5){left:70%;top:88%;animation-delay:0.20s}
+@keyframes dbCartaIzq{
+  0%,100%{transform:rotate(1.2deg)}
+  8.5%{transform:rotate(-1.2deg)}
+  14.5%{transform:rotate(0deg)}
+  16%{transform:rotate(-5deg) scale(1.03)}
+  18%{transform:rotate(3.5deg) scale(1)}
+  20%{transform:rotate(-2deg)}
+  22%{transform:rotate(1deg)}
+  24.5%{transform:rotate(-0.6deg)}
+  80%{transform:rotate(1.4deg)}
+  83%{transform:translateY(-2.5%) rotate(-3deg)}
+  86%{transform:translateY(0) rotate(2.4deg) scale(1.02,.98)}
+  89%{transform:translateY(-1.2%) rotate(-1.2deg)}
+  92%{transform:rotate(1.2deg)}
+}
+@keyframes dbCabezaIzq{
+  0%,100%{transform:rotate(0)}
+  5.5%{transform:rotate(-3deg)}
+  11.5%{transform:rotate(2.5deg)}
+  14.5%{transform:rotate(0)}
+  16%{transform:rotate(5.5deg) translateY(-1.5%)}
+  17.5%{transform:rotate(-5deg) translateY(-1.5%)}
+  19%{transform:rotate(4deg)}
+  20.5%{transform:rotate(-3deg)}
+  22.5%{transform:rotate(1.5deg)}
+  32.5%{transform:rotate(-2.5deg)}
+  42.5%{transform:rotate(2.5deg)}
+  82%{transform:rotate(0)}
+  84%{transform:rotate(5deg) translateY(-2%)}
+  86%{transform:rotate(-5deg) translateY(-2%)}
+  88%{transform:rotate(3.5deg)}
+  90%{transform:rotate(-2deg)}
+  93%{transform:rotate(0)}
+}
+@keyframes dbCorazonIzq{
+  0%,14.5%,22.5%,80%,92%,100%{transform:scale(1)}
+  15.7%{transform:scale(1.45) rotate(-8deg)}
+  17.1%{transform:scale(.9)}
+  18.5%{transform:scale(1.25) rotate(5deg)}
+  20.1%{transform:scale(.97)}
+  82%,86%{transform:scale(1.3)}84%,88%{transform:scale(.95)}
+}
+@keyframes dbLatidoIzq{
+  0%,15.3%{transform:scale(.4);opacity:0}
+  16.1%{opacity:1}
+  21.5%,100%{transform:scale(1.5);opacity:0}
+}
+@keyframes dbBarraIzq1{
+  0%,14.8%{transform:translateX(0)}
+  15.8%{transform:translateX(-101%)}
+  20.5%,100%{transform:translateX(0)}
+}
+@keyframes dbBarraIzq2{
+  0%,14.8%{transform:translateX(0)}
+  15.8%,17.5%{transform:translateX(-101%)}
+  22.5%,100%{transform:translateX(0)}
+}
+@keyframes dbChispasIzq{
+  0%,15%{transform:scale(0) rotate(0);opacity:0}
+  17%{transform:scale(1.2) rotate(50deg);opacity:1}
+  21.5%,100%{transform:scale(.3) rotate(110deg);opacity:0}
+}
+@keyframes dbNodoIzq{
+  0%,4%,7%,13.7%,19.5%,70.5%,74%,100%{transform:scale(1)}
+  5.5%,72%{transform:scale(1.25)}
+  14.9%{transform:scale(1.5)}
+  16.5%{transform:scale(.92)}
+  17.9%{transform:scale(1.12)}
+}
+.scene-database .g-carta-der{animation:dbCartaDer var(--T) ease-in-out infinite}
+.scene-database .p-cabeza-der{animation:dbCabezaDer var(--T) ease-in-out infinite}
+.scene-database .p-corazon-der{animation:dbCorazonDer var(--T) infinite}
+.scene-database .f-latido-der i{animation-name:dbLatidoDer}
+.scene-database .g-barra-der-1>.pt{animation:dbBarraDer1 var(--T) cubic-bezier(.3,.7,.4,1) infinite}
+.scene-database .g-barra-der-2>.pt{animation:dbBarraDer2 var(--T) cubic-bezier(.3,.7,.4,1) infinite}
+.scene-database .f-chispas-der b{animation-name:dbChispasDer}
+.scene-database .p-nodo-der{animation:dbNodoDer var(--T) infinite}
+.scene-database .f-chispas-der b:nth-child(1){left:8%;top:18%;animation-delay:0.00s}
+.scene-database .f-chispas-der b:nth-child(2){left:82%;top:6%;animation-delay:0.05s}
+.scene-database .f-chispas-der b:nth-child(3){left:90%;top:52%;animation-delay:0.10s}
+.scene-database .f-chispas-der b:nth-child(4){left:4%;top:64%;animation-delay:0.15s}
+.scene-database .f-chispas-der b:nth-child(5){left:70%;top:88%;animation-delay:0.20s}
+@keyframes dbCartaDer{
+  0%,100%{transform:rotate(-1.2deg)}
+  32.5%{transform:rotate(1.2deg)}
+  38.5%{transform:rotate(0deg)}
+  40%{transform:rotate(5deg) scale(1.03)}
+  42%{transform:rotate(-3.5deg) scale(1)}
+  44%{transform:rotate(2deg)}
+  46%{transform:rotate(-1deg)}
+  48.5%{transform:rotate(0.6deg)}
+  80%{transform:rotate(-1.4deg)}
+  83%{transform:translateY(-2.5%) rotate(3deg)}
+  86%{transform:translateY(0) rotate(-2.4deg) scale(1.02,.98)}
+  89%{transform:translateY(-1.2%) rotate(1.2deg)}
+  92%{transform:rotate(-1.2deg)}
+}
+@keyframes dbCabezaDer{
+  0%,100%{transform:rotate(0)}
+  29.5%{transform:rotate(-3deg)}
+  35.5%{transform:rotate(2.5deg)}
+  38.5%{transform:rotate(0)}
+  40%{transform:rotate(5.5deg) translateY(-1.5%)}
+  41.5%{transform:rotate(-5deg) translateY(-1.5%)}
+  43%{transform:rotate(4deg)}
+  44.5%{transform:rotate(-3deg)}
+  46.5%{transform:rotate(1.5deg)}
+  56.5%{transform:rotate(-2.5deg)}
+  66.5%{transform:rotate(2.5deg)}
+  82%{transform:rotate(0)}
+  84%{transform:rotate(5deg) translateY(-2%)}
+  86%{transform:rotate(-5deg) translateY(-2%)}
+  88%{transform:rotate(3.5deg)}
+  90%{transform:rotate(-2deg)}
+  93%{transform:rotate(0)}
+}
+@keyframes dbCorazonDer{
+  0%,38.5%,46.5%,80%,92%,100%{transform:scale(1)}
+  39.7%{transform:scale(1.45) rotate(-8deg)}
+  41.1%{transform:scale(.9)}
+  42.5%{transform:scale(1.25) rotate(5deg)}
+  44.1%{transform:scale(.97)}
+  82%,86%{transform:scale(1.3)}84%,88%{transform:scale(.95)}
+}
+@keyframes dbLatidoDer{
+  0%,39.3%{transform:scale(.4);opacity:0}
+  40.1%{opacity:1}
+  45.5%,100%{transform:scale(1.5);opacity:0}
+}
+@keyframes dbBarraDer1{
+  0%,38.8%{transform:translateX(0)}
+  39.8%{transform:translateX(-101%)}
+  44.5%,100%{transform:translateX(0)}
+}
+@keyframes dbBarraDer2{
+  0%,38.8%{transform:translateX(0)}
+  39.8%,41.5%{transform:translateX(-101%)}
+  46.5%,100%{transform:translateX(0)}
+}
+@keyframes dbChispasDer{
+  0%,39%{transform:scale(0) rotate(0);opacity:0}
+  41%{transform:scale(1.2) rotate(50deg);opacity:1}
+  45.5%,100%{transform:scale(.3) rotate(110deg);opacity:0}
+}
+@keyframes dbNodoDer{
+  0%,28%,31%,37.7%,43.5%,70.5%,74%,100%{transform:scale(1)}
+  29.5%,72%{transform:scale(1.25)}
+  38.9%{transform:scale(1.5)}
+  40.5%{transform:scale(.92)}
+  41.9%{transform:scale(1.12)}
+}
+.scene-database .g-carta-aba{animation:dbCartaAba var(--T) ease-in-out infinite}
+.scene-database .p-cabeza-aba{animation:dbCabezaAba var(--T) ease-in-out infinite}
+.scene-database .p-corazon-aba{animation:dbCorazonAba var(--T) infinite}
+.scene-database .f-latido-aba i{animation-name:dbLatidoAba}
+.scene-database .g-barra-aba-1>.pt{animation:dbBarraAba1 var(--T) cubic-bezier(.3,.7,.4,1) infinite}
+.scene-database .g-barra-aba-2>.pt{animation:dbBarraAba2 var(--T) cubic-bezier(.3,.7,.4,1) infinite}
+.scene-database .f-chispas-aba b{animation-name:dbChispasAba}
+.scene-database .p-nodo-aba{animation:dbNodoAba var(--T) infinite}
+.scene-database .f-chispas-aba b:nth-child(1){left:8%;top:18%;animation-delay:0.00s}
+.scene-database .f-chispas-aba b:nth-child(2){left:82%;top:6%;animation-delay:0.05s}
+.scene-database .f-chispas-aba b:nth-child(3){left:90%;top:52%;animation-delay:0.10s}
+.scene-database .f-chispas-aba b:nth-child(4){left:4%;top:64%;animation-delay:0.15s}
+.scene-database .f-chispas-aba b:nth-child(5){left:70%;top:88%;animation-delay:0.20s}
+@keyframes dbCartaAba{
+  0%,100%{transform:rotate(1.2deg)}
+  53%{transform:rotate(-1.2deg)}
+  59%{transform:rotate(0deg)}
+  60.5%{transform:rotate(-5deg) scale(1.03)}
+  62.5%{transform:rotate(3.5deg) scale(1)}
+  64.5%{transform:rotate(-2deg)}
+  66.5%{transform:rotate(1deg)}
+  69%{transform:rotate(-0.6deg)}
+  80%{transform:rotate(1.4deg)}
+  83%{transform:translateY(-2.5%) rotate(-3deg)}
+  86%{transform:translateY(0) rotate(2.4deg) scale(1.02,.98)}
+  89%{transform:translateY(-1.2%) rotate(-1.2deg)}
+  92%{transform:rotate(1.2deg)}
+}
+@keyframes dbCabezaAba{
+  0%,100%{transform:rotate(0)}
+  50%{transform:rotate(-3deg)}
+  56%{transform:rotate(2.5deg)}
+  59%{transform:rotate(0)}
+  60.5%{transform:rotate(5.5deg) translateY(-1.5%)}
+  62%{transform:rotate(-5deg) translateY(-1.5%)}
+  63.5%{transform:rotate(4deg)}
+  65%{transform:rotate(-3deg)}
+  67%{transform:rotate(1.5deg)}
+  77%{transform:rotate(-2.5deg)}
+  78%{transform:rotate(2.5deg)}
+  82%{transform:rotate(0)}
+  84%{transform:rotate(5deg) translateY(-2%)}
+  86%{transform:rotate(-5deg) translateY(-2%)}
+  88%{transform:rotate(3.5deg)}
+  90%{transform:rotate(-2deg)}
+  93%{transform:rotate(0)}
+}
+@keyframes dbCorazonAba{
+  0%,59%,67%,80%,92%,100%{transform:scale(1)}
+  60.2%{transform:scale(1.45) rotate(-8deg)}
+  61.6%{transform:scale(.9)}
+  63%{transform:scale(1.25) rotate(5deg)}
+  64.6%{transform:scale(.97)}
+  82%,86%{transform:scale(1.3)}84%,88%{transform:scale(.95)}
+}
+@keyframes dbLatidoAba{
+  0%,59.8%{transform:scale(.4);opacity:0}
+  60.6%{opacity:1}
+  66%,100%{transform:scale(1.5);opacity:0}
+}
+@keyframes dbBarraAba1{
+  0%,59.3%{transform:translateX(0)}
+  60.3%{transform:translateX(-101%)}
+  65%,100%{transform:translateX(0)}
+}
+@keyframes dbBarraAba2{
+  0%,59.3%{transform:translateX(0)}
+  60.3%,62%{transform:translateX(-101%)}
+  67%,100%{transform:translateX(0)}
+}
+@keyframes dbChispasAba{
+  0%,59.5%{transform:scale(0) rotate(0);opacity:0}
+  61.5%{transform:scale(1.2) rotate(50deg);opacity:1}
+  66%,100%{transform:scale(.3) rotate(110deg);opacity:0}
+}
+@keyframes dbNodoAba{
+  0%,52%,55%,58.2%,64%,70.5%,74%,100%{transform:scale(1)}
+  53.5%,72%{transform:scale(1.25)}
+  59.4%{transform:scale(1.5)}
+  61%{transform:scale(.92)}
+  62.4%{transform:scale(1.12)}
+}
+
+/* ---------- escena: map (img/anim/map/escena.css) ---------- */
+/* ============================================================
+   Map: perritos cerca de ti. Mini historia en bucle (--T):
+   cae un pin → hace pop la tarjeta de ese perrito → su corazón se llena,
+   uno tras otro (Luna, Max, Toby, Nala); luego unas huellitas caminan
+   desde "Tú estás aquí" hasta el pin de Nala. Encima, todo lo demás se
+   mueve sin parar: el mapa se pasea, el punto azul late con ondas de radar,
+   las letras del título brincan en ola, las cabezas y colitas se mueven…
+   Las piezas de la historia usan --i (0..3) para desfasarse --paso.
+   ============================================================ */
+.scene-map{--T:10s;--paso:1s}
+
+/* ---------- Título: ola de brincos letra por letra ---------- */
+.scene-map .mp-letra{animation:mpLetra 3.6s calc(var(--i) * .07s) infinite}
+@keyframes mpLetra{
+  0%,42%,100%{transform:none}
+  8%{transform:translateY(-20%) rotate(-7deg) scale(1.06)}
+  16%{transform:translateY(0) scale(1.1,.86)}
+  22%{transform:translateY(-5%) scale(.96,1.05)}
+  28%{transform:none}
+}
+
+/* ---------- Textos manuscritos y subrayado ---------- */
+.scene-map .mp-renglon{animation:mpRenglon 3.2s calc(var(--i) * -.55s) ease-in-out infinite}
+@keyframes mpRenglon{
+  0%,100%{transform:translateY(0) rotate(0)}
+  30%{transform:translateY(-9%) rotate(-3deg)}
+  60%{transform:translateY(3%) rotate(1.5deg)}
+}
+.scene-map .mp-subrayado{animation:mpSubrayado 4.2s ease-out infinite}
+@keyframes mpSubrayado{
+  0%{transform:scaleX(0);opacity:1}
+  14%{transform:scaleX(1.08)}
+  20%,82%{transform:scaleX(1);opacity:1}
+  92%,100%{transform:scaleX(1);opacity:0}
+}
+
+/* ---------- Íconos del celular ---------- */
+.scene-map .mp-menu{animation:mpMenu 2.6s ease-in-out infinite}
+@keyframes mpMenu{0%,45%,100%{transform:scaleX(1)}15%{transform:scaleX(.62)}30%{transform:scaleX(1.12)}}
+.scene-map .mp-filtros{animation:mpFiltros 3s -.9s ease-in-out infinite}
+@keyframes mpFiltros{0%,50%,100%{transform:none}12%{transform:translateX(-12%)}26%{transform:translateX(12%)}38%{transform:translateX(-4%)}}
+.scene-map .mp-lupa{animation:mpLupa 2.6s linear infinite}
+@keyframes mpLupa{
+  0%,100%{transform:translate(0,0) rotate(0)}
+  25%{transform:translate(10%,-8%) rotate(8deg)}
+  50%{transform:translate(0,-15%) rotate(0)}
+  75%{transform:translate(-10%,-8%) rotate(-8deg)}
+}
+.scene-map .f-nav-relleno svg{display:block;width:100%;height:100%;fill:#FF5A5A;transform:scale(0);opacity:0;
+  animation:mpNav var(--T) infinite}
+@keyframes mpNav{
+  0%,43%{transform:scale(0);opacity:0}
+  46%{transform:scale(1.45);opacity:1}
+  49%,80%{transform:scale(1);opacity:1}
+  86%,100%{transform:scale(.4);opacity:0}
+}
+
+/* ---------- El mapa se pasea despacio dentro de la pantalla ---------- */
+.scene-map .g-mapa-mov{animation:mpPaseo 15s ease-in-out infinite alternate}
+@keyframes mpPaseo{
+  0%{transform:scale(1.045) translate(-1.1%,-.9%)}
+  50%{transform:scale(1.06) translate(.4%,1%)}
+  100%{transform:scale(1.045) translate(1.1%,-.4%)}
+}
+
+/* ---------- Pines: caen de nuevo con rebote, uno tras otro ---------- */
+.scene-map .mp-pin{animation:mpPin var(--T) calc(var(--i) * var(--paso)) infinite}
+@keyframes mpPin{
+  0%{transform:none;animation-timing-function:cubic-bezier(.2,.7,.4,1)}
+  2.5%{transform:translateY(-70%) scale(.92,1.08);animation-timing-function:cubic-bezier(.55,0,.85,.4)}
+  5%{transform:translateY(0) scale(.95,1.06)}
+  6.2%{transform:scale(1.22,.78)}
+  7.6%{transform:translateY(-12%) scale(.94,1.07)}
+  9%{transform:scale(1.06,.95)}
+  10.5%,100%{transform:none}
+}
+.scene-map .mp-pin-rayitas{animation:mpPinRayitas var(--T) calc(var(--i) * var(--paso)) infinite}
+@keyframes mpPinRayitas{
+  0%,4.8%{transform:scale(1);opacity:1}
+  5.2%{transform:scale(.2);opacity:0}
+  7%{transform:scale(1.35);opacity:1}
+  9%,100%{transform:scale(1);opacity:1}
+}
+
+/* ---------- "Tú estás aquí": punto que late, radar y globito ---------- */
+.scene-map .mp-punto{animation:mpPunto 1.3s ease-in-out infinite}
+@keyframes mpPunto{0%,100%{transform:scale(1)}18%{transform:scale(1.28)}36%{transform:scale(.96)}52%{transform:scale(1.08)}70%{transform:scale(1)}}
+.scene-map .f-radar i{position:absolute;inset:0;border-radius:50%;background:radial-gradient(closest-side,rgba(59,139,245,0) 55%,rgba(59,139,245,.35) 88%,rgba(59,139,245,.55) 100%);
+  opacity:0;animation:mpRadar 2.7s ease-out infinite}
+.scene-map .f-radar i:nth-child(2){animation-delay:.9s}
+.scene-map .f-radar i:nth-child(3){animation-delay:1.8s}
+@keyframes mpRadar{0%{transform:scale(.22);opacity:.95}100%{transform:scale(1.15);opacity:0}}
+.scene-map .mp-burbuja{animation:mpBurbuja 2.4s infinite}
+@keyframes mpBurbuja{
+  0%,60%,100%{transform:none}
+  10%{transform:scale(1.06,.9)}
+  24%{transform:translateY(-22%) scale(.96,1.06) rotate(-3deg)}
+  38%{transform:translateY(0) scale(1.08,.92)}
+  48%{transform:scale(.98,1.03) rotate(1deg)}
+}
+
+/* ---------- Huellitas que caminan del punto azul al pin de Nala ---------- */
+.scene-map .f-huellas i{position:absolute;width:14%;margin:-1.5% 0 0 -1.5%;aspect-ratio:1;opacity:0;transform:rotate(var(--r)) scale(.3);
+  animation:mpHuella var(--T) calc(var(--k) * .22s) infinite}
+.scene-map .f-huellas svg{display:block;width:100%;height:100%;fill:#2BB3AA}
+@keyframes mpHuella{
+  0%,44%{opacity:0;transform:rotate(var(--r)) scale(.3)}
+  46%{opacity:1;transform:rotate(var(--r)) scale(1.3)}
+  48%,66%{opacity:.95;transform:rotate(var(--r)) scale(1)}
+  74%,100%{opacity:0;transform:rotate(var(--r)) scale(.8)}
+}
+
+/* ---------- Tarjetas: flotan siempre y hacen pop cuando cae su pin ---------- */
+.scene-map .mp-tarjeta{animation:mpFlota calc(3.4s + var(--i) * .45s) calc(var(--i) * -.8s) ease-in-out infinite alternate}
+@keyframes mpFlota{
+  0%{transform:translateY(0) rotate(0)}
+  100%{transform:translateY(-2.4%) rotate(calc(var(--rot) * -.35))}
+}
+.scene-map .mp-tarjeta>.grp{animation:mpTarjeta var(--T) calc(var(--i) * var(--paso)) infinite}
+@keyframes mpTarjeta{
+  0%,6%{transform:none}
+  8.5%{transform:translateY(-5%) scale(1.1) rotate(-3deg)}
+  11%{transform:translateY(0) scale(.98) rotate(1.8deg)}
+  13%{transform:scale(1.025) rotate(-.6deg)}
+  15%,100%{transform:none}
+}
+.scene-map .mp-cabeza{animation:mpCabeza calc(1.5s + var(--i) * .2s) calc(var(--i) * -.37s) ease-in-out infinite alternate}
+@keyframes mpCabeza{0%{transform:rotate(-5deg)}100%{transform:rotate(5deg)}}
+.scene-map .mp-cola{animation:aWag .34s ease-in-out infinite alternate;--wag:-16deg}
+.scene-map .mp-corazon{animation:mpCorazon var(--T) calc(var(--i) * var(--paso)) infinite}
+@keyframes mpCorazon{
+  0%,11%{transform:none}
+  13%{transform:scale(1.35)}
+  15.5%{transform:scale(.9)}
+  17%,100%{transform:none}
+}
+.scene-map .mp-relleno svg{display:block;width:100%;height:100%;fill:#FF5A5A;opacity:0;transform:rotate(var(--rot)) scale(0);
+  animation:mpRelleno var(--T) calc(var(--i) * var(--paso)) infinite}
+@keyframes mpRelleno{
+  0%,11.5%{opacity:0;transform:rotate(var(--rot)) scale(0)}
+  13%{opacity:1;transform:rotate(var(--rot)) scale(1.4)}
+  15.5%{transform:rotate(var(--rot)) scale(.88)}
+  17.5%,28%{transform:rotate(var(--rot)) scale(1.04)}
+  31%{transform:rotate(var(--rot)) scale(1.22)}
+  34%{transform:rotate(var(--rot)) scale(1)}
+  37%{transform:rotate(var(--rot)) scale(1.14)}
+  40%,52%{transform:rotate(var(--rot)) scale(1.04)}
+  55%{transform:rotate(var(--rot)) scale(1.22)}
+  58%{transform:rotate(var(--rot)) scale(1)}
+  61%{transform:rotate(var(--rot)) scale(1.14)}
+  64%,76%{opacity:1;transform:rotate(var(--rot)) scale(1.04)}
+  82%,100%{opacity:0;transform:rotate(var(--rot)) scale(0)}
+}
+
+/* ---------- escena: match (img/anim/match/escena.css) ---------- */
+/* ============================================================
+   Match: la chica y Luna toman vuelo, chocan con el corazón y ¡es un match!
+   Ciclo de --T: 0-14% calma y entran los rasgos · 14-21% toman vuelo y se lanzan ·
+   21% choque (corazón gigante, confeti, ondas, título en ola) · 33-60% se inclinan
+   una hacia la otra · 64-76% los íconos brincan en cascada · 72% "Conocer más" se aprieta
+   y lo recorre un brillo · 88-92% los rasgos se van para volver a entrar.
+   ============================================================ */
+.scene-match{--T:8s}
+
+/* ---------- los dos círculos ---------- */
+.scene-match .g-tu{animation:mtTu var(--T) infinite}
+@keyframes mtTu{
+  0%,7%{transform:none}
+  14%{transform:translateX(-2.6%) rotate(-7deg)}
+  16.5%{transform:translateX(-3%) rotate(-8deg);animation-timing-function:cubic-bezier(.6,0,1,.7)}
+  21%{transform:translateX(6.5%) rotate(4deg) scale(.95,1.03)}
+  24%{transform:translateX(-2.4%) rotate(-2deg) scale(1.02,.98)}
+  27.5%{transform:translateX(1.2%) rotate(1deg)}
+  31%{transform:none}
+  38%{transform:rotate(8deg)}
+  43%{transform:rotate(5deg) translateY(-1.2%)}
+  48%{transform:rotate(9deg)}
+  54%{transform:rotate(6deg) translateY(-.8%)}
+  60%,100%{transform:none}
+}
+.scene-match .g-luna{animation:mtLuna var(--T) infinite}
+@keyframes mtLuna{
+  0%,7%{transform:none}
+  14%{transform:translateX(2.6%) rotate(7deg)}
+  16.5%{transform:translateX(3%) rotate(8deg);animation-timing-function:cubic-bezier(.6,0,1,.7)}
+  21%{transform:translateX(-6.5%) rotate(-4deg) scale(.95,1.03)}
+  24%{transform:translateX(2.4%) rotate(2deg) scale(1.02,.98)}
+  27.5%{transform:translateX(-1.2%) rotate(-1deg)}
+  31%{transform:none}
+  38.5%{transform:rotate(-8deg)}
+  43.5%{transform:rotate(-5deg) translateY(-1.2%)}
+  48.5%{transform:rotate(-9deg)}
+  54.5%{transform:rotate(-6deg) translateY(-.8%)}
+  60%,100%{transform:none}
+}
+/* Luna: colita feliz, orejas que aletean */
+.scene-match .p-cola{animation:aWag .3s ease-in-out infinite alternate;--wag:-15deg}
+.scene-match .p-oreja-izq{animation:mtOrejaI var(--T) infinite}
+.scene-match .p-oreja-der{animation:mtOrejaD var(--T) infinite}
+@keyframes mtOrejaI{
+  0%,8%,31%,60%,100%{transform:none}
+  12%,16%{transform:rotate(-7deg)}
+  21%{transform:rotate(12deg)}
+  24%{transform:rotate(-8deg)}
+  27%{transform:rotate(5deg)}
+  40%{transform:rotate(-6deg)}
+  45%{transform:rotate(3deg)}
+  50%{transform:rotate(-6deg)}
+}
+@keyframes mtOrejaD{
+  0%,8%,31%,60%,100%{transform:none}
+  12%,16%{transform:rotate(6deg)}
+  21%{transform:rotate(-12deg)}
+  24%{transform:rotate(8deg)}
+  27%{transform:rotate(-5deg)}
+  40.5%{transform:rotate(6deg)}
+  45.5%{transform:rotate(-3deg)}
+  50.5%{transform:rotate(6deg)}
+}
+
+/* ---------- corazón del centro ---------- */
+.scene-match .g-corazon{animation:mtCorazon var(--T) infinite}
+@keyframes mtCorazon{
+  0%,7%{transform:none}
+  14%,17%{transform:scale(.8)}
+  21%{transform:scale(1.5)}
+  24%{transform:scale(.9)}
+  27%{transform:scale(1.14)}
+  30.5%{transform:scale(.97)}
+  34%,100%{transform:none}
+}
+.scene-match .p-corazon{animation:aBeat 1.1s infinite}
+.scene-match .p-rayos-corazon{animation:mtRayos var(--T) infinite}
+@keyframes mtRayos{
+  0%,20%{transform:scale(.2);opacity:0}
+  22.5%{transform:scale(1.35);opacity:1}
+  26%{transform:scale(1)}
+  40%{transform:scale(1);opacity:1}
+  46%{transform:scale(.4);opacity:0}
+  52%{transform:scale(.2);opacity:0}
+  56%{transform:scale(1.1);opacity:1}
+  60%,100%{transform:scale(1);opacity:1}
+}
+.scene-match .f-onda i{position:absolute;inset:0;border-radius:50%;border:.7cqw solid #FF7A5C;opacity:0;animation:mtOnda var(--T) infinite}
+.scene-match .f-onda i+i{animation-delay:.18s;border-color:#33C7BE}
+@keyframes mtOnda{0%,20.5%{transform:scale(.8);opacity:0}21.5%{opacity:.95}36%,100%{transform:scale(2.3);opacity:0}}
+/* confeti que sale del choque */
+.scene-match .f-confeti i{position:absolute;left:48.5%;top:47%;width:3%;height:5%;border-radius:.3cqw;background:#FF6B6B;opacity:0;
+  animation:mtConfeti var(--T) infinite}
+.scene-match .f-confeti i:nth-child(1){--x:-952%;--y:-714%;--r:-260deg}
+.scene-match .f-confeti i:nth-child(2){--x:884%;--y:-782%;--r:300deg;background:#33C7BE}
+.scene-match .f-confeti i:nth-child(3){--x:-1292%;--y:-102%;--r:200deg;background:#FFC857;border-radius:50%;height:3%}
+.scene-match .f-confeti i:nth-child(4){--x:1326%;--y:-204%;--r:-220deg;background:#B794F4}
+.scene-match .f-confeti i:nth-child(5){--x:-510%;--y:-1054%;--r:340deg;background:#33C7BE;border-radius:50%;height:3%}
+.scene-match .f-confeti i:nth-child(6){--x:476%;--y:-1122%;--r:-320deg;background:#FF8A5C}
+.scene-match .f-confeti i:nth-child(7){--x:-1054%;--y:442%;--r:180deg;background:#B794F4}
+.scene-match .f-confeti i:nth-child(8){--x:1088%;--y:510%;--r:-200deg;background:#FFC857}
+.scene-match .f-confeti i:nth-child(9){--x:-68%;--y:-1292%;--r:260deg;background:#FF6B6B;border-radius:50%;height:3%}
+.scene-match .f-confeti i:nth-child(10){--x:-1496%;--y:-510%;--r:-280deg;background:#FF8A5C}
+.scene-match .f-confeti i:nth-child(11){--x:1530%;--y:-561%;--r:240deg;background:#33C7BE}
+.scene-match .f-confeti i:nth-child(12){--x:-340%;--y:646%;--r:-160deg;background:#FFC857;border-radius:50%;height:3%}
+.scene-match .f-confeti i:nth-child(13){--x:408%;--y:714%;--r:200deg;background:#FF6B6B}
+.scene-match .f-confeti i:nth-child(14){--x:204%;--y:-952%;--r:-300deg;background:#B794F4;border-radius:50%;height:3%}
+@keyframes mtConfeti{
+  0%,20.5%{transform:translate(0,0) scale(.2);opacity:0}
+  21.5%{transform:translate(0,0) scale(1);opacity:1}
+  28%{transform:translate(var(--x),var(--y)) rotate(var(--r)) scale(1);opacity:1;animation-timing-function:ease-in}
+  40%{transform:translate(var(--x),calc(var(--y) + 340%)) rotate(calc(var(--r) * 1.6)) scale(.7);opacity:0}
+  100%{transform:translate(var(--x),calc(var(--y) + 340%)) scale(.2);opacity:0}
+}
+
+/* ---------- "¡Es un match!" en ola ---------- */
+.scene-match [class*="p-letra-"]{animation:mtLetra var(--T) infinite}
+.scene-match .p-letra-2{animation-delay:.05s}
+.scene-match .p-letra-3{animation-delay:.1s}
+.scene-match .p-letra-4{animation-delay:.15s}
+.scene-match .p-letra-5{animation-delay:.2s}
+.scene-match .p-letra-6{animation-delay:.25s}
+.scene-match .p-letra-7{animation-delay:.3s}
+.scene-match .p-letra-8{animation-delay:.35s}
+.scene-match .p-letra-9{animation-delay:.4s}
+.scene-match .p-letra-10{animation-delay:.45s}
+.scene-match .p-letra-11{animation-delay:.5s}
+@keyframes mtLetra{
+  0%,20%,33%,100%{transform:none}
+  23%{transform:translateY(-30%) scale(1.18) rotate(-8deg)}
+  26.5%{transform:translateY(6%) scale(1.08,.9)}
+  29.5%{transform:translateY(-6%) rotate(3deg)}
+}
+.scene-match .p-subtitulo{animation:mtSub var(--T) infinite}
+@keyframes mtSub{0%,26%,40%,100%{transform:none}31%{transform:scale(1.05)}35%{transform:scale(.99)}}
+.scene-match .p-corazon-sub{animation:aBeat 1.1s -.3s infinite}
+
+/* ---------- encabezado ---------- */
+.scene-match .p-huella-header{animation:mtHuella var(--T) infinite}
+@keyframes mtHuella{0%,20%,36%,100%{transform:none}24%{transform:translateY(-26%) rotate(-14deg) scale(1.15)}29%{transform:translateY(0) scale(1.14,.84)}32.5%{transform:rotate(8deg)}}
+.scene-match .p-avatar{animation:mtAvatar var(--T) infinite}
+@keyframes mtAvatar{0%,44%,58%,100%{transform:none}46%{transform:rotate(-16deg) scale(1.08)}49%{transform:rotate(13deg) scale(1.08)}52%{transform:rotate(-8deg)}55%{transform:rotate(4deg)}}
+.scene-match [class*="p-menu-"]{animation:mtMenu var(--T) infinite}
+.scene-match .p-menu-2{animation-delay:.08s}
+.scene-match .p-menu-3{animation-delay:.16s}
+@keyframes mtMenu{0%,62%,72%,100%{transform:none}65%{transform:scaleX(.45)}68.5%{transform:scaleX(1.12)}}
+
+/* ---------- tarjetas: los rasgos entran en cascada, brincan y se van ---------- */
+.scene-match [class*="p-texto-"],.scene-match [class*="p-titulo-"]{animation:mtTexto var(--T) calc(var(--d,0s) - var(--T)) infinite}
+.scene-match [class*="p-icono-"]{animation:mtIcono var(--T) calc(var(--d,0s) - var(--T)) infinite}
+.scene-match .p-titulo-tu{--d:0s}
+.scene-match .p-icono-casa,.scene-match .p-texto-casa{--d:.16s}
+.scene-match .p-icono-corazon-tu,.scene-match .p-texto-corazon-tu{--d:.32s}
+.scene-match .p-icono-pesas,.scene-match .p-texto-pesas{--d:.48s}
+.scene-match .p-titulo-luna{--d:.3s}
+.scene-match .p-icono-huellas,.scene-match .p-texto-huellas{--d:.46s}
+.scene-match .p-icono-corazon-luna,.scene-match .p-texto-corazon-luna{--d:.62s}
+.scene-match .p-icono-pelota,.scene-match .p-texto-pelota{--d:.78s}
+@keyframes mtTexto{
+  0%{transform:translateX(-14%);opacity:0}
+  4%{transform:translateX(3%);opacity:1}
+  6.5%{transform:none}
+  85%{transform:none;opacity:1}
+  89%,100%{transform:translateX(-14%);opacity:0}
+}
+@keyframes mtIcono{
+  0%{transform:scale(0) rotate(-30deg);opacity:0}
+  3.5%{transform:scale(1.35) rotate(10deg);opacity:1}
+  5.5%{transform:scale(.88) rotate(-4deg)}
+  7.5%{transform:none}
+  64%{transform:none}
+  66.5%{transform:translateY(-32%) scale(1.15,.92)}
+  69%{transform:scale(1.12,.86)}
+  71%{transform:none}
+  85%{transform:none;opacity:1}
+  89%,100%{transform:scale(0) rotate(30deg);opacity:0}
+}
+
+/* ---------- botón: se aprieta, lo recorre un brillo, la flecha empuja ---------- */
+.scene-match .g-boton{animation:mtBoton var(--T) infinite}
+@keyframes mtBoton{0%,70%,82%,100%{transform:none}72.5%{transform:scale(.93)}75.5%{transform:scale(1.05)}78.5%{transform:scale(.99)}}
+.scene-match .p-flecha{animation:mtFlecha 1s ease-in-out infinite}
+@keyframes mtFlecha{0%,100%{transform:none}45%{transform:translateX(34%)}60%{transform:translateX(26%)}}
+.scene-match .f-brillo i{position:absolute;top:-30%;bottom:-30%;left:-25%;width:16%;opacity:0;
+  background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.6),rgba(255,255,255,0));
+  transform:skewX(-22deg);animation:mtBrillo var(--T) infinite}
+@keyframes mtBrillo{
+  0%,72%{transform:translateX(0) skewX(-22deg);opacity:0}
+  73%{opacity:1}
+  84%{transform:translateX(860%) skewX(-22deg);opacity:1}
+  85%,100%{transform:translateX(860%) skewX(-22deg);opacity:0}
+}
+.scene-match .p-juntos{animation:mtJuntos var(--T) infinite}
+@keyframes mtJuntos{0%,75%,88%,100%{transform:none}79%{transform:translateY(-12%) scale(1.06)}83%{transform:translateY(2%) scale(.99)}}
+
+/* ---------- escena: compatibility (img/anim/compatibility/escena.css) ---------- */
+/* ============================================================
+   Compatibilidad: la app revisa rasgo por rasgo y sale ¡95%!
+   Ciclo de --T: 9-35% las palomitas entran una por una y los íconos de cada fila brincan ·
+   33-42% el porcentaje gira como tragamonedas mientras la barra se llena · 43% ¡equipo!
+   (corazón del centro, ondas, corazoncitos, chispas) · 46-72% la chica y Luna se inclinan una
+   hacia la otra · 62-76% los íconos se sacuden en cascada · 74-88% el título y la barra de abajo
+   brincan · 92-95% las palomitas se van para volver a revisar.
+   ============================================================ */
+.scene-compatibility{--T:9s}
+
+/* ---------- perfiles ---------- */
+.scene-compatibility .g-tu{animation:ctTu var(--T) infinite}
+@keyframes ctTu{
+  0%,100%{transform:none}
+  10%{transform:rotate(-4deg)}
+  20%{transform:rotate(3deg)}
+  30%{transform:rotate(-3deg)}
+  40%{transform:none}
+  43%{transform:scale(1.07)}
+  46%{transform:scale(.98)}
+  52%{transform:rotate(9deg)}
+  57%{transform:rotate(6deg) scale(1.02)}
+  62%{transform:rotate(10deg)}
+  67%{transform:rotate(7deg)}
+  74%{transform:none}
+}
+.scene-compatibility .g-su{animation:ctSu var(--T) infinite}
+@keyframes ctSu{
+  0%,100%{transform:none}
+  10%{transform:rotate(4deg)}
+  20%{transform:rotate(-3deg)}
+  30%{transform:rotate(3deg)}
+  40%{transform:none}
+  43.5%{transform:scale(1.07)}
+  46.5%{transform:scale(.98)}
+  52.5%{transform:rotate(-9deg)}
+  57.5%{transform:rotate(-6deg) scale(1.02)}
+  62.5%{transform:rotate(-10deg)}
+  67.5%{transform:rotate(-7deg)}
+  74%{transform:none}
+}
+.scene-compatibility .p-cola{animation:aWag .32s ease-in-out infinite alternate;--wag:-14deg}
+.scene-compatibility .p-oreja-izq{animation:ctOrejaI 1.5s ease-in-out infinite}
+.scene-compatibility .p-oreja-der{animation:ctOrejaD 1.5s ease-in-out infinite}
+@keyframes ctOrejaI{0%,40%,100%{transform:none}10%{transform:rotate(-8deg)}20%{transform:rotate(4deg)}30%{transform:rotate(-3deg)}}
+@keyframes ctOrejaD{0%,45%,100%{transform:none}15%{transform:rotate(8deg)}25%{transform:rotate(-4deg)}35%{transform:rotate(3deg)}}
+.scene-compatibility .p-pildora-tu,.scene-compatibility .p-pildora-su{animation:ctPildora var(--T) infinite}
+.scene-compatibility .p-pildora-su{animation-delay:.1s}
+@keyframes ctPildora{0%,42%,52%,100%{transform:none}45%{transform:scale(1.12,1.18)}48%{transform:scale(.97,1)}50%{transform:scale(1.03)}}
+.scene-compatibility .p-corazon-tu{animation:ctCorTu var(--T) infinite}
+@keyframes ctCorTu{
+  0%,100%{transform:none}
+  15%{transform:translateY(-14%) rotate(-10deg)}
+  30%{transform:translateY(-4%) rotate(6deg)}
+  42%{transform:none}
+  45%{transform:scale(1.5) rotate(-12deg)}
+  48%{transform:scale(.9)}
+  51%{transform:scale(1.1)}
+  54%{transform:none}
+  70%{transform:translateY(-16%) rotate(8deg)}
+  85%{transform:translateY(-6%) rotate(-6deg)}
+}
+
+/* ---------- corazón del centro ---------- */
+.scene-compatibility .p-corazon-medio{animation:ctCorMedio var(--T) infinite}
+@keyframes ctCorMedio{
+  0%,8%,14%,19%,24%,29%,34%,42%,58%,100%{transform:none}
+  10.5%,15.5%,20.5%,25.5%,30.5%{transform:scale(1.18)}
+  44%{transform:scale(1.75) rotate(-8deg)}
+  47%{transform:scale(.88) rotate(4deg)}
+  50%{transform:scale(1.22)}
+  53%{transform:scale(.97)}
+  55%{transform:scale(1.08)}
+}
+.scene-compatibility .f-onda i{position:absolute;inset:0;border-radius:50%;border:.6cqw solid #FF7A5C;opacity:0;animation:ctOnda var(--T) infinite}
+.scene-compatibility .f-onda i+i{animation-delay:.2s;border-color:#B794F4}
+@keyframes ctOnda{0%,43%{transform:scale(.6);opacity:0}44%{opacity:.95}58%,100%{transform:scale(2.4);opacity:0}}
+.scene-compatibility .f-corazones i{position:absolute;left:46%;top:58%;width:8%;aspect-ratio:1;opacity:0;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23FF7A5C' d='M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.6 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z'/%3E%3C/svg%3E") center/contain no-repeat;
+  animation:ctCorazones var(--T) infinite}
+.scene-compatibility .f-corazones i:nth-child(1){--x:-160%;--r:-20deg;animation-delay:.05s}
+.scene-compatibility .f-corazones i:nth-child(2){--x:150%;--r:18deg;animation-delay:.15s;width:6%}
+.scene-compatibility .f-corazones i:nth-child(3){--x:-60%;--r:-8deg;animation-delay:.3s;width:10%;filter:hue-rotate(250deg)}
+.scene-compatibility .f-corazones i:nth-child(4){--x:80%;--r:12deg;animation-delay:.42s;width:7%;filter:hue-rotate(140deg)}
+.scene-compatibility .f-corazones i:nth-child(5){--x:-250%;--r:-30deg;animation-delay:.55s;width:5%}
+.scene-compatibility .f-corazones i:nth-child(6){--x:240%;--r:28deg;animation-delay:.25s;width:6%;filter:hue-rotate(250deg)}
+.scene-compatibility .f-corazones i:nth-child(7){--x:10%;--r:4deg;animation-delay:.7s;width:9%}
+@keyframes ctCorazones{
+  0%,43%{transform:translate(0,0) scale(.3);opacity:0}
+  45%{transform:translate(0,-40%) scale(.8);opacity:1}
+  60%{transform:translate(var(--x),-420%) rotate(var(--r)) scale(1.1);opacity:.9}
+  66%,100%{transform:translate(var(--x),-520%) rotate(var(--r)) scale(.7);opacity:0}
+}
+
+/* fila 1: palomita en 9% */
+.scene-compatibility .p-palomita-1{animation:ctPal1 var(--T) infinite}
+@keyframes ctPal1{
+  0%,8.9%{transform:scale(0) rotate(-40deg);opacity:0}
+  11%{transform:scale(1.45) rotate(10deg);opacity:1}
+  12.5%{transform:scale(.84) rotate(-4deg)}
+  14%{transform:scale(1.1)}
+  15.5%,92%{transform:none;opacity:1}
+  95%,100%{transform:scale(0) rotate(30deg);opacity:0}
+}
+.scene-compatibility .p-icono-1a,.scene-compatibility .p-icono-1b{animation:ctIco1 var(--T) infinite}
+.scene-compatibility .p-icono-1b{animation-delay:.08s}
+@keyframes ctIco1{
+  0%,9%,15.5%,62%,68%,100%{transform:none}
+  11%{transform:translateY(-34%) scale(1.18) rotate(-8deg)}
+  13%{transform:translateY(0) scale(1.14,.84)}
+  14.3%{transform:scale(.97,1.04)}
+  63.5%{transform:rotate(-14deg) scale(1.1)}
+  65%{transform:rotate(11deg) scale(1.1)}
+  66.5%{transform:rotate(-5deg)}
+}
+.scene-compatibility .p-rasgo-1{animation:ctTxt1 var(--T) infinite}
+@keyframes ctTxt1{0%,10%,15%,100%{transform:none}11.5%{transform:translateX(5%) scale(1.05)}13.2%{transform:translateX(-1.5%)}}
+/* fila 2: palomita en 14% */
+.scene-compatibility .p-palomita-2{animation:ctPal2 var(--T) infinite}
+@keyframes ctPal2{
+  0%,13.9%{transform:scale(0) rotate(-40deg);opacity:0}
+  16%{transform:scale(1.45) rotate(10deg);opacity:1}
+  17.5%{transform:scale(.84) rotate(-4deg)}
+  19%{transform:scale(1.1)}
+  20.5%,92%{transform:none;opacity:1}
+  95%,100%{transform:scale(0) rotate(30deg);opacity:0}
+}
+.scene-compatibility .p-icono-2a,.scene-compatibility .p-icono-2b{animation:ctIco2 var(--T) infinite}
+.scene-compatibility .p-icono-2b{animation-delay:.08s}
+@keyframes ctIco2{
+  0%,14%,20.5%,64%,70%,100%{transform:none}
+  16%{transform:translateY(-34%) scale(1.18) rotate(-8deg)}
+  18%{transform:translateY(0) scale(1.14,.84)}
+  19.3%{transform:scale(.97,1.04)}
+  65.5%{transform:rotate(-14deg) scale(1.1)}
+  67%{transform:rotate(11deg) scale(1.1)}
+  68.5%{transform:rotate(-5deg)}
+}
+.scene-compatibility .p-rasgo-2{animation:ctTxt2 var(--T) infinite}
+@keyframes ctTxt2{0%,15%,20%,100%{transform:none}16.5%{transform:translateX(5%) scale(1.05)}18.2%{transform:translateX(-1.5%)}}
+/* fila 3: palomita en 19% */
+.scene-compatibility .p-palomita-3{animation:ctPal3 var(--T) infinite}
+@keyframes ctPal3{
+  0%,18.9%{transform:scale(0) rotate(-40deg);opacity:0}
+  21%{transform:scale(1.45) rotate(10deg);opacity:1}
+  22.5%{transform:scale(.84) rotate(-4deg)}
+  24%{transform:scale(1.1)}
+  25.5%,92%{transform:none;opacity:1}
+  95%,100%{transform:scale(0) rotate(30deg);opacity:0}
+}
+.scene-compatibility .p-icono-3a,.scene-compatibility .p-icono-3b{animation:ctIco3 var(--T) infinite}
+.scene-compatibility .p-icono-3b{animation-delay:.08s}
+@keyframes ctIco3{
+  0%,19%,25.5%,66%,72%,100%{transform:none}
+  21%{transform:translateY(-34%) scale(1.18) rotate(-8deg)}
+  23%{transform:translateY(0) scale(1.14,.84)}
+  24.3%{transform:scale(.97,1.04)}
+  67.5%{transform:rotate(-14deg) scale(1.1)}
+  69%{transform:rotate(11deg) scale(1.1)}
+  70.5%{transform:rotate(-5deg)}
+}
+.scene-compatibility .p-rasgo-3{animation:ctTxt3 var(--T) infinite}
+@keyframes ctTxt3{0%,20%,25%,100%{transform:none}21.5%{transform:translateX(5%) scale(1.05)}23.2%{transform:translateX(-1.5%)}}
+/* fila 4: palomita en 24% */
+.scene-compatibility .p-palomita-4{animation:ctPal4 var(--T) infinite}
+@keyframes ctPal4{
+  0%,23.9%{transform:scale(0) rotate(-40deg);opacity:0}
+  26%{transform:scale(1.45) rotate(10deg);opacity:1}
+  27.5%{transform:scale(.84) rotate(-4deg)}
+  29%{transform:scale(1.1)}
+  30.5%,92%{transform:none;opacity:1}
+  95%,100%{transform:scale(0) rotate(30deg);opacity:0}
+}
+.scene-compatibility .p-icono-4a,.scene-compatibility .p-icono-4b{animation:ctIco4 var(--T) infinite}
+.scene-compatibility .p-icono-4b{animation-delay:.08s}
+@keyframes ctIco4{
+  0%,24%,30.5%,68%,74%,100%{transform:none}
+  26%{transform:translateY(-34%) scale(1.18) rotate(-8deg)}
+  28%{transform:translateY(0) scale(1.14,.84)}
+  29.3%{transform:scale(.97,1.04)}
+  69.5%{transform:rotate(-14deg) scale(1.1)}
+  71%{transform:rotate(11deg) scale(1.1)}
+  72.5%{transform:rotate(-5deg)}
+}
+.scene-compatibility .p-rasgo-4{animation:ctTxt4 var(--T) infinite}
+@keyframes ctTxt4{0%,25%,30%,100%{transform:none}26.5%{transform:translateX(5%) scale(1.05)}28.2%{transform:translateX(-1.5%)}}
+/* fila 5: palomita en 29% */
+.scene-compatibility .p-palomita-5{animation:ctPal5 var(--T) infinite}
+@keyframes ctPal5{
+  0%,28.9%{transform:scale(0) rotate(-40deg);opacity:0}
+  31%{transform:scale(1.45) rotate(10deg);opacity:1}
+  32.5%{transform:scale(.84) rotate(-4deg)}
+  34%{transform:scale(1.1)}
+  35.5%,92%{transform:none;opacity:1}
+  95%,100%{transform:scale(0) rotate(30deg);opacity:0}
+}
+.scene-compatibility .p-icono-5a,.scene-compatibility .p-icono-5b{animation:ctIco5 var(--T) infinite}
+.scene-compatibility .p-icono-5b{animation-delay:.08s}
+@keyframes ctIco5{
+  0%,29%,35.5%,70%,76%,100%{transform:none}
+  31%{transform:translateY(-34%) scale(1.18) rotate(-8deg)}
+  33%{transform:translateY(0) scale(1.14,.84)}
+  34.3%{transform:scale(.97,1.04)}
+  71.5%{transform:rotate(-14deg) scale(1.1)}
+  73%{transform:rotate(11deg) scale(1.1)}
+  74.5%{transform:rotate(-5deg)}
+}
+.scene-compatibility .p-rasgo-5{animation:ctTxt5 var(--T) infinite}
+@keyframes ctTxt5{0%,30%,35%,100%{transform:none}31.5%{transform:translateX(5%) scale(1.05)}33.2%{transform:translateX(-1.5%)}}
+
+/* ---------- porcentaje: la barra se llena y los dígitos giran como tragamonedas ---------- */
+.scene-compatibility .f-relleno i{position:absolute;inset:4% 1%;border-radius:999px;transform-origin:0 50%;opacity:0;
+  background:linear-gradient(90deg,rgba(51,199,190,.16),rgba(51,199,190,.34));animation:ctRelleno var(--T) infinite}
+@keyframes ctRelleno{
+  0%,32%{transform:scaleX(0);opacity:0}
+  33%{transform:scaleX(.05);opacity:1}
+  41%{transform:scaleX(.95);opacity:1}
+  43%{transform:scaleX(1);opacity:1}
+  50%,100%{transform:scaleX(1);opacity:0}
+}
+.scene-compatibility [class*="p-digito-"]{animation:ctDigito var(--T) infinite}
+.scene-compatibility .p-digito-2{animation-delay:.12s}
+.scene-compatibility .p-digito-3{animation-delay:.24s}
+@keyframes ctDigito{
+  0%,33%{transform:none;animation-timing-function:ease-in}
+  34%{transform:translateY(-120%);animation-timing-function:steps(1,end)}
+  34.01%{transform:translateY(120%);animation-timing-function:linear}
+  35.5%{transform:translateY(-120%);animation-timing-function:steps(1,end)}
+  35.51%{transform:translateY(120%);animation-timing-function:linear}
+  37%{transform:translateY(-120%);animation-timing-function:steps(1,end)}
+  37.01%{transform:translateY(120%);animation-timing-function:ease-out}
+  39.5%{transform:translateY(-12%)}
+  41%{transform:translateY(5%)}
+  42.5%,100%{transform:none}
+}
+.scene-compatibility .p-huella-95{animation:ctHuella95 var(--T) infinite}
+@keyframes ctHuella95{0%,38%,50%,100%{transform:none}41%{transform:translateY(-22%) rotate(-18deg) scale(1.3)}44%{transform:scale(1.16,.82)}47%{transform:rotate(6deg)}}
+.scene-compatibility .f-chispas i{position:absolute;left:49%;top:45%;width:2.4%;aspect-ratio:1;border-radius:50%;background:#33C7BE;opacity:0;
+  animation:ctChispa var(--T) infinite}
+.scene-compatibility .f-chispas i:nth-child(1){--x:-900%;--y:-500%}
+.scene-compatibility .f-chispas i:nth-child(2){--x:900%;--y:-520%;background:#FFC857}
+.scene-compatibility .f-chispas i:nth-child(3){--x:-1500%;--y:-150%;background:#FF7A5C}
+.scene-compatibility .f-chispas i:nth-child(4){--x:1500%;--y:-180%;background:#B794F4}
+.scene-compatibility .f-chispas i:nth-child(5){--x:-400%;--y:-750%;background:#FFC857}
+.scene-compatibility .f-chispas i:nth-child(6){--x:420%;--y:-760%;background:#FF7A5C}
+.scene-compatibility .f-chispas i:nth-child(7){--x:-1200%;--y:-640%;background:#B794F4}
+.scene-compatibility .f-chispas i:nth-child(8){--x:1250%;--y:-620%}
+@keyframes ctChispa{
+  0%,41.5%{transform:translate(0,0) scale(.3);opacity:0}
+  42.5%{opacity:1}
+  50%{transform:translate(var(--x),var(--y)) scale(1);opacity:1}
+  56%,100%{transform:translate(var(--x),calc(var(--y) + 300%)) scale(.4);opacity:0}
+}
+.scene-compatibility .p-equipo{animation:ctEquipo var(--T) infinite}
+@keyframes ctEquipo{0%,42%,54%,100%{transform:none}45%{transform:scale(1.18) rotate(-3deg)}48%{transform:scale(.95) rotate(2deg)}51%{transform:scale(1.05)}}
+
+/* ---------- encabezado y título ---------- */
+.scene-compatibility .p-corazon-titulo{animation:aBeat 1.2s infinite}
+.scene-compatibility [class*="p-titulo-"]{animation:ctTitulo var(--T) infinite}
+.scene-compatibility .p-titulo-perfil{animation-delay:.08s}
+.scene-compatibility .p-titulo-su{animation-delay:.24s}
+.scene-compatibility .p-titulo-perfil2{animation-delay:.32s}
+@keyframes ctTitulo{0%,74%,82%,100%{transform:none}76.5%{transform:translateY(-20%) rotate(-4deg)}79%{transform:translateY(3%) scale(1.04,.94)}}
+.scene-compatibility .p-titulo-mas{animation:ctMas var(--T) .16s infinite}
+@keyframes ctMas{0%,74%,84%,100%{transform:none}78%{transform:rotate(180deg) scale(1.5)}81%{transform:rotate(360deg) scale(.9)}}
+.scene-compatibility .p-subtitulo{animation:ctSub var(--T) infinite}
+@keyframes ctSub{0%,80%,88%,100%{transform:none}84%{transform:scale(1.04)}}
+.scene-compatibility .p-compatibilidad{animation:ctCompat var(--T) infinite}
+@keyframes ctCompat{0%,2%,9%,42%,52%,100%{transform:none}4.5%{transform:scale(1.1) rotate(-2deg)}7%{transform:scale(.97)}46%{transform:scale(1.12)}49%{transform:scale(.98)}}
+.scene-compatibility .p-huella-header{animation:ctHuella var(--T) infinite}
+@keyframes ctHuella{0%,3%,14%,100%{transform:none}6%{transform:translateY(-26%) rotate(-14deg) scale(1.15)}9.5%{transform:translateY(0) scale(1.14,.84)}12%{transform:rotate(8deg)}}
+.scene-compatibility .p-avatar{animation:ctAvatar var(--T) infinite}
+@keyframes ctAvatar{0%,54%,68%,100%{transform:none}56%{transform:rotate(-16deg) scale(1.08)}59%{transform:rotate(13deg) scale(1.08)}62%{transform:rotate(-8deg)}65%{transform:rotate(4deg)}}
+.scene-compatibility [class*="p-menu-"]{animation:ctMenu var(--T) infinite}
+.scene-compatibility .p-menu-2{animation-delay:.08s}
+.scene-compatibility .p-menu-3{animation-delay:.16s}
+@keyframes ctMenu{0%,70%,80%,100%{transform:none}73%{transform:scaleX(.45)}76.5%{transform:scaleX(1.12)}}
+
+/* ---------- barra de navegación ---------- */
+.scene-compatibility [class*="p-nav-"]{animation:ctNav var(--T) infinite}
+.scene-compatibility .p-nav-2{animation-delay:.12s}
+.scene-compatibility .p-nav-3{animation-delay:.24s}
+.scene-compatibility .p-nav-4{animation-delay:.36s}
+@keyframes ctNav{0%,82%,92%,100%{transform:none}84.5%{transform:translateY(-24%) scale(1.12,.92)}87%{transform:translateY(0) scale(1.12,.86)}89.5%{transform:scale(.97,1.03)}}
+
+/* ---------- escena: family-hug (img/anim/family-hug/escena.css) ---------- */
+/* ============================================================
+   Family-hug: la familia se ríe a carcajadas y apapacha al beagle.
+   Ciclo de 5 s: risitas → todos se acercan al perro (apretón) →
+   palmaditas y corazones que suben; la cola nunca deja de menearse.
+   ============================================================ */
+.scene-family-hug{--T:5s}
+
+/* ---------- cabezas que se ríen ---------- */
+.scene-family-hug .p-cabeza-mama{animation:fhMama var(--T) ease-in-out infinite}
+@keyframes fhMama{
+  0%,100%{transform:rotate(0)}
+  5%{transform:rotate(-2deg)}10%{transform:rotate(1.5deg)}15%{transform:rotate(-1.5deg)}20%{transform:rotate(1deg)}
+  28%{transform:rotate(-1deg)}
+  40%{transform:rotate(4deg) translateY(1%)}
+  46%{transform:rotate(3deg) translateY(1.5%)}
+  52%{transform:rotate(4.5deg) translateY(1%)}
+  62%{transform:rotate(-1.5deg)}
+  68%{transform:rotate(1.5deg)}74%{transform:rotate(-1.5deg)}80%{transform:rotate(1deg)}
+}
+.scene-family-hug .p-cabeza-papa{animation:fhPapa var(--T) ease-in-out infinite}
+@keyframes fhPapa{
+  0%,100%{transform:rotate(0)}
+  6%{transform:rotate(2.2deg) translateY(-1.5%)}11%{transform:rotate(-1deg)}16%{transform:rotate(2deg) translateY(-1.5%)}
+  21%{transform:rotate(-.5deg)}
+  30%{transform:rotate(1deg)}
+  41%{transform:rotate(-4deg) translateY(1.5%)}
+  47%{transform:rotate(-3deg) translateY(2%)}
+  53%{transform:rotate(-4.5deg) translateY(1.5%)}
+  63%{transform:rotate(1.5deg) translateY(-1.5%)}
+  69%{transform:rotate(-1deg)}75%{transform:rotate(2deg) translateY(-1%)}81%{transform:rotate(0)}
+}
+.scene-family-hug .p-cabeza-nino{animation:fhNino var(--T) ease-in-out infinite}
+@keyframes fhNino{
+  0%,100%{transform:rotate(0)}
+  4%{transform:rotate(-3deg)}8%{transform:rotate(2deg)}12%{transform:rotate(-2.5deg)}16%{transform:rotate(1.5deg)}
+  24%{transform:rotate(0)}
+  40%{transform:rotate(-6deg) translateX(-1.5%)}
+  46%{transform:rotate(-4deg) translateX(-1%)}
+  52%{transform:rotate(-6deg) translateX(-1.5%)}
+  60%{transform:rotate(1deg)}
+  66%{transform:rotate(-3deg)}70%{transform:rotate(2deg)}74%{transform:rotate(-2deg)}78%{transform:rotate(1deg)}
+}
+
+/* ---------- perro ---------- */
+.scene-family-hug .g-cabeza-perro{animation:fhPerro var(--T) ease-in-out infinite}
+@keyframes fhPerro{
+  0%,100%{transform:none}
+  7%{transform:rotate(-4deg)}
+  14%{transform:rotate(3deg)}
+  22%{transform:translateY(-4%) rotate(-2deg)}
+  27%{transform:translateY(0) rotate(1deg)}
+  34%{transform:translateY(-3%) rotate(-1deg)}
+  40%{transform:scale(.97,1.02)}
+  48%{transform:translateY(-2%) rotate(3deg)}
+  56%{transform:rotate(-3deg)}
+  64%{transform:translateY(-4%) rotate(2deg)}
+  70%{transform:none}
+  80%{transform:rotate(-3deg)}
+  90%{transform:rotate(2deg)}
+}
+.scene-family-hug .p-oreja-perro{animation:fhOreja var(--T) ease-in-out infinite}
+@keyframes fhOreja{
+  0%,100%{transform:rotate(0)}
+  8%{transform:rotate(6deg)}15%{transform:rotate(-4deg)}
+  23%{transform:rotate(12deg)}28%{transform:rotate(-5deg)}
+  35%{transform:rotate(9deg)}40%{transform:rotate(-2deg)}
+  50%{transform:rotate(5deg)}58%{transform:rotate(-4deg)}
+  65%{transform:rotate(12deg)}71%{transform:rotate(-4deg)}
+  82%{transform:rotate(4deg)}92%{transform:rotate(-2deg)}
+}
+.scene-family-hug .p-lengua{animation:fhLengua .3s ease-in-out infinite alternate}
+@keyframes fhLengua{0%{transform:rotate(-6deg)}100%{transform:rotate(7deg) scale(1.08,1.16)}}
+.scene-family-hug .p-cola{animation:fhCola .26s ease-in-out infinite alternate}
+@keyframes fhCola{0%{transform:rotate(-16deg)}100%{transform:rotate(14deg)}}
+.scene-family-hug .p-rayita-cola{animation:fhRayita .52s infinite}
+@keyframes fhRayita{
+  0%{opacity:0;transform:scale(.5) rotate(-12deg)}
+  30%{opacity:1;transform:scale(1.12) rotate(4deg)}
+  65%{opacity:1;transform:scale(1)}
+  100%{opacity:0;transform:scale(1.2) rotate(8deg)}
+}
+
+/* ---------- palmaditas ---------- */
+.scene-family-hug .p-mano-mama{animation:fhManoMama var(--T) ease-in-out infinite}
+@keyframes fhManoMama{
+  0%,100%{transform:none}
+  44%{transform:none}
+  48%{transform:rotate(-7deg) translateY(-3%)}
+  52%{transform:rotate(1deg)}
+  56%{transform:rotate(-7deg) translateY(-3%)}
+  60%{transform:rotate(1deg)}
+  64%{transform:none}
+  84%{transform:rotate(-4deg) translateX(-3%)}
+  90%{transform:rotate(2deg) translateX(2%)}
+  95%{transform:none}
+}
+.scene-family-hug .p-mano-papa{animation:fhManoPapa var(--T) ease-in-out infinite}
+@keyframes fhManoPapa{
+  0%,100%{transform:none}
+  10%{transform:rotate(5deg) translateY(-3%)}
+  14%{transform:rotate(-1deg)}
+  18%{transform:rotate(5deg) translateY(-3%)}
+  22%{transform:rotate(-1deg)}
+  26%{transform:none}
+  58%{transform:none}
+  64%{transform:translateX(3%) rotate(-2deg)}
+  70%{transform:translateX(-2%) rotate(1deg)}
+  76%{transform:none}
+}
+
+/* ---------- corazones que suben del apapacho ---------- */
+.scene-family-hug .f-corazones i{position:absolute;left:24%;top:20%;width:13%;aspect-ratio:1;opacity:0;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23FF7A6B' d='M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.6 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z'/%3E%3C/svg%3E") center/contain no-repeat;
+  animation:fhSube var(--T) infinite}
+.scene-family-hug .f-corazones i:nth-child(2){--x:-180%;--r:-20deg;width:10%;animation-delay:.15s;filter:hue-rotate(230deg)}
+.scene-family-hug .f-corazones i:nth-child(3){--x:90%;--r:18deg;animation-delay:.3s;width:11%}
+.scene-family-hug .f-corazones i:nth-child(4){--x:-90%;--r:-8deg;animation-delay:.45s;width:9%;filter:hue-rotate(320deg)}
+.scene-family-hug .f-corazones i:nth-child(5){--x:-260%;--r:-30deg;animation-delay:.6s;width:9.5%;filter:hue-rotate(230deg)}
+.scene-family-hug .f-corazones i:nth-child(6){--x:30%;--r:10deg;animation-delay:.75s;width:14%}
+@keyframes fhSube{
+  0%,40%{transform:translate(0,0) scale(.2);opacity:0}
+  43%{transform:translate(0,-30%) scale(.9);opacity:1}
+  62%{transform:translate(var(--x,0),-200%) rotate(var(--r,0deg)) scale(1.1);opacity:.95}
+  72%,100%{transform:translate(var(--x,0),-260%) rotate(var(--r,0deg)) scale(.7);opacity:0}
+}
+/*/escenas*/

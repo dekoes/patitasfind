@@ -1,0 +1,352 @@
+{
+  "domain": "seguridad-incidentes",
+  "generated_at": "2026-10-17",
+  "disclaimer": "No es asesoría legal. Síntesis de investigación verificada contra fuentes primarias al 2026-10-17. Los puntos marcados como pendientes deben revisarlos un abogado y un contador en México. Ningún hallazgo del dominio tiene confianza 'baja' ni veredicto 'no_verificable'/'no_revisado'; los de confianza 'media' dependen de interpretaciones que el abogado o el contador deben confirmar.",
+  "finding_ids": [
+    "seguridad-incidentes-01", "seguridad-incidentes-02", "seguridad-incidentes-03", "seguridad-incidentes-04", "seguridad-incidentes-05", "seguridad-incidentes-06", "seguridad-incidentes-07", "seguridad-incidentes-08", "seguridad-incidentes-09", "seguridad-incidentes-10", "seguridad-incidentes-11", "seguridad-incidentes-12", "seguridad-incidentes-13", "seguridad-incidentes-14", "seguridad-incidentes-15", "seguridad-incidentes-16", "seguridad-incidentes-17", "seguridad-incidentes-18", "seguridad-incidentes-19", "seguridad-incidentes-20", "seguridad-incidentes-21", "seguridad-incidentes-22", "seguridad-incidentes-23", "seguridad-incidentes-24", "seguridad-incidentes-25", "seguridad-incidentes-26", "seguridad-incidentes-27", "seguridad-incidentes-28", "seguridad-incidentes-29", "seguridad-incidentes-30", "seguridad-incidentes-v01", "seguridad-incidentes-v02", "seguridad-incidentes-v03", "seguridad-incidentes-v04"
+  ],
+  "pages": [
+    {
+      "slug": "seguridad",
+      "path": "/legal/seguridad.html",
+      "title": "Seguridad y protección de tus datos",
+      "purpose": "Página pública nueva del centro legal que explica, sin detalles que faciliten ataques, qué medidas de seguridad existen, quién ve qué, cómo se protegen pagos y documentos de refugios, dónde y cuánto tiempo se guardan los datos, qué pasa si ocurre un incidente, cómo reportar vulnerabilidades, cómo se atienden las solicitudes de autoridades y el marco legal aplicable. Enlazada desde el pie de página, el checkout, el registro de refugio y la sección 18 del aviso integral. Solo puede afirmar lo que esté implementado (LFPDPPP art. 58 fr. IV; LFPC 76 Bis).",
+      "required_contents": [
+        "Resumen en 4 tarjetas: no vendemos datos; no vemos ni guardamos tu tarjeta; teléfono y ubicación exacta nunca públicos; te avisamos si ocurre un incidente [seguridad-incidentes-29]",
+        "Cómo protegemos tus datos: TLS con HSTS, bcrypt, OTP con límites, sesiones revocables, fotos sin EXIF ni GPS, coordenadas aproximadas (~1 km), documentos privados fuera del acceso público, acceso por roles con MFA y bitácora (publicar MFA y pruebas de seguridad solo cuando existan), respaldos cifrados, actualizaciones y pruebas periódicas [seguridad-incidentes-02, -22, -23, -28]",
+        "Quién puede ver qué: tabla por categoría de dato (nombre, teléfono, correo, ubicación exacta y aproximada, fotos, chats, cuestionario, documentos de refugio, CLABE, datos de envío, IP) frente a público, otros usuarios, refugio, administradores y proveedores [seguridad-incidentes-22, -29]",
+        "Pagos y donativos: Mercado Pago Checkout Pro, no se ve ni guarda la tarjeta, qué se recibe de MP, firma de webhooks y conciliación, cuestionario PCI anual que solicita MP, cómo verificar que se está en mercadopago.com.mx; aviso de cobros recurrentes si existen (LFPC 76 Bis fr. VIII y IX) [seguridad-incidentes-14, -15, -v01]",
+        "Documentos de refugios y casas de paso: para qué se piden, documentos aceptados (INE, CURP biométrica física o digital, pasaporte; acta solo páginas esenciales; constancia fiscal), quién los ve (superadmin con MFA, consulta registrada), cómo se protegen (cifrado, marca de agua, sin descarga, nunca a IA ni extracción biométrica), cuándo se borran (30 días tras la decisión; se conserva constancia sin imagen), alternativas sin copia y verificación en el padrón del SAT [seguridad-incidentes-10, -11, -12, -13, -23]",
+        "Refugios: consentimiento y protección de la CLABE (cifrada, enmascarada) y procedimiento antifraude de cambio de cuenta [seguridad-incidentes-16]",
+        "Dónde se guardan tus datos: hosting y país, Cloudflare CDN y R2, IA fuera de México solo con fotos de perros, Sentry y PostHog con región, OpenStreetMap (mosaicos y Nominatim con coordenadas), enlace a la sección 11 del aviso [seguridad-incidentes-09]",
+        "Cuánto tiempo guardamos tus datos: tabla resumida del calendario de conservación, bloqueo tras eliminar la cuenta con cita de los arts. 24 y 25, plazos del bot de WhatsApp y de publicaciones importadas, enlace a la sección 17 del aviso [seguridad-incidentes-17, -18, -v02, -v03]",
+        "Respaldos y continuidad: respaldos diarios cifrados, plazos local y externo reales, llave fuera del servidor, prueba de restauración mensual, reaplicación de supresiones tras restaurar [seguridad-incidentes-19]",
+        "Registros técnicos: qué se registra (IP, agente, ruta, request-id), para qué, IP seudonimizada a los 30 días y borrado a los 90, qué nunca se registra [seguridad-incidentes-20]",
+        "Si ocurre un incidente: compromiso del art. 19, canales (correo, app, página), los 5 elementos del aviso, meta interna de 72 horas [seguridad-incidentes-04, -06, -v01]",
+        "Avisos de seguridad: historial público de incidentes notificados o 'Sin incidentes notificados a la fecha' con fecha de última revisión [seguridad-incidentes-04]",
+        "Cómo protegerte: GuauWoow nunca pide OTP ni contraseña, no pagar por adelantado a quien dice tener a tu perro, donar solo por la plataforma o a refugios verificados, remitente legítimo, contraseña única y cierre de sesiones [seguridad-incidentes-27]",
+        "Reporta una vulnerabilidad (#reportar): correo seguridad@, security.txt, alcance y exclusiones, reglas (sin extracción de datos, 90 días sin divulgar), acuse en 3 días hábiles, corrección de críticas en 7 días, compromiso de no denunciar la investigación de buena fe (sin inmunidad penal, CPF 211 bis 1), sin recompensa económica [seguridad-incidentes-07, -28]",
+        "Solicitudes de autoridades: política (solo por escrito, fundado y motivado, mínimo necesario, aviso al usuario salvo prohibición, emergencias) y enlace al informe anual de transparencia [seguridad-incidentes-21]",
+        "Marco legal y estándares: LFPDPPP 2025 (arts. 18-20) y SABG, LFPC 76 Bis, CFF 30, inexistencia de ley de ciberseguridad, referencias ISO/IEC 27001, OWASP ASVS y PCI DSS, Reglamento 2011 como referencia [seguridad-incidentes-01, -25]",
+        "Cómo rendimos cuentas: documento de seguridad, inventario, NDAs, registros de consultas y eliminaciones, pruebas de seguridad, bitácora de incidentes, cooperación con verificaciones de la SABG y revisiones de Meta y Mercado Pago [seguridad-incidentes-24, -v02, -v04]",
+        "Contacto, versión e historial: seguridad@[DOMINIO], departamento de datos personales (art. 29), fecha de última revisión legal, tabla de cambios por versión [seguridad-incidentes-01, -v04]"
+      ],
+      "legal_basis": [
+        "LFPDPPP 2025 arts. 5, 14, 18, 19, 24, 25, 29 (https://www.diputados.gob.mx/LeyesBiblio/pdf/LFPDPPP.pdf)",
+        "LFPC art. 76 Bis fr. II, VIII y IX (https://www.diputados.gob.mx/LeyesBiblio/pdf/LFPC.pdf)",
+        "Meta Platform Terms 6.a.ii (https://developers.facebook.com/terms/)",
+        "Términos para Desarrolladores de Mercado Pago sección 10 (https://www.mercadopago.com.mx/developers/es/docs/resources/legal/terms-and-conditions)",
+        "RFC 9116 (https://www.rfc-editor.org/rfc/rfc9116)"
+      ]
+    },
+    {
+      "slug": "well-known-security-txt",
+      "path": "/.well-known/security.txt",
+      "title": "security.txt",
+      "purpose": "Archivo estándar RFC 9116 servido como text/plain para que investigadores y plataformas (Meta Platform Terms 6.a.ii) encuentren el canal de reporte de vulnerabilidades. Renovar Expires cada 12 meses.",
+      "required_contents": [
+        "Contact: mailto:seguridad@[DOMINIO] [seguridad-incidentes-07]",
+        "Expires: fecha ISO 8601 a máximo 12 meses [seguridad-incidentes-07]",
+        "Policy: https://[DOMINIO]/app/legal/seguridad.html#reportar [seguridad-incidentes-07]",
+        "Preferred-Languages: es, en [seguridad-incidentes-07]",
+        "Canonical: https://[DOMINIO]/.well-known/security.txt [seguridad-incidentes-07]",
+        "Opcional: Encryption (llave PGP) y Acknowledgments"
+      ],
+      "legal_basis": [
+        "Meta Platform Terms 6.a.ii (https://developers.facebook.com/terms/)",
+        "LFPDPPP 2025 art. 18 (https://www.diputados.gob.mx/LeyesBiblio/pdf/LFPDPPP.pdf)",
+        "RFC 9116 (https://www.rfc-editor.org/rfc/rfc9116)"
+      ]
+    },
+    {
+      "slug": "transparencia",
+      "path": "/legal/transparencia.html",
+      "title": "Informe de transparencia",
+      "purpose": "Informe anual (buena práctica, decisión del dueño) de solicitudes de autoridades, incidentes notificados, solicitudes de eliminación de datos de WhatsApp/Facebook y reportes de vulnerabilidades. Enlazado desde 'Solicitudes de autoridades' de la página de Seguridad.",
+      "required_contents": [
+        "Periodo cubierto y fecha de publicación [seguridad-incidentes-21]",
+        "Requerimientos recibidos por tipo de autoridad (judicial, ministerial, administrativa, fiscal) y por tipo de dato [seguridad-incidentes-21]",
+        "Atendidos en su totalidad, parcialmente y rechazados, con motivos genéricos; solicitudes de emergencia (art. 9 fr. V) [seguridad-incidentes-21]",
+        "Número de usuarios avisados de un requerimiento [seguridad-incidentes-21]",
+        "Incidentes de seguridad notificados en el periodo, con enlace a 'Avisos de seguridad' [seguridad-incidentes-04]",
+        "Solicitudes de eliminación de Datos de la plataforma de Meta atendidas [seguridad-incidentes-v02]",
+        "Reportes de vulnerabilidades recibidos y corregidos [seguridad-incidentes-07]"
+      ],
+      "legal_basis": [
+        "LFPDPPP 2025 arts. 9 fr. V y VII, 36 fr. I y V (https://www.diputados.gob.mx/LeyesBiblio/pdf/LFPDPPP.pdf)",
+        "LMTR art. 182 (https://www.diputados.gob.mx/LeyesBiblio/pdf/LMTR.pdf)",
+        "LSNIIMSP art. 26 (https://www.diputados.gob.mx/LeyesBiblio/index.htm)",
+        "Buena práctica; no es obligación legal"
+      ]
+    },
+    {
+      "slug": "eliminacion-datos",
+      "path": "/legal/eliminacion-datos.html",
+      "title": "Eliminación de tus datos (WhatsApp y Facebook)",
+      "purpose": "Página pública con instrucciones claras y de fácil acceso para que usuarios del bot de WhatsApp y personas cuyas publicaciones se importaron de Facebook soliciten la eliminación o modificación de sus Datos de la plataforma; se configura como URL de instrucciones de eliminación de datos en Meta for Developers y se enlaza desde el bot ('borrar mis datos').",
+      "required_contents": [
+        "Qué datos se conservan del bot de WhatsApp y de las publicaciones importadas, y sus plazos máximos (12 meses; importaciones 30 días) [seguridad-incidentes-v02, -17]",
+        "Cómo pedir la eliminación: comando en el bot, formulario o correo a [CORREO_DE_PRIVACIDAD], con número de referencia y plazo de atención [seguridad-incidentes-v02]",
+        "Qué se elimina de inmediato y qué puede conservarse bloqueado por obligación legal (p. ej. evidencia de un reporte de abuso), con la base legal y la constancia (Meta 3.d.ii; LFPDPPP art. 25) [seguridad-incidentes-v02, -v03]",
+        "Procedimiento de takedown para publicaciones importadas de Facebook y enlace al original [seguridad-incidentes-v02]",
+        "Enlace al Aviso de privacidad (secciones de WhatsApp/Facebook y 17) y al procedimiento ARCO [seguridad-incidentes-v02]"
+      ],
+      "legal_basis": [
+        "Meta Platform Terms 3.d.i, 3.d.ii, 3.d.iii (https://developers.facebook.com/terms/)",
+        "LFPDPPP 2025 arts. 10, 24 y 25 (https://www.diputados.gob.mx/LeyesBiblio/pdf/LFPDPPP.pdf)"
+      ]
+    },
+    {
+      "slug": "privacidad",
+      "path": "/legal/privacidad.html",
+      "title": "Aviso de privacidad integral (cambios requeridos por este dominio)",
+      "purpose": "Ajustes al aviso existente para que coincida con las medidas, encargados y plazos reales.",
+      "required_contents": [
+        "Sec. 3 (marco legal): mantener la cita de la reforma DOF 14-11-2025 y añadir el matiz de aplicación gradual (automática a más tardar 1-abr-2027) y la nota sobre el Reglamento 2011 como referencia [seguridad-incidentes-01]",
+        "Sec. 4 y 4.2: documentos de identidad de responsables de refugios; si se conserva imagen de INE, tratarla como potencialmente sensible con consentimiento expreso; aceptar CURP biométrica y pasaporte [seguridad-incidentes-10, -11, -12]",
+        "Sec. 11 (encargados): añadir Cloudflare (CDN/TLS), Cloudflare R2, Nominatim de OpenStreetMap (coordenadas), hosting con país, proveedor de SMS, Apify, Google (OAuth, Places), PAC; Mercado Pago con deber de aviso de incidentes; Meta con deberes de eliminación y auditoría; regiones de Sentry y PostHog; afirmar que documentos, chats y contactos nunca van a proveedores de IA [seguridad-incidentes-09, -v01, -v02]",
+        "Sec. 12 (transferencias y autoridades): política de requerimientos de autoridad (arts. 9 fr. V y VII, 36 fr. I y V; LMTR 182; LSNIIMSP 26) [seguridad-incidentes-21]",
+        "Sec. 15.7 y 15.8: citar el art. 25 y describir qué se conserva bloqueado tras la cancelación y por cuánto tiempo; aviso al titular al suprimir (art. 24) [seguridad-incidentes-v03, -18]",
+        "Sec. 17 (conservación): calendario completo por categoría con base legal; INE 30 días (hoy dice hasta 24 meses); respaldos con el plazo real; logs 90 días; bot de WhatsApp y Facebook 12 meses; ajustar '5 años' a 10 si el operador es comerciante [seguridad-incidentes-17, -18, -19, -20, -v02]",
+        "Sec. 19 (vulneraciones): ya conforme con el art. 19; enlazar a 'Si ocurre un incidente' y 'Avisos de seguridad' [seguridad-incidentes-04]",
+        "Sec. 18: enlace a /legal/seguridad.html [seguridad-incidentes-29]",
+        "Contacto del departamento de datos personales (art. 29) [seguridad-incidentes-v04]"
+      ],
+      "legal_basis": [
+        "LFPDPPP 2025 arts. 8, 9, 10, 12, 13, 14, 17, 19, 24, 25, 29, 36 (https://www.diputados.gob.mx/LeyesBiblio/pdf/LFPDPPP.pdf)",
+        "Reglamento 2011 arts. 50-54 y 63-66 como referencia (https://www.diputados.gob.mx/LeyesBiblio/regley/Reg_LFPDPPP.pdf)"
+      ]
+    },
+    {
+      "slug": "terminos",
+      "path": "/legal/terminos.html",
+      "title": "Términos y condiciones (cambios requeridos por este dominio)",
+      "purpose": "Ajustes a los Términos existentes en materia de seguridad, confidencialidad de refugios y responsabilidad.",
+      "required_contents": [
+        "Cláusula de refugios y casas de paso: confidencialidad y uso limitado de datos de adoptantes y compradores, medidas mínimas, borrado al terminar y aviso de incidentes a GuauWoow en 72 horas o menos (art. 20), aceptada con versión y fecha [seguridad-incidentes-08]",
+        "Sec. 5.6 (seguridad de la cuenta) y 7.4: avisos de inicio de sesión y de cambios, 'GuauWoow nunca pide el OTP', reporte de extorsión y fraude [seguridad-incidentes-27]",
+        "Tienda: confidencialidad de la información del consumidor, datos compartidos solo con el refugio que envía, evidencia de la transacción (LFPC 76 Bis fr. I y 76 Bis 1 fr. IV-V) [seguridad-incidentes-15]",
+        "Sec. 24 (limitación de responsabilidad): revisión del abogado para no excluir responsabilidad por incumplir la LFPDPPP ni derechos del consumidor [seguridad-incidentes-26]",
+        "Referencia a la política de divulgación responsable (seguridad.html#reportar) [seguridad-incidentes-07]"
+      ],
+      "legal_basis": [
+        "LFPDPPP 2025 arts. 20, 53, 58 fr. VIII, 62, 64 (https://www.diputados.gob.mx/LeyesBiblio/pdf/LFPDPPP.pdf)",
+        "LFPC arts. 76 Bis y 76 Bis 1 (https://www.diputados.gob.mx/LeyesBiblio/pdf/LFPC.pdf)"
+      ]
+    },
+    {
+      "slug": "convenio-refugios",
+      "path": "convenio de adhesión (aceptación en la app)",
+      "title": "Convenio de adhesión para refugios y casas de paso",
+      "purpose": "Documento aceptado en la app con registro de versión y fecha que fija las obligaciones de confidencialidad y seguridad de los refugios y casas de paso respecto de los datos que reciben.",
+      "required_contents": [
+        "Uso de los datos del adoptante, postulante, donante o comprador solo para la adopción, entrega o envío [seguridad-incidentes-08]",
+        "Confidencialidad que subsiste tras terminar la relación (LFPDPPP art. 20) [seguridad-incidentes-08]",
+        "Prohibición de copiar a listas propias o usar para publicidad [seguridad-incidentes-08]",
+        "Medidas mínimas de seguridad y borrado al concluir la gestión [seguridad-incidentes-08]",
+        "Aviso a GuauWoow de cualquier incidente en 72 horas o menos [seguridad-incidentes-08]",
+        "Consentimiento expreso para datos bancarios cuando el titular es persona física (art. 7) [seguridad-incidentes-16]",
+        "Aceptación de la verificación de identidad con mínimos datos y de la purga de la imagen a los 30 días [seguridad-incidentes-10]"
+      ],
+      "legal_basis": [
+        "LFPDPPP 2025 arts. 7, 13, 20, 58 fr. VIII, 62 y 64 (https://www.diputados.gob.mx/LeyesBiblio/pdf/LFPDPPP.pdf)"
+      ]
+    },
+    {
+      "slug": "interno-documento-de-seguridad",
+      "path": "/docs/interno/documento-de-seguridad.md (no público)",
+      "title": "Documento de seguridad (SGSDP)",
+      "purpose": "Evidencia interna principal ante una verificación de la SABG: inventario, roles, riesgos, brecha, plan de trabajo, medios de almacenamiento, capacitación.",
+      "required_contents": [
+        "Inventario de datos y sistemas por categoría con tabla o ruta, encargado, país y plazo [seguridad-incidentes-03]",
+        "Funciones y obligaciones por rol [seguridad-incidentes-03, -22]",
+        "Matriz de riesgos (probabilidad e impacto para el titular) y análisis de brecha con plan de trabajo [seguridad-incidentes-03]",
+        "Registro de medios de almacenamiento (VPS, R2, Sentry, PostHog, equipos) [seguridad-incidentes-03, -19]",
+        "Programa de capacitación anual con constancias [seguridad-incidentes-03, -08]",
+        "Revisión anual y tras cada cambio sustancial o incidente [seguridad-incidentes-03, -05]"
+      ],
+      "legal_basis": [
+        "LFPDPPP 2025 arts. 13 y 18 (https://www.diputados.gob.mx/LeyesBiblio/pdf/LFPDPPP.pdf)",
+        "Reglamento 2011 arts. 60-62 como referencia (https://www.diputados.gob.mx/LeyesBiblio/regley/Reg_LFPDPPP.pdf)",
+        "Recomendaciones IFAI DOF 30-10-2013 (https://dof.gob.mx/nota_detalle.php?codigo=5320179&fecha=30/10/2013)"
+      ]
+    },
+    {
+      "slug": "interno-runbook-incidentes",
+      "path": "/docs/interno/runbook-incidentes.md (no público)",
+      "title": "Plan de respuesta a incidentes y vulneraciones",
+      "purpose": "Procedimiento operativo con roles, severidades, fases, plazos contractuales y legales, plantillas de aviso, directorio de contactos, preservación de evidencia, denuncia y lecciones aprendidas; incluye el procedimiento de verificación de la SABG y de auditorías de Meta.",
+      "required_contents": [
+        "Roles y suplentes; fuentes de detección; clasificación (Reglamento art. 63) y severidades S1-S3 [seguridad-incidentes-04, -06]",
+        "Modo incidente: congelar purgas, snapshot, logs con hash SHA-256 y cadena de custodia; rotación de secretos [seguridad-incidentes-06]",
+        "Plazos: Mercado Pago 24 h (formulario) y privacidad@mercadolibre.com; Meta lo antes posible (formulario de incidentes); titulares de inmediato tras confirmar, meta interna 72 h [seguridad-incidentes-04, -06, -v01]",
+        "Plantillas de aviso a titulares con los 5 elementos (naturaleza, datos, acciones, recomendaciones, más información); botón de aviso masivo con registro [seguridad-incidentes-04]",
+        "Decisiones del abogado: aviso voluntario a la SABG; denuncia ante FGR o fiscalía estatal [seguridad-incidentes-04, -06]",
+        "Directorio de contactos de proveedores, plataformas, abogado, contador y aseguradora [seguridad-incidentes-06]",
+        "Bitácora de vulneraciones con campos definidos, conservada 5 años [seguridad-incidentes-05]",
+        "Procedimiento de verificación de la SABG (orden, abogado, no obstrucción, congelar purgas, registro de plazos LFPA) [seguridad-incidentes-v04]",
+        "Procedimiento de auditorías de Meta (10 días hábiles de aviso, certificaciones) y de datos recibidos por error [seguridad-incidentes-v02]",
+        "Módulo activable de aviso a autoridades si se publica una ley de ciberseguridad [seguridad-incidentes-25]",
+        "Simulacro anual registrado [seguridad-incidentes-30]"
+      ],
+      "legal_basis": [
+        "LFPDPPP 2025 arts. 19, 54, 55, 58 fr. XIV, 62-64 (https://www.diputados.gob.mx/LeyesBiblio/pdf/LFPDPPP.pdf)",
+        "Reglamento 2011 arts. 63-66 como referencia (https://www.diputados.gob.mx/LeyesBiblio/regley/Reg_LFPDPPP.pdf)",
+        "Meta Platform Terms 6.b, 7 (https://developers.facebook.com/terms/)",
+        "Términos para Desarrolladores de Mercado Pago cl. 1.6, 6.6, sección 10 (https://www.mercadopago.com.mx/developers/es/docs/resources/legal/terms-and-conditions)",
+        "CPF arts. 211 bis 1 y 211 bis 7 (https://www.diputados.gob.mx/LeyesBiblio/index.htm)"
+      ]
+    },
+    {
+      "slug": "interno-politicas",
+      "path": "/docs/interno/ (no público)",
+      "title": "Políticas y procedimientos internos (18) y carpeta de evidencias",
+      "purpose": "Conjunto versionado en repositorio privado que acredita responsabilidad proactiva y seguridad ante la SABG, Meta y Mercado Pago.",
+      "required_contents": [
+        "Control de acceso y cuentas de admin (MFA, roles, altas y bajas, revisión trimestral) [seguridad-incidentes-22]",
+        "Gestión de secretos y llaves (inventario, rotación, llave de respaldos fuera del VPS) [seguridad-incidentes-02, -19, -23]",
+        "Respaldos y recuperación ante desastres (RPO 24 h, RTO, pruebas mensuales, reaplicación de supresiones) [seguridad-incidentes-19]",
+        "Conservación, bloqueo y borrado seguro (calendario, tareas, retention_runs, Guía de Borrado Seguro del INAI como referencia) [seguridad-incidentes-17, -18, -v03]",
+        "Logs y monitoreo [seguridad-incidentes-20]",
+        "Vulnerabilidades, parches, CI y pentest [seguridad-incidentes-28]",
+        "Gestión de encargados (registro, DPAs, evaluación anual) [seguridad-incidentes-09]",
+        "Acuerdos de confidencialidad y capacitación anual [seguridad-incidentes-08]",
+        "Verificación de refugios con mínimos datos y purga de identificaciones [seguridad-incidentes-10, -12, -13]",
+        "Requerimientos de autoridad y registro para el informe de transparencia [seguridad-incidentes-21]",
+        "Procedimiento ARCO (20 y 15 días hábiles) y quejas [seguridad-incidentes-24]",
+        "Evaluación de riesgos antes de nuevas funciones [seguridad-incidentes-28]",
+        "Cambios de cuenta bancaria de refugios (antifraude) [seguridad-incidentes-16]",
+        "Vigilancia normativa mensual (DOF, gob.mx/buengobierno, Meta, Mercado Pago, PCI SSC; renovación de security.txt) [seguridad-incidentes-01, -25]",
+        "Carpeta de evidencias (consentimientos, versiones de avisos, ARCO, NDAs, DPAs, bitácora, retention_runs, pentest, revisiones de acceso, SAQ A, evaluaciones de riesgo, registros de Meta y SABG; opcional NOM-151) [seguridad-incidentes-24, -30]"
+      ],
+      "legal_basis": [
+        "LFPDPPP 2025 arts. 5, 13, 18, 20, 54, 55, 60 (https://www.diputados.gob.mx/LeyesBiblio/pdf/LFPDPPP.pdf)",
+        "Reglamento 2011 arts. 47, 48, 61-66 como referencia (https://www.diputados.gob.mx/LeyesBiblio/regley/Reg_LFPDPPP.pdf)",
+        "NOM-151-SCFI-2016 (https://platiica.economia.gob.mx/normalizacion/nom-151-scfi-2016/)"
+      ]
+    }
+  ],
+  "product_requirements": [
+    "[seguridad-incidentes-22] MFA obligatoria (TOTP o WebAuthn) para roles admin y superadmin, con códigos de respaldo; sesiones de admin cortas y reautenticación para ver documentos, coordenadas exactas o exportar; permisos separados (moderación, verificación de refugios, finanzas, configuración); bitácora de admin append-only y exportable (5 años) ampliada a exportaciones, cambios de rol y vistas de coordenadas; lista blanca de IP para /admin opcional. Hoy no existe MFA en backend/app.",
+    "[seguridad-incidentes-23] Cifrado de sobre para uploads/private (llave por archivo, llave maestra en variable de entorno o KMS, nunca en BD ni repositorio); cifrado de campo para la CLABE (y teléfono si se decide); disco cifrado en el VPS; rotación anual de la llave maestra y tras incidentes; confirmar que Nginx deniega /uploads/private/. Hoy documents.py::_store_document escribe en claro.",
+    "[seguridad-incidentes-10, -11, -12, -13] Verificación de refugios con mínimos datos: método por defecto sin copia (videollamada o consulta de vigencia) y constancia sin imagen; si se sube imagen: marca de agua automática, cifrado, visible solo para superadmin con MFA, visor sin descarga, registro refuge_document.view, purga automática 30 días tras la decisión; aceptar INE, CURP biométrica (física o digital) y pasaporte; acta solo páginas esenciales; verificación de donatarias en el padrón del SAT; casilla de consentimiento expreso no premarcada ligada a sesión con OTP si se conserva imagen; nunca enviar documentos a proveedores de IA ni extraer biométricos.",
+    "[seguridad-incidentes-16] Casilla de consentimiento expreso para la CLABE de personas físicas; CLABE cifrada y enmascarada (últimos 4); cambio de cuenta con reautenticación, OTP, correo al contacto anterior con 'No fui yo', revisión manual, 72 h de espera antes de la siguiente dispersión y bitácora.",
+    "[seguridad-incidentes-18, -17, -v02] Tareas de Celery beat: purge_phone_verification_logs (90 días), purge_refuge_documents (30 días tras decisión o retiro), purge_adoption_questionnaires (12 meses), notify_and_delete_inactive_accounts (24 meses + 30 días), purge_deleted_users_messages (90 días), anonymize_order_shipping (al vencer devolución o garantía + 1 año), purge_bot_interactions (12 meses o antes), purga de publicaciones importadas de Facebook (30 días), purge_analytics (12 meses); cada tarea escribe en retention_runs y alerta si falla. Hoy celery_app.py no tiene purgas por conservación.",
+    "[seguridad-incidentes-v03, -18] Campo blocked_at y filtro global que excluya los registros bloqueados de búsquedas, exportaciones, analítica, IA y envíos; acceso solo de superadmin con justificación registrada; supresión al cumplirse el plazo y correo final 'Tus datos fueron eliminados' si queda medio de contacto (art. 24).",
+    "[seguridad-incidentes-19] Cifrar o restringir las instantáneas locales de uploads (age/GPG, disco cifrado, permisos 700, excluir private/ del espejo en claro); llave de descifrado fuera del VPS; credenciales de R2 de solo escritura; llenar PLAZO_DE_CONSERVACION_DE_RESPALDOS con el máximo real (30 días externos); prueba de restauración mensual registrada (RPO 24 h, RTO definido); reaplicar supresiones tras restaurar.",
+    "[seguridad-incidentes-20] Logs de Nginx con rotación por tiempo (máximo 90 días) o almacén con TTL; IP truncada o seudonimizada a los 30 días; nunca registrar tokens, OTP, contraseñas, cuerpos con datos personales ni cadenas de consulta de enlaces mágicos; mantener el filtrado de datos personales en Sentry; eventos de seguridad en tablas propias con plazo.",
+    "[seguridad-incidentes-06, -v04] 'Modo incidente' que congele las purgas automáticas de logs y datos y muestre un aviso interno; se activa también al recibir una notificación de verificación de la SABG.",
+    "[seguridad-incidentes-04] Botón de administración para avisar en bloque a los usuarios afectados por una vulneración (correo y notificación en la app) con registro de envío por usuario y versión del aviso; sección pública 'Avisos de seguridad' administrable.",
+    "[seguridad-incidentes-05] Tabla security_incidents (o registro privado cifrado) con fechas de detección, confirmación y cierre, categoría, sistemas, datos, titulares, severidad, afectación significativa y justificación, avisos a titulares y contractuales, denuncia, causa raíz, acciones y responsable; conservación 5 años.",
+    "[seguridad-incidentes-07] Publicar /.well-known/security.txt (RFC 9116) desde Nginx como text/plain y la sección #reportar en seguridad.html; buzón seguridad@ monitoreado con acuse en 3 días hábiles.",
+    "[seguridad-incidentes-27] Avisos por correo o en la app al iniciar sesión desde dispositivo nuevo y al cambiar contraseña, teléfono, correo o CLABE; mantener 'Cerrar sesión en todos los dispositivos'; SPF, DKIM y DMARC (p=quarantine o reject); limitación de solicitudes en el login contra relleno de credenciales.",
+    "[seguridad-incidentes-28] CI con pip-audit o Safety, npm audit y Trivy; Dependabot o Renovate; imágenes con digest y BACKEND_TAG por versión; parches críticos en 7 días o menos; pentest externo antes del lanzamiento y anual (OWASP Top 10 / ASVS nivel 2; foco en IDOR de documentos, chats, coordenadas, webhooks y subida de archivos); evaluación de riesgos escrita antes de activar tienda, alertas a 5 km, veterinarias, ingestión de Facebook o cambio de proveedor de IA.",
+    "[seguridad-incidentes-09] Registro interno de encargados y actualización de la sección 11 del aviso (Cloudflare CDN/TLS, R2, hosting con país, Nominatim, SMS, Apify, Google, PAC; regiones de Sentry y PostHog); garantizar en código que INE, actas, chats y contactos nunca se envían a DashScope ni a otro proveedor de IA.",
+    "[seguridad-incidentes-v02] Página y canal de eliminación de datos para usuarios de WhatsApp y Facebook (comando 'borrar mis datos' en el bot, URL de instrucciones en Meta for Developers), con registro de solicitud y fecha de cumplimiento; eliminación inmediata a petición del usuario o de Meta; procedimiento para datos recibidos por error; prueba del requisito legal cuando se conserve algo (Meta 3.d.ii).",
+    "[seguridad-incidentes-21] Registro de requerimientos de autoridades (autoridad, fundamento, datos, fechas, decisión) y, si el contador confirma el CFF 30-B, vista segregada, de solo lectura y auditada con exclusivamente información fiscal para el SAT.",
+    "[seguridad-incidentes-01, -29] Página seguridad.html con fecha de última revisión legal e historial de versiones; enlaces desde pie, checkout, registro de refugio y sección 18 del aviso; vigilancia normativa mensual con actualización en 30 días o menos.",
+    "[seguridad-incidentes-08] Flujo de aceptación del acuerdo de confidencialidad para admins, moderadores y voluntarios antes de otorgar acceso, y del convenio de adhesión de refugios y casas de paso con versión y fecha; baja de accesos el mismo día."
+  ],
+  "shop_requirements": [
+    "[seguridad-incidentes-15] Bloque 'Compra segura' en carrito y checkout antes del pago (HTTPS, pago en Mercado Pago, datos compartidos solo con el refugio que envía) con enlace a /legal/seguridad.html#pagos (LFPC 76 Bis fr. II).",
+    "[seguridad-incidentes-15] Entregar al refugio vendedor solo nombre, domicilio y teléfono de envío; retirar el acceso al cerrarse la entrega y el plazo de devolución; texto de uso limitado en el panel del refugio (LFPC 76 Bis fr. I; LFPDPPP art. 20).",
+    "[seguridad-incidentes-15, -24] Evidencia por transacción: folio, versión de términos aceptada, marca de tiempo, eventos de pago firmados, ID de Mercado Pago, UUID del CFDI (LFPC 76 Bis 1 fr. IV; opcional NOM-151).",
+    "[seguridad-incidentes-15] Donativos recurrentes: aviso claro y destacado del cobro automático, consentimiento expreso no premarcado, recordatorio al menos 5 días naturales antes de cada renovación y cancelación inmediata desde la cuenta (LFPC 76 Bis fr. VIII y IX, DOF 12-12-2025).",
+    "[seguridad-incidentes-14] Checkout Pro en modo redirección (no incrustado); nunca capturar, registrar ni guardar número de tarjeta, CVV o fecha (revisar Sentry y logs); CSP estricta y versiones fijas en /app/vendor; texto 'No vemos ni guardamos los datos de tu tarjeta; los captura Mercado Pago, certificado PCI DSS'.",
+    "[seguridad-incidentes-14, -v01] Access token de Mercado Pago y secreto del webhook fuera del repositorio, rotados cada año y tras incidentes; mantener validación HMAC de x-signature y conciliación de montos en el servidor; completar cada año el SAQ A (y AOC si se solicita) y archivarlo.",
+    "[seguridad-incidentes-v01] Runbook: notificar a Mercado Pago en máximo 24 h cualquier incidente que toque pagos, webhooks, access token o secreto de firma (formulario de la sección 10) y los incidentes de privacidad de compradores o donantes a privacidad@mercadolibre.com (cl. 6.6).",
+    "[seguridad-incidentes-17, -v03] Conservación de pedidos: datos mínimos (folio, fecha, montos, ID de MP, UUID del CFDI, nombre) bloqueados 5 años desde la declaración relacionada (CFF 30) o 10 años si el operador es comerciante (CCom 38 y 49); domicilio y teléfono de envío anonimizados al cerrar devolución o garantía más 1 año (LFPC 14) salvo que consten en el comprobante; fundamento de la negativa de cancelación en LFPDPPP art. 25 fr. I, II y III.",
+    "[seguridad-incidentes-17] Donativos: conservación 5 años (CFF 30) o 10 años si el receptor es A.C. y el donativo alcanza 1,605 UMA (LFPIORPI 17 fr. XIII y 18 fr. IV; contador).",
+    "[seguridad-incidentes-16] Dispersiones a refugios: CLABE cifrada, consentimiento expreso de personas físicas, procedimiento antifraude de cambio de cuenta con 72 h de espera, bitácora; registros de dispersión bloqueados 5 años.",
+    "[seguridad-incidentes-21] Si la tienda cobra comisión: análisis del contador sobre LIVA 1o.-A BIS, 18-B fr. II y 18-J y CFF 30-B (acceso en línea y en tiempo real del SAT, en vigor 01-04-2026, con riesgo de bloqueo temporal del servicio) y diseño de la vista segregada."
+  ],
+  "retention": [
+    { "category": "Cuenta y perfil activos", "period": "Mientras la cuenta esté activa; tras 24 meses sin actividad, aviso y supresión a los 30 días", "basis": "LFPDPPP 2025 arts. 10 y 12 [seguridad-incidentes-17, -18]" },
+    { "category": "Cuenta eliminada (datos mínimos bloqueados: id, hash de correo y teléfono, fechas, versión de términos)", "period": "Supresión general en 30 días o menos; bloqueo de los mínimos durante la prescripción elegida: 1, 2 o 10 años (pendiente de abogado)", "basis": "LFPDPPP 2025 arts. 24 y 25 fr. I; LFPC art. 14; CCF arts. 1934 y 1159; CCom art. 1047 [seguridad-incidentes-17, -v03]" },
+    { "category": "Constancias de aceptación de términos y aviso de privacidad", "period": "Mientras exista la cuenta más el bloqueo; 10 años si hubo compra y el operador es comerciante", "basis": "LFPDPPP 2025 art. 24; CCom art. 49 [seguridad-incidentes-17]" },
+    { "category": "Chats", "period": "90 días tras eliminar la cuenta; con reporte de abuso, hasta resolverlo más 12 meses", "basis": "LFPDPPP 2025 arts. 10, 12 y 25 fr. III y VI [seguridad-incidentes-17]" },
+    { "category": "Cuestionarios de adopción", "period": "12 meses tras cerrar la postulación", "basis": "LFPDPPP 2025 arts. 10 y 12 [seguridad-incidentes-17, -18]" },
+    { "category": "Reportes de perdidos o encontrados y fotos", "period": "Según la sección 17 vigente del aviso (tarea lost-reports-expire-daily existente)", "basis": "LFPDPPP 2025 arts. 10 y 12 [seguridad-incidentes-17]" },
+    { "category": "Pedidos: folio, fecha, montos, ID de Mercado Pago, UUID del CFDI, nombre", "period": "Bloqueo 5 años desde la declaración relacionada; 10 años si el operador es comerciante", "basis": "CFF art. 30; CCom arts. 38 y 49; LFPDPPP art. 25 fr. I, II y III [seguridad-incidentes-17, -v03]" },
+    { "category": "Pedidos: domicilio y teléfono de envío", "period": "Anonimizar al cerrar el plazo de devolución o garantía más 1 año, salvo que consten en el comprobante", "basis": "LFPC art. 14; LFPDPPP arts. 10 y 12 [seguridad-incidentes-17]" },
+    { "category": "Donativos", "period": "5 años; 10 años si el receptor es A.C. y el donativo alcanza 1,605 UMA (aprox. $188,283 MXN con UMA 2026 de fuente secundaria)", "basis": "CFF art. 30; LFPIORPI arts. 17 fr. XIII y 18 fr. IV; LFPDPPP art. 25 fr. II y III [seguridad-incidentes-17]" },
+    { "category": "Imagen de INE, CURP o pasaporte del responsable del refugio", "period": "30 días o menos tras aprobar o rechazar; se conserva constancia de verificación sin imagen", "basis": "LFPDPPP 2025 arts. 10, 12 y 18; Recomendaciones INAI-INE 2018 (4) [seguridad-incidentes-10, -17, -18]" },
+    { "category": "Acta constitutiva (páginas esenciales) y constancia fiscal del refugio", "period": "Mientras el refugio esté activo más 5 años si respaldan pagos", "basis": "CFF art. 30; LFPDPPP art. 25 fr. II [seguridad-incidentes-17]" },
+    { "category": "CLABE del refugio y registros de dispersión", "period": "Mientras haya pagos; después bloqueo 5 años", "basis": "LFPDPPP art. 7; CFF art. 30 [seguridad-incidentes-16, -17]" },
+    { "category": "Logs de OTP (IP y teléfono)", "period": "90 días", "basis": "LFPDPPP 2025 arts. 10 y 12 [seguridad-incidentes-17, -18]" },
+    { "category": "Logs técnicos con IP (Nginx, app)", "period": "90 días o menos; IP truncada o seudonimizada a los 30 días; los ligados a incidentes hasta cerrar el caso más 12 meses", "basis": "LFPDPPP 2025 arts. 2 fr. V, 10 y 12; LMTR art. 182 (el art. 183 no obliga a apps) [seguridad-incidentes-20]" },
+    { "category": "Bitácora de administración", "period": "5 años", "basis": "LFPDPPP 2025 arts. 13 y 18; Reglamento 2011 art. 48 fr. X (referencia) [seguridad-incidentes-17, -22]" },
+    { "category": "Webhooks y eventos de pago", "period": "El mismo plazo que su pedido o donativo", "basis": "CFF art. 30 [seguridad-incidentes-17]" },
+    { "category": "Expedientes ARCO", "period": "5 años", "basis": "LFPDPPP 2025 arts. 13 y 21 [seguridad-incidentes-17, -24]" },
+    { "category": "Bitácora de vulneraciones (security_incidents)", "period": "5 años o más", "basis": "LFPDPPP 2025 arts. 13 y 18; Reglamento 2011 art. 66 (referencia) [seguridad-incidentes-05, -17]" },
+    { "category": "Respaldos", "period": "Copia local 14 días; copia externa 30 días (valor real de PLAZO_DE_CONSERVACION_DE_RESPALDOS); reaplicar supresiones tras restaurar", "basis": "LFPDPPP 2025 arts. 10, 13 y 18; Reglamento 2011 art. 61 fr. IX (referencia) [seguridad-incidentes-19]" },
+    { "category": "Analítica (PostHog)", "period": "12 meses", "basis": "LFPDPPP 2025 arts. 10 y 12 [seguridad-incidentes-17]" },
+    { "category": "Cuentas sancionadas (hashes de correo y teléfono)", "period": "24 meses", "basis": "LFPDPPP 2025 arts. 10, 12 y 25 fr. VI [seguridad-incidentes-17]" },
+    { "category": "Incumplimientos contractuales", "period": "Máximo 72 meses", "basis": "LFPDPPP 2025 art. 10 [seguridad-incidentes-17]" },
+    { "category": "Bot de WhatsApp (BotInteraction)", "period": "Al cumplir la finalidad y máximo 12 meses; de inmediato si el usuario lo pide o ya no tiene cuenta", "basis": "Meta Platform Terms 3.d; LFPDPPP arts. 10 y 24 [seguridad-incidentes-17, -v02]" },
+    { "category": "Publicaciones importadas de grupos públicos de Facebook", "period": "30 días (decisión de producto) y nunca más de 12 meses; eliminación inmediata a petición del usuario o de Meta; takedown", "basis": "Meta Platform Terms 3.d; LFPDPPP arts. 10 y 24 [seguridad-incidentes-v02]" },
+    { "category": "Registro de requerimientos de autoridades y verificaciones de la SABG", "period": "5 años (propuesta)", "basis": "LFPDPPP 2025 arts. 9 fr. VII, 54 y 55 [seguridad-incidentes-21, -v04]" }
+  ],
+  "subprocessors": [
+    { "name": "Cloudflare (CDN, protección y terminación TLS)", "purpose": "Red de entrega, mitigación de ataques, terminación de la conexión cifrada: ve el tráfico en claro, incluidas subidas de documentos", "data": "Todo el tráfico HTTP(S), direcciones IP, cookies, archivos subidos en tránsito", "country": "Estados Unidos (red global; región por confirmar)", "type": "encargado; falta en la sección 11 del aviso [seguridad-incidentes-09]" },
+    { "name": "Cloudflare R2", "purpose": "Respaldos externos cifrados con rclone crypt (30 días)", "data": "Dumps de base de datos y uploads cifrados antes de salir del servidor", "country": "Región del bucket por confirmar", "type": "encargado [seguridad-incidentes-19]" },
+    { "name": "[PROVEEDOR_DE_HOSTING] (VPS)", "purpose": "Alojamiento de la aplicación, la base de datos y los archivos", "data": "Todos los datos de la plataforma, incluidos uploads/private (INE, actas)", "country": "[PAIS_O_REGION_DEL_HOSTING] por confirmar; certificaciones ISO 27001 o SOC 2 por confirmar", "type": "encargado [seguridad-incidentes-02, -09]" },
+    { "name": "Mercado Pago (Mercado Libre)", "purpose": "Checkout Pro para pagos de la tienda y donativos; webhooks", "data": "Datos de pago capturados por MP; GuauWoow recibe ID de pago, estado, monto y datos de entrega", "country": "México (versión mercadopago.com.mx de los Términos)", "type": "tercero/encargado con deber contractual de aviso de incidentes en 24 h y SAQ anual [seguridad-incidentes-14, -v01]" },
+    { "name": "Meta Platforms (WhatsApp Cloud API y Facebook Pages Graph API)", "purpose": "Bot de WhatsApp (plantillas) y publicación o monitoreo de páginas", "data": "Números de teléfono y mensajes del bot; Datos de la plataforma", "country": "Estados Unidos", "type": "tercero/encargado con deberes de eliminación, auditoría y reporte de vulnerabilidades (Platform Terms 3.d, 6, 7) [seguridad-incidentes-06, -07, -v02]" },
+    { "name": "Alibaba Cloud DashScope (Qwen3-VL)", "purpose": "Comparación de fotos de perros perdidos y encontrados", "data": "Solo fotos de perros y descripción del reporte; nunca documentos, chats ni datos de contacto", "country": "Fuera de México (región por confirmar)", "type": "encargado; transferencia internacional [seguridad-incidentes-09]" },
+    { "name": "Sentry", "purpose": "Monitoreo de errores", "data": "Trazas de error con datos personales filtrados; request-id", "country": "Estados Unidos según el aviso (confirmar región configurada)", "type": "encargado [seguridad-incidentes-09, -20]" },
+    { "name": "PostHog", "purpose": "Analítica de producto con consentimiento", "data": "Eventos de uso seudonimizados", "country": "Estados Unidos o Unión Europea según el aviso (confirmar región configurada)", "type": "encargado [seguridad-incidentes-09]" },
+    { "name": "OpenStreetMap / Nominatim", "purpose": "Mosaicos del mapa y geocodificación inversa de las coordenadas del usuario desde el navegador", "data": "Coordenadas GPS (lat/lon) e IP del navegador", "country": "Por confirmar (infraestructura de la OSM Foundation)", "type": "tercero; falta mencionar Nominatim en el aviso [seguridad-incidentes-09]" },
+    { "name": "[PROVEEDOR_SMS] (OTP por SMS)", "purpose": "Verificación telefónica obligatoria", "data": "Número de teléfono y código OTP", "country": "Por confirmar", "type": "encargado [seguridad-incidentes-02, -09]" },
+    { "name": "[PROVEEDOR_DE_CORREO] (SMTP)", "purpose": "Correos transaccionales, verificación y avisos de seguridad", "data": "Correo, nombre, contenido de los avisos", "country": "[PAIS_DEL_PROVEEDOR_DE_CORREO] por confirmar", "type": "encargado [seguridad-incidentes-09]" },
+    { "name": "Google (OAuth y Places API)", "purpose": "Inicio de sesión con Google; reseñas de clínicas veterinarias con atribución", "data": "Identificador y correo de la cuenta Google; consultas a Places", "country": "Estados Unidos", "type": "tercero; incluir en la sección 11 (hecho de plataforma, no verificado en este dominio)" },
+    { "name": "Apify", "purpose": "Ingestión de publicaciones de grupos públicos de Facebook sobre perros perdidos", "data": "Fotos y texto público con teléfonos y nombres eliminados; enlace al original", "country": "Por confirmar", "type": "encargado; incluir en la sección 11 y en el directorio de incidentes (hecho de plataforma, no verificado en este dominio)" },
+    { "name": "PAC de CFDI (por definir)", "purpose": "Timbrado de facturas de la tienda", "data": "Datos fiscales del comprador y del vendedor", "country": "México", "type": "encargado; incluir en la sección 11 (hecho de plataforma, no verificado en este dominio)" }
+  ],
+  "owner_data_needed": [
+    "Forma jurídica del operador (persona física, S.A.S., S.A. de C.V., A.C.), razón social, RFC y domicilio fiscal: define si aplican los 10 años del Código de Comercio y la LFPIORPI.",
+    "Proveedor del VPS, país o región del centro de datos y certificaciones (ISO 27001 o SOC 2); región del bucket R2; región configurada en Sentry y PostHog; proveedor SMTP y su país; proveedor de SMS y su país.",
+    "Correo y responsable de seguridad (seguridad@[DOMINIO]) y del departamento de datos personales (privacidad@[DOMINIO]), con teléfono y horario (LFPDPPP art. 29).",
+    "Lista de personas con rol admin o superadmin y de voluntarios o moderadores con acceso a datos, y equipos que usan, para NDAs, MFA y revisión de accesos.",
+    "Decisión sobre la verificación de refugios: conservar copia de INE o acta (p. ej. por requisitos de Mercado Pago para dispersar) o solo verificar y guardar constancia; aceptar videollamada como método por defecto.",
+    "¿La tienda cobrará comisión? ¿Quién emitirá los CFDI? Monto esperado de donativos y si seguirán pasando por la cuenta de Mercado Pago de GuauWoow.",
+    "Configuración real de los respaldos externos: bucket, regla de ciclo de vida, custodio de la llave de descifrado fuera del servidor, plazos local y externo definitivos.",
+    "Contactos para incidentes: abogado, contador, hosting, soporte de Mercado Pago, App ID de Meta y cuenta de WhatsApp Business, Apify, PAC, Google, aseguradora.",
+    "¿Existe o se contratará un seguro de ciberriesgos o responsabilidad civil?",
+    "¿Habrá donativos recurrentes (suscripciones)? Activan LFPC art. 76 Bis fr. VIII y IX.",
+    "Presupuesto y fecha para el pentest externo y fechas objetivo de MFA de admins y cifrado de documentos (condicionan qué puede afirmar la página de Seguridad).",
+    "Decisiones de política: informe anual de transparencia; aviso voluntario a la SABG; reconocimiento público a quienes reporten vulnerabilidades; plazo de bloqueo de cuentas eliminadas (1, 2 o 10 años, con el abogado).",
+    "Dominio definitivo para security.txt, SPF, DKIM y DMARC, y confirmación de la URL de eliminación de datos configurada en Meta for Developers."
+  ],
+  "lawyer_points": [
+    "Abogado: fijar una postura única sobre la vigencia del Reglamento LFPDPPP 2011 bajo la ley de 2025 (arts. 48, 50-54, 60-66), fundada en el transitorio exacto, y usarla igual en todos los dominios (conflicto señalado por el crítico) [seguridad-incidentes-01, -03, -04, -05, -09].",
+    "Abogado: si la copia de la credencial para votar (fotografía, firma, huella) es dato sensible y exige consentimiento expreso y por escrito (art. 8); redacción de la casilla [seguridad-incidentes-11].",
+    "Abogado: si GuauWoow debe pedir CURP a los usuarios por LGP art. 91 Sexies y transitorio Cuarto, conciliación con LFPDPPP art. 12 y alcance de la multa del art. 114 Bis [seguridad-incidentes-12].",
+    "Abogado: plazo de bloqueo para cuentas eliminadas y pedidos (1 año LFPC 14, 2 años CCF 1934 o 10 años CCF 1159 / CCom 1047) y fracción del art. 25 por categoría [seguridad-incidentes-17, -v03].",
+    "Abogado y contador: si el operador es sociedad mercantil, adoptar 10 años (CCom 38 y 49) en lugar de los 5 del aviso; consolidar un solo calendario entre dominios con el plazo más largo y su punto de inicio (conflicto señalado por el crítico) [seguridad-incidentes-17].",
+    "Contador: si la tienda cobra comisión, aplicación de LIVA 1o.-A BIS, 18-B fr. II y 18-J y del CFF 30-B (acceso en línea del SAT, en vigor 01-04-2026, bloqueo temporal) [seguridad-incidentes-21].",
+    "Contador y abogado: LFPIORPI 17 fr. XIII y 18 fr. IV mientras los donativos pasen por la cuenta de MP de GuauWoow; posibles implicaciones de transmisión de dinero [seguridad-incidentes-17].",
+    "Abogado: decidir si se avisa voluntariamente a la SABG de las vulneraciones (art. 19 no lo exige) [seguridad-incidentes-04].",
+    "Abogado: confirmar que la cuenta está sujeta a la versión México de los Términos para Desarrolladores de Mercado Pago y a los Términos para vendedores; confirmar con MP si exigirá SAQ A, AOC o ASV [seguridad-incidentes-14, -v01].",
+    "Abogado: redactar el compromiso de no denunciar de la política de divulgación responsable sin prometer inmunidad penal (CPF 211 bis 1) [seguridad-incidentes-07].",
+    "Abogado: revisar la sección 24 de los Términos para no excluir responsabilidad por incumplir la LFPDPPP (art. 53) ni derechos del consumidor [seguridad-incidentes-26].",
+    "Abogado: plazos de la LFPA aplicables a verificaciones y procedimiento sancionador de la SABG [seguridad-incidentes-v04].",
+    "Abogado: verificar la reforma a la Constitución art. 16 (DOF 07-10-2026) antes de publicar 'Solicitudes de autoridades' y la política de moderación de chats (conflicto señalado por el crítico; no verificada en este dominio) [seguridad-incidentes-21].",
+    "Abogado: calificación de GuauWoow como 'proveedor de servicios de aplicaciones y contenidos' (LMTR 182) y alcance del deber de colaboración de LSNIIMSP 26 y de las emergencias del art. 9 fr. V [seguridad-incidentes-20, -21].",
+    "Abogado: validar el acuerdo de confidencialidad y la cláusula del convenio de refugios (72 h de aviso; arts. 20, 58 fr. VIII, 62 y 64) [seguridad-incidentes-08].",
+    "Abogado: confirmar en INEGI o DOF el valor de la UMA 2026 ($117.31) y las fechas del DOF del Anexo 14 RMF 2026 antes de publicar montos [seguridad-incidentes-13, -17, -26].",
+    "Abogado: postura sobre la obligatoriedad del documento de seguridad y de la bitácora de vulneraciones para particulares (sin texto expreso; derivan de arts. 13 y 18) [seguridad-incidentes-03, -05]."
+  ],
+  "key_risks": [
+    "Imágenes de INE y actas almacenadas en claro en uploads/private y copiadas en claro en las instantáneas locales de respaldo, accesibles por admins sin MFA: fuga con riesgo de robo de identidad; multa de 200 a 320,000 UMA, duplicable si se consideran datos sensibles (LFPDPPP 58 fr. XI, 59 fr. III y IV) [seguridad-incidentes-02, -10, -11, -19, -22, -23].",
+    "El aviso de privacidad promete plazos de conservación y supresión que el código no ejecuta (sin tareas de purga): infracción por tratar datos contra los principios y no cancelar (art. 58 fr. IV y VI) y práctica engañosa [seguridad-incidentes-18, -29].",
+    "Sin runbook, bitácora ni herramienta de aviso masivo, no se podría avisar 'de forma inmediata' a los titulares (art. 19) ni cumplir las 24 h de Mercado Pago y el aviso a Meta; la SABG abre verificaciones de oficio al detectar filtraciones (Comunicado 111) [seguridad-incidentes-04, -05, -06, -v01, -26].",
+    "Sin security.txt ni canal de reporte de vulnerabilidades se incumple Meta Platform Terms 6.a.ii, con riesgo para el acceso a WhatsApp Cloud API y la API de Páginas [seguridad-incidentes-07].",
+    "Encargados incompletos en el aviso (Cloudflare CDN, Nominatim, hosting sin país) y regiones no documentadas: incumplimiento de los arts. 13 y 14 y del principio de información [seguridad-incidentes-09].",
+    "Plazos de conservación inconsistentes entre el aviso (5 años) y las obligaciones posibles (10 años CCom y LFPIORPI) según una forma jurídica aún no definida; y bloqueo sin fundamentar en el art. 25 frente a solicitudes de cancelación [seguridad-incidentes-17, -v03].",
+    "Posible obligación de dar al SAT acceso en línea y en tiempo real (CFF 30-B) si la tienda cobra comisión, con bloqueo temporal del servicio por incumplimiento [seguridad-incidentes-21].",
+    "Riesgo de fraude a usuarios (extorsión con perros perdidos, phishing de OTP, refugios falsos, cambio de CLABE) por falta de avisos de seguridad de cuenta, SPF/DKIM/DMARC y controles de cambio de cuenta [seguridad-incidentes-16, -27].",
+    "Publicar en la página de Seguridad medidas que aún no existen (MFA, cifrado, pentest) sería infracción del art. 58 fr. IV y práctica engañosa (LFPC 76 Bis); la página debe reflejar el estado final real del código [seguridad-incidentes-29].",
+    "Exigir solo INE y no aceptar la CURP biométrica puede sancionarse con 10,000 a 20,000 UMA tras apercibimiento (LGP 91 Bis y 114 Bis) [seguridad-incidentes-12]."
+  ]
+}

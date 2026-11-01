@@ -1,6 +1,10 @@
-"""Servidor local de desarrollo para el frontend de PatitasFind (puerto 8082).
+"""Servidor local de desarrollo para el frontend de GuauWoow (puerto 8082).
 
-- Sirve la landing en /, la app en /app/ y el panel en /admin/.
+- Sirve la landing en /, la app en /app/ y el panel en /admin/ (robots.txt, sitemap.xml,
+  manifest.webmanifest y favicon en la raíz; 404.html para rutas inexistentes).
+- Reemplaza %%SITE_URL%% por http://localhost:<PORT> en HTML/XML/TXT/manifest (en producción lo hace Nginx).
+- Centro legal: /app/legal/ muestra centro-legal.html; /legal y /legal/<slug> redirigen a /app/legal/<slug>.html
+  y /.well-known/security.txt se sirve como text/plain.
 - Reenvía al backend (localhost:8001) todas las rutas de la API, incluidas subidas
   multipart, y hace túnel de WebSockets (/ws/...) para el chat en tiempo real.
 
@@ -9,6 +13,7 @@ Uso:  python3 server.py   (y opcionalmente: cloudflared tunnel --url http://loca
 import http.client
 import http.server
 import os
+import re
 import select
 import socket
 import socketserver
@@ -24,8 +29,8 @@ PROXIED_PREFIXES = (
     "/api/", "/auth/", "/users/",
     "/dogs", "/matches", "/messages/", "/conversations",
     "/notifications", "/refuges", "/products", "/orders",
-    "/lost-reports", "/foster-homes", "/reminders",
-    "/whatsapp/", "/facebook/", "/search/", "/ai/", "/payments/",
+    "/lost-reports", "/foster-homes", "/reminders", "/reports", "/veterinaries",
+    "/whatsapp/", "/facebook/", "/search/", "/ai/", "/payments/", "/cumplimiento/",
     "/upload", "/uploads/", "/ws/",
     "/docs", "/redoc", "/openapi.json", "/health",
 )
@@ -38,8 +43,38 @@ ADMIN_STATIC = {
     "/admin/admin.js": "admin.js",
 }
 
+# Archivos de texto donde se reemplaza %%SITE_URL%% (en producción lo hace Nginx con sub_filter)
+SITE_URL_TOKEN = b"%%SITE_URL%%"
+TEXT_TYPES = {".html": "text/html; charset=utf-8", ".xml": "application/xml; charset=utf-8",
+              ".txt": "text/plain; charset=utf-8", ".webmanifest": "application/manifest+json; charset=utf-8"}
+
 HOP_BY_HOP = {"connection", "keep-alive", "proxy-authenticate", "proxy-authorization", "te", "trailers",
               "transfer-encoding", "upgrade", "host", "content-length"}
+
+# Archivos de desarrollo/legado y datos internos que nunca se sirven (mismo criterio que la location de
+# nginx/snippets/patitasfind-locations.conf): código, pruebas, y los datos/plantillas legales que solo
+# alimentan scripts/render-legal.py (lo público son las páginas generadas)
+DEV_FILES_RE = re.compile(
+    r"(\.(py|pyc|mjs|md|sh|log)$|/package(-lock)?\.json$|/node_modules/|/e2e-shots/|/test-[^/]*$|/_build_index"
+    r"|/app-mvp|/app-demo|/index-demo|/legal/datos-legales[^/]*\.json$|/legal/plantillas/|/\.(?!well-known/))",
+    re.IGNORECASE,
+)
+
+
+# Centro legal: /legal y /legal/<slug> son atajos de /app/legal/<slug>.html; /app/legal/ muestra el centro legal
+# (igual que nginx/snippets/patitasfind-locations.conf)
+LEGAL_SHORT_RE = re.compile(r"^/legal/([a-z0-9-]+?)(?:\.html)?/?$")
+LEGAL_INDEX = "centro-legal.html"
+
+
+def legal_redirect(path: str) -> str | None:
+    """Destino de los atajos legales (/legal, /legal/<slug>, /app/legal, /security.txt) o None."""
+    if path in ("/legal", "/legal/", "/app/legal"):
+        return "/app/legal/"
+    if path == "/security.txt":
+        return "/.well-known/security.txt"
+    m = LEGAL_SHORT_RE.match(path)
+    return f"/app/legal/{m.group(1)}.html" if m else None
 
 
 def is_backend_path(path: str) -> bool:
@@ -50,6 +85,8 @@ def is_backend_path(path: str) -> bool:
 
 class Handler(http.server.SimpleHTTPRequestHandler):
     protocol_version = "HTTP/1.1"
+    extensions_map = {**http.server.SimpleHTTPRequestHandler.extensions_map,
+                      ".webmanifest": "application/manifest+json", ".webp": "image/webp", ".mjs": "text/javascript"}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(ROOT), **kwargs)
@@ -156,6 +193,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             return str(ROOT / ADMIN_STATIC[path])
         if path == "/app/":
             return str(ROOT / "index.html")
+        if path == "/app/legal/":
+            return str(ROOT / "legal" / LEGAL_INDEX)
         if path.startswith("/app/"):
             return super().translate_path(path[4:])
         return super().translate_path(path)
@@ -166,16 +205,52 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         self.send_header("Content-Length", "0")
         self.end_headers()
 
+    def _send_bytes(self, status: int, content_type: str, data: bytes):
+        self.send_response(status)
+        self.send_header("Content-Type", content_type)
+        self.send_header("Content-Length", str(len(data)))
+        self.end_headers()
+        if self.command != "HEAD":
+            self.wfile.write(data)
+
+    def _not_found(self):
+        page = ROOT / "404.html"
+        data = page.read_bytes().replace(SITE_URL_TOKEN, self._site_url()) if page.is_file() else b"No encontrado"
+        return self._send_bytes(404, "text/html; charset=utf-8", data)
+
+    def _serve_static(self):
+        """Como SimpleHTTPRequestHandler, pero reemplaza %%SITE_URL%% en HTML/XML/TXT/manifest,
+        niega los archivos de desarrollo/datos internos y responde con 404.html cuando el archivo no existe."""
+        if DEV_FILES_RE.search(urlparse(self.path).path):
+            return self._not_found()
+        fs_path = Path(self.translate_path(self.path))
+        if fs_path.is_dir() and urlparse(self.path).path.startswith("/app/legal/"):
+            return self._not_found()  # sin listado de directorios en el centro legal (js/, plantillas/)
+        if fs_path.is_dir():
+            return super().do_GET() if self.command == "GET" else super().do_HEAD()
+        if not fs_path.is_file():
+            return self._not_found()
+        content_type = TEXT_TYPES.get(fs_path.suffix.lower())
+        if not content_type:
+            return super().do_GET() if self.command == "GET" else super().do_HEAD()
+        return self._send_bytes(200, content_type, fs_path.read_bytes().replace(SITE_URL_TOKEN, self._site_url()))
+
+    def _site_url(self) -> bytes:
+        return f"http://localhost:{PORT}".encode()
+
     def _dispatch(self, static_ok: bool):
         path = urlparse(self.path).path
         if path == "/app":
             return self._redirect("/app/")
         if path == "/admin":
             return self._redirect("/admin/")
+        legal = legal_redirect(path)
+        if legal:
+            return self._redirect(legal)
         if is_backend_path(path):
             return self._proxy_to_backend()
         if static_ok:
-            return super().do_GET() if self.command == "GET" else super().do_HEAD()
+            return self._serve_static()
         self.send_response(405)
         self.send_header("Content-Length", "0")
         self.end_headers()
@@ -209,7 +284,7 @@ class ThreadingServer(socketserver.ThreadingMixIn, http.server.HTTPServer):
 
 if __name__ == "__main__":
     with ThreadingServer(("", PORT), Handler) as httpd:
-        print(f"Sirviendo PatitasFind en http://localhost:{PORT}")
+        print(f"Sirviendo GuauWoow en http://localhost:{PORT}")
         print(f"Landing: http://localhost:{PORT}/")
         print(f"App:     http://localhost:{PORT}/app/")
         print(f"Admin:   http://localhost:{PORT}/admin/")

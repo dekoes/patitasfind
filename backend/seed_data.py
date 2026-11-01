@@ -1,22 +1,28 @@
+"""Datos de prueba para DESARROLLO (perros, refugios, reportes, chats, pedidos...).
+
+Uso (dentro del contenedor del backend):
+    python seed_data.py             # agrega datos de prueba; se niega si ya existen
+    python seed_data.py --reset     # BORRA perros, reportes, chats, pedidos, refugios... y vuelve a sembrar
+    python seed_data.py --force     # permite una base que no sea localhost/postgres (nunca producción)
+
+Contraseña de los usuarios de prueba (@patitas.com): la de SEED_PASSWORD o, si no está
+definida, una aleatoria que se imprime al final.
+
+Nunca corre con ENVIRONMENT=production, ni con --force.
+"""
+import argparse
+import json
+import os
 import random
+import secrets
+import sys
 import urllib.request
-from pathlib import Path
 from datetime import datetime, timedelta
+from pathlib import Path
 
-from app.config import settings
-from app.database import SessionLocal
-from app.main import run_startup_migrations
-from app.models import (
-    User, Dog, DogPass, Match, AdoptionApplication, Conversation, Message,
-    Refuge, Product, LostReport, FosterHome, Notification, Reminder,
-    Order, OrderItem, PointLog, Donation, BotInteraction,
-)
-from app.auth import get_password_hash
-from app.services import images
-from app.services.vision import signature_for_urls
-
-UPLOAD_DIR = Path(settings.upload_dir)
-UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+SEED_EMAIL_DOMAIN = "@patitas.com"
+SAFE_DB_HOSTS = {"localhost", "127.0.0.1", "::1", "postgres"}
+MIN_PASSWORD = 8
 
 NAMES = [
     ("Lucía Martínez", "lucia@patitas.com", "+525511111111"),
@@ -62,8 +68,90 @@ DOG_TEMPLATES = [
 ]
 
 
-import json
+# --------------------------------------------------------------------------- guardas
+def db_host(database_url: str) -> str:
+    try:
+        from sqlalchemy.engine import make_url
 
+        return (make_url(database_url).host or "localhost").lower()
+    except Exception:  # noqa: BLE001
+        return "desconocido"
+
+
+def refusal_reason(environment: str | None, database_url: str | None, force: bool = False) -> str | None:
+    """Motivo para NO sembrar (o None si es seguro). Producción se rechaza siempre, incluso con --force."""
+    if (environment or "").strip().lower() == "production":
+        return ("ENVIRONMENT=production: seed_data.py es solo para desarrollo y borra o mezcla datos de prueba. "
+                "No se ejecuta en producción.")
+    if not database_url:
+        return None
+    host = db_host(database_url)
+    if host not in SAFE_DB_HOSTS and not force:
+        return (f"DATABASE_URL apunta a '{host}', que no parece una base local (localhost o postgres). "
+                "Si de verdad es una base de pruebas, repite con --force.")
+    return None
+
+
+def seed_password() -> tuple[str, bool]:
+    """(contraseña, generada). Usa SEED_PASSWORD si existe; si no, genera una aleatoria."""
+    password = os.environ.get("SEED_PASSWORD", "").strip()
+    if password:
+        if len(password) < MIN_PASSWORD:
+            raise SystemExit(f"SEED_PASSWORD debe tener al menos {MIN_PASSWORD} caracteres.")
+        return password, False
+    return secrets.token_urlsafe(12), True
+
+
+def parse_args(argv=None) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Siembra datos de prueba de GuauWoow (solo desarrollo).")
+    parser.add_argument("--reset", action="store_true",
+                        help="borra los datos de prueba anteriores (perros, reportes, chats, pedidos, refugios...) antes de sembrar")
+    parser.add_argument("--force", action="store_true",
+                        help="permite una DATABASE_URL que no sea localhost/postgres (nunca permite producción)")
+    return parser.parse_args(argv)
+
+
+def reset_seed_data(db) -> None:
+    """Vacía las tablas de contenido y borra los usuarios @patitas.com (con sus filas dependientes)."""
+    from sqlalchemy import text
+
+    from app.database import Base
+    from app.models import User
+
+    content_tables = [
+        "messages", "conversations", "adoption_applications", "reminders", "matches", "dog_passes",
+        "order_items", "orders", "donations", "products", "point_logs", "lost_reports", "dogs",
+        "foster_homes", "refuges", "notifications", "bot_interactions",
+    ]
+    existing = set(Base.metadata.tables)
+    tables = [t for t in content_tables if t in existing]
+    # CASCADE también vacía tablas nuevas que apunten a estas (alertas, reportes de contenido, etc.)
+    db.execute(text("TRUNCATE " + ", ".join(tables) + " CASCADE"))
+    ids = [u.id for u in db.query(User.id).filter(User.email.like(f"%{SEED_EMAIL_DOMAIN}")).all()]
+    if ids:
+        # Bitácoras de solo inserción (aceptaciones y consentimientos): su trigger solo permite DELETE dentro de la
+        # purga (SET LOCAL patitas.allow_purge), nunca UPDATE; las filas de los usuarios de prueba se borran
+        from app.services.legal_acceptance import allow_purge
+
+        append_only = {"legal_acceptances", "consent_records"}
+        allow_purge(db)
+        # Filas de otras tablas que apuntan a los usuarios de prueba: se desvinculan o se borran
+        for table in Base.metadata.sorted_tables:
+            if table.name in tables or table.name == "users":
+                continue
+            for fk in table.foreign_keys:
+                if fk.column.table.name != "users":
+                    continue
+                col = fk.parent
+                if col.nullable and table.name not in append_only:
+                    db.execute(table.update().where(col.in_(ids)).values({col.name: None}))
+                else:
+                    db.execute(table.delete().where(col.in_(ids)))
+        db.query(User).filter(User.id.in_(ids)).delete(synchronize_session=False)
+    db.commit()
+
+
+# --------------------------------------------------------------------------- fotos
 def fetch_random_dog_urls(count: int) -> list[str]:
     try:
         url = f"https://dog.ceo/api/breeds/image/random/{count}"
@@ -78,6 +166,8 @@ def fetch_random_dog_urls(count: int) -> list[str]:
 
 def download_dog_photo(url: str) -> str:
     """Descarga y procesa (Pillow: sin EXIF, máx. 1600 px, miniatura). Devuelve "" si falla."""
+    from app.services import images
+
     try:
         return images.download_and_store(url) or ""
     except Exception as e:  # noqa: BLE001
@@ -87,36 +177,47 @@ def download_dog_photo(url: str) -> str:
 
 def local_photos(limit: int = 40) -> list[str]:
     """Fotos ya existentes en la carpeta de uploads (para sembrar sin internet)."""
-    files = [p for p in UPLOAD_DIR.glob("*.jpg") if not p.name.endswith("_thumb.jpg")]
+    from app.config import settings
+
+    upload_dir = Path(settings.upload_dir)
+    upload_dir.mkdir(parents=True, exist_ok=True)
+    files = [p for p in upload_dir.glob("*.jpg") if not p.name.endswith("_thumb.jpg")]
     random.shuffle(files)
     return [f"/uploads/{p.name}" for p in files[:limit]]
 
 
-def seed():
-    run_startup_migrations()
+def seed(password: str, reset: bool = False) -> int:
+    """Siembra los datos de prueba. Sin reset=True nunca borra nada (y se niega si ya existen)."""
+    from app.auth import get_password_hash
+    from app.database import SessionLocal
+    from app.migrate import run as run_migrations
+    from app.models import (
+        User, Dog, Match, AdoptionApplication, Conversation, Message,
+        Refuge, Product, LostReport, FosterHome, Notification, Reminder,
+        Order, OrderItem,
+    )
+    from app.services.vision import signature_for_urls
+
+    from sqlalchemy.exc import ProgrammingError
+
     db = SessionLocal()
     try:
-        # Limpiar datos previos de prueba (se conservan usuarios que no sean @patitas.com)
-        db.query(Message).delete()
-        db.query(Conversation).delete()
-        db.query(AdoptionApplication).delete()
-        db.query(Reminder).delete()
-        db.query(Match).delete()
-        db.query(DogPass).delete()
-        db.query(OrderItem).delete()
-        db.query(Order).delete()
-        db.query(Donation).delete()
-        db.query(Product).delete()
-        db.query(PointLog).delete()
-        db.query(LostReport).delete()
-        db.query(Dog).delete()
-        db.query(FosterHome).delete()
-        db.query(Refuge).delete()
-        db.query(Notification).delete()
-        db.query(BotInteraction).delete()
-        db.query(User).filter(User.email.like("%@patitas.com")).delete(synchronize_session=False)
-        db.commit()
+        # Antes de migrar: si ya hay datos de prueba y no se pidió --reset, no se toca nada
+        try:
+            existing = db.query(User).filter(User.email.like(f"%{SEED_EMAIL_DOMAIN}")).count()
+        except ProgrammingError:  # base vacía: todavía no hay tablas
+            existing = 0
+        db.rollback()  # cierra la lectura para no bloquear los ALTER TABLE de las migraciones
+        if existing and not reset:
+            print(f"Ya hay {existing} usuario(s) de prueba ({SEED_EMAIL_DOMAIN}). No se borró nada.\n"
+                  "Para borrar los datos de prueba y volver a sembrar usa: python seed_data.py --reset", file=sys.stderr)
+            return 1
+        run_migrations()  # Alembic: crea o actualiza el esquema (no-op si ya está al día)
+        if reset:
+            print("--reset: borrando perros, reportes, chats, pedidos, refugios y usuarios de prueba...")
+            reset_seed_data(db)
 
+        password_hash = get_password_hash(password)
         print("Creando usuarios...")
         users = []
         for i, (name, email, phone) in enumerate(NAMES):
@@ -133,7 +234,7 @@ def seed():
                 role="user",
                 is_active=True,
                 created_at=datetime.utcnow() - timedelta(days=random.randint(1, 60)),
-                hashed_password=get_password_hash("Patitas123!"),
+                hashed_password=password_hash,
             )
             db.add(u)
             users.append(u)
@@ -420,9 +521,29 @@ def seed():
         db.commit()
 
         print("Seeding completo.")
+        return 0
     finally:
         db.close()
 
 
+def main(argv=None) -> int:
+    args = parse_args(argv)
+    # Primero el entorno del proceso (antes de cargar la configuración de la app)
+    reason = refusal_reason(os.environ.get("ENVIRONMENT"), os.environ.get("DATABASE_URL"), args.force)
+    if reason is None:
+        from app.config import settings
+
+        reason = refusal_reason(settings.environment, settings.database_url, args.force)
+    if reason:
+        print(f"seed_data.py se niega a ejecutarse: {reason}", file=sys.stderr)
+        return 2
+    password, generated = seed_password()
+    code = seed(password, reset=args.reset)
+    if code == 0:
+        origin = "generada al azar (define SEED_PASSWORD para fijarla)" if generated else "tomada de SEED_PASSWORD"
+        print(f"Contraseña de los usuarios de prueba ({SEED_EMAIL_DOMAIN}): {password}  [{origin}]")
+    return code
+
+
 if __name__ == "__main__":
-    seed()
+    sys.exit(main())

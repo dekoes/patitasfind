@@ -1,0 +1,828 @@
+{
+ "domain": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago",
+ "as_of": "2026-10-17",
+ "disclaimer": "No es asesoría legal. Los puntos con confianza media o baja requieren confirmación de un abogado o abogada de regulación financiera y, en lo fiscal, de un contador, antes de publicarse o de activar donativos y tienda. Esta sección cierra la brecha 'custodia-fondos-transmisor-dinero-y-terminos-mercado-pago' señalada por el crítico: todo se verificó el 17-10-2026 en los PDF vigentes de diputados.gob.mx (LGOAAC, LRITF, LFPIORPI, LTOSF), en el texto compilado de Banco de México de las Disposiciones de Redes de Medios de Disposición, en el DOF/SIDOF, en la FAQ 2026 del SAT sobre actividades vulnerables y en los textos contractuales y la documentación de Mercado Pago México (mercadopago.com.mx), con lectura de solo lectura del repositorio. Lo que no pudo abrirse se marca así en cada hallazgo.",
+ "finding_ids": [
+  "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-01",
+  "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-02",
+  "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-03",
+  "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-04",
+  "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-05",
+  "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-06",
+  "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-07",
+  "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-08",
+  "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-09",
+  "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-10",
+  "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-11",
+  "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-12",
+  "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-13",
+  "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-14",
+  "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-15",
+  "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-16"
+ ],
+ "findings": [
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-01",
+   "topic": "Mapa de las tres fases del flujo de dinero: quién es el receptor de pagos y qué riesgo trae cada una",
+   "requirement": "Definir con precisión la fase en la que opera cada producto (donativos y tienda) y reflejarla igual en código, Términos, convenio con refugios y páginas de transparencia.\n- Fase 1, cuenta concentradora (la del código hoy): GuauWoow es el único Receptor de Pagos ante Mercado Pago; recibe por cuenta de los refugios y dispersa después. Concentra los riesgos: transmisor de dinero (LGOAAC 81-A Bis) si cobra comisión; fondos de pago electrónico (LRITF 22) si lleva saldos; actividad vulnerable (LFPIORPI 17 XI) si actúa en nombre y representación; incumplimiento de los Términos de Mercado Pago (9.6 y Actividades Prohibidas); presunción de ingresos (CFF 59 III), deberes de mandatario (CCF 2569-2570) y abuso de confianza (CPF 382); contracargos posteriores a la dispersión.\n- Fase 2, Split de pagos 1:1: cada refugio es Receptor de Pagos con su propia cuenta vinculada por OAuth; el mandato irrevocable de cobro (cláusula 4.2) lo otorga cada refugio a Mercado Pago, no a GuauWoow; la plataforma solo recibe marketplace_fee. Desaparece la custodia; quedan obligaciones fiscales por la comisión y la excepción de Mercado Pago para donativos.\n- Fase 3, cobro directo: el refugio cobra con su propio link, botón o procesador y GuauWoow solo enlaza; no hay intermediación en el pago ni comisión por transacción. Es la de menor exposición regulatoria y la de peor control (sin conciliación unificada ni ledger).",
+   "legal_basis": "LGOAAC art. 81-A Bis; LRITF arts. 22 a 24; LFPIORPI art. 17 fr. XI; Código de Comercio arts. 273, 284 y 285; CCF arts. 2546, 2561, 2569 y 2570; CFF art. 59 fr. III; CPF art. 382; Términos y Condiciones de Mercado Pago Standard cláusulas 4.2 y 9.6; documentación de Mercado Pago Split de pagos 1:1.",
+   "source_url": "https://www.mercadopago.com.mx/developers/es/docs/split-payments/split-1-1/overview",
+   "quote": "MP 4.2: 'el Usuario otorga un mandato irrevocable a Mercado Pago Standard para cobrar los Fondos y recibirlos, por su nombre y cuenta, en las Cuentas Recaudadoras'. MP Split: 'Split de Pagos 1:1 está diseñada para proporcionar servicios de Proveedor de Servicios de Pago (PSP) a vendedores en modelos de marketplace' (disponible en México). Código: payments.py crea la preferencia con 'Bearer {settings.mercadopago_access_token}' y sin marketplace_fee.",
+   "platform_action": "1) Decidir la fase por producto antes del lanzamiento: tienda en Fase 2 con marketplace_fee = 0 (coincide con fiscal-tienda-23) y donativos en Fase 2 o Fase 3; la Fase 1 solo como transición y con las condiciones del hallazgo 12.\n2) Backend: separar el flujo por fase (token de plataforma vs. token OAuth del refugio), guardar en Donation y Order el campo 'fase' o 'collector_id' y el marketplace_fee aplicado.\n3) Reflejar la fase elegida en Términos 14.1 y 15.1, en el convenio con refugios, en el texto del checkout ('Cobra: [refugio]' o 'Cobra: GuauWoow por cuenta de [refugio]') y en /legal/transparencia ('A dónde va tu dinero').",
+   "priority": "obligatorio",
+   "confidence": "media",
+   "applies_to": [
+    "plataforma",
+    "refugios",
+    "donativos",
+    "tienda",
+    "backend/pagos"
+   ],
+   "pages": [
+    "/legal/donativos",
+    "/legal/terminos#14",
+    "/legal/terminos#15",
+    "/legal/refugios",
+    "/legal/transparencia"
+   ],
+   "notes": "Es una síntesis; cada riesgo se desarrolla en los hallazgos 02 a 14. La calificación jurídica concreta de la Fase 1 (si encaja o no en 81-A Bis o 17 XI) es de confianza baja y la debe dictaminar un abogado de regulación financiera.",
+   "verdict": "verificado",
+   "evidence": "Leí backend/app/services/payments.py (encabezado 'Authorization: Bearer {settings.mercadopago_access_token}'; el cuerpo de /checkout/preferences no incluye marketplace_fee), backend/app/services/payment_flow.py (Donation y Order se pagan con la misma preferencia de plataforma; en approve se suman puntos al refugio), backend/app/config.py (payments_enabled = bool(mercadopago_access_token); shop_enabled; no existe bandera de donativos) y app/legal/terminos.html 14.1 y 15.1 ('cobra el precio a través de Mercado Pago', 'recibe el Donativo a través de Mercado Pago, por cuenta del refugio'). Documentación de Split 1:1 y Términos de Mercado Pago Standard consultados el 17-10-2026."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-02",
+   "topic": "LGOAAC art. 81-A Bis: cuándo la cuenta concentradora se parece a un transmisor de dinero y qué exigiría el registro (81-B, 86 Bis, 95 Bis, 64)",
+   "requirement": "La definición legal tiene cinco elementos: (i) sociedad anónima o de responsabilidad limitada; (ii) habitualidad; (iii) 'a cambio del pago de una contraprestación, comisión, beneficio o ganancia'; (iv) recibir recursos 'con el único objeto de que, de acuerdo con las instrucciones del remisor, los transfiera ... al beneficiario designado'; y (v) por cualquier vía, incluidos medios electrónicos. Solo las sociedades con registro vigente ante la CNBV pueden realizar esas operaciones. Una plataforma que recibe donativos de miles de usuarios, cobra una comisión y los transfiere al refugio que eligió el donante cumple de forma literal (ii), (iii), (iv) y (v); los argumentos en contra son que no es su 'único objeto' (presta otros servicios y el cobro es accesorio a una comisión mercantil) y que, como mandataria del refugio, cobra una deuda del refugio y no remesa dinero del donante. Si la comisión es 0 falta el elemento (iii). No hay criterio público de la CNBV sobre marketplaces ni sobre plataformas de donativos.\nSi se encuadrara, el registro exige (art. 81-B): constituirse como S.A. o S. de R.L., 'establecimientos físicos destinados exclusivamente a la realización de su objeto social', dictamen técnico favorable de la CNBV (art. 86 Bis), renovación cada tres años e incluir en toda publicidad que se trata de un 'transmisor de dinero'; y cumplir el régimen antilavado del art. 95 Bis (identificación de clientes, reportes de operaciones relevantes, inusuales e internas preocupantes, conservación de 10 años, lista de personas bloqueadas, área de cumplimiento) desarrollado en las Disposiciones de carácter general de la SHCP para transmisores de dinero. Operar sin registro permite a la CNBV ordenar la suspensión inmediata y, si no se atiende, la clausura (art. 64, párrafos segundo y tercero), además de sanciones administrativas.",
+   "legal_basis": "LGOAAC (última reforma DOF 14-11-2025) arts. 81-A Bis, 81-B, 86 Bis, 95 Bis y 64. Disposiciones de carácter general a que se refiere el art. 95 Bis de la LGOAAC aplicables a los transmisores de dinero (SHCP; expedidas DOF 10-04-2012 y reformadas, entre otras, DOF 09-03-2017, 20-03-2019 y 05-04-2023).",
+   "source_url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LGOAAC.pdf",
+   "quote": "Art. 81-A Bis: 'se entenderá por transmisor de dinero exclusivamente a la sociedad anónima y sociedad de responsabilidad limitada ... que, entre otras actividades, y de manera habitual y a cambio del pago de una contraprestación, comisión, beneficio o ganancia, recibe en el territorio nacional derechos o recursos en moneda nacional o extranjera ... por cualquier vía, con el único objeto de que, de acuerdo con las instrucciones del remisor, los transfiera al extranjero, a otro lugar dentro del territorio nacional o para entregarlos, en una sola exhibición, en el lugar en el que sean recibidos, al beneficiario designado.' Segundo párrafo: 'únicamente las sociedades anónimas y las sociedades de responsabilidad limitada que cuenten con un registro vigente como transmisor de dinero ante la Comisión Nacional Bancaria y de Valores podrán realizar las operaciones señaladas'. Art. 64, segundo párrafo: 'Si la Comisión ... presume que una persona física ... o moral, se encuentra realizando operaciones de las reservadas a los centros cambiarios o a los transmisores de dinero sin contar con el registro a que se refiere el artículo 81-B de esta Ley, notificará ... a fin de que suspenda de forma inmediata la realización de las mencionadas actividades reservadas.'",
+   "platform_action": "1) No activar en producción donativos ni tienda con cuenta concentradora y comisión mayor que 0 sin opinión escrita de un abogado de regulación financiera sobre 81-A Bis (y sobre 17 XI de la LFPIORPI, hallazgo 11).\n2) Si la Fase 1 se usa de forma transitoria, fijar comisión 0 por transacción (la plataforma puede cobrar a los refugios una cuota fija de servicio facturada aparte, nunca un porcentaje del dinero que transfiere), documentar el encargo como comisión mercantil accesoria y dispersar en cuanto Mercado Pago libere los fondos.\n3) Preferir la Fase 2: con Split, quien recibe y transfiere es MP Agregador, que es Agregador regulado; GuauWoow nunca recibe dinero ajeno.\n4) Guardar en la carpeta de cumplimiento el dictamen y la fecha de la versión de la LGOAAC revisada.",
+   "priority": "obligatorio",
+   "confidence": "media",
+   "applies_to": [
+    "plataforma",
+    "donativos",
+    "tienda",
+    "backend/pagos"
+   ],
+   "pages": [
+    "Interno (dictamen y carpeta de cumplimiento)",
+    "/legal/donativos",
+    "/legal/transparencia"
+   ],
+   "notes": "Texto legal: confianza alta. Aplicación al caso: confianza baja; es una cuestión de hechos y de interpretación que no puede cerrarse sin abogado y, de preferencia, sin una consulta a la CNBV. Las Disposiciones de la SHCP (95 Bis) no las leí completas: solo verifiqué su existencia y fechas en el DOF; si se decidiera registrarse, hay que revisarlas íntegras. La página de requisitos de registro de la CNBV y la ficha CNBV-16-038 del Catálogo Nacional de Trámites no estaban accesibles el 17-10-2026 (404 y 403), por eso no cito costos ni plazos del trámite.",
+   "verdict": "verificado",
+   "evidence": "Leí el PDF consolidado de diputados.gob.mx (LGOAAC, 'Última reforma publicada DOF 14-11-2025'; la página de reformas de la ley no muestra decreto alguno de 2026): art. 81-A Bis (párrafos reformados DOF 10-01-2014 y 09-03-2018), art. 81-B fracciones I a VII, renovación 'cada tres años' y remisión al 86 Bis; art. 95 Bis fracciones I a III, incisos a) a f) y conservación 'por al menos diez años'; art. 64 párrafos segundo y tercero. Disposiciones 95 Bis: nota DOF 10-04-2012 (código 5242565) y resolución de reforma DOF 05-04-2023 (SIDOF nota 5684930) localizadas; el PDF de la ABM que descargué corresponde a la versión original de 2009, por lo que las obligaciones concretas vigentes no se citan aquí."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-03",
+   "topic": "LRITF arts. 22-24 y LIC arts. 2 y 103: no crear saldos, monederos ni fondos reembolsables a petición; los 'puntos' de refugios no deben ser canjeables",
+   "requirement": "La emisión, administración, redención y transmisión de fondos de pago electrónico 'con el público de manera habitual y profesional' está reservada a las instituciones de fondos de pago electrónico autorizadas por la CNBV (art. 22). Los fondos de pago electrónico son registros en cuentas transaccionales que representan una obligación de pago del emisor, se emiten contra dinero recibido y pueden abonarse, transferirse o retirarse por instrucción del tenedor (art. 23). Mientras GuauWoow no lleve cuentas de saldo por usuario o por refugio con transferencias o retiros a petición, no realiza esos actos; el riesgo aparece si se implementan 'monederos', 'saldo a favor', 'fondo común', pagos entre usuarios o devoluciones a un saldo interno. Los 'puntos' que hoy suma el código a los refugios por cada donativo quedan fuera de la definición solo si no son convertibles a dinero (art. 24 fr. I, por analogía con los programas de lealtad). Tampoco debe captarse dinero con obligación de devolver el principal (LIC arts. 2 y 103), lo que excluye modelos de 'reserva' o 'campañas con meta y reembolso' sin diseño legal previo. Operar actividades reservadas a las ITF sin autorización se castiga con prisión de siete a quince años y multa de 5,000 a 150,000 UMA (art. 124 fr. I).",
+   "legal_basis": "LRITF (última reforma DOF 14-11-2025) arts. 22, 23, 24 fr. I y 124 fr. I; LIC (última reforma DOF 14-11-2025) arts. 2, último párrafo, y 103 (ver donativos-13).",
+   "source_url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LRITF.pdf",
+   "quote": "Art. 22: 'Los servicios realizados con el público de manera habitual y profesional, consistentes en la emisión, administración, redención y transmisión de fondos de pago electrónico ... solo podrán prestarse por las personas morales autorizadas por la CNBV ... como instituciones de fondos de pago electrónico'. Art. 24 fr. I: no son fondos de pago electrónico 'Los derechos derivados de programas de lealtad o recompensa ... siempre y cuando no puedan ser convertidos a moneda de curso legal'. Art. 124: 'Será sancionado con pena de prisión de siete a quince años y multa de 5,000 a 150,000 UMA quien: I. Lleve a cabo operaciones o actividades de las reservadas para las ITF ... sin contar con la autorización prevista en esta Ley'.",
+   "platform_action": "1) Regla de arquitectura, escrita en el ADR de pagos: GuauWoow no mantiene saldos de usuarios ni de refugios; cada cobro se liquida al destinatario y toda devolución va al medio de pago original (nunca a un 'saldo').\n2) Documentar en Términos y en el panel que los puntos de refugios son un indicador de reputación sin valor monetario, no canjeables ni transferibles.\n3) No ofrecer 'fondo común', 'apartados', 'recompensas en dinero' ni campañas con meta y reembolso sin diseño legal previo.\n4) Si se mantiene la Fase 1, el ledger por refugio es contable (cuánto se debe entregar), no una cuenta de saldo disponible para el refugio; no mostrar 'saldo disponible' ni permitir retiros a petición.",
+   "priority": "obligatorio",
+   "confidence": "alta",
+   "applies_to": [
+    "plataforma",
+    "backend/pagos",
+    "donativos",
+    "tienda"
+   ],
+   "pages": [
+    "/legal/terminos#15",
+    "/legal/donativos",
+    "Interno (ADR de pagos)"
+   ],
+   "notes": "La analogía de los puntos con el art. 24 fr. I es razonable pero no está confirmada por criterio de autoridad; mientras los puntos no se canjeen por nada con valor económico, el riesgo es remoto. Verificar en el código que no exista ninguna ruta de canje de puntos.",
+   "verdict": "verificado",
+   "evidence": "Texto vigente de diputados.gob.mx (LRITF 'Última reforma publicada DOF 14-11-2025'; su página de reformas solo lista decretos DOF 20-05-2021, 24-01-2024 y 14-11-2025): arts. 22 fracciones I a V, 23 fracciones I a IV, 24 fracciones I a IV y 124 fracciones I y II confirmados literalmente. LIC arts. 2 y 103 según la verificación de donativos-13. En backend/app/services/payment_flow.py la función _set_donation_approved ejecuta refuge.points += points y registra un PointLog; no vi ruta de canje."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-04",
+   "topic": "Redes de Medios de Disposición (Banxico/CNBV): GuauWoow es Receptor de Pagos, no Agregador; cobrar para terceros equivale a un 'modelo de aceptación indirecta'",
+   "requirement": "Mercado Pago Standard (MP Agregador, S. de R.L. de C.V.) es un Agregador regulado por la CNBV y Banxico conforme a las Disposiciones de carácter general aplicables a las Redes de Medios de Disposición (DOF 11-03-2014, modificadas DOF 02-04-2015 y 27-04-2026), emitidas con base en el art. 4 Bis 3 de la LTOSF. En esa regulación el 'Receptor de Pagos' es la persona que acepta pagos con tarjeta con motivo de un contrato con un Adquirente o Agregador, y el 'Agregador' es el participante que, bajo contrato con un Adquirente, 'ofrece a Receptores de Pagos el servicio de aceptación de Pagos con Tarjetas'. Una plataforma que acepta pagos con tarjeta por cuenta de muchos refugios y les liquida el dinero realiza, en los hechos, la función del Agregador sin ser participante en la red ni estar sujeta a sus condiciones (estándares de afiliación, auditoría y visitas de las autoridades que los Adquirentes deben exigir a los Agregadores). Las marcas de tarjeta y Mercado Pago lo tratan como 'aceptación indirecta' o 'facilitación de pagos' no autorizada, que está en la lista de Actividades Prohibidas de Mercado Pago. El Split de pagos 1:1 existe precisamente para que el marketplace no haga esa función: cada vendedor es Receptor de Pagos de MP Agregador.",
+   "legal_basis": "LTOSF (última reforma DOF 14-11-2025) art. 4 Bis 3; Disposiciones de carácter general aplicables a las Redes de Medios de Disposición (CNBV y Banxico, DOF 11-03-2014; modificadas DOF 02-04-2015 y 27-04-2026) 2ª (definiciones de Adquirente, Agregador y Receptor de Pagos) y Capítulo de condiciones de participación, fracción V incisos c), d) y e); Términos de Mercado Pago Standard 9.24; lista de Actividades Prohibidas de Mercado Pago.",
+   "source_url": "https://www.banxico.org.mx/marco-normativo/normativa-emitida-por-el-banco-de-mexico/reglas-conjuntas-redes-de-medios-de-disposicion/%7B794002B6-5DA6-BEBA-08AD-F210963C1E11%7D.pdf",
+   "quote": "2ª: 'Agregador: al Participante en Redes que, al amparo de un contrato de prestación de servicios celebrado con un Adquirente ofrece a Receptores de Pagos el servicio de aceptación de Pagos con Tarjetas'; 'Receptor de Pagos: a la persona física o moral que, con motivo de la celebración de un contrato de prestación de servicios con un Adquirente o Agregador, acepta Pagos con Tarjeta'. V c) y d): los Adquirentes deben 'Definir estándares mínimos para los Receptores de Pagos que afilien' y 'Contar con programas de auditoría ... que les permitan prevenir que los Receptores de Pagos que afilien vulneren las Condiciones'. MP 9.24: 'MP Agregador, S. de R.L de C.V. (Mercado Pago Standard) actúa como Agregador supervisado y regulado por la Comisión Nacional Bancaria y de Valores (CNBV) y el Banco de México'. Actividades Prohibidas: 'Proveedor de Servicios de Pago o Facilitadores de Pago'; 'Modelos de aceptación indirecta'.",
+   "platform_action": "1) No presentar ni operar a GuauWoow como 'pasarela', 'procesador' o 'agregador' de los refugios; en Fase 2 el texto correcto es 'cada refugio cobra con su propia cuenta de Mercado Pago; GuauWoow integra el checkout y recibe una comisión de marketplace'.\n2) Si se usa la Fase 1 de forma transitoria, informarlo por escrito a Mercado Pago y obtener su excepción (hallazgo 06), porque es el Agregador quien responde ante el Adquirente y las autoridades por sus Receptores de Pagos.\n3) Vigilar la publicación de las nuevas Disposiciones (hallazgo 16), que podrían cambiar definiciones y obligaciones.",
+   "priority": "recomendado",
+   "confidence": "media",
+   "applies_to": [
+    "plataforma",
+    "backend/pagos",
+    "marketing"
+   ],
+   "pages": [
+    "/legal/transparencia",
+    "/legal/donativos",
+    "Interno (ADR de pagos)"
+   ],
+   "notes": "Las Disposiciones regulan a los participantes en la red (adquirentes, agregadores, emisores), no imponen por sí mismas obligaciones a un comercio que cobra para terceros; el riesgo para GuauWoow es contractual (frente a Mercado Pago y las marcas) y, de forma indirecta, regulatorio. La resolución DOF 27-04-2026 solo añadió una 10ª Bis sobre cuotas de intercambio en gasolineras, vigente hasta el 31-10-2026; no toca a agregadores.",
+   "verdict": "verificado",
+   "evidence": "Leí el 'TEXTO COMPILADO' publicado por Banco de México (encabezado: 'publicadas en el Diario Oficial de la Federación el 11 de marzo de 2014, modificada mediante Resoluciones publicadas en el citado Diario el 2 de abril de 2015 y 27 de abril de 2026'): 2ª definiciones de Adquirente, Agregador y Receptor de Pagos; fracción V incisos a) a g); 10ª Bis 'Adicionada por la Resolución publicada en el Diario Oficial de la Federación el 27 de abril de 2026' con transitorio único que la deroga el 31-10-2026. Confirmé la nota del DOF de 2014 (código 5335483) por el buscador. Cláusula 9.24 y lista de Actividades Prohibidas leídas en mercadopago.com.mx el 17-10-2026. LTOSF descargada de diputados.gob.mx ('Última reforma DOF 14-11-2025'); el art. 4 Bis 3 se cita como fundamento según el preámbulo de las Disposiciones, no transcribí su texto."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-05",
+   "topic": "Términos de Mercado Pago Standard 9.6: uso solo en nombre propio; prohibido cobrar en representación o por cuenta de terceros y revender el servicio",
+   "requirement": "La cuenta de Mercado Pago de GuauWoow está sujeta a los Términos y Condiciones de Uso de Mercado Pago Standard (MP Agregador, S. de R.L. de C.V.; vigentes desde el 7 de junio de 2025). La cláusula 9.6 limita el uso de los servicios 'en nombre propio y no en representación y/o por cuenta de terceros' y prohíbe revender el Servicio de Gestión de Pagos. Cobrar donativos 'por cuenta del refugio' (Términos 15.1 de GuauWoow) y precios 'por cuenta y orden de cada refugio' (14.1) con la cuenta de la plataforma contradice ese texto. Mercado Pago puede, ante sospecha de uso contrario a los Términos, rechazar o suspender solicitudes de gestión de pago, bloquear la cuenta o cancelarla definitivamente (4.7), terminar el contrato sin aviso previo por incumplimiento (9.15) y mantener los fondos indisponibles por tiempo indeterminado (5.2). También obliga a no aplicar cargos adicionales al pagador por aceptar pagos por Mercado Pago (5.1), lo que impide trasladar al donante o comprador un 'recargo por pagar con Mercado Pago' (la comisión de la plataforma debe ser propia y transparente, no un sobreprecio por el medio de pago). En cambio, en Fase 2 cada refugio usa su cuenta en nombre propio y GuauWoow actúa como marketplace integrado conforme a la documentación oficial, lo que es compatible con 9.6; la excepción de 9.6 para cuentas de menores (9.2) no aplica.",
+   "legal_basis": "Términos y Condiciones de Uso de Mercado Pago Standard (vigentes desde 07-06-2025) cláusulas 4.7, 5.1, 5.2, 9.6, 9.14 y 9.15; Términos de GuauWoow 14.1 y 15.1 (texto actual del repositorio).",
+   "source_url": "https://www.mercadopago.com.mx/ayuda/terminos-y-condiciones_299",
+   "quote": "9.6: 'Salvo por las disposiciones contenidas en la Cláusula (9.2) anterior, solamente se permite a los Usuarios utilizar los Servicios en nombre propio y no en representación y/o por cuenta de terceros. El Usuario no revenderá los Servicios de Gestión de Pago a terceros.' 5.1: 'El Usuario se compromete a no aplicar ningún cargo adicional por aceptar pagos o recibir Fondos por medio de la Plataforma de Mercado Pago Standard.' 9.15: 'Mercado Pago Standard podrá, en caso de incumplimiento del Usuario a las condiciones del presente Contrato o a la legislación aplicable en la materia, dar por terminada la prestación del Servicio sin ningún tipo de aviso previo'.",
+   "platform_action": "1) Tratar la cláusula 9.6 como bloqueo de la Fase 1 salvo excepción escrita de Mercado Pago (hallazgo 06): sin ella, no cobrar por cuenta de refugios con la cuenta de la plataforma.\n2) Reescribir Términos 14.1 y 15.1 según la fase: en Fase 2, 'el refugio te cobra con su propia cuenta de Mercado Pago; GuauWoow recibe una comisión de marketplace de [X %]'.\n3) En /legal/tarifas mostrar la comisión de GuauWoow como concepto propio y nunca como 'cargo por pagar con Mercado Pago'; no cobrar recargos por medio de pago.\n4) Conservar en la carpeta de cumplimiento el PDF de los Términos de Mercado Pago aceptados, con fecha, y revisarlos cada mes (9.14: los cambios entran en vigor a los 10 días de publicarse y hay 5 días para rechazarlos por correo).",
+   "priority": "obligatorio",
+   "confidence": "alta",
+   "applies_to": [
+    "plataforma",
+    "donativos",
+    "tienda",
+    "terminos"
+   ],
+   "pages": [
+    "/legal/terminos#14",
+    "/legal/terminos#15",
+    "/legal/tarifas",
+    "Interno (carpeta de cumplimiento)"
+   ],
+   "notes": "El texto contractual es de confianza alta. Que Mercado Pago aplique 9.6 a un marketplace solidario que informa el modelo es una cuestión de práctica comercial: en la documentación de desarrolladores el modelo 'Marketplace' con OAuth es la vía prevista, lo que refuerza que la Fase 1 no es la forma contemplada por Mercado Pago. Confirmar con el ejecutivo de Mercado Pago si la cuenta de GuauWoow quedó sujeta a algún anexo adicional.",
+   "verdict": "verificado",
+   "evidence": "Descargué https://www.mercadopago.com.mx/ayuda/terminos-y-condiciones_299 el 17-10-2026: encabezado 'Vigente desde: 7 de junio 2025', contrato con 'MP Agregador, S. de R.L. de C.V.'; cláusulas 4.7, 5.1, 5.2, 9.6, 9.14 y 9.15 transcritas del texto. La URL alterna terminos-y-condiciones_715 muestra la misma versión. Términos de GuauWoow leídos en app/legal/terminos.html líneas 298 (14.1) y 348 (15.1)."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-06",
+   "topic": "Actividades Prohibidas de Mercado Pago: 'Donativos', 'Agencias de adopción con fines de lucro' y 'Facilitadores de Pago' están en la lista; se necesita excepción expresa (4.7) o el programa para ONG",
+   "requirement": "La lista de Actividades Prohibidas de Mercado Pago (México), a la que remiten las cláusulas 4.7 y 9.3 de los Términos, incluye 'Donativos, incluyendo donativos a Partidos Políticos', 'Agencias de adopción con fines de lucro', 'Proveedor de Servicios de Pago o Facilitadores de Pago', 'Modelos de aceptación indirecta' y 'Tráfico de personas, de animales o armas'. La cláusula 4.7 permite excepciones discrecionales, pero 'deberán ser expresamente consentidas entre Mercado Pago Standard y el Usuario'. En la práctica Mercado Pago sí procesa donativos de organizaciones en México (páginas mercadopago.com.mx/ong/... y el programa Mercado Libre Solidario, que según fuentes secundarias exige ser donataria autorizada con al menos seis meses de operación y cubre las comisiones), lo que confirma que la vía es una excepción o programa formal, no el uso general de Checkout Pro. Consecuencias para GuauWoow: (a) la página de donativos no puede operar con Checkout Pro sin excepción escrita, en ninguna fase: en Fase 1 la excepción la necesita GuauWoow (que además sería 'facilitador de pagos'); en Fases 2 y 3 la necesita cada refugio como titular de la cuenta que recibe el donativo; (b) cualquier 'cuota de adopción' cobrada por Mercado Pago puede leerse como 'agencia de adopción con fines de lucro' (ver el gap de naturaleza jurídica de la adopción); (c) la moderación debe impedir que la tienda o los anuncios se asocien a venta o tráfico de animales (cláusula 6.2.2 prohíbe usar las herramientas de venta en sitios con ese contenido).",
+   "legal_basis": "Términos de Mercado Pago Standard cláusulas 4.7, 6.2.2 y 9.3; sitio 'Actividades Prohibidas de Mercado Pago' (consultado 17-10-2026). Fuentes secundarias sobre Mercado Libre Solidario (no verificadas en fuente primaria).",
+   "source_url": "https://www.mercadopago.com.mx/ayuda/actividades-prohibidas-politicas_18572",
+   "quote": "Actividades Prohibidas: 'Agencias de adopción con fines de lucro.' 'Donativos, incluyendo donativos a Partidos Políticos.' 'Proveedor de Servicios de Pago o Facilitadores de Pago.' 'Modelos de aceptación indirecta.' 'Tráfico de personas, de animales o armas.' 4.7: 'Mercado Pago Standard podrá realizar discrecionalmente excepciones a las actividades detalladas en el sitio Actividades Prohibidas. En el entendido que dichas excepciones deberán ser expresamente consentidas entre Mercado Pago Standard y el Usuario'.",
+   "platform_action": "1) Antes de encender donativos: solicitar por escrito a Mercado Pago (ejecutivo comercial o soporte, con número de caso) la excepción para procesar donativos a refugios verificados, describiendo la fase elegida; guardar la respuesta.\n2) En Fase 2 y 3, incluir en el convenio con refugios el deber de obtener su propia excepción o inscribirse en el programa para organizaciones de Mercado Libre/Mercado Pago (si son donatarias autorizadas) y de informar si Mercado Pago les limita la cuenta.\n3) Mientras no haya excepción: mostrar en la página de donativos solo los medios que el refugio tenga autorizados (por ejemplo, su link de donación propio o su CLABE) o mantener el módulo apagado.\n4) Añadir una bandera DONATIONS_ENABLED (hoy no existe) y asegurar que en producción nunca se aprueben donativos 'simulados' cuando falte el token de Mercado Pago.\n5) Prohibir en la tienda y en la moderación cualquier venta o cuota por animales y documentarlo en /legal/contenido.",
+   "priority": "obligatorio",
+   "confidence": "alta",
+   "applies_to": [
+    "plataforma",
+    "refugios",
+    "donativos",
+    "tienda",
+    "backend/pagos"
+   ],
+   "pages": [
+    "/legal/donativos",
+    "/legal/refugios",
+    "/legal/contenido",
+    "Interno (caso con Mercado Pago)"
+   ],
+   "notes": "La lista es de confianza alta (leída en la fuente el 17-10-2026). Lo relativo a Mercado Libre Solidario es de confianza baja: la página oficial no se pudo abrir (403/contenido dinámico) y los requisitos provienen de notas de prensa y de la alianza con Cemefi; confirmar con Mercado Pago. Hay un posible conflicto con donativos-13 y buenas-practicas-19, que dan por hecho que Mercado Pago procesa donativos sin más: hay que obtener la excepción primero.",
+   "verdict": "verificado",
+   "evidence": "Descargué https://www.mercadopago.com.mx/ayuda/actividades-prohibidas-politicas_18572 el 17-10-2026 y confirmé las cinco entradas citadas en el bloque 'Venta de productos o servicios', 'Servicios Financieros' y 'Actividades Ilegales'. Cláusulas 4.7 y 6.2.2 y 9.3 confirmadas en los Términos Standard. Existencia de páginas mercadopago.com.mx/ong/<organización> confirmada (contenido dinámico, no legible). En backend/app/config.py no existe bandera de donativos; en payment_flow.py, si payments_enabled es falso, el donativo se aprueba con provider='simulated'."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-07",
+   "topic": "Retención y liberación de fondos por Mercado Pago (5.2, 5.4, 5.9): las dispersiones a refugios solo pueden prometerse sobre fondos liberados",
+   "requirement": "Mercado Pago recibe los fondos 'por nombre y cuenta' del usuario en cuentas recaudadoras segregadas (3.2.3), los libera según el 'Plazo de disponibilidad y tarifas' del medio de pago (5.2) y puede retenerlos o restringirlos por órdenes de autoridad, restricciones operativas, reservas por contracargos, programas de protección, prevención de fraude, reclamos, Cuentas Vinculadas y 'Adeudos' (5.9), incluso 'indeterminadamente' ante sospechas de fraude o de actos contrarios a los Términos (5.2). Los retiros se procesan en T+1 y los mayores a $60,000 se agendan al día hábil siguiente; las transferencias pueden tardar hasta dos días hábiles más (5.4). Si no hay cuenta de retiro registrada, Mercado Pago retiene los fondos en un Fondo de Reserva y bloquea la cuenta, y los fondos pueden prescribir a su favor a los diez años (5.4). Por tanto, en Fase 1 GuauWoow no puede comprometer fechas fijas de dispersión ni dispersar antes de que Mercado Pago libere; en Fase 2 cada refugio queda sujeto a esos mismos plazos y retenciones y GuauWoow no controla su liberación (la fecha de liberación del marketplace_fee solo se configura con el ejecutivo de cartera asesorada).",
+   "legal_basis": "Términos de Mercado Pago Standard cláusulas 3.2.3, 4.2, 5.2, 5.4, 5.9 y 9.10; documentación de Split 1:1 (requisitos previos) sobre la fecha de liberación de la comisión.",
+   "source_url": "https://www.mercadopago.com.mx/ayuda/terminos-y-condiciones_299",
+   "quote": "5.2: 'los Fondos recibidos momentáneamente en las Cuentas Recaudadoras ... podrán permanecer indeterminadamente indisponibles para su retiro cuando, a criterio de Mercado Pago Standard, existan fuertes sospechas de ilegalidades, conductas delictivas, fraude o cualquier otro acto contrario a los presentes Términos'. 5.9: 'Mercado Pago Standard podrá efectuar retenciones y/o establecer restricciones sobre los Fondos ... derivado de diversos motivos, como pueden ser, órdenes judiciales o requerimientos de autoridad, restricciones operativas, reservas o fondos de reserva constituidos por concepto de contracargos, programas de protección a los Usuarios, prevención de fraude, reclamos o actividad de Cuentas Vinculadas y Adeudos.' 5.4: 'El procesamiento de retiros de Fondos superiores a los $60,000.00 (sesenta mil) pesos, será agendado para el día hábil inmediato siguiente'.",
+   "platform_action": "1) Política de donativos y convenio con refugios: la entrega al refugio se hace 'dentro de N días hábiles después de que Mercado Pago libere los fondos', nunca en fecha fija; explicar que Mercado Pago puede retener fondos y que GuauWoow no responde por esas retenciones.\n2) Ledger (Fase 1): registrar por cada pago la fecha de liberación reportada por Mercado Pago (money_release_date) y dispersar solo lo liberado; conciliar a diario con el reporte de liberaciones.\n3) Operación: mantener registrada la cuenta de retiro y los datos fiscales de la cuenta de plataforma para evitar el Fondo de Reserva y el bloqueo; vigilar 'Adeudos' y compensaciones que Mercado Pago aplique.\n4) Fase 2: informar a los refugios que sus liberaciones dependen de su propia cuenta y plan de tarifas de Mercado Pago.",
+   "priority": "recomendado",
+   "confidence": "alta",
+   "applies_to": [
+    "plataforma",
+    "refugios",
+    "donativos",
+    "tienda",
+    "backend/pagos"
+   ],
+   "pages": [
+    "/legal/donativos",
+    "/legal/refugios",
+    "/legal/tarifas",
+    "Interno (runbook de conciliación)"
+   ],
+   "notes": "Los plazos concretos de liberación por medio de pago están en la página 'Plazo de disponibilidad y tarifas' de Mercado Pago, que cambia con el plan contratado; no los transcribo. Coordinar con donativos-02 (ledger y estado de cuenta) y buenas-practicas-20 (tablero público de liquidaciones).",
+   "verdict": "verificado",
+   "evidence": "Cláusulas 3.2.3, 4.2, 5.2, 5.4 (Retiro Forzoso a los 15 días naturales, horario 22:00-23:59 T+1, umbral de $60,000, hasta 2 días hábiles, Fondo de Reserva, prescripción a diez años) y 5.9 leídas en los Términos Standard el 17-10-2026. Documentación de Split 1:1 'Requisitos previos': 'si es necesario realizar configuraciones sobre la fecha de liberación de la comisión (marketplace fee o application fee), contacta a tu ejecutivo comercial de cartera asesorada'."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-08",
+   "topic": "Contracargos y programas de protección de Mercado Pago: los donativos no tienen Protección al Vendedor; prever reserva, compensación y reembolsos proporcionales en Split",
+   "requirement": "Ante cancelación, contracargo, desconocimiento o reversión, Mercado Pago descuenta y retiene el importe de los fondos del usuario destinatario; si no hay fondos por liberar suficientes, lo descuenta de fondos futuros o el usuario debe pagarlo en 30 días; el usuario debe conservar un año la documentación de la venta y de la entrega (5.7). El Programa de Protección al Vendedor solo cubre ventas de producto físico (no servicios ni productos digitales), con monto correcto y comprobante de entrega enviado en 7 días; el Programa de Compra Protegida solo cubre al comprador que no recibió el envío, con cuenta de Mercado Pago iniciada, reclamo en 14 días y excluye servicios, intangibles y pagos como invitado. Un donativo no es producto físico ni envío: el contracargo de un donativo se pierde íntegro. En Fase 1, un contracargo posterior a la dispersión lo absorbe GuauWoow salvo cláusula de compensación con el refugio. En Fase 2, el reembolso se divide y resta de forma proporcional entre la cuenta del vendedor y la del marketplace, y si el vendedor no tiene dinero en su cuenta el marketplace solo puede devolver su parte y decidir si devuelve el resto por otro medio; además, un contracargo golpea la cuenta del refugio, no la de GuauWoow.",
+   "legal_basis": "Términos de Mercado Pago Standard cláusulas 5.7 y 5.10; Programa de Compra Protegida de Mercado Pago para pagos online (última modificación 25-06-2024); requisitos del Programa de Protección al Vendedor (México); documentación de Split 1:1 (reembolsos). Complementa donativos-18 (CCF arts. 2338 y 2340) y consumidor-ecommerce-09/11.",
+   "source_url": "https://www.mercadopago.com.mx/ayuda/requisitos-cobertura-proteccion-vendedor_294",
+   "quote": "PPV: 'Venta de producto físico. El programa no cubre servicios, licencias o productos digitales.' 'tienes 7 días de corrido para enviarnos el comprobante de entrega.' Compra Protegida: 'Compra Protegida únicamente cubre los casos en que el Usuario no recibió el envío de la compra realizada'; 'Iniciar un reclamo ... dentro del plazo de 14 días corridos a partir de la fecha de la compra'. MP 5.7: 'si no contara con Fondos por liberar suficientes, a descontarlos de los montos futuros ..., o bien, el Usuario se compromete a pagarlos dentro de los treinta (30) días siguientes al descuento de los Fondos'. Split: 'En caso de reembolso, el valor adeudado al cliente final será dividido y restado de la cuenta del vendedor y de la cuenta del Marketplace, de forma proporcional'; 'el Marketplace no podrá realizar el reembolso total si el vendedor no tuviera dinero en la cuenta'.",
+   "platform_action": "1) Convenio con refugios: autorización expresa para compensar contracargos, reembolsos y multas de Mercado Pago contra dispersiones futuras (Fase 1) o para que el refugio reembolse por otro medio lo que su cuenta no cubra (Fase 2); plazo de pago de 30 días espejo de la cláusula 5.7.\n2) Fase 1: retener una reserva por contracargos (por ejemplo, un porcentaje durante el plazo de disputa típico de tarjetas, que fije el área de pagos con el ejecutivo de Mercado Pago) antes de dispersar; registrar reembolsos y contracargos como asientos negativos en el ledger y notificar al refugio para cancelar el CFDI si lo emitió.\n3) Tienda: exigir a los refugios guía con rastreo y comprobante de entrega para poder disputar en 7 días; guardar la evidencia al menos un año.\n4) Página de donativos: explicar que los donativos pagados con tarjeta pueden ser desconocidos por el titular y que, confirmado el fraude o el error, se reembolsan conforme a Términos 15.3; no prometer 'sin riesgo'.",
+   "priority": "obligatorio",
+   "confidence": "alta",
+   "applies_to": [
+    "plataforma",
+    "refugios",
+    "donativos",
+    "tienda",
+    "backend/pagos"
+   ],
+   "pages": [
+    "/legal/refugios",
+    "/legal/donativos",
+    "/legal/devoluciones",
+    "/legal/terminos#15"
+   ],
+   "notes": "El porcentaje y plazo de la reserva son decisión de negocio; las marcas de tarjeta permiten disputas durante varios meses, así que la reserva no elimina el riesgo. Verificar que el estado 'charged_back' del código genere la compensación en el ledger (donativos-18 ya detectó los estados).",
+   "verdict": "verificado",
+   "evidence": "Textos leídos el 17-10-2026 en mercadopago.com.mx: Términos Standard 5.7 y 5.10; 'Programa de Compra Protegida de Mercado Pago para pagos online' (Última modificación: 25/06/2024; apartados 2 a 4); '¿Cuáles son los requisitos del Programa de Protección al Vendedor?' (producto físico, monto correcto, comprobante en 7 días); documentación 'Integrar el checkout en Split de Pagos 1:1 (marketplace)' con el aviso sobre reembolsos proporcionales."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-09",
+   "topic": "Split de pagos 1:1 (Fase 2): requisitos técnicos y contractuales verificados en la documentación oficial de Mercado Pago",
+   "requirement": "Para operar como marketplace con Split 1:1 en México: (i) cuenta de vendedor de Mercado Pago con nivel de identificación KYC 6 para cada refugio vendedor y para la plataforma; (ii) aplicación creada en 'Tus integraciones' con solución 'Pagos online', producto Checkout Pro o Checkout API y modelo de integración 'Marketplace', con Redirect URL configurada; (iii) flujo OAuth: redirigir al refugio a https://auth.mercadopago.com.mx/authorization?client_id=<APP_ID>&response_type=code&platform_id=mp&redirect_uri=<REDIRECT_URI>, canjear el code (válido 10 minutos) en /oauth/token y guardar access_token, public_key, refresh_token y user_id del refugio; el token expira en 15,552,000 segundos (180 días) y se renueva con el refresh_token; alcance 'offline_access payments write'; (iv) crear cada preferencia con el access_token del refugio y marketplace_fee (Checkout Pro) o application_fee (Checkout API); (v) la comisión de Mercado Pago se descuenta primero del vendedor y la del marketplace del saldo restante; (vi) solo se integra con Checkout Pro, Checkout API y Checkout Bricks; (vii) el modelo 1:N y la configuración de la fecha de liberación de la comisión requieren cartera asesorada; (viii) la documentación advierte que el Split 'sólo permite realizar pagos con dinero en cuenta entre cuentas de Mercado Pago. No se permiten transferencias de instituciones financieras externas', frase ambigua que hay que confirmar con Mercado Pago (si limita los medios de pago del comprador o solo la liquidación entre cuentas); (ix) reembolsos proporcionales (hallazgo 08). Cada refugio sigue siendo titular de su cuenta y de sus Términos con Mercado Pago; GuauWoow maneja credenciales ajenas, por lo que debe cifrarlas, limitar su uso al alcance autorizado y notificar incidentes conforme a los Términos para Desarrolladores (seguridad-incidentes-v01).",
+   "legal_basis": "Documentación oficial de Mercado Pago Developers: Split de pagos 1:1 (resumen, requisitos previos, crear configuración, integrar el checkout en marketplace) y Checkout Pro 'Cómo integrar el checkout en marketplace'; Términos y Condiciones para Desarrolladores de Mercado Pago (ver seguridad-incidentes-v01).",
+   "source_url": "https://www.mercadopago.com.mx/developers/es/docs/split-payments/split-1-1/integration-configuration/create-configuration",
+   "quote": "Requisitos previos: 'necesitas una cuenta de vendedor en Mercado Pago con un nivel de identificación KYC 6'; 'Los revendedores en el Marketplace deben pasar por el proceso de autorización OAuth'. Crear configuración: 'la solución de Split de Pagos 1:1 sólo se puede integrar con Checkout Pro, Checkout API y Checkout Bricks'; respuesta de /oauth/token: \"expires_in\": 15552000, \"scope\": \"offline_access payments write\". Integrar: 'primero se descuenta la comisión de Mercado Pago, y la comisión del marketplace se descuenta del saldo restante'; 'la solución Split de Pagos 1:1 sólo permite realizar pagos con dinero en cuenta entre cuentas de Mercado Pago. No se permiten transferencias de instituciones financieras externas'.",
+   "platform_action": "1) Backend: tabla refuge_mp_credentials (user_id de MP, access_token y refresh_token cifrados, public_key, scope, expires_at, fecha de vinculación y de revocación) y tarea periódica de renovación antes de los 180 días; crear preferencias con el token del refugio y marketplace_fee (0 en el lanzamiento); webhook por refugio o filtrado por collector_id.\n2) Panel del refugio: botón 'Conectar Mercado Pago' con el flujo OAuth y estado de la vinculación; bloquear ventas y donativos del refugio si el token caduca o se revoca.\n3) Probar en sandbox que un comprador puede pagar con tarjeta en una preferencia con marketplace_fee y aclarar con Mercado Pago el alcance de la frase sobre 'dinero en cuenta' antes de anunciar medios de pago.\n4) Convenio con refugios: cláusula de autorización OAuth, revocación, responsabilidad por su cuenta y sus datos fiscales, y aceptación de que Mercado Pago descuenta su comisión antes que la de GuauWoow.",
+   "priority": "recomendado",
+   "confidence": "alta",
+   "applies_to": [
+    "backend/pagos",
+    "refugios",
+    "tienda",
+    "donativos"
+   ],
+   "pages": [
+    "/legal/refugios",
+    "/legal/tarifas",
+    "/legal/seguridad",
+    "panel del refugio"
+   ],
+   "notes": "Es el modelo preferido por el resto de los dominios (fiscal-tienda-22/23, donativos-01, identidad-contratos-v02). Qué documentos exige el 'KYC 6' no está publicado como tal; según el blog de Mercado Pago, la verificación de persona física es INE por ambos lados y reconocimiento facial, y la de empresa requiere representante legal, RFC, razón social, giro, domicilio fiscal y, en su caso, acta constitutiva, poder y beneficiarios reales (confianza media).",
+   "verdict": "verificado",
+   "evidence": "Descargué el 17-10-2026 las páginas de developers de Mercado Pago (México): split-1-1/overview (México en la lista de países), split-1-1/prerequisites (KYC 6, OAuth, 1:N solo cartera asesorada, fecha de liberación de comisión), integration-configuration/create-configuration (modelo 'Marketplace', Redirect URL, URL de autorización, code válido 10 minutos, respuesta de /oauth/token con expires_in 15552000) e integration-configuration/integrate-marketplace (orden de descuento de comisiones, 'dinero en cuenta', reembolsos proporcionales). El how-to de Checkout Pro 'integrate-marketplace' coincide."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-10",
+   "topic": "Refugios sin RFC o sin cuenta de Mercado Pago verificada: qué exige Mercado Pago, qué retenciones aplica y qué vías legales existen",
+   "requirement": "Un refugio solo puede cobrar en Split o en Fase 3 si tiene cuenta de Mercado Pago a su nombre y verificada (KYC 6). Según Mercado Pago, la persona física se verifica con INE vigente por ambos lados y reconocimiento facial; la empresa, a través de su representante legal, con RFC, razón social, giro, domicilio fiscal y, en su caso, acta constitutiva, poder y beneficiarios reales; la verificación tarda entre 24 y 72 horas hábiles. Mercado Pago informa que, desde el 01-01-2026, retiene ISR e IVA 'por ley en cada venta' a quienes venden por plataformas: a personas físicas con RFC registrado 2.5% de ISR y 8% de IVA; sin RFC, hasta 20% de ISR y 100% del IVA; a personas morales 2.5% (20% sin RFC). Eso deriva de la LIF 2026 art. 25 fr. VI y IX, LISR 113-A y LIVA 18-J (verificado en identidad-contratos-07); si Mercado Pago aplica esas retenciones a los cobros de Checkout Pro y links de pago de cada refugio, y no solo a ventas en Mercado Libre, hay que confirmarlo con Mercado Pago. Los donativos no son enajenación ni servicio y no deberían retenerse, pero un refugio sin RFC que cobre con una cuenta marcada como negocio puede sufrir retenciones automáticas. Vías legales para un refugio informal: (a) que su responsable se registre en el RFC como persona física (sin actividad empresarial para solo donativos, o con actividad si vende) y verifique su cuenta; (b) constituirse como A.C. y, si quiere emitir recibos deducibles, obtener la autorización como donataria (ver dominio donativos); (c) operar bajo un patrocinador fiscal (una donataria autorizada que recibe en nombre propio y aplica los recursos al refugio bajo convenio), en cuyo caso la mandataria es la donataria y no GuauWoow; o (d) que GuauWoow, constituida como A.C. y donataria, reciba donativos en nombre propio y otorgue apoyos en especie o en dinero a refugios conforme a su objeto social. Lo que no es vía legal es que GuauWoow custodie y disperse el dinero de refugios no identificados: agrava los riesgos de los hallazgos 02, 05, 06 y 11 y hace imposible identificar al 'cliente' para efectos de LFPIORPI.",
+   "legal_basis": "Documentación de Mercado Pago (requisitos previos de Split 1:1; blog oficial sobre requisitos de cuenta de empresa y sobre retenciones 2026); LIF 2026 art. 25 fr. VI y IX; LISR art. 113-A; LIVA arts. 18-J; LFPIORPI arts. 17 fr. XIII y 18 fr. I; LISR art. 82 (requisitos de donatarias, ver dominio donativos).",
+   "source_url": "https://www.mercadopago.com.mx/blog/rfc-actualizado-ventas-en-linea",
+   "quote": "Mercado Pago (blog, 2026): 'Para personas físicas con RFC activo en la plataforma, se retiene el 2.5% de ISR sobre los ingresos y el 8% de IVA'; 'Existen también casos donde aplica la retención del 100% del IVA'; 'Mercado Pago retiene ISR e IVA por ley en cada venta'. Requisitos previos de Split 1:1: 'necesitas una cuenta de vendedor en Mercado Pago con un nivel de identificación KYC 6'.",
+   "platform_action": "1) Requisito de verificación de refugios: para activar cobros o donativos, además del INE y acta ya pedidos, exigir constancia de situación fiscal (RFC) y la vinculación OAuth de una cuenta de Mercado Pago verificada a nombre del refugio o de su responsable; sin eso, el refugio puede estar en el directorio y recibir adopciones, pero no vender ni recibir donativos por la plataforma.\n2) Panel del refugio: estado 'Cobros activos / pendientes de verificación' y guía corta para abrir y verificar la cuenta, registrar RFC y constancia para evitar retenciones máximas.\n3) Política de donativos: explicar que el refugio es quien recibe y que GuauWoow no entrega dinero a refugios sin cuenta verificada.\n4) Evaluar con el contador y el abogado la opción de un patrocinador fiscal o de que GuauWoow sea A.C. donataria con programa de apoyos a refugios, como vía de largo plazo para refugios informales.",
+   "priority": "recomendado",
+   "confidence": "media",
+   "applies_to": [
+    "refugios",
+    "plataforma",
+    "donativos",
+    "tienda"
+   ],
+   "pages": [
+    "/legal/refugios",
+    "/legal/donativos",
+    "panel del refugio",
+    "/legal/transparencia"
+   ],
+   "notes": "Los requisitos de verificación y las tasas provienen del blog oficial de Mercado Pago (no de los Términos) y las propias notas de Mercado Pago muestran cifras distintas entre artículos; las tasas legales 2026 sí están verificadas en identidad-contratos-07. Si Mercado Pago retiene en cobros de Checkout Pro de cuentas ajenas a Mercado Libre es de confianza baja: confirmarlo por escrito. Las opciones (c) y (d) tienen implicaciones fiscales (LISR arts. 79, 80 y 82) y de PLD (17 XIII) que debe dictaminar un contador especializado en donatarias.",
+   "verdict": "verificado",
+   "evidence": "Blog de Mercado Pago 'RFC actualizado: evita retenciones en ventas en línea' y '¿Vendes en plataformas? Nuevas retenciones 2026 en México' descargados el 17-10-2026 (texto citado); teaser 'Retención de ISR e IVA en Mercado Pago: qué hacer' del 14-10-2026 en las mismas páginas. Blog 'Cuenta de empresa en Mercado Pago: requisitos para abrirla' y 'Cómo hacer la verificación de identidad' localizados por búsqueda (resumen de requisitos). Tasas legales según identidad-contratos-07 (LIF 2026 DOF 07-11-2025 art. 25 fr. VI y IX)."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-11",
+   "topic": "LFPIORPI art. 17 fr. XI aplicada a la plataforma (tienda y donativos): mandato con representación vs. comisión en nombre propio, obligaciones del art. 18 y consulta a la UIF",
+   "requirement": "La fracción XI considera actividad vulnerable 'la prestación de servicios profesionales, de manera independiente, sin que medie relación laboral con el cliente respectivo', cuando 'se lleven a cabo en nombre y representación del cliente' operaciones como 'b) La administración y manejo de recursos, valores o cualquier otro activo de sus clientes' o 'c) El manejo de cuentas bancarias, de ahorro o de valores'. No tiene umbral de identificación; el aviso procede cuando el prestador realiza 'en nombre y representación de un cliente, alguna operación financiera' relacionada con esas operaciones. Aplicación: si GuauWoow cobra donativos y precios 'en nombre y por cuenta' de los refugios (mandato con representación, como recomienda donativos-02 y como ya dice Términos 15.1), administra su dinero y lo mueve desde su cuenta, los incisos b) y c) se parecen mucho a lo que hace; si contrata en nombre propio (comisión mercantil del CCom art. 284), el elemento 'en nombre y representación' se debilita, pero entonces frente a Mercado Pago y al donante el destinatario es GuauWoow (y el refugio no es parte del contrato de donación, donativos-02). Hay tensión entre la solución civil y la exposición de PLD que un abogado debe resolver. Si encuadra, las obligaciones del art. 18 incluyen identificar y conocer al cliente (cada refugio) con documento oficial y copia, pedir su actividad, identificar al beneficiario controlador, custodiar la información 10 años, darse de alta en el padrón de actividades vulnerables (fr. IV Bis, adicionada DOF 16-07-2025), presentar avisos, tener manual, capacitación, auditoría y monitoreo automatizado. La UIF es la única autoridad competente para interpretar la Ley (SAT, Preguntas frecuentes 2026, 1.4) y admite consultas por escrito libre (1.5), lo que da una vía para obtener certeza antes de operar en Fase 1. Con Split (Fase 2) GuauWoow no administra recursos ni cuentas de los refugios: la exposición a la fr. XI baja de forma sustancial, aunque la fr. XIII sigue aplicando a los refugios constituidos como asociaciones (donativos de 1,605 UMA o más).",
+   "legal_basis": "LFPIORPI (última reforma DOF 16-07-2025) arts. 17 fr. XI incisos b) y c) y último párrafo de la fracción, 17 fr. XIII, 18 fr. I a IV Bis; Reglamento de la LFPIORPI art. 3 fr. I (competencia de la UIF, citado por el SAT); SAT, Preguntas frecuentes de Actividades Vulnerables 2026, 1.4 y 1.5; Código de Comercio arts. 284 y 285; CCF art. 2561.",
+   "source_url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LFPIORPI.pdf",
+   "quote": "Art. 17 fr. XI: 'La prestación de servicios profesionales, de manera independiente, sin que medie relación laboral con el cliente respectivo, en aquellos casos en los que se prepare para un cliente o se lleven a cabo en nombre y representación del cliente cualquiera de las siguientes operaciones: ... b) La administración y manejo de recursos, valores o cualquier otro activo de sus clientes; c) El manejo de cuentas bancarias, de ahorro o de valores; ... Serán objeto de Aviso ante la Secretaría cuando el prestador de dichos servicios lleve a cabo, en nombre y representación de un cliente, alguna operación financiera que esté relacionada con las operaciones señaladas en los incisos de esta fracción'. SAT, FAQ 2026, 1.4: 'La Unidad de Inteligencia Financiera es la autoridad competente y responsable de interpretar la Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita y su legislación secundaria'.",
+   "platform_action": "1) Antes de operar en Fase 1 con mandato con representación: dictamen de abogado en PLD y, si recomienda, consulta formal a la UIF por escrito libre (requisitos de LFPA arts. 15 y 15-A y Acuerdo 77/2025 de la SHCP) describiendo el flujo exacto.\n2) Mientras tanto, cumplir de forma voluntaria lo esencial del art. 18 con cada refugio que cobre por la plataforma: identificación oficial del representante, acta o RFC, declaración de beneficiario controlador, actividad, y conservar el expediente 10 años (coincide con la verificación de refugios ya existente).\n3) Elegir con el abogado un solo encuadre (mandato con representación o comisión en nombre propio) y usarlo igual en Términos 14.1 y 15.1, convenio y CFDI.\n4) Preferir Fase 2: documentar en el ADR que GuauWoow no administra recursos ni cuentas de los refugios.\n5) Convenio con refugios: cláusula por la que el refugio asociación declara conocer y cumplir la fr. XIII (donativos de 1,605 UMA o más; aviso desde 3,210 UMA) y GuauWoow le entrega los datos de identificación del donante cuando el donativo supere el umbral.",
+   "priority": "obligatorio",
+   "confidence": "media",
+   "applies_to": [
+    "plataforma",
+    "refugios",
+    "donativos",
+    "tienda",
+    "convenio-refugios"
+   ],
+   "pages": [
+    "Interno (dictamen PLD y consulta UIF)",
+    "/legal/refugios",
+    "/legal/terminos#15",
+    "/legal/donativos"
+   ],
+   "notes": "Texto legal y competencia de la UIF: confianza alta. Si la plataforma encuadra en la fr. XI: confianza baja; compilados anteriores de preguntas frecuentes del SAT (localizados por búsqueda, no revisados en su versión vigente) señalan que operar cuentas de terceros para pagar a proveedores y las empresas de cobranza pueden encuadrar en los incisos b) y c). No cité el Reglamento ni las Reglas de carácter general (reformados en 2026 según el verificador del dominio donativos) porque no los leí. Coordinar con donativos-01/02/12 e identidad-contratos-08.",
+   "verdict": "verificado",
+   "evidence": "Texto vigente de diputados.gob.mx (LFPIORPI 'Última reforma publicada DOF 16-07-2025'; la página de reformas lista decretos DOF 09-03-2018, 20-05-2021 y 16-07-2025): art. 17 fr. XI incisos a) a e) y párrafo final de la fracción; art. 18 fr. I ('Fracción reformada DOF 16-07-2025'), II, III, IV (diez años) y IV Bis ('Fracción adicionada DOF 16-07-2025'). SAT, 'Preguntas frecuentes' de la Administración Central de Asuntos Jurídicos de Actividades Vulnerables (PDF 2026), apartados 1.4 y 1.5, descargado de sat.gob.mx el 17-10-2026."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-12",
+   "topic": "Fase 1 transitoria (cuenta concentradora): condiciones mínimas si se mantiene por un tiempo",
+   "requirement": "Si el lanzamiento no alcanza a implementar Split, la cuenta concentradora solo debería usarse de forma transitoria y con todas estas condiciones a la vez: (1) excepción escrita de Mercado Pago para cobrar por cuenta de refugios y para donativos (hallazgos 05 y 06); (2) comisión 0 por transacción, de modo que no haya 'contraprestación, comisión, beneficio o ganancia' por transferir (LGOAAC 81-A Bis) ni 'contraprestación' por intermediación (LIVA 18-B, fiscal-tienda-23); (3) sin saldos ni monederos (hallazgo 03); (4) dispersión a cada refugio en un plazo corto y fijo contado desde la liberación de Mercado Pago, sin acumular fondos ajenos; (5) cuenta bancaria o subcuenta exclusiva para fondos de refugios, contabilidad separada y conciliación diaria (donativos-02; CFF 59 III); (6) convenio con cada refugio con mandato escrito, rendición de cuentas y compensación de contracargos (CCom 273, 298; CCF 2569-2570); (7) identificación completa del refugio y de su beneficiario controlador (hallazgo 11); (8) dictamen escrito de abogado financiero sobre 81-A Bis y 17 XI y, en su caso, consulta a la UIF; (9) fecha límite de migración a Fase 2 o 3 y bandera de configuración para apagar el módulo. Sin estas condiciones, la recomendación es no activar donativos ni tienda en producción.",
+   "legal_basis": "LGOAAC art. 81-A Bis; LRITF arts. 22 a 24; LFPIORPI arts. 17 fr. XI y 18; CFF art. 59 fr. III; Código de Comercio arts. 273, 293 y 298; CCF arts. 2569 y 2570; CPF art. 382; Términos de Mercado Pago Standard 4.7, 5.1, 5.7 y 9.6; RMF 2026 regla 2.7.1.12 fr. II b) por analogía (cuenta independiente para dinero de terceros, ver donativos-02).",
+   "source_url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/CCom.pdf",
+   "quote": "CCom 298: 'Estará obligado el comisionista a rendir ... una cuenta completa y justificada de su cumplimiento, y a entregar al comitente el saldo de lo recibido. En caso de morosidad, abonará intereses.' CCom 293: 'El comisionista que habiendo recibido fondos para evacuar un encargo, les diere distinta inversión, sin perjuicio de la acción criminal a que hubiere lugar...'. CFF 59 fr. III: 'los depósitos en la cuenta ... que no correspondan a registros de su contabilidad ... son ingresos'.",
+   "platform_action": "1) Checklist de activación en producción (bloqueante): excepción de MP, comisión 0, DONATIONS_ENABLED/SHOP_ENABLED, cuenta separada, convenio firmado por cada refugio, dictamen y fecha de migración.\n2) Backend: ledger por refugio con donativo bruto, comisión de MP, neto, fecha de liberación, payout_id y referencia SPEI; job de dispersión automática al liberarse los fondos; estado de cuenta descargable.\n3) Si la plataforma quiere ingresos durante la transición, cobrar a los refugios una cuota fija de servicio facturada con CFDI, independiente de los montos transferidos.\n4) Página de transparencia: declarar que es un esquema transitorio, su fecha límite y el modelo al que se migrará.",
+   "priority": "obligatorio",
+   "confidence": "media",
+   "applies_to": [
+    "plataforma",
+    "backend/pagos",
+    "donativos",
+    "tienda",
+    "convenio-refugios"
+   ],
+   "pages": [
+    "Interno (checklist de activación)",
+    "/legal/donativos",
+    "/legal/refugios",
+    "/legal/transparencia"
+   ],
+   "notes": "Ninguna de estas condiciones garantiza que la autoridad o Mercado Pago compartan el encuadre; reducen el riesgo, no lo eliminan. Por eso la Fase 1 debe ser corta y documentada. Las citas del CCom y del CFF se tomaron de las verificaciones de identidad-contratos-08 y donativos-01.",
+   "verdict": "verificado",
+   "evidence": "Síntesis de los hallazgos 02 a 11 de esta sección y de donativos-01/02, identidad-contratos-08 y fiscal-tienda-23 (ya verificados por sus dominios). Las citas del CCom 293 y 298 y del CFF 59 fr. III coinciden con las transcritas y verificadas en esos hallazgos."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-13",
+   "topic": "Fase 2 (Split con marketplace_fee): encuadre jurídico y riesgos que permanecen",
+   "requirement": "Con Split 1:1 el mandato irrevocable de cobro lo otorga cada refugio a MP Agregador (cláusula 4.2), el refugio es Receptor de Pagos y GuauWoow nunca recibe dinero ajeno: desaparecen los riesgos de transmisor de dinero, de fondos de pago electrónico, de presunción de depósitos como ingresos y de abuso de confianza sobre fondos de terceros. La comisión de marketplace es un ingreso propio por un servicio de intermediación: debe facturarse con IVA y, si es mayor que 0, activa el régimen de plataformas (LIVA 1o.-A Bis, 18-B y 18-J; LISR 113-A; LIF 2026 art. 25 fr. VI y IX; CFF 30-B), con retenciones que, según Mercado Pago, hoy practica el propio Mercado Pago sobre las ventas del refugio; hay que evitar la doble retención y definir quién retiene (fiscal-tienda-23 e identidad-contratos-07). Riesgos que permanecen: (a) la excepción de Mercado Pago para donativos la necesita cada refugio (hallazgo 06); (b) la ambigüedad sobre 'dinero en cuenta' (hallazgo 09); (c) reembolsos y contracargos proporcionales (hallazgo 08); (d) GuauWoow custodia credenciales OAuth y datos de pagos de los refugios (seguridad e incidentes, Términos para Desarrolladores); (e) la fecha de liberación de la comisión no la controla GuauWoow; (f) si marketplace_fee es 0, Mercado Pago sigue cobrando su comisión al refugio y GuauWoow no tiene ingreso.",
+   "legal_basis": "Términos de Mercado Pago Standard 4.2 y 9.6; documentación de Split 1:1; LIVA arts. 1o.-A Bis, 18-B y 18-J; LISR art. 113-A; LIF 2026 art. 25 fr. VI y IX; CFF art. 30-B (todos verificados en identidad-contratos-07 y fiscal-tienda-22/23).",
+   "source_url": "https://www.mercadopago.com.mx/developers/es/docs/split-payments/split-1-1/integration-configuration/integrate-marketplace",
+   "quote": "Split: 'Ambos checkouts reparten automáticamente los importes entre el vendedor y el marketplace a través del Split de Pagos 1:1 sin necesidad de ninguna acción por parte del vendedor.' 'La comisión de Mercado Pago se descuenta de los fondos recibidos por el vendedor.' MP 4.2: 'el Usuario otorga un mandato irrevocable a Mercado Pago Standard para cobrar los Fondos y recibirlos, por su nombre y cuenta'.",
+   "platform_action": "1) Lanzar la tienda en Fase 2 con marketplace_fee = 0 y la facturación por el refugio (fiscal-tienda-23); evaluar marketplace_fee mayor que 0 solo con el contador, por el régimen de plataformas.\n2) Donativos en Fase 2: marketplace_fee 0 o una 'aportación voluntaria a GuauWoow' separada y opcional, cobrada en la cuenta de GuauWoow como ingreso propio, nunca descontada del donativo sin informarlo.\n3) Términos 14.1/15.1: 'El refugio es quien te cobra, con su propia cuenta de Mercado Pago; GuauWoow integra el pago y recibe [0 % / X %] como comisión de marketplace.'\n4) Pantalla previa al pago: desglose donativo o precio, comisión de Mercado Pago estimada (del refugio), comisión de GuauWoow y neto estimado al refugio (buenas-practicas-v08, donativos-10).",
+   "priority": "recomendado",
+   "confidence": "media",
+   "applies_to": [
+    "plataforma",
+    "refugios",
+    "tienda",
+    "donativos",
+    "backend/pagos"
+   ],
+   "pages": [
+    "/legal/terminos#14",
+    "/legal/terminos#15",
+    "/legal/tarifas",
+    "/legal/transparencia",
+    "checkout"
+   ],
+   "notes": "El encuadre fiscal de la comisión y la coordinación de retenciones con Mercado Pago son del contador. El riesgo de doble retención (Mercado Pago y GuauWoow sobre la misma venta) no tiene criterio público; plantearlo al SAT o a Mercado Pago por escrito si marketplace_fee es mayor que 0.",
+   "verdict": "verificado",
+   "evidence": "Documentación de Split 1:1 y cláusula 4.2 leídas el 17-10-2026. Fundamentos fiscales tomados de identidad-contratos-07 y fiscal-tienda-22/23, verificados por sus dominios."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-14",
+   "topic": "Fase 3 (cobro directo del refugio): encuadre y cuándo conviene",
+   "requirement": "En Fase 3 GuauWoow solo muestra el medio de cobro del refugio (su link o botón de donación de Mercado Pago, su CLABE o el procesador que elija) y no interviene en el pago: no recibe dinero, no fija comisión por transacción y no tiene credenciales del refugio. Es la fase con menor exposición regulatoria (no hay transmisión de fondos, fondos de pago electrónico, mandato ni actividad vulnerable por manejo de recursos) y contractual (GuauWoow no es usuario de Mercado Pago para esos cobros). A cambio: no hay conciliación ni ledger centralizado, el tablero de transparencia depende de lo que reporte el refugio, el refugio necesita de todos modos su propia excepción o programa de Mercado Pago para donativos, y si GuauWoow cobra al refugio por la visibilidad debe hacerlo como suscripción o cuota de servicio con CFDI, nunca como porcentaje de lo recaudado (para no reintroducir la 'contraprestación' ligada a la transferencia ni la intermediación de LIVA 18-B). Conviene como vía inmediata para donativos mientras se implementa Split, y de forma permanente para refugios que prefieran cobrar fuera de la plataforma.",
+   "legal_basis": "LGOAAC art. 81-A Bis (a contrario); LRITF art. 22 (a contrario); LFPIORPI art. 17 fr. XI (a contrario); LIVA art. 18-B ('siempre que por los servicios mencionados se cobre una contraprestación', ver fiscal-tienda-23); Términos de Mercado Pago Standard 9.6 (cada refugio usa su cuenta en nombre propio); lista de Actividades Prohibidas ('Donativos').",
+   "source_url": "https://www.mercadopago.com.mx/ayuda/actividades-prohibidas-politicas_18572",
+   "quote": "LIVA 18-B (según fiscal-tienda-23): 'siempre que por los servicios mencionados se cobre una contraprestación'. Actividades Prohibidas: 'Donativos, incluyendo donativos a Partidos Políticos.'",
+   "platform_action": "1) Perfil del refugio: campo 'Cómo donar directamente' con link de donación verificado por el equipo (dominio link.mercadopago.com.mx o mercadopago.com.mx/ong), CLABE a nombre del refugio o de su responsable, y leyenda 'Cobra directamente el refugio; GuauWoow no recibe este dinero'.\n2) Verificación: comprobar que el link pertenece a la cuenta del refugio (captura del panel o carta) y revalidarlo cada seis meses; retirar enlaces que apunten a cuentas de terceros.\n3) Tablero de transparencia: separar 'donativos a través de GuauWoow' (con ledger) de 'donativos directos reportados por el refugio' (sin verificación).\n4) No cobrar al refugio porcentaje alguno de lo que reciba por esta vía; si hay plan de pago, que sea cuota fija por servicios de visibilidad con CFDI.",
+   "priority": "recomendado",
+   "confidence": "media",
+   "applies_to": [
+    "plataforma",
+    "refugios",
+    "donativos"
+   ],
+   "pages": [
+    "/legal/donativos",
+    "/legal/refugios",
+    "/legal/transparencia",
+    "perfil del refugio"
+   ],
+   "notes": "Mostrar una CLABE pública expone al refugio a fraudes de suplantación; mejor priorizar links de donación de Mercado Pago u otros procesadores con página verificada. Que GuauWoow publique el medio de cobro no la convierte en intermediaria del pago, pero sí la obliga a verificar la identidad del refugio (bienestar y contenido).",
+   "verdict": "verificado",
+   "evidence": "Encuadre a contrario de los textos verificados en los hallazgos 02, 03, 05, 06 y 11. Existencia de links de donación y páginas de organizaciones en Mercado Pago México confirmada por búsqueda (link.mercadopago.com.mx y mercadopago.com.mx/ong/...), sin acceso al contenido dinámico."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-15",
+   "topic": "Textos públicos y límites de denominación: qué decir y qué no decir sobre GuauWoow y el dinero (LRITF 12, LGOAAC 81-B, MP 9.7 y 9.24)",
+   "requirement": "Las expresiones 'institución de tecnología financiera', 'ITF', 'institución de financiamiento colectivo', 'institución de fondos de pago electrónico' 'u otras que expresen ideas semejantes' no pueden usarse en el nombre, la publicidad, las aplicaciones ni las páginas de quien no es ITF autorizada (LRITF art. 12), y la referencia 'transmisor de dinero' está reservada a los registrados (LGOAAC 81-B fr. I). GuauWoow no debe llamarse ni describirse como 'wallet', 'monedero', 'cuenta', 'saldo', 'pasarela', 'procesador de pagos', 'fintech' ni 'regulada por la CNBV'. Sí debe decir, en la página de donativos, en Términos y en transparencia, quién recibe el dinero en cada fase, que GuauWoow no es entidad financiera, institución de tecnología financiera ni transmisor de dinero, que los pagos los procesa MP Agregador, S. de R.L. de C.V. (Agregador regulado por la CNBV y Banxico, cláusula 9.24) y que, en su caso, los saldos en 'Mercado Pago Wallet' son fondos de pago electrónico de una institución distinta (contrato de emisión y depósito mercantil de fondos de pago electrónico). El 'disclaimer' negativo ('no somos...') no infringe el art. 12 porque no sugiere que se realicen esas actividades; lo que está prohibido es usar las expresiones para dar a entender que sí.",
+   "legal_basis": "LRITF art. 12, segundo párrafo; LGOAAC art. 81-B fr. I, segundo párrafo; Términos de Mercado Pago Standard 9.7 y 9.24; contrato de Mercado Pago Wallet (emisión y depósito mercantil de fondos de pago electrónico); LFPC art. 32 (publicidad veraz, ver consumidor-ecommerce-17).",
+   "source_url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LRITF.pdf",
+   "quote": "LRITF 12: 'Las expresiones \"institución de tecnología financiera\", \"ITF\", \"institución de financiamiento colectivo\", \"institución de fondos de pago electrónico\" u otras que expresen ideas semejantes en cualquier idioma ... no podrán ser usadas en el nombre, denominación, razón social o publicidad de personas y establecimientos, interfaces, aplicaciones informáticas, páginas de internet o cualquier otro medio de comunicación electrónica o digital, distintos de las ITF autorizadas'. MP 9.7: 'Mercado Pago Standard no es una entidad financiera no presta al Usuario ningún servicio de tipo bancario, de fondos de pago electrónico, instrumentos de captación ni tampoco relacionado con actividades cambiarias.'",
+   "platform_action": "1) Guía de redacción para marketing y UI: lista de palabras prohibidas (wallet, monedero, saldo, cuenta GuauWoow, pasarela, procesador, fintech, regulada por CNBV, crowdfunding regulado) y textos aprobados.\n2) Bloque fijo en /legal/donativos, /legal/transparencia y Términos 4: 'GuauWoow no es entidad financiera, institución de tecnología financiera ni transmisor de dinero. Los pagos los procesa MP Agregador, S. de R.L. de C.V. (Mercado Pago) conforme a sus propios términos. [Fase vigente: el refugio cobra con su cuenta / GuauWoow cobra por cuenta del refugio y entrega los fondos en N días hábiles desde su liberación].'\n3) Diagrama del flujo del dinero con los tres actores (pagador, Mercado Pago, refugio) y la comisión de cada uno (buenas-practicas-19).\n4) Revisar la landing y los correos transaccionales para retirar cualquier frase que sugiera custodia o saldo.",
+   "priority": "obligatorio",
+   "confidence": "alta",
+   "applies_to": [
+    "marketing",
+    "terminos",
+    "plataforma"
+   ],
+   "pages": [
+    "/legal/donativos",
+    "/legal/transparencia",
+    "/legal/terminos#4",
+    "landing",
+    "correos"
+   ],
+   "notes": "La extensión de 'ideas semejantes' a palabras como 'wallet' o 'monedero' es una lectura prudente, no un criterio de la CNBV. El contrato de Mercado Pago Wallet se identificó por su título ('Contrato de Emisión y Depósito Mercantil de Fondos de Pago Electrónico'); no revisé su contenido.",
+   "verdict": "verificado",
+   "evidence": "LRITF art. 12 y LGOAAC art. 81-B fr. I confirmados en los textos vigentes de diputados.gob.mx. Cláusulas 9.7 y 9.24 leídas en los Términos Standard el 17-10-2026. Título del contrato de Mercado Pago Wallet tomado de mercadopago.com.mx/ayuda/contrato-emision-fondo-pago-electronico_17594."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-16",
+   "topic": "Vigilancia de cambios: nuevas Disposiciones de Redes de Medios de Disposición en consulta, reformas a LRITF y LGOAAC y cambios de Términos de Mercado Pago",
+   "requirement": "Tres fuentes de cambio pueden alterar este análisis en meses: (1) la CNBV y Banxico sometieron a consulta pública un proyecto de nuevas Disposiciones de carácter general aplicables a las Redes de Medios de Disposición (comunicado de la CNBV de agosto de 2026, comentarios hasta el 24-09-2026) que podría redefinir participantes, agregadores y obligaciones de transparencia de comisiones; la 10ª Bis añadida el 27-04-2026 expira el 31-10-2026; (2) LRITF y LGOAAC se reformaron por última vez el 14-11-2025 y la LFPIORPI el 16-07-2025, con reglamento y reglas de carácter general en actualización; (3) Mercado Pago puede modificar sus Términos en cualquier momento: los cambios entran en vigor a los 10 días de su publicación y el usuario tiene 5 días para rechazarlos por correo, lo que disuelve el contrato (9.14); la lista de Actividades Prohibidas y las páginas de programas de protección no tienen control de versiones público.",
+   "legal_basis": "Términos de Mercado Pago Standard 9.14; Disposiciones de Redes de Medios de Disposición (texto compilado de Banxico, transitorio de la Resolución DOF 27-04-2026); comunicados de la CNBV sobre la consulta pública; páginas de reformas de LRITF, LGOAAC y LFPIORPI en diputados.gob.mx.",
+   "source_url": "https://www.gob.mx/cnbv/prensa/consulta-publica-del-proyecto-de-disposiciones-de-caracter-general-aplicables-a-redes-de-medios-de-disposicion?idiom=es",
+   "quote": "MP 9.14: 'Todos los términos modificados entrarán en vigor a los 10 (diez) días de su publicación. Dentro de los 5 (cinco) días siguientes a la publicación de las modificaciones introducidas, el Usuario deberá comunicar por e-mail si no acepta las mismas; en ese caso quedará disuelto el vínculo contractual.' Transitorio DOF 27-04-2026: 'su vigencia expirará el 31 de octubre de 2026. Una vez transcurrida esa fecha, la disposición 10ª Bis quedará derogada.'",
+   "platform_action": "1) Calendario de cumplimiento (identidad-contratos-29): revisión mensual de los Términos, Actividades Prohibidas, Compra Protegida y Protección al Vendedor de Mercado Pago, guardando PDF con fecha; alerta del DOF para 'Redes de Medios de Disposición', LRITF, LGOAAC y LFPIORPI.\n2) Al publicarse las nuevas Disposiciones de Redes de Medios de Disposición, repetir el análisis del hallazgo 04 y revisar si cambia la posición de los marketplaces o de los agregadores.\n3) Registrar en /legal/cambios la versión de cada contrato de Mercado Pago aceptada y la fecha.",
+   "priority": "recomendado",
+   "confidence": "alta",
+   "applies_to": [
+    "plataforma"
+   ],
+   "pages": [
+    "Interno (calendario de cumplimiento)",
+    "/legal/cambios"
+   ],
+   "notes": "El comunicado de la consulta pública de la CNBV de agosto de 2026 lo localicé por búsqueda y no lo abrí; la fecha límite de comentarios proviene del resumen del buscador (confianza media). El resto está verificado en fuente primaria.",
+   "verdict": "verificado",
+   "evidence": "Cláusula 9.14 leída en los Términos Standard el 17-10-2026. Texto compilado de Banxico con el transitorio de la Resolución DOF 27-04-2026 (firmado el 24-04-2026). Páginas de reformas de diputados.gob.mx: LRITF (última DOF 14-11-2025), LGOAAC (última DOF 14-11-2025), LFPIORPI (última DOF 16-07-2025). Comunicados de consulta pública de la CNBV en gob.mx localizados por búsqueda."
+  }
+ ],
+ "hard_deadlines": [
+  {
+   "date": "Antes de activar donativos o tienda en producción (fecha por definir por el dueño)",
+   "what": "Puerta de salida: excepción escrita de Mercado Pago (donativos y modelo marketplace), dictamen de abogado financiero sobre LGOAAC 81-A Bis y LFPIORPI 17 XI (o migración a Split/cobro directo), comisión por transacción en 0 si se usa la cuenta concentradora, bandera DONATIONS_ENABLED creada, Términos 14.1 y 15.1 reescritos según la fase.",
+   "findings": [
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-02",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-05",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-06",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-11",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-12",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-15"
+   ]
+  },
+  {
+   "date": "2026-10-31",
+   "what": "Expira la 10ª Bis de las Disposiciones de Redes de Medios de Disposición (añadida DOF 27-04-2026). No obliga a GuauWoow; es la señal para revisar si ya se publicaron las nuevas Disposiciones puestas a consulta.",
+   "findings": [
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-04",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-16"
+   ]
+  },
+  {
+   "date": "Cada 180 días desde cada vinculación OAuth (expires_in 15,552,000 s)",
+   "what": "Renovar con refresh_token el access_token de cada refugio vinculado por Split 1:1; sin renovación, sus cobros fallan.",
+   "findings": [
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-09"
+   ]
+  },
+  {
+   "date": "Mensual (y dentro de los 5 días siguientes a cada cambio publicado por Mercado Pago)",
+   "what": "Revisar Términos de Mercado Pago Standard, Actividades Prohibidas y programas de protección; los cambios entran en vigor a los 10 días y solo pueden rechazarse por correo en 5 días (cláusula 9.14).",
+   "findings": [
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-05",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-16"
+   ]
+  },
+  {
+   "date": "Al publicarse en el DOF las nuevas Disposiciones de Redes de Medios de Disposición (consulta pública cerrada el 24-09-2026)",
+   "what": "Repetir el análisis de agregadores y receptores de pagos (hallazgo CF-04) y revisar si cambian las obligaciones de los marketplaces.",
+   "findings": [
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-04",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-16"
+   ]
+  }
+ ],
+ "pages": [
+  {
+   "slug": "donativos",
+   "title": "Política de donativos",
+   "purpose": "Explicar al donante quién recibe su dinero en la fase vigente, qué hace Mercado Pago, qué comisiones hay, cuándo llega al refugio y qué pasa con contracargos y reembolsos. Ruta prevista: /legal/donativos.",
+   "required_contents": [
+    "Fase vigente y receptor de pagos: «[el refugio cobra con su propia cuenta de Mercado Pago] / [GuauWoow cobra por cuenta del refugio y le entrega los fondos dentro de N días hábiles desde que Mercado Pago los libera]» (CF-01, CF-12, CF-13, CF-14)",
+    "Bloque fijo: GuauWoow no es entidad financiera, institución de tecnología financiera ni transmisor de dinero; no mantiene saldos ni monederos; los pagos los procesa MP Agregador, S. de R.L. de C.V. (Mercado Pago) conforme a sus propios términos (CF-03, CF-15)",
+    "Comisiones: la de Mercado Pago (a cargo del refugio o de la plataforma, según fase) y la de GuauWoow (0 % o X %), sin recargo por pagar con Mercado Pago (CF-05, CF-13)",
+    "Liberación y retenciones: Mercado Pago libera los fondos según su plan y puede retenerlos; GuauWoow no promete fechas fijas ni responde por esas retenciones (CF-07)",
+    "Contracargos y reembolsos: los donativos no tienen Protección al Vendedor; casos de reembolso de Términos 15.3 y plazo de 30 días; cómo se compensa con el refugio (CF-08)",
+    "Refugios sin cuenta verificada: solo reciben donativos cuando vinculan una cuenta de Mercado Pago verificada o publican su medio de cobro directo verificado (CF-10, CF-14)",
+    "Los puntos del ranking no tienen valor monetario ni son canjeables (CF-03)",
+    "Aviso de que la excepción de Mercado Pago para donativos fue obtenida [fecha/caso] o, mientras no exista, que los donativos se reciben solo por los medios directos del refugio (CF-06)"
+   ],
+   "legal_basis": "LRITF arts. 12 y 22-24; LGOAAC art. 81-A Bis; Términos de Mercado Pago Standard 4.7, 5.1, 5.2, 5.7, 5.9 y 9.6; Actividades Prohibidas de Mercado Pago; LFPC art. 76 Bis (información previa).",
+   "findings": [
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-01",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-03",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-05",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-06",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-07",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-08",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-10",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-12",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-13",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-14",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-15"
+   ]
+  },
+  {
+   "slug": "transparencia",
+   "title": "A dónde va tu dinero (transparencia de pagos)",
+   "purpose": "Diagrama y explicación del flujo del dinero por fase, con las tres partes (pagador, Mercado Pago, refugio) y la posición de GuauWoow; versión pública del modelo de fondos. Ruta prevista: /legal/transparencia.",
+   "required_contents": [
+    "Diagrama por fase: Fase 1 (cuenta concentradora, transitoria, con fecha límite de migración), Fase 2 (Split 1:1 con marketplace_fee) y Fase 3 (cobro directo) (CF-01, CF-12, CF-13, CF-14)",
+    "Qué parte recibe cada peso: comisión de Mercado Pago, comisión de GuauWoow, neto al refugio; ejemplo numérico (CF-13)",
+    "Fechas: liberación por Mercado Pago, dispersión (Fase 1) y estado de cuenta por refugio; separación entre donativos a través de GuauWoow (con ledger) y donativos directos reportados por el refugio (sin verificación) (CF-07, CF-14)",
+    "Declaración de no ser entidad financiera, ITF ni transmisor de dinero, y de que no existen saldos (CF-03, CF-15)",
+    "Registro de la versión de los Términos de Mercado Pago aceptada y fecha de última revisión (CF-16)"
+   ],
+   "legal_basis": "LRITF art. 12; LGOAAC art. 81-B fr. I; Términos de Mercado Pago Standard 9.7 y 9.24; LFPC art. 32 (publicidad veraz).",
+   "findings": [
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-01",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-03",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-07",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-12",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-13",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-14",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-15",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-16"
+   ]
+  },
+  {
+   "slug": "refugios",
+   "title": "Convenio de adhesión para Refugios Verificados (cláusulas de pagos)",
+   "purpose": "Fijar con cada refugio cómo cobra, qué cuenta usa, qué documentación entrega, cómo se compensan contracargos y qué obligaciones propias asume ante Mercado Pago, el SAT y la LFPIORPI. Ruta prevista: /legal/refugios.",
+   "required_contents": [
+    "Fase aplicable al refugio y, en Split, autorización OAuth, revocación, renovación de tokens y responsabilidad por su cuenta de Mercado Pago (KYC 6) (CF-09, CF-10)",
+    "Deber del refugio de obtener su propia excepción o inscripción en el programa de Mercado Pago para donativos y de avisar si Mercado Pago le limita la cuenta (CF-06)",
+    "Compensación de contracargos, reembolsos y multas de Mercado Pago contra dispersiones futuras (Fase 1) o reembolso por otro medio de lo que su cuenta no cubra (Fase 2); plazo de 30 días; conservación de comprobantes de entrega un año (CF-08)",
+    "Documentos de identificación del refugio y de su beneficiario controlador, RFC y constancia de situación fiscal; actualización anual (CF-10, CF-11)",
+    "Declaración del refugio asociación sobre LFPIORPI art. 17 fr. XIII (donativos de 1,605 UMA o más; aviso desde 3,210 UMA) y entrega por GuauWoow de los datos del donante cuando aplique (CF-11)",
+    "Retenciones de ISR e IVA que Mercado Pago pueda aplicar a la cuenta del refugio y responsabilidad de cargar su RFC (CF-10)",
+    "Plazo y forma de entrega de fondos en Fase 1: N días hábiles desde la liberación de Mercado Pago; ledger y estado de cuenta; nunca saldos disponibles ni retiros a petición (CF-03, CF-07, CF-12)",
+    "Prohibición de usar la tienda o los donativos para venta o tráfico de animales y de cobrar cuotas de adopción por Mercado Pago sin la regla única del gap de adopción (CF-06)"
+   ],
+   "legal_basis": "Código de Comercio arts. 273, 284, 285, 293 y 298; CCF arts. 2546, 2569 y 2570; LFPIORPI arts. 17 fr. XIII y 18; Términos de Mercado Pago Standard 5.7 y 9.6; documentación de Split 1:1.",
+   "findings": [
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-03",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-06",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-07",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-08",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-09",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-10",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-11",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-12"
+   ]
+  },
+  {
+   "slug": "tarifas",
+   "title": "Tarifas y comisiones",
+   "purpose": "Tabla única de costos por producto y fase: comisión de Mercado Pago, comisión de GuauWoow (marketplace_fee o cuota fija), quién la paga y cuándo se libera. Ruta prevista: /legal/tarifas.",
+   "required_contents": [
+    "Comisión de GuauWoow como concepto propio (0 % o X %, o cuota fija facturada con CFDI), nunca como «cargo por pagar con Mercado Pago» (CF-05, CF-13)",
+    "Comisión de Mercado Pago según el plan del receptor de pagos (refugio en Fase 2 y 3; plataforma en Fase 1) con enlace a la página de Mercado Pago (CF-07)",
+    "Orden de descuento en Split: primero Mercado Pago, después marketplace_fee (CF-09)",
+    "Fecha de liberación de la comisión de GuauWoow (no configurable sin cartera asesorada) (CF-07, CF-09)"
+   ],
+   "legal_basis": "Términos de Mercado Pago Standard 5.1 y 9.10; documentación de Split 1:1; LFPC art. 7 Bis (precio total).",
+   "findings": [
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-05",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-07",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-09",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-13"
+   ]
+  },
+  {
+   "slug": "terminos",
+   "title": "Términos y Condiciones (secciones 4, 14.1 y 15.1)",
+   "purpose": "Alinear los Términos con la fase elegida: quién vende y cobra en la tienda, quién recibe el donativo, qué es y qué no es GuauWoow respecto del dinero.",
+   "required_contents": [
+    "Sección 4: «GuauWoow no es entidad financiera, institución de tecnología financiera, institución de financiamiento colectivo ni transmisor de dinero; no mantiene saldos de usuarios ni de refugios» (CF-03, CF-15)",
+    "14.1: texto según fase. Fase 2: «Los productos los vende el refugio, que te cobra con su propia cuenta de Mercado Pago; GuauWoow integra el pago y recibe una comisión de marketplace de [X %]» (CF-01, CF-13)",
+    "15.1: texto según fase, sin la frase «por cuenta del refugio» si se opera en Split; en Fase 1 transitoria, mandato, plazo de entrega contado desde la liberación de Mercado Pago y comisión 0 (CF-05, CF-12)",
+    "15.3: mantener los supuestos de reembolso y añadir que los donativos pagados con tarjeta pueden ser desconocidos por el titular y cómo se resuelve (CF-08)",
+    "Cláusula de puntos del ranking sin valor monetario (CF-03)"
+   ],
+   "legal_basis": "LRITF art. 12; Código de Comercio arts. 284 y 285; Términos de Mercado Pago Standard 9.6; CCF arts. 2338 y 2340.",
+   "findings": [
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-01",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-03",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-05",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-08",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-12",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-13",
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-15"
+   ]
+  },
+  {
+   "slug": "seguridad",
+   "title": "Seguridad (apartado Pagos)",
+   "purpose": "Explicar que GuauWoow no ve datos de tarjeta, cómo custodia las credenciales OAuth de los refugios y qué hace ante un incidente que toque pagos (aviso a Mercado Pago en 24 horas).",
+   "required_contents": [
+    "Credenciales OAuth de refugios cifradas, alcance limitado, renovación y revocación (CF-09)",
+    "Aviso a Mercado Pago en 24 horas ante incidentes que toquen tokens, webhooks o datos de pagos (seguridad-incidentes-v01)",
+    "Cuestionario PCI anual que pide Mercado Pago (seguridad-incidentes-v01)"
+   ],
+   "legal_basis": "Términos y Condiciones para Desarrolladores de Mercado Pago (cláusulas 2.1.4, 6.6 y sección 10); LFPDPPP arts. 13 y 18.",
+   "findings": [
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-09"
+   ]
+  },
+  {
+   "slug": "cambios",
+   "title": "Registro de cambios legales y versiones de contratos de terceros",
+   "purpose": "Dejar constancia pública de la versión de los Términos de Mercado Pago aceptada, de las revisiones mensuales y de las normas financieras vigiladas.",
+   "required_contents": [
+    "Versión y fecha de los Términos de Mercado Pago Standard, Actividades Prohibidas y programas de protección revisados (CF-16)",
+    "Normas vigiladas: LGOAAC, LRITF, LFPIORPI y Disposiciones de Redes de Medios de Disposición, con fecha de última revisión (CF-16)"
+   ],
+   "legal_basis": "Términos de Mercado Pago Standard 9.14.",
+   "findings": [
+    "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-16"
+   ]
+  }
+ ],
+ "product_requirements": [
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-01",
+   "priority": "obligatorio",
+   "requirement": "Elegir la fase por producto (tienda: Split con marketplace_fee 0; donativos: Split o cobro directo), guardarla en Donation y Order (fase, collector_id, marketplace_fee) y reflejarla en textos y checkout."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-02",
+   "priority": "obligatorio",
+   "requirement": "No activar donativos ni tienda con cuenta concentradora y comisión mayor que 0 sin dictamen escrito sobre LGOAAC 81-A Bis; si hay transición, comisión por transacción en 0 y cuota fija facturada aparte."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-03",
+   "priority": "obligatorio",
+   "requirement": "Regla de arquitectura: sin saldos ni monederos de usuarios o refugios; devoluciones al medio de pago original; puntos de ranking sin valor monetario ni canje; ningún «fondo común» ni campañas con meta y devolución."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-04",
+   "priority": "recomendado",
+   "requirement": "No describir ni operar a GuauWoow como pasarela, procesador o agregador de los refugios; en Split, texto «cada refugio cobra con su propia cuenta de Mercado Pago»."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-05",
+   "priority": "obligatorio",
+   "requirement": "Tratar la cláusula 9.6 de Mercado Pago como bloqueo de la cuenta concentradora salvo excepción escrita; no aplicar recargos por medio de pago; guardar PDF fechado de los Términos aceptados."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-06",
+   "priority": "obligatorio",
+   "requirement": "Solicitar y archivar la excepción escrita de Mercado Pago para donativos (y para el modelo marketplace); crear DONATIONS_ENABLED; impedir donativos «simulados» en producción; sin excepción, solo medios directos del refugio."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-07",
+   "priority": "recomendado",
+   "requirement": "Dispersar solo fondos liberados (money_release_date) y prometer plazos «desde la liberación»; conciliación diaria con reportes de Mercado Pago; cuenta de retiro y datos fiscales siempre registrados."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-08",
+   "priority": "obligatorio",
+   "requirement": "Reserva por contracargos antes de dispersar (Fase 1), asientos negativos en el ledger, notificación al refugio para cancelar CFDI, exigencia de guía con rastreo y comprobante de entrega en la tienda."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-09",
+   "priority": "recomendado",
+   "requirement": "Implementar Split 1:1: app modelo Marketplace, Redirect URL, OAuth por refugio, tokens cifrados con renovación antes de 180 días, preferencias con el token del refugio y marketplace_fee, pruebas en sandbox con tarjeta."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-10",
+   "priority": "recomendado",
+   "requirement": "Para activar cobros o donativos de un refugio: constancia de situación fiscal y cuenta de Mercado Pago verificada (KYC 6) vinculada por OAuth; estado «Cobros activos / pendientes» en el panel."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-11",
+   "priority": "obligatorio",
+   "requirement": "Expediente de identificación de cada refugio que cobre por la plataforma (identificación del representante, acta o RFC, beneficiario controlador, actividad) conservado 10 años; dictamen PLD y, si aplica, consulta a la UIF antes de operar con mandato con representación."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-12",
+   "priority": "obligatorio",
+   "requirement": "Checklist bloqueante de activación en producción para la Fase 1 transitoria (excepción MP, comisión 0, cuenta separada, convenio, dictamen, fecha de migración) y ledger con payouts."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-13",
+   "priority": "recomendado",
+   "requirement": "En Fase 2, pantalla previa al pago con desglose (precio o donativo, comisión de Mercado Pago estimada, comisión de GuauWoow, neto al refugio) y «aportación voluntaria a GuauWoow» separada y opcional."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-14",
+   "priority": "recomendado",
+   "requirement": "Perfil del refugio con medio de cobro directo verificado (link de donación de Mercado Pago u otro procesador, CLABE) y leyenda «cobra directamente el refugio»; revalidación semestral; sin porcentaje sobre lo recaudado."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-15",
+   "priority": "obligatorio",
+   "requirement": "Guía de redacción con palabras prohibidas (wallet, monedero, saldo, pasarela, procesador, fintech, regulada por CNBV) y bloque fijo de «qué no es GuauWoow» en donativos, transparencia y Términos 4."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-16",
+   "priority": "recomendado",
+   "requirement": "Calendario de cumplimiento: revisión mensual de contratos de Mercado Pago, alerta del DOF para Redes de Medios de Disposición, LRITF, LGOAAC y LFPIORPI; registro en /legal/cambios."
+  }
+ ],
+ "shop_requirements": [
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-01",
+   "priority": "obligatorio",
+   "requirement": "La tienda sale en Fase 2 (Split 1:1) con marketplace_fee = 0, cada refugio vendedor con cuenta de Mercado Pago verificada y CFDI emitido por el refugio (coincide con fiscal-tienda-23); nunca en cuenta concentradora con comisión."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-06",
+   "priority": "obligatorio",
+   "requirement": "Moderación de la tienda: prohibido vender animales, cobrar cuotas de adopción por Mercado Pago o asociar productos a tráfico de animales (Actividades Prohibidas y cláusula 6.2.2 de Mercado Pago)."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-08",
+   "priority": "obligatorio",
+   "requirement": "Para disputar contracargos en 7 días, exigir guía con rastreo y comprobante de entrega por pedido; conservar la evidencia al menos un año (cláusula 5.7) o el plazo mayor del calendario de conservación."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-09",
+   "priority": "recomendado",
+   "requirement": "Checkout de la tienda con el access_token del refugio vendedor y marketplace_fee; bloquear ventas del refugio si su token caduca o se revoca."
+  },
+  {
+   "id": "gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-13",
+   "priority": "recomendado",
+   "requirement": "Si marketplace_fee pasa a ser mayor que 0, activar antes el régimen de plataformas y evitar la doble retención con Mercado Pago (contador)."
+  }
+ ],
+ "retention": [
+  {
+   "category": "Ledger de pagos, dispersiones y compensaciones por refugio (bruto, comisión de Mercado Pago, comisión de GuauWoow, neto, money_release_date, payout_id, referencia SPEI, contracargos)",
+   "period": "10 años desde cada operación (propuesta: plazo mayor entre CFF art. 30 (5 años desde la declaración), CCom arts. 38 y 49 y LFPIORPI art. 18 fr. IV si la fr. XI resulta aplicable)",
+   "basis": "CFF art. 30; CCom arts. 38 y 49 (según otros dominios); LFPIORPI art. 18 fr. IV; CCom art. 298 (cuenta justificada) (CF-07, CF-08, CF-11, CF-12)"
+  },
+  {
+   "category": "Expediente de identificación de cada refugio que cobra por la plataforma (identificación del representante, acta o RFC, constancia de situación fiscal, beneficiario controlador, actividad, excepción de Mercado Pago del refugio)",
+   "period": "10 años desde la última operación (LFPIORPI art. 18 fr. IV si aplica la fr. XI); en otro caso, mientras dure la relación y 5 años más (propuesta), bloqueado antes de suprimir",
+   "basis": "LFPIORPI art. 18 fr. I, III y IV; LFPDPPP arts. 12 y 25 (CF-10, CF-11)"
+  },
+  {
+   "category": "Credenciales OAuth de refugios (access_token, refresh_token, public_key, user_id)",
+   "period": "Mientras la vinculación esté activa; borrado inmediato al revocarse o al cancelarse el refugio; bitácora de vinculación y revocación 10 años",
+   "basis": "Términos para Desarrolladores de Mercado Pago (seguridad); LFPDPPP arts. 12 y 18 (CF-09)"
+  },
+  {
+   "category": "Comprobantes de venta y de entrega de la tienda (guía, acuse firmado) y evidencia presentada en contracargos",
+   "period": "Mínimo un año desde la liberación o retiro de los fondos (cláusula 5.7 de Mercado Pago); se recomienda el mismo plazo del ledger (10 años)",
+   "basis": "Términos de Mercado Pago Standard 5.7; CCom art. 49 (CF-08)"
+  },
+  {
+   "category": "Versiones fechadas de los Términos de Mercado Pago Standard, Actividades Prohibidas, programas de protección y Términos para Desarrolladores aceptados; excepción escrita de Mercado Pago; dictámenes de abogado y respuesta de la UIF",
+   "period": "10 años desde que dejen de estar vigentes (prueba de cumplimiento)",
+   "basis": "Términos de Mercado Pago Standard 9.14; CCom art. 1047 por analogía (CF-05, CF-06, CF-11, CF-16)"
+  },
+  {
+   "category": "Reportes de liberaciones y de todas las transacciones de Mercado Pago usados para conciliar",
+   "period": "10 años (igual que el ledger)",
+   "basis": "CFF art. 30; CCom arts. 38 y 49 (CF-07)"
+  }
+ ],
+ "subprocessors": [
+  {
+   "name": "MP Agregador, S. de R.L. de C.V. (Mercado Pago Standard, México)",
+   "purpose": "Servicio de gestión de pagos (Checkout Pro); en Split 1:1, recepción por cuenta de cada refugio y liquidación de la comisión de marketplace a GuauWoow; webhooks de pagos",
+   "data": "Datos de pago del comprador o donante (gestionados por Mercado Pago), ID de pago, ID y país del pagador, monto, fecha, estado y money_release_date; en Split, user_id y tokens OAuth de cada refugio",
+   "country": "México (Boulevard Miguel de Cervantes Saavedra 161, piso 15, Granada, Miguel Hidalgo, CDMX, según sus Términos); Agregador regulado por CNBV y Banxico (cláusula 9.24)",
+   "type": "Prestador del servicio de gestión de pagos con mandato irrevocable de cada usuario (cláusula 4.2); responsable independiente de los datos que trata para sus fines (aviso de privacidad de Mercado Libre) y encargado en lo que procesa por instrucción de GuauWoow (CF-05, CF-07, CF-09)"
+  },
+  {
+   "name": "Mercado Pago W, S.A. de C.V., Institución de Fondos de Pago Electrónico (Mercado Pago Wallet)",
+   "purpose": "Solo si GuauWoow o un refugio eligen recibir las liquidaciones en una cuenta Mercado Pago Wallet: emisión y depósito mercantil de fondos de pago electrónico",
+   "data": "Saldos y movimientos de la cuenta de fondos de pago electrónico del titular",
+   "country": "México; IFPE autorizada por la CNBV (contrato de emisión y depósito mercantil de fondos de pago electrónico, no revisado)",
+   "type": "Entidad financiera independiente; no trata datos por cuenta de GuauWoow. Mencionarla en transparencia para explicar que los saldos en Wallet son de otra entidad (CF-15)"
+  }
+ ],
+ "owner_data_needed": [
+  "Tipo de persona jurídica del operador (S.A., S. de R.L., A.C., persona física) y si existe o se planea una A.C. donataria: condiciona el encuadre de LGOAAC 81-A Bis (solo S.A. y S. de R.L. pueden registrarse) y la opción de que GuauWoow reciba donativos en nombre propio.",
+  "COMISION_DONATIVOS y COMISION_TIENDA (porcentaje o 0) por fase, y si se cobrará alguna cuota fija a refugios; con comisión 0 desaparece la 'contraprestación' de 81-A Bis y de LIVA 18-B.",
+  "Tipo y estado de la cuenta de Mercado Pago de GuauWoow (persona física o moral, nivel de verificación, RFC cargado, plan de tarifas y plazos de liberación contratados, anexos o excepciones ya otorgadas por Mercado Pago).",
+  "Fecha objetivo para migrar a Split 1:1 (Fase 2) y si se usará Checkout Pro o Checkout API/Bricks.",
+  "Lista de refugios verificados con: forma jurídica, RFC, si son donatarias autorizadas, si tienen cuenta de Mercado Pago verificada y a nombre de quién.",
+  "Volumen esperado de donativos y ventas (número y monto promedio) para dimensionar reservas por contracargos y umbrales de LFPIORPI.",
+  "Confirmación de que los 'puntos' de refugios no se canjean por nada con valor económico, ni ahora ni en el roadmap.",
+  "Plazo de dispersión que se promete hoy a los refugios y la cuenta bancaria o subcuenta usada para fondos de terceros, si existe.",
+  "Respuesta por escrito de Mercado Pago (número de caso) sobre: excepción para donativos, uso del modelo marketplace y retenciones en cobros de Checkout Pro."
+ ],
+ "lawyer_points": [
+  "Abogado (regulación financiera): opinión escrita única sobre si la cuenta concentradora con dispersión a refugios encuadra en LGOAAC art. 81-A Bis (transmisor de dinero) con comisión mayor que 0 y con comisión 0, incluyendo el elemento «único objeto» y la posición de mandatario del refugio; sin criterio público de la CNBV (CF-02, CF-12; confianza media/baja).",
+  "Abogado (regulación financiera): confirmar que, sin saldos ni monederos y con devoluciones al medio original, GuauWoow no realiza actos del art. 22 de la LRITF ni captación de los arts. 2 y 103 de la LIC; validar la lectura de los puntos de ranking frente al art. 24 fr. I (CF-03).",
+  "Abogado (regulación financiera): posición de GuauWoow frente a las Disposiciones de Redes de Medios de Disposición (receptor de pagos que cobra para terceros) y riesgo de ser tratada como facilitador de pagos no autorizado por Mercado Pago y las marcas (CF-04; confianza media).",
+  "Abogado (contratos): si procede pedir a Mercado Pago la excepción de la cláusula 4.7 para donativos y para el uso por cuenta de terceros (9.6), redacción del escrito y de la cláusula del convenio que traslada a cada refugio la obligación de obtener la suya (CF-05, CF-06).",
+  "Abogado (PLD): si cobrar «en nombre y por cuenta» de los refugios encuadra en LFPIORPI art. 17 fr. XI incisos b) y c); elección entre mandato con representación (donativos-02) y comisión en nombre propio (CCom 284) considerando la exposición de PLD; conveniencia de una consulta formal a la UIF (CF-11; confianza baja en la aplicación).",
+  "Abogado (PLD): alcance de las obligaciones del art. 18 (identificación, beneficiario controlador, padrón fr. IV Bis, avisos, manual) si se opta por la Fase 1, y cómo documentar el cumplimiento voluntario mientras no haya dictamen (CF-11, CF-12).",
+  "Abogado (contratos y consumidor): cláusulas de compensación de contracargos, reservas y plazos de entrega «desde la liberación de Mercado Pago» en el convenio con refugios y en la Política de donativos, compatibles con LFPC y Términos 15.3 (CF-07, CF-08).",
+  "Abogado (financiero y marketing): revisión de textos frente a LRITF art. 12 y LGOAAC 81-B fr. I (expresiones reservadas) y de la lista de palabras prohibidas propuesta (CF-15).",
+  "Abogado (datos personales y seguridad): tratamiento de credenciales OAuth y datos de pagos de refugios, responsabilidad frente a los Términos para Desarrolladores de Mercado Pago y aviso de incidentes en 24 horas (CF-09; seguridad-incidentes-v01).",
+  "Abogado: vía legal para refugios informales (persona física con RFC, A.C., patrocinador fiscal donataria, o GuauWoow como A.C. donataria con programa de apoyos) y sus consecuencias en LISR arts. 79, 80 y 82 y LFPIORPI fr. XIII (CF-10; confianza media).",
+  "Abogado: seguimiento de la consulta pública de nuevas Disposiciones de Redes de Medios de Disposición (agosto-septiembre de 2026) y de cualquier reforma a LRITF, LGOAAC y LFPIORPI antes del lanzamiento (CF-16).",
+  "Contador: tratamiento de la comisión de marketplace (servicio con IVA, CFDI al refugio) y de la cuota fija de servicio en Fase 1 o 3; efecto de marketplace_fee mayor que 0 sobre el régimen de plataformas y la doble retención con Mercado Pago (CF-12, CF-13).",
+  "Contador: confirmar con Mercado Pago si retiene ISR e IVA sobre cobros de Checkout Pro y links de pago de refugios fuera de Mercado Libre y si lo hace sobre donativos de cuentas sin RFC; impacto en el neto informado al donante (CF-10; confianza baja).",
+  "Contador: soporte contable de los fondos de terceros en la Fase 1 transitoria (CFF 59 fr. III; RMF 2.7.1.12 por analogía) y calendario de conservación de 5 o 10 años para el ledger (CF-07, CF-12)."
+ ],
+ "key_risks": [
+  "Bloqueo o cancelación de la única pasarela: cobrar por cuenta de refugios con la cuenta de la plataforma contraviene la cláusula 9.6 de Mercado Pago y procesar donativos sin excepción escrita cae en la lista de Actividades Prohibidas; Mercado Pago puede suspender la cuenta sin aviso y retener fondos por tiempo indeterminado (CF-05, CF-06, CF-07).",
+  "Encuadre como transmisor de dinero (LGOAAC 81-A Bis) si se recibe dinero de forma habitual, con comisión, para transferirlo a quien designa el pagador: suspensión inmediata y clausura por la CNBV (art. 64) y régimen de registro y PLD imposible de cumplir para la plataforma (CF-02).",
+  "Crear saldos, monederos, «fondo común» o puntos canjeables convertiría la operación en emisión o administración de fondos de pago electrónico reservada a IFPE (LRITF 22; pena de 7 a 15 años, art. 124 fr. I) o en captación (LIC 103) (CF-03).",
+  "Actividad vulnerable de la LFPIORPI (art. 17 fr. XI) si se cobra «en nombre y representación» de los refugios y se administra su dinero: obligaciones de identificación, padrón y avisos no cumplidas (CF-11).",
+  "Contracargos de donativos sin Protección al Vendedor absorbidos íntegramente por la plataforma si ya dispersó, y reembolsos en Split que el marketplace no puede completar si el refugio no tiene fondos (CF-08).",
+  "Dispersiones prometidas en fechas fijas que Mercado Pago no libera (retenciones por fraude, reclamos, Adeudos, cuenta de retiro faltante) y reclamaciones de refugios o donantes (CF-07).",
+  "Refugios informales sin RFC ni cuenta verificada: no pueden cobrar en Split; si la plataforma custodia su dinero, no puede identificar al cliente ni cumplir PLD; retenciones máximas de ISR e IVA si cobran sin RFC (CF-10).",
+  "Textos que sugieren custodia, saldo o regulación financiera («wallet», «monedero», «regulada por CNBV») y uso de expresiones reservadas (LRITF 12; LGOAAC 81-B fr. I) (CF-15).",
+  "Donativos «simulados» aprobados en producción si falta el token de Mercado Pago (no existe bandera DONATIONS_ENABLED) y Términos 14.1/15.1 que describen un modelo que el código y la pasarela no permiten (CF-06, CF-12).",
+  "Cambios regulatorios y contractuales en curso (nuevas Disposiciones de Redes de Medios de Disposición en consulta; Mercado Pago modifica sus Términos con 10 días de vigor y 5 para rechazar) que dejen obsoleto el análisis sin que nadie lo revise (CF-16)."
+ ]
+}

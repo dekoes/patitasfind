@@ -1,0 +1,5 @@
+# Dependencias de desarrollo y pruebas (no van en la imagen de producción).
+# La imagen de desarrollo las instala con --build-arg INSTALL_DEV=true (docker-compose.yml).
+-r requirements.txt
+pytest==9.1.1
+httpx==0.28.1  # lo usa fastapi.testclient.TestClient

@@ -1,5 +1,10 @@
-"""Coincidencias entre reportes de perros perdidos/encontrados y perros en adopción."""
+"""Coincidencias entre reportes de perros perdidos/encontrados y perros en adopción.
+
+Dentro de una petición nunca se decodifican fotos: solo se usan las firmas ya calculadas y las que
+faltan se encargan a Celery (o a BackgroundTasks). Las tareas sí enriquecen en el momento (enrich=True).
+"""
 import logging
+from collections import OrderedDict
 
 from sqlalchemy import or_
 from sqlalchemy.orm import Session
@@ -14,6 +19,8 @@ logger = logging.getLogger(__name__)
 REPORT_RADIUS_KM = 10.0
 SEARCH_RADIUS_KM = 50.0
 MAX_CANDIDATES = 300
+MATCHES_CACHE_PREFIX = "lr-matches:"
+ENRICH_DEDUPE_SECONDS = 60 * 60  # no volver a encargar la misma firma durante 1 h
 
 
 # --------------------------------------------------------------------------- enriquecimiento
@@ -54,9 +61,10 @@ def attributes_for(obj) -> dict | None:
 
 
 def _candidate_dict(obj, score: int, lat=None, lon=None) -> dict:
-    distance = None
-    if lat is not None and lon is not None and obj.latitude is not None and obj.longitude is not None:
-        distance = round(haversine_km(lat, lon, obj.latitude, obj.longitude), 2)
+    from app.services.privacy import public_distance
+
+    # Resultado público: distancia desde las coordenadas aproximadas del candidato (no permite triangular)
+    distance = public_distance(obj, lat, lon)
     if isinstance(obj, Dog):
         return {"type": "adoption", "id": obj.id, "name": obj.name, "city": obj.city, "photos": obj.photos or [],
                 "score": score, "distance_km": distance}
@@ -88,7 +96,8 @@ def candidates_for_report(db: Session, report: LostReport) -> list:
     opposite = "found" if report.report_type == "lost" else "lost"
     lat, lon, city = report.latitude, report.longitude, report.city
     base = db.query(LostReport).filter(
-        LostReport.status == "active", LostReport.report_type == opposite, LostReport.id != report.id
+        LostReport.status == "active", LostReport.report_type == opposite, LostReport.id != report.id,
+        LostReport.is_hidden == False,  # noqa: E712
     )
     has_geo = (lat is not None and lon is not None) or bool(city)
     reports = (
@@ -98,7 +107,7 @@ def candidates_for_report(db: Session, report: LostReport) -> list:
     items = list(reports)
     if report.report_type == "lost":
         # Un perro perdido pudo haber sido rescatado y publicado en adopción
-        dogs_q = db.query(Dog).filter(Dog.status == "available")
+        dogs_q = db.query(Dog).filter(Dog.status == "available", Dog.is_hidden == False)  # noqa: E712
         dogs = (
             _geo_filter(dogs_q, Dog, lat, lon, city, REPORT_RADIUS_KM) if has_geo else dogs_q
         ).order_by(Dog.created_at.desc()).limit(MAX_CANDIDATES).all()
@@ -106,24 +115,108 @@ def candidates_for_report(db: Session, report: LostReport) -> list:
     return items
 
 
-def score_against(db: Session, query_sig, query_attrs, items, lat=None, lon=None) -> list[dict]:
+def _needs_signature(obj) -> bool:
+    return not obj.photo_signature and bool(obj.photos)
+
+
+def enqueue_enrichment(items, background_tasks=None) -> int:
+    """Encarga en segundo plano las firmas que faltan (sin IA). Devuelve cuántas faltaban.
+
+    Con Celery va a la cola; sin Celery, a BackgroundTasks si la petición lo da. Nunca corre aquí mismo.
+    """
+    from app import cache
+
+    missing = [i for i in items if _needs_signature(i)]
+    pending: dict[str, list[int]] = {"dog": [], "lost_report": []}
+    for item in missing:
+        kind = "dog" if isinstance(item, Dog) else "lost_report"
+        if cache.add(f"enrich-q:{kind}:{item.id}", ENRICH_DEDUPE_SECONDS):
+            pending[kind].append(item.id)
+    from app.tasks.matching import enrich_signatures
+
+    for kind, ids in pending.items():
+        if not ids:
+            continue
+        try:
+            if settings.celery_enabled:
+                enrich_signatures.delay(kind, ids)
+            elif background_tasks is not None:
+                background_tasks.add_task(enrich_signatures, kind, ids)
+        except Exception as exc:  # noqa: BLE001 - broker caído: lo completa el backfill horario
+            logger.warning("No se pudieron encargar firmas de %s %s: %s", kind, ids[:5], exc)
+    return len(missing)
+
+
+def _score(db: Session, query_sig, query_attrs, items, lat=None, lon=None, enrich=False, background_tasks=None):
+    """(resultados ordenados, cuántos candidatos no tenían firma)."""
+    if enrich:
+        for item in items:
+            if _needs_signature(item):
+                ensure_enrichment(db, item, with_ai=False, commit=False)
+        db.commit()
+        missing = 0
+    else:
+        missing = enqueue_enrichment(items, background_tasks)
     results = []
     for item in items:
-        if not item.photo_signature and item.photos:
-            ensure_enrichment(db, item, with_ai=False, commit=False)
         score = vision.combined_score(query_sig, query_attrs, item.photo_signature, attributes_for(item))
         if score > 0:
             results.append(_candidate_dict(item, score, lat, lon))
-    db.commit()
     results.sort(key=lambda r: (-r["score"], r["distance_km"] if r["distance_km"] is not None else 1e9))
-    return results
+    return results, missing
 
 
-def matches_for_report(db: Session, report: LostReport, limit: int = 10) -> list[dict]:
-    if not report.photo_signature and report.photos:
-        ensure_enrichment(db, report, with_ai=False)
+def score_against(db: Session, query_sig, query_attrs, items, lat=None, lon=None, enrich=False,
+                  background_tasks=None) -> list[dict]:
+    return _score(db, query_sig, query_attrs, items, lat, lon, enrich, background_tasks)[0]
+
+
+def _matches(db: Session, report: LostReport, limit: int, enrich: bool, background_tasks=None):
+    missing = 0
+    if _needs_signature(report):
+        if enrich:
+            ensure_enrichment(db, report, with_ai=False)
+        else:
+            missing += enqueue_enrichment([report], background_tasks)
     items = candidates_for_report(db, report)
-    return score_against(db, report.photo_signature, attributes_for(report), items, report.latitude, report.longitude)[:limit]
+    results, missing_items = _score(db, report.photo_signature, attributes_for(report), items,
+                                    report.latitude, report.longitude, enrich, background_tasks)
+    return results[:limit], missing + missing_items
+
+
+def matches_for_report(db: Session, report: LostReport, limit: int = 10, enrich: bool = False,
+                       background_tasks=None) -> list[dict]:
+    return _matches(db, report, limit, enrich, background_tasks)[0]
+
+
+# --------------------------------------------------------------------------- caché de coincidencias
+def matches_cache_key(report_id: int) -> str:
+    return f"{MATCHES_CACHE_PREFIX}{report_id}"
+
+
+def invalidate_report_matches(*report_ids: int):
+    """Borra las coincidencias en caché de esos reportes (cambiaron o se recalcularon)."""
+    from app import cache
+
+    cache.delete(*[matches_cache_key(i) for i in report_ids if i])
+
+
+def cached_matches_for_report(db: Session, report: LostReport, limit: int = 10, background_tasks=None) -> list[dict]:
+    """Coincidencias para la petición pública, 10 min en Redis.
+
+    Si faltaban firmas (recién publicado) no se guarda: en cuanto Celery las calcula, la siguiente
+    consulta ya trae el resultado completo.
+    """
+    from app import cache
+
+    key = matches_cache_key(report.id)
+    hit = cache.get(key)
+    if isinstance(hit, list):
+        return hit[:limit]
+    results, missing = _matches(db, report, limit, enrich=False, background_tasks=background_tasks)
+    if not missing:
+        cache.set(key, results, ttl=settings.matches_cache_ttl_seconds)
+    return results
 
 
 # --------------------------------------------------------------------------- notificaciones
@@ -140,13 +233,19 @@ def _already_notified(db: Session, user_id: int, key: str) -> bool:
 
 def run_report_matching(db: Session, report_id: int) -> list[dict]:
     """Enriquece el reporte, busca coincidencias y notifica a ambas partes (score >= umbral)."""
-    from app.utils.notifications import create_notification
+    from app.services.notify import notify_report_match
 
     report = db.query(LostReport).filter(LostReport.id == report_id).first()
     if not report:
         return []
     ensure_enrichment(db, report, with_ai=True)
-    matches = matches_for_report(db, report, limit=10)
+    matches = matches_for_report(db, report, limit=10, enrich=True)
+    # Recién calculado: queda en caché para /lost-reports/{id}/matches y se invalida el de los
+    # reportes que ahora coinciden con este (su lista pudo cambiar)
+    from app import cache
+
+    cache.set(matches_cache_key(report.id), matches, ttl=settings.matches_cache_ttl_seconds)
+    invalidate_report_matches(*[m["id"] for m in matches if m["type"] in ("lost", "found")])
     strong = [m for m in matches if m["score"] >= settings.match_score_threshold]
     for m in strong:
         if m["type"] == "adoption":
@@ -158,24 +257,32 @@ def run_report_matching(db: Session, report_id: int) -> list[dict]:
         key = f"lr:{pair[0]}:{pair[1]}"
         for mine, theirs in ((report, other), (other, report)):
             if mine.reporter_id and not _already_notified(db, mine.reporter_id, key):
-                create_notification(
-                    db,
-                    user_id=mine.reporter_id,
-                    type="possible_match",
-                    title="¡Posible coincidencia!",
-                    body=(
-                        f"Encontramos un reporte de perro {'encontrado' if theirs.report_type == 'found' else 'perdido'} "
-                        f"que se parece a {mine.dog_name} ({m['score']}% de similitud). Revísalo."
-                    ),
-                    data={"dedupe": key, "report_id": mine.id, "match_report_id": theirs.id, "score": m["score"]},
-                )
+                # En la app y, si están configurados, por correo y plantilla de WhatsApp
+                notify_report_match(db, mine, theirs, m["score"], key)
         # Reportes previos que llegaron por WhatsApp: avisamos al número de contacto
         if other.source == "whatsapp" and other.contact_phone and not other.reporter_id:
             _notify_whatsapp(other, report, m["score"], key)
     return matches
 
 
-_wa_sent: set[str] = set()
+class _BoundedSet:
+    """Conjunto en memoria con tope (descarta lo más viejo); la deduplicación real vive en Redis."""
+
+    def __init__(self, maxlen: int):
+        self.maxlen = maxlen
+        self._items: OrderedDict[str, None] = OrderedDict()
+
+    def __contains__(self, key: str) -> bool:
+        return key in self._items
+
+    def add(self, key: str):
+        self._items[key] = None
+        self._items.move_to_end(key)
+        while len(self._items) > self.maxlen:
+            self._items.popitem(last=False)
+
+
+_wa_sent = _BoundedSet(maxlen=5000)
 
 
 def is_whatsapp_opted_out(phone: str | None) -> bool:
@@ -197,12 +304,28 @@ def is_whatsapp_opted_out(phone: str | None) -> bool:
         db.close()
 
 
+def has_whatsapp_consent(phone: str | None) -> bool:
+    """True si la última constancia de «Avisos por WhatsApp» de ese número es un sí (respondió que sí en el bot,
+    escribió ALTA o lo activó en la app). Sin constancia no hay avisos proactivos (privacidad-whatsapp.html §5)."""
+    from app.database import SessionLocal
+    from app.services import consent
+
+    db = SessionLocal()
+    try:
+        return consent.latest_phone_consent(db, phone) is True
+    finally:
+        db.close()
+
+
 def _notify_whatsapp(target: LostReport, new_report: LostReport, score: int, key: str):
     from app import cache
-    from app.services import whatsapp_api
+    from app.services import notify
 
     if is_whatsapp_opted_out(target.contact_phone):
         logger.info("No se envía alerta por WhatsApp al reporte %s: el número se dio de baja.", target.id)
+        return
+    if not has_whatsapp_consent(target.contact_phone):
+        logger.info("No se envía alerta por WhatsApp al reporte %s: el número no dio permiso de avisos.", target.id)
         return
     dedupe = f"wa-match:{key}"
     if dedupe in _wa_sent or cache.get(dedupe):
@@ -210,10 +333,14 @@ def _notify_whatsapp(target: LostReport, new_report: LostReport, score: int, key
     _wa_sent.add(dedupe)
     cache.set(dedupe, 1, ttl=60 * 60 * 24 * 30)
     kind = "encontrado" if new_report.report_type == "found" else "perdido"
-    whatsapp_api.send_text(
+    link = settings.public_url(f"/app/?report={new_report.id}")
+    # Texto libre solo dentro de la ventana de 24 h; fuera de ella, la plantilla WHATSAPP_TEMPLATE_MATCH
+    notify.send_whatsapp(
         target.contact_phone,
         f"🐶 ¡Posible coincidencia! Alguien reportó un perro {kind} que se parece al de tu reporte #{target.id} "
-        f"({score}% de similitud).\nMíralo aquí: {settings.public_url(f'/app/?report={new_report.id}')}",
+        f"({score}% de similitud).\nMíralo aquí: {link}",
+        settings.whatsapp_template_match,
+        [f"{target.dog_name} (reporte #{target.id})", link],
     )
 
 
@@ -241,12 +368,12 @@ def search_by_photo(db: Session, data: bytes, lat=None, lon=None, city=None, rep
         return found
 
     if want_reports:
-        base = db.query(LostReport).filter(LostReport.status == "active")
+        base = db.query(LostReport).filter(LostReport.status == "active", LostReport.is_hidden == False)  # noqa: E712
         if report_type in ("lost", "found"):
             base = base.filter(LostReport.report_type == report_type)
         items += collect(LostReport, base)
     if want_dogs:
-        items += collect(Dog, db.query(Dog).filter(Dog.status == "available"))
+        items += collect(Dog, db.query(Dog).filter(Dog.status == "available", Dog.is_hidden == False))  # noqa: E712
 
     query_attrs = analysis if analysis and analysis.get("is_dog", True) else None
     matches = score_against(db, query_sig, query_attrs, items, lat, lon)[:10]

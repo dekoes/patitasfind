@@ -1,0 +1,759 @@
+{
+ "domain": "gap-veterinarias-y-resenas",
+ "kind": "gap",
+ "generated_at": "2026-10-17",
+ "disclaimer": "No es asesoría legal. Esta sección cierra el hueco 'veterinarias-y-resenas' (sección de clínicas veterinarias y reseñas, decidida después de la investigación por dominios). Las citas a textos oficiales (LGS, Ley de Profesiones, CPF, LFSA y su Reglamento, LFPC, LFPDPPP, CCF, Ley de réplica, Ley de Responsabilidad Civil CDMX, LPBACDMX, Ley Edomex, CPEUM) y a los términos y políticas de Google Maps Platform son de confianza alta; la aplicación de la LGS 83 a veterinarios, el alcance del MVRA para clínicas de consulta, el encuadre de GuauWoow como 'no proveedor', la lectura del art. 32 LFPC sobre reseñas, el estándar de responsabilidad del intermediario y la inaplicabilidad de la ley de réplica son interpretación (confianza media) y deben confirmarse con abogado. La descripción del portal de la SEP y de la Constancia de Situación Profesional proviene de prensa (confianza media). Ningún hallazgo quedó no verificable, pero el registro digital de la jurisprudencia 1a./J. 38/2013 y el estado del caso Richter contra Google no se cotejaron en fuente primaria.",
+ "gap": {
+  "key": "veterinarias-y-resenas",
+  "focus": "Directorio de clínicas veterinarias con verificación de cédula y reseñas: requisitos para listar y anunciar servicios veterinarios en México (LGS 79 y 83, Ley de Profesiones, CPF 250, LFSA y Reglamento sobre establecimientos y MVRA, NOM-064 y NOM-087, leyes locales CDMX y Edomex), verificación de cédula en el Registro Nacional de Profesionistas, reglas de publicidad (LFPC 32 y 35), reseñas de Google (Google Maps Platform ToS, Service Specific Terms y políticas de Places: atribución, sin caché de reseñas, máximo 5, sin alterar ni filtrar), reseñas propias (LFPC, NMX-COE), daño moral y ausencia de puerto seguro, derecho de réplica, datos del reseñador, deslindes por resultados médicos y redacción de la insignia.",
+  "why": "La sección de clínicas se decidió después de la investigación por dominios: contenido-plataforma, buenas-practicas, datos-personales, comunicaciones-cookies y seguridad-incidentes la mencionan como 'página nueva sin hallazgo verificado' o 'por analogía', con los términos de Google 'pendientes de revisión'. Sin esta sección no pueden escribirse /legal/veterinarias, /legal/resenas ni el anexo de Términos para clínicas, y el riesgo de publicar perfiles con cédula no verificada o de incumplir el contrato con Google es inmediato.",
+  "resolution": "Regla única: (1) ningún perfil de clínica se publica sin cédula del médico veterinario responsable cotejada en el Registro Nacional de Profesionistas, identificación y prueba del establecimiento; la cédula y la institución se muestran (LGS 83) y la insignia dice solo lo que se verificó; (2) GuauWoow es directorio y medio de difusión, no proveedor del servicio veterinario: sin cobro de consultas, sin agenda con pago, sin venta de medicamentos; deslinde claro y aviso de urgencias; (3) el perfil es publicidad del proveedor: solo afirmaciones comprobables, sin avales ni superlativos, con expediente de sustento y canal para órdenes de PROFECO; (4) el directorio vive de datos propios y reseñas propias; Google es complemento: solo se guarda place_id, las reseñas de Google se piden en tiempo real, máximo 5, con atribución, enlace a Google Maps y reporte, nunca en el mapa OSM ni mezcladas con las calificaciones internas; (5) las reseñas propias son de usuarios verificados sobre experiencia propia, con reglas que trasladan el estándar de daño moral (opiniones sí; imputaciones de delitos e insultos no), moderación con plazos cumplibles, respuesta pública de la clínica, procedimiento de aclaración y responsable de reclamaciones identificado; (6) cédula falsa = despublicación inmediata, revocación, evidencia y evaluación de denuncia.",
+  "resolves_conflicts_with": [
+   "buenas-practicas-23",
+   "buenas-practicas-27",
+   "buenas-practicas-P01",
+   "contenido-plataforma-07",
+   "contenido-plataforma-27",
+   "consumidor-ecommerce-25",
+   "consumidor-ecommerce-29",
+   "datos-personales (subencargado Google Places)",
+   "comunicaciones-cookies-06",
+   "seguridad-incidentes-09"
+  ]
+ },
+ "owner_decision_context": "El dueño decidió añadir una sección de clínicas veterinarias con registro mediante cédula profesional del veterinario responsable, verificación administrativa, mapa, reseñas de Google vía Places API con atribución, reseñas in-app de usuarios verificados y reportes de contenido, y quiere la plataforma 'bien blindada' y transparente. Esta sección da por sentado que la sección de clínicas es gratuita para clínicas y usuarios, sin cobro de consultas ni agenda con pago, sin venta de medicamentos y con el mapa general en teselas OSM/CARTO. Si el dueño quisiera cobrar a las clínicas por destacarse, cobrar citas o vender productos de clínicas, cambian el encuadre de 'no proveedor' (hallazgo 09), las obligaciones de comercio electrónico y fiscales (dominios consumidor-ecommerce y fiscal-tienda) y el análisis del contrato con Google (3.2.3(d)(iii), hallazgo 10); esta sección no recomienda esa vía sin dictamen previo.",
+ "pages": [
+  {
+   "slug": "veterinarias",
+   "title": "Clínicas veterinarias en GuauWoow: qué verificamos, qué no, y reglas de la sección",
+   "purpose": "Página pública de la sección de clínicas: qué es el directorio, qué significa la insignia, qué deben cumplir las clínicas, deslinde de responsabilidad médica, aviso de urgencias, reglas de contenido del perfil y cómo reportar. Ruta prevista: /legal/veterinarias.",
+   "required_contents": [
+    "GuauWoow es un directorio y medio de difusión; no presta servicios veterinarios, no cobra consultas, no garantiza resultados; la relación es con la clínica y su médico responsable [gap-veterinarias-y-resenas-09]",
+    "Aviso de urgencias: 'GuauWoow no es un servicio de emergencias' [09]",
+    "Requisito de cédula profesional del médico veterinario responsable y por qué (LGS 79 y 83, Ley de Profesiones, CPF 250) [01, 02]",
+    "Qué significa 'Cédula verificada' y qué no se verifica; fecha de verificación; reverificación anual [03, 17]",
+    "Qué deben cumplir las clínicas (lenguaje llano): aviso de inicio de funcionamiento ante SENASICA, MVRA si venden medicamentos, autorización local, residuos NOM-087; tabla por estado (CDMX, Edomex; otros pendientes) con autoridad ante la cual denunciar [04, 06, 07]",
+    "GuauWoow no vende ni intermedia medicamentos; las recetas las expide el veterinario [05]",
+    "Reglas de contenido del perfil: afirmaciones comprobables, sin avales ni superlativos, especialidades con constancia, 'Patrocinado' [08]",
+    "Cómo reportar una clínica (cédula falsa, condiciones sanitarias, publicidad engañosa) y qué pasa después [16, 07, 08]",
+    "Enlaces a /legal/resenas, /legal/verificacion y /legal/terminos-clinicas; fecha de última revisión [17]"
+   ],
+   "legal_basis": [
+    "LGS arts. 79 y 83",
+    "Ley Reglamentaria del Artículo 5o. Constitucional arts. 2, 3, 24, 25, 33, 34, 62, 63, 68, 73",
+    "CPF art. 250 fr. II",
+    "LFSA arts. 105 frs. VI y VII, 110, 92, 151",
+    "Reglamento LFSA arts. 195, 197, 237",
+    "NOM-087-SEMARNAT-SSA1-2002 numerales 1, 4, 5",
+    "LPBACDMX arts. 42, 43, 65 fr. II",
+    "Ley Edomex arts. 47 y 49",
+    "LFPC arts. 1, 2, 5, 32, 35"
+   ]
+  },
+  {
+   "slug": "resenas",
+   "title": "Política de reseñas (clínicas y productos)",
+   "purpose": "Reglas de las reseñas propias y de la exhibición de reseñas de Google; complementa la página prevista por buenas-practicas-23 para productos de la tienda.",
+   "required_contents": [
+    "Quién puede reseñar clínicas (cuenta con teléfono verificado, antigüedad mínima, una por clínica), sobre qué (experiencia propia de 12 meses) y qué está prohibido (propia clínica, competidores, pagadas sin etiqueta, datos de terceros, imputaciones de delitos, insultos) [12, 13]",
+    "Cómo se ordenan y promedian; nunca se ocultan ni retrasan las negativas; la clínica no edita ni paga por posicionar; etiqueta 'Reseña incentivada' [12]",
+    "Respuesta pública de la clínica y procedimiento de aclaración o réplica; plazos [14]",
+    "Reportes, retiros, aviso al autor y apelación; evidencia conservada; conteos en transparencia [13]",
+    "Sección 'Reseñas de Google': contenido de Google, máximo 5, atribución del autor, enlace a Google Maps y reporte a Google, ordenadas por relevancia según Google, Google no las verifica, GuauWoow no las guarda, modera ni responde; no se combinan con las calificaciones internas [10, 11]",
+    "Datos del reseñador: nombre mostrado, edición y borrado, qué ve la clínica [15]",
+    "Textos sobre libertad de expresión y daño moral en lenguaje llano: 'opina, no acuses' [13]"
+   ],
+   "legal_basis": [
+    "LFPC arts. 32 y 76 Bis 1",
+    "NMX-COE-001-SCFI-2018 numeral 5.3.3",
+    "CPEUM arts. 6 y 7",
+    "CCF arts. 1916 y 1916 Bis",
+    "Ley de Responsabilidad Civil CDMX arts. 14, 25, 32",
+    "Ley de réplica arts. 4 a 7",
+    "LFPDPPP arts. 7, 12, 17",
+    "Google Maps Platform ToS 3.2.2, 3.2.3; Service Specific Terms A.3, 14.1-14.3; Políticas de Places API"
+   ]
+  },
+  {
+   "slug": "verificacion",
+   "title": "Verificación de refugios, casas de paso y clínicas (sección clínicas)",
+   "purpose": "Añadir a la página prevista por buenas-practicas-27 el procedimiento de verificación de clínicas, la redacción de la insignia y el procedimiento de revocación.",
+   "required_contents": [
+    "Documentos: número de cédula del responsable cotejado en el Registro Nacional de Profesionistas (o Constancia de Situación Profesional con QR), identificación del responsable, prueba del establecimiento; nunca públicos salvo nombre, cédula e institución [01, 02, 03]",
+    "Texto de la insignia 'Cédula verificada' y lista de lo que no se verifica (calidad, instalaciones, precios, permisos locales) [17]",
+    "Insignias adicionales solo con constancia ('Especialidad acreditada'); autodeclaraciones (SENASICA, autorización local, NOM-087) no son insignias [04, 06, 07]",
+    "Reverificación anual; revocación por cédula falsa o ajena, sanción firme, clausura o manipulación de reseñas; despublicación inmediata, aviso, 5 días para aclarar, evidencia y evaluación de denuncia [16]",
+    "Conteos en transparencia: verificadas, rechazadas, revocadas, tiempo medio [03]"
+   ],
+   "legal_basis": [
+    "Ley Reglamentaria del Artículo 5o. Constitucional arts. 23, 62, 63, 73",
+    "CPF art. 250 fr. II",
+    "LGS art. 83",
+    "LFPC art. 32",
+    "LFPDPPP arts. 3 fr. X, 9 fr. II, 17"
+   ]
+  },
+  {
+   "slug": "terminos-clinicas",
+   "title": "Términos para clínicas veterinarias (anexo)",
+   "purpose": "Anexo contractual que acepta quien registra una clínica: declaraciones, obligaciones de contenido, reseñas, verificación, revocación y responsabilidades. Sustituye el anexo 'por analogía' previsto por buenas-practicas-P01.",
+   "required_contents": [
+    "Declaraciones: la cédula es propia o del responsable con su autorización; el responsable ejerce en el establecimiento; cumplimiento de LFSA (aviso de inicio de funcionamiento, MVRA si vende medicamentos), ley local y NOM-087; sin sanción firme ni clausura vigente [01, 04, 06, 07]",
+    "Contenido del perfil: solo afirmaciones comprobables; sin avales, superlativos ni garantías de resultado; especialidades con constancia; precios con IVA y vigencia; 'Patrocinado' [08]",
+    "Prohibido ofrecer, vender o apartar medicamentos por GuauWoow, chat o bot [05]",
+    "Reseñas: la clínica no edita, borra ni paga por posicionar; puede responder; manipular reseñas causa pérdida de verificación; la respuesta es contenido de la clínica [12, 14]",
+    "Deslinde: GuauWoow no es proveedor del servicio, no responde por el acto médico; la clínica responde frente a sus clientes conforme a la Ley de Profesiones y al Código Civil y mantiene domicilio y teléfono de reclamaciones (LFPC 76 Bis fr. III) [09]",
+    "Verificación, reverificación anual, revocación y despublicación; cooperación con PROFECO y autoridades (órdenes de suspensión de publicidad) [03, 08, 16]",
+    "Datos personales del responsable: finalidad, publicación de nombre, cédula e institución, derechos ARCO [02, 15]",
+    "Selector de estado y ley aplicable; versión y fecha de aceptación registradas [13]"
+   ],
+   "legal_basis": [
+    "Ley Reglamentaria del Artículo 5o. Constitucional arts. 24, 25, 33, 34, 62, 63, 71",
+    "LGS arts. 79 y 83",
+    "LFSA arts. 92, 105, 110, 151",
+    "LFPC arts. 1, 2, 32, 35, 76 Bis fr. III",
+    "CCF arts. 1910 y 1916",
+    "LFPDPPP arts. 7, 9 fr. II, 17"
+   ]
+  },
+  {
+   "slug": "terminos",
+   "title": "Términos y condiciones (secciones de clínicas, reseñas y contenido de Google Maps)",
+   "purpose": "Añadir las cláusulas generales que ven todos los usuarios: naturaleza del directorio, reseñas, contenido de Google y responsabilidad.",
+   "required_contents": [
+    "Cláusula 'Directorio de clínicas veterinarias': GuauWoow no presta ni garantiza servicios veterinarios; aviso de urgencias; la insignia solo acredita lo verificado [09, 17]",
+    "Cláusula 'Reseñas': reglas resumidas, licencia de publicación, responsabilidad del autor por sus afirmaciones, retiro y apelación, respuesta de la clínica [12, 13, 14]",
+    "Cláusula 'Contenido de Google Maps': la app incluye funciones y contenido de Google Maps sujetos a los Google Maps End User Additional Terms y a la Google Privacy Policy (enlaces); GuauWoow no guarda ni responde por las reseñas de Google [10, 11]",
+    "Conductas prohibidas: reseñas falsas, pagadas sin etiqueta o coaccionadas; cédula falsa; venta de medicamentos [05, 12, 16]",
+    "Ley aplicable y responsabilidad civil local (ley especial CDMX; códigos civiles) con selector de estado [13]"
+   ],
+   "legal_basis": [
+    "Google Maps Platform ToS 3.2.2(a)(i)",
+    "LFPC arts. 1, 2, 5, 32",
+    "CCF arts. 1910, 1916, 1916 Bis",
+    "CPEUM arts. 6 y 7"
+   ]
+  },
+  {
+   "slug": "privacidad",
+   "title": "Aviso de privacidad (finalidades de clínicas, reseñas y Google Places)",
+   "purpose": "Añadir las finalidades y terceros que exige la sección.",
+   "required_contents": [
+    "Finalidad: verificación y publicación de nombre, cédula e institución del médico veterinario responsable; fuente: registrante y Registro Nacional de Profesionistas (fuente de acceso público); aviso al responsable cuando no es el registrante [02, 15]",
+    "Finalidad: publicación de reseñas con nombre de usuario; edición y borrado; qué ve la clínica [15]",
+    "Google LLC (Google Maps Platform, Places API) como tercero: consulta en tiempo real de datos y reseñas de Google; GuauWoow no almacena reseñas ni datos de sus autores; si la consulta se hace desde el navegador, la IP llega a Google [10, 15]",
+    "Conservación: capturas de verificación 12 meses tras el rechazo o la revocación; reseñas retiradas conforme al calendario de moderación [03, 16]"
+   ],
+   "legal_basis": [
+    "LFPDPPP arts. 3 fr. X, 7, 8, 9 fr. II, 12, 17",
+    "LGS art. 83",
+    "Google Maps Platform ToS 3.2.2(a)(i) y 4.4(c)"
+   ]
+  },
+  {
+   "slug": "moderacion-y-apelaciones",
+   "title": "Moderación y apelaciones (reseñas de clínicas, aclaraciones y réplica)",
+   "purpose": "Añadir a la página prevista por buenas-practicas-16 los motivos, plazos y el procedimiento de aclaración o réplica para reseñas de clínicas.",
+   "required_contents": [
+    "Motivos de reporte: 'afecta mi honor o reputación', 'reseña falsa o pagada', 'datos personales', 'cédula o veterinario falso', 'condiciones sanitarias', 'publicidad engañosa' [13, 16, 07, 08]",
+    "Formulario público para personas sin cuenta (clínicas y empleados aludidos) [13]",
+    "Plazos: retención automática con revisión en 24 horas hábiles; revisión de reportes en 72 horas hábiles; aclaración o réplica en 5 días hábiles; solo plazos cumplibles [13, 14]",
+    "Aviso al autor con la regla aplicada; apelación ante persona distinta; registro en bitácora [13]",
+    "Responsable de reclamaciones de contenido con nombre, correo y domicilio (también en /legal/canales-oficiales) [14]"
+   ],
+   "legal_basis": [
+    "CCF art. 1916 (rectificación o respuesta)",
+    "Ley de réplica arts. 4, 6 y 7",
+    "Ley de Responsabilidad Civil CDMX arts. 25 y 32",
+    "LFDA art. 114 Octies (práctica de aviso y apelación)"
+   ]
+  },
+  {
+   "slug": "transparencia",
+   "title": "Informe de transparencia (sección clínicas y reseñas)",
+   "purpose": "Añadir los conteos de la sección.",
+   "required_contents": [
+    "Clínicas registradas, verificadas, rechazadas y revocadas; tiempo medio de verificación [03, 16]",
+    "Reseñas publicadas, reportadas, retiradas por motivo, aclaraciones publicadas, apelaciones y resultado [12, 13, 14]",
+    "Órdenes de PROFECO u otras autoridades recibidas sobre perfiles de clínicas [08]",
+    "Fecha de la última revisión de los términos de Google y de las leyes aplicables [17]"
+   ],
+   "legal_basis": [
+    "Buena práctica (Santa Clara Principles 2.0, buenas-practicas-16)",
+    "LFPC art. 35"
+   ]
+  },
+  {
+   "slug": "proveedores",
+   "title": "Proveedores y terceros (Google Maps Platform)",
+   "purpose": "Registrar a Google LLC como tercero de contenido con sus términos y lo que recibe.",
+   "required_contents": [
+    "Google LLC, Google Maps Platform (Places API): datos de la clínica y reseñas públicas de Google consultadas en tiempo real; place_id almacenado; sin datos de usuarios de GuauWoow si la llamada es desde el servidor; términos y fecha de versión [10, 11]"
+   ],
+   "legal_basis": [
+    "Google Maps Platform ToS 4.4",
+    "LFPDPPP art. 17"
+   ]
+  }
+ ],
+ "terms_and_privacy_updates": [
+  "Términos: nueva cláusula 'Directorio de clínicas veterinarias' con el deslinde (no proveedor, sin garantía de resultados, aviso de urgencias) y la explicación de la insignia [gap-veterinarias-y-resenas-09, 17]",
+  "Términos: nueva cláusula 'Contenido de Google Maps' con aviso de que la app incluye funciones y contenido de Google Maps sujetos a los Google Maps End User Additional Terms (https://maps.google.com/help/terms_maps/) y a la Google Privacy Policy (https://policies.google.com/privacy); GuauWoow no guarda ni responde por las reseñas de Google [10, 11]",
+  "Términos: cláusula 'Reseñas' (reglas, licencia, responsabilidad del autor, retiro, apelación, respuesta de la clínica) y conductas prohibidas: reseñas falsas, pagadas sin etiqueta o coaccionadas; cédula falsa; venta de medicamentos [05, 12, 13, 16]",
+  "Términos: ley aplicable y responsabilidad civil local con selector de estado (ley especial de la CDMX; códigos civiles en los demás estados) [13]",
+  "Anexo Términos para clínicas veterinarias: declaraciones de cédula y cumplimiento regulatorio, reglas de contenido y publicidad, reseñas y respuesta, deslinde, verificación, reverificación y revocación, cooperación con PROFECO, datos del responsable [01-09, 12, 14, 16]",
+  "Aviso de privacidad: finalidades 'verificación y publicación de la cédula del responsable', 'publicación de reseñas' y 'consulta en tiempo real de contenido de Google Maps Platform'; Google LLC como tercero; nota de fuente de acceso público (Registro Nacional de Profesionistas); aviso al veterinario responsable cuando no es el registrante [02, 10, 15]",
+  "Política de cookies y banner: declarar Google Places si la consulta se hace desde el navegador (IP del usuario) o documentar que se hace desde el servidor [10]",
+  "Política de reseñas: nueva página con reseñas propias y de Google; Política de verificación: sección de clínicas e insignia; Moderación y apelaciones: motivos, plazos y procedimiento de aclaración o réplica; Canales oficiales: responsable de reclamaciones de contenido [12, 13, 14, 17]"
+ ],
+ "product_requirements": [
+  "Modelo de clínica con campos: nombre comercial, razón social o persona física, responsable (nombre como en la cédula), número de cédula, carrera, institución, estado, municipio, domicilio del local, teléfono y correo de reclamaciones, horario, teléfono de urgencias (opcional), servicios (lista cerrada), especialidades (con constancia), folio de aviso SENASICA (opcional), MVRA (opcional), autodeclaraciones (aviso SENASICA, autorización local, NOM-087), estado de verificación, fecha, verificador, fecha de caducidad (12 meses), place_id de Google (opcional) [01, 03, 04, 06, 07, 10]",
+  "Flujo de verificación manual en el panel de administración: cotejo en el Registro Nacional de Profesionistas o validación del QR de la Constancia de Situación Profesional; captura fechada guardada en almacenamiento privado; identificación del responsable y prueba del establecimiento; resultado y motivo; registro en AdminAuditLog [03, 16]",
+  "Perfil público: nombre del responsable, cédula, institución y leyenda 'Cédula consultada en el Registro Nacional de Profesionistas el [fecha]'; domicilio, teléfono y medio de reclamaciones de la clínica; aviso de urgencias; sin CURP, sin imagen de la cédula [02, 09]",
+  "Insignia 'Cédula verificada' con tooltip de texto fijo; insignias opcionales 'Especialidad acreditada'; las autodeclaraciones se muestran como 'declarado por la clínica' o no se muestran; sin rankings editoriales [17]",
+  "Validación de contenido del perfil: lista cerrada de servicios; bloqueo de nombres de fármacos, 'sin receta', superlativos, 'garantizado', 'certificada', 'avalada', 'recomendada'; especialidades solo con constancia; precios con 'IVA incluido' y vigencia; etiqueta 'Patrocinado' [05, 08]",
+  "Diccionario de moderación ampliado con nombres genéricos de medicamentos controlados y frases de venta para chat, perfiles, reseñas, respuestas y bot [05]",
+  "Integración Places API (New) desde el servidor: solo place_id en base de datos; latitud y longitud de Places, si se usan, con expiración de 30 días; respuestas de reseñas, calificación y autores sin persistir (ni en caché de servidor ni en logs); sin uso en entrenamiento de IA; registro de la versión de términos aceptada [10]",
+  "Componente 'Reseñas en Google Maps' en el perfil, separado visualmente del bloque interno: logotipo o texto 'Google Maps' (translate='no'), calificación y conteo de Google, hasta 5 reseñas sin recortar ni reordenar, avatar + nombre + enlace del autor, fecha relativa, 'Ver en Google Maps' (googleMapsUri), 'Reportar a Google' (flagContentUri), aviso de orden por relevancia y de que Google no verifica reseñas, aviso de traducción; sin resúmenes con IA [11]",
+  "El contenido de Google nunca se muestra en la vista de mapa OSM/CARTO ni en la misma pantalla que ese mapa; el perfil que muestra contenido de Google no incluye mapa, o incluye un mapa de Google [10]",
+  "Reseñas internas: una por cuenta y clínica; requisitos de cuenta (SMS verificado, antigüedad mínima); campos calificación, texto, fecha aproximada de visita, casilla 'recibí descuento o regalo' (etiqueta incentivada); edición y borrado por el autor; orden cronológico por defecto con selector; promedio simple y conteo; la clínica no puede editar ni ocultar [12, 15]",
+  "Respuesta pública de la clínica verificada (una por reseña) con las mismas reglas de contenido; función 'Solicitar aclaración' para clínicas y aludidos; plazo de 5 días hábiles; publicación de la aclaración sin comentarios [14]",
+  "Filtro previo de insultos, imputaciones penales y datos personales (teléfonos, correos, nombres completos de terceros) en reseñas y respuestas con retención para revisión humana en 24 horas hábiles [13, 15]",
+  "Motivos de reporte nuevos: 'afecta mi honor o reputación', 'reseña falsa o pagada', 'datos personales', 'cédula o veterinario falso', 'condiciones sanitarias del establecimiento', 'publicidad engañosa'; formulario público para personas sin cuenta; aviso al autor y apelación ante administrador distinto [13, 16]",
+  "Procedimiento de revocación: despublicación preventiva inmediata, notificación, 5 días hábiles para aclarar, revocación definitiva, cancelación de cuenta y bloqueo de nuevo registro, aviso a usuarios que interactuaron, evidencia 12 meses [16]",
+  "Canal para órdenes de PROFECO (LFPC 35) y de otras autoridades sobre perfiles de clínicas con atención en 24 horas hábiles y registro [08]",
+  "Correo automático al veterinario responsable cuando lo registra un tercero, con el aviso de privacidad y la opción de objetar [15]",
+  "Informe de transparencia: conteos de clínicas y reseñas; fecha de última revisión de términos de Google y leyes [17]",
+  "Vigilancia: revisión semestral de Google Maps Platform ToS, Service Specific Terms y políticas de Places con copia fechada; vigilancia semanal de DOF y Gaceta CDMX (Ley General de bienestar animal, LFSA, LGS 79-83, LFPC) [17]"
+ ],
+ "shop_requirements": [
+  "La tienda sigue sin medicamentos, biológicos, antiparasitarios ni productos con receta (consumidor-ecommerce-25); las clínicas no venden productos a través de GuauWoow mientras el dueño no decida habilitarlas como vendedoras con el convenio y las obligaciones de los dominios consumidor-ecommerce y fiscal-tienda [05, 09]",
+  "Ningún producto de la tienda se anuncia como 'recomendado por veterinarios' ni con el nombre o la cédula de un veterinario del directorio salvo constancia escrita y expediente de sustento (consumidor-ecommerce-17) [08]",
+  "Las reseñas de productos y las de clínicas comparten la misma Política de reseñas y el mismo sistema de reportes [12]"
+ ],
+ "retention": [
+  {
+   "category": "Evidencia de verificación de clínicas (captura fechada del Registro Nacional de Profesionistas o Constancia de Situación Profesional, identificación del responsable, prueba del establecimiento, nombre del verificador)",
+   "period": "Mientras el perfil esté publicado y 12 meses después de la baja, el rechazo o la revocación; luego eliminación segura",
+   "basis": "LFPDPPP art. 12 (minimización) y finalidad de verificación informada en el aviso; defensa frente a reclamaciones por verificación (CCF 1910) [gap-veterinarias-y-resenas-03, 16]"
+  },
+  {
+   "category": "Reseñas retiradas, respuestas de clínicas retiradas, reportes, aclaraciones y decisiones de moderación (con sello de tiempo, motivo y regla aplicada)",
+   "period": "El plazo que fije el calendario consolidado de evidencias de moderación (dominios contenido-plataforma y seguridad-incidentes); referencia: prescripción de 2 años de la acción de daño moral en la CDMX (Ley de Responsabilidad Civil art. 38)",
+   "basis": "CCF art. 1916; Ley de Responsabilidad Civil CDMX art. 38; Términos [13, 14]"
+  },
+  {
+   "category": "Contenido de Google Places (reseñas, calificación, conteo, nombres y fotos de autores)",
+   "period": "Cero: no se almacena; place_id indefinido; latitud y longitud de Places, si se usan, máximo 30 días naturales",
+   "basis": "Google Maps Platform ToS 3.2.3(a) y (b); Service Specific Terms A.3 y 14.3 [10]"
+  },
+  {
+   "category": "Copias fechadas de los Google Maps Platform ToS, Service Specific Terms, Core Services Summary y políticas de Places usadas para diseñar la integración",
+   "period": "Mientras la integración esté activa y 2 años después",
+   "basis": "Obligación contractual con Google (ToS 3.2.2(c) revisión de aplicaciones; 14.1 indemnización) [10, 17]"
+  }
+ ],
+ "subprocessors": [
+  {
+   "name": "Google LLC (Google Maps Platform, Places API New)",
+   "purpose": "Mostrar en el perfil de la clínica la calificación, el conteo y hasta 5 reseñas de Google con atribución, en tiempo real",
+   "data": "place_id de la clínica (almacenado); consultas desde el servidor de GuauWoow sin datos de usuarios; si se consultara desde el navegador, la IP del usuario",
+   "country": "Estados Unidos",
+   "type": "Proveedor de contenido de terceros con términos propios (ToS 26-08-2026; Service Specific Terms 15-10-2026); no es encargado de datos de usuarios de GuauWoow mientras la consulta sea desde el servidor"
+  },
+  {
+   "name": "Secretaría de Educación Pública, Dirección General de Profesiones (Registro Nacional de Profesionistas)",
+   "purpose": "Consulta manual de la cédula del médico veterinario responsable; validación del QR de la Constancia de Situación Profesional",
+   "data": "Número de cédula o nombre del profesionista consultado por el personal verificador",
+   "country": "México",
+   "type": "Fuente de acceso público consultada por GuauWoow (LFPDPPP art. 3 fr. X); no es proveedor ni encargado"
+  }
+ ],
+ "owner_data_needed": [
+  "Confirmación del modelo: sección de clínicas gratuita, sin cobro de consultas, sin agenda con pago, sin productos de clínicas en la tienda y sin perfiles destacados de pago (si cambia, cambian los hallazgos 09 y 10)",
+  "Decisión sobre el mapa de clínicas: mantener OSM/CARTO (y entonces el contenido de Google solo en el perfil, sin mapa) o usar un mapa de Google en la sección de clínicas",
+  "Si la consulta a Places API se hará desde el servidor (recomendado) o desde el navegador (afecta cookies y aviso de privacidad)",
+  "Nombre, correo y domicilio de la persona responsable de reclamaciones de contenido (reseñas, réplica) y de la persona o personas verificadoras",
+  "Estados en los que se lanzará la sección de clínicas (hoy solo CDMX y Edomex revisados) y si se aceptarán clínicas de otros estados con tabla 'pendiente de revisión'",
+  "Criterio de antigüedad mínima de cuenta y ventana de experiencia (propuesta: 7 días y 12 meses) para reseñar; decisión sobre borrar o anonimizar reseñas al eliminar la cuenta",
+  "Si se exigirá constancia para publicar especialidades y qué documentos se aceptan (certificado de consejo, diploma de especialidad registrado en la DGP)",
+  "Confirmación de que no se usarán resúmenes con IA de reseñas (propios ni de Google) en el lanzamiento",
+  "Cuenta de facturación de Google Maps Platform con dirección en México (los términos no EEA son los analizados) y presupuesto para las llamadas a Places API con el campo reviews",
+  "Texto actual de Términos y del Aviso de privacidad para insertar las cláusulas (no se releyeron en esta sesión)",
+  "Cobertura del seguro de responsabilidad civil (identidad-contratos-21): confirmar si incluye daño moral por contenido de terceros y reclamaciones por verificación"
+ ],
+ "lawyer_points": [
+  "Abogado sanitario o regulatorio: confirmar que el art. 83 de la LGS (anuncio con institución y número de cédula en la publicidad) aplica a veterinarios por estar en el mismo capítulo que el art. 79, y que la publicidad de clínicas veterinarias no requiere autorización de COFEPRIS (LGS 300-301 y RLGSMP) (hallazgos 02 y 08, confianza media)",
+  "Abogado regulatorio o contacto en SENASICA: alcance del aviso de inicio de funcionamiento (LFSA 105 fr. VII y 110; Reg. 197) y de la obligación de MVRA (Reg. 195 y 237) para clínicas de pequeñas especies que solo dan consulta frente a las que venden medicamentos; trámite y catálogo vigentes (hallazgo 04, confianza media)",
+  "Abogado de datos personales: confirmar que el Registro Nacional de Profesionistas es 'fuente de acceso público' (LFPDPPP 3 fr. X) y que publicar nombre, cédula e institución del responsable con base en LGS 83 no requiere consentimiento adicional; revisar el aviso al veterinario registrado por un tercero (art. 17) (hallazgos 02 y 15)",
+  "Abogado de tecnología: opinión escrita sobre el ejemplo prohibido 3.2.3(d)(iii) de los Google Maps Platform ToS ('listings or directory service') aplicado al directorio de GuauWoow con datos propios verificados y Google como complemento; conveniencia de solicitar revisión a Google (3.2.2(c)); revisión de las cláusulas de indemnización (14.1) y de la prohibición de mapas no Google (3.2.3(e), Service Terms 14.2) frente al mapa OSM (hallazgo 10)",
+  "Abogado de consumo: si las reseñas de usuarios pueden considerarse 'información o publicidad' del art. 32 LFPC imputable al medio, el alcance de las órdenes del art. 35 fr. I al 'medio que la difunda' y si una clínica como persona física queda fuera de la LFPC por el art. 5 (servicios profesionales no mercantiles) (hallazgos 08 y 12)",
+  "Abogado civilista: estándar de responsabilidad del intermediario por reseñas de terceros (negligencia inexcusable, CCF 1910 y 1916, Ley de Responsabilidad Civil CDMX 25 y 32), estado actual del caso Richter contra Google en la SCJN, y si los plazos de moderación propuestos (24 y 72 horas hábiles, 5 días) son defendibles como diligencia; cotejar el registro digital de la jurisprudencia 1a./J. 38/2013 (hallazgo 13)",
+  "Abogado: si GuauWoow es 'sujeto obligado' de la Ley de réplica (arts. 2 fr. III y 4) por alojar reseñas y si el procedimiento voluntario de aclaración y el responsable publicado (art. 7) son suficientes (hallazgo 14)",
+  "Abogado penalista: cuándo conviene denunciar una cédula falsa (CPF 250 fr. II; Ley de Profesiones 62, 63 y 73) y cómo entregar evidencia sin exponer datos de terceros (hallazgo 16)",
+  "Abogado: aprobar la redacción de la insignia 'Cédula verificada', del deslinde de responsabilidad médica y del aviso de urgencias antes de publicarlos (hallazgos 09 y 17)",
+  "Abogado local (CDMX y Edomex): qué autorización concreta exige el art. 43 de la LPBACDMX a una clínica privada (Ley de Establecimientos Mercantiles) y si el art. 49 de la Ley Edomex implica registro ante alguna autoridad; extender la tabla a los demás estados de lanzamiento (hallazgo 06)"
+ ],
+ "key_risks": [
+  "Publicar perfiles con cédula no verificada o falsa: ofrecimiento público de servicios profesionales sin título (CPF 250 fr. II; Ley de Profesiones 63) y responsabilidad propia de GuauWoow por presentar como 'verificada' una clínica que no lo está (CCF 1910; LFPC 32) [01, 16]",
+  "Perfiles con superlativos, avales o garantías de resultado: publicidad engañosa; PROFECO puede ordenar la suspensión también al medio (LFPC 35 fr. I) y sancionar como caso grave con clausura y multa hasta de $6,391,474.56 (128 Bis y 128 Ter fr. VI) [08]",
+  "Almacenar reseñas de Google, mostrarlas junto al mapa OSM o construir el directorio sobre datos de Google: incumplimiento de los ToS (3.2.3(a), (b), (d)(iii), (e)) con suspensión del servicio (5.2) e indemnización (14.1) [10]",
+  "Mostrar reseñas de Google sin atribución del autor, sin enlace a Google Maps o alteradas: incumplimiento de las políticas de Places y de los ToS 3.2.2(b) [11]",
+  "Reseñas que imputan delitos o insultan a veterinarios identificables, sin moderación diligente: demanda por daño moral contra el autor y contra GuauWoow como intermediario; en la CDMX basta 'negligencia inexcusable' (art. 32) y no hay puerto seguro fuera de derechos de autor [13]",
+  "Ocultar reseñas negativas, permitir reseñas pagadas sin etiqueta o reseñas de la propia clínica: sección engañosa (LFPC 32) y pérdida de confianza; posible orden de PROFECO [12]",
+  "Publicar datos del reseñador o del veterinario más allá de lo necesario (CURP, imagen de la cédula, teléfono): infracción a la LFPDPPP (arts. 12 y 17) [15]",
+  "Deslindes mal redactados que pretendan limitar derechos del consumidor frente a la clínica: nulos por el art. 1 de la LFPC y contraproducentes en juicio [09]",
+  "Cambios en los términos de Google (versiones de agosto y octubre de 2026) o en la Ley General de bienestar animal sin vigilancia: incumplimiento sobrevenido [17]"
+ ],
+ "open_questions": [
+  "¿Existe un catálogo vigente de SENASICA que diga expresamente si una clínica veterinaria de pequeñas especies que solo da consulta debe presentar aviso de inicio de funcionamiento y contar con MVRA? (El archivo 762519 de gob.mx no pudo descargarse.)",
+  "¿Qué registro digital y texto tiene la jurisprudencia 1a./J. 38/2013 (10a.) y existe jurisprudencia posterior (por ejemplo 1a./J. 80/2019) que precise el estándar para opiniones sobre particulares? No pudo abrirse el Semanario Judicial.",
+  "¿Cómo resolvió o resolverá la SCJN el caso Richter contra Google y qué estándar fijará para intermediarios por contenido de terceros?",
+  "¿Google considera que un directorio con datos propios verificados y reseñas propias, que añade reseñas de Google como complemento, cumple 3.2.3(d) ('substantial, independent value')? ¿Conviene pedir la revisión de la aplicación (3.2.2(c))?",
+  "¿La consulta pública del Registro Nacional de Profesionistas tiene una base legal expresa que la califique como fuente de acceso público, o solo las facultades generales de la DGP (Ley de Profesiones 23)?",
+  "¿Las leyes de bienestar animal o de establecimientos mercantiles de los demás estados exigen registro o padrón de clínicas veterinarias que GuauWoow pueda consultar?",
+  "¿PROFECO emitirá lineamientos sobre reseñas de consumidores o publicidad con influencers que cambien las reglas de la sección?",
+  "¿La Ley General en materia de bienestar animal pendiente (bienestar-animal-02) impondrá obligaciones a clínicas o a plataformas que las listan?"
+ ],
+ "finding_ids": [
+  "gap-veterinarias-y-resenas-01",
+  "gap-veterinarias-y-resenas-02",
+  "gap-veterinarias-y-resenas-03",
+  "gap-veterinarias-y-resenas-04",
+  "gap-veterinarias-y-resenas-05",
+  "gap-veterinarias-y-resenas-06",
+  "gap-veterinarias-y-resenas-07",
+  "gap-veterinarias-y-resenas-08",
+  "gap-veterinarias-y-resenas-09",
+  "gap-veterinarias-y-resenas-10",
+  "gap-veterinarias-y-resenas-11",
+  "gap-veterinarias-y-resenas-12",
+  "gap-veterinarias-y-resenas-13",
+  "gap-veterinarias-y-resenas-14",
+  "gap-veterinarias-y-resenas-15",
+  "gap-veterinarias-y-resenas-16",
+  "gap-veterinarias-y-resenas-17"
+ ],
+ "findings": [
+  {
+   "id": "gap-veterinarias-y-resenas-01",
+   "topic": "Quién puede ejercer la medicina veterinaria y anunciarse como veterinario: título registrado y cédula profesional",
+   "requirement": "La Ley General de Salud exige, para 'el ejercicio de actividades profesionales en el campo de la medicina, farmacia, odontología, veterinaria...', que los títulos profesionales 'hayan sido legalmente expedidos y registrados por las autoridades educativas competentes' (LGS art. 79). La Ley de Profesiones define el ejercicio profesional como 'la realización habitual a título oneroso o gratuito de todo acto o la prestación de cualquier servicio propio de cada profesión, aunque sólo se trate de simple consulta o la ostentación del carácter del profesionista por medio de tarjetas, anuncios, placas, insignias o de cualquier otro modo' (art. 24); exige título y cédula para ejercer las profesiones reguladas (arts. 2, 3 y 25) y castiga a quien se atribuya el carácter de profesionista sin título o ejerza actos propios de la profesión (art. 62) y a quien 'ofrezca públicamente sus servicios como profesionista, sin serlo' (art. 63), con la pena del art. 250 del Código Penal Federal (prisión de uno a seis años y multa; fr. II incisos a) a d)). Quien ejerce sin cédula 'no tendrá derecho a cobrar honorarios' (art. 68) y cualquier persona puede denunciarlo (acción popular, art. 73). La LPBACDMX define al médico veterinario zootecnista como 'persona profesionista en legal ejercicio de la profesión con cédula expedida por la Dirección General de Profesiones de la Secretaría de Educación Pública' (art. 4 fr. XXX Bis 2). Consecuencia: un anuncio de clínica en GuauWoow es ostentación pública de servicios veterinarios; el perfil debe estar respaldado por al menos un médico veterinario con cédula.",
+   "legal_basis": "Ley General de Salud art. 79 (últimas reformas DOF 15-01-2026); Ley Reglamentaria del Artículo 5o. Constitucional, relativo al ejercicio de las profesiones en la Ciudad de México arts. 2, 3, 7, 24, 25, 62, 63, 68 y 73 (última reforma DOF 19-01-2018); Código Penal Federal art. 250 fr. II (última reforma DOF 13-03-2026); LPBACDMX art. 4 fr. XXX Bis 2 (última reforma G.O. 23-07-2026).",
+   "source_url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LGS.pdf",
+   "quote": "LGS 79: 'Para el ejercicio de actividades profesionales en el campo de la medicina, farmacia, odontología, veterinaria... se requiere que los títulos profesionales o certificados de especialización hayan sido legalmente expedidos y registrados por las autoridades educativas competentes.' Ley de Profesiones 63: 'Al que ofrezca públicamente sus servicios como profesionista, sin serlo, se le castigará con la misma sanción que establece el artículo anterior.'",
+   "platform_action": "Registro de clínica con campos obligatorios: razón social o nombre comercial, persona responsable (nombre completo como aparece en la cédula), número de cédula profesional de médico veterinario o médico veterinario zootecnista, institución que expidió el título, estado y municipio, domicilio del establecimiento, teléfono y correo de contacto, horario, servicios ofrecidos (lista cerrada) y declaración bajo protesta de que el responsable ejerce en el establecimiento. Sin cédula validada no se publica el perfil. La cédula se trata como requisito de publicación, no como insignia opcional. Términos para clínicas: el registrante declara que la cédula es propia o del responsable con su autorización y que responde por su veracidad (Ley de Profesiones 62-63, CPF 250).",
+   "priority": "obligatorio",
+   "confidence": "alta",
+   "applies_to": [
+    "clinicas_veterinarias",
+    "verificacion",
+    "terminos",
+    "registro"
+   ],
+   "pages": [
+    "/legal/veterinarias",
+    "/legal/verificacion",
+    "/legal/terminos-clinicas"
+   ],
+   "notes": "La Ley de Profesiones rige en la CDMX en asuntos del orden común y en toda la República en asuntos federales (art. 7); cada estado tiene su propia ley de profesiones, pero todas remiten a la cédula federal de la DGP. Que un anuncio en una plataforma sea 'ostentación' del carácter de profesionista es interpretación del art. 24; la obligación penal recae en quien se ostenta, no en la plataforma, pero la plataforma que publica sin verificar queda expuesta como difusor (hallazgo 08) y por daño a usuarios (hallazgo 09).",
+   "verdict": "verificado",
+   "evidence": "LGS (PDF oficial Cámara de Diputados, últimas reformas DOF 15-01-2026): art. 79 leído textualmente, con la mención expresa de 'veterinaria' en el primer y segundo párrafos. Ley de Profesiones (PDF oficial 208_190118.pdf, última reforma DOF 19-01-2018): arts. 1, 2, 3, 7, 24, 25, 33, 34, 62, 63, 68, 71 y 73 leídos textualmente. CPF (última reforma DOF 13-03-2026): art. 250 fr. II leído textualmente. LPBACDMX (Consejería Jurídica CDMX, última reforma 23-07-2026): art. 4 fr. XXX Bis 2 leído textualmente."
+  },
+  {
+   "id": "gap-veterinarias-y-resenas-02",
+   "topic": "Los veterinarios deben mostrar institución, título y número de cédula en su publicidad: base para publicar el número de cédula en el perfil",
+   "requirement": "'Quienes ejerzan las actividades profesionales, técnicas y auxiliares y las especialidades médicas, deberán poner a la vista del público un anuncio que indique la institución que les expidió el Título, Diploma, número de su correspondiente cédula profesional y, en su caso, el Certificado de Especialidad vigente. Iguales menciones deberán consignarse en los documentos y papelería que utilicen en el ejercicio de tales actividades y en la publicidad que realicen al respecto' (LGS art. 83). El art. 83 está en el mismo Capítulo I del Título Cuarto de la LGS cuyo art. 79 incluye a la veterinaria, por lo que la publicidad de un veterinario (incluido su perfil en GuauWoow) debe llevar institución y número de cédula. Para la protección de datos, el número de cédula y el nombre del profesionista constan en el Registro Nacional de Profesionistas de la SEP, consultable por cualquier persona: es 'fuente de acceso público' (LFPDPPP art. 3 fr. X) y su tratamiento no requiere consentimiento (art. 9 fr. II), sin perjuicio de informarlo en el aviso de privacidad.",
+   "legal_basis": "Ley General de Salud arts. 79 y 83 (últimas reformas DOF 15-01-2026); LFPDPPP arts. 3 fr. X y 9 fr. II (DOF 20-03-2025, última reforma DOF 14-11-2025).",
+   "source_url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LGS.pdf",
+   "quote": "LGS 83: '...deberán poner a la vista del público un anuncio que indique la institución que les expidió el Título, Diploma, número de su correspondiente cédula profesional... Iguales menciones deberán consignarse... en la publicidad que realicen al respecto.' LFPDPPP 9: 'El responsable no estará obligado a recabar el consentimiento de la persona titular para el tratamiento de los datos personales cuando: ... II. Los datos personales figuren en fuentes de acceso público'.",
+   "platform_action": "El perfil público de cada clínica muestra: nombre del médico veterinario responsable, número de cédula, institución que expidió el título y la leyenda 'Cédula consultada en el Registro Nacional de Profesionistas (SEP) el [fecha]'. No se publican CURP, domicilio particular, fecha de nacimiento ni la imagen de la cédula; el documento o captura de la consulta se conserva en almacenamiento privado. Aviso de privacidad: finalidad 'verificación y publicación de la cédula del responsable de clínicas veterinarias', con la fuente (SEP) y el fundamento LGS 83. Si el responsable pide retirar su nombre del perfil, el perfil se despublica (sin responsable con cédula no hay perfil).",
+   "priority": "obligatorio",
+   "confidence": "media",
+   "applies_to": [
+    "clinicas_veterinarias",
+    "datos_personales",
+    "privacidad"
+   ],
+   "pages": [
+    "/legal/veterinarias",
+    "/legal/privacidad",
+    "/legal/verificacion"
+   ],
+   "notes": "Confianza media porque el art. 83 se aplica a la veterinaria por su ubicación sistemática (Capítulo I, Título Cuarto, junto con el art. 79) y no por mención expresa; un abogado debe confirmar que la Secretaría de Salud o COFEPRIS no interpretan el capítulo como exclusivo de la salud humana. Que el Registro Nacional de Profesionistas sea 'fuente de acceso público' en los términos de la LFPDPPP es interpretación: la ley exige que la consulta pública esté prevista 'por disposición de ley'; la Ley de Profesiones faculta a la DGP a registrar títulos y expedir cédulas (art. 23 frs. I y IV) y a publicar las resoluciones de registro (fr. VI), pero no califica expresamente al registro como público.",
+   "verdict": "verificado",
+   "evidence": "LGS art. 83 leído textualmente en el PDF oficial (reformado DOF 01-09-2011), dentro del 'TITULO CUARTO ... CAPITULO I Profesionales, Técnicos y Auxiliares' (líneas 4113-4117 del texto extraído). LFPDPPP 2025 arts. 3 fr. X, 9 fr. II y 17 leídos textualmente en el PDF oficial. Ley de Profesiones art. 23 frs. I, IV, VI y VII leídas."
+  },
+  {
+   "id": "gap-veterinarias-y-resenas-03",
+   "topic": "Procedimiento de verificación de la cédula: Registro Nacional de Profesionistas de la SEP y Constancia de Situación Profesional",
+   "requirement": "La Dirección General de Profesiones (DGP) de la SEP registra los títulos, lleva la hoja de servicios de cada profesionista con las sanciones que se le impongan, expide la cédula 'con efectos de patente' y cancela el registro de los condenados a inhabilitación (Ley de Profesiones art. 23 frs. I, II, IV y VII). La consulta pública se hace en el portal 'Registro Nacional de Profesionistas' (cedulaprofesional.sep.gob.mx) por nombre y apellidos, por CURP o por número de cédula; desde octubre de 2025 el portal también permite descargar una 'Constancia de Situación Profesional' con código QR, vigente 15 días, que muestra estudios registrados, titulación, pertenencia a colegio y sanciones (según prensa; la SEP advierte que no responde por usos en sitios distintos al oficial). No existe API oficial ni convenio de consulta masiva para particulares: la verificación es manual o por constancia aportada por el interesado.",
+   "legal_basis": "Ley Reglamentaria del Artículo 5o. Constitucional, relativo al ejercicio de las profesiones en la Ciudad de México art. 23 frs. I, II, IV, VI y VII (última reforma DOF 19-01-2018); portal Registro Nacional de Profesionistas de la SEP (cedulaprofesional.sep.gob.mx).",
+   "source_url": "https://www.cedulaprofesional.sep.gob.mx/cedula/presidencia/indexAvanzada.action",
+   "quote": "Ley de Profesiones 23: 'Son facultades y obligaciones de la Dirección General de Profesiones: I.- Registrar los títulos de profesionistas...; II.- Llevar la hoja de servicios de cada profesionista, cuyo título registre, y anotar en el propio expediente, las sanciones que se impongan al profesionista...; IV.- Expedir al interesado la cédula personal correspondiente, con efectos de patente para el ejercicio...'.",
+   "platform_action": "Procedimiento de verificación (página /legal/verificacion, sección clínicas): (1) el registrante captura número de cédula, nombre completo y carrera; (2) una persona del equipo consulta el Registro Nacional de Profesionistas por número de cédula y coteja nombre, carrera (Medicina Veterinaria y Zootecnia o Medicina Veterinaria) e institución; alternativamente el registrante sube la Constancia de Situación Profesional vigente y el equipo valida el QR en el portal oficial; (3) se guarda en almacenamiento privado la captura fechada o la constancia, el nombre de quien verificó y la fecha; (4) se exige además identificación oficial del responsable y una prueba de vínculo con el establecimiento (recibo, comprobante de domicilio del local o carta del responsable); (5) la insignia caduca a los 12 meses y se reverifica; (6) si la cédula no existe, pertenece a otra persona, a otra carrera o aparece cancelada, se rechaza y se conserva la evidencia (hallazgo 16). Publicar en transparencia los conteos de clínicas verificadas, rechazadas y revocadas.",
+   "priority": "obligatorio",
+   "confidence": "media",
+   "applies_to": [
+    "clinicas_veterinarias",
+    "verificacion",
+    "administracion"
+   ],
+   "pages": [
+    "/legal/verificacion",
+    "/legal/veterinarias",
+    "/legal/transparencia"
+   ],
+   "notes": "El portal de la SEP se abrió y muestra el título 'Registro Nacional de Profesionistas', pero es una aplicación JavaScript: no pude leer sus campos ni su aviso legal; la descripción del flujo y de la Constancia de Situación Profesional proviene de prensa (Expansión Política, 08-10-2025) y es de confianza media. No localicé un trámite en gob.mx que documente la consulta por terceros ni una base legal expresa de la constancia; un abogado debe confirmar si la consulta y el almacenamiento de capturas requieren algún aviso adicional a la SEP.",
+   "verdict": "verificado",
+   "evidence": "Ley de Profesiones art. 23 leído textualmente (PDF oficial). Portal cedulaprofesional.sep.gob.mx descargado con curl (TLS con certificado no verificable desde WebFetch; 8.5 KB de HTML con el título 'Registro Nacional de Profesionistas'). Artículo de Expansión Política del 08-10-2025 leído mediante resumen asistido: la constancia tiene QR y vigencia de 15 días, la consulta es por nombre, CURP o cédula, y la SEP no responde por usos en sitios distintos al oficial."
+  },
+  {
+   "id": "gap-veterinarias-y-resenas-04",
+   "topic": "Marco federal de sanidad animal: las clínicas son establecimientos regulados por la LFSA, deben dar aviso de inicio de funcionamiento y, en su caso, contar con médico veterinario responsable autorizado",
+   "requirement": "La LFSA incluye entre los establecimientos que funcionan conforme a las disposiciones de sanidad animal a 'los hospitales, clínicas veterinarias, laboratorios de constatación o diagnóstico... y demás que presten servicios zoosanitarios' (art. 105 fr. VII) y a 'aquellos en donde se fabriquen o expendan productos para uso o consumo animal' (fr. VI). Las personas encargadas de esos establecimientos 'deberán solicitar autorización o dar aviso de inicio de funcionamiento a la Secretaría' (art. 110), con lo que SADER/SENASICA integra el Directorio de Sanidad Animal; no proporcionar esa información es infracción (art. 167 fr. XLI) sancionada en el tabulador B, de 1,000 a 10,000 UMA diarias ($117,310 a $1,173,100 en 2026; arts. 169 y 170). El Reglamento precisa que los establecimientos de servicios zoosanitarios de la fr. VII 'requerirán aviso de funcionamiento' (art. 197, segundo párrafo) y que los establecimientos del capítulo contarán con un médico veterinario responsable autorizado (MVRA), salvo los que solo almacenan y venden alimento terminado en envase cerrado y productos de estética e higiene (art. 195); el MVRA es un 'profesionista autorizado por la Secretaría' (LFSA art. 4) y responde en términos del art. 151 (Reg. art. 237). El MVRA no es lo mismo que la cédula: es una autorización adicional de SADER. Si una clínica expende medicamentos (fr. VI), el aviso y el MVRA le aplican con claridad; si solo presta consulta, el aviso aplica (Reg. 197) y la exigencia de MVRA depende de las disposiciones de sanidad animal (LFSA 105 último párrafo).",
+   "legal_basis": "Ley Federal de Sanidad Animal arts. 4 (definiciones de médico veterinario y de médico veterinario responsable autorizado), 105 frs. VI y VII y último párrafo, 110, 112, 151, 167 fr. XLI, 169 y 170 (última reforma DOF 21-05-2024); Reglamento de la LFSA arts. 195, 197, 198, 237 y 238 (DOF 21-05-2012).",
+   "source_url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LFSA.pdf",
+   "quote": "LFSA 105 fr. VII: 'Los hospitales, clínicas veterinarias, laboratorios de constatación o diagnóstico... y demás que presten servicios zoosanitarios'. LFSA 110: 'Las personas físicas o morales encargadas de los establecimientos a que se refiere esta Ley, deberán solicitar autorización o dar aviso de inicio de funcionamiento a la Secretaría'. Reg. 197: 'Los establecimientos que presten servicios zoosanitarios señalados en la fracción VII del artículo 105 de la Ley requerirán aviso de funcionamiento'.",
+   "platform_action": "En el registro de clínicas: campo opcional 'Folio o acuse del aviso de inicio de funcionamiento ante SENASICA' y casilla de declaración 'El establecimiento ha presentado su aviso de inicio de funcionamiento ante SADER/SENASICA o se encuentra en trámite' (sí / no / no sé). Campo opcional 'Nombre y número de autorización del MVRA' si la clínica vende medicamentos. GuauWoow no verifica estos datos (no existe consulta pública del Directorio de Sanidad Animal localizada) y no los muestra como insignia; solo los conserva para responder a requerimientos y para orientar a la clínica. Página /legal/veterinarias: sección 'Qué deben cumplir las clínicas' en lenguaje llano con la lista de obligaciones federales y locales y enlace al trámite de SENASICA. Términos para clínicas: declaración de cumplimiento de la LFSA y de no vender medicamentos a través de GuauWoow (hallazgo 05).",
+   "priority": "recomendado",
+   "confidence": "media",
+   "applies_to": [
+    "clinicas_veterinarias",
+    "registro",
+    "terminos"
+   ],
+   "pages": [
+    "/legal/veterinarias",
+    "/legal/terminos-clinicas"
+   ],
+   "notes": "Confianza media: los textos son literales, pero (a) la obligación de MVRA del Reg. 195 se refiere a 'los establecimientos señalados en el presente Capítulo' y la LFSA 105 remite a las disposiciones de sanidad animal para determinar cuáles deben tener MVRA; no localicé la disposición que lo precise para clínicas de pequeñas especies; (b) el catálogo de establecimientos que requieren aviso publicado por SENASICA (gob.mx, archivo 762519) no pudo descargarse (404); (c) una fuente secundaria menciona el trámite SENASICA-01-018 en el portal SIGT, sin confirmar. Un abogado regulatorio o un contacto en SENASICA debe confirmar el alcance para una clínica que solo da consulta.",
+   "verdict": "verificado",
+   "evidence": "LFSA (PDF oficial, última reforma DOF 21-05-2024): arts. 4 (definiciones, líneas 405-416 del texto extraído), 105, 110, 112, 151, 167 fr. XLI, 169 (tabulador A-D en UMA) y 170 (fr. XLI en tabulador B) leídos textualmente. Reglamento de la LFSA (PDF oficial, DOF 21-05-2012): arts. 195-199 y 237-243 leídos textualmente; Capítulo II 'De los establecimientos' inicia en el art. 195. UMA 2026: $117.31 diarios (dato tomado del gap naturaleza-juridica-adopcion-y-cuotas)."
+  },
+  {
+   "id": "gap-veterinarias-y-resenas-05",
+   "topic": "Medicamentos y productos veterinarios: registro de productos, receta y publicidad; la plataforma no intermedia su venta",
+   "requirement": "La Secretaría determina qué productos para uso o consumo animal 'requieran de registro o autorización' y los registrados deben tener tarjetón con número de registro (LFSA art. 92). Los médicos veterinarios responsables autorizados deben avisar a la Secretaría sobre la 'comercialización, publicidad, uso o aplicación de productos para uso o consumo animal que no estén registrados' (art. 151 fr. III). La NOM-064-ZOO-2000 establece lineamientos para la clasificación y prescripción de productos farmacéuticos veterinarios por nivel de riesgo (grupos con receta médica cuantificada o receta simple); PLATIICA la reporta vigente (entrada en vigor 13-07-2004). El dominio consumidor-ecommerce (hallazgo 25) ya prohíbe en la tienda medicamentos, biológicos, antiparasitarios y productos con receta. Para la sección de clínicas: los perfiles pueden describir que la clínica ofrece 'farmacia veterinaria' o 'vacunación', pero no pueden listar, promocionar con precio ni vender medicamentos a través de GuauWoow, ni hacer afirmaciones terapéuticas de productos.",
+   "legal_basis": "Ley Federal de Sanidad Animal arts. 92 y 151 fr. III (última reforma DOF 21-05-2024); NOM-064-ZOO-2000, Lineamientos para la clasificación y prescripción de los productos farmacéuticos veterinarios por el nivel de riesgo de sus ingredientes activos (DOF 27-01-2003; vigente según PLATIICA); consumidor-ecommerce-25 (NOM-012-SAG/ZOO-2020 y acuerdos de desregulación).",
+   "source_url": "https://platiica.economia.gob.mx/normalizacion/nom-064-zoo-2000/",
+   "quote": "LFSA 92: 'La Secretaría determinará aquellos productos para uso o consumo animal que por sus condiciones de inocuidad, eficacia y riesgo requieran de registro o autorización... Los productos registrados deberán contar con un tarjetón con el número de registro'. LFSA 151 fr. III: 'Avisar a la Secretaría sobre la importación, comercialización, publicidad, uso o aplicación de productos para uso o consumo animal que no estén registrados'.",
+   "platform_action": "Reglas de contenido del perfil de clínica: (1) la lista de servicios es cerrada (consulta, vacunación, desparasitación, cirugía, esterilización, hospitalización, urgencias, laboratorio, imagenología, estética, farmacia veterinaria, etc.) y no admite nombres comerciales de medicamentos ni precios de fármacos; (2) prohibido ofrecer, vender o apartar medicamentos, vacunas o antiparasitarios por chat, por la tienda o por el bot; (3) prohibidas las afirmaciones de eficacia ('cura', 'elimina', 'garantizado') sobre productos o tratamientos; (4) las promociones de vacunación o esterilización indican que la aplicación la hace un médico veterinario con cédula; (5) el diccionario de términos de venta de moderación incorpora nombres genéricos de fármacos controlados y 'sin receta'. Página /legal/veterinarias: 'GuauWoow no vende ni intermedia medicamentos veterinarios; las recetas las expide el médico veterinario'.",
+   "priority": "obligatorio",
+   "confidence": "media",
+   "applies_to": [
+    "clinicas_veterinarias",
+    "tienda",
+    "moderacion",
+    "chat"
+   ],
+   "pages": [
+    "/legal/veterinarias",
+    "/legal/terminos-clinicas",
+    "/legal/normas-comunidad"
+   ],
+   "notes": "El texto de la NOM-064-ZOO-2000 no se leyó íntegro: su vigencia y objeto provienen del catálogo PLATIICA y de una presentación de capacitación de SENASICA (DSCP, 2022) sobre receta cuantificada y receta simple; por eso la confianza es media. La prohibición de vender medicamentos en la tienda ya está decidida en consumidor-ecommerce-25; aquí se extiende a perfiles, chat y bot.",
+   "verdict": "verificado",
+   "evidence": "LFSA arts. 92 y 151 fr. III leídos textualmente en el PDF oficial. NOM-064-ZOO-2000: ficha de PLATIICA (vigente, entrada en vigor 13-07-2004) y referencia al DOF 27-01-2003 localizadas por búsqueda; el PDF de la norma en gob.mx no se leyó."
+  },
+  {
+   "id": "gap-veterinarias-y-resenas-06",
+   "topic": "Marco local: autorización de establecimientos, médico veterinario con cédula y residuos (CDMX y Estado de México)",
+   "requirement": "CDMX: 'Los refugios, asilos y albergues para animales, clínicas veterinarias, centros de control animal... y demás instalaciones creadas para alojar temporal o permanentemente a los animales, deben contar con personal capacitado e instalaciones adecuadas, y serán objeto de regulación específica en el reglamento' y deben separar los residuos de manejo especial (LPBACDMX art. 42); 'Los establecimientos, instalaciones y personas prestadoras de servicios que manejen animales deberán estar autorizados para tal fin y deberán cumplir con esta Ley, su reglamento y las normas oficiales mexicanas aplicables' (art. 43); las alcaldías sancionan las violaciones a los arts. 42 y 43 con multa de 1 a 150 UMA ($117.31 a $17,596.50 en 2026; art. 65 fr. II inciso b). Las pensiones, guarderías y estéticas deben contar con 'una persona médico veterinario zootecnista debidamente registrado y autorizado por las autoridades correspondientes' (art. 28 Bis 1 fr. V). Estado de México: 'clínicas, consultorios u hospitales veterinarios... deberán contar con instalaciones adecuadas y la supervisión de un médico veterinario zootecnista con cédula profesional y personal capacitado' (Ley Edomex art. 49) y donde se preste atención veterinaria y se generen residuos biológico-infecciosos 'se deberá contar con un manejo de residuos peligrosos conforme a la legislación aplicable' (art. 47). Las demás entidades no se revisaron.",
+   "legal_basis": "LPBACDMX arts. 28 Bis 1 fr. V, 42, 43 y 65 fr. II inciso b) (última reforma G.O. CDMX 23-07-2026); Ley de Protección, Cuidado y Bienestar Animal del Estado de México arts. 47 y 49 (Decreto 333, Gaceta del Gobierno 16-06-2026).",
+   "source_url": "https://data.consejeria.cdmx.gob.mx/images/leyes/2025/2026/190126/LEY_DE_PROTECCION_Y_BIENESTAR_DE_LOS_ANIMALES_DE_LA_CDMX_1.2.pdf",
+   "quote": "LPBACDMX 43: 'Los establecimientos, instalaciones y personas prestadoras de servicios que manejen animales deberán estar autorizados para tal fin y deberán cumplir con esta Ley, su reglamento y las normas oficiales mexicanas aplicables'. Ley Edomex 49: '...clínicas, consultorios u hospitales veterinarios... deberán contar con instalaciones adecuadas y la supervisión de un médico veterinario zootecnista con cédula profesional y personal capacitado'.",
+   "platform_action": "Registro de clínicas con selector de estado y municipio; casilla de declaración 'El establecimiento cuenta con la autorización, licencia o aviso de funcionamiento que exige su alcaldía o municipio' y campo opcional para el folio. GuauWoow no verifica la autorización local (no hay padrón público de clínicas localizado en CDMX ni Edomex) y lo dice así en /legal/verificacion. Página /legal/veterinarias con tabla por estado (CDMX, Edomex; otros 'pendiente de revisión') de obligaciones del establecimiento y autoridad ante la cual denunciar (alcaldía en CDMX; Comisión o PROPAEM en Edomex, conforme al dominio bienestar-animal). Términos para clínicas: declaración de cumplimiento de la ley local aplicable y aceptación de que una sanción firme o clausura es causa de despublicación.",
+   "priority": "recomendado",
+   "confidence": "alta",
+   "applies_to": [
+    "clinicas_veterinarias",
+    "registro",
+    "verificacion"
+   ],
+   "pages": [
+    "/legal/veterinarias",
+    "/legal/verificacion",
+    "/legal/marco-legal-bienestar-animal"
+   ],
+   "notes": "Textos literales (confianza alta). Qué autorización concreta exige el art. 43 a una clínica privada depende del reglamento y de la Ley de Establecimientos Mercantiles de la CDMX (no revisada aquí): se deja como declaración del registrante, no como requisito verificado. Cobertura estatal limitada a CDMX y Edomex, igual que el dominio bienestar-animal; el gap cobertura-estatal deberá extender la tabla.",
+   "verdict": "verificado",
+   "evidence": "LPBACDMX (versión Consejería Jurídica, última reforma 23-07-2026): arts. 28 Bis 1, 42, 43 y 65 fr. II incisos b) y c) leídos textualmente. Ley Edomex (PDF de Legistel, Decreto 333, Gaceta 16-06-2026, descargado vía WebFetch y extraído con pdftotext): arts. 47, 48 y 49 leídos textualmente."
+  },
+  {
+   "id": "gap-veterinarias-y-resenas-07",
+   "topic": "Residuos peligrosos biológico-infecciosos (NOM-087): obligación del establecimiento, no de la plataforma; solo autodeclaración",
+   "requirement": "La NOM-087-SEMARNAT-SSA1-2002 'es de observancia obligatoria para los establecimientos que generen residuos peligrosos biológico-infecciosos y los prestadores de servicios a terceros que tengan relación directa con los mismos' (numeral 1). Son RPBI, entre otros, 'los tejidos, órganos y partes que se extirpan o remueven durante las necropsias, la cirugía o algún otro tipo de intervención quirúrgica' (4.3.1), las muestras biológicas para análisis (4.3.2) y los objetos punzocortantes usados en diagnóstico y tratamiento (4.5); la tabla 1 clasifica a los generadores en niveles I a III por camas, muestras o kilogramos al mes. La norma no menciona a las clínicas veterinarias por su nombre, pero una clínica que opera, toma muestras o aplica inyecciones genera RPBI y queda dentro del campo de aplicación; el Estado de México lo hace explícito (Ley Edomex art. 47) y la CDMX exige separar residuos de manejo especial (LPBACDMX art. 42). GuauWoow no es generador ni prestador de servicios de residuos: no tiene obligación propia.",
+   "legal_basis": "NOM-087-SEMARNAT-SSA1-2002, Protección ambiental - Salud ambiental - Residuos peligrosos biológico-infecciosos - Clasificación y especificaciones de manejo, numerales 1, 4.3, 4.5 y 5.1 tabla 1 (DOF 17-02-2003; vigente según PLATIICA); Ley Edomex art. 47; LPBACDMX art. 42 segundo párrafo.",
+   "source_url": "https://platiica.economia.gob.mx/normalizacion/nom-087-semarnat-ssa1-2002/",
+   "quote": "NOM-087 numeral 1: 'Esta Norma Oficial Mexicana es de observancia obligatoria para los establecimientos que generen residuos peligrosos biológico-infecciosos y los prestadores de servicios a terceros que tengan relación directa con los mismos.' 4.3.1: 'Los tejidos, órganos y partes que se extirpan o remueven durante las necropsias, la cirugía o algún otro tipo de intervención quirúrgica, que no se encuentren en formol.'",
+   "platform_action": "Casilla de autodeclaración en el registro: 'El establecimiento maneja sus residuos biológico-infecciosos conforme a la NOM-087-SEMARNAT-SSA1-2002 y a la ley local' (sí / no aplica). No se verifica ni se muestra como insignia. En /legal/veterinarias, incluir la NOM-087 en la lista 'Qué deben cumplir las clínicas' con enlace a PLATIICA. Motivo de reporte 'condiciones sanitarias del establecimiento' que se canaliza a la autoridad local (alcaldía o COFEPRIS/SEMARNAT según el caso) y no se publica como reseña.",
+   "priority": "buena práctica",
+   "confidence": "media",
+   "applies_to": [
+    "clinicas_veterinarias",
+    "registro"
+   ],
+   "pages": [
+    "/legal/veterinarias"
+   ],
+   "notes": "Confianza media porque la aplicación a clínicas veterinarias es interpretación del campo de aplicación (la norma habla de 'establecimientos que generen RPBI' sin listar giros); el texto se leyó en una copia del DOF alojada por el IMSS, no en dof.gob.mx. PLATIICA la reporta vigente (DOF 17-02-2003, en vigor 18-04-2003).",
+   "verdict": "verificado",
+   "evidence": "Texto íntegro de la NOM-087 (copia del DOF 17-02-2003 publicada por el IMSS, extraída con pdftotext): numerales 1, 4.1-4.5 y tabla 1 del numeral 5.1 leídos textualmente. Ficha PLATIICA localizada por búsqueda (vigente). Ley Edomex art. 47 y LPBACDMX art. 42 leídos textualmente."
+  },
+  {
+   "id": "gap-veterinarias-y-resenas-08",
+   "topic": "Publicidad de servicios veterinarios: LFPC (veracidad, avales profesionales, orden de suspensión al medio); la publicidad sanitaria de la LGS no aplica a veterinarias",
+   "requirement": "La información o publicidad de servicios 'que se difundan por cualquier medio o forma, deberán ser veraces, comprobables, claros y exentos de textos... que induzcan o puedan inducir a error o confusión por engañosas o abusivas'; es engañosa la que 'pudiendo o no ser verdadera' induce a error 'por la forma inexacta, falsa, exagerada, parcial, artificiosa o tendenciosa en que se presenta'; está prohibido indicar que un servicio ha sido 'avalado, aprobado, recomendado o certificado por sociedades o asociaciones profesionales' sin evidencia científica (LFPC art. 32). PROFECO puede 'ordenar al proveedor que suspenda la información o publicidad que viole las disposiciones de esta ley y, en su caso, al medio que la difunda' (art. 35 fr. I): GuauWoow, como medio que difunde los perfiles, puede recibir esa orden. La publicidad engañosa es caso 'particularmente grave' (art. 128 Ter fr. VI) con clausura hasta de 90 días y multa de $228,266.96 a $6,391,474.56 (art. 128 Bis); las demás infracciones al art. 32 se sancionan con multa de $380.44 a $1,217,423.72 (art. 126). Los servicios profesionales 'que no sean de carácter mercantil' quedan fuera de la LFPC (art. 5); una clínica organizada como negocio es proveedor (art. 2 fr. II) y el tutor del animal es consumidor (art. 2 fr. I). La autorización sanitaria de publicidad de la LGS (arts. 300 y 301) y su reglamento (RLGSMP art. 1: 'productos, servicios y actividades a que se refiere la Ley General de Salud') se refieren a la salud humana; no se localizó base para exigir permiso de COFEPRIS a la publicidad de clínicas veterinarias.",
+   "legal_basis": "LFPC arts. 2 frs. I y II, 5, 32, 35 fr. I, 126, 128 Bis y 128 Ter fr. VI (última reforma DOF 12-12-2025; montos actualizados por Acuerdo DOF 23-12-2025); Lineamientos de PROFECO para el análisis y verificación de la información y publicidad (DOF 24-07-2012) Tercero fr. I y V, Sexto y Décimo fr. II; Ley General de Salud arts. 300 y 301 (últimas reformas DOF 15-01-2026); Reglamento de la LGS en materia de publicidad art. 1 (última reforma DOF 08-09-2022).",
+   "source_url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LFPC.pdf",
+   "quote": "LFPC 35: 'la Procuraduría podrá: I. Ordenar al proveedor que suspenda la información o publicidad que viole las disposiciones de esta ley y, en su caso, al medio que la difunda'. LFPC 32: 'Queda prohibido incluir en la información o publicidad... toda leyenda o información que indique que han sido avalados, aprobados, recomendados o certificados por sociedades o asociaciones profesionales, cuando éstas carezcan de la documentación apropiada que soporte con evidencia científica, objetiva y fehaciente'.",
+   "platform_action": "Reglas de contenido del perfil (Términos para clínicas y /legal/veterinarias): (1) solo afirmaciones comprobables: servicios que realmente se prestan, horario, precios si se publican con IVA incluido y vigencia; (2) prohibidas 'la mejor clínica', 'garantizamos la recuperación', 'cura', 'sin riesgo', 'recomendada por [colegio o asociación]' sin constancia cargada; (3) las especialidades (cirugía, oncología, etc.) solo se muestran si se sube constancia o certificado de especialidad; (4) 'Urgencias 24 h' solo con horario y teléfono de urgencias confirmados; (5) ningún perfil o reseña se presenta como 'recomendado por GuauWoow'; (6) contenido pagado o destacado se etiqueta 'Patrocinado'; (7) GuauWoow conserva un expediente de sustento por afirmación destacada y atiende en 24 horas hábiles las órdenes de suspensión de PROFECO (art. 35) con registro en la bitácora de administración. Declarar en Términos que GuauWoow es medio de difusión y no proveedor de los servicios veterinarios.",
+   "priority": "obligatorio",
+   "confidence": "alta",
+   "applies_to": [
+    "clinicas_veterinarias",
+    "publicidad",
+    "moderacion",
+    "terminos"
+   ],
+   "pages": [
+    "/legal/veterinarias",
+    "/legal/terminos-clinicas",
+    "/legal/autoridades"
+   ],
+   "notes": "Textos de la LFPC literales (confianza alta). La inaplicabilidad de la LGS 300-301 y del RLGSMP a la publicidad veterinaria es conclusión por ausencia de mención (confianza media): la LGS 79 incluye a la veterinaria entre las profesiones con título registrado, pero los 'servicios de salud' que el reglamento regula son los del art. 23 de la LGS (salud humana); un abogado sanitario debe confirmarlo. Los Lineamientos de PROFECO no contienen reglas sobre testimonios ni opiniones de consumidores (verificado en el DOF 24-07-2012).",
+   "verdict": "verificado",
+   "evidence": "LFPC (PDF oficial, última reforma DOF 12-12-2025): arts. 1, 2, 5, 32, 35, 76 Bis, 76 Bis 1, 126, 127, 128, 128 Bis y 128 Ter fr. VI leídos textualmente, con montos actualizados por Acuerdo DOF 23-12-2025. LGS arts. 300 y 301 y RLGSMP arts. 1, 2, 5, 16 y 79 leídos textualmente. Lineamientos PROFECO 2012 leídos en el DOF mediante resumen asistido: sin mención de testimonios u opiniones."
+  },
+  {
+   "id": "gap-veterinarias-y-resenas-09",
+   "topic": "Papel de GuauWoow frente al servicio veterinario: directorio y medio de difusión, no proveedor; deslindes válidos y deslindes inválidos",
+   "requirement": "Mientras GuauWoow no cobre consultas, no agende citas con pago ni intermedie la contratación, no es proveedor del servicio veterinario (LFPC art. 2 fr. II) y el capítulo de comercio electrónico (arts. 76 Bis y 76 Bis 1) no le aplica por esa sección; sí le aplica a la clínica cuando ofrezca o venda por medios electrónicos, incluida la obligación de dar 'su domicilio físico, números telefónicos y demás medios' para reclamaciones (76 Bis fr. III). La responsabilidad por el acto médico es del profesionista: 'está obligado a poner todos sus conocimientos científicos y recursos técnicos al servicio de su cliente' (Ley de Profesiones art. 33); la inconformidad del cliente 'se resolverá mediante juicio de peritos' (art. 34); responde civilmente por sus auxiliares (art. 71) y, en general, 'el que obrando ilícitamente o contra las buenas costumbres cause daño a otro, está obligado a repararlo' (CCF art. 1910). Límites del deslinde: las disposiciones de la LFPC 'son irrenunciables y contra su observancia no podrán alegarse costumbres, usos, prácticas, convenios o estipulaciones en contrario' (art. 1), por lo que ninguna cláusula de GuauWoow puede limitar los derechos del consumidor frente a la clínica; y GuauWoow responde por sus propios hechos (CCF 1910): por ejemplo, por afirmar que una clínica está 'certificada' sin haberlo verificado, o por retrasar sin justificación el retiro de un perfil con cédula falsa (hallazgo 16).",
+   "legal_basis": "LFPC arts. 1, 2 frs. I y II, 5, 76 Bis fr. III y 76 Bis 1 (última reforma DOF 12-12-2025); Ley Reglamentaria del Artículo 5o. Constitucional arts. 33, 34 y 71 (última reforma DOF 19-01-2018); Código Civil Federal arts. 1910 y 1916 (última reforma DOF 14-11-2025).",
+   "source_url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/208_190118.pdf",
+   "quote": "Ley de Profesiones 33: 'El profesionista está obligado a poner todos sus conocimientos científicos y recursos técnicos al servicio de su cliente, así como al desempeño del trabajo convenido.' 34: 'Cuando hubiere inconformidad por parte del cliente respecto al servicio realizado, el asunto se resolverá mediante juicio de peritos'. LFPC 1: 'Sus disposiciones son irrenunciables y contra su observancia no podrán alegarse costumbres, usos, prácticas, convenios o estipulaciones en contrario.'",
+   "platform_action": "Textos de deslinde (Términos, Términos para clínicas y /legal/veterinarias): 'GuauWoow es un directorio. No presta servicios veterinarios, no emplea a los veterinarios, no participa en el diagnóstico ni en el tratamiento, no cobra consultas ni garantiza resultados médicos. La relación es entre tú y la clínica; la clínica y su médico responsable responden por la atención conforme a la Ley de Profesiones y al Código Civil. Lo que verificamos es la cédula del responsable y la existencia del establecimiento en una fecha; no verificamos la calidad de la atención.' Aviso de urgencias en cada perfil y en el bot: 'Si tu perro está en peligro, llama directamente a la clínica o acude a urgencias; GuauWoow no es un servicio de emergencias.' Perfil con domicilio, teléfono y medio de reclamación de la clínica (LFPC 76 Bis fr. III) y enlace a PROFECO. Sin cláusulas que limiten derechos del consumidor frente a la clínica. Si en el futuro se habilitan citas con pago o comisión, GuauWoow pasa a ser intermediario con obligaciones de la NMX-COE-001-SCFI-2018 y de los dominios consumidor-ecommerce y fiscal-tienda (decisión del dueño pendiente).",
+   "priority": "obligatorio",
+   "confidence": "media",
+   "applies_to": [
+    "clinicas_veterinarias",
+    "terminos",
+    "bot_whatsapp"
+   ],
+   "pages": [
+    "/legal/veterinarias",
+    "/legal/terminos",
+    "/legal/terminos-clinicas"
+   ],
+   "notes": "La calificación de GuauWoow como 'no proveedor' depende de que no exista cobro, comisión ni agenda contractual; es interpretación (confianza media). El seguro de responsabilidad civil recomendado en identidad-contratos-21 debería incluir la sección de clínicas (daño moral por reseñas y reclamaciones por verificación).",
+   "verdict": "verificado",
+   "evidence": "Ley de Profesiones arts. 33, 34 y 71 leídos textualmente (PDF oficial 208_190118.pdf). LFPC arts. 1, 2, 5, 76 Bis y 76 Bis 1 leídos textualmente. CCF art. 1910 citado por contenido-plataforma-27 (verificado en ese dominio) y art. 1916 leído textualmente en esta sesión."
+  },
+  {
+   "id": "gap-veterinarias-y-resenas-10",
+   "topic": "Términos de Google Maps Platform: qué permiten y qué prohíben para mostrar datos y reseñas de Google en un directorio de clínicas",
+   "requirement": "Para mostrar reseñas de Google se usa la Places API, que es un 'Google Maps Core Service' (Core Services Summary, 22-04-2026) sujeto a los Google Maps Platform Terms of Service (versión con última modificación 26-08-2026) y a los Service Specific Terms (15-10-2026). Obligaciones y límites: (a) los Términos de GuauWoow deben avisar que la app incluye funciones y contenido de Google Maps y que su uso está sujeto a los Google Maps End User Additional Terms y a la Google Privacy Policy (ToS 3.2.2(a)(i)); (b) mostrar toda la atribución que Google entregue o que exijan los Service Terms, sin modificarla ni ocultarla (3.2.2(b)); (c) prohibido extraer o copiar contenido, incluido 'copy and save business names, addresses, or user reviews' (3.2.3(a)); (d) prohibido guardar en caché salvo lo que permitan los Service Terms (3.2.3(b)): el place_id puede guardarse indefinidamente (Service Terms A.3) y la latitud y longitud de Places hasta 30 días naturales (14.3); las reseñas, calificaciones, nombres y fotos de autores NO pueden almacenarse; (e) prohibido crear contenido a partir de contenido de Google, incluido usarlo para entrenar modelos de IA (3.2.3(c)); (f) prohibido recrear productos de Google: el producto debe tener 'substantial, independent value and features beyond the Google products or services' y, como ejemplo expreso, el cliente no usará los Core Services 'in a listings or directory service or to create or augment an advertising product' (3.2.3(d)(iii)); (g) prohibido usar contenido de Places 'on a non-Google Map' o cerca de un mapa que no sea de Google (3.2.3(e); Service Terms 14.2), aunque sí puede usarse sin mapa (14.1); (h) prohibido modificar los resultados de búsqueda (3.2.3(g)); (i) cumplir las leyes de privacidad y la Consent Policy de Google y no enviar a Google datos personales de los usuarios (4.4(c)); (j) GuauWoow responde ante terceros por el uso de los Servicios (9.3) e indemniza a Google por uso contrario al acuerdo (14.1). Riesgo central: un directorio de clínicas cuyo valor dependa de los datos de Google encaja en el ejemplo prohibido de 3.2.3(d)(iii); GuauWoow debe construir el directorio con sus propios datos verificados y sus propias reseñas, y usar Google solo como complemento identificable.",
+   "legal_basis": "Google Maps Platform Terms of Service secciones 3.2.2(a)(i) y (b), 3.2.3(a) a (g), 4.4(c), 9.3, 14.1 y definiciones de 'Google Maps Content' y 'Google Maps Core Services' (última modificación 26-08-2026); Google Maps Platform Service Specific Terms A.2, A.3, 14.1, 14.2 y 14.3 (última modificación 15-10-2026); Google Maps Platform Core Services Summary (última modificación 22-04-2026).",
+   "source_url": "https://cloud.google.com/maps-platform/terms",
+   "quote": "ToS 3.2.3(d): 'Customer’s product or service must contain substantial, independent value and features beyond the Google products or services. For example, Customer will not: ... (iii) use the Google Maps Core Services in a listings or directory service or to create or augment an advertising product'. ToS 3.2.3(a): 'Customer will not: ... (iii) copy and save business names, addresses, or user reviews'. Service Terms 14.2: 'Customer must not use Google Maps Content from the Places API in conjunction with a non-Google map.'",
+   "platform_action": "Decisión de arquitectura y texto legal: (1) el directorio se alimenta de los datos que la clínica registra y GuauWoow verifica (hallazgos 01-03) y de las reseñas internas (hallazgo 12); Google es una capa opcional por perfil; (2) se guarda solo el place_id (indefinido) y, si se usa, latitud y longitud por no más de 30 días; las reseñas, la calificación, el conteo de reseñas y los datos de autores se piden en tiempo real a Places API y no se escriben en base de datos, caché de servidor ni registros (logs); (3) el mapa de clínicas de GuauWoow usa teselas OSM/CARTO (dominio comunicaciones-cookies): por eso el contenido de Google (reseñas, calificación, dirección de Google) NO se muestra en la vista de mapa ni junto a ella, sino únicamente en el perfil de la clínica, sin mapa en esa pantalla o con un mapa de Google si se decide mostrarlo ahí; (4) no se combinan calificaciones de Google con las internas en un promedio único ni se ordenan clínicas por su calificación de Google; (5) no se usa contenido de Google para entrenar ni alimentar la IA de la plataforma; (6) Términos: cláusula 'Contenido de Google Maps' con los enlaces exigidos por 3.2.2(a)(i); Aviso de privacidad y /legal/proveedores: Google LLC como tercero (Places API); (7) cookies y consentimiento: la llamada a Places se hace desde el servidor de GuauWoow, no desde el navegador, para no enviar a Google la IP ni identificadores del usuario, o bien se declara en el banner si se hace desde el cliente; (8) revisión semestral de los Términos de Google con copia fechada; (9) antes de lanzar, pedir a un abogado de tecnología una opinión escrita sobre 3.2.3(d)(iii) y considerar consultar a Google (Review of Customer Applications, 3.2.2(c)).",
+   "priority": "obligatorio",
+   "confidence": "alta",
+   "applies_to": [
+    "clinicas_veterinarias",
+    "google_places",
+    "terminos",
+    "privacidad",
+    "cookies",
+    "ingenieria"
+   ],
+   "pages": [
+    "/legal/resenas",
+    "/legal/terminos",
+    "/legal/privacidad",
+    "/legal/proveedores",
+    "/legal/cookies"
+   ],
+   "notes": "Textos contractuales verificados en cloud.google.com (confianza alta). La aplicación de 3.2.3(d)(iii) a GuauWoow es interpretación de riesgo (confianza media): el ejemplo prohíbe 'un servicio de listados o directorio' construido con los Core Services; un directorio con datos propios verificados y reseñas propias, que añade contenido de Google como complemento, tiene mejor argumento de 'valor independiente sustancial', pero solo Google puede confirmarlo. Las fechas 'Last modified' se tomaron del pie de página de cada documento ('Previous versions (Last modified ...)').",
+   "verdict": "verificado",
+   "evidence": "Google Maps Platform Terms of Service descargados de cloud.google.com/maps-platform/terms el 17-10-2026 y leídos textualmente: secciones 3.2.1, 3.2.2(a)-(c), 3.2.3(a)-(g), 4.1-4.4, 5.1-5.3, 9.3, 14.1 y definiciones; pie 'Previous versions (Last modified August 26, 2026)'. Service Specific Terms (cloud.google.com/maps-platform/terms/maps-service-terms): A.1-A.3 y 14.1-14.3 leídos; pie 'Last modified October 15, 2026'. Core Services Summary (cloud.google.com/maps-platform/terms/maps-services): lista con Places API (New), Places API y Places UI Kit; 'Last modified April 22, 2026'."
+  },
+  {
+   "id": "gap-veterinarias-y-resenas-11",
+   "topic": "Políticas de Places API para reseñas: máximo 5 reseñas, atribución del autor, enlace a Google Maps, reporte de contenido, aviso de orden y de traducción; prohibido alterar o filtrar",
+   "requirement": "La Places API (New) devuelve en el recurso Place una 'List of reviews about this place, sorted by relevance. A maximum of 5 reviews can be returned', con 'rating' (1.0 a 5.0) y 'userRatingCount' del lugar; cada Review trae 'authorAttribution' (displayName, uri, photoUri), 'relativePublishTimeDescription', 'publishTime', 'text' y 'originalText', 'flagContentUri' y 'googleMapsUri'. Las políticas de Places (actualizadas 15-10-2026) exigen: mostrar la atribución 'Google Maps' (logotipo o texto con las especificaciones de tamaño, fuente y color) cuando el contenido no se muestra en un mapa de Google; distinguir visualmente el contenido de Google del resto ('border, background color, shadow, or sufficient whitespace') y no mezclarlo ni atribuir a Google contenido ajeno; 'You must always credit the author when displaying photos or reviews' (avatar, nombre y enlace al perfil; mínimo el avatar si falta espacio); 'end-users must always have access to view the individual source photo or review on Google Maps using the provided googleMapsUri'; 'Include a clear notice that describes how reviews are being ordered and filtered'; mostrar visitDate para lugares en Francia; recomendado: fecha relativa, aviso de traducción con acceso al texto original, enlace de reporte (flagContentUri) y aviso de que Google no verifica las reseñas; los resúmenes generados con IA exigen el texto de divulgación y enlaces. Las reseñas no pueden editarse ni resumirse por GuauWoow (3.2.3(c) y (g) de los ToS) ni filtrarse por calificación sin avisarlo. Los Términos y el Aviso de privacidad de la app deben ser públicos e incorporar los de Google.",
+   "legal_basis": "Políticas y atribuciones de Places API (New), secciones 'Google Maps attribution requirements', 'Photos and reviews', 'Reviews', 'Reviews and average rating' y 'AI-powered summaries' (última actualización 15-10-2026); referencia REST places (campos reviews, rating, userRatingCount, Review y AuthorAttribution); Google Maps Platform ToS 3.2.2(a)(i) y 3.2.3(c) y (g).",
+   "source_url": "https://developers.google.com/maps/documentation/places/web-service/policies",
+   "quote": "Políticas de Places: 'You must always credit the author when displaying photos or reviews. Each photo and review includes an author attribution (author's avatar image, name, and profile link).' 'For each photo and review, end-users must always have access to view the individual source photo or review on Google Maps using the provided googleMapsUri.' Referencia Place: 'List of reviews about this place, sorted by relevance. A maximum of 5 reviews can be returned.'",
+   "platform_action": "Componente 'Reseñas en Google Maps' en el perfil de la clínica, separado del bloque de reseñas de GuauWoow, con: logotipo o texto 'Google Maps' (translate='no', tamaño y color según la guía), calificación y número de reseñas de Google, hasta 5 reseñas tal como llegan (sin recortar, reordenar ni traducir por cuenta propia), avatar + nombre + enlace al perfil del autor, fecha relativa, enlace 'Ver en Google Maps' (googleMapsUri) y 'Reportar a Google' (flagContentUri), aviso 'Ordenadas por relevancia según Google; Google no verifica las reseñas' y aviso de traducción cuando text difiera de originalText. Sin resumen con IA salvo que se implementen los textos de divulgación exigidos. Política de reseñas (/legal/resenas): sección 'Reseñas de Google' que explica que son contenido de Google, que GuauWoow no las guarda, modera ni responde, y que las quejas sobre ellas se presentan a Google. Términos: enlaces a Google Maps End User Additional Terms y Google Privacy Policy.",
+   "priority": "obligatorio",
+   "confidence": "alta",
+   "applies_to": [
+    "clinicas_veterinarias",
+    "google_places",
+    "ingenieria",
+    "resenas"
+   ],
+   "pages": [
+    "/legal/resenas",
+    "/legal/terminos",
+    "/legal/veterinarias"
+   ],
+   "notes": "Las políticas marcan algunas prácticas como '(recommended)' pero advierten que 'practices labeled as (recommended) in these policies may still be mandated by law'; se tratan todas como obligatorias en GuauWoow. Las políticas son de la Places API (New); si se usara la API Legacy, los nombres de campos cambian (author_name, author_url, profile_photo_url) pero las reglas de atribución son las mismas. La referencia REST no se leyó completa (108 KB; se leyó hasta el carácter 100,000).",
+   "verdict": "verificado",
+   "evidence": "Página 'Policies and attributions for Places API' (developers.google.com, 'Last updated 2026-10-15 UTC') descargada y leída íntegra. Referencia REST 'places' leída mediante resumen asistido: campos reviews (máximo 5), rating, userRatingCount, Review (name, relativePublishTimeDescription, text, originalText, rating, authorAttribution, publishTime, flagContentUri, googleMapsUri, visitDate) y AuthorAttribution (displayName, uri, photoUri)."
+  },
+  {
+   "id": "gap-veterinarias-y-resenas-12",
+   "topic": "Reseñas propias (in-app): reglas de consumo y publicidad aplicables, y diseño de la política de reseñas",
+   "requirement": "No hay en la LFPC ni en los Lineamientos de PROFECO (2012) ni en el Código de Ética en materia de comercio electrónico (DOF 26-02-2021) una regla específica sobre reseñas de consumidores. Las reglas aplicables son: (a) LFPC art. 32: la información que se difunde sobre un servicio debe ser veraz y comprobable y no 'parcial, artificiosa o tendenciosa'; reseñas pagadas, escritas por la propia clínica, por competidores o seleccionadas para ocultar las negativas convierten la sección en publicidad engañosa, con exposición de la clínica (proveedor) y de GuauWoow (medio que difunde y que elige cómo presentarlas); (b) NMX-COE-001-SCFI-2018 numeral 5.3.3, obligatoria por remisión del art. 76 Bis 1 LFPC solo cuando hay transacciones electrónicas: mecanismo para calificar, opinar y conocer opiniones de otros consumidores (ya adoptado para la tienda en consumidor-ecommerce-29 y buenas-practicas-23); (c) el reseñador que comparte su experiencia ejerce la libertad de expresión (CPEUM arts. 6 y 7; CCF 1916 Bis) y sus datos son personales (hallazgo 15). La verificación por SMS ya exigida a todos los usuarios y la regla de 'experiencia propia' son los controles razonables para sostener que las reseñas son genuinas.",
+   "legal_basis": "LFPC arts. 32 y 76 Bis 1 (última reforma DOF 12-12-2025); NMX-COE-001-SCFI-2018 numeral 5.3.3 (verificado por consumidor-ecommerce-29); Código de Ética en materia de comercio electrónico (DOF 26-02-2021; sin disposición sobre reseñas); CPEUM arts. 6 y 7 (última reforma DOF 07-10-2026); CCF art. 1916 Bis.",
+   "source_url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LFPC.pdf",
+   "quote": "LFPC 32: '...se entiende por información o publicidad engañosa o abusiva aquella que refiere características o información relacionadas con algún bien, producto o servicio que pudiendo o no ser verdaderas, inducen a error o confusión al consumidor por la forma inexacta, falsa, exagerada, parcial, artificiosa o tendenciosa en que se presenta.' CPEUM 7: 'Es inviolable la libertad de difundir opiniones, información e ideas, a través de cualquier medio.'",
+   "platform_action": "Política de reseñas (/legal/resenas), sección 'Reseñas de clínicas en GuauWoow': (1) quién: solo cuentas con teléfono verificado y antigüedad mínima (por ejemplo 7 días), una reseña por clínica y por cuenta, editable por el autor; (2) qué: experiencia propia y reciente (12 meses) como cliente; calificación de 1 a 5 y texto; opcional 'fecha aproximada de la visita'; (3) prohibido: reseñas de la propia clínica, de su personal o familiares, de competidores, pagadas o incentivadas sin etiqueta, copiadas de otros sitios, sobre experiencias de terceros, con datos personales de empleados o de otros clientes, con acusaciones de delitos (hallazgo 13); (4) presentación: orden cronológico por defecto con selector visible, promedio simple con el número de reseñas, nunca se ocultan ni se retrasan las negativas, la clínica no puede editar, borrar ni pagar por posicionar; (5) respuesta pública de la clínica verificada, una por reseña (hallazgo 14); (6) etiqueta 'Reseña incentivada' cuando el autor declare haber recibido descuento o regalo; (7) reportes y retiros conforme a la política de moderación con registro y aviso al autor (buenas-practicas-16); (8) GuauWoow no escribe, encarga ni compra reseñas y publica en transparencia el número de reseñas retiradas y por qué motivo. Términos para clínicas: aceptar que las reseñas negativas legítimas no se retiran y que intentar manipularlas (compra, coacción, reseñas falsas) causa la pérdida de la verificación.",
+   "priority": "obligatorio",
+   "confidence": "media",
+   "applies_to": [
+    "clinicas_veterinarias",
+    "resenas",
+    "moderacion",
+    "terminos"
+   ],
+   "pages": [
+    "/legal/resenas",
+    "/legal/terminos-clinicas",
+    "/legal/normas-comunidad",
+    "/legal/transparencia"
+   ],
+   "notes": "Confianza media: la aplicación del art. 32 a reseñas de usuarios (como 'información' sobre el servicio que el medio presenta) es interpretación; no se localizó criterio de PROFECO sobre reseñas falsas en México (búsqueda del 17-10-2026 sin resultados oficiales). El Código de Ética de comercio electrónico se descargó de gob.mx y no contiene las palabras 'opinión', 'reseña', 'calificación' ni 'testimonio'.",
+   "verdict": "verificado",
+   "evidence": "LFPC arts. 32 y 76 Bis 1 leídos textualmente. CPEUM (PDF oficial, última reforma DOF 07-10-2026): arts. 6 y 7 leídos textualmente. CCF 1916 Bis leído textualmente. Código de Ética (PDF gob.mx, 5 páginas) extraído con pdftotext: sin coincidencias para opiniones, reseñas, calificaciones o testimonios. NMX 5.3.3 tomada de consumidor-ecommerce-29 (verificado en ese dominio)."
+  },
+  {
+   "id": "gap-veterinarias-y-resenas-13",
+   "topic": "Daño moral por reseñas: estándar de opiniones versus hechos, 'negligencia inexcusable' para particulares, ausencia de puerto seguro y deberes de moderación",
+   "requirement": "El daño moral abarca la afectación a 'decoro, honor, reputación... o bien en la consideración que de sí misma tienen los demás'; son hechos ilícitos comunicar 'la imputación que se hace a otra persona física o moral, de un hecho cierto o falso... que pueda causarle deshonra, descrédito, perjuicio' (CCF 1916 fr. I), imputar falsamente un delito (fr. II) y ofender el honor (fr. IV); la reparación incluye 'la rectificación o respuesta de la información difundida en el mismo medio' y 'la reproducción fiel de información no da lugar al daño moral... siempre y cuando se cite la fuente' (1916, párrafos finales); no responde 'quien ejerza sus derechos de opinión, crítica, expresión e información, en los términos y con las limitaciones de los artículos 6o. y 7o. de la Constitución' (1916 Bis). En la CDMX, 'No se considerará que se causa daño al patrimonio moral cuando se emitan opiniones, ideas o juicios de valor sobre cualquier persona, siempre y cuando no se utilicen palabras, frases o expresiones insultantes por sí mismas, innecesarias para el ejercicio de la libertad de expresión', ni por imputaciones de hechos veraces y de interés público (Ley de Responsabilidad Civil CDMX art. 25); 'el carácter molesto e hiriente de una información no constituye en sí un límite' (art. 14); frente a particulares, como una clínica o un veterinario, 'bastará que se demuestre la negligencia inexcusable del demandado' (art. 32), la acción prescribe en dos años (art. 38) y la indemnización se topa en 350 veces la Unidad de Cuenta de la CDMX (art. 41). La SCJN aplica el 'sistema de protección dual': para servidores públicos y figuras públicas rige la 'malicia efectiva' (jurisprudencia 1a./J. 38/2013 (10a.), citada en el ADR 172/2019) y para 'simples particulares se necesita que la información haya sido con negligencia inexcusable del demandado, es decir, con falta de cuidado para verificar si la información difundida infringía o no un derecho de la personalidad' (ADR 172/2019, párr. 47). Fuera de los derechos de autor (LFDA 114 Octies) no hay puerto seguro legal para plataformas: la responsabilidad de GuauWoow por reseñas de terceros se juzgaría por su propia diligencia (CCF 1910), y el caso Richter contra Google (condena de tribunales de la CDMX por un blog de un tercero, atraído por la SCJN, sin resolución definitiva localizada) muestra que el riesgo es real.",
+   "legal_basis": "Código Civil Federal arts. 1910, 1916 (frs. I a IV y párrafos finales) y 1916 Bis (última reforma DOF 14-11-2025); Ley de Responsabilidad Civil para la Protección del Derecho a la Vida Privada, el Honor y la Propia Imagen en el Distrito Federal arts. 13, 14, 24, 25, 32, 36, 37, 38 y 41 (G.O. 19-05-2006, última reforma 28-11-2014); CPEUM arts. 6 y 7; SCJN, Primera Sala, Amparo Directo en Revisión 172/2019 (párrs. 41-47) y jurisprudencia 1a./J. 38/2013 (10a.) 'Libertad de expresión. Sus límites a la luz del sistema de protección dual y del estándar de malicia efectiva'; LFDA art. 114 Octies (verificado por contenido-plataforma-01).",
+   "source_url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/CCF.pdf",
+   "quote": "Ley de Responsabilidad Civil CDMX 25: 'No se considerará que se causa daño al patrimonio moral cuando se emitan opiniones, ideas o juicios de valor sobre cualquier persona, siempre y cuando no se utilicen palabras, frases o expresiones insultantes por sí mismas, innecesarias para el ejercicio de la libertad de expresión.' ADR 172/2019 párr. 47: 'en el caso de los simples particulares se necesita que la información haya sido con negligencia inexcusable del demandado, es decir, con falta de cuidado para verificar si la información difundida infringía o no un derecho de la personalidad.'",
+   "platform_action": "Reglas de contenido de reseñas que trasladan el estándar legal a lenguaje llano: permitido opinar y calificar ('me pareció caro', 'no me explicaron el diagnóstico', 'trato frío'); permitido narrar hechos propios verificables ('cobraron $X por...'); prohibido imputar delitos o conductas graves ('mató a mi perro por negligencia', 'estafadores', 'maltratan animales') salvo que exista denuncia o resolución y se cite; prohibidos insultos, datos personales de empleados (nombres completos, fotos, teléfonos) y acusaciones a personas identificables distintas del establecimiento. Moderación: (1) filtro previo automático de insultos y de palabras de imputación penal con retención para revisión humana en 24 horas hábiles; (2) motivo de reporte 'afecta mi honor o reputación' disponible para clínicas y para personas sin cuenta (formulario público); (3) revisión en 72 horas hábiles, retiro preventivo de lo manifiestamente ilícito y aviso al autor con la regla aplicada y vía de apelación (buenas-practicas-16); (4) GuauWoow nunca reescribe reseñas ni agrega adjetivos propios; sus textos (promedios, etiquetas, resúmenes) son contenido propio y responden por sí mismos (contenido-plataforma-27); (5) evidencia de retiros conservada conforme al calendario de contenido-plataforma; (6) selector de estado en Términos para explicar que la responsabilidad civil es local (ley especial en la CDMX; código civil en los demás estados). Estos plazos se publican solo si pueden cumplirse: los tribunales usan las políticas propias como medida de diligencia.",
+   "priority": "obligatorio",
+   "confidence": "media",
+   "applies_to": [
+    "resenas",
+    "moderacion",
+    "clinicas_veterinarias",
+    "terminos"
+   ],
+   "pages": [
+    "/legal/resenas",
+    "/legal/moderacion-y-apelaciones",
+    "/legal/normas-comunidad",
+    "/legal/terminos"
+   ],
+   "notes": "Textos del CCF, de la ley de la CDMX y de la CPEUM literales (alta). La jurisprudencia 1a./J. 38/2013 se cita por su rubro tal como aparece en las notas 8 y 10 del ADR 172/2019 (documento de la SCJN); no pude abrir el Semanario Judicial (aplicación JavaScript), por lo que el registro digital (2003303, según un comunicado de la SCJN localizado por búsqueda) queda sin cotejar. El resultado del caso Richter contra Google no está confirmado en fuente primaria (prensa hasta 2024-2025). Confianza media en conjunto; un abogado civilista debe confirmar la aplicación del estándar de 'negligencia inexcusable' al intermediario y el domicilio que fija la ley aplicable.",
+   "verdict": "verificado",
+   "evidence": "CCF (PDF oficial, última reforma DOF 14-11-2025): arts. 1916 y 1916 Bis leídos textualmente, incluidas las fracciones I a IV y los párrafos sobre rectificación y reproducción fiel. Ley de Responsabilidad Civil CDMX (PDF del Congreso CDMX, última reforma 28-11-2014): arts. 7, 13, 14, 24, 25, 28-34, 36, 37, 38 y 41 leídos textualmente. CPEUM arts. 6 y 7 leídos textualmente. ADR 172/2019 (PDF del sitio de la SCJN, ponente Ministro González Alcántara Carrancá, documento del 15-03-2019): párrs. 40-47 y notas 8-10 leídos textualmente."
+  },
+  {
+   "id": "gap-veterinarias-y-resenas-14",
+   "topic": "Derecho de réplica y respuesta del establecimiento: la ley de réplica probablemente no obliga a GuauWoow, pero conviene ofrecer respuesta pública y un responsable identificado",
+   "requirement": "La Ley Reglamentaria del Artículo 6o. en materia del derecho de réplica obliga a 'los medios de comunicación, las agencias de noticias, los productores independientes y cualquier otro emisor de información responsable del contenido original' (art. 4); 'medio de comunicación' es quien presta radiodifusión o televisión restringida 'o que de manera impresa y/o electrónica difunde masivamente ideas, pensamientos, opiniones, creencias e informaciones de toda índole' (art. 2 fr. III); el derecho procede frente a 'información inexacta o falsa' que cause agravio (arts. 2 fr. II y 3); la crítica queda sujeta a réplica solo si se sustenta en información falsa o inexacta (art. 5); la publicación de la réplica es gratuita y sin comentarios (art. 6) y los sujetos obligados deben tener 'en todo tiempo con un responsable para recibir y resolver sobre las solicitudes de réplica' con nombre, domicilio, correo y teléfono en su portal (art. 7). Una plataforma que aloja reseñas de usuarios no es 'responsable del contenido original' (lo es el autor) y no difunde contenido propio de forma periódica; la aplicación a GuauWoow es dudosa, pero el CCF 1916 exige, como parte de la reparación del daño moral, 'la rectificación o respuesta de la información difundida en el mismo medio', lo que hace razonable ofrecer de origen un mecanismo de respuesta.",
+   "legal_basis": "Ley Reglamentaria del Artículo 6o., párrafo primero, de la CPEUM, en materia del Derecho de Réplica arts. 2 frs. II y III, 3, 4, 5, 6 y 7 (DOF 04-11-2015, última reforma DOF 14-11-2025); CPEUM art. 6 primer párrafo; CCF art. 1916 párrafo sobre rectificación o respuesta.",
+   "source_url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LRArt6_MDR.pdf",
+   "quote": "Ley de réplica 4: 'Los medios de comunicación, las agencias de noticias, los productores independientes y cualquier otro emisor de información responsable del contenido original, serán sujetos obligados'. Art. 7: 'Los sujetos obligados deberán contar en todo tiempo con un responsable para recibir y resolver sobre las solicitudes de réplica.'",
+   "platform_action": "Función 'Respuesta de la clínica': toda clínica verificada puede publicar una respuesta por reseña, visible debajo de ella, sin editar la reseña original, sujeta a las mismas reglas de contenido (sin datos del cliente ni de su mascota más allá de lo que el cliente ya publicó, sin insultos). Procedimiento 'Solicitud de aclaración o réplica' en /legal/moderacion-y-apelaciones: la clínica o cualquier persona aludida puede pedir, con identificación y fundamento, que se publique una aclaración junto a una reseña con información inexacta; respuesta de GuauWoow en 5 días hábiles; si procede, se publica la aclaración gratuita y sin comentarios, y si la reseña viola las reglas se retira. Designar y publicar en /legal/canales-oficiales a la persona responsable de recibir reclamaciones de contenido (nombre, correo, domicilio para notificaciones), lo que cumple en la práctica el art. 7 por si un tribunal considerara a GuauWoow sujeto obligado. Términos: la respuesta de la clínica es contenido de la clínica y responde por él.",
+   "priority": "recomendado",
+   "confidence": "media",
+   "applies_to": [
+    "resenas",
+    "moderacion",
+    "clinicas_veterinarias"
+   ],
+   "pages": [
+    "/legal/moderacion-y-apelaciones",
+    "/legal/resenas",
+    "/legal/canales-oficiales"
+   ],
+   "notes": "Confianza media: la ley es literal, pero la conclusión de que GuauWoow no es sujeto obligado es interpretación y no se localizó criterio judicial sobre plataformas de reseñas. El art. 8 (supletoriedad del Código Nacional de Procedimientos Civiles y Familiares) se reformó el 14-11-2025, lo que confirma que la ley sigue vigente y activa. El procedimiento judicial de réplica (arts. 23 y siguientes) no se revisó.",
+   "verdict": "verificado",
+   "evidence": "Ley de réplica (PDF oficial LRArt6_MDR.pdf, última reforma DOF 14-11-2025): arts. 2, 3, 4, 5, 6, 7 y 8 leídos textualmente. CCF 1916 leído textualmente. CPEUM art. 6 leído textualmente ('el derecho de réplica será ejercido en los términos dispuestos por la ley')."
+  },
+  {
+   "id": "gap-veterinarias-y-resenas-15",
+   "topic": "Datos personales del reseñador, del veterinario y de los autores de reseñas de Google",
+   "requirement": "Todo tratamiento requiere consentimiento salvo excepciones; el consentimiento puede ser tácito cuando se pone a disposición el aviso de privacidad y la persona no se opone, y 'podrá ser revocado en cualquier momento' (LFPDPPP art. 7); el tratamiento debe ser 'el que resulte necesario, adecuado y relevante en relación con las finalidades previstas en el aviso de privacidad' (art. 12); los datos sensibles exigen consentimiento expreso y por escrito (art. 8); cuando los datos 'no hayan sido obtenidos directamente de la persona titular', el responsable debe dar a conocer el aviso de privacidad, con medidas compensatorias si es imposible o desproporcionado (art. 17). Aplicación: (a) el reseñador publica voluntariamente su opinión con un nombre visible: finalidad 'publicación de reseñas' en el aviso, consentimiento tácito suficiente, derecho a editar y a borrar su reseña (revocación y cancelación); (b) el nombre y la cédula del veterinario responsable provienen del registrante y de una fuente de acceso público (hallazgo 02): finalidad 'verificación y publicación' informada en el aviso; se le informa aunque no sea el registrante (art. 17); (c) los autores de reseñas de Google (nombre, foto, enlace) son datos de terceros que GuauWoow solo muestra en tiempo real y no almacena (hallazgo 10): el aviso de privacidad y la política de reseñas lo explican y remiten a Google; (d) una reseña no debe contener datos de salud de personas ni datos de terceros identificables; la salud del animal no es dato personal, pero el nombre y la ubicación del dueño sí.",
+   "legal_basis": "LFPDPPP arts. 7, 8, 12 y 17 (DOF 20-03-2025, última reforma DOF 14-11-2025); arts. 3 fr. X y 9 fr. II (hallazgo 02); dominio datos-personales (aviso de privacidad, ARCO, conservación).",
+   "source_url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LFPDPPP.pdf",
+   "quote": "LFPDPPP 7: 'El consentimiento será tácito cuando habiéndose puesto a disposición de la persona titular el aviso de privacidad, esta no manifieste su voluntad en sentido contrario... El consentimiento podrá ser revocado en cualquier momento sin que se le atribuyan efectos retroactivos.' Art. 17: 'Cuando los datos no hayan sido obtenidos directamente de la persona titular, el responsable deberá darle a conocer el cambio en el aviso de privacidad.'",
+   "platform_action": "Aviso de privacidad: añadir las finalidades 'publicación de reseñas de clínicas con nombre de usuario', 'verificación y publicación de la cédula y nombre del médico veterinario responsable' y 'consulta en tiempo real de contenido de Google Maps Platform (Places API)'; incluir a Google LLC en la lista de terceros y la leyenda de que GuauWoow no almacena las reseñas de Google. Producto: el nombre mostrado en reseñas es el nombre de usuario elegido o nombre y primera inicial, nunca teléfono ni correo; el reseñador puede editar o borrar su reseña; al borrar la cuenta se borran las reseñas (o se anonimizan si el dueño decide conservarlas para el promedio, decisión pendiente); la clínica no recibe más datos del reseñador que los públicos; correo al veterinario responsable al registrarlo con el enlace al aviso (art. 17); filtro de datos personales (teléfonos, correos, nombres completos de terceros) en reseñas y respuestas; conservación de reseñas retiradas conforme al calendario del dominio datos-personales.",
+   "priority": "obligatorio",
+   "confidence": "alta",
+   "applies_to": [
+    "datos_personales",
+    "resenas",
+    "clinicas_veterinarias",
+    "google_places"
+   ],
+   "pages": [
+    "/legal/privacidad",
+    "/legal/resenas",
+    "/legal/proveedores"
+   ],
+   "notes": "Los artículos de la LFPDPPP 2025 se leyeron textualmente (alta). La decisión de borrar o anonimizar reseñas al eliminar la cuenta es del dueño; el dominio datos-personales fija el calendario de conservación. La IP del usuario solo llega a Google si la llamada a Places se hace desde el navegador (ver hallazgo 10 y dominio comunicaciones-cookies).",
+   "verdict": "verificado",
+   "evidence": "LFPDPPP 2025 (PDF oficial, última reforma DOF 14-11-2025): arts. 3 fr. X, 7, 8, 9 fr. II, 12 y 17 leídos textualmente."
+  },
+  {
+   "id": "gap-veterinarias-y-resenas-16",
+   "topic": "Cédula falsa o ajena, usurpación de profesión y revocación de la verificación: procedimiento y evidencia",
+   "requirement": "Atribuirse el carácter de profesionista sin título, realizar actos propios de la profesión, ofrecer públicamente los servicios como profesionista o usar un título o autorización sin derecho se sanciona con prisión de uno a seis años y multa (CPF art. 250 fr. II incisos a) a d)); la Ley de Profesiones remite a esa pena (arts. 62 y 63) y concede 'acción popular para denunciar a quien, sin título o autorización legalmente expedidos, ejerza alguna de las profesiones que requieran título y cédula' (art. 73). La DGP cancela el registro de los profesionistas condenados a inhabilitación (art. 23 fr. VII). GuauWoow no tiene obligación legal de denunciar, pero sí interés propio: publicar como 'verificada' una clínica con cédula falsa sería un hecho propio generador de responsabilidad (CCF 1910) y publicidad engañosa (LFPC 32).",
+   "legal_basis": "Código Penal Federal art. 250 fr. II incisos a) a d) (última reforma DOF 13-03-2026); Ley Reglamentaria del Artículo 5o. Constitucional arts. 23 fr. VII, 62, 63 y 73 (última reforma DOF 19-01-2018); CCF art. 1910; LFPC art. 32.",
+   "source_url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/CPF.pdf",
+   "quote": "CPF 250: 'Se sancionará con prisión de uno a seis años y multa de cien a trescientos días a quien: ... II.- Al que sin tener título profesional o autorización para ejercer alguna profesión reglamentada... a).- Se atribuya el carácter del profesionista. b).- Realice actos propios de una actividad profesional... c).- Ofrezca públicamente sus servicios como profesionista. d).- Use un título o autorización para ejercer alguna actividad profesional sin tener derecho a ello.' Ley de Profesiones 73: 'Se concede acción popular para denunciar a quien, sin título o autorización legalmente expedidos, ejerza alguna de las profesiones que requieran título y cédula para su ejercicio.'",
+   "platform_action": "Procedimiento (página /legal/verificacion y manual interno): (1) si en la verificación inicial la cédula no corresponde (inexistente, de otra persona, de otra carrera, cancelada), se rechaza el registro, se informa el motivo y se conserva la evidencia 12 meses; (2) si se detecta después (reporte de usuario, de la persona titular de la cédula, de un colegio o de autoridad), se despublica el perfil de inmediato de forma preventiva, se notifica al registrante y se le dan 5 días hábiles para aclarar; (3) confirmado el uso indebido, se revoca la verificación de forma definitiva, se cancela la cuenta y se bloquea el nuevo registro; se informa a quienes dejaron reseñas o contactaron a la clínica por la app que el perfil fue retirado por verificación fallida; (4) se evalúa con abogado la denuncia (acción popular, art. 73) y, si la persona titular de la cédula lo pide, se le entrega la evidencia; (5) motivo de reporte 'cédula o veterinario falso' visible en cada perfil; (6) todo queda en la bitácora de administración y en el informe de transparencia. Insignia revocada = perfil sin insignia y sin visibilidad en búsqueda, nunca 'verificada' con fecha antigua.",
+   "priority": "obligatorio",
+   "confidence": "alta",
+   "applies_to": [
+    "clinicas_veterinarias",
+    "verificacion",
+    "moderacion",
+    "administracion"
+   ],
+   "pages": [
+    "/legal/verificacion",
+    "/legal/veterinarias",
+    "/legal/transparencia"
+   ],
+   "notes": "Que GuauWoow presente denuncia es decisión caso por caso con abogado; la acción popular la concede la ley a cualquier persona, no es obligación. La conservación de evidencia sigue el calendario de contenido-plataforma y seguridad-incidentes.",
+   "verdict": "verificado",
+   "evidence": "CPF art. 250 fr. II leído textualmente (PDF oficial, última reforma DOF 13-03-2026). Ley de Profesiones arts. 23 fr. VII, 62, 63 y 73 leídos textualmente."
+  },
+  {
+   "id": "gap-veterinarias-y-resenas-17",
+   "topic": "Redacción de la insignia 'verificada' y de lo que no se verifica; vigilancia de cambios en leyes y en los términos de Google",
+   "requirement": "La insignia es información que GuauWoow difunde sobre un servicio y debe ser veraz, comprobable y no 'parcial, artificiosa o tendenciosa' (LFPC art. 32); no puede sugerir certificación, aval o recomendación de una asociación profesional ni de GuauWoow si no existe (art. 32 párrafo sobre avales). Google exige que su contenido se distinga del resto y que no se atribuya a Google contenido ajeno (políticas de Places, 'Visual requirements'), por lo que la insignia de GuauWoow y la calificación de Google no pueden fundirse en un mismo elemento. Los términos de Google cambian con frecuencia (ToS 26-08-2026; Service Terms 15-10-2026; políticas de Places 15-10-2026) y la Ley General de bienestar animal pendiente (bienestar-animal-02) podría regular clínicas y plataformas.",
+   "legal_basis": "LFPC art. 32 (última reforma DOF 12-12-2025); Políticas de Places API, 'Visual requirements' (15-10-2026); Google Maps Platform ToS 3.2.2(b); buenas-practicas-27 (verificación) y consumidor-ecommerce-v01 (expediente de sustento).",
+   "source_url": "https://developers.google.com/maps/documentation/places/web-service/policies",
+   "quote": "Políticas de Places: 'Don't misrepresent Google Maps by attributing it with non-Google Maps Platform content.' 'Visually distinguish Google Maps Platform Content from other content by using UI cues such as a border, background color, shadow, or sufficient whitespace.'",
+   "platform_action": "Texto único de la insignia: 'Cédula verificada' con tooltip y página: 'GuauWoow comprobó el [fecha] que la cédula profesional [número] del médico veterinario responsable existe en el Registro Nacional de Profesionistas de la SEP y que coincide con el nombre registrado, y revisó una identificación del responsable y un comprobante del establecimiento. No verificamos la calidad de la atención, las instalaciones, los precios ni los permisos locales; no somos autoridad ni colegio de profesionistas.' Prohibidos los textos 'clínica certificada', 'avalada', 'recomendada por GuauWoow', 'la mejor' y cualquier ranking editorial. Insignias separadas y opcionales si se acreditan: 'Especialidad acreditada' (constancia subida) y 'Aviso SENASICA declarado' (solo autodeclaración, se muestra como tal). La calificación de GuauWoow y la de Google se muestran en bloques distintos con sus etiquetas. Vigilancia: revisión semestral de los términos y políticas de Google con copia fechada en el expediente; vigilancia semanal del DOF y de la Gaceta de la CDMX para la Ley General y reformas a LFSA, LGS 79-83 y LFPC; fecha de última revisión visible en /legal/veterinarias y /legal/resenas.",
+   "priority": "obligatorio",
+   "confidence": "alta",
+   "applies_to": [
+    "clinicas_veterinarias",
+    "verificacion",
+    "publicidad",
+    "google_places"
+   ],
+   "pages": [
+    "/legal/verificacion",
+    "/legal/veterinarias",
+    "/legal/resenas"
+   ],
+   "notes": "Consistente con buenas-practicas-27 (insignias separadas: 'Identidad verificada', etc.) y con gap-naturaleza-juridica (vigilancia legislativa). La redacción es propuesta; el abogado debe aprobarla antes de publicarla.",
+   "verdict": "verificado",
+   "evidence": "LFPC art. 32 leído textualmente. Políticas de Places API leídas íntegras ('Last updated 2026-10-15 UTC'). Fechas de los términos de Google tomadas de los pies de página de cada documento el 17-10-2026."
+  }
+ ]
+}

@@ -1,0 +1,539 @@
+{
+  "domain": "identidad-contratos",
+  "cutoff_date": "2026-10-17",
+  "disclaimer": "No es asesoría legal. Citas cotejadas contra el texto vigente en Diputados/DOF al 16/17-10-2026. Hallazgos con confianza 'baja' (identidad-contratos-v02) o con conflictos entre dominios requieren confirmación de abogado o contador antes de publicarse.",
+  "pages": [
+    {
+      "slug": "index",
+      "title": "Centro legal y de transparencia",
+      "purpose": "Punto único de acceso a todos los documentos legales, con versión, fecha, PDF y fecha de última revisión legal; aloja el informe trimestral de transparencia.",
+      "required_contents": [
+        "Tarjetas: Identidad del operador; Términos y Condiciones; Aviso de privacidad integral y simplificado y cookies; Términos para refugios y vendedores; Términos para casas de paso; Políticas de la tienda; Donativos; Seguridad y prevención de fraudes; Modelo de contrato de adopción; Verificación de refugios; Moderación y reglas de la comunidad con apelación; Propiedad intelectual; Accesibilidad; Créditos y licencias; Historial de versiones; Contacto y quejas (folio, plazos y PROFECO); Código de conducta comercial (si hay adhesión a PROFECO)",
+        "Versión, fecha y enlace a PDF en cada documento",
+        "Fecha de última revisión legal (campo en datos-legales.json)",
+        "Informe de transparencia trimestral: donativos recibidos y dispersados por refugio, comisiones cobradas, refugios verificados y retirados, contenido retirado por tipo, solicitudes ARCO atendidas, requerimientos de autoridad",
+        "Enlace 'Legal y transparencia' en el pie de todo el sitio"
+      ],
+      "legal_basis": [
+        "Código de Ética de Comercio Electrónico (DOF 26-02-2021) arts. 5 y 7",
+        "LFPC arts. 7 Bis y 76 Bis fr. V",
+        "CCom art. 298",
+        "NMX-COE-001-SCFI-2018 numeral 5.2.1"
+      ],
+      "finding_ids": ["identidad-contratos-25", "identidad-contratos-26", "identidad-contratos-29"]
+    },
+    {
+      "slug": "operador",
+      "title": "Identidad del operador (aviso legal)",
+      "purpose": "Publicar la identidad completa del proveedor antes de cualquier compra o donativo y servir de fuente única para el pie de página, el checkout, los correos y el bot de WhatsApp.",
+      "required_contents": [
+        "Nombre comercial y marca con su estatus ante el IMPI (en trámite con número de expediente / registrada con número); sin ® ni M.R. mientras no esté registrada",
+        "Denominación o razón social seguida del tipo societario (o nombre completo si es persona física), RFC, régimen fiscal y folio mercantil electrónico si aplica",
+        "Domicilio físico en México para reclamaciones, notificaciones y derechos ARCO; domicilio fiscal si es distinto, indicando cuál recibe reclamaciones",
+        "Teléfono, días y horario de atención, plazo de primera respuesta y de resolución de reclamaciones",
+        "Correos: contacto y quejas, privacidad/ARCO, propiedad intelectual y legal, accesibilidad/ajustes razonables, facturación",
+        "Número oficial de WhatsApp y lista de portales y redes oficiales",
+        "Representante legal y persona o área responsable de datos personales",
+        "Dominios oficiales",
+        "Señalamiento de la LFPC como ley aplicable y de las atribuciones de PROFECO",
+        "Declaración 'se guía por la NMX-COE-001-SCFI-2018' solo tras completar la lista de verificación del numeral 14.3; adhesión al Código de Ética de PROFECO con fecha si existe",
+        "Fecha de actualización y fecha de última revisión legal",
+        "Bloque compacto reutilizable (razón social · RFC · domicilio · teléfono · correo) para pie global, checkout, donativos y correos"
+      ],
+      "legal_basis": [
+        "LFPC art. 76 Bis fr. III y art. 76 Bis 1; sanción art. 128",
+        "NMX-COE-001-SCFI-2018 numerales 5.2.1.1, 5.2.1.7, 5.2.1.8 y 10.2",
+        "Código de Ética de Comercio Electrónico art. 6 a)",
+        "LGSM arts. 59, 88 y 261; LMV art. 12",
+        "LFPDPPP arts. 15 fr. I y 16 fr. II",
+        "LFPPI arts. 170, 236 y 386 fr. XVI"
+      ],
+      "finding_ids": ["identidad-contratos-01", "identidad-contratos-02", "identidad-contratos-03", "identidad-contratos-04", "identidad-contratos-06", "identidad-contratos-16", "identidad-contratos-26", "identidad-contratos-28"]
+    },
+    {
+      "slug": "terminos",
+      "title": "Términos y Condiciones (ajustes requeridos por este dominio)",
+      "purpose": "Contrato de adhesión con consumidores; debe quedar libre de cláusulas que la LFPC tiene por no puestas y reflejar un solo modelo de tienda.",
+      "required_contents": [
+        "27.2: eliminar la aceptación tácita de cambios sustanciales; aceptación expresa con modal bloqueante al iniciar sesión y aviso con 15 días",
+        "19.5 y 30.1: los plazos internos no condicionan ni sustituyen acudir a PROFECO o a tribunales",
+        "15.3: 'sin perjuicio del plazo legal de prescripción' (un año, LFPC 14)",
+        "25: indemnidad limitada a la culpa propia del usuario",
+        "24.1/24.2: conservar la excepción por dolo, mala fe y negligencia grave; sin topes de responsabilidad frente a consumidores",
+        "31: relación usuario-operador regida por LFPC y ley mercantil (acto mixto); acuerdos entre usuarios regidos por el código civil del estado; valorar fuero del domicilio del consumidor",
+        "4.2, 14.1, 14.7, 32: un solo modelo de tienda ('Vendido por / Cobrado por / Factura emitida por')",
+        "14: tabla 'Quién responde de qué' entre GuauWoow y el refugio vendedor; LFPC como ley aplicable y competencia de PROFECO",
+        "15: quién recibe el dinero de los donativos y cuándo llega al refugio; regla de fondos no entregables",
+        "6.4: mencionar la discapacidad en la regla de no discriminación",
+        "18: declaración de consentimiento de las personas que aparecen en las fotos; evitar fotos de menores",
+        "18.6 y 19: aviso y contra-aviso de derechos de autor; política pública de terminación de cuentas de reincidentes",
+        "21.1: 'propiedad del Operador, uso con licencia o protegidos en la medida en que la ley lo permita'; número de expediente o registro de marca",
+        "28.1: 10 años para contratos y convenios (CCom 49) y 5 años para documentación fiscal (CFF 30), alineado con el aviso de privacidad",
+        "Resumen 'Lo esencial en un minuto', letra uniforme, botón de imprimir/PDF con versión y fecha"
+      ],
+      "legal_basis": [
+        "LFPC arts. 14, 85, 86-87 y 90 fr. I-VI; sanción art. 127",
+        "CCF arts. 2106 y 2117",
+        "CCom arts. 49, 1050, 1051 y 1093; CCF art. 1o",
+        "LFDA arts. 114 Septies fr. II b) y 114 Octies",
+        "LFPC art. 58; LGIPD art. 32 fr. IV; LFPED art. 9 fr. XXII Bis",
+        "Código de Ética de Comercio Electrónico arts. 5 y 7; NMX-COE-001-SCFI-2018 numerales 4.4, 5.1.2 y 5.2.1.8"
+      ],
+      "finding_ids": ["identidad-contratos-04", "identidad-contratos-07", "identidad-contratos-13", "identidad-contratos-14", "identidad-contratos-15", "identidad-contratos-17", "identidad-contratos-18", "identidad-contratos-19", "identidad-contratos-20", "identidad-contratos-22", "identidad-contratos-27", "identidad-contratos-v02", "identidad-contratos-v03", "identidad-contratos-v04", "identidad-contratos-v05"]
+    },
+    {
+      "slug": "organizaciones",
+      "title": "Términos y convenio para refugios, organizaciones y vendedores",
+      "purpose": "Contrato propio con cada refugio (mandato/comisión, tienda, donativos, datos, PI, fiscal) con aceptación separada del representante y registro de versión.",
+      "required_contents": [
+        "Partes y representación: acta o registro, poder, INE del representante (área privada), constancia de situación fiscal, CLABE a nombre del refugio; forma jurídica, estado de operación y estatus de donataria",
+        "Alcance de la insignia 'Refugio verificado' y causas de retiro",
+        "Bienestar animal y prohibición de vender animales",
+        "Modelo de comisión o mandato elegido (CCom 284 / 285 / intermediación digital LIVA 18-B II) y cláusula de mandato para recibir donativos (CCom 273-274, 298)",
+        "Productos: lista de prohibidos (animales, medicamentos veterinarios, vida silvestre, productos sin etiquetado normativo); ficha veraz (LFPC 32), existencias, garantía mínima de 90 días si se ofrece (LFPC 77)",
+        "Envíos: plazo máximo de despacho, guía y rastreo, embalaje, seguro de envío (CCom 297) y quién lo paga",
+        "Revocación de 5 días hábiles (LFPC 56) y defectos (LFPC 92): quién absorbe costos; compensación contra saldo; contracargos",
+        "Comisiones de tienda y donativos, costos de Mercado Pago, IVA de la comisión, periodicidad de dispersión, cuenta justificada por periodo, retenciones de ISR e IVA si aplica intermediación (LIF 2026 art. 25 fr. VI y IX); opción Split de pagos",
+        "Quién emite el CFDI de ventas y comisiones",
+        "Cláusula de datos personales: refugio como responsable independiente; uso limitado a evaluar postulación o surtir pedido; sin mercadotecnia propia ni cesión; plazos de borrado; atención ARCO; aviso a GuauWoow en 48 h; medidas mínimas (sin capturas en grupos, 2FA)",
+        "Licencia de logos y fotos",
+        "Indemnidad y tope de responsabilidad entre las partes, salvo dolo",
+        "Origen lícito de recursos y obligaciones LFPIORPI (art. 17 fr. XIII) del refugio; conservación de identificación del donante en montos altos",
+        "Declaración de estatus fiscal (donataria) y asunción del efecto de ventas sobre límites 10%/50% (LISR 80); GuauWoow no emite recibos deducibles",
+        "Suspensión, terminación y liquidación de saldos",
+        "Notificaciones electrónicas; mediación previa y sumisión expresa a tribunales del domicilio del operador (CCom 1093) o arbitraje",
+        "Cambios con aviso previo y nueva aceptación",
+        "Registro técnico: tabla org_agreements (refuge_id, versión, hash, usuario, cargo, fecha, método); bloqueo de verificación, productos y donativos sin aceptación vigente; constancia NOM-151 o e.firma"
+      ],
+      "legal_basis": [
+        "CCom arts. 89 bis, 93, 273-274, 283-286, 290-293, 296-298, 304-305 y 1093",
+        "CCF arts. 1803 fr. I, 1811, 1834 bis, 2106, 2117 y 2546",
+        "LFPC arts. 7, 32, 56, 77-79 y 92",
+        "NMX-COE-001-SCFI-2018 numerales 4.4, 5.1.7 y 5.3.6",
+        "LFPDPPP arts. 2 fr. XII/XIV/XVII/XX, 19, 20, 35, 36 fr. IV y VII, 58 fr. X y XII",
+        "LFPIORPI art. 17 fr. XIII",
+        "LISR arts. 79, 80 y 113-A/113-C; LIVA 18-J; LIF 2026 art. 25 fr. VI y IX; CFF art. 30-B",
+        "LGOAAC art. 81-A Bis; LRITF arts. 22-23 (encuadre pendiente de abogado financiero)"
+      ],
+      "finding_ids": ["identidad-contratos-05", "identidad-contratos-07", "identidad-contratos-08", "identidad-contratos-09", "identidad-contratos-10", "identidad-contratos-15", "identidad-contratos-23", "identidad-contratos-24", "identidad-contratos-27", "identidad-contratos-v01", "identidad-contratos-v02"]
+    },
+    {
+      "slug": "casas-de-paso",
+      "title": "Términos para casas de paso y convenio de hogar temporal",
+      "purpose": "Regular la guarda temporal de perros que siguen siendo del refugio, sin relación laboral ni de plataforma con GuauWoow, y ofrecer un convenio descargable refugio-casa de paso por perro.",
+      "required_contents": [
+        "GuauWoow solo conecta; el acuerdo de guarda es entre casa de paso y refugio",
+        "El refugio conserva la propiedad; la casa de paso conserva y devuelve al animal y responde por negligencia (CCF 2516, 2522)",
+        "Gratuidad expresa o apoyo pactado (CCF 2517)",
+        "Sin relación laboral, de subordinación ni de plataforma con GuauWoow (LFT 20, 21, 291-A)",
+        "Prohibido vender, regalar o dar en adopción sin autorización del refugio",
+        "Reglas de seguridad del hogar, niñas, niños y otras mascotas",
+        "Cláusula de datos personales (igual que en el convenio con refugios)",
+        "Recomendación de seguro de RC familiar que cubra daños por mascotas",
+        "Baja y revisión; aceptación separada al registrarse (campos terms_version y accepted_at en FosterHome)",
+        "Convenio de hogar temporal descargable: identificación y salud del perro, fecha de entrega, gastos y reembolsos, urgencias veterinarias y visitas, devolución a solicitud, quién responde frente a terceros por daños durante la guarda (CCF 1929), firma electrónica, código civil del estado aplicable",
+        "Resumen 'Lo esencial en un minuto'"
+      ],
+      "legal_basis": [
+        "CCF arts. 753, 1929, 1930, 2516, 2517 y 2522",
+        "LFT arts. 20, 21 y 291-A a 291-C",
+        "LFPDPPP arts. 20, 35 y 36",
+        "Ley sobre el Contrato de Seguro arts. 145 y 147"
+      ],
+      "finding_ids": ["identidad-contratos-10", "identidad-contratos-11", "identidad-contratos-21", "identidad-contratos-22"]
+    },
+    {
+      "slug": "modelo-adopcion",
+      "title": "Modelo de contrato o carta responsiva de adopción",
+      "purpose": "Documento orientativo entre publicador y adoptante, generado como PDF prellenado al aprobarse una postulación, con selector de estado.",
+      "required_contents": [
+        "Identificación del perro: foto, señas, microchip",
+        "Salud y conducta conocidas, incluidas mordidas",
+        "Transmisión gratuita con cargas (donación onerosa, CCF 2332, 2336): declaración de entrega sin valor comercial o con valor estimado dentro del rango de forma escrita (CCF 2343-2344) y leyenda de que el código civil local puede fijar umbrales y formalidades distintas (escritura pública arriba del umbral)",
+        "Cargas: alimentación y atención veterinaria, esterilización en plazo, vacunas, placa o identificación",
+        "Prohibición de vender, regalar o abandonar",
+        "Aviso de cambio de domicilio y seguimiento con visitas y fotos consentidas",
+        "Devolución al publicador si ya no puede cuidarlo",
+        "Resolución o reversión por maltrato, venta o abandono (CCF 1949; validar en cada código local)",
+        "Asunción de responsabilidad por daños desde la entrega (CCF 1929)",
+        "Donativo voluntario no condicionante (Términos 6.2) — pendiente de postura única sobre 'cuota de recuperación'",
+        "Remisión al aviso de privacidad, firmas, copia para cada parte",
+        "Leyenda: 'Modelo orientativo; GuauWoow no es parte ni da asesoría legal; rige el código civil del estado de [ESTADO]'"
+      ],
+      "legal_basis": [
+        "CCF arts. 1o, 753, 1834 bis, 1929, 1949, 2332, 2334, 2336, 2340, 2341, 2343 y 2344",
+        "Constitución CDMX art. 13 apartado B (texto consolidado pendiente)",
+        "Códigos civiles y leyes de bienestar animal locales",
+        "CCom art. 1050 (acto mixto) y CCF art. 1o (ámbito federal)"
+      ],
+      "finding_ids": ["identidad-contratos-12", "identidad-contratos-13", "identidad-contratos-27"]
+    },
+    {
+      "slug": "seguridad",
+      "title": "Encuentros seguros y prevención de fraudes",
+      "purpose": "Informar riesgos y ofrecer medidas concretas (reportar, bloquear, listas de verificación) como prueba de diligencia; no pretende liberar de responsabilidad propia.",
+      "required_contents": [
+        "Listas de verificación para adoptantes, publicadores, quien encontró o perdió un perro y casas de paso",
+        "Fraudes típicos: anticipos, falsos rescatistas, extorsión con perros perdidos",
+        "Cómo verificar que alguien es tutor del perro y cómo prevenir mordidas",
+        "Teléfonos 911 y 089, PROFECO y policía cibernética",
+        "Recomendación de seguro de RC familiar para refugios y casas de paso",
+        "Textos de interfaz: aviso al habilitar un encuentro en el chat; advertencia automática ante CLABE, tarjeta, 'depósito' o 'anticipo'; botones Reportar y Bloquear; lista previa al encuentro; mensaje del bot de WhatsApp al reportar perro perdido",
+        "Bitácora de avisos mostrados",
+        "Encabezado: los avisos no trasladan la responsabilidad que la ley asigna; GuauWoow responde por sus actos (Términos 24)"
+      ],
+      "legal_basis": [
+        "LFPC art. 90 fr. II y III; art. 76 Bis fr. IV y VII",
+        "CCF arts. 1910, 1929 y 2106",
+        "Ley sobre el Contrato de Seguro arts. 145 y 147"
+      ],
+      "finding_ids": ["identidad-contratos-13", "identidad-contratos-21"]
+    },
+    {
+      "slug": "verificacion-refugios",
+      "title": "Verificación de refugios",
+      "purpose": "Publicar criterios, documentos, periodicidad y alcance de la insignia 'verificado' y de la insignia 'donataria autorizada' para que no induzcan a error.",
+      "required_contents": [
+        "Documentos revisados: acta o registro, identificación del responsable, comprobante de domicilio, fotos de instalaciones, CLABE a nombre del refugio, constancia de situación fiscal, opcional opinión de cumplimiento 32-D",
+        "Periodicidad de reverificación (p. ej. anual) y 'Verificado el [fecha]' en el perfil",
+        "Qué garantiza y qué no la insignia (no es certificación oficial, Términos 10.3)",
+        "Causas de retiro",
+        "Insignia 'Donataria autorizada' solo tras verificar el RFC en el directorio o Anexo 14 del SAT, con fecha y revisión anual",
+        "Bitácora interna de verificación; campos verified_at, verified_by, next_review_at",
+        "Eliminación de INE y documentos de solicitudes rechazadas tras un plazo definido",
+        "Reglas de uso de la insignia 'Refugio verificado en GuauWoow'"
+      ],
+      "legal_basis": [
+        "LFPC arts. 32 y 76 Bis fr. IV",
+        "Código de Ética de Comercio Electrónico art. 8",
+        "LISR arts. 79, 80 y 82",
+        "LFPPI art. 170 (marca e insignia)"
+      ],
+      "finding_ids": ["identidad-contratos-16", "identidad-contratos-23", "identidad-contratos-24"]
+    },
+    {
+      "slug": "propiedad-intelectual",
+      "title": "Propiedad intelectual: avisos, contra-avisos y uso de imagen",
+      "purpose": "Procedimiento de puerto seguro para retirar contenido infractor de usuarios y publicaciones importadas, con política pública de reincidentes y canal para marca e imagen personal.",
+      "required_contents": [
+        "Formulario de aviso con los cuatro elementos mínimos: nombre del titular o representante y medio de contacto; identificación del contenido; manifestación del interés o derecho; URL del contenido",
+        "Categorías: derechos de autor, marca, uso de mi imagen",
+        "Retiro expedito, notificación al usuario, prevención de resubida (hash)",
+        "Contra-aviso: se informa a quien avisó y se restaura salvo procedimiento en un plazo no mayor a 15 días hábiles",
+        "Política pública de terminación de cuentas de reincidentes",
+        "Panel de moderación con tipo 'Propiedad intelectual' y fechas",
+        "Estatus de la marca GuauWoow y reglas de uso de la insignia",
+        "Pendiente: alinear el formulario con el Reglamento de la LFDA reportado por contenido-plataforma (DOF 24-09-2026)"
+      ],
+      "legal_basis": [
+        "LFDA arts. 114 Septies fr. II b) y 114 Octies fr. II a)-e), III y IV",
+        "LFDA art. 87 y art. 231 fr. II; CCF art. 1916; LFPDPPP arts. 7-8 y 17",
+        "LFPPI arts. 170, 236 y 386 fr. XVI"
+      ],
+      "finding_ids": ["identidad-contratos-16", "identidad-contratos-17", "identidad-contratos-18", "identidad-contratos-v03", "identidad-contratos-v04"]
+    },
+    {
+      "slug": "creditos",
+      "title": "Créditos y licencias",
+      "purpose": "Reconocer licencias de terceros y la autoría de colaboradores; evitar afirmar propiedad sobre piezas sin cesión documentada.",
+      "required_contents": [
+        "Licencias de terceros: OpenStreetMap (ODbL), fuentes, íconos, librerías en app/vendor",
+        "Mención de autoría de colaboradores que lo soliciten (LFDA 83)",
+        "Nota sobre contenido generado con IA (no se reclama como obra; protegido por marca y secreto industrial)"
+      ],
+      "legal_basis": [
+        "LFDA arts. 12, 30, 31, 83, 84, 102 y 103",
+        "SCJN AD 6/2025 (comunicado INDAUTOR 30-08-2025)",
+        "LFPPI art. 163"
+      ],
+      "finding_ids": ["identidad-contratos-17", "identidad-contratos-v03"]
+    },
+    {
+      "slug": "accesibilidad",
+      "title": "Declaración de accesibilidad",
+      "purpose": "Declarar el nivel objetivo (WCAG 2.2 AA), el estado real, las limitaciones y el canal de ajustes razonables.",
+      "required_contents": [
+        "Nivel objetivo WCAG 2.2 AA; estado y limitaciones conocidas; fecha y método de la última evaluación (axe/Lighthouse en CI, VoiceOver, TalkBack)",
+        "Canal de ajustes razonables (correo, teléfono o WhatsApp) para completar postulaciones, pedidos o solicitudes ARCO por otra vía, con plazo de respuesta",
+        "Cómo reportar una barrera",
+        "Compromisos: texto alternativo en fotos de perros, formularios y errores accesibles, alternativa con botones al deslizar, teclado y foco visible, contraste, OTP sin límite rígido, vista de lista alternativa al mapa, prefers-reduced-motion, lang es-MX, aria-live",
+        "Lenguaje sencillo: resumen 'Lo esencial en un minuto' en todas las páginas legales; impresión y PDF con versión y fecha"
+      ],
+      "legal_basis": [
+        "LFPC art. 58 párrafos segundo y cuarto; art. 127",
+        "LGIPD art. 2 fr. I, II, V y XV; art. 32 fr. I y IV",
+        "LFPED art. 1 fr. I y art. 9 fr. XXII, XXII Bis, XXII Ter y XXII Quintus",
+        "Acuerdo de accesibilidad Web DOF 03-12-2015 (solo APF; referencia)",
+        "LFPC art. 85; NMX-COE-001-SCFI-2018 numeral 5.1.2; Código de Ética arts. 5 y 7"
+      ],
+      "finding_ids": ["identidad-contratos-19", "identidad-contratos-20"]
+    },
+    {
+      "slug": "historial",
+      "title": "Historial de versiones",
+      "purpose": "Prueba y conservación de cada versión de los documentos legales y registro de aceptaciones; changelog legal.",
+      "required_contents": [
+        "Por documento: versión, fecha de vigencia, hash SHA-256 del HTML y del PDF, resumen de cambios, enlace al PDF",
+        "Fecha de última revisión legal",
+        "Registro interno de aceptaciones: usuario o refugio, documento, versión, hash, fecha UTC, método (casilla u OTP); IP solo si se justifica",
+        "Constancia NOM-151 o e.firma para convenios y mandatos de cobro",
+        "Comprobante PDF de cada pedido y donativo"
+      ],
+      "legal_basis": [
+        "CCom arts. 49, 89 bis, 93 y 1205",
+        "NOM-151-SCFI-2016",
+        "CCF arts. 1803 fr. I, 1811 y 1834 bis",
+        "CFF art. 30",
+        "LFPC art. 90 fr. I (reaceptación expresa de cambios)"
+      ],
+      "finding_ids": ["identidad-contratos-14", "identidad-contratos-15", "identidad-contratos-29"]
+    },
+    {
+      "slug": "politicas-tienda",
+      "title": "Políticas de la tienda (contenidos que exige este dominio)",
+      "purpose": "Explicar en lenguaje sencillo quién vende, quién cobra, quién factura, retenciones si aplican, y el reparto de responsabilidades con el refugio.",
+      "required_contents": [
+        "Modelo de tienda elegido: 'Vendido por / Cobrado por / Factura emitida por'",
+        "Tabla 'Quién responde de qué' (cobro, atención, revocación 5 días hábiles LFPC 56, defectos LFPC 92, garantía LFPC 77, veracidad de ficha, envío y rastreo, CFDI, datos del comprador, calificaciones)",
+        "Explicación de retenciones de ISR e IVA al refugio si hay intermediación (LIF 2026)",
+        "LFPC como ley aplicable y competencia de PROFECO",
+        "Línea de seguridad y confidencialidad antes del pago; advertencia 18+",
+        "Identificación del refugio vendedor en cada ficha y carrito"
+      ],
+      "legal_basis": [
+        "LFPC arts. 7 Bis, 32, 56, 76 Bis fr. I-V, 77-79 y 92",
+        "NMX-COE-001-SCFI-2018 numerales 4.1, 4.3, 4.4, 5.2.1.8, 5.2.1.9, 5.3.3, 5.3.6, 6.1-6.2, 9.2.3, 10.1, 14.3",
+        "CCom arts. 284-285; LIVA 18-J; LIF 2026 art. 25 fr. VI y IX; CFF art. 30-B"
+      ],
+      "finding_ids": ["identidad-contratos-04", "identidad-contratos-05", "identidad-contratos-07", "identidad-contratos-v01", "identidad-contratos-v05"]
+    },
+    {
+      "slug": "donativos",
+      "title": "Donativos (contenidos que exige este dominio)",
+      "purpose": "Explicar quién recibe el dinero, comisiones, cuándo llega al refugio, deducibilidad y cuenta justificada.",
+      "required_contents": [
+        "Bloque de identidad del operador antes del botón de pago",
+        "Quién recibe el dinero (cuenta de GuauWoow como mandatario o cuenta del refugio por Split) y cuándo se dispersa",
+        "Comisión de la plataforma y de Mercado Pago, monto neto al refugio",
+        "'Deducible: sí / no' según estatus verificado de donataria; GuauWoow no emite recibos deducibles",
+        "Regla de fondos no entregables (Términos 15.3 c)",
+        "Línea de seguridad y confidencialidad; advertencia 18+",
+        "Enlace al informe de transparencia con donativos recibidos y dispersados por refugio"
+      ],
+      "legal_basis": [
+        "CCF art. 2546; CCom arts. 273, 274, 292, 293, 298, 304 y 305",
+        "LFPIORPI art. 17 fr. XIII",
+        "LISR arts. 79 y 80; LFPC arts. 32 y 76 Bis fr. I-IV",
+        "LGOAAC art. 81-A Bis; LRITF arts. 22-23 (encuadre pendiente)"
+      ],
+      "finding_ids": ["identidad-contratos-01", "identidad-contratos-08", "identidad-contratos-23", "identidad-contratos-v02", "identidad-contratos-v05"]
+    },
+    {
+      "slug": "privacidad",
+      "title": "Aviso de privacidad (contenidos que exige este dominio)",
+      "purpose": "Alinear identidad y domicilio del responsable, transferencias a refugios y casas de paso, plazos de conservación e imagen de personas con el resto del centro legal.",
+      "required_contents": [
+        "Sección 1: identidad y domicilio del responsable idénticos a la página de operador; aviso simplificado con fracciones I a IV del art. 15",
+        "Sección 12 (transferencias): refugio y casa de paso como terceros receptores con las mismas obligaciones; eliminar el término 'remisión' si el reglamento nuevo no lo define; aviso previo al enviar el cuestionario",
+        "Plazos de conservación conciliados con Términos 28.1 (10 años contratos CCom 49; 5 años fiscal CFF 30)",
+        "Sección de seguridad enlazada desde el checkout (TLS, Mercado Pago, sin almacenamiento de tarjeta)",
+        "Tratamiento de imágenes: envío a la IA solo de recortes del perro; fotos importadas de Facebook sin nombres ni rostros reconocibles"
+      ],
+      "legal_basis": [
+        "LFPDPPP arts. 15 fr. I, 16 fr. II, 17, 19, 20, 35, 36 fr. IV y VII",
+        "LFPC art. 76 Bis fr. I y II",
+        "CCom art. 49; CFF art. 30",
+        "LFDA art. 87; CCF art. 1916"
+      ],
+      "finding_ids": ["identidad-contratos-02", "identidad-contratos-03", "identidad-contratos-10", "identidad-contratos-15", "identidad-contratos-v04", "identidad-contratos-v05"]
+    },
+    {
+      "slug": "codigo-conducta-comercial",
+      "title": "Código de conducta comercial (adhesión a PROFECO)",
+      "purpose": "Documento que acompaña la solicitud de adhesión voluntaria al Código de Ética de Comercio Electrónico, solo cuando el cumplimiento sea real.",
+      "required_contents": [
+        "Compromisos de identidad, información veraz, confidencialidad, publicidad identificable con anunciante y mecanismo para dejar de recibirla",
+        "Mecanismo propio de solución de conflictos con folio y plazos (Términos 30) y referencia a MASC",
+        "Fecha de adhesión y enlace al Padrón de Proveedores Responsables en Comercio Electrónico"
+      ],
+      "legal_basis": [
+        "Acuerdo del Código de Ética en materia de Comercio Electrónico (DOF 26-02-2021) arts. 2, 9, 12, 13, 15, 16 y 17",
+        "LFPC art. 24 fr. IX bis"
+      ],
+      "finding_ids": ["identidad-contratos-26"]
+    }
+  ],
+  "product_requirements": [
+    "[identidad-contratos-01] Bloque de identidad del operador (razón social · RFC · domicilio · teléfono · correo) en el pie de todas las páginas, en el resumen de compra y pantalla de donativo antes del botón de pago, y en los correos de confirmación; respuesta del bot de WhatsApp a 'AYUDA' / 'AVISO LEGAL'; bloqueo de tienda y donativos en producción mientras falte un campo de datos-legales.json.",
+    "[identidad-contratos-02] Campos separados denominacion / tipo_societario / rfc en datos-legales.json; validación en CI de longitud del RFC (12 persona moral, 13 persona física); razón social compuesta reutilizada sin variaciones en Términos, privacidad, aviso simplificado, CFDI, Mercado Pago, convenios, correos y pantalla de Google OAuth.",
+    "[identidad-contratos-03] Un solo domicilio físico en terminos.html, privacidad.html, aviso-simplificado.txt, operador.html y CFDI; si el fiscal es distinto, publicar ambos; días y horario de atención.",
+    "[identidad-contratos-09] Tabla org_agreements (refuge_id, versión, hash, usuario que acepta, cargo, fecha, método) y bloqueo de verificación, publicación de productos y recepción de donativos sin aceptación de la versión vigente; casilla sin premarcar con nombre, cargo y declaración de facultades.",
+    "[identidad-contratos-10] Aviso previo al enviar el cuestionario de adopción: 'Tus respuestas se compartirán con [Refugio X] solo para evaluar tu solicitud'; teléfono y correo del adoptante solo tras la aprobación; modelo de aviso de privacidad para refugios.",
+    "[identidad-contratos-11] Campos terms_version y accepted_at en FosterHome; aceptación separada de los términos de casas de paso al registrarse; convenio de hogar temporal descargable por perro.",
+    "[identidad-contratos-12] Generación de PDF prellenado del modelo de adopción al aprobar la postulación, sin datos sensibles, con selector de estado y leyenda de modelo orientativo.",
+    "[identidad-contratos-13] Aviso de seguridad la primera vez que el chat habilita un encuentro; advertencia automática ante CLABE, tarjeta, 'depósito' o 'anticipo'; botones Reportar y Bloquear en cada chat; lista de verificación previa al encuentro; mensaje de seguridad del bot al reportar perro perdido; bitácora de avisos mostrados.",
+    "[identidad-contratos-14] Comparar terms_version del usuario con la vigente al iniciar sesión y exigir aceptación expresa con modal bloqueante para cambios sustanciales; eliminar la aceptación tácita de 27.2.",
+    "[identidad-contratos-15] Tabla legal_documents con copia inmutable (HTML y PDF, SHA-256) de cada versión; registro de aceptaciones (usuario/refugio, documento, versión, hash, fecha UTC, método); página pública de historial; constancia NOM-151 o e.firma para convenios con refugios; comprobante PDF de cada pedido y donativo.",
+    "[identidad-contratos-16] No usar ® ni 'M.R.' en landing, app ni documentos mientras la marca no esté registrada; mostrar número de expediente o registro en operador.html y Términos 21; reglas de uso de la insignia 'Refugio verificado en GuauWoow'.",
+    "[identidad-contratos-17 / v03] Inventario de código, diseño, ilustraciones, textos y fotos con autor, origen (humano o IA) y documento de cesión firmado; repositorio restringido y acuerdos de confidencialidad; página de créditos y licencias (OpenStreetMap ODbL, fuentes, íconos, app/vendor).",
+    "[identidad-contratos-18] Formulario de aviso de infracción con los cuatro elementos de LFDA 114 Octies; flujo de contra-aviso con restauración a los 15 días hábiles salvo procedimiento; notificación al usuario; bloqueo de resubida por hash; tipo 'Propiedad intelectual' con fechas en el panel de moderación; política pública de reincidentes; canal de quejas de marca.",
+    "[identidad-contratos-v04] Importador de Facebook: no publicar nombres de personas ni rostros reconocibles sin consentimiento (difuminado automático o solo foto del perro + enlace al original), registrar fuente y fecha; análisis de IA (DashScope) solo con recortes del perro; categoría 'uso de mi imagen' en el formulario de retiro; declaración de consentimiento de las personas fotografiadas en Términos 18.",
+    "[identidad-contratos-19] WCAG 2.2 AA: alt en fotos de perros (descripción de IA como borrador editable), etiquetas y errores accesibles en registro, OTP, cuestionario y checkout, alternativa con botones al deslizar, teclado y foco visible, contraste en ambos temas, OTP sin límite rígido, vista de lista alternativa al mapa, prefers-reduced-motion, lang='es-MX', aria-live; axe o Lighthouse en CI; pruebas con VoiceOver y TalkBack; canal de ajustes razonables.",
+    "[identidad-contratos-20] Resumen 'Lo esencial en un minuto' en cada documento legal; botón imprimir/descargar PDF con versión y fecha; letra uniforme; nunca PDF escaneados.",
+    "[identidad-contratos-22] Convenio de voluntariado para moderadores y administradores (altruista, sin salario ni subordinación, confidencialidad, cesión, accesos mínimos con 2FA); no asignar desde la app tareas remuneradas con mando y supervisión sin revisar LFT 291-A.",
+    "[identidad-contratos-24] Campos verified_at, verified_by, next_review_at en Refuge; 'Verificado el [fecha]' en el perfil; bitácora de verificación; borrado de INE y documentos de solicitudes rechazadas tras un plazo definido.",
+    "[identidad-contratos-25] Página /app/legal/index.html con tarjetas a todos los documentos; versión, fecha y PDF en cada página; enlace 'Legal y transparencia' en el pie de todo el sitio; informe de transparencia trimestral.",
+    "[identidad-contratos-28] Dominios, Mercado Pago, Meta Business / WhatsApp API, Google OAuth (con URLs de privacidad y términos), tiendas de apps, Cloudflare y VPS a nombre de la sociedad con 2FA y responsable designado; inventario interno de activos.",
+    "[identidad-contratos-29] Campo 'fecha de revisión legal' en datos-legales.json mostrado en el centro legal; changelog legal; revisión trimestral del DOF y de Diputados."
+  ],
+  "shop_requirements": [
+    "[identidad-contratos-07] Un solo modelo jurídico (comisión en nombre propio CCom 284 / en nombre del refugio CCom 285 / intermediación digital LIVA 18-B II) reflejado en Términos 4.2, 14.1, 14.7 y 32, convenio con refugios, flujo de CFDI, configuración de Mercado Pago, texto del checkout ('Vendido por… / Cobrado por…') y correos; SHOP_ENABLED=false en producción hasta decidirlo.",
+    "[identidad-contratos-v01] Si hay intermediación: capturar RFC, régimen fiscal y tipo de persona de cada refugio vendedor; retener por pedido ISR 2.5% (20% sin RFC) e IVA 50%/100% a personas físicas o conforme a LIVA 18-J II a) a personas morales (LIF 2026 art. 25 fr. VI y IX); enterar mensualmente; CFDI de retenciones e información de pagos; acceso en línea y en tiempo real del SAT (CFF 30-B); tasas parametrizadas por ejercicio fiscal; desglose en el panel del refugio.",
+    "[identidad-contratos-04] Tabla 'Quién responde de qué' en Términos 14; lista de verificación de los elementos obligatorios del numeral 14.3 de la NMX antes de encender la tienda; calificaciones y opiniones de productos (5.3.3); rastreo de envío visible al comprador (9.2.3); verificar el pedido antes de aceptarlo (6.1-6.2); mecanismo gratuito de quejas (10.1); declarar 'se guía por la NMX' solo tras verificar; opcional dictamen de unidad de verificación (14.4).",
+    "[identidad-contratos-05] En ficha de producto y carrito: 'Vendido por [refugio] · [ciudad] · verificado el [fecha]', 'Cobro, atención y devoluciones: GuauWoow' y enlace al perfil del refugio con sus políticas; campos legal_name, legal_form, rfc, fiscal_regime, public_contact_email, public_phone, donataria_status en Refuge; no publicar domicilios particulares de rescatistas personas físicas.",
+    "[identidad-contratos-v05] Antes del botón de pago: 'Pago procesado por Mercado Pago; conexión cifrada (TLS); GuauWoow no almacena datos de tu tarjeta; tus datos de envío solo se comparten con el refugio vendedor y la paquetería' con enlace a la sección de seguridad del aviso; advertencia 18+ en compra y donativo; LFPC y PROFECO señaladas en Términos 14 y 31 y en políticas de tienda; prohibición al refugio de usar datos del comprador para otros fines.",
+    "[identidad-contratos-09] Convenio con refugios vendedores: productos prohibidos (animales, medicamentos veterinarios, vida silvestre, sin etiquetado normativo), ficha veraz, existencias, garantía mínima 90 días si se ofrece (LFPC 77), plazo de despacho, guía y rastreo, embalaje, seguro de envío (CCom 297), quién absorbe revocación de 5 días hábiles (LFPC 56) y defectos (LFPC 92), compensación contra saldo y contracargos, comisiones e IVA, periodicidad de dispersión, quién emite el CFDI.",
+    "[identidad-contratos-08 / v02] Decidir Split de pagos 1:1 de Mercado Pago (refugio recibe directo, GuauWoow cobra marketplace fee) o cuenta única con dispersiones; si es cuenta única, dictamen escrito de abogado financiero (LGOAAC 81-A Bis, LRITF 22) antes de encender tienda y donativos; saldo por refugio conciliado; cuenta justificada por periodo con referencia SPEI; nunca usar fondos de refugios para operar.",
+    "[identidad-contratos-23] Insignia 'Donataria autorizada' solo tras verificar el RFC en el directorio o Anexo 14 del SAT; 'Deducible: sí / no' en la pantalla de donativo; declaración del refugio sobre el efecto de las ventas en sus límites del 10% y 50% (LISR 80); GuauWoow no emite recibos deducibles.",
+    "[identidad-contratos-14] Ningún tope de responsabilidad frente a consumidores; topes solo en el convenio con refugios; plazos internos de reclamación sin perjuicio de PROFECO y de la prescripción legal de un año.",
+    "[identidad-contratos-26] Solicitar la adhesión al Código de Ética de PROFECO solo cuando la tienda opere y la autoevaluación NMX esté completa; publicar código de conducta comercial; publicidad identificable con anunciante."
+  ],
+  "retention": [
+    {
+      "category": "Mensajes de datos que consignen contratos y convenios: Términos aceptados, convenio con refugios, mandato de cobro, términos de casas de paso, contratos de pedidos y donativos",
+      "period": "Mínimo 10 años desde que termina la relación, íntegros e inalterados (constancia NOM-151 o e.firma)",
+      "basis": "CCom art. 49; NOM-151-SCFI-2016; CCom arts. 89 bis, 93 y 1205. Pendiente de abogado: si aplica a aceptaciones por casilla y conciliación con la minimización de datos (identidad-contratos-15)"
+    },
+    {
+      "category": "Versiones de cada documento legal (HTML y PDF con SHA-256) y changelog",
+      "period": "Indefinido mientras exista la plataforma; al menos 10 años después de dejar de estar vigente cada versión",
+      "basis": "CCom art. 49; LFPC art. 90 fr. I (prueba de la versión aceptada); identidad-contratos-15 y -29"
+    },
+    {
+      "category": "Documentación fiscal: CFDI de ventas, comisiones y retenciones, papeles de trabajo de retenciones de plataformas",
+      "period": "5 años (CFF 30), contados conforme a la regla fiscal aplicable",
+      "basis": "CFF art. 30; LIVA 18-J; LISR 113-C; LIF 2026 art. 25. Conflicto entre dominios sobre tabla única de conservación (ver puntos para contador)"
+    },
+    {
+      "category": "Contratos de cesión de derechos patrimoniales, obra por encargo y convenios de voluntariado",
+      "period": "10 años desde su celebración o terminación",
+      "basis": "CCom art. 49; LFDA arts. 30, 31, 83, 84 y 103 (identidad-contratos-17, v03, 22)"
+    },
+    {
+      "category": "Documentos de verificación de refugios (INE, acta, comprobantes) de solicitudes rechazadas",
+      "period": "Plazo corto y definido por el dueño con el área de privacidad (p. ej. 90 días); borrado documentado",
+      "basis": "Minimización, LFPDPPP; identidad-contratos-24. Pendiente definir el plazo"
+    },
+    {
+      "category": "Bitácora de verificación de refugios y de avisos de seguridad mostrados al usuario",
+      "period": "Durante la relación y al menos 1 año después (plazo de prescripción LFPC) o el que fije la tabla única",
+      "basis": "LFPC art. 14 (prescripción de un año); identidad-contratos-13 y -24. Confirmar con abogado"
+    },
+    {
+      "category": "Identificación de donantes en montos altos (actividad vulnerable)",
+      "period": "El que fije la LFPIORPI para expedientes de la actividad vulnerable (otros dominios reportan 10 años); confirmar",
+      "basis": "LFPIORPI art. 17 fr. XIII; identidad-contratos-08. Confirmar alcance al intermediario con abogado"
+    }
+  ],
+  "subprocessors": [
+    {
+      "name": "Mercado Pago (Mercado Libre México)",
+      "purpose": "Procesamiento de pagos de tienda y donativos; dispersión a refugios o Split de pagos 1:1 con marketplace fee",
+      "data": "Datos de pago (no almacenados por GuauWoow), nombre, correo, monto, referencia; datos de cuenta de Mercado Pago del refugio en Split",
+      "country": "México",
+      "type": "Encargado/proveedor de pagos (adquirente); si hay Split, cada refugio es titular de su propia cuenta"
+    },
+    {
+      "name": "Prestador de servicios de certificación NOM-151 (por definir, acreditado ante la Secretaría de Economía)",
+      "purpose": "Constancias de conservación de mensajes de datos de convenios y mandatos de cobro con refugios",
+      "data": "Hash del documento, sello de tiempo; sin contenido del documento",
+      "country": "México",
+      "type": "Proveedor de servicios de confianza (encargado)"
+    },
+    {
+      "name": "Paquetería (por definir)",
+      "purpose": "Entrega de pedidos de la tienda y rastreo visible al comprador",
+      "data": "Nombre, dirección y teléfono de entrega",
+      "country": "México",
+      "type": "Tercero receptor / encargado (según contrato), autorizado por LFPC 76 Bis fr. I como parte de la transacción"
+    },
+    {
+      "name": "Refugios y casas de paso (cada uno)",
+      "purpose": "Evaluar postulaciones de adopción, surtir pedidos, guardar temporalmente animales",
+      "data": "Cuestionario de adopción, datos de contacto del adoptante tras aprobación, datos de envío del comprador",
+      "country": "México (estado de cada refugio)",
+      "type": "Tercero receptor (responsable independiente) con las mismas obligaciones que GuauWoow (LFPDPPP 35); calificación pendiente de abogado de datos"
+    },
+    {
+      "name": "Google (OAuth, pantalla de consentimiento)",
+      "purpose": "Inicio de sesión; la pantalla de consentimiento debe mostrar la razón social y las URLs de privacidad y términos",
+      "data": "Correo, nombre, identificador de cuenta",
+      "country": "Estados Unidos",
+      "type": "Proveedor de identidad (cubierto en detalle por el dominio datos-personales)"
+    }
+  ],
+  "owner_data_needed": [
+    "Tipo de persona jurídica elegida y, si ya existe, el acta o boleta de inscripción con folio mercantil electrónico.",
+    "Denominación o razón social completa con su tipo societario, y nombre comercial.",
+    "RFC y régimen fiscal del operador; constancia de situación fiscal.",
+    "Domicilio fiscal y domicilio físico para reclamaciones y notificaciones, si son distintos.",
+    "Teléfono de atención, días y horario de atención.",
+    "Correos: contacto y quejas, privacidad o derechos ARCO, propiedad intelectual y legal, accesibilidad o ajustes razonables, facturación.",
+    "Número oficial de WhatsApp y lista de portales y redes oficiales: páginas de Facebook, Instagram, TikTok, etc.",
+    "Dominio o dominios definitivos y su titular registrante.",
+    "Nombre del representante legal y de la persona o área responsable de datos personales.",
+    "Estatus de la marca GuauWoow: búsqueda previa, número de solicitud o registro ante el IMPI, logo final y clases.",
+    "Modelo de tienda elegido (comisión en nombre propio, en nombre del refugio o intermediación) y quién emite el CFDI.",
+    "Porcentaje de comisión de la tienda y de los donativos, periodicidad de dispersión, quién paga los envíos y paquetería contratada.",
+    "Decisión sobre Split de pagos de Mercado Pago o cuenta única.",
+    "Lista de refugios iniciales con su forma jurídica (A.C., persona física, otra), si son donatarias autorizadas y en qué estados operan.",
+    "Si habrá voluntarios o moderadores con acceso de administrador, y quién desarrolló el código y el diseño (y qué partes se generaron con IA), para preparar las cesiones de derechos.",
+    "Seguros contratados o presupuesto para responsabilidad civil y riesgos cibernéticos.",
+    "Si GuauWoow venderá mercancía propia con su marca."
+  ],
+  "lawyer_points": [
+    "[Corporativo] Tipo societario (S.A.S. vs. S.A.P.I. de C.V.) y A.C. separada; viabilidad del tope de ingresos de la S.A.S. (LGSM 260) con el modelo de tienda (identidad-contratos-06).",
+    "[Corporativo] Si una oficina virtual o coworking satisface el 'domicilio físico' de LFPC 76 Bis III y NMX 5.2.1.1 d) (identidad-contratos-03).",
+    "[Mercantil] Modelo jurídico único de la tienda: CCom 284 vs. 285 vs. intermediación digital, reflejado en Términos 4.2, 14.1, 14.7 y 32 (identidad-contratos-07).",
+    "[Mercantil] Redacción del convenio con refugios, términos de casas de paso (encuadre como depósito; pacto sobre CCF 1929 durante la guarda) y convenio de voluntariado (identidad-contratos-09, -11, -22).",
+    "[Consumidor] Cláusulas de Términos contra LFPC 85 y 90: 27.2, 19.5, 30.1, 15.3, 25, 24.1, 31.2; calificación de cada relación para la sección 31 (identidad-contratos-14, -27).",
+    "[Mercantil/Datos] Si CCom 49 (10 años) aplica a los registros de aceptación por casilla y tabla única de conservación por categoría (conflicto entre dominios: 5 años CFF, 10 años CCom/LFPIORPI, 90 días hábiles Decreto NNA) (identidad-contratos-15).",
+    "[Civil] Modelo de adopción: donación onerosa, umbrales y forma de cada código civil local (CCF 2343-2344, escritura pública arriba de $5,000), exigibilidad de la reversión por estado, si la LFPC aplica a refugios sin precio; postura única sobre la 'cuota de recuperación' (conflicto entre bienestar-animal, fiscal-tienda, donativos y comunicaciones-cookies) (identidad-contratos-12).",
+    "[Consumidor] Valor normativo de la NMX-COE-001-SCFI-2018: guía ordenada por LFPC 76 Bis 1 (postura de este dominio) vs. referencia voluntaria (contenido-plataforma) (identidad-contratos-01, -04).",
+    "[Mercantil] LGMASC (DOF 26-01-2024), texto no analizado: efecto sobre la cláusula de mediación previa con refugios (identidad-contratos-27).",
+    "[Financiero] CONFIANZA BAJA: si recibir y dispersar fondos en cuenta única encuadra como transmisor de dinero (LGOAAC 81-A Bis) o fondos de pago electrónico (LRITF 22-23), y alcance de LFPIORPI 17 fr. XIII (y fr. XI según otros dominios) al intermediario; revisar Términos de Mercado Pago México (donativos, cobro por cuenta de terceros, Split para refugios sin RFC). Dictamen escrito antes de encender donativos y tienda (identidad-contratos-08, -v02).",
+    "[Contador] Fracción del LISR 79 para refugios de animales domésticos como donatarias: XXV e) (este dominio, con LFFAOSC 5 XII) vs. XIX (dominio donativos, que eliminó la cita LFFAOSC) (identidad-contratos-23).",
+    "[Contador] Retenciones 2026 por intermediación (LIF 2026 art. 25 fr. VI y IX; LIVA 18-J; LISR 113-A/113-C): entero, CFDI de retenciones, RMF y formatos; acceso del SAT (CFF 30-B); parametrización anual (identidad-contratos-07, -v01).",
+    "[Contador] Efecto de las ventas de la tienda sobre los límites 10%/50% de donatarias (LISR 80); quién emite el CFDI de ventas y comisiones; IVA de la comisión (identidad-contratos-09, -23).",
+    "[Datos] Calificación del refugio como responsable independiente o persona encargada; cláusula de datos y modelo de aviso para refugios (identidad-contratos-10).",
+    "[Datos] Vigencia del Reglamento LFPDPPP 2011 y Lineamientos 2013 con la ley de 2025 (sin reglamento nuevo localizado); postura única fundada en el transitorio exacto (conflicto entre dominios) (identidad-contratos-10).",
+    "[Datos/Civil] Imagen de personas en fotos de usuarios y publicaciones importadas de Facebook: alcance del art. 87 LFDA tras la reforma (confianza media), CCF 1916 y leyes locales de vida privada y propia imagen (identidad-contratos-v04).",
+    "[PI] Clases de Niza y tarifa del IMPI 2026 (ficha: $2,695.18 + IVA por clase, Acuerdo DOF 15-03-2024) (identidad-contratos-16).",
+    "[PI] Cesiones de derechos de fundador, freelance, empleados y voluntarios (LFDA 30, 31, 83, 84, 103); carácter oneroso de la cesión del fundador; obras asistidas por IA tras SCJN AD 6/2025 (número de expediente de fuentes secundarias) (identidad-contratos-17, -v03).",
+    "[PI] Aviso y contra-aviso: alinear con la reforma LFDA DOF 14-05-2026 y el nuevo Reglamento LFDA (arts. 37 Bis-37 Nonies, DOF 24-09-2026, en vigor ~03-02-2027, formulario obligatorio) reportado por contenido-plataforma y no revisado por este dominio (identidad-contratos-18).",
+    "[PI] Fecha de vigencia de la LDRP para .MX ('marzo 2019' no confirmada) y estrategia de dominios (identidad-contratos-28).",
+    "[Accesibilidad] Alcance concreto de LFPC 58, LGIPD 32 IV y LFPED 9 XXII Bis para un sitio privado; estatus del Acuerdo de accesibilidad web de 2015 (identidad-contratos-19).",
+    "[Seguros] Disponibilidad y exclusiones de RC general, riesgos cibernéticos, E&O tecnológico, transporte y D&O para plataformas y animales, con agente de seguros (identidad-contratos-21).",
+    "[Documental] Texto consolidado oficial de la Constitución CDMX art. 13 apartado B (identidad-contratos-12).",
+    "[Vigilancia] Iniciativas de septiembre de 2026 (precio total en LFPC 76 Bis; representación legal de proveedores digitales): no vigentes, no leídas (identidad-contratos-29).",
+    "[Consumidor] Si el refugio que entrega animales en adopción sin precio o con donativo sugerido es 'proveedor' bajo la LFPC (identidad-contratos-12)."
+  ],
+  "key_risks": [
+    "Cobrar (tienda o donativos) sin publicar domicilio físico, teléfonos y medios de reclamación: infracción a LFPC 76 Bis III con multa de $1,093.02 a $4,274,960.73 (art. 128). Hoy todos los marcadores de datos-legales.json están vacíos (identidad-contratos-01).",
+    "Operar sin persona jurídica definida o como persona física: responsabilidad con el patrimonio personal, exposición del domicilio particular y bloqueo de RFC, CFDI y cuenta de Mercado Pago (identidad-contratos-06).",
+    "Términos que mezclan tres modelos de tienda: incertidumbre sobre quién es el proveedor, quién factura y si aplican retenciones y el acceso del SAT (CFF 30-B); riesgo fiscal y de consumidor (identidad-contratos-07, -v01).",
+    "Custodiar y dispersar fondos de refugios en cuenta única podría encuadrar como transmisor de dinero (LGOAAC 81-A Bis) o fondos de pago electrónico (LRITF 22), actividades reservadas; confianza baja, sin dictamen (identidad-contratos-v02).",
+    "Cobrar donativos por cuenta de refugios sin mandato escrito ni cuenta justificada: responsabilidad civil y posible acción penal por destino distinto de fondos (CCom 293, 298) (identidad-contratos-08).",
+    "Obligaciones a refugios solo en Términos generales, sin convenio propio ni registro de aceptación del representante: contratos inoponibles y sin reparto de costos de revocación, defectos y contracargos (identidad-contratos-09).",
+    "Aceptación tácita de cambios en Términos 27.2: cláusula que se tiene por no puesta (LFPC 90 fr. I) y multa del art. 127 (identidad-contratos-14).",
+    "Insignias 'verificado' o 'donataria autorizada' sin criterios, fecha ni verificación en el SAT: información engañosa (LFPC 32) y pérdida de confianza (identidad-contratos-23, -24).",
+    "Transferir cuestionarios de adopción y datos de envío a refugios sin cláusula de datos ni aviso: infracciones LFPDPPP 58 fr. X y XII (identidad-contratos-10).",
+    "Usar ® o 'M.R.' sin registro: infracción administrativa LFPPI 386 fr. XVI; y operar sin registro deja la marca expuesta a terceros ('Patitas' es término común del sector) (identidad-contratos-16).",
+    "Código, diseño y contenidos sin cesión por escrito: la transmisión es nula de pleno derecho (LFDA 30) y los derechos pueden quedar en el colaborador (LFDA 84); lo generado solo con IA no tiene derecho de autor (identidad-contratos-17, -v03).",
+    "Publicaciones importadas de Facebook con nombres y rostros de personas: reclamos por imagen (LFDA 87/231 fr. II, CCF 1916) y datos personales (LFPDPPP 17); pérdida del puerto seguro si no hay procedimiento de aviso y retiro (identidad-contratos-18, -v04).",
+    "Falta de accesibilidad y de canal de ajustes razonables: discriminación (LFPED 9 XXII Bis), infracción a LFPC 58 (multa art. 127) (identidad-contratos-19).",
+    "Conservar contratos y aceptaciones solo 5 años: incumplimiento de CCom 49 (10 años) y pérdida de prueba en litigios (identidad-contratos-15).",
+    "Voluntarios o moderadores con tareas remuneradas y supervisadas desde la app: presunción de relación laboral y régimen de plataformas (LFT 21, 291-A) (identidad-contratos-22).",
+    "Contradicción entre dominios sobre la 'cuota de recuperación' en adopciones: una cuota mal tratada podría convertir a GuauWoow en plataforma de venta de perros y afectar el bot de WhatsApp (identidad-contratos-12; gap del crítico)."
+  ]
+}

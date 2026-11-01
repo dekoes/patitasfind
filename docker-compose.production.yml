@@ -1,15 +1,21 @@
-# Infraestructura de PatitasFind para producción.
-# - PostgreSQL 16 + respaldos diarios (pg_dump + uploads, 14 días, copia externa opcional S3/R2)
+# Infraestructura de GuauWoow para producción (~5000 usuarios, picos de 300-800 simultáneos).
+# - PostgreSQL 16 afinado + respaldos diarios cifrados (pg_dump 14 días + fotos incrementales)
+#   y copia externa cifrada opcional a S3/R2 (rclone crypt)
 # - Redis (caché, broker de Celery, pub/sub del chat, límites)
-# - Backend FastAPI (4 workers), Celery worker y beat
+# - Backend FastAPI (WEB_CONCURRENCY workers, escalable: sin container_name ni puerto fijo),
+#   Celery worker y beat (horario persistente)
 # - Nginx con HTTPS (Let's Encrypt), HSTS, CSP y renovación automática con certbot
+# Tamaño de referencia: servidor de 4 vCPU / 8 GB. Para 8 vCPU / 16 GB ver los comentarios
+# "8/16" (y docs/operacion.md).
 #
-# Uso (ver README-despliegue.md, incluye el arranque del primer certificado):
-#   cp .env.example .env   # y completa los valores reales (DOMAIN, SECRET_KEY, POSTGRES_PASSWORD, ...)
-#   NGINX_MODE=http-only docker compose -f docker-compose.production.yml up -d --build   # 1a vez
+# Uso (ver README-despliegue.md y docs/operacion.md):
+#   cp .env.example .env   # y completa los valores reales (DOMAIN, SECRET_KEY, POSTGRES_PASSWORD,
+#                          # BACKUP_ENCRYPTION_PASSWORD, ...)
+#   NGINX_MODE=http-only ./backend/scripts/deploy.sh                                    # 1a vez (sin certificado)
 #   docker compose -f docker-compose.production.yml run --rm certbot certonly ...      # emitir cert
-#   docker compose -f docker-compose.production.yml up -d                               # HTTPS
-#   docker exec patitasfind-backend python -m app.cli create-admin tu@correo.mx 'ContraseñaSegura'
+#   ./backend/scripts/deploy.sh                                                         # HTTPS + despliegue
+#   docker compose -f docker-compose.production.yml exec backend python -m app.cli create-admin tu@correo.mx 'ContraseñaSegura'
+# Despliegues siguientes: ./backend/scripts/deploy.sh --pull   |   reversa: ./backend/scripts/rollback.sh <tag>
 
 x-logging: &default-logging
   driver: json-file
@@ -17,19 +23,56 @@ x-logging: &default-logging
     max-size: "10m"
     max-file: "5"
 
+# Imagen única del backend (API, worker y beat). deploy.sh la construye con BACKEND_TAG=<sha del commit>
+# y la etiqueta también como latest; rollback.sh vuelve a una etiqueta anterior.
+# GIT_SHA queda dentro de la imagen (Sentry lo usa como release), no se pasa en environment.
+x-backend-image: &backend-image
+  image: patitasfind-backend:${BACKEND_TAG:-latest}
+  build:
+    context: ./backend
+    dockerfile: Dockerfile
+    args:
+      GIT_SHA: ${GIT_SHA:-dev}
+
 x-backend-env: &backend-env
   DATABASE_URL: postgresql+psycopg2://${POSTGRES_USER:-patitasfind}:${POSTGRES_PASSWORD:?Define POSTGRES_PASSWORD en .env}@postgres:5432/${POSTGRES_DB:-patitasfind}
   POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+  # Pool por proceso (cuenta en app/database.py): 4 workers x (5+5) + Celery 4 x (2+2) << max_connections=150
+  DB_POOL_SIZE: ${DB_POOL_SIZE:-}
+  DB_MAX_OVERFLOW: ${DB_MAX_OVERFLOW:-}
+  DB_POOL_TIMEOUT: ${DB_POOL_TIMEOUT:-}
+  DB_WORKER_POOL_SIZE: ${DB_WORKER_POOL_SIZE:-}
+  DB_WORKER_MAX_OVERFLOW: ${DB_WORKER_MAX_OVERFLOW:-}
   SECRET_KEY: ${SECRET_KEY:?Define SECRET_KEY en .env}
   ALGORITHM: ${ALGORITHM:-HS256}
   ACCESS_TOKEN_EXPIRE_MINUTES: ${ACCESS_TOKEN_EXPIRE_MINUTES:-10080}
+  ADMIN_TOKEN_EXPIRE_MINUTES: ${ADMIN_TOKEN_EXPIRE_MINUTES:-}
+  # Seguridad (L-seguridad): MFA obligatoria para admins y cifrado en reposo de uploads/private y datos fiscales
+  MFA_REQUIRED_FOR_ADMINS: ${MFA_REQUIRED_FOR_ADMINS:-}
+  MFA_ISSUER: ${MFA_ISSUER:-}
+  PRIVATE_FILES_KEY: ${PRIVATE_FILES_KEY:?Define PRIVATE_FILES_KEY en .env (genérala con openssl rand -base64 32 y guarda una copia fuera del servidor)}
+  PRIVATE_FILES_OLD_KEYS: ${PRIVATE_FILES_OLD_KEYS:-}
+  RETENTION_PURGE_ENABLED: ${RETENTION_PURGE_ENABLED:-}
   ENVIRONMENT: production
   PUBLIC_BASE_URL: ${PUBLIC_BASE_URL:-https://${DOMAIN}}
   ALLOW_DEMO_LOGIN: "false"
+  SHOP_ENABLED: ${SHOP_ENABLED:-}
+  SUPPORT_EMAIL: ${SUPPORT_EMAIL:-}
+  SUPPORT_WHATSAPP: ${SUPPORT_WHATSAPP:-}
+  OPERATOR_ADDRESS: ${OPERATOR_ADDRESS:-}
+  OPERATOR_PHONE: ${OPERATOR_PHONE:-}
   CORS_ORIGINS: ${CORS_ORIGINS:-https://${DOMAIN}}
   CORS_ORIGIN_REGEX: ${CORS_ORIGIN_REGEX:-}
   UPLOAD_DIR: /app/uploads
+  MAX_UPLOAD_MB: ${MAX_UPLOAD_MB:-}
+  UPLOAD_DAILY_QUOTA: ${UPLOAD_DAILY_QUOTA:-}
+  REMOTE_MEDIA_HOSTS: ${REMOTE_MEDIA_HOSTS:-}
   REDIS_URL: ${REDIS_URL:-redis://redis:6379/0}
+  CACHE_TTL_SECONDS: ${CACHE_TTL_SECONDS:-}
+  LIST_CACHE_TTL_SECONDS: ${LIST_CACHE_TTL_SECONDS:-}
+  MATCHES_CACHE_TTL_SECONDS: ${MATCHES_CACHE_TTL_SECONDS:-}
+  REPORT_MATCHES_IP_MINUTE_LIMIT: ${REPORT_MATCHES_IP_MINUTE_LIMIT:-}
+  REPORT_EXPIRY_DAYS: ${REPORT_EXPIRY_DAYS:-}
   GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
   GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
   GOOGLE_REDIRECT_URI: ${GOOGLE_REDIRECT_URI:-}
@@ -37,10 +80,45 @@ x-backend-env: &backend-env
   AI_API_KEY: ${AI_API_KEY:-}
   AI_BASE_URL: ${AI_BASE_URL:-https://dashscope-intl.aliyuncs.com/compatible-mode/v1}
   AI_MODEL: ${AI_MODEL:-qwen3-vl-flash}
+  AI_TIMEOUT_SECONDS: ${AI_TIMEOUT_SECONDS:-}
   AI_EXTRA_BODY: ${AI_EXTRA_BODY:-}
+  AI_MAX_CONCURRENCY: ${AI_MAX_CONCURRENCY:-}
+  AI_USER_HOURLY_LIMIT: ${AI_USER_HOURLY_LIMIT:-}
+  SEARCH_USER_HOURLY_LIMIT: ${SEARCH_USER_HOURLY_LIMIT:-}
+  SEARCH_ANON_MINUTE_LIMIT: ${SEARCH_ANON_MINUTE_LIMIT:-}
+  SEARCH_ANON_DAILY_LIMIT: ${SEARCH_ANON_DAILY_LIMIT:-}
   MATCH_SCORE_THRESHOLD: ${MATCH_SCORE_THRESHOLD:-60}
   MERCADOPAGO_ACCESS_TOKEN: ${MERCADOPAGO_ACCESS_TOKEN:-}
   MERCADOPAGO_WEBHOOK_SECRET: ${MERCADOPAGO_WEBHOOK_SECRET:-}
+  CHECKOUT_EXPIRATION_MINUTES: ${CHECKOUT_EXPIRATION_MINUTES:-}
+  MERCADOPAGO_APP_ID: ${MERCADOPAGO_APP_ID:-}
+  MERCADOPAGO_CLIENT_SECRET: ${MERCADOPAGO_CLIENT_SECRET:-}
+  MERCADOPAGO_MARKETPLACE_FEE_PERCENT: ${MERCADOPAGO_MARKETPLACE_FEE_PERCENT:-}
+  MERCADOPAGO_DONATION_FEE_PERCENT: ${MERCADOPAGO_DONATION_FEE_PERCENT:-}
+  DONATIONS_FALLBACK_TO_PLATFORM_ACCOUNT: ${DONATIONS_FALLBACK_TO_PLATFORM_ACCOUNT:-}
+  PLATFORM_TAX_REGIME_READY: ${PLATFORM_TAX_REGIME_READY:-}
+  DONATION_MAX_MXN: ${DONATION_MAX_MXN:-}
+  DONATION_DAILY_MAX_MXN: ${DONATION_DAILY_MAX_MXN:-}
+  UMA_DAILY_MXN: ${UMA_DAILY_MXN:-}
+  DONATION_IDENTIFICATION_UMA: ${DONATION_IDENTIFICATION_UMA:-}
+  DONATION_NOTICE_UMA: ${DONATION_NOTICE_UMA:-}
+  FOUND_DOG_HOLD_DAYS: ${FOUND_DOG_HOLD_DAYS:-}
+  RETURN_WINDOW_DAYS: ${RETURN_WINDOW_DAYS:-}
+  RETURN_CLAIM_WINDOW_DAYS: ${RETURN_CLAIM_WINDOW_DAYS:-}
+  ORDER_AUTO_COMPLETE_DAYS: ${ORDER_AUTO_COMPLETE_DAYS:-}
+  ORDER_DISPATCH_GRACE_DAYS: ${ORDER_DISPATCH_GRACE_DAYS:-}
+  RETENCION_ISR_PERCENT: ${RETENCION_ISR_PERCENT:-}
+  RETENCION_IVA_PERCENT: ${RETENCION_IVA_PERCENT:-}
+  RETENCION_PERSONAS_MORALES: ${RETENCION_PERSONAS_MORALES:-}
+  PAC_PROVIDER: ${PAC_PROVIDER:-}
+  PAC_USER: ${PAC_USER:-}
+  PAC_PASSWORD: ${PAC_PASSWORD:-}
+  PAC_SANDBOX: ${PAC_SANDBOX:-}
+  EMISOR_RFC: ${EMISOR_RFC:-}
+  EMISOR_NOMBRE: ${EMISOR_NOMBRE:-}
+  EMISOR_REGIMEN: ${EMISOR_REGIMEN:-}
+  EMISOR_CP: ${EMISOR_CP:-}
+  CFDI_SERIE: ${CFDI_SERIE:-}
   SMS_PROVIDER: ${SMS_PROVIDER:-smsmasivos}
   REQUIRE_PHONE_VERIFICATION: ${REQUIRE_PHONE_VERIFICATION:-true}
   SMSMASIVOS_API_KEY: ${SMSMASIVOS_API_KEY:-}
@@ -49,9 +127,15 @@ x-backend-env: &backend-env
   TWILIO_AUTH_TOKEN: ${TWILIO_AUTH_TOKEN:-}
   TWILIO_FROM_NUMBER: ${TWILIO_FROM_NUMBER:-}
   TWILIO_MESSAGING_SERVICE_SID: ${TWILIO_MESSAGING_SERVICE_SID:-}
+  ZERNIO_API_KEY: ${ZERNIO_API_KEY:-}
+  ZERNIO_FROM: ${ZERNIO_FROM:-}
   LEGAL_TERMS_VERSION: ${LEGAL_TERMS_VERSION:-}
   LEGAL_PRIVACY_VERSION: ${LEGAL_PRIVACY_VERSION:-}
+  LEGAL_VERSIONS_FILE: ${LEGAL_VERSIONS_FILE:-}
+  LEGAL_ANNEX_REQUIRED: ${LEGAL_ANNEX_REQUIRED:-}
+  LEGAL_NOTICE_DAYS: ${LEGAL_NOTICE_DAYS:-}
   SENTRY_DSN: ${SENTRY_DSN:-}
+  SENTRY_ENVIRONMENT: ${SENTRY_ENVIRONMENT:-production}
   SENTRY_TRACES_SAMPLE_RATE: ${SENTRY_TRACES_SAMPLE_RATE:-0.1}
   SENTRY_DSN_FRONTEND: ${SENTRY_DSN_FRONTEND:-}
   POSTHOG_KEY: ${POSTHOG_KEY:-}
@@ -61,37 +145,112 @@ x-backend-env: &backend-env
   SMTP_USER: ${SMTP_USER:-}
   SMTP_PASSWORD: ${SMTP_PASSWORD:-}
   SMTP_FROM: ${SMTP_FROM:-}
+  SMTP_USE_TLS: ${SMTP_USE_TLS:-}
   WHATSAPP_VERIFY_TOKEN: ${WHATSAPP_VERIFY_TOKEN:-}
   WHATSAPP_ACCESS_TOKEN: ${WHATSAPP_ACCESS_TOKEN:-}
   WHATSAPP_PHONE_NUMBER_ID: ${WHATSAPP_PHONE_NUMBER_ID:-}
   WHATSAPP_APP_SECRET: ${WHATSAPP_APP_SECRET:-}
+  WHATSAPP_TEMPLATE_MATCH: ${WHATSAPP_TEMPLATE_MATCH:-}
+  WHATSAPP_TEMPLATE_NEARBY: ${WHATSAPP_TEMPLATE_NEARBY:-}
+  WHATSAPP_TEMPLATE_LANGUAGE: ${WHATSAPP_TEMPLATE_LANGUAGE:-}
   GRAPH_API_VERSION: ${GRAPH_API_VERSION:-v21.0}
+  NEARBY_ALERT_RADIUS_KM: ${NEARBY_ALERT_RADIUS_KM:-}
+  NEARBY_ALERT_PARTNER_RADIUS_KM: ${NEARBY_ALERT_PARTNER_RADIUS_KM:-}
+  NEARBY_ALERT_MAX_RECIPIENTS: ${NEARBY_ALERT_MAX_RECIPIENTS:-}
+  NEARBY_ALERT_DAILY_CAP: ${NEARBY_ALERT_DAILY_CAP:-}
   FACEBOOK_PAGE_ACCESS_TOKEN: ${FACEBOOK_PAGE_ACCESS_TOKEN:-}
+  FB_GROUPS_ENABLED: ${FB_GROUPS_ENABLED:-}
+  FB_GROUPS_LEGAL_OPINION_REF: ${FB_GROUPS_LEGAL_OPINION_REF:-}
+  APIFY_TOKEN: ${APIFY_TOKEN:-}
+  APIFY_FB_GROUPS_ACTOR: ${APIFY_FB_GROUPS_ACTOR:-}
+  FB_GROUPS_FETCH_INTERVAL_HOURS: ${FB_GROUPS_FETCH_INTERVAL_HOURS:-}
+  FB_GROUPS_LOOKBACK_DAYS: ${FB_GROUPS_LOOKBACK_DAYS:-}
+  FB_GROUPS_MAX_POSTS_PER_RUN: ${FB_GROUPS_MAX_POSTS_PER_RUN:-}
+  FB_GROUPS_DAILY_BUDGET_USD: ${FB_GROUPS_DAILY_BUDGET_USD:-}
+  FB_GROUPS_COST_PER_1000_POSTS_USD: ${FB_GROUPS_COST_PER_1000_POSTS_USD:-}
+  FB_GROUPS_POST_TTL_DAYS: ${FB_GROUPS_POST_TTL_DAYS:-}
+  FB_GROUPS_COST_PER_RUN_USD: ${FB_GROUPS_COST_PER_RUN_USD:-}
+  FB_VOLUNTEER_POST_TTL_DAYS: ${FB_VOLUNTEER_POST_TTL_DAYS:-}
+  FB_IMPORTED_PURGE_AFTER_DAYS: ${FB_IMPORTED_PURGE_AFTER_DAYS:-}
+  GOOGLE_MAPS_API_KEY: ${GOOGLE_MAPS_API_KEY:-}
+  GOOGLE_PLACES_DAILY_LIMIT: ${GOOGLE_PLACES_DAILY_LIMIT:-}
+  VETERINARY_REVIEW_MIN_ACCOUNT_DAYS: ${VETERINARY_REVIEW_MIN_ACCOUNT_DAYS:-}
+  AUTHORITY_CONTACT_EMAIL: ${AUTHORITY_CONTACT_EMAIL:-}
+  AUTHORITY_CONTACT_PHONE: ${AUTHORITY_CONTACT_PHONE:-}
+  AUTHORITY_FIRST_RESPONSE_URGENT_MINUTES: ${AUTHORITY_FIRST_RESPONSE_URGENT_MINUTES:-}
+  AUTHORITY_FIRST_RESPONSE_HOURS: ${AUTHORITY_FIRST_RESPONSE_HOURS:-}
+  MODERATION_URGENT_HOURS: ${MODERATION_URGENT_HOURS:-}
+  MODERATION_MINOR_RESPONSE_HOURS: ${MODERATION_MINOR_RESPONSE_HOURS:-}
+  MODERATION_REVIEW_BUSINESS_DAYS: ${MODERATION_REVIEW_BUSINESS_DAYS:-}
+  APPEAL_WINDOW_DAYS: ${APPEAL_WINDOW_DAYS:-}
+  APPEAL_RESOLUTION_BUSINESS_DAYS: ${APPEAL_RESOLUTION_BUSINESS_DAYS:-}
+  COPYRIGHT_REMOVAL_BUSINESS_DAYS: ${COPYRIGHT_REMOVAL_BUSINESS_DAYS:-}
+  COPYRIGHT_STRIKES_SUSPEND: ${COPYRIGHT_STRIKES_SUSPEND:-}
+  COPYRIGHT_STRIKES_CANCEL: ${COPYRIGHT_STRIKES_CANCEL:-}
+  COPYRIGHT_SUSPENSION_DAYS: ${COPYRIGHT_SUSPENSION_DAYS:-}
+  EVIDENCE_RETENTION_BUSINESS_DAYS: ${EVIDENCE_RETENTION_BUSINESS_DAYS:-}
+  EVIDENCE_DIR: ${EVIDENCE_DIR:-}
+  PUBLIC_REPORTS_HOURLY_LIMIT: ${PUBLIC_REPORTS_HOURLY_LIMIT:-}
+  COMPLAINT_FIRST_RESPONSE_BUSINESS_DAYS: ${COMPLAINT_FIRST_RESPONSE_BUSINESS_DAYS:-}
+  COMPLAINT_RESPONSE_BUSINESS_DAYS: ${COMPLAINT_RESPONSE_BUSINESS_DAYS:-}
+  IMPORTED_REMOVAL_PURGE_HOURS: ${IMPORTED_REMOVAL_PURGE_HOURS:-}
+  TRANSPARENCY_MIN_CASES: ${TRANSPARENCY_MIN_CASES:-}
 
 services:
   postgres:
-    image: postgres:16-alpine
+    image: postgres:16.15-alpine
     container_name: patitasfind-postgres
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-patitasfind}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Define POSTGRES_PASSWORD en .env}
       POSTGRES_DB: ${POSTGRES_DB:-patitasfind}
+    # Afinado para 4 vCPU / 8 GB (8/16: PG_SHARED_BUFFERS=4GB, PG_EFFECTIVE_CACHE_SIZE=10GB).
+    # Cambiar estos valores reinicia PostgreSQL: hazlo en una ventana de mantenimiento.
+    command:
+      - postgres
+      - -c
+      - max_connections=150
+      - -c
+      - shared_buffers=${PG_SHARED_BUFFERS:-1GB}
+      - -c
+      - effective_cache_size=${PG_EFFECTIVE_CACHE_SIZE:-3GB}
+      - -c
+      - work_mem=8MB
+      - -c
+      - maintenance_work_mem=256MB
+      - -c
+      - random_page_cost=1.1
+      - -c
+      - effective_io_concurrency=200
+      - -c
+      - max_wal_size=2GB
+      - -c
+      - log_min_duration_statement=500
+      - -c
+      - log_lock_waits=on
+      # Estadísticas de consultas (CREATE EXTENSION pg_stat_statements; ver docs/operacion.md)
+      - -c
+      - shared_preload_libraries=pg_stat_statements
+    shm_size: 1g
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - "127.0.0.1:5432:5432"
+      - "127.0.0.1:5439:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-patitasfind} -d ${POSTGRES_DB:-patitasfind}"]
       interval: 10s
       timeout: 5s
       retries: 5
+    stop_grace_period: 60s
     restart: unless-stopped
     logging: *default-logging
 
   redis:
-    image: redis:7-alpine
+    image: redis:7.4.11-alpine
     container_name: patitasfind-redis
-    command: redis-server --appendonly yes
+    # volatile-lru: al llenarse solo se desalojan claves con TTL (caché, límites, resultados);
+    # las colas de Celery no tienen TTL y nunca se pierden.
+    command: redis-server --appendonly yes --maxmemory ${REDIS_MAXMEMORY:-512mb} --maxmemory-policy volatile-lru
     volumes:
       - redis_data:/data
     healthcheck:
@@ -102,18 +261,17 @@ services:
     restart: unless-stopped
     logging: *default-logging
 
+  # Sin container_name ni puerto en el host: Nginx lo alcanza por el nombre del servicio y
+  # deploy.sh puede levantar una segunda réplica durante el despliegue (rolling update).
+  # Comandos: docker compose -f docker-compose.production.yml exec backend <comando>
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    image: patitasfind-backend:latest
-    container_name: patitasfind-backend
+    <<: *backend-image
     environment:
       <<: *backend-env
-      # Alembic: crea/actualiza el esquema; en bases antiguas marca la baseline (app/migrate.py)
-      RUN_MIGRATIONS: "true"
-    ports:
-      - "127.0.0.1:8000:8000"
+      # Las migraciones (Alembic, app/migrate.py) las corre deploy.sh UNA vez antes de cambiar contenedores.
+      # Desactivadas al arrancar: varias réplicas no compiten y una imagen vieja (rollback.sh) no intenta
+      # "migrar" una base más nueva. A mano: docker compose -f docker-compose.production.yml run --rm backend python -m app.migrate
+      RUN_MIGRATIONS: ${RUN_MIGRATIONS:-false}
     depends_on:
       postgres:
         condition: service_healthy
@@ -121,88 +279,111 @@ services:
         condition: service_healthy
     volumes:
       - ./backend/uploads:/app/uploads
-    # --proxy-headers: respeta X-Forwarded-Proto/For que envía Nginx
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 4 --proxy-headers --forwarded-allow-ips="*"
+    # --proxy-headers: respeta X-Forwarded-Proto/For que envía Nginx.
+    # --timeout-keep-alive 65 > keepalive_timeout del upstream en Nginx (30 s): evita 502 por conexiones cerradas.
+    command: >-
+      uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers ${WEB_CONCURRENCY:-4}
+      --proxy-headers --forwarded-allow-ips=* --timeout-keep-alive 65 --timeout-graceful-shutdown 25
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=5).status == 200 else 1)"]
-      interval: 30s
+      interval: 15s
       timeout: 10s
       retries: 3
       start_period: 40s
+    stop_grace_period: 30s
     restart: unless-stopped
     logging: *default-logging
+    # 4 vCPU / 8 GB: 3 CPUs y 3 GB (WEB_CONCURRENCY=4).
+    # 8/16: cpus "6", memory 6G y WEB_CONCURRENCY=8 (revisa la cuenta de conexiones en app/database.py).
     deploy:
       resources:
         limits:
-          cpus: '2.0'
-          memory: 2G
+          cpus: "1.5"
+          memory: 3G
 
   celery-worker:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    image: patitasfind-backend:latest
-    container_name: patitasfind-celery-worker
+    <<: *backend-image
     environment:
       <<: *backend-env
     depends_on:
-      backend:
-        condition: service_started
+      postgres:
+        condition: service_healthy
       redis:
         condition: service_healthy
     volumes:
       - ./backend/uploads:/app/uploads
-    command: celery -A app.celery_app worker -l info -Q whatsapp,facebook,default --concurrency=4
+    command: celery -A app.celery_app worker -l info -Q whatsapp,facebook,default --concurrency=${CELERY_CONCURRENCY:-4}
     healthcheck:
       test: ["CMD-SHELL", "celery -A app.celery_app inspect ping -d celery@$$HOSTNAME --timeout 10 | grep -q pong"]
       interval: 60s
       timeout: 30s
       retries: 3
       start_period: 60s
+    # Apagado en caliente: termina las tareas en curso antes de salir
+    stop_grace_period: 120s
     restart: unless-stopped
     logging: *default-logging
+    # 8/16: CELERY_CONCURRENCY=8 y memory 3G
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 2G
 
+  # Debe haber UNA sola instancia de beat (container_name lo garantiza).
   celery-beat:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    image: patitasfind-backend:latest
+    <<: *backend-image
     container_name: patitasfind-celery-beat
     environment:
       <<: *backend-env
     depends_on:
-      backend:
-        condition: service_started
       redis:
         condition: service_healthy
-    command: celery -A app.celery_app beat -l info --schedule /tmp/celerybeat-schedule
+    # El horario (última ejecución de cada tarea) persiste en un volumen: un reinicio no repite ni salta tareas
+    command: celery -A app.celery_app beat -l info --schedule /var/lib/celery/celerybeat-schedule
+    volumes:
+      - celery_beat:/var/lib/celery
+    # Beat reescribe el archivo de horario al enviar tareas (al menos cada hora: photo-signature-backfill).
+    # Si no cambia en 2 h, beat está colgado.
+    healthcheck:
+      test: ["CMD-SHELL", "find /var/lib/celery -maxdepth 1 -name 'celerybeat-schedule*' -mmin -120 | grep -q ."]
+      interval: 5m
+      timeout: 10s
+      retries: 2
+      start_period: 1m
     restart: unless-stopped
     logging: *default-logging
 
   nginx:
-    image: nginx:alpine
+    image: nginx:1.30.5-alpine
     container_name: patitasfind-nginx
     ports:
-      - "80:80"
-      - "443:443"
+      - "127.0.0.1:4700:80"
     environment:
-      DOMAIN: ${DOMAIN:?Define DOMAIN en .env (p. ej. patitasfind.mx, sin https://)}
-      NGINX_ENVSUBST_FILTER: "^DOMAIN$$"
+      DOMAIN: ${DOMAIN:?Define DOMAIN en .env (p. ej. guauwoow.com, sin https://)}
+      # none (sin proxy delante) | cloudflare (DNS con proxy de Cloudflare: IP real desde CF-Connecting-IP)
+      NGINX_REAL_IP: ${NGINX_REAL_IP:-none}
+      NGINX_ENVSUBST_FILTER: "^(DOMAIN|NGINX_REAL_IP)$$"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       # NGINX_MODE=https (normal) | http-only (solo para emitir el primer certificado)
-      - ./nginx/templates/${NGINX_MODE:-https}:/etc/nginx/templates:ro
+      - ./nginx/templates/${NGINX_MODE:-http-only}:/etc/nginx/templates:ro
       - ./nginx/snippets:/etc/nginx/snippets:ro
       # Todo el frontend se monta una sola vez; las location deciden qué se sirve
       # (y bloquean archivos de desarrollo: *.py, *.mjs, node_modules/, test-*, etc.)
       - ./app:/usr/share/nginx/html/app:ro
+      # /uploads/private/ (documentos de refugios) nunca se sirve: la location lo niega
       - ./backend/uploads:/usr/share/nginx/html/uploads:ro
       - ./certbot/conf:/etc/letsencrypt:ro
       - ./certbot/www:/var/www/certbot:ro
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
     # Recarga la configuración cada 12 h para tomar certificados renovados por certbot
     entrypoint: ["/bin/sh", "-c", "(while :; do sleep 12h; nginx -s reload; done) & exec /docker-entrypoint.sh nginx -g 'daemon off;'"]
-    depends_on:
-      - backend
+    # Sin depends_on del backend: Nginx resuelve "backend" por DNS en cada petición (resolver de
+    # Docker), arranca aunque el backend no exista aún y sigue a los contenedores nuevos.
     healthcheck:
       test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1/nginx-health"]
       interval: 30s
@@ -212,7 +393,7 @@ services:
     logging: *default-logging
 
   certbot:
-    image: certbot/certbot:latest
+    image: certbot/certbot:v5.8.0
     container_name: patitasfind-certbot
     volumes:
       - ./certbot/conf:/etc/letsencrypt
@@ -223,8 +404,16 @@ services:
     restart: unless-stopped
     logging: *default-logging
 
+  # Respaldo local diario (scripts/backup.sh): pg_dump cifrado con BACKUP_ENCRYPTION_PASSWORD
+  # (14 días) + fotos en instantáneas incrementales con enlaces duros + revisión de disco cada hora.
+  # La imagen es postgres (pg_dump de la misma versión) + openssl.
   backup:
-    image: postgres:16-alpine
+    build:
+      context: ./backend/scripts
+      dockerfile_inline: |
+        FROM postgres:16.15-alpine
+        RUN apk add --no-cache openssl
+    image: patitasfind-backup:16.15
     container_name: patitasfind-backup
     environment:
       PGHOST: postgres
@@ -232,28 +421,53 @@ services:
       PGPASSWORD: ${POSTGRES_PASSWORD}
       PGDATABASE: ${POSTGRES_DB:-patitasfind}
       BACKUP_RETENTION_DAYS: ${BACKUP_RETENTION_DAYS:-14}
+      # Hora local (TZ) del respaldo diario; vacía = cada BACKUP_INTERVAL_SECONDS desde el último
+      BACKUP_HOUR: ${BACKUP_HOUR-3}
       BACKUP_INTERVAL_SECONDS: ${BACKUP_INTERVAL_SECONDS:-86400}
+      # Obligatoria: sin ella no se generan respaldos. Guárdala fuera del servidor (gestor de contraseñas):
+      # sin esta contraseña los respaldos NO se pueden restaurar.
+      BACKUP_ENCRYPTION_PASSWORD: ${BACKUP_ENCRYPTION_PASSWORD:?Define BACKUP_ENCRYPTION_PASSWORD en .env (cifra los respaldos)}
+      BACKUP_REQUIRE_ENCRYPTION: "true"
+      BACKUP_HEARTBEAT_URL: ${BACKUP_HEARTBEAT_URL:-}
+      BACKUP_S3_BUCKET: ${BACKUP_S3_BUCKET:-}
+      DISK_ALERT_URL: ${DISK_ALERT_URL:-}
+      DISK_ALERT_THRESHOLD: ${DISK_ALERT_THRESHOLD:-85}
+      DISK_CHECK_INTERVAL_SECONDS: ${DISK_CHECK_INTERVAL_SECONDS:-3600}
+      # "/" = disco de Docker (volúmenes de PostgreSQL y Redis); /backups y /uploads = disco del proyecto
+      DISK_CHECK_PATHS: / /backups /uploads
       TZ: America/Mexico_City
     volumes:
       - ./backups:/backups
-      - ./backend/uploads:/uploads
+      - ./backend/uploads:/uploads:ro
       - ./backend/scripts:/scripts:ro
     entrypoint: ["/bin/sh", "/scripts/backup.sh", "loop"]
+    healthcheck:
+      test: ["CMD", "/bin/sh", "/scripts/backup.sh", "health"]
+      interval: 10m
+      timeout: 30s
+      retries: 2
+      start_period: 2h
     depends_on:
       postgres:
         condition: service_healthy
     restart: unless-stopped
     logging: *default-logging
 
-  # Copia externa opcional de ./backups a S3 / Cloudflare R2 (rclone). Si BACKUP_S3_BUCKET
-  # está vacío, el servicio queda inactivo sin hacer nada.
+  # Copia externa cifrada (rclone crypt sobre S3 / Cloudflare R2) de los dumps y de las fotos
+  # (sincronización incremental + archivo de borrados). Si BACKUP_S3_BUCKET está vacío queda
+  # inactivo (y backup.sh lo advierte en cada vuelta).
   backup-offsite:
-    image: rclone/rclone:latest
+    image: rclone/rclone:1.75.1
     container_name: patitasfind-backup-offsite
     environment:
       BACKUP_S3_BUCKET: ${BACKUP_S3_BUCKET:-}
       BACKUP_S3_PREFIX: ${BACKUP_S3_PREFIX:-patitasfind}
       BACKUP_INTERVAL_SECONDS: ${BACKUP_INTERVAL_SECONDS:-86400}
+      BACKUP_OFFSITE_HOUR: ${BACKUP_OFFSITE_HOUR-4}
+      BACKUP_OFFSITE_RETENTION_DAYS: ${BACKUP_OFFSITE_RETENTION_DAYS:-30}
+      BACKUP_OFFSITE_HEARTBEAT_URL: ${BACKUP_OFFSITE_HEARTBEAT_URL:-}
+      BACKUP_ENCRYPTION_PASSWORD: ${BACKUP_ENCRYPTION_PASSWORD:?Define BACKUP_ENCRYPTION_PASSWORD en .env (cifra los respaldos)}
+      BACKUP_ENCRYPTION_SALT: ${BACKUP_ENCRYPTION_SALT:-}
       RCLONE_CONFIG_OFFSITE_TYPE: s3
       RCLONE_CONFIG_OFFSITE_PROVIDER: ${BACKUP_S3_PROVIDER:-Cloudflare}
       RCLONE_CONFIG_OFFSITE_ACCESS_KEY_ID: ${BACKUP_S3_ACCESS_KEY_ID:-}
@@ -261,13 +475,22 @@ services:
       RCLONE_CONFIG_OFFSITE_ENDPOINT: ${BACKUP_S3_ENDPOINT:-}
       RCLONE_CONFIG_OFFSITE_REGION: ${BACKUP_S3_REGION:-auto}
       RCLONE_CONFIG_OFFSITE_NO_CHECK_BUCKET: "true"
+      TZ: America/Mexico_City
     volumes:
       - ./backups:/backups:ro
+      - ./backend/uploads:/uploads:ro
       - ./backend/scripts:/scripts:ro
     entrypoint: ["/bin/sh", "/scripts/backup-offsite.sh"]
+    healthcheck:
+      test: ["CMD", "/bin/sh", "/scripts/backup-offsite.sh", "health"]
+      interval: 10m
+      timeout: 30s
+      retries: 2
+      start_period: 3h
     restart: unless-stopped
     logging: *default-logging
 
 volumes:
   postgres_data:
   redis_data:
+  celery_beat:

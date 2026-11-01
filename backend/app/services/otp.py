@@ -1,4 +1,4 @@
-"""Código de verificación de teléfono (OTP) propio de PatitasFind.
+"""Código de verificación de teléfono (OTP) propio de GuauWoow.
 
 - 6 dígitos con `secrets`, guardado como HMAC-SHA256 (SECRET_KEY + usuario + teléfono).
 - Vence en OTP_TTL_MINUTES (10), máximo OTP_MAX_ATTEMPTS (5) intentos por código.

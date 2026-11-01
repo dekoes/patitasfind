@@ -17,7 +17,9 @@ from app import models  # noqa: F401 - registra las tablas en Base.metadata
 config = context.config
 
 if config.config_file_name is not None:
-    fileConfig(config.config_file_name)
+    # disable_existing_loggers=False: app/migrate.py (y seed_data.py, pytest) corren Alembic dentro del
+    # mismo proceso que la app; con el valor por defecto se silenciarían los loggers "patitasfind.*"
+    fileConfig(config.config_file_name, disable_existing_loggers=False)
 
 target_metadata = Base.metadata
 

@@ -1,0 +1,37 @@
+# GuauWoow: se indexan la landing y las páginas legales; la API, el panel y las fotos subidas no.
+User-agent: *
+Allow: /$
+Allow: /app/legal/
+Allow: /legal/
+Allow: /img/
+Disallow: /admin/
+Disallow: /uploads/
+Disallow: /api/
+Disallow: /auth/
+Disallow: /users/
+Disallow: /dogs
+Disallow: /matches
+Disallow: /messages/
+Disallow: /conversations
+Disallow: /notifications
+Disallow: /refuges
+Disallow: /products
+Disallow: /orders
+Disallow: /lost-reports
+Disallow: /foster-homes
+Disallow: /reminders
+Disallow: /reports
+Disallow: /whatsapp/
+Disallow: /facebook/
+Disallow: /search/
+Disallow: /ai/
+Disallow: /payments/
+Disallow: /upload
+Disallow: /ws/
+Disallow: /docs
+Disallow: /redoc
+Disallow: /openapi.json
+Disallow: /health
+Disallow: /cumplimiento/
+
+Sitemap: %%SITE_URL%%/sitemap.xml

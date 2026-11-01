@@ -18,3 +18,4 @@ backups/
 app/e2e-shots/
 app/test-*-fail.png
 certbot/conf/
+.vps_ssh_key

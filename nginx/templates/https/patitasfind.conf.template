@@ -1,4 +1,16 @@
-# Generado por envsubst desde nginx/templates/https/ (solo se sustituye ${DOMAIN}).
+# Generado por envsubst desde nginx/templates/https/ (solo se sustituyen ${DOMAIN} y ${NGINX_REAL_IP}).
+
+# IP real del cliente cuando hay un proxy/CDN delante (NGINX_REAL_IP=cloudflare | none).
+# Los límites de peticiones y el X-Real-IP que recibe el backend dependen de esto.
+# (el * evita que nginx -t falle si NGINX_REAL_IP no está definida: entonces no incluye nada)
+include /etc/nginx/snippets/${NGINX_REAL_IP}-realip*.conf;
+
+# URL pública para %%SITE_URL%% (patitasfind-locations.conf). Se usa el dominio configurado y no
+# el Host del cliente, para que nadie pueda inyectar otro dominio en canonical/og:image.
+map $host $site_url {
+    default "https://${DOMAIN}";
+}
+
 # Puerto 80: solo ACME (Let's Encrypt), salud interna y redirección 301 a HTTPS.
 server {
     listen 80 default_server;
@@ -35,15 +47,26 @@ server {
     ssl_session_tickets off;
 
     # Encabezados de seguridad (heredados por todas las location)
+    # CSP: Leaflet y Sentry se sirven desde /app/vendor/ ('self'); PostHog carga su script de
+    # *.posthog.com; mosaicos de OpenStreetMap, búsqueda de Nominatim, ingesta de Sentry y el
+    # WebSocket del chat (wss://${DOMAIN}) quedan permitidos.
     add_header Strict-Transport-Security "max-age=63072000; includeSubDomains" always;
-    add_header Content-Security-Policy "default-src 'self'; script-src 'self' https://unpkg.com https://browser.sentry-cdn.com https://*.posthog.com; style-src 'self' 'unsafe-inline' https://unpkg.com https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://tile.openstreetmap.org https://*.tile.openstreetmap.org https://unpkg.com https://*.googleusercontent.com; connect-src 'self' wss://${DOMAIN} https://nominatim.openstreetmap.org https://*.posthog.com https://*.ingest.sentry.io https://*.ingest.us.sentry.io https://*.ingest.de.sentry.io; worker-src 'self' blob:; manifest-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests" always;
+    add_header Content-Security-Policy "default-src 'self'; script-src 'self' https://*.posthog.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://tile.openstreetmap.org https://*.tile.openstreetmap.org https://*.basemaps.cartocdn.com https://*.googleusercontent.com; connect-src 'self' wss://${DOMAIN} https://nominatim.openstreetmap.org https://*.posthog.com https://*.ingest.sentry.io https://*.ingest.us.sentry.io https://*.ingest.de.sentry.io; worker-src 'self' blob:; manifest-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests" always;
     add_header X-Frame-Options "DENY" always;
     add_header X-Content-Type-Options "nosniff" always;
     add_header Referrer-Policy "strict-origin-when-cross-origin" always;
     add_header Permissions-Policy "geolocation=(self), camera=(self), microphone=(), payment=(), usb=()" always;
     add_header Cross-Origin-Opener-Policy "same-origin-allow-popups" always;
+    # Solo en /uploads/ (vacío en el resto = no se envía); ver map en nginx.conf
+    add_header Cache-Control $uploads_cache_control;
 
     include /etc/nginx/snippets/proxy.conf;
+
+    # Let's Encrypt también por HTTPS: con Cloudflare "Always Use HTTPS" el reto HTTP-01 llega
+    # redirigido a este puerto
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
 
     # www -> dominio principal
     if ($host = www.${DOMAIN}) {

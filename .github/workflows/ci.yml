@@ -8,7 +8,32 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
+  lint:
+    name: Lint y auditoría de dependencias
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Instalar ruff y pip-audit
+        run: pip install ruff==0.17.1 pip-audit==2.10.1
+      - name: "Ruff (solo errores críticos: sintaxis, nombres indefinidos, comparaciones inválidas)"
+        run: ruff check --no-cache --select E9,F63,F7,F82 --output-format=github backend scripts app/server.py
+      - name: pip-audit (vulnerabilidades conocidas en requirements.txt)
+        # Excepciones revisadas (sin versión corregida publicada):
+        # - PYSEC-2026-4298 (python-jose): confusión de llave asimétrica en HMAC. No aplica: firmamos con
+        #   SECRET_KEY simétrica, jwt.decode() restringe algorithms=[ALGORITHM] y config.py exige HS256/384/512.
+        # - PYSEC-2026-1325 (ecdsa, dependencia de python-jose): ataque de tiempos al FIRMAR con ECDSA;
+        #   no usamos ECDSA. Plan: migrar a PyJWT y quitar ambas excepciones.
+        run: >-
+          pip-audit -r backend/requirements.txt --progress-spinner off
+          --ignore-vuln PYSEC-2026-4298 --ignore-vuln PYSEC-2026-1325
+
   backend-tests:
     runs-on: ubuntu-latest
     services:
@@ -42,11 +67,17 @@ jobs:
         with:
           python-version: "3.11"
           cache: pip
-          cache-dependency-path: backend/requirements.txt
-      - name: Instalar dependencias
-        run: pip install -r requirements.txt
+          cache-dependency-path: |
+            backend/requirements.txt
+            backend/requirements-dev.txt
+      - name: Instalar dependencias (incluye pytest)
+        run: pip install -r requirements-dev.txt
       - name: Migraciones de Alembic sobre base vacía
         run: python -m app.migrate
+      - name: Alembic al día con los modelos (alembic check)
+        # Falla si models.py tiene cambios sin revisión de Alembic: genera una con
+        #   alembic revision --autogenerate -m "describe el cambio"
+        run: alembic upgrade head && alembic check
       - name: Pruebas
         run: pytest -q
       - name: Migración idempotente (segunda corrida = no-op)
@@ -59,26 +90,141 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-      - name: node --check app/*.js
-        run: for f in app/*.js; do echo "$f"; node --check "$f"; done
+      - name: node --check app/*.js y app/legal/js/*.js
+        run: for f in app/*.js app/*.mjs app/legal/js/*.js; do echo "$f"; node --check "$f"; done
+
+  # Centro legal (scripts/render-legal.py): las 55 páginas, versiones.json, security.txt, el sitemap y el aviso del
+  # registro al día con sus plantillas; páginas bien formadas, enlaces/anclas y js/*.js existentes. Los datos sin
+  # llenar (marcadores visibles) se permiten aquí; el trabajo legal-check de abajo los revisa.
+  legal-generated:
+    name: Centro legal generado al día
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: python3 scripts/render-legal.py --check-generated
+        run: python3 scripts/render-legal.py --check-generated
+      - name: Pruebas del generador (sin base de datos)
+        run: |
+          pip install pytest==9.1.1
+          cd backend && python -m pytest -q --noconftest tests/test_render_legal.py
+
+  # Datos legales pendientes (razón social, RFC, notas [VERIFICAR] para el abogado...). No bloquea en las ramas;
+  # en una etiqueta de versión (v*) SÍ bloquea: no se etiqueta para producción con marcadores pendientes.
+  # backend/scripts/deploy.sh también se niega a desplegar a producción mientras falten (README-despliegue.md).
+  legal-check:
+    name: Textos legales completos (bloquea en etiquetas v*)
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ !startsWith(github.ref, 'refs/tags/v') }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: python3 scripts/render-legal.py --check
+        run: python3 scripts/render-legal.py --check
+
+  e2e:
+    name: E2E (Playwright + Chromium)
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: patitasfind
+          POSTGRES_PASSWORD: patitasfind
+          POSTGRES_DB: patitasfind
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U patitasfind" --health-interval 5s --health-timeout 5s --health-retries 10
+      redis:
+        image: redis:7-alpine
+        ports: ["6379:6379"]
+        options: >-
+          --health-cmd "redis-cli ping" --health-interval 5s --health-timeout 3s --health-retries 10
+    env:
+      ENVIRONMENT: development
+      DATABASE_URL: postgresql+psycopg2://patitasfind:patitasfind@localhost:5432/patitasfind
+      REDIS_URL: redis://localhost:6379/0
+      USE_CELERY: "false"
+      SMS_PROVIDER: dev            # el código SMS llega como dev_code y la app lo autocompleta
+      UPLOAD_DIR: uploads          # backend/uploads: test-e2e.mjs toma de ahí una foto de prueba
+      PUBLIC_BASE_URL: http://localhost:8082
+      SEED_PASSWORD: PatitasCI-2026   # solo para la base efímera de CI
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Instalar dependencias del backend
+        run: pip install -r backend/requirements.txt
+      - name: Migraciones y datos de prueba
+        working-directory: backend
+        run: |
+          python -m app.migrate
+          python seed_data.py
+      - name: Levantar backend (:8001) y frontend (:8082)
+        run: |
+          (cd backend && nohup uvicorn app.main:app --host 127.0.0.1 --port 8001 > /tmp/backend.log 2>&1 &)
+          (cd app && nohup python3 server.py > /tmp/frontend.log 2>&1 &)
+          for i in $(seq 1 60); do
+            if curl -fsS -o /dev/null http://127.0.0.1:8001/health && curl -fsS -o /dev/null http://127.0.0.1:8082/app/; then
+              echo "Backend y frontend listos"; exit 0
+            fi
+            sleep 1
+          done
+          echo "No arrancaron a tiempo"; tail -n 50 /tmp/backend.log /tmp/frontend.log; exit 1
+      - name: Instalar Playwright y Chromium
+        working-directory: app
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Pruebas E2E
+        env:
+          BASE: http://localhost:8082
+        run: node app/test-e2e.mjs
+      - name: Logs del backend y del frontend
+        if: failure()
+        run: tail -n 200 /tmp/backend.log /tmp/frontend.log
+      - name: Capturas de pantalla
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-shots
+          path: app/e2e-shots
+          retention-days: 7
 
   docker-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Construir imagen del backend
-        run: docker build -t patitasfind-backend:ci backend
+        run: docker build -t "patitasfind-backend:${GITHUB_SHA::12}" --build-arg GIT_SHA="${GITHUB_SHA::12}" backend
       - name: Validar docker-compose de producción
         run: |
-          DOMAIN=ci.example.com SECRET_KEY=ci-secret-ci-secret-ci-secret POSTGRES_PASSWORD=ci-password \
+          DOMAIN=ci.example.com SECRET_KEY=ci-secret-ci-secret-ci-secret-ci-secret POSTGRES_PASSWORD=ci-password \
+            BACKUP_ENCRYPTION_PASSWORD=ci-backup-password \
+            PRIVATE_FILES_KEY=MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY= \
             docker compose -f docker-compose.production.yml config -q
           docker compose -f docker-compose.yml config -q
       - name: nginx -t (plantilla HTTPS con certificado autofirmado)
         run: |
-          docker run --rm --add-host backend:127.0.0.1 -e DOMAIN=ci.example.com -e NGINX_ENVSUBST_FILTER=DOMAIN \
+          for realip in none cloudflare; do
+          echo "NGINX_REAL_IP=$realip"
+          docker run --rm --add-host backend:127.0.0.1 -e DOMAIN=ci.example.com -e NGINX_REAL_IP="$realip" \
+            -e 'NGINX_ENVSUBST_FILTER=^(DOMAIN|NGINX_REAL_IP)$' \
             -v "$PWD/nginx/nginx.conf:/etc/nginx/nginx.conf:ro" -v "$PWD/nginx/templates/https:/etc/nginx/templates:ro" \
-            -v "$PWD/nginx/snippets:/etc/nginx/snippets:ro" nginx:alpine sh -c '
+            -v "$PWD/nginx/snippets:/etc/nginx/snippets:ro" nginx:1.30.5-alpine sh -c '
               apk add -q openssl >/dev/null && mkdir -p /etc/letsencrypt/live/ci.example.com &&
               openssl req -x509 -newkey rsa:2048 -nodes -days 1 -subj "/CN=ci.example.com" \
                 -keyout /etc/letsencrypt/live/ci.example.com/privkey.pem -out /etc/letsencrypt/live/ci.example.com/fullchain.pem 2>/dev/null &&
               /docker-entrypoint.sh nginx -t'
+          done

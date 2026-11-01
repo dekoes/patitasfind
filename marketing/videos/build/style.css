@@ -1,0 +1,135 @@
+@import url("../fonts/fonts.css");
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+#stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; font-family: "Baloo 2", sans-serif; -webkit-font-smoothing: antialiased; }
+.scene { position: absolute; inset: 0; overflow: hidden; display: none; transform-origin: 50% 50%; }
+.layer { position: absolute; inset: 0; }
+.bg { z-index: 1; } .behind { z-index: 2; } .subj { z-index: 3; } .front { z-index: 4; } .top { z-index: 5; pointer-events: none; }
+.fill { position: absolute; inset: 0; }
+.blob { position: absolute; border-radius: 50%; }
+.layer > * { position: absolute; will-change: transform, opacity; }
+
+.subject { display: block; height: auto; filter: drop-shadow(0 30px 40px rgba(30, 20, 60, .28)); }
+.sprite { display: block; height: auto; filter: drop-shadow(0 18px 24px rgba(30, 20, 60, .25)); }
+.card { overflow: hidden; background: #fff; box-shadow: 0 40px 80px rgba(30, 20, 60, .35), 0 0 0 10px rgba(255, 255, 255, .9); }
+.card img { display: block; width: 100%; height: auto; }
+
+.giant { text-align: center; white-space: nowrap; letter-spacing: -2px; }
+.gline { display: block; transform-origin: 50% 60%; }
+
+.sticker { font-family: "Lilita One"; font-size: 74px; padding: 6px 34px 4px; border-radius: 26px; background: #fff; color: #2B2340; white-space: nowrap; box-shadow: 0 14px 0 rgba(0, 0, 0, .12), 0 26px 40px rgba(30, 20, 60, .25); }
+.sticker.dark { background: #2B2340; color: #FFF6EA; }
+.tag { font-family: "Gochi Hand"; font-size: 70px; color: #fff; white-space: nowrap; text-shadow: 0 6px 0 rgba(0, 0, 0, .15); }
+.chip { font-family: "Baloo 2"; font-weight: 800; font-size: 50px; padding: 4px 30px 0; border-radius: 999px; background: #fff; color: #7C5CE0; white-space: nowrap; box-shadow: 0 10px 24px rgba(30, 20, 60, .25); }
+
+.hl { white-space: nowrap; }
+.hl-marker { position: absolute; left: -24px; right: -24px; top: 42%; bottom: 4%; border-radius: 18px; transform-origin: 0 50%; opacity: .95; }
+.hl-text { position: relative; font-weight: 800; line-height: 1.05; }
+
+.type { white-space: nowrap; line-height: 1.15; }
+.cursor { margin-left: 4px; color: #F2A93B; font-weight: 400; }
+
+.stackline { white-space: nowrap; line-height: 1.02; text-shadow: 0 12px 0 rgba(0, 0, 0, .14); }
+
+.burst { width: 10px; height: 10px; }
+.rays-wrap { position: absolute; left: -380px; top: -380px; width: 760px; height: 760px; }
+.rays-wrap svg { width: 100%; height: 100%; }
+.burst-text { position: absolute; left: 50%; top: 50%; white-space: nowrap; translate: -50% -50%; text-shadow: 0 12px 0 rgba(0, 0, 0, .18), 0 0 0 #000; -webkit-text-stroke: 4px #2B2340; paint-order: stroke fill; }
+.confetti { border-radius: 4px; }
+
+.stamp { white-space: nowrap; border: 12px double; border-radius: 26px; padding: 18px 40px 10px; text-transform: uppercase; letter-spacing: 2px; text-align: center; line-height: 1;
+  -webkit-mask-image: radial-gradient(circle at 20% 30%, rgba(0,0,0,.75) 0 2px, transparent 3px), radial-gradient(circle at 70% 60%, rgba(0,0,0,.8) 0 2px, transparent 3px), linear-gradient(#000, #000);
+  -webkit-mask-size: 23px 19px, 31px 27px, 100% 100%; -webkit-mask-composite: xor; mask-composite: exclude; }
+
+.hand { white-space: nowrap; }
+.hand-text { line-height: 1; text-shadow: 0 6px 0 rgba(0, 0, 0, .12); padding: 0 10px; }
+.hand-ul { position: absolute; left: 4%; right: 4%; bottom: -26px; height: 40px; }
+.hand-ul svg { width: 100%; height: 100%; overflow: visible; }
+
+.rise-wrap { overflow: hidden; padding: 0 8px; }
+.rise-inner { white-space: nowrap; line-height: 1.12; }
+
+.glitch { width: 10px; height: 10px; }
+.glitch-copy { position: absolute; left: 50%; top: 50%; translate: -50% -50%; white-space: nowrap; line-height: 1; }
+.glitch-copy.g1, .glitch-copy.g2 { mix-blend-mode: screen; opacity: .9; }
+
+.orbit-word { font-family: "Lilita One"; padding: 6px 30px 2px; border-radius: 999px; white-space: nowrap; box-shadow: 0 14px 30px rgba(30, 20, 60, .3); }
+
+.ring svg { width: 100%; height: 100%; filter: drop-shadow(0 20px 30px rgba(30, 20, 60, .3)); }
+.ring-num { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: "Lilita One"; font-size: 96px; color: #2B2340; padding-top: 6px; }
+.ring-label { position: absolute; left: 50%; top: 100%; translate: -50% 22px; white-space: nowrap; font-family: "Gochi Hand"; font-size: 54px; color: #fff; background: #2B2340; padding: 2px 26px 0; border-radius: 999px; box-shadow: 0 10px 24px rgba(30, 20, 60, .3); }
+
+.bubble { width: max-content; font-size: 52px; line-height: 1.15; font-weight: 700; padding: 22px 34px 16px; border-radius: 40px; box-shadow: 0 16px 34px rgba(30, 20, 60, .25); }
+.bubble.them { background: #fff; color: #2B2340; border-bottom-left-radius: 10px; transform-origin: 0 100%; }
+.bubble.me { background: #7C5CE0; color: #fff; border-bottom-right-radius: 10px; transform-origin: 100% 100%; }
+.dots { display: flex; gap: 12px; padding: 14px 6px; }
+.dots i { width: 18px; height: 18px; border-radius: 50%; background: currentColor; opacity: .55; display: block; }
+
+.scanbox { border-radius: 30px; }
+.scanline { position: absolute; left: -4%; right: -4%; height: 70px; translate: 0 -50%; opacity: .9; mix-blend-mode: screen; }
+.scandot { position: absolute; width: 22px; height: 22px; border-radius: 50%; box-shadow: 0 0 18px 6px rgba(51, 199, 190, .7); }
+.scan-corners { position: absolute; inset: -14px; border: 10px solid; border-radius: 40px; -webkit-mask: conic-gradient(from 45deg, #000 0 25%, transparent 0 50%, #000 0 75%, transparent 0) center / 100% 100%;
+  clip-path: polygon(0 0, 22% 0, 22% 8%, 78% 8%, 78% 0, 100% 0, 100% 22%, 92% 22%, 92% 78%, 100% 78%, 100% 100%, 78% 100%, 78% 92%, 22% 92%, 22% 100%, 0 100%, 0 78%, 8% 78%, 8% 22%, 0 22%); }
+
+.scatter { white-space: nowrap; }
+.sl { display: inline-block; }
+
+.fillbox { width: 10px; height: 10px; }
+.fill-outline, .fill-solid { position: absolute; left: 50%; top: 50%; translate: -50% -50%; white-space: nowrap; color: transparent; line-height: 1; paint-order: stroke fill; }
+
+.curve { width: 1200px; height: 1200px; }
+.curve svg { width: 100%; height: 100%; overflow: visible; }
+
+.paw svg, .floater svg, .icon svg { width: 100%; height: 100%; display: block; }
+.floater { filter: drop-shadow(0 8px 10px rgba(30, 20, 60, .2)); }
+.icon { filter: drop-shadow(0 14px 18px rgba(30, 20, 60, .3)); }
+.radar { border: 8px solid; border-radius: 50%; }
+.flash { background: #fff; opacity: 0; }
+.clock svg { width: 100%; height: 100%; }
+
+.logo { display: flex; align-items: center; gap: 26px; white-space: nowrap; }
+.logo-icon { width: 190px; height: 190px; border-radius: 48px; box-shadow: 0 24px 40px rgba(30, 20, 60, .3); }
+.logo-word { font-family: "Baloo 2"; font-size: 150px; font-weight: 800; letter-spacing: -3px; color: #fff; text-shadow: 0 10px 0 rgba(0, 0, 0, .14); }
+.logo-word .lf { color: #2B2340; }
+
+.cta { font-family: "Lilita One"; padding: 18px 64px 12px; border-radius: 999px; white-space: nowrap; box-shadow: 0 16px 0 rgba(0, 0, 0, .16), 0 30px 50px rgba(30, 20, 60, .3); }
+
+/* Elementos compuestos (creados para el video) */
+.poster { width: 640px; padding: 40px 40px 34px; background: #FFF6EA; border-radius: 12px; box-shadow: 0 50px 80px rgba(0, 0, 0, .45); text-align: center; }
+.poster h3 { font-family: "Bungee"; font-size: 84px; line-height: .95; color: #E8574F; }
+.poster .ph { margin: 24px auto 18px; width: 520px; height: 470px; border-radius: 10px; background: linear-gradient(160deg, #B8EDE8, #E4DBFF); display: flex; align-items: flex-end; justify-content: center; overflow: hidden; }
+.poster .ph img { width: 470px; display: block; }
+.poster p { font-family: "Gochi Hand"; font-size: 56px; color: #2B2340; line-height: 1.05; }
+.poster .tape { position: absolute; width: 200px; height: 60px; background: rgba(255, 255, 255, .55); top: -24px; box-shadow: 0 4px 10px rgba(0, 0, 0, .1); }
+.poster .tape.l { left: 40px; rotate: -18deg; } .poster .tape.r { right: 40px; rotate: 16deg; }
+
+.phone { width: 560px; height: 1080px; border-radius: 80px; background: #2B2340; padding: 26px; box-shadow: 0 50px 90px rgba(20, 10, 40, .5); }
+.phone .screen { position: relative; width: 100%; height: 100%; border-radius: 58px; overflow: hidden; background: linear-gradient(170deg, #EDE6FF, #D9F5F2); }
+.phone .notch { position: absolute; top: 18px; left: 50%; translate: -50% 0; width: 170px; height: 40px; border-radius: 30px; background: #2B2340; z-index: 2; }
+
+.dogcard { width: 600px; border-radius: 52px; background: #fff; box-shadow: 0 40px 80px rgba(30, 20, 60, .35); overflow: hidden; }
+.dogcard .ph { height: 560px; display: flex; align-items: flex-end; justify-content: center; }
+.dogcard .ph img { width: 470px; display: block; }
+.dogcard .info { padding: 26px 40px 34px; }
+.dogcard .name { font-family: "Lilita One"; font-size: 76px; color: #2B2340; line-height: 1; }
+.dogcard .meta { margin-top: 12px; display: flex; gap: 14px; flex-wrap: wrap; }
+.dogcard .meta span { font-size: 36px; font-weight: 800; padding: 2px 22px 0; border-radius: 999px; background: #EDE6FF; color: #7C5CE0; }
+.dogcard .badge { position: absolute; top: 30px; left: 30px; font-family: "Lilita One"; font-size: 44px; padding: 4px 26px 0; border-radius: 999px; color: #fff; }
+.swipe-mark { position: absolute; top: 120px; font-family: "Bungee"; font-size: 96px; padding: 6px 28px; border: 10px solid; border-radius: 26px; }
+
+.notif { display: flex; align-items: center; gap: 22px; width: 600px; padding: 22px 28px; border-radius: 34px; background: rgba(255, 255, 255, .96); box-shadow: 0 20px 40px rgba(30, 20, 60, .3); }
+.notif .ico { width: 84px; height: 84px; border-radius: 24px; flex: none; display: flex; align-items: center; justify-content: center; background: #E8574F; }
+.notif .ico img { width: 70px; }
+.notif b { font-family: "Lilita One"; font-weight: 400; font-size: 42px; color: #2B2340; display: block; line-height: 1.05; }
+.notif span { font-size: 34px; color: #6B6585; font-weight: 700; line-height: 1.1; }
+
+.polaroid { padding: 20px 20px 70px; background: #fff; border-radius: 10px; box-shadow: 0 30px 60px rgba(30, 20, 60, .35); }
+.polaroid .ph { width: 260px; height: 260px; display: flex; align-items: flex-end; justify-content: center; overflow: hidden; border-radius: 6px; }
+.polaroid .ph img { width: 240px; display: block; }
+.polaroid .cap { position: absolute; left: 0; right: 0; bottom: 14px; text-align: center; font-family: "Gochi Hand"; font-size: 40px; color: #2B2340; }
+
+.safe { display: none; }
+
+.vignette { background: radial-gradient(ellipse 78% 62% at 50% 48%, rgba(0,0,0,0) 58%, rgba(25,12,45,.30) 100%); }
+.leak { width: 1300px; height: 1300px; border-radius: 50%; background: radial-gradient(circle, rgba(255,214,150,.9) 0%, rgba(255,170,200,.35) 38%, rgba(255,255,255,0) 68%); mix-blend-mode: screen; }

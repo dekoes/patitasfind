@@ -4,15 +4,34 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#DCC7FA">
-<title>PatitasFind</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%2333C7BE'/%3E%3Cg fill='white' transform='translate(8 8) scale(.75)'%3E%3Cellipse cx='32' cy='40' rx='15' ry='12'/%3E%3Cellipse cx='14' cy='26' rx='7' ry='9'/%3E%3Cellipse cx='26' cy='17' rx='7' ry='9'/%3E%3Cellipse cx='40' cy='17' rx='7' ry='9'/%3E%3Cellipse cx='51' cy='26' rx='7' ry='9'/%3E%3C/g%3E%3C/svg%3E">
+<title>GuauWoow</title>
+<meta name="description" content="Reporta perritos perdidos y encontrados, compara fotos con IA y adopta en refugios verificados de México.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="%%SITE_URL%%/app/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_MX">
+<meta property="og:site_name" content="GuauWoow">
+<meta property="og:url" content="%%SITE_URL%%/app/">
+<meta property="og:title" content="GuauWoow — Encuentra, adopta y reúne perritos">
+<meta property="og:description" content="Ayuda a que un perrito vuelva a casa o encuentra a tu nuevo mejor amigo.">
+<meta property="og:image" content="%%SITE_URL%%/img/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="%%SITE_URL%%/img/og-image.jpg">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Patrick+Hand&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
-<link rel="stylesheet" href="/app/styles.css?v=14">
-<link rel="stylesheet" href="/app/anim.css?v=14">
-<link rel="stylesheet" href="/app/theme.css?v=14">
-<script src="/app/theme.js?v=14"></script>
+<!-- Leaflet 1.9.4 autohospedado (vendor/leaflet) para no depender de unpkg en la CSP -->
+<link rel="stylesheet" href="/app/vendor/leaflet/leaflet.css">
+<link rel="stylesheet" href="/app/styles.css?v=17">
+<link rel="stylesheet" href="/app/anim.css?v=15">
+<link rel="stylesheet" href="/app/theme.css?v=15">
+<link rel="stylesheet" href="/app/cumplimiento.css?v=1">
+<script src="/app/theme.js?v=15"></script>
 </head>
 <body>
 <div id="bg" aria-hidden="true"></div>
@@ -48,7 +67,11 @@
 <symbol id="refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7 M20 4v7h-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 <symbol id="palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18c1.2 0 1.8-.8 1.8-1.7 0-1.2-1-1.6-1-2.6 0-1 .8-1.7 1.8-1.7H17a4 4 0 0 0 4-4C21 6.6 17 3 12 3Z" fill="none" stroke="currentColor" stroke-width="2.1"/><circle cx="7.5" cy="11" r="1.4" fill="currentColor"/><circle cx="10" cy="7" r="1.4" fill="currentColor"/><circle cx="14.5" cy="7" r="1.4" fill="currentColor"/></symbol>
 <symbol id="chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+<symbol id="flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4h12l-2.5 4.5L17 13H5" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M9.3 9.4a2.8 2.8 0 0 1 5.4 1c0 1.9-2.7 2.4-2.7 4.1" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="17.6" r="1.3" fill="currentColor"/></symbol>
+<symbol id="truck" viewBox="0 0 24 24"><path d="M2 6h12v10H2Z M14 9h4l3 3.5V16h-7Z" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linejoin="round"/><circle cx="6.5" cy="17.5" r="2" fill="#fff" stroke="currentColor" stroke-width="2"/><circle cx="17" cy="17.5" r="2" fill="#fff" stroke="currentColor" stroke-width="2"/></symbol>
 <symbol id="image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="9" cy="10" r="2" fill="currentColor"/><path d="M4 18l5-5 4 4 3-3 4 4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></symbol>
+<symbol id="vet" viewBox="0 0 24 24"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6Z" fill="#86E0D4" stroke="#1D2233" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="12" r="2.2" fill="#1D2233"/></symbol>
 </defs>
 </svg>
 
@@ -73,7 +96,7 @@
   <div style="flex:1;position:relative">
     <div class="ob-slide on" data-i="0"><div class="ob-art" style="background:var(--yellow)" id="ob-art-0"></div><h2 class="h1">Súbele una foto<br>y la IA lo busca</h2><p class="body mt8">Comparamos la foto de tu perrito con reportes de perdidos, encontrados y adopciones cerca de ti.</p></div>
     <div class="ob-slide" data-i="1"><div class="ob-art" style="background:var(--lila)" id="ob-art-1"></div><h2 class="h1">Adopta con<br>un deslizón</h2><p class="body mt8">Desliza perfiles verificados, llena un cuestionario y chatea seguro con refugios y rescatistas.</p></div>
-    <div class="ob-slide" data-i="2"><div class="ob-art" style="background:var(--green)" id="ob-art-2"></div><h2 class="h1">Ayuda a quienes<br>ayudan</h2><p class="body mt8">Donaciones y tienda solidaria que impulsan a los refugios del ranking de héroes.</p></div>
+    <div class="ob-slide" data-i="2"><div class="ob-art" style="background:var(--green)" id="ob-art-2"></div><h2 class="h1">Ayuda a quienes<br>ayudan</h2><p class="body mt8">Donativos<span data-shop> y tienda solidaria</span> que impulsan a los refugios del ranking de héroes.</p></div>
   </div>
   <div class="pad" style="padding-bottom:30px">
     <div class="dotnav" id="ob-dots"><i class="on"></i><i></i><i></i></div>
@@ -95,14 +118,17 @@
       <div id="f-email"><label class="lbl" for="auth-email">Correo electrónico</label><input id="auth-email" class="inp" type="email" autocomplete="email" placeholder="hola@correo.com"></div>
       <div id="f-pass"><label class="lbl" for="auth-password">Contraseña</label><input id="auth-password" class="inp" type="password" autocomplete="current-password" placeholder="Mínimo 8 caracteres"></div>
       <div id="f-consent" class="hidden col" style="gap:8px">
-        <div class="card p small" id="privacy-short" style="background:rgba(255,255,255,.7);max-height:120px;overflow-y:auto;font-weight:600;line-height:1.4"><b>Aviso de privacidad simplificado.</b> PatitasFind trata tu nombre, correo, teléfono, ciudad, ubicación (opcional), fotos, respuestas del cuestionario de adopción, mensajes, pedidos, donativos y datos técnicos. No pedimos datos sensibles. Los usamos para crear y proteger tu cuenta, verificar tu teléfono y operar adopciones, reportes, chat, tienda y donativos. Con tu consentimiento, que puedes negar o revocar sin perder el servicio: novedades, encuestas y analítica. Compartimos lo necesario con refugios y proveedores, algunos fuera de México. Ejerce tus derechos ARCO desde tu perfil. <a href="/app/legal/privacidad.html" target="_blank" rel="noopener">Aviso de Privacidad Integral</a>.</div>
-        <label class="row small" style="align-items:flex-start"><input type="checkbox" id="auth-terms" style="width:20px;height:20px;flex-shrink:0;margin-top:2px"> <span>Tengo 18 años o más y acepto los <a href="/app/legal/terminos.html" target="_blank" rel="noopener">Términos y Condiciones</a> y el <a href="/app/legal/privacidad.html" target="_blank" rel="noopener">Aviso de Privacidad</a>.</span></label>
+        <div class="card p small" id="privacy-short" style="background:rgba(255,255,255,.7);max-height:120px;overflow-y:auto;font-weight:600;line-height:1.4"><!-- aviso-simplificado:inicio --><b>Aviso de privacidad simplificado.</b> <span class="ph">[RAZÓN SOCIAL]</span> (GuauWoow), con domicilio en <span class="ph">[DOMICILIO FISCAL]</span>, es responsable de tus datos. Al registrarte tratamos tu nombre, correo, contraseña o cuenta de Google, fecha de nacimiento, teléfono, ciudad y datos técnicos de tu dispositivo; al usar la app, también tus fotos, publicaciones, reportes, cuestionarios de adopción, mensajes, pedidos y donativos. No pedimos datos sensibles. Finalidades necesarias: crear y proteger tu cuenta, verificar tu edad, tu teléfono y tu correo, y operar adopciones, reportes de perros perdidos y encontrados, chat, tienda y donativos. Solo si los activas, porque vienen apagados: alertas de perritos perdidos cerca, avisos por WhatsApp, mercadotecnia, publicidad y prospección comercial por correo, y analítica de uso; negarte no afecta el servicio. Compartimos lo necesario con refugios y personas con las que interactúas, con proveedores (algunos fuera de México) y con autoridades cuando la ley lo exige. Limita el uso de tus datos en Perfil → Preferencias de la app y ejerce tus derechos de acceso, rectificación, cancelación y oposición (ARCO) o revoca tu consentimiento en el centro de solicitudes o en <a href="mailto:privacidad@guauwoow.com">privacidad@guauwoow.com</a>. Aviso integral: <a href="/app/legal/privacidad.html" target="_blank" rel="noopener">https://guauwoow.com/app/legal/privacidad.html</a><!-- aviso-simplificado:fin --></div>
+        <div id="f-age"><label class="lbl" for="auth-birth">Fecha de nacimiento</label><input id="auth-birth" class="inp" type="date" autocomplete="bday"><p class="small muted mt8">GuauWoow es solo para personas de 18 años o más. No la mostramos a nadie.</p></div>
+        <label class="row small" style="align-items:flex-start"><input type="checkbox" id="auth-terms" style="width:20px;height:20px;flex-shrink:0;margin-top:2px"> <span>Acepto los <a href="/app/legal/terminos.html" target="_blank" rel="noopener">Términos y Condiciones</a> y el <a href="/app/legal/privacidad.html" target="_blank" rel="noopener">Aviso de Privacidad</a>.</span></label>
+        <label class="row small" style="align-items:flex-start"><input type="checkbox" id="auth-adult" style="width:20px;height:20px;flex-shrink:0;margin-top:2px"> <span>Declaro que tengo 18 años o más.</span></label>
         <label class="row small" style="align-items:flex-start"><input type="checkbox" id="auth-marketing" style="width:20px;height:20px;flex-shrink:0;margin-top:2px"> <span>Quiero recibir noticias de adopciones y campañas (opcional).</span></label>
       </div>
       <div id="f-forgot" class="between"><span></span><button type="button" class="link small" id="auth-forgot-link">¿Olvidaste tu contraseña?</button></div>
       <button type="submit" class="btn block shine" id="auth-submit">Entrar</button>
       <p class="center small" id="f-toggle"><span id="auth-toggle-text">¿No tienes cuenta?</span> <button type="button" class="link" id="auth-toggle">Regístrate</button></p>
       <p class="center small hidden" id="f-back"><button type="button" class="link" id="auth-back">Volver a iniciar sesión</button></p>
+      <p class="center small"><button type="button" class="link" id="auth-help">¿Necesitas ayuda?</button></p>
       <div id="f-social" class="col">
         <div class="or">o</div>
         <button type="button" id="google-login" class="btn block btn-white hidden"><svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg> Continuar con Google</button>
@@ -114,7 +140,7 @@
 
 <!-- ================= VERIFICAR TELÉFONO ================= -->
 <section class="screen" data-s="verify-phone">
-  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t">Verifica tu teléfono</div></div>
+  <div class="topbar"><button type="button" class="iconbtn sm nav-back" aria-label="Volver"><svg width="18" height="18"><use href="#arrow-left"/></svg></button><div class="t">Verifica tu teléfono</div></div>
   <div class="scroll pad center">
     <div class="mt20" id="verify-art"></div>
     <p class="body mt12" id="verify-intro">Te enviamos un código por SMS a <b id="verify-phone-num"></b>. Así protegemos a los perritos de estafas.</p>
@@ -133,18 +159,26 @@
 <section class="screen has-nav" data-s="home">
   <div class="topbar">
     <button class="loc-btn grow" id="home-loc"><small><svg width="12" height="12"><use href="#pin"/></svg> Tu ubicación</small><b><span id="home-location" class="ellipsis">Ciudad de México</span> <span style="font-size:12px">▾</span></b></button>
-    <div class="iconbtn" id="home-theme" title="Apariencia"><svg width="20" height="20"><use href="#palette"/></svg></div>
-    <div class="iconbtn" id="home-photo" title="Buscar por foto"><svg width="20" height="20"><use href="#camera"/></svg></div>
-    <div class="iconbtn" id="home-notif" title="Notificaciones"><svg width="20" height="20"><use href="#bell"/></svg><span class="dotb hidden" id="notif-badge">0</span></div>
+    <button type="button" class="iconbtn" id="home-theme" title="Apariencia" aria-label="Apariencia"><svg width="20" height="20"><use href="#palette"/></svg></button>
+    <button type="button" class="iconbtn" id="home-photo" title="Buscar por foto" aria-label="Buscar por foto"><svg width="20" height="20"><use href="#camera"/></svg></button>
+    <button type="button" class="iconbtn" id="home-notif" title="Notificaciones" aria-label="Notificaciones"><svg width="20" height="20"><use href="#bell"/></svg><span class="dotb hidden" id="notif-badge">0</span></button>
+  </div>
+  <div class="email-banner hidden" id="email-banner" role="status">
+    <span class="eb-ic" aria-hidden="true">📬</span>
+    <div class="grow"><b>Verifica tu correo</b><div class="small">Te enviamos un enlace a <span id="email-banner-addr"></span>.</div></div>
+    <button type="button" class="link small" id="email-resend">Reenviar</button>
+    <button type="button" class="iconbtn sm" id="email-banner-close" aria-label="Cerrar aviso"><svg width="14" height="14"><use href="#close"/></svg></button>
   </div>
   <div class="scroll">
     <div class="pad mt8">
       <div class="hero-card">
         <div class="grow">
-          <div style="font-weight:800;font-size:17px;line-height:1.15">¿Perdiste a tu perro?</div>
-          <div class="small muted" style="margin:3px 0 10px">Sube una foto y la IA lo busca por ti</div>
+          <div style="font-weight:800;font-size:17px;line-height:1.15">¿Perdiste o encontraste un perrito?</div>
+          <div class="small muted" style="margin:3px 0 10px">Reporta en segundos o publica en adopción sin ser refugio</div>
           <div class="row" style="gap:8px;flex-wrap:wrap">
             <button class="btn btn-sm btn-white" id="home-lost-btn">Reportar perdido</button>
+            <button class="btn btn-sm btn-green" id="home-found-btn">Reportar encontrado</button>
+            <button class="btn btn-sm btn-yellow" id="home-adopt-btn">Dar en adopción</button>
             <button class="btn btn-sm btn-orange" id="home-photo-btn">Buscar por foto</button>
           </div>
         </div>
@@ -163,7 +197,25 @@
     <div class="pad between mt12"><span class="h2">Alertas de tu zona</span><button class="link small" id="home-map">Ver mapa</button></div>
     <div class="pad col mt12" id="home-alerts"></div>
     <div class="pad mt20">
-      <div class="card p row tap" id="home-shop" style="background:var(--lila)">
+      <div class="card p col" style="background:var(--yellow);gap:10px">
+        <div class="row" style="gap:10px">
+          <div style="width:44px;height:44px;flex-shrink:0;display:flex;align-items:center;justify-content:center"><svg width="34" height="34"><use href="#dogface"/></svg></div>
+          <div class="grow"><b>¿Encontraste un perrito o buscas adoptante?</b><div class="small muted">Cualquier persona puede subir un reporte de encontrado o dar en adopción gratis, sin ser refugio ni casa de paso.</div></div>
+        </div>
+        <div class="row" style="gap:8px;flex-wrap:wrap">
+          <button type="button" class="btn btn-sm btn-green grow" id="home-rescue-found">Subir encontrado en calle</button>
+          <button type="button" class="btn btn-sm btn-orange grow" id="home-rescue-adopt">Dar en adopción (particular)</button>
+        </div>
+      </div>
+    </div>
+    <div class="pad mt12">
+      <div class="card p row tap" id="home-vets" role="button" tabindex="0" style="background:var(--green)">
+        <div style="width:52px;height:52px;flex-shrink:0;display:flex;align-items:center;justify-content:center"><svg width="34" height="34" aria-hidden="true"><use href="#vet"/></svg></div>
+        <div class="grow"><b>Veterinarias</b><div class="small muted">Clínicas cerca de ti con cédula verificada</div></div><b aria-hidden="true">→</b>
+      </div>
+    </div>
+    <div class="pad mt12">
+      <div class="card p row tap" id="home-shop" role="button" tabindex="0" data-shop style="background:var(--lila)">
         <div style="width:52px;height:52px;flex-shrink:0;display:flex;align-items:center;justify-content:center"><svg width="34" height="34"><use href="#store"/></svg></div>
         <div class="grow"><b>Tienda solidaria</b><div class="small muted">Cada compra apoya a un refugio verificado</div></div><b>→</b>
       </div>
@@ -174,9 +226,9 @@
 <!-- ================= DISCOVER ================= -->
 <section class="screen" data-s="discover">
   <div class="topbar">
-    <div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div>
+    <button type="button" class="iconbtn sm nav-back" aria-label="Volver"><svg width="18" height="18"><use href="#arrow-left"/></svg></button>
     <div class="t">Descubrir perritos<small id="discover-sub">Cerca de ti</small></div>
-    <div class="iconbtn sm" id="discover-filter" title="Filtros"><svg width="18" height="18"><use href="#search"/></svg></div>
+    <button type="button" class="iconbtn sm" id="discover-filter" title="Filtros" aria-label="Filtros"><svg width="18" height="18"><use href="#search"/></svg></button>
   </div>
   <div class="pad chips scrollx" id="discover-sizes">
     <span class="chip on" data-size="">Todos</span><span class="chip" data-size="Pequeño">Pequeños</span><span class="chip" data-size="Mediano">Medianos</span><span class="chip" data-size="Grande">Grandes</span>
@@ -186,14 +238,14 @@
 
 <!-- ================= PERFIL PERRO ================= -->
 <section class="screen" data-s="dog">
-  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><span class="grow"></span><div class="iconbtn sm" id="dog-share" title="Compartir"><svg width="18" height="18"><use href="#send"/></svg></div></div>
+  <div class="topbar"><button type="button" class="iconbtn sm nav-back" aria-label="Volver"><svg width="18" height="18"><use href="#arrow-left"/></svg></button><span class="grow"></span><button type="button" class="iconbtn sm hidden" id="dog-flag" title="Reportar" aria-label="Reportar publicación"><svg width="18" height="18"><use href="#flag"/></svg></button><button type="button" class="iconbtn sm" id="dog-share" title="Compartir" aria-label="Compartir"><svg width="18" height="18"><use href="#send"/></svg></button></div>
   <div class="scroll pad" id="dog-body"></div>
   <div class="sticky-cta" id="dog-cta"><button class="btn block btn-orange shine" id="dog-adopt"><svg width="18" height="18" style="color:#fff"><use href="#heart"/></svg> Solicitar adopción</button></div>
 </section>
 
 <!-- ================= CUESTIONARIO ================= -->
 <section class="screen" data-s="questionnaire">
-  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t">Solicitud para <span id="q-dog-name"></span><small>Este cuestionario protege al perrito y a ti</small></div></div>
+  <div class="topbar"><button type="button" class="iconbtn sm nav-back" aria-label="Volver"><svg width="18" height="18"><use href="#arrow-left"/></svg></button><div class="t">Solicitud para <span id="q-dog-name"></span><small>Este cuestionario protege al perrito y a ti</small></div></div>
   <form id="questionnaire-form" class="scroll pad col">
     <div><span class="lbl">1. ¿Dónde vives?</span><div class="chips" data-q="housing"><span class="chip" data-v="casa_con_jardin">Casa con patio</span><span class="chip" data-v="casa_sin_jardin">Casa sin patio</span><span class="chip" data-v="departamento_grande">Depa grande</span><span class="chip" data-v="departamento_chico">Depa chico</span></div></div>
     <div><span class="lbl">2. Experiencia con perros</span><div class="chips" data-q="experience"><span class="chip" data-v="mucha">Toda la vida</span><span class="chip" data-v="alguna">Alguna</span><span class="chip" data-v="poca">Poca</span><span class="chip" data-v="ninguna">Sería mi primero</span></div></div>
@@ -209,7 +261,7 @@
 
 <!-- ================= BUSCAR POR FOTO ================= -->
 <section class="screen" data-s="photo-search">
-  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t">Buscar con una foto<small>Perdidos, encontrados y adopciones</small></div></div>
+  <div class="topbar"><button type="button" class="iconbtn sm nav-back" aria-label="Volver"><svg width="18" height="18"><use href="#arrow-left"/></svg></button><div class="t">Buscar con una foto<small>Perdidos, encontrados y adopciones</small></div></div>
   <div class="scroll pad" id="ps-body">
     <div id="ps-pick" class="center">
       <div class="scan-box mt12" id="ps-preview"><span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span><div id="ps-preview-inner" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center"></div></div>
@@ -218,9 +270,9 @@
       <input type="file" id="ps-file" accept="image/*" capture="environment" class="hidden">
       <input type="file" id="ps-gallery" accept="image/*" class="hidden">
       <div class="row mt20" style="justify-content:center;gap:18px">
-        <div class="iconbtn" id="ps-gallery-btn" title="Galería"><svg width="22" height="22"><use href="#image"/></svg></div>
+        <button type="button" class="iconbtn" id="ps-gallery-btn" title="Galería" aria-label="Galería"><svg width="22" height="22"><use href="#image"/></svg></button>
         <button class="round" id="ps-shoot" style="width:76px;height:76px;background:var(--orange);color:#fff" title="Tomar foto"><svg width="32" height="32"><use href="#camera"/></svg></button>
-        <div class="iconbtn" id="ps-reset" title="Otra foto"><svg width="20" height="20"><use href="#refresh"/></svg></div>
+        <button type="button" class="iconbtn" id="ps-reset" title="Otra foto" aria-label="Otra foto"><svg width="20" height="20"><use href="#refresh"/></svg></button>
       </div>
       <button class="btn block mt20 hidden" id="ps-go"><svg width="18" height="18"><use href="#sparkle"/></svg> Analizar con IA</button>
     </div>
@@ -242,12 +294,13 @@
 
 <section class="screen" data-s="chat">
   <div class="topbar" style="border-bottom:2px solid rgba(29,34,51,.1)">
-    <div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div>
+    <button type="button" class="iconbtn sm nav-back" aria-label="Volver"><svg width="18" height="18"><use href="#arrow-left"/></svg></button>
     <div class="avatar" id="chat-avatar" style="width:42px;height:42px"></div>
     <div class="t"><span id="chat-title">Chat</span><small id="chat-subtitle"></small></div>
-    <div class="iconbtn sm hidden" id="chat-open-ref" title="Ver perrito"><svg width="18" height="18"><use href="#paw"/></svg></div>
+    <button type="button" class="iconbtn sm hidden" id="chat-open-ref" title="Ver perrito" aria-label="Ver perrito"><svg width="18" height="18"><use href="#paw"/></svg></button>
+    <button type="button" class="iconbtn sm hidden" id="chat-flag" title="Reportar" aria-label="Reportar a este usuario"><svg width="18" height="18"><use href="#flag"/></svg></button>
   </div>
-  <div class="chat-safety mt8">🛡️ PatitasFind nunca pide depósitos. Si alguien te pide dinero por adelantado, repórtalo.</div>
+  <div class="chat-safety mt8">🛡️ GuauWoow nunca pide depósitos. Si alguien te pide dinero por adelantado, repórtalo con 🚩.</div>
   <div class="chat-area" id="chat-messages"></div>
   <form class="chat-form" id="chat-form" autocomplete="off">
     <input id="chat-input" class="inp grow" placeholder="Escribe un mensaje..." maxlength="2000">
@@ -257,8 +310,9 @@
 
 <!-- ================= PUBLICAR ADOPCIÓN ================= -->
 <section class="screen" data-s="publish">
-  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t" id="publish-title">Publicar en adopción<small>Gratis · visible para miles de adoptantes</small></div></div>
+  <div class="topbar"><button type="button" class="iconbtn sm nav-back" aria-label="Volver"><svg width="18" height="18"><use href="#arrow-left"/></svg></button><div class="t" id="publish-title">Publicar en adopción<small>Particular, rescatista o refugio · 100% gratis</small></div></div>
   <form id="publish-form" class="scroll pad col" novalidate>
+    <div class="card p small" style="background:var(--green)">🐾 <b>No necesitas ser refugio ni casa de paso.</b> Cualquier persona, rescatista independiente o familia puede publicar un perrito en adopción gratis y recibir solicitudes directamente en el chat.</div>
     <div><span class="lbl">Fotos (mínimo 1, máximo 5)</span><div class="photo-drop" data-photos="pub"></div></div>
     <div class="ai-hint hidden" id="pub-ai"><svg width="22" height="22" style="color:var(--purple);flex-shrink:0"><use href="#sparkle"/></svg><span id="pub-ai-text">La IA está mirando la foto...</span></div>
     <div><label class="lbl" for="pub-name">Nombre</label><input id="pub-name" class="inp" placeholder="Canela" required></div>
@@ -268,14 +322,22 @@
     <div><label class="lbl" for="pub-description">Su historia</label><textarea id="pub-description" class="inp" rows="3" placeholder="Carácter, salud, vacunas, esterilización..."></textarea></div>
     <div><span class="lbl">Ubicación</span><div class="loc-pick" data-loc="pub"><svg width="22" height="22"><use href="#gps"/></svg><div class="grow small" data-loc-text>Usar mi ubicación actual</div><button type="button" class="btn btn-sm btn-ghost" data-loc-btn>Ubicar</button></div></div>
     <div class="row"><div class="grow"><label class="lbl" for="pub-city">Ciudad</label><input id="pub-city" class="inp" placeholder="Ciudad de México"></div><div class="grow"><label class="lbl" for="pub-country">País</label><input id="pub-country" class="inp" value="México"></div></div>
-    <div class="card p small" style="background:var(--yellow)">🛡️ Revisamos que no sea una venta encubierta. Las publicaciones con precio se eliminan.</div>
+    <label class="card p row small" for="pub-found" style="cursor:pointer;align-items:flex-start"><input type="checkbox" id="pub-found" style="width:20px;height:20px;flex-shrink:0;margin-top:2px"> <span><b>Lo rescaté / encontré en la calle (opcional)</b><br>Marca esta casilla si quieres vincular su reporte de «encontrado» o registrar la revisión de microchip por si su familia original lo busca.</span></label>
+    <div id="pub-found-wrap" class="hidden col">
+      <div><label class="lbl" for="pub-found-report">Su reporte de «encontrado»</label><select id="pub-found-report" class="inp"><option value="">Aún no lo publico</option></select></div>
+      <label class="row small" for="pub-chip" style="align-items:flex-start"><input type="checkbox" id="pub-chip" style="width:20px;height:20px;flex-shrink:0;margin-top:2px"> <span>Ya le revisaron el microchip en una clínica.</span></label>
+      <div><label class="lbl" for="pub-chip-result">Resultado del microchip</label><select id="pub-chip-result" class="inp"><option value="">Elige el resultado</option><option value="sin_chip">No tiene microchip</option><option value="chip_sin_registro">Tiene microchip sin datos de contacto</option><option value="chip_tutor_contactado">Tiene microchip y contacté a su familia</option></select></div>
+      <label class="row small" for="pub-authority" style="align-items:flex-start"><input type="checkbox" id="pub-authority" style="width:20px;height:20px;flex-shrink:0;margin-top:2px"> <span>Ya avisé a la autoridad local (centro de atención canina, alcaldía o municipio).</span></label>
+      <div><label class="lbl" for="pub-authority-notice">A quién avisaste y folio de la constancia</label><input id="pub-authority-notice" class="inp" maxlength="255" placeholder="Centro de Atención Canina de Iztapalapa, folio 123"></div>
+    </div>
+    <div class="card p small" style="background:var(--yellow)">🛡️ Adoptar en GuauWoow es gratis: las publicaciones que mencionan cuotas, precios, «donativos sugeridos», apartados, depósitos, venta o rifas quedan en revisión antes de mostrarse.</div>
     <button type="submit" class="btn block btn-orange shine" id="publish-submit">Publicar</button>
   </form>
 </section>
 
 <!-- ================= REPORTE PERDIDO / ENCONTRADO ================= -->
 <section class="screen" data-s="report-form">
-  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t" id="rf-title">Reportar perro perdido<small id="rf-sub">Cada minuto cuenta</small></div></div>
+  <div class="topbar"><button type="button" class="iconbtn sm nav-back" aria-label="Volver"><svg width="18" height="18"><use href="#arrow-left"/></svg></button><div class="t" id="rf-title">Reportar perro perdido<small id="rf-sub">Cada minuto cuenta</small></div></div>
   <form id="report-form" class="scroll pad col" novalidate>
     <div class="seg" id="rf-type"><button type="button" data-v="lost" class="on">Lo perdí</button><button type="button" data-v="found">Lo encontré</button></div>
     <div><span class="lbl">Fotos (cara y cuerpo)</span><div class="photo-drop" data-photos="rf"></div></div>
@@ -284,74 +346,209 @@
     <div><label class="lbl" for="rf-description">Señas particulares</label><textarea id="rf-description" class="inp" rows="3" placeholder="Collar rojo, mancha blanca en el pecho, renguea de la pata trasera..."></textarea></div>
     <div><span class="lbl" id="rf-loc-lbl">¿Dónde se perdió?</span><div class="loc-pick" data-loc="rf"><svg width="22" height="22"><use href="#gps"/></svg><div class="grow small" data-loc-text>Usar mi ubicación actual</div><button type="button" class="btn btn-sm btn-ghost" data-loc-btn>Ubicar</button></div></div>
     <div class="row"><div class="grow"><label class="lbl" for="rf-city">Colonia / Ciudad</label><input id="rf-city" class="inp" placeholder="Roma Norte, CDMX"></div><div style="width:110px"><label class="lbl" for="rf-country">País</label><input id="rf-country" class="inp" value="México"></div></div>
+    <div><label class="lbl" for="rf-state">Estado</label><select id="rf-state" class="inp"><option value="">Detectar con mi ubicación</option></select><p class="small muted mt8">Con el estado avisamos a los grupos de Facebook de tu zona.</p></div>
     <div class="card p small" style="background:var(--blue)">🔒 Entrega segura: solo entrega al perrito si la persona confirma señas que no están en el reporte. Reúnanse siempre en un lugar público.</div>
     <button type="submit" class="btn block btn-orange shine" id="rf-submit">Publicar y buscar coincidencias</button>
   </form>
 </section>
 
+<!-- ================= ENVIAR PUBLICACIÓN DE FACEBOOK (voluntarios, compartir.js) ================= -->
+<section class="screen" data-s="share">
+  <div class="topbar"><button type="button" class="iconbtn sm nav-back" aria-label="Volver"><svg width="18" height="18"><use href="#arrow-left"/></svg></button><div class="t">Enviar publicación<small>Voluntarios: de Facebook a GuauWoow 💚</small></div></div>
+  <form id="share-form" class="scroll pad col" novalidate>
+    <div class="card p small" style="background:var(--lila)">¿Viste en un grupo de Facebook un perrito perdido o encontrado? Envíanos la publicación: la convertimos en un reporte, avisamos a la gente de la zona y comparamos las fotos. Quitamos teléfonos, correos y usuarios del texto antes de publicarlo.</div>
+    <div><label class="lbl" for="sh-url">Enlace de la publicación</label><input id="sh-url" class="inp" type="url" inputmode="url" placeholder="https://www.facebook.com/groups/..."></div>
+    <div class="seg" id="sh-type"><button type="button" data-v="lost" class="on">Se perdió</button><button type="button" data-v="found">Lo encontraron</button></div>
+    <div><label class="lbl" for="sh-text">Texto de la publicación</label><textarea id="sh-text" class="inp" rows="5" placeholder="Pega aquí lo que dice la publicación..."></textarea></div>
+    <div><span class="lbl">Fotos de la publicación (opcional, máximo 5)</span><div class="photo-drop" data-photos="sh"></div><p class="small muted mt8">Guarda las fotos del perrito en tu celular y súbelas aquí: con ellas buscamos coincidencias.</p></div>
+    <div class="row"><div class="grow"><label class="lbl" for="sh-city">Ciudad o colonia</label><input id="sh-city" class="inp" placeholder="Zapopan"></div><div class="grow"><label class="lbl" for="sh-state">Estado</label><select id="sh-state" class="inp"><option value="">Elige el estado</option></select></div></div>
+    <label class="row small" style="align-items:flex-start"><input type="checkbox" id="sh-consent" style="width:20px;height:20px;flex-shrink:0;margin-top:2px"> <span>Confirmo que la publicación es pública, que no incluyo datos de contacto de otras personas y que entiendo que GuauWoow puede retirarla a petición de su autor.</span></label>
+    <button type="submit" class="btn block btn-orange shine" id="sh-submit">Enviar publicación</button>
+    <p class="small muted center">Puedes enviar hasta 10 publicaciones al día. Gracias por ser voluntario 🐾</p>
+  </form>
+  <div class="scroll pad col center hidden" id="share-done">
+    <div class="center mt20" id="sh-done-art"></div>
+    <div class="h2 mt12">¡Gracias, voluntario! 💚</div>
+    <p class="small muted" id="sh-done-text"></p>
+    <button type="button" class="btn block btn-orange" id="sh-done-view" data-report="">Ver el reporte</button>
+    <button type="button" class="btn block btn-ghost" id="sh-done-again">Enviar otra publicación</button>
+    <button type="button" class="btn block btn-ghost" id="sh-done-home">Ir al inicio</button>
+  </div>
+</section>
+
 <!-- ================= DETALLE REPORTE ================= -->
 <section class="screen" data-s="report">
-  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t" id="report-title">Reporte</div></div>
+  <div class="topbar"><button type="button" class="iconbtn sm nav-back" aria-label="Volver"><svg width="18" height="18"><use href="#arrow-left"/></svg></button><div class="t" id="report-title">Reporte</div><button type="button" class="iconbtn sm hidden" id="report-flag" title="Reportar" aria-label="Reportar publicación"><svg width="18" height="18"><use href="#flag"/></svg></button></div>
   <div class="scroll pad" id="report-body"></div>
 </section>
 
 <!-- ================= LISTA GENÉRICA ================= -->
 <section class="screen" data-s="list">
-  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t" id="list-title">Lista<small id="list-sub"></small></div><div class="iconbtn sm hidden" id="list-action"><svg width="18" height="18"><use href="#plus"/></svg></div></div>
+  <div class="topbar"><button type="button" class="iconbtn sm nav-back" aria-label="Volver"><svg width="18" height="18"><use href="#arrow-left"/></svg></button><div class="t" id="list-title">Lista<small id="list-sub"></small></div><button type="button" class="iconbtn sm hidden" id="list-action"><svg width="18" height="18"><use href="#plus"/></svg></button></div>
   <div class="pad chips scrollx hidden" id="list-chips"></div>
   <div class="scroll pad col" id="list-container"></div>
 </section>
 
 <!-- ================= REFUGIO ================= -->
 <section class="screen" data-s="refuge">
-  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><span class="grow"></span></div>
+  <div class="topbar"><button type="button" class="iconbtn sm nav-back" aria-label="Volver"><svg width="18" height="18"><use href="#arrow-left"/></svg></button><span class="grow"></span><button type="button" class="iconbtn sm hidden" id="refuge-flag" title="Reportar" aria-label="Reportar refugio"><svg width="18" height="18"><use href="#flag"/></svg></button></div>
   <div class="scroll" id="refuge-body"></div>
 </section>
 
 <section class="screen" data-s="refuge-register">
-  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t">Registrar refugio<small>Lo revisamos en menos de 48 h</small></div></div>
+  <div class="topbar"><button type="button" class="iconbtn sm nav-back" aria-label="Volver"><svg width="18" height="18"><use href="#arrow-left"/></svg></button><div class="t">Registrar refugio<small>Nuestro equipo revisa cada solicitud</small></div></div>
   <form id="refuge-form" class="scroll pad col">
     <div><label class="lbl" for="rg-name">Nombre del refugio</label><input id="rg-name" class="inp" required placeholder="Refugio Corazón Peludo"></div>
     <div><label class="lbl" for="rg-desc">¿A qué se dedican?</label><textarea id="rg-desc" class="inp" rows="3" placeholder="Rescate, rehabilitación, adopciones..."></textarea></div>
     <div class="row"><div class="grow"><label class="lbl" for="rg-city">Ciudad</label><input id="rg-city" class="inp"></div><div class="grow"><label class="lbl" for="rg-country">País</label><input id="rg-country" class="inp" value="México"></div></div>
-    <div><span class="lbl">Documentos (acta constitutiva, INE del responsable, fotos de instalaciones)</span><div class="photo-drop" data-photos="rg"></div></div>
+    <div><span class="lbl">Documentos (acta constitutiva, INE del responsable, fotos de instalaciones)</span><div class="doc-drop" id="rg-docs"></div><input type="file" id="rg-docs-file" accept="image/jpeg,image/png,image/webp,application/pdf" multiple class="hidden"><p class="small muted mt8">🔒 Solo nuestro equipo de revisión ve estos documentos. JPG, PNG, WebP o PDF de hasta 10 MB.</p></div>
+    <label class="row small" style="align-items:flex-start"><input type="checkbox" id="rg-annex" style="width:20px;height:20px;flex-shrink:0;margin-top:2px"> <span>Acepto los <a href="/app/legal/terminos-refugios.html" target="_blank" rel="noopener">Términos para Refugios</a> y el <a href="/app/legal/acuerdo-datos-refugios.html" target="_blank" rel="noopener">Acuerdo de tratamiento de datos</a>.</span></label>
     <button type="submit" class="btn block shine">Enviar para revisión</button>
   </form>
 </section>
 
 <section class="screen" data-s="foster-register">
-  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t">Ser casa de paso<small>Recibe perritos mientras encuentran hogar</small></div></div>
+  <div class="topbar"><button type="button" class="iconbtn sm nav-back" aria-label="Volver"><svg width="18" height="18"><use href="#arrow-left"/></svg></button><div class="t">Ser casa de paso<small>Recibe perritos mientras encuentran hogar</small></div></div>
   <form id="foster-form" class="scroll pad col">
     <div class="center mt8" id="foster-art"></div>
     <div><label class="lbl" for="fh-desc">Cuéntanos de tu hogar</label><textarea id="fh-desc" class="inp" rows="3" placeholder="Tipo de vivienda, patio, horarios, otras mascotas..."></textarea></div>
     <div class="row"><div class="grow"><label class="lbl" for="fh-city">Ciudad</label><input id="fh-city" class="inp"></div><div class="grow"><label class="lbl" for="fh-country">País</label><input id="fh-country" class="inp" value="México"></div></div>
     <div><label class="lbl" for="fh-cap">¿Cuántos perritos puedes recibir?</label><input id="fh-cap" class="inp" type="number" min="1" max="10" value="1"></div>
+    <label class="row small" style="align-items:flex-start"><input type="checkbox" id="fh-annex" style="width:20px;height:20px;flex-shrink:0;margin-top:2px"> <span>Acepto los <a href="/app/legal/terminos-casas-de-paso.html" target="_blank" rel="noopener">Términos para casas de paso</a> y el <a href="/app/legal/acuerdo-datos-refugios.html" target="_blank" rel="noopener">Acuerdo de tratamiento de datos</a>.</span></label>
     <button type="submit" class="btn block btn-green shine">Postularme</button>
   </form>
 </section>
 
 <section class="screen" data-s="my-refuge">
-  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t">Mi refugio<small id="mr-status"></small></div></div>
+  <div class="topbar"><button type="button" class="iconbtn sm nav-back" aria-label="Volver"><svg width="18" height="18"><use href="#arrow-left"/></svg></button><div class="t">Mi refugio<small id="mr-status"></small></div></div>
   <div class="scroll pad" id="my-refuge-body"></div>
+</section>
+
+<!-- ================= VETERINARIAS (veterinarias.js) ================= -->
+<section class="screen" data-s="vets">
+  <div class="topbar"><button type="button" class="iconbtn sm nav-back" aria-label="Volver"><svg width="18" height="18"><use href="#arrow-left"/></svg></button><div class="t">Veterinarias<small id="vets-sub">Directorio con cédula verificada</small></div><button type="button" class="iconbtn sm" id="vets-mine" title="Mi veterinaria" aria-label="Mi veterinaria"><svg width="18" height="18" aria-hidden="true"><use href="#vet"/></svg></button></div>
+  <form class="pad col vets-search" id="vets-search-form" role="search" novalidate>
+    <div class="row"><label class="sr-only" for="vets-q">Nombre o servicio</label><input id="vets-q" class="inp grow" type="search" placeholder="Nombre o servicio" maxlength="100" enterkeyhint="search">
+      <label class="sr-only" for="vets-city">Ciudad</label><input id="vets-city" class="inp vets-city" placeholder="Ciudad" maxlength="100" enterkeyhint="search">
+      <button type="submit" class="iconbtn sm" aria-label="Buscar veterinarias"><svg width="18" height="18" aria-hidden="true"><use href="#search"/></svg></button></div>
+    <div class="chips"><button type="button" class="chip" id="vets-near" aria-pressed="false">📍 Cerca de mí</button><button type="button" class="chip" id="vets-emergency" aria-pressed="false">🚑 Urgencias 24 h</button></div>
+  </form>
+  <div class="scroll pad">
+    <div class="vet-notice" role="note">⚠️ GuauWoow no es un servicio de emergencias. Si tu perrito está grave, llama directamente a la clínica.</div>
+    <div id="vets-list" class="mt12"></div>
+    <div class="card p row mt16" style="background:var(--yellow)"><div class="grow"><b>¿Tienes una clínica veterinaria?</b><div class="small muted">Regístrala gratis y aparece en el directorio y en el mapa</div></div><button type="button" class="btn btn-sm" id="vets-register">Registrar</button></div>
+  </div>
+</section>
+
+<section class="screen" data-s="vet">
+  <div class="topbar"><button type="button" class="iconbtn sm nav-back" aria-label="Volver"><svg width="18" height="18"><use href="#arrow-left"/></svg></button><div class="t ellipsis" id="vet-title">Veterinaria<small>Directorio GuauWoow</small></div><button type="button" class="iconbtn sm hidden" id="vet-share" title="Compartir" aria-label="Compartir veterinaria"><svg width="18" height="18" aria-hidden="true"><use href="#send"/></svg></button><button type="button" class="iconbtn sm hidden" id="vet-flag" title="Reportar" aria-label="Reportar veterinaria"><svg width="18" height="18" aria-hidden="true"><use href="#flag"/></svg></button></div>
+  <div class="scroll pad" id="vet-body"></div>
+</section>
+
+<section class="screen" data-s="vet-form">
+  <div class="topbar"><button type="button" class="iconbtn sm nav-back" aria-label="Volver"><svg width="18" height="18"><use href="#arrow-left"/></svg></button><div class="t" id="vf-title">Registrar veterinaria<small>Verificamos la cédula del médico responsable</small></div></div>
+  <form id="vet-form" class="scroll pad col" novalidate>
+    <div class="card p small" style="background:var(--green)">🩺 Registrar tu clínica es gratis. Antes de publicarla, nuestro equipo coteja la cédula profesional del médico veterinario responsable en el Registro Nacional de Profesionistas de la SEP.</div>
+    <div class="h2 mt8">La clínica</div>
+    <div><label class="lbl" for="vf-name">Nombre comercial</label><input id="vf-name" class="inp" maxlength="255" required autocomplete="organization" placeholder="Clínica Veterinaria Patitas"></div>
+    <div><label class="lbl" for="vf-desc">Descripción (opcional)</label><textarea id="vf-desc" class="inp" rows="3" maxlength="2000" placeholder="Especies que atienden, estacionamiento, formas de pago..."></textarea><p class="small muted mt8">Solo afirmaciones comprobables: sin nombres de medicamentos, precios sin IVA ni frases como «la mejor» o «garantizado».</p></div>
+    <div><label class="lbl" for="vf-address">Calle, número y colonia</label><input id="vf-address" class="inp" maxlength="500" required autocomplete="street-address" placeholder="Av. Insurgentes Sur 123, Col. Roma"></div>
+    <div class="row"><div class="grow"><label class="lbl" for="vf-city">Ciudad o municipio</label><input id="vf-city" class="inp" maxlength="100" required autocomplete="address-level2"></div><div style="width:40%"><label class="lbl" for="vf-cp">C.P.</label><input id="vf-cp" class="inp" inputmode="numeric" maxlength="5" pattern="\d{5}" autocomplete="postal-code" placeholder="06700"></div></div>
+    <div><label class="lbl" for="vf-state">Estado</label><select id="vf-state" class="inp" required><option value="">Elige el estado</option></select></div>
+    <div><span class="lbl">Ubicación en el mapa (la dirección de la clínica es pública)</span><div class="loc-pick" data-loc="vf"><svg width="22" height="22" aria-hidden="true"><use href="#gps"/></svg><div class="grow small" data-loc-text>Usar mi ubicación actual</div><button type="button" class="btn btn-sm btn-ghost" data-loc-btn>Ubicar</button></div>
+      <button type="button" class="link small mt8" id="vf-geocode">📍 Ubicar por dirección</button></div>
+    <div class="h2 mt8">Contacto</div>
+    <div class="row"><div class="grow"><label class="lbl" for="vf-phone">Teléfono</label><input id="vf-phone" class="inp" type="tel" inputmode="tel" maxlength="30" autocomplete="tel" placeholder="55 1234 5678"></div><div class="grow"><label class="lbl" for="vf-wa">WhatsApp</label><input id="vf-wa" class="inp" type="tel" inputmode="tel" maxlength="30" placeholder="55 1234 5678"></div></div>
+    <div><label class="lbl" for="vf-email">Correo para clientes y reclamaciones (opcional)</label><input id="vf-email" class="inp" type="email" maxlength="255" autocomplete="email"></div>
+    <div><label class="lbl" for="vf-web">Sitio web o red social (opcional)</label><input id="vf-web" class="inp" type="url" inputmode="url" maxlength="500" placeholder="https://..."></div>
+    <div class="h2 mt8">Horario</div>
+    <div><div class="between"><span class="lbl" id="vf-hours-lbl">Hora local de la clínica</span><button type="button" class="link small" id="vf-copy-hours">Copiar lunes a sábado</button></div><div class="col" id="vf-hours" role="group" aria-labelledby="vf-hours-lbl"></div><p class="small muted mt8">Revisa el horario de cada día: con él mostramos «Abierto ahora». ¿Cierran a mediodía? Usa «+ Agregar horario» para el turno de la tarde (hasta 4 por día). Si cierran después de la medianoche, pon la hora de cierre del día siguiente (por ejemplo, 20:00 a 02:00). Misma hora de apertura y cierre = abierto las 24 horas.</p></div>
+    <label class="card p row" for="vf-24h" style="cursor:pointer"><div class="grow"><b>Urgencias 24 horas</b><div class="small muted">Atienden urgencias a cualquier hora, todos los días</div></div><input type="checkbox" class="switch" id="vf-24h"></label>
+    <div><span class="lbl" id="vf-services-lbl">Servicios (elige los que ofrecen)</span><div class="chips" id="vf-services" role="group" aria-labelledby="vf-services-lbl"></div></div>
+    <div><span class="lbl" id="vf-photos-lbl" tabindex="-1">Fotos de la clínica (opcional, máximo 5)</span><div class="photo-drop hidden" id="vf-keep-photos"></div><div class="photo-drop" data-photos="vf"></div><p class="small muted mt8">Fachada, recepción o consultorios. No subas fotos de clientes ni de la cédula.</p></div>
+    <div class="h2 mt8">Médico veterinario responsable</div>
+    <div><label class="lbl" for="vf-vet">Nombre completo (como aparece en la cédula)</label><input id="vf-vet" class="inp" maxlength="255" required placeholder="MVZ. Ana López Pérez"></div>
+    <div class="row"><div class="grow"><label class="lbl" for="vf-cedula">Número de cédula profesional</label><input id="vf-cedula" class="inp" inputmode="numeric" maxlength="10" pattern="\d{5,10}" required placeholder="12345678"></div></div>
+    <div><label class="lbl" for="vf-institution">Institución que la expidió (opcional)</label><input id="vf-institution" class="inp" maxlength="255" placeholder="UNAM, FMVZ"></div>
+    <div><span class="lbl">Cédula profesional (foto o PDF)</span><div class="doc-drop" id="vf-cedula-box"></div><input type="file" id="vf-cedula-file" accept="image/jpeg,image/png,image/webp,application/pdf" class="hidden">
+      <p class="small muted mt8">🔒 La imagen de la cédula es privada: solo la ve nuestro equipo para cotejarla en el Registro Nacional de Profesionistas de la SEP. Nunca se publica.</p></div>
+    <label class="row small" id="vf-consent-wrap" style="align-items:flex-start"><input type="checkbox" id="vf-consent" style="width:20px;height:20px;flex-shrink:0;margin-top:2px"> <span>Declaro que los datos son verdaderos y que cuento con la autorización del médico responsable. Acepto que, una vez verificada, se muestren públicamente su nombre, su número de cédula profesional y la institución que la expidió, junto con los datos de la clínica. Acepto los <a class="link" href="/app/legal/terminos.html" target="_blank" rel="noopener">Términos</a> y el <a class="link" href="/app/legal/privacidad.html" target="_blank" rel="noopener">Aviso de privacidad</a>.</span></label>
+    <p class="small muted hidden" id="vf-pending-note">Si cambias el nombre, el médico responsable o la cédula, la clínica vuelve a revisión y deja de aparecer hasta que la verifiquemos.</p>
+    <button type="submit" class="btn block btn-green shine" id="vf-submit">Enviar para verificación</button>
+  </form>
+</section>
+
+<section class="screen" data-s="my-vet">
+  <div class="topbar"><button type="button" class="iconbtn sm nav-back" aria-label="Volver"><svg width="18" height="18"><use href="#arrow-left"/></svg></button><div class="t">Mi veterinaria<small id="mv-status"></small></div></div>
+  <div class="scroll pad" id="my-vet-body"></div>
 </section>
 
 <!-- ================= RANKING ================= -->
 <section class="screen" data-s="ranking">
-  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t">Ranking de héroes<small>Refugios que más hogares dan</small></div></div>
+  <div class="topbar"><button type="button" class="iconbtn sm nav-back" aria-label="Volver"><svg width="18" height="18"><use href="#arrow-left"/></svg></button><div class="t">Ranking de héroes<small>Refugios que más hogares dan</small></div></div>
   <div class="pad row"><input id="ranking-city" class="inp grow" placeholder="Filtrar por ciudad"><button class="btn btn-sm" id="ranking-filter-btn">Filtrar</button></div>
   <div class="scroll pad" id="ranking-list"></div>
 </section>
 
 <!-- ================= TIENDA ================= -->
 <section class="screen has-nav" data-s="shop">
-  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t">Tienda solidaria<small>Las ganancias van a refugios verificados</small></div><div class="iconbtn" id="cart-btn" title="Carrito"><svg width="22" height="22"><use href="#cart"/></svg><span class="dotb hidden" id="cart-count">0</span></div></div>
+  <div class="topbar"><button type="button" class="iconbtn sm nav-back" aria-label="Volver"><svg width="18" height="18"><use href="#arrow-left"/></svg></button><div class="t">Tienda solidaria<small>Las ganancias van a refugios verificados</small></div><button type="button" class="iconbtn" id="cart-btn" title="Carrito" aria-label="Carrito"><svg width="22" height="22"><use href="#cart"/></svg><span class="dotb hidden" id="cart-count">0</span></button></div>
   <div class="scroll pad"><div id="shop-list" style="display:grid;grid-template-columns:1fr 1fr;gap:12px"></div></div>
+</section>
+
+<!-- Revisa tu pedido: dirección estructurada, desglose y aceptación antes de Mercado Pago (tienda.js) -->
+<section class="screen" data-s="checkout">
+  <div class="topbar"><button type="button" class="iconbtn sm nav-back" aria-label="Volver"><svg width="18" height="18"><use href="#arrow-left"/></svg></button><div class="t">Revisa tu pedido<small>Envío y pago seguro</small></div></div>
+  <form id="checkout-form" class="scroll pad col" novalidate>
+    <div class="card p" id="co-summary"></div>
+    <span class="h2 mt8">¿A dónde lo enviamos?</span>
+    <div><label class="lbl" for="co-name">Nombre de quien recibe</label><input id="co-name" class="inp" maxlength="120" autocomplete="name"></div>
+    <div><label class="lbl" for="co-phone">Celular de contacto</label><input id="co-phone" class="inp" type="tel" maxlength="20" autocomplete="tel" placeholder="10 dígitos"></div>
+    <div><label class="lbl" for="co-street">Calle</label><input id="co-street" class="inp" maxlength="150" autocomplete="address-line1"></div>
+    <div class="row"><div class="grow"><label class="lbl" for="co-ext">Núm. exterior</label><input id="co-ext" class="inp" maxlength="20" placeholder="123 o S/N"></div><div class="grow"><label class="lbl" for="co-int">Núm. interior</label><input id="co-int" class="inp" maxlength="20" placeholder="Opcional"></div></div>
+    <div><label class="lbl" for="co-neigh">Colonia</label><input id="co-neigh" class="inp" maxlength="120"></div>
+    <div class="row"><div class="grow"><label class="lbl" for="co-cp">Código postal</label><input id="co-cp" class="inp" inputmode="numeric" maxlength="5" autocomplete="postal-code"></div><div class="grow"><label class="lbl" for="co-city">Ciudad o municipio</label><input id="co-city" class="inp" maxlength="120" autocomplete="address-level2"></div></div>
+    <div><label class="lbl" for="co-state">Estado</label><select id="co-state" class="inp" autocomplete="address-level1"></select></div>
+    <div><label class="lbl" for="co-refs">Referencias (opcional)</label><textarea id="co-refs" class="inp" rows="2" maxlength="300" placeholder="Entre calles, color de la fachada..."></textarea></div>
+    <label class="row small" style="align-items:flex-start"><input type="checkbox" id="co-save-address" style="width:20px;height:20px;flex-shrink:0;margin-top:2px"> <span>Guardar esta dirección en este dispositivo para mi próxima compra (opcional).</span></label>
+    <button type="button" class="link small hidden" id="co-forget-address" style="align-self:flex-start">Olvidar la dirección guardada en este dispositivo</button>
+    <div class="card p small col" style="gap:6px;background:var(--blue)">
+      <span>🔁 Tienes <b>5 días hábiles</b> desde que recibes tu pedido para revocar la compra (el envío de regreso corre por tu cuenta). Si llega dañado o no corresponde, el refugio lo repone o te reembolsa, más una bonificación de al menos 20 %.</span>
+      <span id="co-perishable" class="hidden">🥫 Este pedido incluye productos perecederos: una vez recibidos y pagados no admiten revocación (sí reclamación si llegan dañados).</span>
+      <span>🧾 ¿Necesitas factura? La pides desde el pedido después de pagar; la emite el refugio vendedor.</span>
+      <span>📄 Lee las <a href="/app/legal/terminos-tienda.html" target="_blank" rel="noopener">condiciones de compra</a> y la política de <a href="/app/legal/envios-devoluciones-garantias.html" target="_blank" rel="noopener">envíos, devoluciones y garantías</a>.</span>
+    </div>
+    <label class="row small" style="align-items:flex-start"><input type="checkbox" id="co-terms" style="width:20px;height:20px;flex-shrink:0;margin-top:2px"> <span>Revisé mi pedido y acepto las <a href="/app/legal/terminos-tienda.html" target="_blank" rel="noopener">condiciones de compra</a> de la tienda solidaria.</span></label>
+    <label class="row small" style="align-items:flex-start"><input type="checkbox" id="co-prepay" style="width:20px;height:20px;flex-shrink:0;margin-top:2px"> <span>Autorizo el cobro antes de la entrega; el refugio despacha en el plazo indicado arriba.</span></label>
+    <p class="small center"><b>🔞 Compras solo para mayores de 18 años.</b></p>
+    <button type="submit" class="btn block btn-orange shine" id="co-pay">Pagar con Mercado Pago</button>
+    <p class="small muted center">Pagas en Mercado Pago; GuauWoow no ve ni guarda tu tarjeta. El pago llega a la cuenta de Mercado Pago del refugio y GuauWoow solo recibe la comisión indicada arriba.</p>
+  </form>
+</section>
+
+<section class="screen" data-s="order">
+  <div class="topbar"><button type="button" class="iconbtn sm nav-back" aria-label="Volver"><svg width="18" height="18"><use href="#arrow-left"/></svg></button><div class="t" id="order-title">Pedido<small>Tienda solidaria</small></div></div>
+  <div class="scroll pad" id="order-body"></div>
+</section>
+
+<!-- Panel del refugio vendedor (tienda.js) -->
+<section class="screen" data-s="my-shop">
+  <div class="topbar"><button type="button" class="iconbtn sm nav-back" aria-label="Volver"><svg width="18" height="18"><use href="#arrow-left"/></svg></button><div class="t">Mi tienda<small id="ms-sub"></small></div><svg width="24" height="24" style="color:var(--orange)" aria-hidden="true"><use href="#store"/></svg></div>
+  <div class="pad chips scrollx hidden" id="ms-tabs" role="tablist" aria-label="Secciones de mi tienda">
+    <button type="button" class="chip on" role="tab" data-ms-tab="productos">Productos</button>
+    <button type="button" class="chip" role="tab" data-ms-tab="pedidos">Pedidos</button>
+    <button type="button" class="chip" role="tab" data-ms-tab="facturas">Facturas</button>
+    <button type="button" class="chip" role="tab" data-ms-tab="fiscal">Datos fiscales</button>
+    <button type="button" class="chip" role="tab" data-ms-tab="cobros">Cobros</button>
+    <button type="button" class="chip" role="tab" data-ms-tab="cuenta">Estado de cuenta</button>
+  </div>
+  <div class="scroll pad" id="ms-body"></div>
 </section>
 
 <!-- ================= MAPA ================= -->
 <section class="screen" data-s="map">
-  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t">Mapa de tu zona<small id="map-sub">Perdidos, encontrados y adopciones</small></div><div class="iconbtn sm" id="map-locate" title="Mi ubicación"><svg width="18" height="18"><use href="#gps"/></svg></div></div>
-  <div class="pad chips" style="margin-bottom:10px" id="map-filters"><span class="chip on" data-k="lost">🔴 Perdidos</span><span class="chip on" data-k="found">🟢 Encontrados</span><span class="chip on" data-k="dog">🟣 Adopción</span></div>
+  <div class="topbar"><button type="button" class="iconbtn sm nav-back" aria-label="Volver"><svg width="18" height="18"><use href="#arrow-left"/></svg></button><div class="t">Mapa de tu zona<small id="map-sub">Perdidos, encontrados y adopciones</small></div><button type="button" class="iconbtn sm" id="map-locate" title="Mi ubicación" aria-label="Mi ubicación"><svg width="18" height="18"><use href="#gps"/></svg></button></div>
+  <div class="pad chips" style="margin-bottom:10px" id="map-filters"><span class="chip on" data-k="lost">🔴 Perdidos</span><span class="chip on" data-k="found">🟢 Encontrados</span><span class="chip on" data-k="dog">🟣 Adopción</span><span class="chip on" data-k="vet">🩺 Veterinarias</span></div>
   <div id="leaflet-map"></div>
 </section>
 
@@ -363,12 +560,12 @@
 
 <!-- ================= PERFIL ================= -->
 <section class="screen has-nav" data-s="profile">
-  <div class="topbar"><div class="t">Mi perfil</div><div class="iconbtn sm" id="profile-edit" title="Editar"><svg width="18" height="18"><use href="#edit"/></svg></div></div>
+  <div class="topbar"><div class="t">Mi perfil</div><button type="button" class="iconbtn sm" id="profile-edit" title="Editar" aria-label="Editar"><svg width="18" height="18"><use href="#edit"/></svg></button></div>
   <div class="scroll pad" id="profile-body"></div>
 </section>
 
 <section class="screen" data-s="edit-profile">
-  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t">Editar perfil</div></div>
+  <div class="topbar"><button type="button" class="iconbtn sm nav-back" aria-label="Volver"><svg width="18" height="18"><use href="#arrow-left"/></svg></button><div class="t">Editar perfil</div></div>
   <form id="edit-profile-form" class="scroll pad col">
     <div class="center"><div class="avatar" id="ep-avatar" style="width:96px;height:96px;margin:0 auto;font-size:32px;cursor:pointer"></div><button type="button" class="link small mt8" id="ep-avatar-btn">Cambiar foto</button><input type="file" id="ep-avatar-file" accept="image/*" class="hidden"></div>
     <div><label class="lbl" for="ep-name">Nombre</label><input id="ep-name" class="inp" required></div>
@@ -378,26 +575,79 @@
   </form>
 </section>
 
+<!-- ================= PREFERENCIAS (cumplimiento.js) ================= -->
+<section class="screen" data-s="preferences">
+  <div class="topbar"><button type="button" class="iconbtn sm nav-back" aria-label="Volver"><svg width="18" height="18"><use href="#arrow-left"/></svg></button><div class="t">Preferencias<small>Tus avisos, permisos y aceptaciones</small></div></div>
+  <div class="scroll pad" id="preferences-body"></div>
+</section>
+
 <!-- ================= APARIENCIA ================= -->
 <section class="screen" data-s="appearance">
-  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t">Apariencia<small>Haz PatitasFind a tu manera</small></div><svg width="26" height="26" style="color:var(--orange)"><use href="#palette"/></svg></div>
+  <div class="topbar"><button type="button" class="iconbtn sm nav-back" aria-label="Volver"><svg width="18" height="18"><use href="#arrow-left"/></svg></button><div class="t">Apariencia<small>Haz GuauWoow a tu manera</small></div><svg width="26" height="26" style="color:var(--orange)"><use href="#palette"/></svg></div>
   <div class="scroll pad" id="appearance-body"></div>
 </section>
 
 <!-- ================= SOLICITUD (dueño) ================= -->
 <section class="screen" data-s="application">
-  <div class="topbar"><div class="iconbtn sm nav-back"><svg width="18" height="18"><use href="#arrow-left"/></svg></div><div class="t" id="app-title">Solicitud</div></div>
+  <div class="topbar"><button type="button" class="iconbtn sm nav-back" aria-label="Volver"><svg width="18" height="18"><use href="#arrow-left"/></svg></button><div class="t" id="app-title">Solicitud</div></div>
   <div class="scroll pad" id="application-body"></div>
+</section>
+
+<!-- ================= AYUDA ================= -->
+<section class="screen" data-s="help">
+  <div class="topbar"><button type="button" class="iconbtn sm nav-back" aria-label="Volver"><svg width="18" height="18"><use href="#arrow-left"/></svg></button><div class="t">Ayuda<small>Preguntas frecuentes y contacto</small></div><svg width="26" height="26" style="color:var(--orange)" aria-hidden="true"><use href="#help"/></svg></div>
+  <div class="scroll pad" id="help-body">
+    <div class="center" id="help-art"></div>
+    <div class="col faq mt12">
+      <details class="card p"><summary>¿Cómo adopto a un perrito?</summary><p>Entra a <b>Descubrir</b>, desliza a la derecha al que te guste y llena el cuestionario de hogar. Quien lo publica revisa tu solicitud; si la acepta, se comparten sus datos de contacto y pueden seguir platicando en el chat. Vender perritos no está permitido en GuauWoow.</p></details>
+      <details class="card p"><summary>Perdí a mi perro, ¿qué hago?</summary><p>Toca <b>+</b> y elige <b>Perdí a mi perro</b>. Sube fotos claras de su cara y cuerpo y marca dónde se perdió. Avisamos a vecinos con alertas activadas, refugios y casas de paso cerca, y comparamos su foto con los reportes de perritos encontrados. Comparte la alerta y revisa tus notificaciones.</p></details>
+      <details class="card p"><summary>Encontré un perrito</summary><p>Repórtalo como <b>encontrado</b> con foto y ubicación. Si alguien dice que es suyo, pídele señas que no aparezcan en el reporte (una marca, su collar o fotos anteriores) antes de entregarlo.</p></details>
+      <details class="card p"><summary>Consejos de seguridad para reunirte</summary><ul>
+        <li>Reúnanse en un lugar público, de día, y ve acompañado.</li>
+        <li>Nunca deposites dinero por adelantado: ni «recompensas», ni envíos, ni vacunas.</li>
+        <li>Confirma señas que no estén publicadas antes de entregar o recibir a un perrito.</li>
+        <li>Usa el chat de la app y comparte solo los datos necesarios.</li>
+        <li>Si algo te parece raro, repórtalo con el botón 🚩.</li>
+      </ul></details>
+      <details class="card p"><summary>¿Cómo reporto una publicación o a un usuario?</summary><p>Toca el botón <b>🚩 Reportar</b> en el perfil del perrito, el reporte, el refugio, el producto o dentro del chat. Elige el motivo y cuéntanos qué pasó. Nuestro equipo lo revisa y puede ocultar la publicación o suspender la cuenta.</p></details>
+      <details class="card p"><summary>¿Quién ve mi ubicación y mis datos?</summary><p>En las listas y el mapa mostramos una ubicación aproximada (alrededor de 1 km), nunca tu dirección exacta. Tu correo y tu teléfono solo se comparten cuando aceptan una solicitud de adopción.</p></details>
+      <details class="card p" id="help-legal"><summary>¿Dónde están las reglas y cómo ejerzo mis derechos?</summary><p>En el <a href="/app/legal/centro-legal.html" target="_blank" rel="noopener">Centro legal y de transparencia</a> están los Términos, el Aviso de privacidad y todas las políticas en lenguaje claro. Ahí mismo puedes <a href="/app/legal/derechos-arco.html" target="_blank" rel="noopener">ejercer tus derechos sobre tus datos</a>, <a href="/app/legal/atencion-y-quejas.html" target="_blank" rel="noopener">presentar una queja</a> o <a href="/app/legal/moderacion.html" target="_blank" rel="noopener">reportar contenido</a> y recibir un folio para darle seguimiento.</p></details>
+      <details class="card p"><summary>¿Por qué mi reporte dice «Expirado»?</summary><p>Los reportes sin cambios en 90 días se marcan como expirados para que el mapa muestre casos vigentes. Si sigues buscando, ábrelo desde <b>Mis reportes</b> y toca <b>Renovar</b>.</p></details>
+      <details class="card p" id="help-volunteer"><summary>Botón para voluntarios: envía publicaciones de Facebook</summary>
+        <p>¿Ves en un grupo de Facebook un perrito perdido o encontrado? Envíanos la publicación y la convertimos en un reporte con alertas y comparación de fotos. Quitamos teléfonos y correos del texto antes de publicarlo.</p>
+        <p><b>En Android:</b> instala GuauWoow (menú del navegador → <b>Agregar a pantalla de inicio</b>). Después, en Facebook toca <b>Compartir → Más opciones → GuauWoow</b>.</p>
+        <p><b>En iPhone:</b> en la publicación toca Compartir → <b>Copiar enlace</b>, vuelve aquí y toca «Enviar una publicación ahora».</p>
+        <p><b>En computadora:</b> arrastra este botón a la barra de marcadores de tu navegador. Cuando estés viendo una publicación, tócalo (si antes seleccionas el texto, lo llenamos por ti).</p>
+        <div class="row" style="gap:8px;flex-wrap:wrap"><a class="btn btn-sm btn-lila" id="volunteer-bookmarklet" href="#" draggable="true" title="Arrástrame a tu barra de marcadores">🐾 Enviar a GuauWoow</a><button type="button" class="btn btn-sm btn-ghost" id="volunteer-copy">Copiar código del botón</button></div>
+        <button type="button" class="btn btn-sm btn-orange block mt12" id="volunteer-send">Enviar una publicación ahora</button>
+      </details>
+    </div>
+    <div class="card p mt20 col hidden" id="help-contact" style="gap:10px;background:var(--lila)">
+      <b>¿Necesitas a una persona?</b>
+      <a class="btn btn-sm btn-white block hidden" id="help-email" href="#" rel="noopener">✉️ Escribir por correo</a>
+      <a class="btn btn-sm btn-green block hidden" id="help-whatsapp" href="#" target="_blank" rel="noopener">💬 Escribir por WhatsApp</a>
+      <span class="small muted" id="help-contact-text"></span>
+    </div>
+    <button type="button" class="btn block btn-orange mt12" id="help-problem"><svg width="18" height="18"><use href="#flag"/></svg> Reportar un problema</button>
+    <div class="row mt16" style="justify-content:center;gap:16px;flex-wrap:wrap">
+      <a class="link small" href="/app/legal/centro-legal.html" target="_blank" rel="noopener">Centro legal y privacidad</a>
+      <a class="link small" href="/app/legal/terminos.html" target="_blank" rel="noopener">Términos y condiciones</a>
+      <a class="link small" href="/app/legal/privacidad.html" target="_blank" rel="noopener">Aviso de privacidad</a>
+      <a class="link small" href="/app/legal/cookies.html" target="_blank" rel="noopener">Cookies</a>
+      <a class="link small" href="#" data-cookie-prefs>Preferencias de cookies</a>
+      <a class="link small" href="/app/legal/atencion-y-quejas.html" target="_blank" rel="noopener">Atención y quejas</a>
+    </div>
+  </div>
 </section>
 
 </div><!-- /screens -->
 
 <nav class="nav hidden" id="nav">
-  <div class="nav-item" data-go="home" title="Inicio"><svg width="24" height="24"><use href="#home"/></svg></div>
-  <div class="nav-item" data-go="chat-list" title="Chats"><svg width="24" height="24"><use href="#chat"/></svg><span class="dotb hidden" id="nav-chat-badge"></span></div>
-  <div class="fab" id="nav-fab" title="Publicar"><svg width="26" height="26"><use href="#plus"/></svg></div>
-  <div class="nav-item" data-go="notifications" title="Alertas"><svg width="24" height="24"><use href="#bell"/></svg><span class="dotb hidden" id="nav-notif-badge"></span></div>
-  <div class="nav-item" data-go="profile" title="Perfil"><svg width="24" height="24"><use href="#user"/></svg></div>
+  <button type="button" class="nav-item" data-go="home" title="Inicio" aria-label="Inicio"><svg width="24" height="24"><use href="#home"/></svg></button>
+  <button type="button" class="nav-item" data-go="chat-list" title="Chats" aria-label="Chats"><svg width="24" height="24"><use href="#chat"/></svg><span class="dotb hidden" id="nav-chat-badge"></span></button>
+  <button type="button" class="fab" id="nav-fab" title="Publicar" aria-label="Publicar"><svg width="26" height="26"><use href="#plus"/></svg></button>
+  <button type="button" class="nav-item" data-go="notifications" title="Alertas" aria-label="Alertas"><svg width="24" height="24"><use href="#bell"/></svg><span class="dotb hidden" id="nav-notif-badge"></span></button>
+  <button type="button" class="nav-item" data-go="profile" title="Perfil" aria-label="Perfil"><svg width="24" height="24"><use href="#user"/></svg></button>
   <div class="nav-ind" id="nav-ind"><svg viewBox="0 0 64 64"><use href="#paw"/></svg></div>
 </nav>
 
@@ -406,10 +656,10 @@
   <div class="sheet"><div class="grab"></div>
     <h2 class="h2">¿Qué quieres hacer?</h2>
     <div class="col mt16 stagger">
-      <div class="card p row tap" data-pub="lost" style="--i:0;background:var(--pink)"><svg width="34" height="34"><use href="#pin"/></svg><div class="grow"><b>Perdí a mi perro</b><div class="small muted">Activa la alerta y la IA lo busca</div></div></div>
-      <div class="card p row tap" data-pub="found" style="--i:1;background:var(--green)"><svg width="30" height="30"><use href="#search"/></svg><div class="grow"><b>Encontré un perro</b><div class="small muted">Ayúdalo a volver a casa</div></div></div>
-      <div class="card p row tap" data-pub="adopt" style="--i:2;background:var(--yellow)"><svg width="34" height="34"><use href="#dogface"/></svg><div class="grow"><b>Dar en adopción</b><div class="small muted">Publica gratis un perrito rescatado</div></div></div>
-      <div class="card p row tap" data-pub="photo" style="--i:3;background:var(--lila)"><svg width="30" height="30"><use href="#camera"/></svg><div class="grow"><b>Buscar por foto</b><div class="small muted">¿Viste un perrito? Compáralo</div></div></div>
+      <div class="card p row tap" role="button" tabindex="0" data-pub="lost" style="--i:0;background:var(--pink)"><svg width="34" height="34"><use href="#pin"/></svg><div class="grow"><b>Perdí a mi perro</b><div class="small muted">Activa la alerta y la IA lo busca</div></div></div>
+      <div class="card p row tap" role="button" tabindex="0" data-pub="found" style="--i:1;background:var(--green)"><svg width="30" height="30"><use href="#search"/></svg><div class="grow"><b>Encontré un perro en la calle</b><div class="small muted">Sube su reporte para buscar a su dueño o adoptante</div></div></div>
+      <div class="card p row tap" role="button" tabindex="0" data-pub="adopt" style="--i:2;background:var(--yellow)"><svg width="34" height="34"><use href="#dogface"/></svg><div class="grow"><b>Dar en adopción (particular o refugio)</b><div class="small muted">No necesitas ser refugio ni casa de paso · 100% gratis</div></div></div>
+      <div class="card p row tap" role="button" tabindex="0" data-pub="photo" style="--i:3;background:var(--lila)"><svg width="30" height="30"><use href="#camera"/></svg><div class="grow"><b>Buscar por foto</b><div class="small muted">¿Viste un perrito? Compáralo</div></div></div>
     </div>
   </div>
 </div>
@@ -423,27 +673,146 @@
   </div>
 </div>
 
-<div class="modal" id="cart-modal">
+<div class="modal" id="cart-modal" role="dialog" aria-modal="true" aria-labelledby="cart-title">
   <div class="sheet"><div class="grab"></div>
-    <div class="between"><h2 class="h2">Tu carrito</h2><div class="iconbtn sm" id="cart-close"><svg width="16" height="16"><use href="#close"/></svg></div></div>
+    <div class="between"><h2 class="h2" id="cart-title">Tu carrito</h2><button type="button" class="iconbtn sm" id="cart-close" aria-label="Cerrar"><svg width="16" height="16"><use href="#close"/></svg></button></div>
+    <div class="small muted mt8" id="cart-seller"></div>
     <div id="cart-items" class="col mt12"></div>
-    <div class="between mt16"><b>Total</b><b id="cart-total" style="font-size:20px">$0</b></div>
-    <label class="lbl mt12" for="cart-address">Dirección de envío</label>
-    <textarea id="cart-address" class="inp" rows="2" placeholder="Calle, número, colonia, C.P., ciudad"></textarea>
-    <button id="cart-checkout" class="btn block btn-orange mt16">Pagar con Mercado Pago</button>
+    <div class="sum mt16" id="cart-sum"></div>
+    <button type="button" id="cart-checkout" class="btn block btn-orange mt16">Continuar con el envío</button>
   </div>
 </div>
 
-<div class="modal" id="product-modal">
+<div class="modal" id="product-modal" role="dialog" aria-modal="true" aria-labelledby="pm-title">
   <div class="sheet"><div class="grab"></div>
-    <h2 class="h2" id="pm-title">Nuevo producto</h2>
-    <form id="product-form" class="col mt12">
-      <div><span class="lbl">Fotos</span><div class="photo-drop" data-photos="pm"></div></div>
-      <div><label class="lbl" for="pm-name">Nombre</label><input id="pm-name" class="inp" required></div>
-      <div><label class="lbl" for="pm-desc">Descripción</label><textarea id="pm-desc" class="inp" rows="2"></textarea></div>
-      <div class="row"><div class="grow"><label class="lbl" for="pm-price">Precio (MXN)</label><input id="pm-price" class="inp" type="number" min="1" step="0.01" required></div><div class="grow"><label class="lbl" for="pm-stock">Inventario</label><input id="pm-stock" class="inp" type="number" min="0" value="10"></div></div>
+    <div class="between"><h2 class="h2" id="pm-title">Nuevo producto</h2><button type="button" class="iconbtn sm" data-close-modal aria-label="Cerrar"><svg width="16" height="16"><use href="#close"/></svg></button></div>
+    <form id="product-form" class="col mt12" novalidate>
+      <div><span class="lbl">Fotos reales del producto</span><div class="photo-drop" data-photos="pm"></div></div>
+      <div><label class="lbl" for="pm-name">Nombre</label><input id="pm-name" class="inp" maxlength="255" required></div>
+      <div><label class="lbl" for="pm-desc">Descripción</label><textarea id="pm-desc" class="inp" rows="3" maxlength="2000" placeholder="Material, talla, medidas, cuidados..."></textarea></div>
+      <div class="row"><div class="grow"><label class="lbl" for="pm-price">Precio final (MXN)</label><input id="pm-price" class="inp" type="number" min="1" step="0.01" inputmode="decimal" required></div><div class="grow"><label class="lbl" for="pm-stock">Inventario</label><input id="pm-stock" class="inp" type="number" min="0" value="10" inputmode="numeric"></div></div>
+      <div class="row"><div class="grow"><label class="lbl" for="pm-shipping">Envío (0 = gratis)</label><input id="pm-shipping" class="inp" type="number" min="0" step="0.01" value="0" inputmode="decimal"></div><div class="grow"><label class="lbl" for="pm-handling">Días para despachar</label><input id="pm-handling" class="inp" type="number" min="0" max="30" value="3" inputmode="numeric"></div></div>
+      <div><label class="lbl" for="pm-category">Categoría</label><select id="pm-category" class="inp" required></select><p class="small muted mt8">Solo productos de la <a href="/app/legal/productos-prohibidos.html" target="_blank" rel="noopener">lista de productos permitidos</a>. Algunas categorías se revisan antes de publicarse.</p></div>
+      <div><label class="lbl" for="pm-warranty-kind">Garantía</label><select id="pm-warranty-kind" class="inp"><option value="none">Sin garantía adicional</option><option value="yes">Con garantía (90 días o más)</option></select></div>
+      <div id="pm-warranty-wrap" class="hidden col"><div><label class="lbl" for="pm-warranty-days">Días de garantía desde la entrega</label><input id="pm-warranty-days" class="inp" type="number" min="90" max="3650" value="90" inputmode="numeric"></div>
+        <div><label class="lbl" for="pm-warranty-text">Póliza: qué cubre, quién la otorga y cómo hacerla válida</label><textarea id="pm-warranty-text" class="inp" rows="2" maxlength="2000" placeholder="Cubre defectos de fabricación en uso normal. La otorga el refugio; se hace válida desde Mis pedidos."></textarea></div></div>
+      <label class="row small" for="pm-perishable" style="align-items:flex-start"><input type="checkbox" id="pm-perishable" style="width:20px;height:20px;flex-shrink:0;margin-top:2px"> <span>Es perecedero (por ejemplo, alimento o premios): no admite revocación una vez recibido.</span></label>
+      <label class="card p row" for="pm-nationwide" style="cursor:pointer"><div class="grow"><b>Envío a todo México</b><div class="small muted">Desactívalo para elegir a qué estados envías</div></div><input type="checkbox" class="switch" id="pm-nationwide" checked></label>
+      <div id="pm-states-wrap" class="hidden"><div class="between"><span class="lbl">Estados a los que envías</span><span class="small"><button type="button" class="link" id="pm-states-all">Todos</button> · <button type="button" class="link" id="pm-states-none">Ninguno</button></span></div><div class="chips pm-states" id="pm-states" role="group" aria-label="Estados a los que envías"></div></div>
       <button type="submit" class="btn block">Guardar</button>
+      <button type="button" class="btn block btn-ghost hidden" id="pm-delete">Dar de baja</button>
     </form>
+  </div>
+</div>
+
+<div class="modal" id="return-modal" role="dialog" aria-modal="true" aria-labelledby="ret-title">
+  <div class="sheet"><div class="grab"></div>
+    <div class="between"><h2 class="h2" id="ret-title">Devolución del pedido <span id="ret-order"></span></h2><button type="button" class="iconbtn sm" data-close-modal aria-label="Cerrar"><svg width="16" height="16"><use href="#close"/></svg></button></div>
+    <p class="small muted mt8">Tienes 5 días hábiles desde la entrega para revocar tu compra. Si el producto llegó dañado o no corresponde, el refugio debe reponerlo o reembolsarte.</p>
+    <form id="return-form" class="col mt12" novalidate>
+      <div><label class="lbl" for="ret-reason">Motivo</label><select id="ret-reason" class="inp"></select></div>
+      <div><label class="lbl" for="ret-details">¿Qué pasó?</label><textarea id="ret-details" class="inp" rows="3" maxlength="1000" placeholder="Cuéntale al refugio qué pasó con tu pedido"></textarea></div>
+      <div><span class="lbl">Fotos (opcional, ayudan a resolver más rápido)</span><div class="photo-drop" data-photos="ret"></div></div>
+      <button type="submit" class="btn block btn-orange" id="ret-submit">Enviar solicitud</button>
+    </form>
+  </div>
+</div>
+
+<!-- Comprobante del pedido (tienda.js; GET /orders/{id}/comprobante) -->
+<div class="modal" id="receipt-modal" role="dialog" aria-modal="true" aria-labelledby="rc-title">
+  <div class="sheet"><div class="grab"></div>
+    <div class="between"><h2 class="h2" id="rc-title">Comprobante del pedido</h2><button type="button" class="iconbtn sm" data-close-modal aria-label="Cerrar"><svg width="16" height="16"><use href="#close"/></svg></button></div>
+    <div id="rc-body" class="col mt12"></div>
+    <button type="button" class="btn block btn-ghost mt12" id="rc-download">Descargar comprobante</button>
+  </div>
+</div>
+
+<div class="modal" id="invoice-modal" role="dialog" aria-modal="true" aria-labelledby="inv-title">
+  <div class="sheet"><div class="grab"></div>
+    <div class="between"><h2 class="h2" id="inv-title">Factura del pedido <span id="inv-order"></span></h2><button type="button" class="iconbtn sm" data-close-modal aria-label="Cerrar"><svg width="16" height="16"><use href="#close"/></svg></button></div>
+    <p class="small muted mt8">El refugio que te vendió emite tu CFDI. Escribe tus datos tal como aparecen en tu Constancia de Situación Fiscal.</p>
+    <form id="invoice-form" class="col mt12" novalidate>
+      <div><label class="lbl" for="inv-rfc">RFC</label><input id="inv-rfc" class="inp" maxlength="13" autocomplete="off" style="text-transform:uppercase"></div>
+      <div><label class="lbl" for="inv-name">Nombre o razón social</label><input id="inv-name" class="inp" maxlength="255" style="text-transform:uppercase"></div>
+      <div><label class="lbl" for="inv-regimen">Régimen fiscal</label><select id="inv-regimen" class="inp"></select></div>
+      <div class="row"><div style="width:120px"><label class="lbl" for="inv-cp">C.P. fiscal</label><input id="inv-cp" class="inp" inputmode="numeric" maxlength="5"></div><div class="grow"><label class="lbl" for="inv-uso">Uso del CFDI</label><select id="inv-uso" class="inp"></select></div></div>
+      <div><label class="lbl" for="inv-email">Correo para recibirla</label><input id="inv-email" class="inp" type="email" maxlength="255" autocomplete="email"></div>
+      <button type="submit" class="btn block" id="inv-submit">Solicitar factura</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal" id="rinv-modal" role="dialog" aria-modal="true" aria-labelledby="rinv-title">
+  <div class="sheet"><div class="grab"></div>
+    <div class="between"><h2 class="h2" id="rinv-title">Factura del pedido <span id="rinv-order"></span></h2><button type="button" class="iconbtn sm" data-close-modal aria-label="Cerrar"><svg width="16" height="16"><use href="#close"/></svg></button></div>
+    <div class="card p small mt12" id="rinv-data" style="background:var(--lila)"></div>
+    <form id="rinv-form" class="col mt12" novalidate>
+      <div><label class="lbl" for="rinv-status">Respuesta</label><select id="rinv-status" class="inp"><option value="issued">Ya emití la factura</option><option value="rejected">No puedo emitirla</option></select></div>
+      <div id="rinv-issued-fields" class="col">
+        <div><span class="lbl">XML timbrado del CFDI</span><div class="file-pick"><span class="grow small ellipsis" id="rinv-xml-text">Sin archivo</span><button type="button" class="btn btn-sm btn-ghost" data-pick="rinv-xml">Elegir XML</button></div><input id="rinv-xml" type="file" accept=".xml,text/xml,application/xml" class="hidden"></div>
+        <div><label class="lbl" for="rinv-uuid">Folio fiscal (UUID, opcional)</label><input id="rinv-uuid" class="inp" maxlength="36" autocomplete="off" placeholder="Lo leemos del XML"></div>
+        <div><span class="lbl">PDF del CFDI (recomendado)</span><div class="file-pick"><span class="grow small ellipsis" id="rinv-pdf-text">Sin archivo</span><button type="button" class="btn btn-sm btn-ghost" data-pick="rinv-pdf">Elegir PDF</button></div><input id="rinv-pdf" type="file" accept="application/pdf,.pdf" class="hidden"></div>
+      </div>
+      <div><label class="lbl" for="rinv-note">Nota para el comprador</label><textarea id="rinv-note" class="inp" rows="2" maxlength="500" placeholder="Opcional si ya la emitiste"></textarea></div>
+      <button type="submit" class="btn block" id="rinv-submit">Enviar</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal" id="decision-modal" role="dialog" aria-modal="true" aria-labelledby="dc-title">
+  <div class="sheet"><div class="grab"></div>
+    <div class="between"><h2 class="h2" id="dc-title">Devolución</h2><button type="button" class="iconbtn sm" data-close-modal aria-label="Cerrar"><svg width="16" height="16"><use href="#close"/></svg></button></div>
+    <p class="small mt8" id="dc-text"></p>
+    <label class="lbl mt12" for="dc-note">Nota para el comprador</label>
+    <textarea id="dc-note" class="inp" rows="3" maxlength="500"></textarea>
+    <button type="button" class="btn block mt12" id="dc-submit">Enviar</button>
+  </div>
+</div>
+
+<div class="modal" id="flag-modal" role="dialog" aria-modal="true" aria-labelledby="flag-title">
+  <div class="sheet"><div class="grab"></div>
+    <div class="between"><h2 class="h2" id="flag-title">Reportar</h2><button type="button" class="iconbtn sm" id="flag-close" aria-label="Cerrar"><svg width="16" height="16"><use href="#close"/></svg></button></div>
+    <p class="small muted mt8" id="flag-sub">Cuéntanos qué pasa. Tu reporte es confidencial.</p>
+    <form id="flag-form" class="col mt12" novalidate>
+      <div><span class="lbl" id="flag-reasons-lbl">Motivo</span><div class="chips" id="flag-reasons" role="radiogroup" aria-labelledby="flag-reasons-lbl">
+        <!-- Motivos: services/legal_moderation.REASONS (moderacion.html §1). Los de menores se ocultan al reportar -->
+        <button type="button" class="chip" role="radio" aria-checked="false" data-v="involucra_menor">Involucra a una niña, niño o adolescente</button>
+        <button type="button" class="chip" role="radio" aria-checked="false" data-v="abuso_sexual_infantil">Material de abuso sexual infantil</button>
+        <button type="button" class="chip" role="radio" aria-checked="false" data-v="maltrato">Maltrato animal</button>
+        <button type="button" class="chip" role="radio" aria-checked="false" data-v="venta_animal">Venta o cobro por un animal</button>
+        <button type="button" class="chip" role="radio" aria-checked="false" data-v="fraude">Estafa o solicitud de dinero</button>
+        <button type="button" class="chip" role="radio" aria-checked="false" data-v="acoso">Acoso</button>
+        <button type="button" class="chip" role="radio" aria-checked="false" data-v="abuso_sexual">Abuso, explotación o violencia sexual</button>
+        <button type="button" class="chip" role="radio" aria-checked="false" data-v="contenido_intimo">Contenido íntimo sin consentimiento</button>
+        <button type="button" class="chip" role="radio" aria-checked="false" data-v="odio_violencia_masiva">Discurso de odio o violencia masiva</button>
+        <button type="button" class="chip" role="radio" aria-checked="false" data-v="incitacion_odio_violencia">Incitación al odio o a la violencia</button>
+        <button type="button" class="chip" role="radio" aria-checked="false" data-v="conductas_ilicitas">Conductas ilícitas o apología del delito</button>
+        <button type="button" class="chip" role="radio" aria-checked="false" data-v="pornografia">Pornografía</button>
+        <button type="button" class="chip" role="radio" aria-checked="false" data-v="suicidio_autolesiones">Suicidio, autolesiones o trastornos alimenticios</button>
+        <button type="button" class="chip" role="radio" aria-checked="false" data-v="mi_imagen">Mi imagen o mis datos</button>
+        <button type="button" class="chip" role="radio" aria-checked="false" data-v="difamacion">Difamación o acusación contra una persona</button>
+        <button type="button" class="chip" role="radio" aria-checked="false" data-v="suplantacion">Suplantación</button>
+        <button type="button" class="chip" role="radio" aria-checked="false" data-v="datos_falsos">Datos falsos</button>
+        <button type="button" class="chip" role="radio" aria-checked="false" data-v="contenido_inapropiado">Contenido inapropiado</button>
+        <button type="button" class="chip" role="radio" aria-checked="false" data-v="spam">Spam</button>
+        <button type="button" class="chip hidden" role="radio" aria-checked="false" data-v="honor_reputacion" data-for="veterinary veterinary_review">Afecta mi honor o reputación</button>
+        <button type="button" class="chip hidden" role="radio" aria-checked="false" data-v="resena_falsa" data-for="veterinary_review">Reseña falsa o pagada</button>
+        <button type="button" class="chip hidden" role="radio" aria-checked="false" data-v="datos_personales" data-for="veterinary veterinary_review">Datos personales</button>
+        <button type="button" class="chip hidden" role="radio" aria-checked="false" data-v="cedula_falsa" data-for="veterinary">Cédula o veterinario falso</button>
+        <button type="button" class="chip hidden" role="radio" aria-checked="false" data-v="condiciones_sanitarias" data-for="veterinary">Condiciones sanitarias</button>
+        <button type="button" class="chip hidden" role="radio" aria-checked="false" data-v="publicidad_enganosa" data-for="veterinary">Publicidad engañosa</button>
+        <button type="button" class="chip" role="radio" aria-checked="false" data-v="otro">Otro</button>
+      </div></div>
+      <div><label class="lbl" for="flag-details">Detalles (opcional)</label><textarea id="flag-details" class="inp" rows="3" maxlength="1000" placeholder="¿Qué viste? Mientras más claro, más rápido actuamos"></textarea></div>
+      <button type="submit" class="btn block btn-orange" id="flag-submit">Enviar reporte</button>
+    </form>
+  </div>
+</div>
+
+<div class="modal" id="product-detail" role="dialog" aria-modal="true" aria-labelledby="pd-name">
+  <div class="sheet"><div class="grab"></div>
+    <div class="between"><span class="badge b-lila">Tienda solidaria</span><div class="row" style="gap:8px"><button type="button" class="iconbtn sm" id="pd-flag" title="Reportar" aria-label="Reportar producto"><svg width="16" height="16"><use href="#flag"/></svg></button><button type="button" class="iconbtn sm" id="pd-close" aria-label="Cerrar"><svg width="16" height="16"><use href="#close"/></svg></button></div></div>
+    <div id="pd-body" class="mt12"></div>
   </div>
 </div>
 
@@ -476,18 +845,17 @@
 <div class="modal center" id="terms-modal">
   <div class="mm-card" style="text-align:left">
     <h2 class="h2 center">Antes de continuar</h2>
-    <p class="body mt8">Para usar PatitasFind necesitamos que aceptes nuestras reglas y sepas cómo cuidamos tus datos.</p>
-    <label class="row small mt12" style="align-items:flex-start"><input type="checkbox" id="tm-terms" style="width:20px;height:20px;flex-shrink:0;margin-top:2px"> <span>Tengo 18 años o más y acepto los <a href="/app/legal/terminos.html" target="_blank" rel="noopener">Términos y Condiciones</a> y el <a href="/app/legal/privacidad.html" target="_blank" rel="noopener">Aviso de Privacidad</a>.</span></label>
+    <p class="body mt8">Para usar GuauWoow necesitamos que aceptes nuestras reglas y sepas cómo cuidamos tus datos.</p>
+    <div id="tm-age" class="mt12"><label class="lbl" for="tm-birth">Fecha de nacimiento</label><input id="tm-birth" class="inp" type="date" autocomplete="bday">
+      <label class="row small mt8" style="align-items:flex-start"><input type="checkbox" id="tm-adult" style="width:20px;height:20px;flex-shrink:0;margin-top:2px"> <span>Declaro que tengo 18 años o más.</span></label></div>
+    <label class="row small mt12" style="align-items:flex-start"><input type="checkbox" id="tm-terms" style="width:20px;height:20px;flex-shrink:0;margin-top:2px"> <span>Acepto los <a href="/app/legal/terminos.html" target="_blank" rel="noopener">Términos y Condiciones</a> y el <a href="/app/legal/privacidad.html" target="_blank" rel="noopener">Aviso de Privacidad</a>.</span></label>
     <label class="row small mt8" style="align-items:flex-start"><input type="checkbox" id="tm-marketing" style="width:20px;height:20px;flex-shrink:0;margin-top:2px"> <span>Quiero recibir noticias de adopciones y campañas (opcional).</span></label>
     <button class="btn block mt16" id="tm-accept">Aceptar y continuar</button>
     <button class="link small mt12" id="tm-logout" style="display:block;margin:12px auto 0">Salir</button>
   </div>
 </div>
 
-<div id="cookie-banner" class="hidden" role="dialog" aria-label="Preferencias de cookies">
-  <div class="row" style="align-items:flex-start"><span style="font-size:24px">🍪</span><div class="grow small" style="font-weight:600">Usamos almacenamiento esencial para que la app funcione. Con tu permiso, también medimos el uso de forma anónima para mejorarla. <a href="/app/legal/privacidad.html#cookies" target="_blank" rel="noopener">Más información</a></div></div>
-  <div class="row mt12"><button class="btn btn-sm btn-ghost grow" id="cookie-essential">Solo esenciales</button><button class="btn btn-sm grow" id="cookie-accept">Aceptar</button></div>
-</div>
+<!-- El aviso de cookies (#cookie-banner) lo dibuja /app/legal/js/cookies.js -->
 
 <div class="modal center" id="match-modal">
   <div class="mm-card">
@@ -507,8 +875,13 @@
 <div id="toast" role="status" aria-live="polite"><span class="tface"><svg width="20" height="20" viewBox="0 0 120 120"><use href="#dogface"/></svg></span><span id="toast-msg"></span></div>
 </div><!-- /device -->
 </div>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-<script src="/app/fx.js?v=14"></script>
-<script src="/app/app.js?v=14"></script>
+<script src="/app/vendor/leaflet/leaflet.js"></script>
+<script src="/app/fx.js?v=15"></script>
+<script src="/app/legal/js/cookies.js?v=1"></script>
+<script src="/app/app.js?v=18"></script>
+<script src="/app/tienda.js?v=18"></script>
+<script src="/app/compartir.js?v=18"></script>
+<script src="/app/veterinarias.js?v=18"></script>
+<script src="/app/cumplimiento.js?v=1"></script>
 </body>
 </html>

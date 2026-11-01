@@ -64,7 +64,7 @@ def test_smsmasivos_payload_and_sandbox(monkeypatch):
     assert call["headers"]["apikey"] == "llave-prueba"
     assert call["json"]["numbers"] == "5512345678" and call["json"]["country_code"] == "52"
     assert call["json"]["sandbox"] == 1
-    assert call["json"]["message"] == "PatitasFind: tu codigo es 123456. Vence en 10 min. No lo compartas con nadie."
+    assert call["json"]["message"] == "GuauWoow: tu codigo es 123456. Vence en 10 min. No lo compartas con nadie."
 
     monkeypatch.setattr(settings, "smsmasivos_sandbox", False)
     sms.send_otp("+525512345678", "654321")
@@ -123,6 +123,20 @@ def test_twilio_messages_adapter(monkeypatch):
     url, data, auth = calls[0]
     assert url.endswith("/Accounts/AC123/Messages.json") and data["To"] == "+525512345678"
     assert data["From"] == "+15550001111" and "111222" in data["Body"] and auth == ("AC123", "tok")
+
+
+def test_zernio_messages_adapter(monkeypatch):
+    calls = []
+    monkeypatch.setattr(sms.requests, "post", lambda url, json=None, headers=None, **k: calls.append((url, json, headers)) or FakeResp(200, {"id": "msg_1", "status": "sent"}))
+    monkeypatch.setattr(settings, "sms_provider", "zernio")
+    monkeypatch.setattr(settings, "zernio_api_key", "zrn_live_123")
+    monkeypatch.setattr(settings, "zernio_from", "GUAUWOOW")
+    assert sms.provider() == "zernio"
+    assert sms.send_otp("+525512345678", "333444") == "zernio"
+    url, payload, headers = calls[0]
+    assert url == "https://zernio.com/api/v1/sms/messages"
+    assert payload["from"] == "GUAUWOOW" and payload["to"] == "+525512345678" and "333444" in payload["text"]
+    assert headers["Authorization"] == "Bearer zrn_live_123"
 
 
 def test_sms_provider_fallbacks(monkeypatch):
@@ -332,16 +346,21 @@ def test_google_new_user_and_terms(client, google_on, monkeypatch):
     state, nonce = _start_login(client, "?accepted_terms=1&marketing_opt_in=1")
     r = client.get("/auth/google/callback", params={"code": "codigo-bueno", "state": state},
                    cookies={"pf_oauth_state": nonce}, follow_redirects=False)
-    assert r.status_code == 302 and r.headers["location"].startswith("http://localhost:8082/app/?token=")
+    assert r.status_code == 302 and r.headers["location"].startswith("http://localhost:8082/app/#token=")
     assert seen[0]["redirect_uri"] == "http://localhost:8082/auth/google/callback"
     token = r.headers["location"].split("token=")[1]
     me = client.get("/users/me", headers={"Authorization": f"Bearer {token}"}).json()
     assert me["email"] == email and me["full_name"] == "Gina" and me["has_password"] is False
     assert me["phone"] is None and me["phone_verification_required"] is True
-    assert me["terms_version"] == settings.legal_terms_version and me["marketing_opt_in"] is True
+    # Los parámetros de la URL no son una aceptación: Términos, edad y correos promocionales se dan en la app
+    assert me["terms_accepted_at"] is None and me["marketing_opt_in"] is False and me["age_declaration_required"] is True
     # Restringido hasta agregar y verificar teléfono
     h = {"Authorization": f"Bearer {token}"}
     assert client.post("/lost-reports", headers=h, json={"dog_name": "G", "report_type": "lost"}).status_code == 403
+    r = client.post("/users/me/terms", headers=h, json={"accepted_terms": True, "marketing_opt_in": True,
+                                                        "is_adult": True, "birth_date": "1990-01-01"})
+    assert r.status_code == 200, r.text
+    assert r.json()["terms_version"] == settings.legal_terms_version and r.json()["marketing_opt_in"] is True
     client.cookies.clear()
 
 
@@ -374,7 +393,8 @@ def test_google_rejects_unverified_email_and_bad_code(client, google_on, user, m
 def clean_env(monkeypatch):
     import os
     for key in list(os.environ):
-        if key.startswith(("CORS_", "WHATSAPP_", "SMS", "SMSMASIVOS_", "POSTGRES_", "ALLOW_DEMO", "SECRET_KEY", "DATABASE_URL")):
+        if key.startswith(("CORS_", "WHATSAPP_", "SMS", "SMSMASIVOS_", "POSTGRES_", "ALLOW_DEMO", "SECRET_KEY", "DATABASE_URL",
+                           "PUBLIC_BASE_URL", "SMTP_", "MERCADOPAGO_", "SHOP_", "TWILIO_", "REQUIRE_PHONE")):
             monkeypatch.delenv(key, raising=False)
 
 
@@ -382,7 +402,9 @@ def _prod(**overrides):
     base = dict(
         _env_file=None, environment="production", secret_key="x" * 64,
         database_url="postgresql+psycopg2://patitasfind:Muy-Segura-1@postgres:5432/patitasfind",
-        cors_origins="https://patitasfind.mx", sms_provider="smsmasivos", smsmasivos_api_key="k",
+        cors_origins="https://guauwoow.com", sms_provider="smsmasivos", smsmasivos_api_key="k",
+        public_base_url="https://guauwoow.com", smtp_host="smtp.ejemplo.mx", smtp_from="GuauWoow <no-reply@guauwoow.com>",
+        private_files_key="MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY=",  # 32 bytes en base64
     )
     base.update(overrides)
     return Settings(**base)
@@ -404,6 +426,13 @@ def test_production_settings_ok(clean_env):
     ({"cors_origin_regex": r"https://.*\.trycloudflare\.com"}, "trycloudflare"),
     ({"smsmasivos_api_key": None}, "SMSMASIVOS_API_KEY"),
     ({"sms_provider": "dev"}, "SMS_PROVIDER=dev"),
+    ({"secret_key": "corta"}, "SECRET_KEY es muy corta"),
+    ({"public_base_url": None}, "PUBLIC_BASE_URL"),
+    ({"public_base_url": "http://guauwoow.com"}, "PUBLIC_BASE_URL"),
+    ({"cors_origins": "https://guauwoow.com,http://localhost:8082"}, "CORS_ORIGINS"),
+    ({"smtp_host": None}, "SMTP_HOST"),
+    ({"mercadopago_access_token": "APP_USR-1"}, "MERCADOPAGO_WEBHOOK_SECRET"),
+    ({"shop_enabled": True}, "SHOP_ENABLED"),
 ])
 def test_production_refuses_insecure(clean_env, overrides, needle):
     with pytest.raises(Exception) as exc:

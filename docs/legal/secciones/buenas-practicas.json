@@ -1,0 +1,1026 @@
+{
+  "domain": "buenas-practicas",
+  "generated_at": "2026-10-17",
+  "disclaimer": "No es asesoría legal. Preparado con apoyo de IA a partir de legal-research-verified.json (50 hallazgos: 33 verificados, 4 corregidos, 13 agregados por el verificador). Todo hallazgo con confianza media o veredicto agregado_por_verificador debe confirmarlo un abogado o contador mexicano. La tienda está activa por decisión del dueño, por lo que los requisitos de tienda son bloqueantes para el lanzamiento.",
+  "pages": [
+    {
+      "slug": "/legal/",
+      "title": "Centro Legal y de Transparencia",
+      "purpose": "Página central que agrupa todos los documentos legales y de transparencia por rol y por tema, con acceso visible desde toda la plataforma.",
+      "required_contents": [
+        "Tarjetas por rol (Para todos, Adoptantes y usuarios, Refugios y casas de paso, Compradores, Donantes, Clínicas, Autoridades) y por tema (Privacidad, Reglas, Dinero, Seguridad, Transparencia); cada tarjeta con título, resumen de una línea, versión y fecha 'vigente desde'",
+        "Buscador, bloque 'Lo esencial en un minuto' y 'Nuestros compromisos' (no vendemos datos ni animales; sin publicidad dirigida sin consentimiento)",
+        "Bloque 'Normas que seguimos': guía por la NMX-COE-001-SCFI-2018 (art. 76 Bis 1 LFPC) y estado del dictamen de verificación y de la adhesión al Código de Ética de Profeco, sin afirmar cumplimiento certificado",
+        "Bloque compacto de identidad del operador (razón social, RFC, domicilio, contactos)",
+        "Banner 'Próximos cambios' cuando haya una versión futura publicada",
+        "Enlace 'Legal y transparencia' en pie de landing, app, 404, correos, checkout y Ajustes; todas las rutas en sitemap.xml"
+      ],
+      "legal_basis": [
+        "Lineamientos del Aviso de Privacidad (DOF 17-01-2013), Decimoprimero, último párrafo (referencia interpretativa)",
+        "NMX-COE-001-SCFI-2018, numerales 4.1 y 5.2.1",
+        "Código de Ética en materia de Comercio Electrónico (DOF 26-02-2021), art. 7",
+        "LFPDPPP 2025, art. 16",
+        "LFPC, arts. 76 Bis fracc. III y IV, 76 Bis 1"
+      ],
+      "finding_ids": ["buenas-practicas-01", "buenas-practicas-02", "buenas-practicas-04", "buenas-practicas-06", "buenas-practicas-36", "buenas-practicas-v01"]
+    },
+    {
+      "slug": "/legal/quienes-somos",
+      "title": "Quiénes somos y datos de contacto",
+      "purpose": "Identificar al operador y sus medios de contacto y reclamación antes de cualquier transacción.",
+      "required_contents": [
+        "Razón social, nombre comercial, marca, RFC, domicilio físico en México y domicilio para notificaciones",
+        "Teléfono, correo general, correo de privacidad, correo de facturación, correo legal, WhatsApp, horario de atención y plazo de respuesta",
+        "Persona o departamento de datos personales (art. 29 LFPDPPP)",
+        "Portales externos y cuentas oficiales con los que opera",
+        "Datos tomados de app/legal/datos-legales.json; el bloqueo de despliegue con marcadores vacíos debe cubrir esta página"
+      ],
+      "legal_basis": [
+        "LFPC, art. 76 Bis fracc. III",
+        "NMX-COE-001-SCFI-2018, numeral 5.2.1.1 incisos a) a g)",
+        "Código de Ética CE, art. 6 inciso a)",
+        "LFPDPPP 2025, arts. 15 fracc. I y 29"
+      ],
+      "finding_ids": ["buenas-practicas-02"]
+    },
+    {
+      "slug": "/legal/terminos",
+      "title": "Términos y condiciones generales",
+      "purpose": "Contrato de adhesión base para todos los usuarios, con anexos por rol.",
+      "required_contents": [
+        "Aceptación separada del consentimiento de datos personales (acto distinto)",
+        "Conductas prohibidas con enlace a /legal/comunidad",
+        "Registro solo para mayores de 18 años y declaración de mayoría de edad",
+        "Cláusula de disponibilidad sin SLA numérico, con excepción de caso fortuito o fuerza mayor, enlazada a /estado",
+        "Remisión a los anexos por rol y a la política de cambios; sin cláusula de modificación unilateral ni 'el uso continuado implica aceptación' para cambios materiales",
+        "Versión, fecha de vigencia, PDF, historial"
+      ],
+      "legal_basis": [
+        "NMX-COE-001-SCFI-2018, numerales 4.4, 5.2.1.2, 5.2.1.9, 5.2.2",
+        "LFPC, arts. 76 Bis 1, 85 y 90 fracc. I",
+        "Código Civil Federal, art. 1797",
+        "CPEUM, art. 4o. (prohibición del maltrato animal)"
+      ],
+      "finding_ids": ["buenas-practicas-03", "buenas-practicas-04", "buenas-practicas-13", "buenas-practicas-31", "buenas-practicas-33"]
+    },
+    {
+      "slug": "/legal/terminos-refugios",
+      "title": "Términos para refugios",
+      "purpose": "Anexo con versión propia que acepta cada refugio al solicitar la verificación.",
+      "required_contents": [
+        "Verificación, publicación de perros, uso de datos de adoptantes conforme al acuerdo de datos, donativos y tienda",
+        "Consentimiento para publicar agregados mensuales de donativos, ventas y liquidaciones en el tablero de transparencia",
+        "Obligaciones y responsabilidades delimitadas frente a las del operador (tabla '¿Quién responde por qué?')",
+        "Causas de revocación de la verificación"
+      ],
+      "legal_basis": [
+        "NMX-COE-001-SCFI-2018, numerales 4.4, 5.1.7 y 5.3.6",
+        "LFPDPPP 2025, art. 35",
+        "LISR, art. 82 fracc. VI (obligación de la donataria)"
+      ],
+      "finding_ids": ["buenas-practicas-03", "buenas-practicas-11", "buenas-practicas-20"]
+    },
+    {
+      "slug": "/legal/terminos-casas-de-paso",
+      "title": "Términos para casas de paso",
+      "purpose": "Anexo con versión propia para hogares temporales.",
+      "required_contents": [
+        "Verificación, responsabilidades sobre el animal en custodia temporal, uso de datos recibidos conforme al acuerdo de datos",
+        "Delimitación de responsabilidades frente al operador y al refugio"
+      ],
+      "legal_basis": [
+        "NMX-COE-001-SCFI-2018, numerales 4.4 y 5.2.2",
+        "LFPDPPP 2025, art. 35"
+      ],
+      "finding_ids": ["buenas-practicas-03", "buenas-practicas-11"]
+    },
+    {
+      "slug": "/legal/terminos-tienda",
+      "title": "Términos de la Tienda para compradores",
+      "purpose": "Condiciones de compra a refugios vendedores a través de la plataforma; se aceptan en el primer pedido.",
+      "required_contents": [
+        "Tabla '¿Quién responde por qué?' (operador intermediario frente a refugio vendedor), nunca con obligaciones inferiores a la LFPC",
+        "Precios con leyenda 'IVA incluido', envío y total antes de pagar",
+        "Descripción del flujo de revisión y confirmación antes de pagar (resumen, editar, cancelar)",
+        "Vigencia de ofertas y promociones y restricciones de pago o entrega",
+        "Confidencialidad: los datos del comprador solo se comparten con el refugio que vende ese pedido y la paquetería",
+        "Política de reseñas: solo compradores verificados, moderación, no se borran reseñas negativas legítimas",
+        "Leyenda: solo mayores de 18 años; enlaces a envíos, devoluciones, facturación y tarifas"
+      ],
+      "legal_basis": [
+        "NMX-COE-001-SCFI-2018, numerales 4.4, 5.1.7, 5.3.1, 5.3.2.1, 5.3.3, 5.3.6, 6.1, 6.2, 7.1",
+        "LFPC, arts. 7 Bis, 76 Bis fracc. I, 76 Bis 1 fracc. II y III",
+        "LIVA, arts. 1o.-A BIS y 18-J fracc. I (leyenda 'IVA incluido')",
+        "Código de Ética CE, arts. 6 inciso b) y 7 fracc. I a III"
+      ],
+      "finding_ids": ["buenas-practicas-03", "buenas-practicas-23", "buenas-practicas-v02", "buenas-practicas-v08", "buenas-practicas-v10"]
+    },
+    {
+      "slug": "/legal/condiciones-donativos",
+      "title": "Condiciones de donativos",
+      "purpose": "Términos que acepta el donante en la pantalla de donativo.",
+      "required_contents": [
+        "Naturaleza gratuita del donativo y destino al refugio elegido",
+        "Comisiones, reembolsos, contracargos y qué pasa si el refugio pierde la verificación",
+        "Deducibilidad solo con donataria autorizada y CFDI emitido por el refugio",
+        "Donativos recurrentes: periodicidad, monto, fecha, consentimiento expreso, aviso previo de renovación y cancelación inmediata",
+        "Leyenda: solo mayores de 18 años"
+      ],
+      "legal_basis": [
+        "Código Civil Federal, art. 2332",
+        "LISR, arts. 27 fracc. I y 151 fracc. III",
+        "LFPC, art. 76 Bis fracc. V, VIII y IX (aplicación por analogía si no es relación de consumo)",
+        "LFPIORPI, art. 17 fracc. XIII"
+      ],
+      "finding_ids": ["buenas-practicas-03", "buenas-practicas-19", "buenas-practicas-33"]
+    },
+    {
+      "slug": "/legal/terminos-vendedores",
+      "title": "Términos para refugios vendedores",
+      "purpose": "Comisión mercantil, liquidaciones, retenciones y obligaciones del refugio que vende en la Tienda.",
+      "required_contents": [
+        "Porcentaje de comisión de la tienda y si incluye IVA; quién absorbe la comisión de Mercado Pago",
+        "Calendario de liquidación, retención para devoluciones y contracargos, retención de liquidaciones ante avisos de propiedad intelectual pendientes",
+        "Retenciones fiscales y CFDI de retenciones si aplican; información que la plataforma puede compartir con el SAT",
+        "Obligaciones del refugio: veracidad, existencias, envío en plazo, garantía, atención a devoluciones",
+        "Productos prohibidos: animales vivos, medicamentos sin receta, alimentos sin etiquetado NOM, productos con marcas o imágenes ajenas",
+        "Prohibición de reutilizar o ceder datos de compradores",
+        "Sanciones y suspensión; estado de cuenta descargable en el panel"
+      ],
+      "legal_basis": [
+        "Código de Comercio, art. 273",
+        "NMX-COE-001-SCFI-2018, numerales 5.1.7 y 5.3.6",
+        "LIVA, arts. 1o.-A BIS y 18-J fracc. II",
+        "LISR, art. 113-A",
+        "CFF, art. 30-B",
+        "LFPC, art. 76 Bis fracc. I",
+        "LFDA, art. 114 Octies fracc. II inciso e)"
+      ],
+      "finding_ids": ["buenas-practicas-03", "buenas-practicas-25", "buenas-practicas-v02", "buenas-practicas-v11"]
+    },
+    {
+      "slug": "/legal/cambios",
+      "title": "Política de cambios a documentos legales",
+      "purpose": "Explicar cómo se anuncian, aceptan y aplican los cambios, distinguiendo actualización de nuevo aviso con reconsentimiento.",
+      "required_contents": [
+        "Aviso previo de al menos 30 días naturales para cambios materiales por correo, app y banner con comparación lado a lado",
+        "Modal de reaceptación con registro de versión; salida sin penalización con descarga de datos",
+        "No retroactividad: pedidos, donativos y adopciones en curso siguen con la versión vigente al celebrarse",
+        "Cambios menores solo en changelog",
+        "Ruta de nuevo aviso con reconsentimiento cuando cambie la identidad del responsable, se recaben datos sensibles, patrimoniales o financieros adicionales, cambien finalidades o transferencias, o se agregue un proveedor en nuevo país o con nuevo tipo de dato",
+        "Sin 'el uso continuado implica aceptación' para cambios materiales"
+      ],
+      "legal_basis": [
+        "LFPDPPP 2025, arts. 8, 15 fracc. III y VI, 35",
+        "Lineamientos del Aviso de Privacidad, Trigésimo segundo y Trigésimo tercero fracc. I a IV",
+        "LFPC, art. 90 fracc. I",
+        "Código Civil Federal, art. 1797"
+      ],
+      "finding_ids": ["buenas-practicas-04", "buenas-practicas-v05"]
+    },
+    {
+      "slug": "/legal/historial",
+      "title": "Historial de versiones",
+      "purpose": "Archivo público de todas las versiones de cada documento y registro de las revisiones normativas.",
+      "required_contents": [
+        "Por documento: fecha de vigencia, resumen de cambios, HTML archivado, PDF y hash SHA-256",
+        "Opcional: comparación entre versiones y constancias NOM-151",
+        "Registro de cada revisión trimestral del marco legal aunque no haya cambios"
+      ],
+      "legal_basis": [
+        "Código de Comercio, arts. 49, 89 bis y 93 (si el operador es comerciante)",
+        "NOM-151-SCFI-2016",
+        "CFF, art. 30"
+      ],
+      "finding_ids": ["buenas-practicas-04", "buenas-practicas-05", "buenas-practicas-06", "buenas-practicas-35"]
+    },
+    {
+      "slug": "/legal/privacidad",
+      "title": "Aviso de privacidad integral",
+      "purpose": "Aviso integral del responsable, con secciones enlazadas desde los avisos cortos.",
+      "required_contents": [
+        "Identidad y domicilio del responsable y persona o departamento de datos personales",
+        "Finalidades primarias y secundarias con casillas no premarcadas; opciones para limitar uso y divulgación; medios ARCO",
+        "Sección de encargados y transferencias alimentada por el mismo JSON que /legal/proveedores; cláusula de aceptación o no de la transferencia a refugios",
+        "Finalidad y transferencia a autoridades en reportes de maltrato (art. 36 fracc. I y V)",
+        "Declaración de que los datos de tarjeta nunca pasan por GuauWoow",
+        "Confidencialidad del personal con acceso a datos, vigente tras terminar la relación",
+        "Sección de menores con contacto para madres, padres o tutores",
+        "Mecanismo de comunicación de cambios y supuestos de nuevo aviso",
+        "Versión, fecha, PDF, historial"
+      ],
+      "legal_basis": [
+        "LFPDPPP 2025, arts. 13, 14, 15, 16, 17, 20, 35, 36",
+        "Lineamientos del Aviso de Privacidad, Décimo y Trigésimo tercero",
+        "LFPC, art. 76 Bis fracc. I",
+        "NMX-COE-001-SCFI-2018, numerales 8.1 incisos d), e) y l)"
+      ],
+      "finding_ids": ["buenas-practicas-08", "buenas-practicas-10", "buenas-practicas-11", "buenas-practicas-33", "buenas-practicas-v02", "buenas-practicas-v03", "buenas-practicas-v05", "buenas-practicas-v06", "buenas-practicas-v09"]
+    },
+    {
+      "slug": "/legal/privacidad/simplificado",
+      "title": "Aviso de privacidad simplificado",
+      "purpose": "Aviso corto que se muestra al recabar datos por medios electrónicos, con enlace al integral.",
+      "required_contents": [
+        "Identidad del responsable, finalidades, opciones para limitar uso, y sitio del aviso integral (fracciones I a IV del art. 15)"
+      ],
+      "legal_basis": [
+        "LFPDPPP 2025, art. 16 fracc. II"
+      ],
+      "finding_ids": ["buenas-practicas-08"]
+    },
+    {
+      "slug": "/legal/privacidad/refugios",
+      "title": "Aviso de privacidad para refugios y casas de paso",
+      "purpose": "Informar a las personas responsables de refugios y casas de paso sobre el tratamiento de sus documentos de verificación.",
+      "required_contents": [
+        "Datos solicitados: INE del responsable, acta constitutiva, comprobante de domicilio, constancia AGATAN opcional",
+        "Finalidad (verificación de identidad y existencia), quién los ve (solo administradores verificadores bajo convenio de confidencialidad), almacenamiento privado cifrado",
+        "Plazo de conservación y destino al revocar o cerrar la cuenta",
+        "Datos personales del responsable nunca públicos"
+      ],
+      "legal_basis": [
+        "LFPDPPP 2025, arts. 15, 16 fracc. II, 18 y 20"
+      ],
+      "finding_ids": ["buenas-practicas-08", "buenas-practicas-27", "buenas-practicas-v06"]
+    },
+    {
+      "slug": "/legal/privacidad/whatsapp",
+      "title": "Aviso de privacidad del bot de WhatsApp",
+      "purpose": "Aviso corto enviado en el primer mensaje del bot antes de pedir foto o ubicación, con enlace al integral.",
+      "required_contents": [
+        "Responsable, finalidad (registrar el reporte y avisar a personas cercanas), datos tratados (número, mensajes, foto, ubicación)",
+        "Comando BAJA para borrar la conversación; enlace al aviso integral"
+      ],
+      "legal_basis": [
+        "LFPDPPP 2025, arts. 15 y 16 fracc. II"
+      ],
+      "finding_ids": ["buenas-practicas-08"]
+    },
+    {
+      "slug": "/legal/privacidad/facebook",
+      "title": "Publicaciones importadas de Facebook",
+      "purpose": "Medida compensatoria para personas cuyas publicaciones de grupos públicos se importaron sin obtener sus datos directamente.",
+      "required_contents": [
+        "Qué se importa (foto y texto sin nombres ni teléfonos, enlace al original), expiración a 30 días, proveedor de scraping",
+        "Botón 'Retirar mi publicación importada' sin cuenta, con acuse",
+        "Derecho de oposición (art. 26) y canal ARCO",
+        "Advertencia interna: la NMX 8.1 k) exige tratamiento informado y consentido para datos de redes sociales; la licitud está pendiente de dictamen"
+      ],
+      "legal_basis": [
+        "LFPDPPP 2025, arts. 17 (medidas compensatorias) y 26",
+        "NMX-COE-001-SCFI-2018, numeral 8.1 inciso k)",
+        "LFDA, art. 114 Octies (fotos con derechos de autor)"
+      ],
+      "finding_ids": ["buenas-practicas-08", "buenas-practicas-15"]
+    },
+    {
+      "slug": "/legal/centro-de-privacidad",
+      "title": "Centro de Privacidad",
+      "purpose": "Herramientas de autoservicio y formulario ARCO con folio y seguimiento.",
+      "required_contents": [
+        "Enlaces a Ajustes > Privacidad: descargar datos, eliminar cuenta, rectificar, oponerse o revocar finalidades, cookies, notificaciones, vista previa del perfil público",
+        "Formulario ARCO (acceso, rectificación, cancelación, oposición, revocación, limitación) con folio, acuse, estado y fechas límite (20 días + 15 días)",
+        "Ampliación única del plazo con motivo; acreditación de identidad; gratuidad incluso en solicitudes reiteradas",
+        "Apartado 'Información usada para comunicaciones promocionales' (LFPC art. 16, 30 días) o declaración de que no se hace publicidad",
+        "Cómo acudir a la Secretaría Anticorrupción y Buen Gobierno"
+      ],
+      "legal_basis": [
+        "LFPDPPP 2025, arts. 15 fracc. IV y V, 21 a 34 (en particular 28, 29, 31, 33 y 34)",
+        "NMX-COE-001-SCFI-2018, numeral 8.1 incisos b), i) y j)",
+        "LFPC, art. 16"
+      ],
+      "finding_ids": ["buenas-practicas-07", "buenas-practicas-v07", "buenas-practicas-v12"]
+    },
+    {
+      "slug": "/legal/cookies",
+      "title": "Política de cookies y almacenamiento local",
+      "purpose": "Informar sobre tecnologías de rastreo, cómo deshabilitarlas y gestionar el consentimiento.",
+      "required_contents": [
+        "Tabla viva: nombre, proveedor, finalidad, categoría (esencial o analítica), duración, tercero, país; incluye cookies, localStorage, sessionStorage, service worker y píxeles",
+        "Banner con 'Rechazar' al mismo peso que 'Aceptar'; enlace persistente 'Configurar cookies' en el pie",
+        "Consentimiento previo para analítica (PostHog) y medio de revocación; versión aceptada registrada"
+      ],
+      "legal_basis": [
+        "Lineamientos del Aviso de Privacidad, Trigésimo primero",
+        "NMX-COE-001-SCFI-2018, numeral 5.4.1 incisos a) a c)",
+        "LFPDPPP 2025, art. 15 fracc. III y IV"
+      ],
+      "finding_ids": ["buenas-practicas-09"]
+    },
+    {
+      "slug": "/legal/proveedores",
+      "title": "Proveedores y encargados de datos",
+      "purpose": "Lista pública de subencargados y receptores de transferencias con historial de cambios.",
+      "required_contents": [
+        "Tabla: proveedor, servicio, datos que recibe, país o región, tipo (remisión a encargado o transferencia), salvaguarda (contrato, DPA o términos), certificaciones, fecha de alta",
+        "Historial de cambios de proveedores con aviso previo para altas con nuevo país o nuevo tipo de dato (dispara nuevo aviso con reconsentimiento)",
+        "JSON fuente compartido con la sección de encargados del aviso integral",
+        "Mención del procesador de pagos y de que los datos de tarjeta no pasan por GuauWoow"
+      ],
+      "legal_basis": [
+        "LFPDPPP 2025, arts. 2 fracc. XX, 13, 35 y 36",
+        "Lineamientos del Aviso de Privacidad, Trigésimo tercero fracc. IV"
+      ],
+      "finding_ids": ["buenas-practicas-10", "buenas-practicas-v05", "buenas-practicas-v09"]
+    },
+    {
+      "slug": "/legal/refugios/acuerdo-de-datos",
+      "title": "Acuerdo de datos con refugios y casas de paso",
+      "purpose": "Cláusulas públicas que acepta cada refugio y casa de paso como receptor de datos de adoptantes y compradores.",
+      "required_contents": [
+        "Uso exclusivo para evaluar y dar seguimiento a la adopción o preparar el pedido; no reutilización para venta, publicidad, listas de clientes ni listas negras",
+        "Confidencialidad; plazo de conservación y borrado tras la adopción o el rechazo",
+        "Atender o reenviar solicitudes ARCO; avisar vulneraciones; auditoría y revocación de la verificación",
+        "Consentimiento para publicar agregados en el tablero de transparencia",
+        "Texto y casilla de aceptación de la transferencia en la ficha del perro antes del cuestionario"
+      ],
+      "legal_basis": [
+        "LFPDPPP 2025, arts. 35 y 36 fracc. IV",
+        "LFPC, art. 76 Bis fracc. I"
+      ],
+      "finding_ids": ["buenas-practicas-11", "buenas-practicas-v02"]
+    },
+    {
+      "slug": "/legal/ia-y-algoritmos",
+      "title": "IA y algoritmos",
+      "purpose": "Explicar en lenguaje claro la comparación de fotos con IA, el puntaje de compatibilidad, el ranking de refugios y las alertas cercanas.",
+      "required_contents": [
+        "Comparación de fotos: proveedor (Alibaba Cloud DashScope, región internacional en Singapur), qué se envía (foto sin EXIF) y qué no, caché, 'una coincidencia es una sugerencia, no una confirmación'",
+        "Puntaje de compatibilidad: variables, no decide la adopción, siempre hay revisión humana, derecho a pedir revisión humana o a no recibir puntaje (oposición al tratamiento automatizado)",
+        "Ranking y puntos de refugios y si influyen en el orden para donar",
+        "Radio de alertas de 5 km y redondeo de coordenadas",
+        "Métricas de IA publicadas en el informe de transparencia"
+      ],
+      "legal_basis": [
+        "LFPDPPP 2025, arts. 15 fracc. III y 26 fracc. II",
+        "LFPC, art. 76 Bis fracc. IV y VII"
+      ],
+      "finding_ids": ["buenas-practicas-12"]
+    },
+    {
+      "slug": "/legal/comunidad",
+      "title": "Lineamientos de la Comunidad",
+      "purpose": "Reglas de conducta con ejemplos de lo permitido y lo prohibido, enlazadas a sanciones y moderación.",
+      "required_contents": [
+        "Prohibido: venta o anticipo por animales, crianza para venta, peleas, maltrato, estafas de rescate o recompensa, reportes falsos, acoso y doxxing, fotos de menores identificables, datos de terceros, animales vivos en la Tienda",
+        "Motivos de reporte destacados 'Venta de animales' y 'Maltrato'",
+        "Cuándo GuauWoow remite reportes de maltrato a la autoridad y cómo puede denunciar el usuario (PAOT, Agencia de Atención Animal, Fiscalía en CDMX; autoridad estatal fuera)",
+        "Nota de actualización pendiente ante la Ley General de Bienestar Animal cuando se publique"
+      ],
+      "legal_basis": [
+        "CPEUM, art. 4o.",
+        "Ley de Protección y Bienestar de los Animales de la CDMX, arts. 25 fracc. III, IV y V, 25 Bis y 26",
+        "LFDA, art. 114 Octies fracc. II inciso c) (política pública de reincidentes)"
+      ],
+      "finding_ids": ["buenas-practicas-13", "buenas-practicas-16", "buenas-practicas-v03"]
+    },
+    {
+      "slug": "/legal/adopcion-responsable",
+      "title": "Política de adopción responsable",
+      "purpose": "Proceso de adopción, límites a lo que puede pedir un refugio, compromisos del adoptante y seguimiento.",
+      "required_contents": [
+        "Proceso paso a paso con revisión humana del refugio",
+        "Qué puede y qué no puede pedir un refugio; decisión sobre la cuota de recuperación (prohibida, o permitida solo con comprobantes veterinarios y tope publicado)",
+        "Compromisos del adoptante; devolución o reubicación en lugar de abandono; seguimiento post-adopción",
+        "Documentos recomendados en la entrega: cartilla de vacunación, desparasitación, esterilización cuando aplique (declaración del refugio, no verificación de GuauWoow)",
+        "Recordatorio automático del RUAC para adoptantes de la CDMX con enlace oficial",
+        "Métricas de adopciones y devoluciones en el informe"
+      ],
+      "legal_basis": [
+        "Ley de Protección y Bienestar de los Animales de la CDMX, arts. 4 fracc. XII Bis 1, XXXI Bis 3 y XXXIV Bis 1; 4 BIS 1 fracc. I; 15 inciso b); 25 Bis; 27; 32",
+        "CPEUM, art. 4o."
+      ],
+      "finding_ids": ["buenas-practicas-14", "buenas-practicas-v13"]
+    },
+    {
+      "slug": "/legal/perdidos-y-encontrados",
+      "title": "Política de perros perdidos y encontrados",
+      "purpose": "Explicar qué es público y privado en un reporte, su ciclo de vida, las alertas, el origen de los reportes importados y las reglas antiestafas y de recompensas.",
+      "required_contents": [
+        "Público: zona aproximada, fotos sin EXIF, descripción; privado: teléfono, dirección exacta",
+        "Cierre y expiración de reportes (importados: 30 días)",
+        "Alertas a vecinos en 5 km (opt-in), refugios y casas de paso",
+        "Origen de reportes importados (bot de WhatsApp, botón de voluntarios, grupos públicos de Facebook vía proveedor de scraping) y retiro sin cuenta",
+        "Guía antiestafas: nunca pagar antes de ver al perro",
+        "Recompensas: se acuerdan entre usuarios; GuauWoow no las garantiza ni retiene"
+      ],
+      "legal_basis": [
+        "LFPDPPP 2025, arts. 17 y 26",
+        "NMX-COE-001-SCFI-2018, numeral 8.1 inciso k)",
+        "LFDA, art. 114 Octies"
+      ],
+      "finding_ids": ["buenas-practicas-15"]
+    },
+    {
+      "slug": "/legal/moderacion",
+      "title": "Moderación, reportes, sanciones y apelaciones",
+      "purpose": "Transparentar el proceso de moderación, la escala de sanciones, la política de reincidencia y la apelación ante una persona distinta.",
+      "required_contents": [
+        "Cómo se reporta y qué pasa después, con tiempos objetivo; el reportante ve el estado",
+        "Escala: advertencia, ocultar contenido, suspensión temporal, expulsión; política pública de reincidencia",
+        "Notificación al afectado con el contenido, la regla violada y el origen de la detección",
+        "Apelación en 15 días revisada por un administrador distinto, con respuesta razonada",
+        "Procedimiento de remisión a la autoridad en reportes de maltrato con indicios verosímiles",
+        "Sin vigilancia general previa; se actúa ante reportes y avisos"
+      ],
+      "legal_basis": [
+        "LFDA, art. 114 Octies fracc. II incisos b) y c), fracc. IV",
+        "NMX-COE-001-SCFI-2018, numeral 10",
+        "Ley de Protección y Bienestar de los Animales de la CDMX, art. 26",
+        "Santa Clara Principles 2.0 (buena práctica)"
+      ],
+      "finding_ids": ["buenas-practicas-16", "buenas-practicas-v03", "buenas-practicas-v11"]
+    },
+    {
+      "slug": "/legal/propiedad-intelectual",
+      "title": "Propiedad intelectual: aviso y contra-aviso",
+      "purpose": "Procedimiento de notificación y retiro de contenido infractor, contra-aviso, restauración y política de reincidentes.",
+      "required_contents": [
+        "Formulario de aviso con los cuatro campos mínimos (titular o representante y contacto, identificación del contenido, manifestación del derecho, ubicación electrónica) y declaración de buena fe",
+        "Formulario de contra-aviso; restauración salvo acción en 15 días hábiles",
+        "Medidas para impedir resubida (hash de imágenes retiradas); política de reincidentes",
+        "Apartado de marcas en la Tienda y regla de no liquidar comisiones de productos infractores",
+        "Aclaración de que no hay vigilancia general previa",
+        "Pendiente: adecuar al formulario del nuevo Reglamento de la LFDA reportado por otro dominio"
+      ],
+      "legal_basis": [
+        "LFDA, art. 114 Septies y art. 114 Octies fracc. II inciso a) y e), fracc. III y IV"
+      ],
+      "finding_ids": ["buenas-practicas-17", "buenas-practicas-v11"]
+    },
+    {
+      "slug": "/legal/autoridades",
+      "title": "Lineamientos para solicitudes de autoridades",
+      "purpose": "Canal, requisitos y reglas con las que GuauWoow atiende requerimientos de autoridades.",
+      "required_contents": [
+        "Canal único (correo legal y domicilio); requisitos: oficio firmado, autoridad competente, fundamento y motivación, datos concretos y plazo",
+        "Contenido de chats solo con orden de autoridad judicial federal",
+        "Procedimiento de emergencia por riesgo a la vida; minimización; aviso al usuario salvo prohibición legal; conservación de solicitudes",
+        "Conteos publicados en el informe de transparencia",
+        "Pendiente: revisar la reforma al art. 16 CPEUM del DOF 07-10-2026"
+      ],
+      "legal_basis": [
+        "CPEUM, art. 16",
+        "LFPDPPP 2025, art. 36 fracc. I, V y VI",
+        "Ley del Sistema Nacional de Investigación e Inteligencia en Materia de Seguridad Pública, art. 26"
+      ],
+      "finding_ids": ["buenas-practicas-18"]
+    },
+    {
+      "slug": "/legal/donativos",
+      "title": "Política de donativos",
+      "purpose": "Explicar el flujo del dinero, comisiones, liquidación a refugios, reembolsos, deducibilidad y límites.",
+      "required_contents": [
+        "Diagrama donante → Mercado Pago → cuenta de GuauWoow → refugio; periodicidad, monto mínimo y medio de liquidación",
+        "Comisiones exactas de Mercado Pago y de GuauWoow; calculadora",
+        "Qué pasa si el refugio pierde la verificación o cierra; reembolsos y contracargos; anonimato frente al refugio",
+        "Deducibilidad solo con donataria autorizada y CFDI del refugio; marcado por refugio",
+        "Límites por donativo para no acercarse a umbrales LFPIORPI (1,605 y 3,210 UMA; UMA 2026 $117.31)",
+        "Donativos recurrentes: periodicidad, monto, fecha, consentimiento expreso, aviso de renovación y cancelación inmediata",
+        "Pantalla de resumen antes de pagar"
+      ],
+      "legal_basis": [
+        "Código Civil Federal, art. 2332",
+        "LISR, arts. 27 fracc. I y 151 fracc. III",
+        "LFPIORPI, art. 17 fracc. XIII",
+        "LFPC, arts. 7 Bis, 76 Bis fracc. V, VIII y IX",
+        "NMX-COE-001-SCFI-2018, numerales 6.2 y 7.1"
+      ],
+      "finding_ids": ["buenas-practicas-19", "buenas-practicas-26", "buenas-practicas-v08"]
+    },
+    {
+      "slug": "/legal/tarifas",
+      "title": "Tarifas y comisiones",
+      "purpose": "Página única con todos los flujos de dinero y sus cargos.",
+      "required_contents": [
+        "Donativo: comisión de Mercado Pago, comisión de GuauWoow, lo que recibe el refugio por cada $100",
+        "Compra: precio, envío, comisión de la tienda y lo que recibe el refugio",
+        "Cargos por medio de pago (meses sin intereses, OXXO) si existen; propina opcional desmarcada por defecto si se agrega",
+        "Fecha de vigencia y aviso previo de cambios de tarifas"
+      ],
+      "legal_basis": [
+        "LFPC, arts. 7 Bis y 76 Bis fracc. V",
+        "NMX-COE-001-SCFI-2018, numeral 9.1 incisos a) a e)"
+      ],
+      "finding_ids": ["buenas-practicas-19", "buenas-practicas-25", "buenas-practicas-26"]
+    },
+    {
+      "slug": "/legal/envios",
+      "title": "Política de envíos",
+      "purpose": "Condiciones, costos, plazos, responsabilidades y rastreo de los envíos de la Tienda.",
+      "required_contents": [
+        "Zonas de cobertura, paqueterías y costo por zona o peso",
+        "Plazo de preparación por refugio y plazo de tránsito",
+        "Responsabilidad por daño, pérdida o retraso y cómo reclamar ante la paquetería",
+        "Rastreo en 'Mis pedidos' (transportista, guía, fechas)",
+        "Costo de envío y total mostrados antes de pagar"
+      ],
+      "legal_basis": [
+        "NMX-COE-001-SCFI-2018, numerales 5.3.2.1 inciso f), 9.1 inciso c), 9.2, 9.2.1, 9.2.2 y 9.2.3",
+        "Código de Ética CE, art. 6 incisos k) y n)",
+        "LFPC, art. 7 Bis"
+      ],
+      "finding_ids": ["buenas-practicas-21"]
+    },
+    {
+      "slug": "/legal/devoluciones",
+      "title": "Devoluciones, cancelaciones, reembolsos y garantías",
+      "purpose": "Derecho de revocación, condiciones de devolución, reembolsos y garantías en la Tienda.",
+      "required_contents": [
+        "Revocación en 5 días hábiles desde la entrega con botón 'Cancelar o devolver'; flete y seguro de regreso a cargo del comprador",
+        "Domicilio de devolución; quién paga el envío en caso de defecto o error del vendedor",
+        "Condiciones (sin usar, empaque original) y exclusiones informadas antes de comprar",
+        "Plazo y medio del reembolso (mismo medio de pago en Mercado Pago)",
+        "Garantía mínima de 90 días cuando se ofrezca; reposición, devolución o bonificación por defectos",
+        "CFDI de egreso por reembolso"
+      ],
+      "legal_basis": [
+        "LFPC, arts. 56, 77 y 92",
+        "NMX-COE-001-SCFI-2018, numerales 5.2.1.4, 5.2.1.6, 5.2.1.14, 11.1 y 11.2",
+        "Código de Ética CE, art. 6 incisos c), d) y e)"
+      ],
+      "finding_ids": ["buenas-practicas-22"]
+    },
+    {
+      "slug": "/legal/resenas",
+      "title": "Política de reseñas",
+      "purpose": "Reglas para reseñas de productos y de clínicas veterinarias.",
+      "required_contents": [
+        "Solo quien compró (o es usuario verificado, en clínicas) puede reseñar; moderación; no se borran reseñas negativas legítimas",
+        "Reseñas de Google Places mostradas con atribución visible y sin alterarlas (condiciones contractuales de Google pendientes de revisión)",
+        "Motivo de reporte para reseñas falsas o abusivas"
+      ],
+      "legal_basis": [
+        "NMX-COE-001-SCFI-2018, numeral 5.3.3",
+        "LFPC, art. 76 Bis fracc. IV"
+      ],
+      "finding_ids": ["buenas-practicas-23", "buenas-practicas-P01"]
+    },
+    {
+      "slug": "/legal/facturacion",
+      "title": "Facturación (CFDI)",
+      "purpose": "Quién emite cada comprobante fiscal, cómo solicitarlo y corregirlo.",
+      "required_contents": [
+        "Quién emite cada CFDI: el refugio por el producto, GuauWoow por su comisión al refugio, solo la donataria por el donativo",
+        "Cómo solicitarlo desde 'Mis pedidos' (RFC, régimen, código postal, uso del CFDI) y plazo",
+        "Corrección y cancelación; CFDI de egreso por reembolso",
+        "Comprobante de transacción enviado siempre por correo con folio, detalle y dirección"
+      ],
+      "legal_basis": [
+        "NMX-COE-001-SCFI-2018, numerales 3.4, 5.2.1.6, 5.2.1.12 y 7.4 incisos a) a e)",
+        "Código de Ética CE, art. 6 incisos l) y m)"
+      ],
+      "finding_ids": ["buenas-practicas-24"]
+    },
+    {
+      "slug": "/legal/verificacion",
+      "title": "Verificación de refugios, casas de paso y clínicas",
+      "purpose": "Explicar qué se revisa, qué significa y qué no significa 'verificado', y cómo se revoca.",
+      "required_contents": [
+        "Tipos de cuenta: A.C. o donataria, persona física rescatista independiente, casa de paso, clínica veterinaria",
+        "Documentos revisados (INE del responsable, acta constitutiva, comprobante de domicilio; opcional RFC, CLUNI, estatus de donataria, constancia AGATAN; cédula del veterinario responsable en clínicas); nunca públicos",
+        "Qué significa 'verificado' (identidad y existencia revisadas en una fecha) y qué no (no garantiza bienestar, uso de fondos ni calidad); no sustituye registros oficiales",
+        "Insignias separadas: 'Identidad verificada', 'Donataria autorizada SAT', 'Opinión de cumplimiento positiva', 'Registrada ante AGATAN'",
+        "Periodicidad de reverificación; causas de revocación y aviso a donantes y adoptantes; cómo reportar",
+        "Convenio de confidencialidad del personal verificador",
+        "Directorio público con fecha de verificación y conteos (verificados, pendientes, rechazados, revocados, tiempo medio)"
+      ],
+      "legal_basis": [
+        "LFPC, art. 76 Bis fracc. IV",
+        "NMX-COE-001-SCFI-2018, numeral 5.3.5",
+        "Ley de Protección y Bienestar de los Animales de la CDMX, arts. 4 fracc. XXXI Bis 3, 10 fracc. III, 32 y 42",
+        "LFPDPPP 2025, art. 20"
+      ],
+      "finding_ids": ["buenas-practicas-27", "buenas-practicas-v04", "buenas-practicas-v06", "buenas-practicas-P01"]
+    },
+    {
+      "slug": "/legal/terminos-clinicas",
+      "title": "Términos para clínicas veterinarias",
+      "purpose": "Anexo propuesto por analogía (sin hallazgo verificado) para la nueva sección de clínicas: registro, verificación, perfil, reseñas y reportes.",
+      "required_contents": [
+        "Registro con cédula profesional del veterinario responsable y verificación administrativa; tratamiento de la cédula como dato personal",
+        "Reglas del perfil y del mapa; reseñas in-app y de Google Places con atribución",
+        "Moderación, reportes y apelaciones; delimitación de responsabilidades frente al operador",
+        "Pendiente de revisión por abogado: base legal específica, condiciones de Google Maps Platform y responsabilidad por reseñas"
+      ],
+      "legal_basis": [
+        "Pendiente de verificación: por analogía con NMX-COE-001-SCFI-2018 numerales 4.4, 5.3.3 y 5.3.5; LFPC art. 76 Bis fracc. IV; LFDA art. 114 Octies; LFPDPPP 2025 arts. 15 y 35"
+      ],
+      "finding_ids": ["buenas-practicas-P01"]
+    },
+    {
+      "slug": "/legal/atencion",
+      "title": "Atención a usuarios, quejas y Profeco",
+      "purpose": "Canales gratuitos de dudas y reclamaciones, horarios, plazos, escalamiento y vías ante Profeco y la autoridad de datos.",
+      "required_contents": [
+        "Canales: formulario con folio, correo, WhatsApp, teléfono; horario; tiempos objetivo de primera respuesta y resolución",
+        "Seguimiento del folio en la app; escalamiento interno; medios alternativos de solución",
+        "Cómo acudir a Profeco (Concilianet y Teléfono del Consumidor, verificados antes de publicar) y a la Secretaría Anticorrupción y Buen Gobierno",
+        "Normativa aplicable y atribuciones de Profeco"
+      ],
+      "legal_basis": [
+        "LFPC, art. 76 Bis fracc. III",
+        "NMX-COE-001-SCFI-2018, numerales 5.2.1.7, 5.2.1.8 y 10.1 a 10.4",
+        "Código de Ética CE, arts. 6 inciso f), 12, 13 y 14",
+        "LFPDPPP 2025, transitorio Cuarto (Secretaría en lugar del INAI)"
+      ],
+      "finding_ids": ["buenas-practicas-28"]
+    },
+    {
+      "slug": "/legal/comunicaciones",
+      "title": "Comunicaciones y notificaciones",
+      "purpose": "Distinguir mensajes transaccionales de promocionales, canales, bajas y frecuencia.",
+      "required_contents": [
+        "Transaccionales (OTP, pedidos, alertas cercanas activadas) frente a promocionales (novedades, campañas)",
+        "Baja de cada tipo con un clic; interruptores por tipo y canal en Ajustes; las alertas cercanas también se pueden desactivar",
+        "Pie de correo promocional con razón social, domicilio, teléfono o correo, datos de Profeco y enlace de baja",
+        "Consulta del REPEP antes de campañas por teléfono o SMS; WhatsApp solo con plantillas y opt-in",
+        "Apartado 'Información usada para comunicaciones promocionales' (LFPC art. 16, 30 días) o declaración de que no se hace publicidad"
+      ],
+      "legal_basis": [
+        "LFPC, arts. 16, 17, 18, 18 Bis y 76 Bis fracc. VI",
+        "Código de Ética CE, art. 9 inciso c)",
+        "NMX-COE-001-SCFI-2018, numeral 5.4.1",
+        "LFPDPPP 2025, art. 15 fracc. IV"
+      ],
+      "finding_ids": ["buenas-practicas-29", "buenas-practicas-v12"]
+    },
+    {
+      "slug": "/legal/seguridad",
+      "title": "Seguridad, divulgación responsable y vulneraciones",
+      "purpose": "Informar las medidas de seguridad sin comprometer el sistema, la política de divulgación responsable y el compromiso de notificar vulneraciones.",
+      "required_contents": [
+        "Medidas generales: TLS, cifrado de respaldos, verificación de teléfono, revocación de sesiones, pagos fuera de GuauWoow, minimización hacia la IA",
+        "Declaración: los datos de tarjeta nunca pasan por GuauWoow; solo identificador, monto y estado del pago; fraude y contracargos con herramientas de Mercado Pago",
+        "'Lo que nunca te pediremos'; cómo reportar una cuenta comprometida",
+        "Política de divulgación responsable con correo de seguridad, alcance y puerto seguro; /.well-known/security.txt",
+        "Compromiso de notificar vulneraciones de forma inmediata y archivo público de avisos",
+        "Confidencialidad del personal con acceso a datos; enlace a /estado"
+      ],
+      "legal_basis": [
+        "NMX-COE-001-SCFI-2018, numerales 5.2.1.11, 7.2 incisos b) a e), 8.1 incisos d) y e), 9.1.3, 9.1.5 y 9.1.6",
+        "LFPDPPP 2025, arts. 18, 19 y 20",
+        "LFPC, art. 76 Bis fracc. II",
+        "RFC 9116 (buena práctica)"
+      ],
+      "finding_ids": ["buenas-practicas-30", "buenas-practicas-v06", "buenas-practicas-v09"]
+    },
+    {
+      "slug": "/.well-known/security.txt",
+      "title": "security.txt",
+      "purpose": "Archivo estándar de contacto para investigadores de seguridad.",
+      "required_contents": [
+        "Contact (correo de seguridad), Expires (12 meses), Preferred-Languages, Policy (/legal/seguridad), Canonical"
+      ],
+      "legal_basis": [
+        "RFC 9116 (estándar IETF, buena práctica)"
+      ],
+      "finding_ids": ["buenas-practicas-30"]
+    },
+    {
+      "slug": "/estado",
+      "title": "Estado del servicio",
+      "purpose": "Disponibilidad medida, mantenimientos e historial de incidentes que sustentan la cláusula de disponibilidad.",
+      "required_contents": [
+        "Disponibilidad de 30 y 90 días por componente (web/app, API, pagos, SMS OTP, bot de WhatsApp, IA)",
+        "Mantenimientos programados con aviso previo",
+        "Historial de incidentes (inicio, fin, impacto, causa) y postmortems breves en incidentes mayores",
+        "Sin SLA numérico comprometido"
+      ],
+      "legal_basis": [
+        "NMX-COE-001-SCFI-2018, numeral 5.2.1.2",
+        "LFPDPPP 2025, art. 19",
+        "Código de Ética CE, art. 2 último párrafo (caso fortuito o fuerza mayor)"
+      ],
+      "finding_ids": ["buenas-practicas-31", "buenas-practicas-30"]
+    },
+    {
+      "slug": "/legal/accesibilidad",
+      "title": "Declaración de accesibilidad",
+      "purpose": "Nivel objetivo, estado actual, limitaciones conocidas, alternativas y contacto.",
+      "required_contents": [
+        "Nivel objetivo WCAG 2.2 AA; estado actual y limitaciones (mapa, swipe de adopción); alternativas (lista en lugar de mapa)",
+        "Cómo pedir documentos en formato accesible; contacto; fecha de la última revisión",
+        "Páginas legales navegables con lector de pantalla y PDF etiquetado"
+      ],
+      "legal_basis": [
+        "Código de Ética CE, art. 11 (adhesión voluntaria)",
+        "W3C WCAG 2.2 (buena práctica)"
+      ],
+      "finding_ids": ["buenas-practicas-34"]
+    },
+    {
+      "slug": "/legal/marco-legal",
+      "title": "Marco legal y vigilancia normativa",
+      "purpose": "Lista pública de normas aplicables por tema con enlace oficial y fecha de última revisión.",
+      "required_contents": [
+        "Normas por tema con enlace al texto oficial (DOF, Diputados, Gaceta CDMX, SE, Profeco) y fecha de última reforma",
+        "Compromiso: revisión trimestral y actualización de documentos en máximo 30 días tras un cambio relevante",
+        "Bloque 'Normas que seguimos' (NMX y Código de Ética) sin afirmar cumplimiento certificado",
+        "Avisos de normas pendientes (Ley General de Bienestar Animal, actualización de la LFPDPPP, Decreto NNA)"
+      ],
+      "legal_basis": [
+        "LFPDPPP 2025 (ficha de reformas de Diputados, última reforma DOF 14-11-2025)",
+        "LFPC (última reforma DOF 12-12-2025)",
+        "CFF (última reforma DOF 09-04-2026; art. 30-B DOF 07-11-2025)",
+        "Ley de Protección y Bienestar de los Animales de la CDMX (G.O. 23-07-2026)",
+        "NMX-COE-001-SCFI-2018, numeral 4.1"
+      ],
+      "finding_ids": ["buenas-practicas-35", "buenas-practicas-v01"]
+    },
+    {
+      "slug": "/legal/compromisos",
+      "title": "Código de buenas prácticas de GuauWoow",
+      "purpose": "Compromisos propios medibles (cero venta de animales, transparencia de fondos, privacidad desde el diseño) mientras se evalúa la adhesión al Código de Ética de Profeco.",
+      "required_contents": [
+        "Compromisos con indicador y enlace al informe de transparencia",
+        "Estado de la adhesión al Código de Ética de Profeco y del dictamen NMX, si se obtienen",
+        "Mención de auditorías externas de privacidad si se contratan"
+      ],
+      "legal_basis": [
+        "Código de Ética CE, arts. 2, 15, 16 y 17",
+        "LFPDPPP 2025, art. 37",
+        "NMX-COE-001-SCFI-2018, numerales 8.1 inciso m) y 13-14.5"
+      ],
+      "finding_ids": ["buenas-practicas-36", "buenas-practicas-v01"]
+    },
+    {
+      "slug": "/legal/glosario",
+      "title": "Glosario",
+      "purpose": "Definiciones en lenguaje claro reutilizadas con tooltips en todos los documentos.",
+      "required_contents": [
+        "Responsable, encargado, remisión, transferencia, derechos ARCO, revocación, donataria autorizada, CFDI, comisión mercantil, revocación de 5 días hábiles, casa de paso, refugio verificado, rescatista independiente, RUAC, Secretaría (Anticorrupción y Buen Gobierno)",
+        "Fuente única compartida con la sección de definiciones del aviso integral"
+      ],
+      "legal_basis": [
+        "Lineamientos del Aviso de Privacidad, Décimo fracc. I y II",
+        "Código de Ética CE, art. 10"
+      ],
+      "finding_ids": ["buenas-practicas-37"]
+    },
+    {
+      "slug": "/legal/preguntas-frecuentes",
+      "title": "Preguntas frecuentes legales",
+      "purpose": "Respuestas en lenguaje simple que enlazan a la cláusula exacta.",
+      "required_contents": [
+        "¿Mi donativo es deducible? ¿Quién ve mis respuestas del cuestionario? ¿Pueden cobrarme por adoptar? ¿Qué hago si me piden dinero por devolverme a mi perro? ¿Cómo borro mi cuenta? ¿Cómo retiro una publicación importada de Facebook? ¿Cómo apelo una sanción?"
+      ],
+      "legal_basis": [
+        "Lineamientos del Aviso de Privacidad, Décimo fracc. I y II",
+        "Código de Ética CE, art. 10"
+      ],
+      "finding_ids": ["buenas-practicas-37"]
+    },
+    {
+      "slug": "/transparencia",
+      "title": "Informe de Transparencia",
+      "purpose": "Informe semestral con metodología, en HTML, PDF y CSV/JSON, con nueve ejes de métricas disociadas.",
+      "required_contents": [
+        "Comunidad: usuarios activos, perros publicados, adopciones, devoluciones, reportes, reencuentros, coincidencias de IA sugeridas y confirmadas",
+        "Refugios: verificados, pendientes, rechazados, revocados, tiempo medio; casas de paso activas",
+        "Dinero: donativos brutos, comisiones, neto y saldo pendiente por refugio; GMV, pedidos, cancelaciones, devoluciones, liquidaciones; contracargos",
+        "Moderación: reportes por motivo, acciones, tiempo medio, proactivo frente a reportes, apelaciones y porcentaje revertido, cuentas terminadas, casos remitidos a autoridad",
+        "Privacidad: ARCO por tipo, porcentaje en 20 días, ampliaciones, negativas por causa, revocaciones, quejas ante la Secretaría",
+        "Autoridades: solicitudes, atendidas total o parcialmente, rechazadas, notificadas al usuario",
+        "Propiedad intelectual: avisos, retiros, contra-avisos",
+        "Seguridad y servicio: disponibilidad, incidentes, vulneraciones notificadas, cuentas administrativas activas",
+        "Atención: quejas, tiempos, casos ante Profeco",
+        "Regla de umbral: sin desgloses con menos de 5 casos"
+      ],
+      "legal_basis": [
+        "Buena práctica sin obligación legal; LFPDPPP 2025, arts. 2 fracc. IX (disociación) y 12 (minimización)",
+        "Referentes: Mercado Libre, 3er Reporte de Transparencia (24-05-2022); Santa Clara Principles 2.0 (Numbers)"
+      ],
+      "finding_ids": ["buenas-practicas-32", "buenas-practicas-12", "buenas-practicas-18", "buenas-practicas-27", "buenas-practicas-31", "buenas-practicas-v03"]
+    },
+    {
+      "slug": "/transparencia/donativos",
+      "title": "Tablero de donativos y liquidaciones",
+      "purpose": "Agregados mensuales por refugio de lo recibido, las comisiones y lo transferido.",
+      "required_contents": [
+        "Por refugio y mes: número de donativos y monto bruto, comisión de Mercado Pago y de GuauWoow, neto transferido con fecha y referencia parcial, saldo pendiente con fecha estimada, reembolsos y contracargos",
+        "Estatus del refugio (verificado desde, donataria sí o no con enlace al directorio del SAT) y enlace opcional a su informe de uso de fondos",
+        "Solo agregados; nunca montos individuales con nombre salvo opt-in"
+      ],
+      "legal_basis": [
+        "LISR, art. 82 fracc. VI (obligación de la donataria; para la plataforma es buena práctica)",
+        "LFPDPPP 2025, art. 2 fracc. IX"
+      ],
+      "finding_ids": ["buenas-practicas-20", "buenas-practicas-32"]
+    },
+    {
+      "slug": "/transparencia/datos-abiertos",
+      "title": "Datos abiertos",
+      "purpose": "Descarga de las series del informe en CSV/JSON con diccionario de datos.",
+      "required_contents": [
+        "Series por eje y periodo, diccionario de datos, metodología y regla de umbral"
+      ],
+      "legal_basis": [
+        "Buena práctica (Santa Clara Principles 2.0, Numbers); LFPDPPP 2025, art. 2 fracc. IX"
+      ],
+      "finding_ids": ["buenas-practicas-32"]
+    },
+    {
+      "slug": "/refugios",
+      "title": "Directorio de refugios verificados",
+      "purpose": "Listado público con insignias separadas y fecha de verificación; solo datos de la organización.",
+      "required_contents": [
+        "Fecha de verificación, insignias ('Identidad verificada', 'Donataria autorizada SAT', 'Opinión de cumplimiento positiva', 'Registrada ante AGATAN'), enlace a /legal/verificacion",
+        "Nunca documentos ni datos personales del responsable"
+      ],
+      "legal_basis": [
+        "LFPC, art. 76 Bis fracc. IV",
+        "NMX-COE-001-SCFI-2018, numeral 5.3.5"
+      ],
+      "finding_ids": ["buenas-practicas-27", "buenas-practicas-v04"]
+    }
+  ],
+  "product_requirements": [
+    "[01] Hub /legal/ con tarjetas por rol y tema; enlace 'Legal y transparencia' en pie de landing, app, 404, correos, checkout y Ajustes; sitemap.xml con todas las rutas legales (hoy solo inicio, términos y privacidad).",
+    "[02] app/legal/datos-legales.json como fuente única de identidad del operador; bloqueo de despliegue con marcadores vacíos extendido a /legal/quienes-somos, checkout, pantalla de donativo y correos.",
+    "[03] Registro: separar la aceptación de términos del consentimiento de datos (hoy una sola casilla une edad, términos y privacidad); el refugio acepta su anexo al solicitar verificación; el comprador acepta los términos de la tienda en el primer pedido.",
+    "[04, v05] Tabla legal_document_versions (slug, versión, effective_from, resumen, hash, pdf_path, requires_reconsent) y job de notificación de cambios con 30 días de anticipación; modal de reaceptación.",
+    "[05] Tabla acceptance_log append-only (user_id, documento, versión, timestamp, IP, user-agent, canal, acción, finalidad) conservada 10 años; reemplaza la sobrescritura de User.terms_version y User.privacy_version.",
+    "[06] Plantilla común de documento legal (encabezado con versión y vigencia, PDF generado en el build con hash, índice con anclas, tooltips de glosario, estilos de impresión); CI que valide enlaces internos; la leyenda 'preparado con apoyo de IA' se retira solo tras revisión del abogado.",
+    "[07, v07, v12] Modelo privacy_requests (folio, tipo A/R/C/O/revocación/limitación/lfpc16, received_at, identity_method, identity_verified_at, extended_at, extension_reason, responded_at, effective_at, outcome, denial_cause) y formulario ARCO con folio, acuse y estado en Ajustes > Privacidad; Ajustes con rectificar, oponerse, revocar finalidades y vista previa del perfil público.",
+    "[08] Aviso corto del bot de WhatsApp en el primer mensaje; página /legal/privacidad/facebook con botón 'Retirar mi publicación importada' sin cuenta; avisos just-in-time al pedir ubicación, cuestionario y foto; aviso específico para refugios y casas de paso.",
+    "[09] Página de cookies con tabla viva generada desde un inventario; banner con 'Rechazar' al mismo peso que 'Aceptar'; enlace 'Configurar cookies' en el pie; registro de la versión aceptada; prueba en CI de que PostHog no carga sin consentimiento.",
+    "[10] JSON de proveedores que alimenta /legal/proveedores y la sección de encargados del aviso; historial de cambios de proveedores; aviso previo cuando una alta implique nuevo país o nuevo tipo de dato.",
+    "[11] Casilla de aceptación de transferencia al refugio antes de enviar el cuestionario; texto 'Tus respuestas las verá [Refugio X]'.",
+    "[12] Página de IA y algoritmos; mensajes de coincidencia redactados como sugerencia; opción de no recibir puntaje de compatibilidad y de pedir revisión humana; métricas de IA (sugeridas, confirmadas, descartadas, reencuentros).",
+    "[13, v03] Motivos de reporte destacados 'Venta de animales' y 'Maltrato'; ContentReport con reported_to_authority_at y authority_ref; procedimiento de remisión a la autoridad con conservación de evidencia.",
+    "[14, v13] Recordatorio automático del RUAC para adoptantes en CDMX; campos opcionales en la ficha del perro (vacunas al día, esterilizado, cartilla disponible) mostrados como declaración del refugio.",
+    "[15] Reportes importados con expiración a 30 días, coordenadas redondeadas y datos de contacto privados; retiro sin cuenta.",
+    "[16] ContentReport: notified_at, appeal_status, appeal_reason, appeal_resolved_by (distinto de resolved_by), detection_source; notificaciones al afectado y al reportante; apelación revisada por admin distinto.",
+    "[17, v11] Registro de avisos y contra-avisos de PI con fechas; hash de imágenes retiradas para impedir resubidas; retención de liquidaciones ante avisos pendientes.",
+    "[18] Tabla authority_requests (autoridad, tipo, fecha, fundamento, datos solicitados, decisión, user_notified).",
+    "[19, 20, 25] Modelos payouts y payout_items que liguen donativos y pedidos con cada transferencia; job mensual de conciliación con Mercado Pago; estado de cuenta descargable en el panel del refugio; evaluar Checkout Pro en modo marketplace (split).",
+    "[21, 22] 'Mis pedidos' con transportista, guía, shipped_at, delivered_at y enlace de rastreo; botón 'Cancelar o devolver' activo 5 días hábiles desde la entrega; fechas y motivo de devolución en Order.",
+    "[23, v10] Plantilla de ficha de producto con 'IVA incluido', envío, existencias, garantía, política de devolución y reseñas verificadas; campos promo_valid_from y promo_valid_until en Product y campañas, con bloqueo fuera de vigencia.",
+    "[24] Correo de confirmación con folio, detalle, dirección y medio de entrega del comprobante; solicitud de CFDI desde 'Mis pedidos'; CFDI de egreso en reembolsos.",
+    "[26] Calculadora de tarifas en la pantalla de donativo ('de tus $200 el refugio recibe $X'); propina opcional desmarcada por defecto si se agrega.",
+    "[27, v04, v06] Refuge/FosterHome: verified_at, verification_expires_at, legal_type, is_donataria, rfc_public, revoked_reason, agatan_registration, registro estatal; directorio público con insignias separadas; registro de accesos de admins a documentos y chats; convenio de confidencialidad antes de dar acceso al panel; revocación inmediata de accesos.",
+    "[28] Tickets de atención con fechas para medir primera respuesta y resolución; seguimiento del folio en la app.",
+    "[29] Interruptores por tipo (transaccional, alertas cercanas, novedades, campañas) y canal (correo, WhatsApp, SMS, push); pie legal en correos promocionales; consulta del REPEP antes de campañas por teléfono o SMS.",
+    "[30, v09] /.well-known/security.txt; página de seguridad; verificación en código de que no se persisten datos de tarjeta ni se registran webhooks completos en logs ni Sentry.",
+    "[31] Página /estado (propia o externa) con disponibilidad por componente e historial de incidentes.",
+    "[32] Job semestral de agregación del informe desde privacy_requests, authority_requests, payouts, moderación y tickets; exportación CSV/JSON; regla de umbral de 5 casos.",
+    "[33] Leyenda 'Solo personas mayores de 18 años' en checkout y pantalla de donativo; revisar el Decreto NNA (DOF 14-10-2026) por si exige verificación de edad adicional.",
+    "[34] Chequeo automático de accesibilidad (axe) en la E2E; PDF etiquetado.",
+    "[35] Recordatorio trimestral de vigilancia normativa con registro en /legal/historial.",
+    "[v08] Pantalla de resumen antes de redirigir a Mercado Pago (tienda y donativos) con botón 'Editar' y registro de la versión de términos mostrada.",
+    "[P01] Clínicas: campos de cédula del veterinario responsable (privado), insignia 'Cédula verificada', atribución visible en reseñas de Google Places, motivo de reporte 'clínica'."
+  ],
+  "shop_requirements": [
+    "[02] Bloque de identidad del operador (razón social, RFC, domicilio físico, teléfono, correo, medios de reclamación) visible en el checkout antes de pagar; sin estos datos la tienda no debe estar activa.",
+    "[03] Términos de la Tienda y Términos para Vendedores que delimiten obligaciones del operador intermediario y del refugio vendedor, nunca inferiores a la LFPC; aceptación del comprador en el primer pedido.",
+    "[21] Política de envíos: zonas, paqueterías, costos, plazos de preparación y tránsito, responsabilidad por daño, pérdida o retraso, cómo reclamar; rastreo en 'Mis pedidos'; costo de envío y total antes de pagar.",
+    "[22] Devoluciones: revocación en 5 días hábiles desde la entrega (flete y seguro de regreso a cargo del comprador), domicilio de devolución, exclusiones informadas antes de comprar, reembolso al mismo medio de pago, garantía mínima de 90 días cuando se ofrezca, CFDI de egreso.",
+    "[23] Ficha con descripción suficiente, existencias, precio total en moneda nacional con leyenda 'IVA incluido', garantía, política de devolución y reseñas verificadas de compradores; sin precios ocultos.",
+    "[24] Facturación: quién emite cada CFDI (refugio por el producto, GuauWoow por su comisión), solicitud desde 'Mis pedidos' con RFC, régimen, CP y uso, plazo, corrección y cancelación; comprobante de transacción por correo en toda compra.",
+    "[25] Términos para Vendedores: comisión (y si incluye IVA), quién absorbe la comisión de Mercado Pago, calendario de liquidación, retención para devoluciones y contracargos, retenciones fiscales si aplican (confirmar con contador y RMF vigente), información compartible con el SAT, productos prohibidos (animales vivos, medicamentos sin receta, alimentos sin etiquetado NOM, marcas ajenas), sanciones.",
+    "[26] Página de tarifas con todos los cargos (precio, envío, comisión, cargos por medio de pago) y lo que recibe el refugio; fecha de vigencia y aviso previo de cambios.",
+    "[33] Leyenda 'Solo personas mayores de 18 años pueden comprar' en el checkout.",
+    "[v01] Bloque 'Normas que seguimos' en el pie de la Tienda sin afirmar cumplimiento certificado de la NMX.",
+    "[v02] Datos del comprador compartidos solo con el refugio que vende ese pedido y con la paquetería; prohibición contractual de reutilizarlos; panel del refugio limitado a sus pedidos con registro de accesos.",
+    "[v08] Pantalla de revisión y confirmación antes de pagar (producto, refugio, precio, envío, total, dirección, enlace a devoluciones, botón 'Editar') con registro de la versión de términos.",
+    "[v09] Pago exclusivamente en Mercado Pago (Checkout Pro); no se almacenan datos de tarjeta; prevención de fraude y contracargos con herramientas del procesador; declaración pública.",
+    "[v10] Vigencia de ofertas, promociones y restricciones de pago o entrega en ficha, checkout y términos; bloqueo de promociones vencidas.",
+    "[v11] No liquidar ni cobrar comisión sobre productos retirados por infracción de propiedad intelectual; retención de liquidaciones mientras haya un aviso pendiente."
+  ],
+  "retention": [
+    {
+      "category": "Registros de aceptación de términos, avisos y consentimientos (acceptance_log) y versiones publicadas de documentos legales",
+      "period": "10 años desde la aceptación o desde que la versión deja de estar vigente (propuesta; conservar íntegros e inalterados)",
+      "basis": "Código de Comercio arts. 49, 89 bis y 93 (si el operador es comerciante); NOM-151-SCFI-2016 opcional. Confirmar con abogado; el critic pide un calendario único entre los 5 años del CFF art. 30, los 10 años del CCom y otros plazos (hallazgo 05)."
+    },
+    {
+      "category": "Pedidos, comprobantes de transacción, CFDI y liquidaciones de la tienda y donativos",
+      "period": "10 años (CCom, contratos) y al menos 5 años para la documentación fiscal contada según el CFF",
+      "basis": "Código de Comercio art. 49; CFF art. 30 (hallazgos 05, 24, 25). El contador define el punto de inicio del cómputo fiscal."
+    },
+    {
+      "category": "Solicitudes ARCO y solicitudes LFPC art. 16 (privacy_requests)",
+      "period": "Sin plazo legal identificado en este dominio; propuesta: 5 años desde el cierre, para informes de transparencia y defensa",
+      "basis": "LFPDPPP 2025 arts. 31 y 34 (plazos del trámite); propuesta operativa, confirmar con abogado (hallazgos 07, v07, v12)."
+    },
+    {
+      "category": "Solicitudes de autoridades (authority_requests) y evidencia entregada",
+      "period": "Sin plazo legal identificado en este dominio; propuesta: 10 años desde la respuesta",
+      "basis": "Propuesta operativa para el informe de transparencia y defensa; CPEUM art. 16 y LSNIIMSP art. 26 no fijan plazo de conservación (hallazgo 18). Revisar el plazo de evidencia del Decreto NNA que reporta otro dominio."
+    },
+    {
+      "category": "Avisos y contra-avisos de propiedad intelectual y hashes de contenido retirado",
+      "period": "Sin plazo legal identificado; propuesta: 10 años para los avisos y mientras exista la plataforma para los hashes",
+      "basis": "LFDA art. 114 Octies (medidas razonables para impedir resubidas); propuesta operativa (hallazgos 17, v11)."
+    },
+    {
+      "category": "Reportes de moderación, apelaciones y remisiones a autoridad por maltrato",
+      "period": "Sin plazo legal identificado; propuesta: 5 años desde la resolución (10 años si hubo remisión a autoridad)",
+      "basis": "LFDA art. 114 Octies fracc. II (notificación y reincidencia); LPBA CDMX art. 26; propuesta operativa (hallazgos 16, v03)."
+    },
+    {
+      "category": "Publicaciones importadas de grupos públicos de Facebook",
+      "period": "30 días desde la importación, con retiro inmediato a solicitud",
+      "basis": "Decisión del dueño; LFPDPPP 2025 arts. 12 (minimización), 17 y 26; NMX 8.1 k) (hallazgos 08, 15)."
+    },
+    {
+      "category": "Datos del adoptante en poder del refugio (cuestionario y chat)",
+      "period": "[N] días tras concluir o rechazar la adopción (a definir en el acuerdo de datos), salvo documentos de adopción que prueban la tutela",
+      "basis": "LFPDPPP 2025 art. 35 (el receptor asume las obligaciones del responsable); LPBA CDMX art. 32 (hallazgo 11)."
+    },
+    {
+      "category": "Documentos de verificación de refugios, casas de paso y clínicas (INE, acta, cédula)",
+      "period": "Mientras la verificación esté vigente más el plazo de defensa que fije el abogado; borrado al revocar o cerrar salvo obligación legal",
+      "basis": "LFPDPPP 2025 arts. 12, 18 y 20; propuesta operativa (hallazgos 27, v06, P01). El dominio de datos personales fija el plazo definitivo."
+    },
+    {
+      "category": "Datos de pago (tarjetas)",
+      "period": "No se almacenan; solo identificador, monto y estado del pago",
+      "basis": "NMX-COE-001-SCFI-2018 numerales 8.1 incisos d) y e) (hallazgo v09)."
+    },
+    {
+      "category": "Informes de transparencia, historial de versiones, archivo de incidentes y avisos de vulneraciones",
+      "period": "Publicación permanente (datos disociados y agregados)",
+      "basis": "Buena práctica; LFPDPPP 2025 arts. 2 fracc. IX y 12 (hallazgos 30, 31, 32)."
+    }
+  ],
+  "subprocessors": [
+    {"name": "Hosting VPS ([PROVEEDOR DE HOSTING])", "purpose": "Alojamiento de la aplicación, la API y la base de datos", "data": "Todos los datos de la plataforma", "country": "[PAÍS O REGIÓN DEL HOSTING] (por confirmar)", "type": "encargado"},
+    {"name": "Cloudflare (CDN, WAF y R2)", "purpose": "Entrega de contenido, protección y respaldos cifrados", "data": "Tráfico web, direcciones IP, respaldos cifrados de la base de datos y archivos", "country": "Estados Unidos (red global)", "type": "encargado"},
+    {"name": "Alibaba Cloud Model Studio / DashScope (Qwen3-VL)", "purpose": "Comparación de fotos de perros con IA", "data": "Fotos de perros sin metadatos EXIF; sin datos de contacto", "country": "Singapur (región internacional)", "type": "encargado (transferencia internacional)"},
+    {"name": "Meta Platforms (WhatsApp Cloud API)", "purpose": "Bot de reportes y notificaciones por plantillas con opt-in", "data": "Número de teléfono, mensajes, fotos y ubicación enviados al bot", "country": "Estados Unidos (por confirmar en el contrato)", "type": "encargado"},
+    {"name": "Meta Platforms (Facebook Pages Graph API)", "purpose": "Publicación en páginas oficiales", "data": "Contenido publicado por GuauWoow", "country": "Estados Unidos", "type": "encargado"},
+    {"name": "Apify (proveedor de scraping)", "purpose": "Ingestión de publicaciones de grupos públicos de Facebook sobre perros perdidos por estado", "data": "Fotos y texto público de publicaciones (nombres y teléfonos eliminados tras la ingestión), enlace al original", "country": "Por confirmar con el contrato o DPA (no revisado en la investigación)", "type": "encargado (licitud pendiente de dictamen)"},
+    {"name": "Google (OAuth)", "purpose": "Inicio de sesión con Google", "data": "Correo, nombre y avatar de la cuenta de Google", "country": "Estados Unidos", "type": "encargado / proveedor independiente de identidad"},
+    {"name": "Google (Places API)", "purpose": "Mostrar reseñas y datos de clínicas veterinarias con atribución", "data": "Identificadores de lugares y consultas; sin datos personales de usuarios de GuauWoow (por confirmar)", "country": "Estados Unidos", "type": "proveedor de datos (condiciones contractuales pendientes de revisión)"},
+    {"name": "Mercado Pago", "purpose": "Procesamiento de pagos de donativos y compras (Checkout Pro), prevención de fraude y contracargos", "data": "Datos de pago (nunca pasan por GuauWoow), monto, identificador de pago, correo del pagador", "country": "México (por confirmar regiones de procesamiento del grupo)", "type": "responsable independiente / procesador de pagos"},
+    {"name": "Proveedor de SMS OTP ([SMS Masivos o Twilio])", "purpose": "Verificación obligatoria del teléfono", "data": "Número de teléfono y código de un solo uso", "country": "Por confirmar", "type": "encargado"},
+    {"name": "Proveedor SMTP ([PROVEEDOR DE CORREO])", "purpose": "Correos transaccionales y de verificación", "data": "Correo electrónico, nombre y contenido del mensaje", "country": "[PAÍS DEL PROVEEDOR DE CORREO] (por confirmar)", "type": "encargado"},
+    {"name": "Sentry", "purpose": "Monitoreo de errores (PII depurada)", "data": "Trazas de error sin datos personales; identificadores técnicos", "country": "Estados Unidos (por confirmar región)", "type": "encargado"},
+    {"name": "PostHog", "purpose": "Analítica de producto, solo con consentimiento", "data": "Eventos de uso, identificador seudónimo", "country": "Por confirmar (Estados Unidos o Unión Europea según la instancia)", "type": "encargado"},
+    {"name": "OpenStreetMap (teselas de mapa)", "purpose": "Mapas en la app", "data": "Dirección IP y teselas solicitadas", "country": "Por confirmar (servidor de teselas)", "type": "proveedor de servicio"},
+    {"name": "Zhipu AI (si se activa)", "purpose": "Alternativa de modelo de IA", "data": "Fotos de perros sin EXIF", "country": "China (por confirmar)", "type": "encargado (solo si se activa; disparará nuevo aviso)"},
+    {"name": "PAC de CFDI ([PAC])", "purpose": "Timbrado de comprobantes fiscales de comisiones y, en su caso, ventas", "data": "RFC, nombre o razón social, código postal, régimen y uso del CFDI", "country": "México", "type": "encargado"},
+    {"name": "Proveedor de página de estado (si se contrata)", "purpose": "Monitoreo externo de disponibilidad", "data": "Métricas técnicas; sin datos personales", "country": "Por confirmar", "type": "proveedor de servicio"}
+  ],
+  "owner_data_needed": [
+    "Razón social, nombre comercial, marca, RFC, domicilio fiscal y domicilio físico para notificaciones en México, y forma jurídica del operador (persona física con actividad empresarial, S.A.S., S.A. de C.V. o A.C.).",
+    "Teléfono de atención, correo general, correo de privacidad, correo de facturación, correo legal (autoridades y propiedad intelectual), correo de seguridad (security.txt), número de WhatsApp, horario de atención y tiempos objetivo de respuesta y resolución.",
+    "Nombre de la persona o departamento de datos personales (art. 29 LFPDPPP).",
+    "Dominio definitivo de producción.",
+    "Porcentaje de comisión de la tienda ([COMISIÓN TIENDA %]), si incluye IVA, y la política de comisión en donativos (0% o no).",
+    "Tarifas de Mercado Pago aplicables a la cuenta por medio de pago y quién las absorbe en donativos y en ventas.",
+    "Calendario y medio de liquidación a refugios (frecuencia, monto mínimo, retención para devoluciones y contracargos) y decisión sobre migrar a Mercado Pago en modo marketplace (split).",
+    "Zonas de cobertura, paqueterías, costos y plazos de envío, y domicilio de devoluciones (por refugio o central).",
+    "Lista de exclusiones de devolución (por ejemplo, alimento abierto) y garantías que ofrecerán los refugios.",
+    "Proveedor y región del hosting VPS, proveedor de correo SMTP y país, proveedor de SMS OTP, proveedor de scraping (Apify) con país y contrato o DPA, PAC de CFDI, proveedor de página de estado, y la lista completa de proveedores con sus contratos o DPA.",
+    "Criterios y documentos de verificación de refugios, casas de paso y clínicas veterinarias, y periodicidad de la reverificación.",
+    "Para cada refugio: tipo legal (A.C., persona física o rescatista independiente), si es donataria autorizada (RFC), si tiene CLUNI y si está registrada ante la Agencia de Atención Animal (CDMX).",
+    "Fecha de entrada en vigor del paquete legal y período de aviso de cambios elegido (propuesta: 30 días naturales).",
+    "Decisión sobre la cuota de recuperación en adopciones (prohibida, o permitida con tope y comprobantes).",
+    "URL o proveedor de la página de estado y métricas de disponibilidad que se publicarán.",
+    "Periodicidad del informe de transparencia (semestral o anual) y fecha del primer informe.",
+    "Logotipo y datos para el encabezado de los PDF descargables, y nombre del abogado y del contador revisores (control interno, no se publica).",
+    "Decisión sobre mantener en producción la importación de grupos de Facebook y, si se mantiene, las entidades cubiertas."
+  ],
+  "lawyer_points": [
+    "[01, 04, 06, 08, 09, 37, v05] Fijar una postura única sobre la fuerza del Reglamento LFPDPPP 2011 y de los Lineamientos del Aviso de Privacidad 2013 bajo la ley de 2025, con base en el transitorio aplicable; usarla igual en todas las páginas (conflicto entre dominios).",
+    "[03, 21-28, v01, v08, v09] Valor normativo de la NMX-COE-001-SCFI-2018 (LFPC art. 76 Bis 1, 'se guiará'): confirmar que se trate como obligatoria en la práctica para la tienda.",
+    "[03] Aplicación del art. 90 LFPC a términos no registrados ante Profeco; si en el registro conviene una casilla con dos enlaces o dos casillas separadas.",
+    "[05] Si el operador es 'comerciante' para efectos del art. 49 CCom (10 años) y consolidar un calendario único de conservación por categoría (CFF 5 años, CCom 10 años, LFPIORPI 10 años, Decreto NNA 90 días hábiles).",
+    "[07, v07] Si los 'veinte días' del art. 31 LFPDPPP son hábiles o naturales; contenido exacto del art. 28 para el formulario ARCO.",
+    "[08, 15] Licitud de importar publicaciones de grupos públicos de Facebook frente a la NMX 8.1 k) (información y consentimiento), el art. 17 LFPDPPP y los términos de Meta; unificar el nivel de certeza con el dominio de datos personales; si la página compensatoria y el retiro sin cuenta bastan.",
+    "[11] Si el refugio es receptor de una transferencia (art. 35) o encargado; redacción de la cláusula de aceptación de transferencia en el cuestionario.",
+    "[12] Si el puntaje de compatibilidad afecta de manera significativa al adoptante (art. 26 II LFPDPPP) y cómo garantizar la oposición y la revisión humana.",
+    "[13, 14, v03, v04, v13] Aplicación de la ley de CDMX a una plataforma nacional; revisión de leyes estatales de bienestar animal donde haya usuarios; dictamen sobre la cuota de recuperación frente al art. 25 Bis (riesgo de 'venta'); quién 'tiene conocimiento' para el deber de denuncia del art. 26 y umbral de verosimilitud; obligatoriedad del registro ante AGATAN para refugios privados (reglamento no revisado).",
+    "[16, 17, v11] Adecuar el procedimiento de aviso y contra-aviso al nuevo Reglamento de la LFDA (DOF 24-09-2026, reportado por otro dominio) y su formulario; interpretación del inciso e) del art. 114 Octies aplicada a comisiones de la Tienda.",
+    "[18] Si los mensajes almacenados entre usuarios son 'comunicaciones privadas' según criterios de la SCJN; efecto de la reforma al art. 16 CPEUM del DOF 07-10-2026; alcance de la colaboración del art. 26 LSNIIMSP.",
+    "[19, 20] Naturaleza jurídica del flujo donante → cuenta de GuauWoow → refugio (cobranza por cuenta de terceros, transmisor de dinero, Fintech, LFPIORPI); cláusula de consentimiento de los refugios para publicar agregados; si el donativo es relación de consumo (LFPC por analogía).",
+    "[22] Validar la lista de exclusiones de devolución frente al art. 56 LFPC y el Reglamento de la LFPC (DOF 19-12-2019).",
+    "[33] Decreto de entornos digitales seguros para NNA (DOF 14-10-2026): si aplica a un servicio exclusivo para mayores de 18 con contenido de usuarios, qué verificación de edad exige y si hay informe de implementación con plazo (alrededor del 13-11-2026).",
+    "[34] Si existe alguna obligación estatal o sectorial de accesibilidad aplicable.",
+    "[P01] Clínicas veterinarias: base legal de la verificación por cédula profesional, tratamiento de la cédula como dato personal, condiciones de exhibición de reseñas de Google Places (Google Maps Platform Terms) y responsabilidad por reseñas de usuarios.",
+    "[v01-v13] Confirmar lectura y aplicación de todos los hallazgos agregados por el verificador (sin segunda revisión).",
+    "[23, 24, 25] Contador: calificación del servicio (comisión mercantil CCom 273 frente a reventa; intermediación digital LIVA 1o.-A BIS y 18-J; LISR 113-A; CFF 30-B); quién emite cada CFDI; si refugios que no facturan pueden vender; tasas de retención según la RMF 2026 vigente y sus modificaciones; confirmar que el DOF 07-11-2025 no reformó LIVA ni LISR y revisar la LIF 2026.",
+    "[19] Contador: tratamiento fiscal del dinero recibido por cuenta de refugios, CFDI de comisión, y umbrales LFPIORPI con la UMA 2026 ($117.31).",
+    "[20] Contador: alcance del art. 82 fracc. VI LISR y del Calendario SAT 2026 para refugios donatarias y qué debe mostrar la plataforma sin inducir a error sobre deducibilidad.",
+    "[26] Contador: presentación de comisiones con IVA en la página de tarifas."
+  ],
+  "key_risks": [
+    "Lanzar la tienda sin identidad del operador, envíos, devoluciones, facturación y tarifas publicados: incumplimiento directo de la LFPC (arts. 7 Bis, 56, 76 Bis) y de la NMX; hoy persisten más de 17 marcadores vacíos ([RAZÓN SOCIAL], [RFC], [COMISIÓN TIENDA %], [ZONAS DE COBERTURA], [PAQUETERÍA], etc.).",
+    "Flujo de dinero donante → cuenta de GuauWoow → refugio sin dictamen: riesgo fiscal (ingreso propio), de prevención de lavado (LFPIORPI) y regulatorio (posible transmisor de dinero o Fintech), además de incumplir los términos de Mercado Pago; el modo marketplace (split) lo mitiga.",
+    "Cuota de recuperación por adopción tratada sin dictamen: podría convertir a GuauWoow en plataforma de venta de perros, prohibida en CDMX para quien no tiene registro y autorización (art. 25 Bis) y gravada fiscalmente.",
+    "Importación de publicaciones de grupos de Facebook: la NMX 8.1 k) exige tratamiento informado y consentido de datos de redes sociales; el art. 17 LFPDPPP solo permite medidas compensatorias cuando informar es imposible o desproporcionado; además hay riesgo por derechos de autor de las fotos y por los términos de Meta.",
+    "Historial de aceptaciones inexistente (User solo guarda la última versión): sin prueba de qué versión aceptó cada usuario, las cláusulas de términos, cookies y consentimientos son difíciles de defender.",
+    "Cláusulas de modificación unilateral o 'el uso continuado implica aceptación' se tienen por no puestas (LFPC art. 90) y debilitan todo el paquete.",
+    "Sello único de 'verificado' percibido como garantía de bienestar o uso de fondos: práctica engañosa (LFPC art. 76 Bis IV); usar insignias separadas y texto de alcance.",
+    "No notificar a los afectados por retiros de contenido ni tener política pública de reincidentes hace perder la exención de responsabilidad por derechos de autor (LFDA 114 Octies); el nuevo Reglamento de la LFDA puede exigir un formulario específico.",
+    "Entrega de contenido de chats a autoridades sin orden judicial federal: violación del art. 16 CPEUM; la reforma del 07-10-2026 no ha sido revisada.",
+    "Reportes de maltrato en CDMX no remitidos a la autoridad: posible incumplimiento del deber de informar del art. 26 LPBA CDMX.",
+    "Decreto NNA (DOF 14-10-2026) no verificado: si aplica, la casilla 18+ podría ser insuficiente y existiría un informe de implementación con plazo en noviembre de 2026.",
+    "Normas en movimiento: Ley General de Bienestar Animal pendiente en Diputados, actualización de la LFPDPPP en curso, RMF 2026 con modificaciones; sin vigilancia trimestral el centro legal quedará desactualizado.",
+    "Marco de clínicas veterinarias sin investigación legal verificada: publicar términos, verificación y reseñas de clínicas por analogía sin revisión de abogado."
+  ]
+}

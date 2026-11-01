@@ -10,8 +10,16 @@ from PIL import Image, ImageDraw
 from app.main import app
 
 
+@pytest.fixture(scope="session", autouse=True)
+def schema():
+    """El esquema lo administra Alembic: la suite lleva la base a head antes de abrir el cliente (no-op si ya está)."""
+    from app.migrate import run as run_migrations
+
+    run_migrations()
+
+
 @pytest.fixture(scope="session")
-def client():
+def client(schema):
     with TestClient(app) as c:
         yield c
 
@@ -28,7 +36,8 @@ def random_ip() -> str:
 def _register(client, name="Usuario Prueba", verify=True, **extra):
     email = f"test-{uuid.uuid4().hex[:10]}@pruebas.mx"
     phone = extra.pop("phone", None) or random_phone()
-    body = {"email": email, "password": "Segura123", "full_name": name, "phone": phone, "accepted_terms": True, **extra}
+    body = {"email": email, "password": "Segura123", "full_name": name, "phone": phone, "accepted_terms": True,
+            "is_adult": True, "birth_date": "1990-01-01", **extra}
     r = client.post("/auth/register", json=body)
     assert r.status_code == 201, r.text
     token = r.json()["access_token"]

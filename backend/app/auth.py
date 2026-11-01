@@ -7,6 +7,18 @@ from jose import jwt, JWTError
 
 from app.config import settings
 
+# bcrypt solo usa los primeros 72 bytes (y bcrypt>=5 lanza ValueError si son más)
+MAX_PASSWORD_BYTES = 72
+PASSWORD_TOO_LONG = (
+    "La contraseña es demasiado larga: usa máximo 72 caracteres "
+    "(los acentos y emojis cuentan como 2 o más)."
+)
+EMAIL_VERIFICATION_HOURS = 48
+
+
+def password_too_long(password: str | None) -> bool:
+    return len((password or "").encode("utf-8")) > MAX_PASSWORD_BYTES
+
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     try:
@@ -67,6 +79,38 @@ def decode_password_reset_token(token: str) -> dict | None:
 
 def password_fingerprint_matches(payload: dict, hashed_password: str | None) -> bool:
     return hmac.compare_digest(payload.get("fp", ""), _password_fingerprint(hashed_password))
+
+
+def _email_fingerprint(email: str | None) -> str:
+    return hashlib.sha256(f"verify:{(email or '').lower()}".encode()).hexdigest()[:16]
+
+
+def create_email_verification_token(user_id: int, email: str) -> str:
+    """Enlace de verificación de correo: vence en 48 h y queda ligado al correo actual de la cuenta."""
+    return jwt.encode(
+        {
+            "sub": str(user_id),
+            "purpose": "email_verify",
+            "em": _email_fingerprint(email),
+            "exp": datetime.now(timezone.utc) + timedelta(hours=EMAIL_VERIFICATION_HOURS),
+        },
+        settings.secret_key,
+        algorithm=settings.algorithm,
+    )
+
+
+def decode_email_verification_token(token: str) -> dict | None:
+    try:
+        payload = jwt.decode(token, settings.secret_key, algorithms=[settings.algorithm])
+    except JWTError:
+        return None
+    if payload.get("purpose") != "email_verify":
+        return None
+    return payload
+
+
+def email_fingerprint_matches(payload: dict, email: str | None) -> bool:
+    return hmac.compare_digest(payload.get("em", ""), _email_fingerprint(email))
 
 
 def hash_otp(user_id: int, phone: str, code: str) -> str:

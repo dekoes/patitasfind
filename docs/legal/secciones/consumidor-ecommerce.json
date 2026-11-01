@@ -1,0 +1,406 @@
+{
+  "domain": "consumidor-ecommerce",
+  "generated_at": "2026-10-17",
+  "disclaimer": "No es asesoría legal. Resumen de la investigación verificada (39 hallazgos: 31 verificados, 1 corregido, 7 agregados por el verificador). Los puntos con confianza 'media' y los de lawyer_points requieren validación de abogado y contador mexicanos antes de activar SHOP_ENABLED.",
+  "legal_framework_status": {
+    "LFPC": "Vigente; última reforma DOF 12-12-2025 (art. 76 Bis fr. VIII y IX); multas 2026 por Acuerdo DOF 23-12-2025; reforma DOF 14-11-2025 arts. 26 y 114 de aplicación gradual hasta 1-04-2027; sin reformas publicadas en 2026; iniciativas en trámite: art. 32 transparencia de cargos (Gaceta 28-04-2026), derecho a reparar, IA generativa en art. 32 (29-09-2026)",
+    "Reglamento LFPC": "Vigente, DOF 19-12-2019",
+    "Codigo de Comercio": "Vigente, última reforma DOF 14-11-2025",
+    "NMX-COE-001-SCFI-2018": "Vigente (Declaratoria DOF 30-04-2019); voluntaria, pero LFPC art. 76 Bis 1 obliga a guiarse por ella",
+    "Codigo de Etica Comercio Electronico PROFECO": "Vigente, DOF 26-02-2021; adopción voluntaria y vinculante tras adhesión",
+    "Lineamientos publicidad PROFECO": "DOF 24-07-2012; verificados por lectura asistida (confianza media)",
+    "Programa Institucional PROFECO 2026-2030": "DOF 20-04-2026; no es norma obligatoria",
+    "NOM-050-SCFI-2004": "Vigente; revisión sistemática 11-06-2024 confirmación",
+    "NOM-004-SE-2021": "Vigente desde 14-01-2023 (DOF 14-01-2022); cubre ropa para animales; excluye correas",
+    "NOM-024-SCFI-2013": "Vigente; PROY-NOM-024-SE-2022 no publicado como definitiva",
+    "NOM-012-SAG/ZOO-2020": "Vigente, DOF 06-11-2023",
+    "LFSA art. 92": "Vigente, última reforma DOF 21-05-2024",
+    "Acuerdo productos desregulados SENASICA": "DOF 29-11-2010 modificado DOF 14-08-2018; lectura asistida (confianza media)",
+    "Ley Federal de Juegos y Sorteos": "Vigente; Reglamento DOF 17-09-2004 no revisado (confianza media)",
+    "NOM-151-SCFI-2016": "Vigente, DOF 30-03-2017; texto no revisado íntegramente"
+  },
+  "pages": [
+    {
+      "slug": "tienda",
+      "title": "Condiciones de Compra de la Tienda Solidaria",
+      "purpose": "Contrato de adhesión de la tienda en línea: identifica al proveedor, explica el proceso de compra y recoge todos los derechos del consumidor exigidos por la LFPC y la NMX-COE-001-SCFI-2018. Página propia, versionada, imprimible, en español y con letra uniforme.",
+      "required_contents": [
+        "Encabezado con versión, fecha de revisión y cita 'LFPC, última reforma DOF 12-12-2025' (01)",
+        "Identificación del Operador: nombre comercial, marca, razón social, RFC, domicilio físico en México, teléfono, correo, sitio; identificación del refugio vendedor en cada ficha (02)",
+        "Modelo de la venta (comisión mercantil en nombre propio u otro, pendiente de abogado/contador) y promesa de punto de contacto único y responsabilidad frente al comprador (23)",
+        "Requisitos de cuenta: 18+, teléfono verificado, una cuenta por persona, reglas de uso (v06, 26)",
+        "Procedimiento de compra paso a paso con ubicación de características y restricciones (v06)",
+        "Precios finales en MXN con impuestos aplicables; envío mostrado antes de pagar; sin cargos posteriores; presunción de existencias (03, 14)",
+        "Momento en que nace el pedido (confirmación tras aprobación del pago) sin perjuicio de la revocación del art. 56 (v05)",
+        "Autorización expresa del cobro antes de la entrega (06) y registro de la aceptación con versión, hash, fecha, IP (05)",
+        "Medios de pago, estados del pago, fecha límite en efectivo, reembolsos por medio, CAT si hay crédito, meses sin intereses solo si es cierto (30)",
+        "Derecho de revocación de 5 días hábiles desde la entrega, flete de regreso a cargo del consumidor, exclusión de perecederos pagados de contado (09)",
+        "Productos defectuosos o que no corresponden: reposición o devolución a elección y, en todo caso, bonificación mínima de 20%; 2 meses para reclamar; resolución en no más de 15 días; flete a cargo del proveedor (10, 11)",
+        "Garantías: mínimo 90 días si se ofrece; póliza digital (12)",
+        "Envíos y entrega: plazos ofrecidos, rastreo, responsabilidad por pérdida o daño sin trasladarla a la paquetería (13)",
+        "Cancelación por el Operador solo por causas objetivas y documentadas con reembolso inmediato (14)",
+        "Comprobante electrónico por pedido y cómo pedir el CFDI (07)",
+        "Confidencialidad: datos compartidos con el refugio limitados a la entrega; bloque de seguridad (TLS, pago tokenizado, no se guardan tarjetas) (20)",
+        "Disponibilidad del servicio e interrupciones, sin liberar la responsabilidad civil (v06)",
+        "Mecanismos de notificación al consumidor (v06)",
+        "Comunicaciones comerciales solo con consentimiento por canal (19)",
+        "Cobros recurrentes: reglas del art. 76 Bis fr. VIII y IX o declaración de que no existen (27)",
+        "Checkout sin servicios ni cargos no solicitados; nada premarcado (28)",
+        "No discriminación ni condicionamiento de la venta (v02)",
+        "Atención a clientes con horario y plazos; ley aplicable; atribuciones de PROFECO; Teléfono del Consumidor; jurisdicción sin renuncia de fuero (15, 21, 22)",
+        "Cambios a las condiciones: aceptación expresa para cambios sustanciales, no retroactividad (15)",
+        "Conservación de registros 10 años (CCom art. 49) con datos minimizados (08)",
+        "Declaración veraz 'Nuestra tienda se guía por la NMX-COE-001-SCFI-2018'; sin 'certificada' ni número de registro inexistente (16, 32)"
+      ],
+      "legal_basis": [
+        "LFPC arts. 1, 7, 7 Bis, 10, 12, 14, 15, 34, 42, 43, 51-56, 58, 76 Bis, 76 Bis 1, 77-79, 85, 88, 90, 92, 92 Ter, 93",
+        "Reglamento LFPC arts. 5, 6, 49, 53",
+        "Código de Comercio arts. 49, 80, 90, 284",
+        "NMX-COE-001-SCFI-2018 num. 4.1, 4.4, 5.2.1, 5.2.2, 6.1, 6.2, 7.1, 9.1, 10.1-10.4, 11.1-11.2, tabla 14.3",
+        "Código de Ética en materia de Comercio Electrónico (DOF 26-02-2021) arts. 5, 6"
+      ]
+    },
+    {
+      "slug": "envios-y-devoluciones",
+      "title": "Envíos y Devoluciones",
+      "purpose": "Explica cómo se envía, qué pasa con retrasos, pérdidas y daños, cómo revocar la compra en 5 días hábiles y cómo devolver un producto defectuoso con reembolso.",
+      "required_contents": [
+        "Paqueterías, cobertura y cálculo del costo de envío mostrado antes de pagar (03, 13)",
+        "Plazo máximo de despacho del refugio y plazo estimado de entrega; rastreo y prueba de entrega (13)",
+        "Responsabilidad por rechazos, retrasos, pérdida o daño: el Operador repone o reembolsa y reclama a la paquetería (13)",
+        "Cancelación inmediata con reembolso total si se rebasa la fecha máxima ofrecida (13)",
+        "Procedimiento de revocación: botón en Mis pedidos, acuse con folio, condiciones (sin uso, empaques y accesorios), flete de regreso a cargo del consumidor, dirección de devoluciones, plazo y medio de reembolso (09)",
+        "Productos excluidos de la revocación (perecederos pagados de contado) y nota sobre personalizados pendiente de abogado (09)",
+        "Devolución por defecto o producto que no corresponde: guía prepagada, elección entre reposición y devolución, bonificación mínima 20%, 2 meses para reclamar, 15 días para resolver (10, 11)",
+        "Instrucciones de reembolso por medio de pago y tiempos (30)",
+        "Cambios por talla si se ofrecen (dato del dueño)",
+        "Obligaciones de la paquetería y cómo reclamar (13)"
+      ],
+      "legal_basis": [
+        "LFPC arts. 7, 42, 51, 53 fr. I-IV, 56, 79, 90 fr. III, 92, 92 Ter, 93",
+        "NMX-COE-001-SCFI-2018 num. 5.2.1.4, 5.2.1.6, 9.2-9.2.3, 11.1, 11.2",
+        "Código de Ética art. 6 c)"
+      ]
+    },
+    {
+      "slug": "garantias",
+      "title": "Garantías",
+      "purpose": "Informa qué garantía tiene cada producto, cómo hacerla válida y los derechos legales por productos defectuosos.",
+      "required_contents": [
+        "Garantía mínima de 90 días desde la entrega cuando se ofrece; 'Sin garantía adicional' cuando no, con remisión a los derechos del art. 92 (12)",
+        "Plantilla de póliza digital: alcance, duración, condiciones, mecanismos, domicilio para reclamaciones, exigible al productor, importador y distribuidor (12)",
+        "Gastos de envío para cumplir la garantía a cargo del proveedor; reposición renueva la garantía; tiempo de reparación no cuenta en el plazo; reparaciones cubiertas 90 días naturales (art. 81) (12)",
+        "Reposición o devolución más bonificación mínima de 20% por productos que no corresponden, no cumplen NOM o con contenido menor (11)",
+        "Vicios ocultos: restitución, rescisión o reducción de precio más bonificación (11)",
+        "Electrónicos: instructivo y garantía conforme a NOM-024-SCFI-2013 (12, 24)"
+      ],
+      "legal_basis": [
+        "LFPC arts. 77, 78, 79, 81, 82, 83, 84, 92, 92 Ter, 93, 95",
+        "NOM-024-SCFI-2013",
+        "NMX-COE-001-SCFI-2018 num. 5.2.1.6, 5.2.1.14, 5.3.2.1 e)"
+      ]
+    },
+    {
+      "slug": "atencion-y-quejas",
+      "title": "Atención a clientes y quejas",
+      "purpose": "Canales gratuitos de reclamación y aclaración, horarios, plazos de resolución, domicilio para notificaciones y cómo acudir a PROFECO.",
+      "required_contents": [
+        "Canales: formulario en la app con folio automático, correo, teléfono sin costo; horario de atención (21)",
+        "Domicilio físico real para notificaciones de PROFECO (02, v04)",
+        "Plazos: respuesta inicial 2 días hábiles; resolución general 10 días hábiles o menos; reclamaciones del art. 92 en 15 días o menos (21)",
+        "Bloque PROFECO: Teléfono del Consumidor 55 5568 8722 y 800 468 8722 (reconfirmar antes de publicar), horarios, gob.mx/profeco, oficinas; PROFECO concilia y puede arbitrar (22)",
+        "Sin mención de Concilianet hasta firmar el Convenio de Colaboración; al firmarlo, enlace (22)",
+        "Sin afirmar certificación o verificación NMX sin dictamen (32)"
+      ],
+      "legal_basis": [
+        "LFPC arts. 13, 76 Bis fr. III, 93, 97, 99, 104, 111, 117",
+        "NMX-COE-001-SCFI-2018 num. 5.2.1.5, 5.2.1.7, 5.2.1.8, 10.1-10.4.1",
+        "Código de Ética arts. 6 f), 12, 13, 14",
+        "Concilianet FAQ 14 y 15"
+      ]
+    },
+    {
+      "slug": "quienes-somos",
+      "title": "Quiénes somos / Identificación del proveedor",
+      "purpose": "Identificación completa del Operador antes de cualquier transacción, alimentada desde app/legal/datos-legales.json.",
+      "required_contents": [
+        "Nombre comercial y marca (02)",
+        "Razón social o nombre del Operador y tipo de persona (02)",
+        "Domicilio físico en territorio nacional (no apartado postal ni oficina virtual sin confirmar) (02)",
+        "RFC (02)",
+        "Teléfono sin costo, correo, sitio y otros medios de contacto (02)",
+        "Representante legal y domicilio para notificaciones (v04)",
+        "Mismo bloque replicado en pie de tienda, checkout, correo y comprobante (02)"
+      ],
+      "legal_basis": [
+        "LFPC arts. 17, 52 fr. I, 76 Bis fr. III",
+        "NMX-COE-001-SCFI-2018 num. 5.2.1.1 a)-g), 10.2",
+        "Código de Ética art. 6 a)"
+      ]
+    },
+    {
+      "slug": "vendedores",
+      "title": "Vendedores (refugios): reglas y responsabilidades",
+      "purpose": "Resumen público del contrato de comisión con refugios y de las reglas de publicación, para delimitar obligaciones del proveedor intermediario y del tercero proveedor sin bajar de la LFPC.",
+      "required_contents": [
+        "Modelo de comisión, porcentaje, reserva para reclamaciones y periodicidad de pago tras la ventana de revocación (23, 31)",
+        "Veracidad y actualización de la información del producto; campos mínimos; fotos reales (04)",
+        "Cumplimiento de NOM-050, NOM-004-SE-2021, NOM-024 y NOM-012 según categoría; declaración y foto de etiqueta; revisión del administrador (24, 25)",
+        "Existencias reales, plazo máximo de despacho, rastreo y prueba de entrega (13, 14)",
+        "Obligación de aceptar revocaciones, devoluciones, reposiciones y garantías; cargo a su saldo de reembolsos, bonificaciones y fletes (derecho de repetición art. 95) (09, 10, 11, 23)",
+        "Confidencialidad: datos del comprador solo para la entrega, sin otros fines (20)",
+        "Publicidad prohibida: afirmaciones de salud sin evidencia, '100% para el refugio' inexacto, publicidad a niñas y niños, explotación de la credulidad, frases exageradas (17, 26, v01, 25)",
+        "Descuentos sin discriminación; causas objetivas de suspensión (v02)",
+        "Rifas, sorteos y boletos prohibidos sin permiso de SEGOB (v03)",
+        "No editar ni ocultar reseñas (29)",
+        "Cooperación ante requerimientos de PROFECO e indemnidad (v04, 23)"
+      ],
+      "legal_basis": [
+        "LFPC arts. 2 fr. II, 32, 58, 76 Bis fr. I y VII, 79, 92 fr. II, 95",
+        "Código de Comercio arts. 273, 283, 284, 285",
+        "NMX-COE-001-SCFI-2018 num. 3.12, 3.16, 4.4, 5.1.7, 5.3, 5.3.6",
+        "NOM-050-SCFI-2004, NOM-004-SE-2021, NOM-024-SCFI-2013, NOM-012-SAG/ZOO-2020",
+        "Ley Federal de Juegos y Sorteos arts. 3 y 4",
+        "Reglamento LFPC art. 25"
+      ]
+    },
+    {
+      "slug": "transparencia-tienda",
+      "title": "Transparencia de la Tienda y Donativos",
+      "purpose": "Publica comisiones, costos de procesamiento, periodicidad de pagos, montos transferidos y cómo funcionan la IA y el ordenamiento, para sostener la veracidad de los mensajes solidarios.",
+      "required_contents": [
+        "Comisión de la plataforma y comisión típica de Mercado Pago; ejemplo de desglose de una compra de $300 (31)",
+        "Periodicidad de pagos a refugios y reserva para reclamaciones (23, 31)",
+        "Tablero mensual: ventas, donativos, montos transferidos por refugio, reembolsos, reclamaciones atendidas en plazo, fecha de actualización (31)",
+        "Texto por producto 'De este precio, el Refugio X recibe aprox. $Y (Z%)' (17)",
+        "Cómo se ordenan productos y refugios; 'Patrocinado' si hay posicionamiento pagado (v07)",
+        "Cómo funciona y qué no garantiza la comparación de fotos con IA (v07)",
+        "Expediente de sustento de cada afirmación comercial disponible a requerimiento (v01)",
+        "Opinión de cumplimiento del SAT (32-D) con fecha, si se obtiene (31)",
+        "Sustitución de 'Pago 100% seguro' por texto comprobable (17)"
+      ],
+      "legal_basis": [
+        "LFPC arts. 7 Bis, 32",
+        "NMX-COE-001-SCFI-2018 num. 5.3.5",
+        "Código de Ética art. 5",
+        "Lineamientos de publicidad PROFECO DOF 24-07-2012",
+        "Programa Institucional PROFECO 2026-2030 acciones 3.3.4 y 5.1.3"
+      ]
+    },
+    {
+      "slug": "promociones-y-resenas",
+      "title": "Promociones, ofertas y reseñas",
+      "purpose": "Bases generales de promociones y política de reseñas y moderación.",
+      "required_contents": [
+        "Vigencia o volumen de cada promoción; sin restricciones publicadas aplica a todos; presunción de indefinida hasta revocación pública (18, v01)",
+        "Precio tachado solo si fue el precio real reciente (política interna 30 días); prohibido valor de referencia notoriamente superior al mercado (18)",
+        "Promoción respetada en pedidos pagados aunque termine después; opciones del art. 50 más bonificación si no se cumple (14, 18)",
+        "Descuentos sin discriminación (v02)",
+        "Sin rifas ni sorteos sin permiso de SEGOB; si se habilitan, número de permiso, bases, vigencia y volumen (v03)",
+        "Reseñas de compradores verificados; estrellas y texto; política de moderación limitada; reseñas incentivadas marcadas; el refugio no edita ni oculta; reporte (29)",
+        "Publicidad identificable con anunciante; 'Patrocinado' (17)"
+      ],
+      "legal_basis": [
+        "LFPC arts. 32, 46, 47, 48, 49, 50, 58",
+        "NMX-COE-001-SCFI-2018 num. 5.3.2.1 d), 5.3.3, tabla 14.3",
+        "Código de Ética arts. 7 fr. II, 8, 9",
+        "Ley Federal de Juegos y Sorteos arts. 3 y 4",
+        "Lineamientos de publicidad PROFECO DOF 24-07-2012 Octavo, Décimo, Décimo Primero"
+      ]
+    },
+    {
+      "slug": "comunicaciones",
+      "title": "Comunicaciones comerciales",
+      "purpose": "Explica el opt-in por canal, la baja en un clic, el REPEP y el derecho a saber qué datos de mercadotecnia se tienen.",
+      "required_contents": [
+        "Consentimiento por canal (correo, WhatsApp, SMS, push), apagado por defecto, con fecha y versión; revocable en cualquier momento (19)",
+        "Separación entre avisos transaccionales (pedidos, alertas) y promocionales (19)",
+        "Baja en un clic en cada correo; 'BAJA' en WhatsApp (19)",
+        "Pie obligatorio de cada mensaje: razón social, domicilio, teléfono o correo del Operador y datos de PROFECO (teléfono, domicilio oficial, sitio) (19)",
+        "Información sobre el REPEP y su efecto a los 30 días naturales; respeto a quien se negó (19)",
+        "Solicitud del art. 16: respuesta en 30 días sobre datos de mercadotecnia y con quién se compartieron (19)",
+        "Coordinación con el Aviso de Privacidad (finalidades secundarias y oposición)"
+      ],
+      "legal_basis": [
+        "LFPC arts. 16, 17, 18, 18 Bis, 76 Bis fr. VI",
+        "Reglamento LFPC arts. 23, 60, 61",
+        "NMX-COE-001-SCFI-2018 num. 5.4.1",
+        "Código de Ética art. 9 c)"
+      ]
+    },
+    {
+      "slug": "productos-prohibidos",
+      "title": "Productos permitidos y prohibidos",
+      "purpose": "Lista pública de lo que no puede venderse en la tienda y de los requisitos por categoría.",
+      "required_contents": [
+        "Animales vivos (política de cero venta)",
+        "Medicamentos veterinarios, antiparasitarios, vacunas, biológicos y cualquier producto con receta (25)",
+        "Alimentos, premios y suplementos sin número de regulación SENASICA ni encuadre documentado en el Acuerdo de desregulación; premios caseros o con relleno sin registro (25)",
+        "Productos sin etiqueta conforme a NOM-050 / NOM-004-SE-2021 / NOM-024 / NOM-012 según categoría (24, 25)",
+        "Rifas, sorteos y boletos de recaudación sin permiso de SEGOB (v03)",
+        "Productos con afirmaciones terapéuticas no comprobadas o frases exageradas (17, 25, v01)",
+        "Permitidos con requisitos: ropa para perro (NOM-004), accesorios y juguetes (NOM-050), electrónicos (NOM-024 y posible homologación de telecomunicaciones), alimentos industrializados con registro SENASICA, masticables sin relleno (fr. XII), higiene sin efecto terapéutico (fr. IX), impresos (24, 25)",
+        "Vía de reporte de incumplimientos"
+      ],
+      "legal_basis": [
+        "NOM-012-SAG/ZOO-2020 num. 1.1, 1.2, 8.2.1.4, 8.2.2.3, 8.2.2.5",
+        "Ley Federal de Sanidad Animal art. 92",
+        "Acuerdo de productos desregulados DOF 29-11-2010 art. 3, modificado DOF 14-08-2018 (fr. I, IX, XI, XII y art. 6)",
+        "NOM-050-SCFI-2004 num. 2.1, 2.2, 5.2.1",
+        "NOM-004-SE-2021 num. 3.21",
+        "NOM-024-SCFI-2013",
+        "LFPC arts. 33, 92 fr. II",
+        "Ley Federal de Juegos y Sorteos arts. 3 y 4"
+      ]
+    },
+    {
+      "slug": "terminos",
+      "title": "Términos y Condiciones (ajustes requeridos por este dominio)",
+      "purpose": "Correcciones a app/legal/terminos.html verificadas en el repositorio; el contenido de tienda se mueve a la página propia 'tienda'.",
+      "required_contents": [
+        "14.1: declarar el modelo de contratación (nombre propio o mandato) manteniendo 'punto de contacto único' (23)",
+        "14.2: 'precio final, incluye impuestos aplicables'; fotos reales; eliminar o reformular la cancelación por error evidente de precio (03, 04, 14)",
+        "14.3: casilla de cobro anticipado y momento de nacimiento del pedido (05, 06, v05)",
+        "14.4: cancelación inmediata al vencer el plazo ofrecido en lugar de 30 días; sin exoneración por paquetería (13, 15)",
+        "14.5: plazo de reembolso; condiciones NMX; exclusión de perecederos; personalizados pendiente (09)",
+        "14.6: 'y, en todo caso, una bonificación no menor al 20%' en lugar de 'cuando proceda' (11)",
+        "14.8: causas objetivas de cancelación por el Operador (14)",
+        "27.2: aceptación expresa de cambios sustanciales; mantener 27.3 (15)",
+        "28.1: 10 años para contratos y aceptaciones (CCom art. 49) en lugar de 5 años; calendario único con fiscal y privacidad (08)",
+        "30.1: teléfono y horario reales; plazos de atención (21)",
+        "30.2: quitar Concilianet hasta firmar el convenio (22)",
+        "31.2: tribunales del domicilio del consumidor sin renuncia de fuero (15)",
+        "No exigir video de desempaque ni empaque original para reclamar defectos (15)",
+        "Cláusula de no discriminación (v02)",
+        "Citar 'LFPC, última reforma DOF 12-12-2025' (01)"
+      ],
+      "legal_basis": [
+        "LFPC arts. 7, 15, 42, 53, 56, 58, 85, 90, 92, 92 Ter, 93",
+        "Código de Comercio arts. 49, 284",
+        "Concilianet FAQ 14 y 15"
+      ]
+    }
+  ],
+  "product_requirements": [
+    {"id": "consumidor-ecommerce-04", "requirement": "Campos mínimos obligatorios por producto: category, condition (nuevo/usado/reparado), brand, materials, dimensions/size, origin_country, is_imported, stock real, precio final MXN, shipping_options (costo y plazo en días hábiles), ships_from_state, warranty_days, is_perishable, is_personalized, safety_warnings, fotos reales, nom_compliance, regulatory_number; el backend rechaza la publicación si faltan", "basis": "LFPC arts. 33, 34, 53 fr. IV, 76 Bis fr. IV y V; NMX num. 5.3.1, 5.3.2.1"},
+    {"id": "consumidor-ecommerce-03", "requirement": "Precio final en MXN que incluye impuestos aplicables; costo de envío mostrado en ficha y carrito ('Envío: $X' o 'se calcula antes de pagar'); sin cargos por servicio al comprador", "basis": "LFPC arts. 7 Bis y 34; Reglamento LFPC arts. 5 y 6"},
+    {"id": "consumidor-ecommerce-12", "requirement": "warranty_days nulo o mayor o igual a 90; póliza digital por artículo; electrónicos con instructivo y garantía NOM-024-SCFI-2013; posible homologación de telecomunicaciones en localizadores (a confirmar)", "basis": "LFPC arts. 77-79, 83; NOM-024-SCFI-2013"},
+    {"id": "consumidor-ecommerce-24", "requirement": "Categoría obligatoria; declaración de cumplimiento de la NOM aplicable (NOM-050 general; NOM-004-SE-2021 para ropa de perro y textiles con responsable, origen, composición, cuidado y talla; NOM-024 electrónicos) y foto de etiqueta; revisión del administrador antes de activar; mostrar país de origen y composición en la ficha", "basis": "NOM-050-SCFI-2004 num. 5.2.1; NOM-004-SE-2021 num. 3.21; LFPC arts. 33, 92 fr. II"},
+    {"id": "consumidor-ecommerce-25", "requirement": "Alimentos y premios solo industrializados con número de regulación SENASICA visible (regulatory_number) o encuadre documentado en el Acuerdo de desregulación (deregulation_fraction); prohibidos premios caseros o con relleno sin registro, medicamentos, biológicos y productos con receta; is_perishable marcado; descripciones sin frases exageradas; validación por especialista SENASICA antes de habilitar la categoría", "basis": "NOM-012-SAG/ZOO-2020 num. 8.2.1.4, 8.2.2.3; LFSA art. 92; Acuerdo DOF 29-11-2010 mod. 14-08-2018"},
+    {"id": "consumidor-ecommerce-18", "requirement": "Campos promo_price, promo_starts_at, promo_ends_at, promo_units; mostrar 'Válido hasta [fecha] o hasta agotar N piezas'; precio tachado solo si fue el precio real reciente (política interna 30 días)", "basis": "LFPC arts. 46-50"},
+    {"id": "consumidor-ecommerce-14", "requirement": "Reserva transaccional de inventario al crear el pedido y liberación al expirar el pago; ocultar con existencia 0; confirmación del refugio si el precio baja más de 50%", "basis": "LFPC arts. 7, 42, 43"},
+    {"id": "consumidor-ecommerce-26", "requirement": "Campo de advertencias de seguridad (piezas pequeñas, supervisión del perro) mostrado en ficha; prohibida la publicidad dirigida a niñas y niños", "basis": "LFPC art. 76 Bis fr. VII; NMX num. 5.1.4; Código de Ética arts. 10 y 11"},
+    {"id": "consumidor-ecommerce-17", "requirement": "Texto por producto con cuánto recibe el refugio; sin afirmaciones de salud o veterinarias sin evidencia; sin '100% para el refugio' inexacto; 'Patrocinado' en contenido promocional", "basis": "LFPC art. 32; Reglamento LFPC arts. 24 y 25"},
+    {"id": "consumidor-ecommerce-29", "requirement": "Reseñas de compradores verificados (pedido entregado) visibles en ficha y perfil del refugio; moderación limitada; incentivadas marcadas; el refugio no edita ni oculta", "basis": "NMX num. 5.3.3; LFPC art. 32"}
+  ],
+  "shop_requirements": [
+    {"id": "consumidor-ecommerce-02", "requirement": "Bloque de identidad del Operador (razón social, RFC, domicilio físico, teléfono, correo) en pie de tienda, checkout, correo y comprobante; refugio vendedor en cada ficha; bloqueo de SHOP_ENABLED sin esos datos", "basis": "LFPC art. 76 Bis fr. III, 52 fr. I, 17; NMX 5.2.1.1"},
+    {"id": "consumidor-ecommerce-05", "requirement": "Paso 'Revisa tu pedido' antes de Mercado Pago con cantidades editables, desglose (subtotal, envío, descuento, total MXN), plazo estimado, resumen de derechos, casilla no premarcada de aceptación de Condiciones (versión), separada del consentimiento de datos; botón 'Pagar $X'; Order guarda terms_version, terms_hash, accepted_at, ip, user_agent", "basis": "LFPC art. 76 Bis 1 fr. II-IV, 85; NMX 5.2.2, 6.1, 6.2, 7.1; CCom 89 bis, 93"},
+    {"id": "consumidor-ecommerce-06", "requirement": "Casilla no premarcada de autorización del cobro antes de la entrega con fechas estimadas; consent_prepayment_at en Order; aviso repetido en el correo", "basis": "LFPC arts. 15, 54, 10"},
+    {"id": "consumidor-ecommerce-03", "requirement": "Order con subtotal, shipping_cost, discount, total, currency='MXN'; validación amount_mismatch extendida al envío; total idéntico a la preferencia de Mercado Pago", "basis": "LFPC art. 7 Bis; Reglamento LFPC art. 6"},
+    {"id": "consumidor-ecommerce-07", "requirement": "Comprobante electrónico (HTML y PDF) por pedido en Mis pedidos y por correo con folio, identidad del Operador con domicilio real, refugio, productos, envío, total, medio de pago e ID de Mercado Pago, dirección, plazo, rastreo, instrucciones de revocación y reclamación, póliza, contacto, datos de PROFECO, enlace a la versión de Condiciones aceptada y cómo pedir el CFDI", "basis": "LFPC arts. 12, 52, 55, 99 fr. III, 104; Reglamento LFPC art. 6; NMX 7.4"},
+    {"id": "consumidor-ecommerce-v05", "requirement": "El pedido nace al enviar la confirmación tras la aprobación del pago; bitácoras de atribución (cuenta, OTP, IP, fecha, versión, hash); acuse por correo y app con número de pedido", "basis": "CCom arts. 80, 90, 90 bis, 91; LFPC art. 56"},
+    {"id": "consumidor-ecommerce-30", "requirement": "Mostrar medios de pago de Mercado Pago antes de redirigir; estados del webhook en Mis pedidos (pendiente, aprobado, rechazado, expirado) con fecha límite en efectivo; CAT por Mercado Pago si hay meses con intereses; 'meses sin intereses' solo si es cierto; tiempos de reembolso por medio", "basis": "NMX 9.1.1, 9.1.2, 9.1.4, 9.1.6; Reglamento LFPC art. 6"},
+    {"id": "consumidor-ecommerce-09", "requirement": "Botón 'Revocar compra' activo 5 días hábiles desde delivered_at (calendario de días inhábiles de México; fecha de entrega del rastreo); acuse con folio; estados revocation_requested, return_in_transit, return_received, refunded; reembolso por API de Mercado Pago en plazo publicado; exclusión de perecederos marcada antes de pagar; costo estimado del envío de regreso", "basis": "LFPC arts. 51, 56; NMX 5.2.1.4"},
+    {"id": "consumidor-ecommerce-10", "requirement": "Flujo 'Tengo un problema con mi pedido' (motivo, fotos, solución elegida); guía de devolución prepagada en defectos y garantías; tiempos de atención medidos en admin; sin trasladar el flete al consumidor por 'pacto en contrario'", "basis": "LFPC art. 53 fr. II y III, 79, 85; NMX 10.1, 11.1, 11.2"},
+    {"id": "consumidor-ecommerce-11", "requirement": "Reclamación 'no corresponde o defectuoso' con contador de 15 días naturales y alerta al día 10; elección reposición/devolución; bonificación automática mínima 20% por reembolso parcial; negativa solo con evidencia documentada; costo descontado al refugio", "basis": "LFPC arts. 92, 92 Ter, 93, 95; Reglamento LFPC art. 39"},
+    {"id": "consumidor-ecommerce-13", "requirement": "Opciones de envío por refugio; guía con rastreo y prueba de entrega enlazadas (carrier, tracking_number, shipped_at, delivered_at); plazo máximo de despacho del refugio con cancelación y reembolso automáticos; cancelación inmediata al vencer la fecha máxima ofrecida; el Operador responde por pérdida o daño y reclama a la paquetería", "basis": "LFPC arts. 7, 42, 53 fr. I y IV, 90 fr. III; NMX 9.2-9.2.3"},
+    {"id": "consumidor-ecommerce-14", "requirement": "Cancelación por el Operador solo por causas objetivas registradas, con reembolso total inmediato y oferta de equivalente", "basis": "LFPC arts. 7, 10, 42, 50, 90 fr. I"},
+    {"id": "consumidor-ecommerce-12", "requirement": "Póliza de garantía digital generada por artículo y adjunta al comprobante; 'Garantía: N días' o 'Sin garantía adicional' en ficha", "basis": "LFPC arts. 77, 78"},
+    {"id": "consumidor-ecommerce-20", "requirement": "El refugio solo ve nombre, dirección y teléfono de entrega, ocultos al cerrar el pedido y vencer el plazo de reclamaciones; bloque de seguridad en checkout (TLS, pago tokenizado, no se guardan tarjetas); casilla 'Guardar esta dirección' no premarcada; no guardar datos del pagador innecesarios", "basis": "LFPC art. 76 Bis fr. I y II; NMX 7.2, 8.1 c)-e), 9.1.3, 9.1.5"},
+    {"id": "consumidor-ecommerce-28", "requirement": "Checkout sin patrones oscuros: nada premarcado (donativo extra, redondeo, seguro, envío exprés), sin escasez falsa, sin paquetes obligatorios, salida y cancelación tan fáciles como comprar, 'No, gracias' con igual peso visual; reglas en guía de diseño y pruebas E2E", "basis": "LFPC arts. 10, 43, 76 Bis fr. VI, 86 Bis; Reglamento LFPC art. 53; NMX 8.1 b)"},
+    {"id": "consumidor-ecommerce-26", "requirement": "Leyenda 'Compras solo para mayores de 18 años' en el paso de pago; checkout accesible (letra legible, pasos claros)", "basis": "LFPC art. 76 Bis fr. VII; NMX 5.2.1.9"},
+    {"id": "consumidor-ecommerce-19", "requirement": "Ajustes > Comunicaciones comerciales con interruptores por canal apagados por defecto; marketing_consent por canal con fecha y versión; baja en un clic; 'BAJA' en WhatsApp; pie con datos del Operador y de PROFECO en cada mensaje promocional; separación transaccional/promocional; solicitudes del art. 16 en 30 días", "basis": "LFPC arts. 16, 17, 18 Bis, 76 Bis fr. VI; Reglamento LFPC arts. 60, 61"},
+    {"id": "consumidor-ecommerce-27", "requirement": "Si hay cobros recurrentes: casilla específica con monto, periodicidad y próxima fecha; subscription_consent; aviso 5 días naturales antes de cada renovación con enlace para cancelar; cancelación en un clic de efecto inmediato con acuse; historial de cargos; no ofrecer la función mientras no exista", "basis": "LFPC art. 76 Bis fr. VIII y IX (DOF 12-12-2025), 54, 10"},
+    {"id": "consumidor-ecommerce-21", "requirement": "Tickets de soporte ligados al pedido con estados y tiempos; acuse con folio; panel con alertas de vencimiento; plazos publicados (2 días hábiles respuesta, 10 días hábiles resolución, 15 días en art. 92); sin números con costo", "basis": "LFPC art. 76 Bis fr. III, 93; NMX 5.2.1.7, 10.1-10.3"},
+    {"id": "consumidor-ecommerce-22", "requirement": "No ofrecer Concilianet sin convenio; planear la firma tras constituir la persona moral; domicilio y responsable para notificaciones de PROFECO", "basis": "LFPC arts. 97, 99, 104, 111; Concilianet FAQ 14-15"},
+    {"id": "consumidor-ecommerce-v04", "requirement": "Procedimiento 'Requerimientos de autoridad': responsable, bandeja vigilada, registro con fecha límite de 15 días, exportación del expediente de un pedido en horas", "basis": "LFPC arts. 13, 104, 127"},
+    {"id": "consumidor-ecommerce-23", "requirement": "Contrato de comisión por escrito con cada refugio; pago a refugios al vencer la ventana de revocación; reserva para reclamaciones (propuesta: porcentaje durante 2 meses)", "basis": "CCom arts. 273, 283-285; LFPC arts. 79, 95; NMX 4.4, 5.3.6"},
+    {"id": "consumidor-ecommerce-17", "requirement": "Sustituir 'Pago 100% seguro' en app/app.js por 'Pagas en Mercado Pago; GuauWoow no ve ni guarda tu tarjeta'", "basis": "LFPC art. 32"},
+    {"id": "consumidor-ecommerce-v01", "requirement": "Expediente de sustento por cada afirmación comercial de tienda y landing (fuente, fecha, evidencia); revisión de publicidad con la lista de los Lineamientos antes de publicar", "basis": "Lineamientos PROFECO DOF 24-07-2012; LFPC art. 32"},
+    {"id": "consumidor-ecommerce-v02", "requirement": "Causas de suspensión y rechazo de pedidos objetivas y documentadas, con motivo registrado; sin restricciones ni descuentos discriminatorios; sin cargos por accesibilidad", "basis": "LFPC art. 58"},
+    {"id": "consumidor-ecommerce-v03", "requirement": "Bloqueo en moderación y reportes de rifas, sorteos y boletos de recaudación sin permiso de SEGOB", "basis": "LFJS arts. 3 y 4; LFPC art. 46 fr. IV, 48"},
+    {"id": "consumidor-ecommerce-08", "requirement": "Texto versionado y hash de cada documento legal; retención de pedidos, aceptaciones, comprobantes y reclamaciones 10 años con datos minimizados; evaluar constancias NOM-151", "basis": "CCom arts. 49, 93 bis; NOM-151-SCFI-2016"},
+    {"id": "consumidor-ecommerce-01", "requirement": "Tarea trimestral de vigilancia legal (LeyesBiblio, DOF, Gaceta, Programa PROFECO) registrada en el historial; rangos de multa 2026 en el panel de administración", "basis": "LFPC últ. ref. DOF 12-12-2025; Acuerdo DOF 23-12-2025"},
+    {"id": "consumidor-ecommerce-32", "requirement": "Lista de verificación interna con la tabla 14.3 de la NMX antes de activar SHOP_ENABLED; frase 'se guía por la NMX' sin 'certificada'", "basis": "NMX num. 4.1, 14.3; LFPC art. 76 Bis 1"},
+    {"id": "consumidor-ecommerce-v06", "requirement": "Secciones de disponibilidad del servicio, cómo comprar, cómo te notificamos y requisitos de cuenta en las Condiciones de Compra", "basis": "NMX num. 5.2.1.2, 5.2.1.3, 5.2.1.5, 5.2.1.10"},
+    {"id": "consumidor-ecommerce-31", "requirement": "Tablero público mensual de transparencia (ventas, donativos, transferencias, reembolsos, reclamaciones en plazo)", "basis": "NMX num. 5.3.5; LFPC arts. 7 Bis, 32"},
+    {"id": "consumidor-ecommerce-v07", "requirement": "Publicar cómo funciona la IA de comparación de fotos y el ordenamiento de productos y refugios; sin afirmaciones absolutas sobre la IA", "basis": "Programa PROFECO 2026-2030 acciones 3.3.4 y 5.1.3; LFPC art. 32"}
+  ],
+  "retention": [
+    {"category": "Pedidos, aceptaciones de Condiciones de Compra (versión, hash, fecha, IP, user-agent), comprobantes y confirmaciones (mensajes de datos que consignan contratos)", "period": "10 años desde la celebración, con datos minimizados (sin datos de pago innecesarios)", "basis": "Código de Comercio art. 49 y 93 bis; NOM-151-SCFI-2016; LFPC art. 55. Conflicto a consolidar: fiscal-tienda y donativos usan 5 años (CFF art. 30); la sección 28.1 de terminos.html dice 5 años; decide el abogado con el contador (id 08, confianza media)"},
+    {"category": "Reclamaciones, revocaciones, devoluciones, reembolsos, bonificaciones y tickets de soporte ligados a pedidos", "period": "10 años junto con el expediente del pedido (y al menos hasta que prescriban las acciones: 1 año LFPC art. 14, 10 años si afecta a niñas, niños y adolescentes)", "basis": "Código de Comercio art. 49; LFPC arts. 14 y 55; LFPC art. 13 (requerimientos de PROFECO)"},
+    {"category": "Datos de entrega del comprador visibles para el refugio vendedor (nombre, dirección, teléfono)", "period": "Visibles hasta que el pedido se cierre y venza el plazo de reclamación de 2 meses desde la entrega; después ocultos en el panel del refugio", "basis": "LFPC art. 76 Bis fr. I; art. 93 (2 meses); NMX 8.1 e) (id 20)"},
+    {"category": "Consentimientos de comunicaciones comerciales por canal (otorgamiento y revocación) y solicitudes del art. 16", "period": "Mientras el consentimiento esté activo y como evidencia después de la revocación (propuesta: 1 año tras la baja, plazo de prescripción LFPC art. 14; coordinar con el dominio de privacidad)", "basis": "LFPC arts. 16, 17, 18 Bis; Reglamento LFPC art. 60"},
+    {"category": "Consentimiento de cobros recurrentes, avisos de renovación y cancelaciones", "period": "Mientras dure la suscripción y después como parte del expediente del pedido (10 años)", "basis": "LFPC art. 76 Bis fr. VIII y IX; Código de Comercio art. 49"},
+    {"category": "Expediente de sustento de afirmaciones publicitarias y bases de promociones", "period": "Mientras la publicidad o promoción esté activa y al menos 1 año después (prescripción LFPC art. 14); propuesta interna", "basis": "LFPC arts. 13, 32, 48; Lineamientos PROFECO DOF 24-07-2012 (id v01)"},
+    {"category": "Versiones históricas de documentos legales de la tienda con hash y fecha de vigencia", "period": "Permanente mientras exista algún pedido amparado por esa versión (mínimo 10 años tras la última aceptación)", "basis": "Código de Comercio art. 49; LFPC art. 87 (correspondencia del texto usado)"},
+    {"category": "Pólizas de garantía digitales", "period": "Duración de la garantía más el plazo de reclamación y prescripción; conservar con el expediente del pedido (10 años)", "basis": "LFPC arts. 77, 78, 81, 83; Código de Comercio art. 49"},
+    {"category": "Requerimientos de PROFECO y respuestas", "period": "10 años (expediente mercantil)", "basis": "LFPC art. 13; Código de Comercio art. 49"}
+  ],
+  "subprocessors": [
+    {"name": "Mercado Pago", "purpose": "Procesamiento de pagos (tarjeta, OXXO, SPEI), reembolsos totales y parciales (bonificaciones), prevención de fraude, eventual CAT y meses con o sin intereses; cuenta concentradora de la plataforma y dispersión a refugios", "data": "Nombre y correo del pagador, importe, ID de operación, medio de pago tokenizado (GuauWoow no almacena tarjetas), estado del pago vía webhook", "country": "México (confirmar la entidad contratante y los Términos y Condiciones para marketplaces y donativos; gap señalado por el crítico)", "type": "Pasarela y procesador de pagos (NMX 9.1.6: prevención de fraude del procesador)"},
+    {"name": "Paquetería(s) [PAQUETERIA, por definir]", "purpose": "Transporte de pedidos y de devoluciones; rastreo; prueba de entrega", "data": "Nombre, dirección y teléfono del comprador; contenido declarado; número de guía", "country": "México", "type": "Prestador de servicios de mensajería y paquetería (NMX 9.2.2; LFPC art. 90 fr. III: la responsabilidad frente al consumidor sigue siendo del Operador)"},
+    {"name": "Refugios vendedores (terceros proveedores)", "purpose": "Preparación y despacho del pedido; atención de garantías; comitentes de la comisión mercantil", "data": "Solo nombre, dirección y teléfono de entrega del pedido; sin correo ni historial; ocultos al cerrar el pedido", "country": "México", "type": "Tercero proveedor (NMX 3.16) bajo contrato de comisión con cláusula de confidencialidad (LFPC art. 76 Bis fr. I)"},
+    {"name": "PAC para CFDI [por definir; dominio fiscal]", "purpose": "Timbrado de comprobantes fiscales de las ventas", "data": "RFC, nombre, uso de CFDI y domicilio fiscal del comprador que solicite factura", "country": "México", "type": "Proveedor Autorizado de Certificación (requisito fiscal; este dominio solo exige informar cómo pedir el CFDI, id 07)"},
+    {"name": "Prestador de Servicios de Certificación NOM-151 [opcional, por definir]", "purpose": "Constancias de conservación o sellos de tiempo de aceptaciones y pedidos", "data": "Hash de documentos y aceptaciones (sin datos personales en claro)", "country": "México", "type": "PSC acreditado por la Secretaría de Economía (id 08, recomendado)"}
+  ],
+  "owner_data_needed": [
+    "Razón social o nombre del Operador, tipo de persona (sociedad mercantil o persona física con actividad empresarial), RFC, domicilio físico y fiscal en México, teléfono de atención sin costo, correo de atención, horario de atención, nombre comercial y marca (02, 21)",
+    "Representante legal con poder (Concilianet, PROFECO, contratos con refugios) y domicilio para notificaciones (22, v04)",
+    "Modelo jurídico de la venta: comisión en nombre propio, mandato o intermediación; porcentaje de comisión; quién absorbe la comisión de Mercado Pago; periodicidad de pago a refugios; reserva o retención para reclamaciones (23, 31)",
+    "Política de envíos: paqueterías, cobertura, cálculo del costo, plazo máximo de despacho del refugio, plazo estimado de entrega, seguro de envío, quién genera las guías, dirección de devoluciones central o del refugio (03, 13)",
+    "Política de devoluciones y reembolsos: plazo de reembolso publicado (propuesta: 10 días hábiles o menos), confirmación de quién paga el flete de la revocación (consumidor) y de defectos o garantías (proveedor), cambios por talla (09, 10)",
+    "Catálogo previsto por categoría (textiles o ropa para perro, accesorios, juguetes, alimento, premios caseros, electrónicos, personalizados, impresos) y si hay importados (04, 24, 25)",
+    "Garantías por tipo de producto (sin garantía adicional o 90 días o más) y texto de la póliza (12)",
+    "Situación fiscal de los refugios vendedores (A.C. donataria, A.C. no donataria, persona física, contribuyentes o no de IVA) y esquema de emisión del CFDI; afecta la leyenda de IVA (03, 07)",
+    "Si se ofrecerán meses sin intereses o con intereses, suscripciones, membresías o donativos recurrentes (27, 30)",
+    "Si se enviarán comunicaciones promocionales (newsletter, WhatsApp, SMS) y por qué canales (19)",
+    "Si los refugios harán promociones, descuentos, rifas o sorteos dentro de la plataforma (18, v03)",
+    "Decisión sobre el convenio de Concilianet y, a futuro, adhesión al Código de Ética y al Distintivo Digital PROFECO (22, 32)",
+    "Domicilio oficial de PROFECO para el pie de publicidad y reconfirmación de los teléfonos del Consumidor antes de publicar (19)",
+    "Visto bueno del abogado (jurisdicción, error de precio, personalizados, modelo de comisión, conservación) y del contador (CFDI, retenciones de plataformas) (08, 09, 14, 15, 23)"
+  ],
+  "lawyer_points": [
+    "Modelo de contratación: comisión en nombre propio (CCom art. 284) vs. mandato (art. 285) vs. intermediación; efectos en proveedor ante PROFECO, CFDI y retenciones de plataformas (id 23, confianza media; abogado + contador)",
+    "Jurisdicción y renuncia de fuero (sección 31.2): tribunales del domicilio del consumidor; art. 85 vs. art. 90 fr. VI (id 15, confianza media)",
+    "Aceptación tácita de cambios (sección 27.2): aceptación expresa para cambios sustanciales (id 15, confianza media)",
+    "Cancelación por 'error evidente de precio' (sección 14.2): sin base en la LFPC (id 14, confianza media)",
+    "Exclusión de productos personalizados del derecho de revocación: NMX 5.2.1.4 remite a un Reglamento que no lo regula (id 09, confianza media en ese punto)",
+    "Excepción de perecederos 'pagados de contado' y qué alimentos son perecederos (id 09)",
+    "Plazo de conservación 10 años (CCom art. 49) vs. minimización LFPDPPP 2025 vs. 5 años CFF art. 30: calendario único por categoría; aplicabilidad a 'comerciantes' (id 08, confianza media; conflicto entre dominios)",
+    "Aplicación del art. 15 LFPC (cobro antes de la entrega) al pago por pasarela Mercado Pago Checkout Pro (id 06, confianza media)",
+    "Leyenda 'incluye IVA' vs. 'incluye impuestos aplicables' con refugios no contribuyentes; CFDI global y de egreso en devoluciones y bonificaciones (id 03, contador)",
+    "Días del art. 93 (15 días): naturales o hábiles; lectura conservadora propuesta (id 11)",
+    "Cancelación al vencer el plazo de entrega ofrecido: sin plazo legal propio, apoyo en arts. 7 y 42 (id 13, confianza media)",
+    "No usar el 'pacto en contrario' del art. 53 fr. III para trasladar fletes al consumidor (id 10)",
+    "Si una oficina virtual o apartado postal cumple 'domicilio físico en territorio nacional' (id 02)",
+    "Alimentos, premios y productos veterinarios: productos desregulados ante SENASICA y premios caseros; especialista en regulación SENASICA antes de habilitar la categoría (id 25, corregido, confianza media)",
+    "Alcance de NOM-050, NOM-004-SE-2021 y NOM-024 al catálogo real y responsabilidad del Operador por el art. 92 fr. II (id 24, confianza media)",
+    "Homologación de telecomunicaciones para localizadores GPS o collares con conectividad (id 12, no verificado)",
+    "Régimen de rifas y sorteos de A.C. bajo la LFJS y su Reglamento DOF 17-09-2004 (id v03, confianza media)",
+    "Vigencia y texto íntegro de los Lineamientos de publicidad PROFECO 2012 (id v01, confianza media)",
+    "Confirmar que ninguna NOM obliga a registrar el contrato de adhesión para este giro y cuándo conviene el registro voluntario (id 16)",
+    "Requisitos documentales y oportunidad del convenio de Concilianet (id 22)",
+    "Articulación del art. 58 (no discriminación) con los criterios de idoneidad del cuestionario de adopción (id v02)",
+    "Si los donativos están dentro de la LFPC y aplicación voluntaria de las reglas de cobros recurrentes (id 27)",
+    "Vigencia operativa del Distintivo Digital y conveniencia de adherirse al Código de Ética tras 3-6 meses (id 32, confianza media)",
+    "Redacción que concilie la perfección del contrato (CCom art. 80) con la perfección a los 5 días hábiles (LFPC art. 56) (id v05)",
+    "Términos de Mercado Pago para marketplaces y donativos, contracargos, protección al comprador y custodia de fondos (gap del crítico; condiciona reembolsos y bonificaciones de este dominio)"
+  ],
+  "key_risks": [
+    "Operar la tienda sin identidad completa del proveedor (razón social, RFC, domicilio físico real, teléfono): infracción al art. 76 Bis fr. III (multa art. 128 hasta $4,274,960.73 en 2026) y queja ante PROFECO sin domicilio válido para notificar (ids 02, v04)",
+    "Checkout actual sin desglose de envío, resumen, aceptación de condiciones ni consentimiento de cobro anticipado: arts. 7 Bis, 15, 76 Bis 1 (ids 03, 05, 06)",
+    "Ausencia de flujos de revocación (5 días hábiles) y de reclamación por defecto con bonificación mínima de 20%: arts. 56, 92, 92 Ter y 93; terminos.html dice 'cuando proceda' (ids 09, 11)",
+    "Cláusulas abusivas vigentes en terminos.html: renuncia de fuero, aceptación tácita de cambios, cancelación por error de precio, 30 días para cancelar por no entrega, exigencia de video de desempaque (arts. 85 y 90; multa art. 127) (ids 13, 14, 15)",
+    "Mensajes solidarios o de seguridad no comprobables ('100% para el refugio', 'Pago 100% seguro', afirmaciones sobre la IA): publicidad engañosa art. 32, multa hasta 10% de ingresos en reincidencia; PROFECO prioriza publicidad engañosa y plataformas digitales en 2026-2030 (ids 17, v01, v07)",
+    "Venta de alimentos, premios o productos veterinarios sin registro SENASICA o sin etiqueta NOM-012; productos sin NOM-050/NOM-004/NOM-024: exposición del Operador por art. 92 fr. II (ids 24, 25)",
+    "Prometer Concilianet sin convenio firmado (id 22)",
+    "Comunicaciones promocionales sin opt-in, sin pie con datos del proveedor y de PROFECO o a usuarios del REPEP: arts. 17 y 18 Bis (id 19)",
+    "Cobros recurrentes (donativos mensuales, membresías) sin consentimiento específico, aviso de 5 días y cancelación inmediata: art. 76 Bis fr. VIII y IX vigentes desde 13-12-2025 (id 27)",
+    "Rifas o sorteos de refugios dentro de la plataforma sin permiso de SEGOB (id v03)",
+    "Indefinición del modelo de comisión: afecta quién responde ante PROFECO, el CFDI y las retenciones; contrato con refugios inexistente para repetir reembolsos y bonificaciones (id 23)",
+    "Conservación de registros fijada en 5 años en terminos.html frente a los 10 años del CCom art. 49; calendario de retención inconsistente entre dominios (id 08)",
+    "Dependencia de la cuenta concentradora de Mercado Pago: un congelamiento impediría reembolsos y bonificaciones en los plazos legales (gap del crítico)"
+  ]
+}

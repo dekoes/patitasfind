@@ -1,0 +1,322 @@
+{
+  "domain": "fiscal-tienda",
+  "generated_at": "2026-10-17",
+  "disclaimer": "No es asesoría legal ni fiscal. Modelo, forma jurídica del operador y trato de A.C. y donatarias deben validarlos un contador público y un abogado fiscalista antes de activar la tienda en producción.",
+  "owner_decision_context": "Tienda completamente habilitada: refugios venden, la plataforma cobra vía Mercado Pago, hay comisión, dispersión a refugios, devoluciones y CFDI por PAC. Equivale al Modelo B de la investigación (comisionista que cobra); con comisión mayor que 0 se activa el régimen completo de plataformas de intermediación (LIVA 1o.-A BIS, 18-B fr. II, 18-J; CFF 30-B). Recomendación: operar el Modelo B con MP Marketplace (split) y marketplace_fee, no con la cuenta concentradora actual.",
+  "pages": [
+    {
+      "slug": "facturacion",
+      "title": "Facturación e información fiscal",
+      "purpose": "Explicar al comprador quién emite cada CFDI, cómo y hasta cuándo pedir factura, el IVA y qué pasa en devoluciones; página nueva del centro legal.",
+      "required_contents": [
+        "Quién emite el CFDI de cada venta: el refugio vendedor o el Operador a nombre y por cuenta del refugio (regla 2.7.1.3 RMF 2026), según el modelo elegido (fiscal-tienda-02, 08, 14)",
+        "Cómo pedir factura: al pagar o desde Perfil → Mis pedidos → Solicitar factura, hasta el último día del mes calendario de la compra (fiscal-tienda-04)",
+        "Datos que se piden: RFC, nombre o razón social exacto del SAT, CP fiscal, régimen fiscal, uso de CFDI, correo; la Constancia de Situación Fiscal es opcional y nunca condición (fiscal-tienda-03)",
+        "Aviso: el RFC debe ser de quien compra; emitir con RFC de otra persona es infracción (CFF 83 fr. IX)",
+        "Qué pasa si no pides factura: la operación se incluye en el CFDI global al público en general con RFC XAXX010101000 (fiscal-tienda-04)",
+        "IVA: precios con la leyenda IVA incluido y monto desglosado; tasa general 16 %; alimento procesado para mascotas 16 %; envío gravado; bienes usados y libros según el caso (fiscal-tienda-05, 06)",
+        "Devoluciones y reembolsos: CFDI de egreso o cancelación; plazos y excepciones de cancelación sin aceptación (fiscal-tienda-18)",
+        "La confirmación del pedido y el comprobante de Mercado Pago no son facturas (fiscal-tienda-02)",
+        "Refugios personas físicas: envían XML y PDF al correo registrado por el monto pagado (fiscal-tienda-19)",
+        "PAC utilizado y estándar CFDI 4.0 / Anexo 20 (fiscal-tienda-24, v05)",
+        "Fecha de última revisión normativa y aviso de que las tasas pueden cambiar cada ejercicio (fiscal-tienda-01, v01)",
+        "Aviso de contingencia si la facturación se suspende por restricción del CSD (fiscal-tienda-v03)",
+        "Acceso en línea del SAT: qué datos de la operación quedan disponibles para la autoridad durante 5 años (fiscal-tienda-12)",
+        "Contacto: [CORREO DE FACTURACIÓN]"
+      ],
+      "legal_basis": [
+        "CFF arts. 29, 29-A (fr. IV, V, VII, IX), 30, 30-B, 83 fr. VII y IX, 84 fr. IV y VI, 17-H Bis",
+        "RCFF art. 39",
+        "LIVA arts. 1o., 2o.-A fr. I b) num. 6 e i), 7o., 9o. fr. IV, 12, 18-J fr. I, 18-K, 18-M fr. IV, 32 fr. III",
+        "RMF 2026 reglas 2.7.1.3, 2.7.1.8, 2.7.1.21, 2.7.1.23, 2.7.1.35, 2.9.21, 12.3.4; Transitorio Segundo fr. IV (Anexo 20)",
+        "LIF 2026 art. 25 fr. VI y IX (tasas vigentes 2026)"
+      ]
+    },
+    {
+      "slug": "vendedores",
+      "title": "Condiciones para refugios vendedores",
+      "purpose": "Página nueva: condiciones fiscales y operativas para que un refugio o rescatista venda en la tienda; incluye la guía de alta para personas físicas.",
+      "required_contents": [
+        "Requisitos para vender: RFC activo, cuenta de Mercado Pago propia a nombre y RFC del refugio vinculada por OAuth, contrato de comisión aceptado (fiscal-tienda-19, 21, 22)",
+        "Datos fiscales que se recaban y por qué: nombre o razón social, RFC, CURP, régimen, CP y domicilio fiscal, banco y CLABE, cuentas en el extranjero, oficio de donataria, opción 4/PLT, correo CFDI, representante legal; conservación 5 años (fiscal-tienda-21)",
+        "Qué se reporta al SAT y cuándo: declaración informativa mensual el día 10 con nombre, RFC, CURP, domicilio, banco, CLABE y monto de operaciones (fiscal-tienda-11)",
+        "Comisión del Operador y su CFDI con IVA 16 % (fiscal-tienda-17)",
+        "Retenciones 2026 por tipo de vendedor: ISR 2.5 % personas físicas y morales, 20 % sin RFC; IVA 50 %, 100 % sin RFC o con cuenta en el extranjero; entero día 17 (fiscal-tienda-09)",
+        "CFDI de retenciones e información de pagos con complemento de plataformas tecnológicas, emitido dentro de los 5 días siguientes al mes (fiscal-tienda-10)",
+        "Estado de liquidación: contenido, periodicidad [PERIODICIDAD DE DISPERSIÓN], pagos solo por transferencia o MP (fiscal-tienda-25)",
+        "Separación contable y conciliación con Mercado Pago (fiscal-tienda-15)",
+        "Personas físicas: inscripción en el RFC, actualización de actividades (ficha 28/CFF), CFDI al comprador, opción de pago definitivo hasta $300,000 (ficha 4/PLT); guía Cómo darte de alta para vender en GuauWoow (fiscal-tienda-19)",
+        "A.C. y donatarias: límites del 5 %, 10 % y 50 %, cuotas de recuperación, indicador anual de ventas, responsabilidad por su propio cumplimiento (fiscal-tienda-20)",
+        "Facturación a cuenta de terceros con el CSD del Operador (nodo ACuentaTerceros); no pedimos tu CSD ni tu e.firma (fiscal-tienda-14)",
+        "Devoluciones: CFDI de egreso, ajuste de retenciones y reparto proporcional de reembolsos en split; qué pasa si no hay fondos (fiscal-tienda-18, 22)",
+        "Categorías prohibidas en la tienda: medicamentos veterinarios, boletos de rifas o sorteos, animales vivos; catálogos SAT por producto (fiscal-tienda-05)",
+        "Prohibición de anuncios de facturas y de disfrazar donativos como ventas (fiscal-tienda-26)",
+        "Donativos: solo donatarias emiten recibos deducibles; umbrales LFPIORPI 1,605 y 3,210 UMA (fiscal-tienda-27)",
+        "Alta del Operador como retenedor y calendario fiscal (días 5, 10, 17) (fiscal-tienda-v02)",
+        "Cambios normativos 2027 y fecha de última revisión (fiscal-tienda-v01)"
+      ],
+      "legal_basis": [
+        "LIVA arts. 1o.-A BIS, 14 fr. IV, 18-J fr. II y III, 18-K, 18-L, 18-M, 32 fr. II",
+        "RLIVA art. 35",
+        "LISR arts. 27 fr. III, 79, 80, 113-A, 113-B, 113-C",
+        "LIF 2026 art. 25 fr. VI y IX",
+        "CFF arts. 27, 28, 29, 29-A fr. V b), 30, 113 Bis",
+        "RMF 2026 reglas 2.7.1.3, 3.10.1.25, 12.2.2, 12.2.3, 12.2.4, 12.2.5, 12.2.6, 12.2.7, 12.2.10, 12.3.1 a 12.3.4, 12.3.11, 12.3.12",
+        "LFPIORPI art. 17 fr. XIII",
+        "Código de Comercio arts. 273, 285, 304, 305"
+      ]
+    },
+    {
+      "slug": "transparencia-dinero",
+      "title": "Cómo fluye tu dinero",
+      "purpose": "Página nueva de transparencia: diagrama y porcentajes del flujo comprador → Mercado Pago → refugio, comisiones, retenciones y tiempos, para tienda y donativos.",
+      "required_contents": [
+        "Diagrama del flujo del dinero según el modelo elegido (split con marketplace_fee): precio, comisión de Mercado Pago, comisión de GuauWoow más IVA, retenciones, neto al refugio (fiscal-tienda-08, 22, 23)",
+        "Porcentaje de comisión de la tienda [COMISIÓN TIENDA %] y de donativos [COMISIÓN DONATIVOS %, o 0 %], documentados con CFDI al refugio (fiscal-tienda-17)",
+        "Cuánto recibe el refugio y en cuánto tiempo (fiscal-tienda-25)",
+        "Por qué GuauWoow no custodia saldos ni crea monederos de refugios (fiscal-tienda-16, 22)",
+        "Qué registros conservamos y conciliamos a diario (fiscal-tienda-16)",
+        "Donativos: GuauWoow no emite recibos deducibles; los donativos no causan IVA, la comisión sí (fiscal-tienda-27)",
+        "Decisión de modelo publicada (ADR público resumido) y fecha de vigencia (fiscal-tienda-08)",
+        "Cuándo se activó la comisión (fiscal-tienda-07)"
+      ],
+      "legal_basis": [
+        "LIVA arts. 1o.-A BIS, 18-B fr. II, 18-J fr. I",
+        "CFF arts. 29, 30-B, 59 fr. III",
+        "RLIVA art. 35",
+        "Código de Comercio arts. 273, 284, 285, 305",
+        "Documentación oficial de Mercado Pago Marketplace (fuente técnica)"
+      ]
+    },
+    {
+      "slug": "terminos",
+      "title": "Términos y Condiciones (actualización de las secciones 2, 14, 15, 17.3 y anexo de plazos)",
+      "purpose": "Alinear los Términos existentes con el modelo fiscal elegido antes de activar la tienda.",
+      "required_contents": [
+        "Sección 2: identidad de la persona moral operadora ([RAZÓN SOCIAL], [RFC], [DOMICILIO FISCAL]) (fiscal-tienda-13)",
+        "14.1 Modelo de la tienda reescrita según el modelo (texto propuesto en el .md): comisionista en nombre y por cuenta del refugio, plataforma de intermediación, cobro vía Mercado Pago, comisión más IVA, retenciones cuando la ley lo exija (fiscal-tienda-08, 29)",
+        "14.2 Precios con leyenda IVA incluido y monto desglosado; envío desglosado y gravado (fiscal-tienda-06)",
+        "14.5 y 14.6: todo reembolso se documenta con CFDI de egreso o cancelación (fiscal-tienda-18)",
+        "14.7 Comprobantes y facturación reescrita: quién emite, solicitud en la app hasta fin de mes, sin exigir Constancia, CFDI global, confirmación no es factura, transferencia de datos fiscales al refugio emisor (fiscal-tienda-02, 03, 04)",
+        "15.1 Donativos: intermediario tecnológico, comisión [COMISIÓN DONATIVOS %, o 0 %] más IVA con CFDI, monto neto visible antes de donar (fiscal-tienda-17, 27)",
+        "15.2 conservar: GuauWoow no emite recibos deducibles (fiscal-tienda-27)",
+        "17.3 nueva conducta prohibida: anuncios de compra o venta de facturas y disfrazar donativos como compras (CFF 113 Bis) (fiscal-tienda-26)",
+        "Anexo de plazos: factura solicitable hasta fin del mes calendario; reembolsos con CFDI de egreso",
+        "Eliminar los marcadores [COMISIÓN TIENDA %], [ESQUEMA DE FACTURACIÓN], [CORREO DE FACTURACIÓN], [PERIODICIDAD DE DISPERSIÓN], [COMISIÓN DONATIVOS %] antes de SHOP_ENABLED=true (fiscal-tienda-28, 29)"
+      ],
+      "legal_basis": [
+        "Código de Comercio arts. 273, 284, 285",
+        "LIVA arts. 1o.-A BIS, 18-B fr. II, 18-J fr. I y II, 18-K",
+        "CFF arts. 29, 29-A, 83 fr. IX, 113 Bis",
+        "RMF 2026 reglas 2.7.1.3, 2.7.1.21, 2.7.1.23",
+        "LFPC arts. 7 Bis, 51, 56, 92 Ter (dominio consumidor-ecommerce)"
+      ]
+    },
+    {
+      "slug": "privacidad",
+      "title": "Aviso de Privacidad (actualización por datos fiscales)",
+      "purpose": "Incorporar las transferencias legales al SAT, el PAC como encargado, los datos fiscales de refugios vendedores y la conservación de registros fiscales.",
+      "required_contents": [
+        "Fila Tienda solidaria: datos fiscales se recaban al pedir factura desde la app, no solo por correo (fiscal-tienda-03)",
+        "Nueva fila Refugios vendedores: RFC, CURP, razón social, régimen, domicilio y CP fiscal, banco y CLABE, Constancia, oficio de donataria, representante legal, cuenta MP vinculada (fiscal-tienda-21)",
+        "Transferencia al SAT por obligación legal (LIVA 18-J fr. III, CFF 30-B): datos de refugios vendedores y de operaciones, RFC del comprador si pidió factura; sin consentimiento (fiscal-tienda-11, 12, 28)",
+        "Transferencia de los datos fiscales del comprador al refugio que emite su factura (fiscal-tienda-28)",
+        "Encargado: proveedor autorizado de certificación de CFDI (PAC), México (fiscal-tienda-24, 28)",
+        "Conservación: pedidos, donativos, datos fiscales de refugios, estados de liquidación y base de datos del 30-B: 5 años desde la declaración relacionada (CFF 30, regla 2.9.21), en bloqueo y excluidos del borrado ARCO (fiscal-tienda-12, 21, 25)",
+        "Mercado Pago como responsable independiente (ya existe) y, con split, el refugio como receptor directo del pago (fiscal-tienda-22)"
+      ],
+      "legal_basis": [
+        "LIVA art. 18-J fr. III",
+        "CFF arts. 30 y 30-B",
+        "RMF 2026 reglas 2.9.21 y 12.2.7",
+        "LFPDPPP 2025 (fracción del art. 36 por obligación legal: confirmar con el dominio datos-personales)"
+      ]
+    }
+  ],
+  "product_requirements": [
+    "Campos fiscales en Product: sat_clave_prod_serv (catálogo c_ClaveProdServ), sat_clave_unidad (c_ClaveUnidad), objeto_imp, iva_tasa (0.16 por defecto), precio_incluye_iva=true (fiscal-tienda-05)",
+    "Solo un admin puede asignar tasa 0 % o exento, con justificación registrada; alimento procesado para perros, gatos y pequeñas especies siempre 16 % (LIVA 2o.-A fr. I b) num. 6) (fiscal-tienda-05)",
+    "Mostrar en ficha, carrito y resumen de pago: Precio: $X MXN (IVA incluido: $Y); desglose de IVA por renglón del pedido (LIVA 18-J fr. I y 18-K) (fiscal-tienda-06)",
+    "Panel del refugio calcula y muestra automáticamente el desglose de IVA al dar de alta un producto (fiscal-tienda-06)",
+    "Envío tratado como concepto del CFDI del vendedor, gravado al 16 %, mostrado desglosado antes del pago (LIVA 12) (fiscal-tienda-05)",
+    "Categorías prohibidas: medicamentos veterinarios, boletos de rifas o sorteos, animales vivos o cuotas de adopción como producto (fiscal-tienda-05; LIVA 2o.-A fr. I a) excluye a los perros del 0 %)",
+    "Bloquear productos de precio simbólico cuyo fin sea canalizar donativos como compras (fiscal-tienda-26)",
+    "Exención de bienes muebles usados solo tras confirmación del contador sobre si el vendedor es empresa (LIVA 9o. fr. IV) (fiscal-tienda-05)",
+    "Tasa 0 % para libros, periódicos y revistas solo si los edita el propio vendedor (LIVA 2o.-A fr. I i)) (fiscal-tienda-05)",
+    "Cada producto identifica al refugio vendedor con su RFC o razón social para el CFDI (fiscal-tienda-08)"
+  ],
+  "shop_requirements": [
+    "SHOP_ENABLED=false en producción hasta cumplir la puerta de salida: entidad persona moral, alta de obligaciones, PAC integrado, tax_rates, alta fiscal de refugios, contratos, OAuth MP, jobs fiscales, acceso SAT, textos sin marcadores (fiscal-tienda-02, 23, 29)",
+    "Flag shop_commission_enabled: mientras falte cualquier componente del régimen de intermediación, impedir marketplace_fee distinto de 0 (fiscal-tienda-07)",
+    "Operador persona moral mercantil con RFC, e.firma, CSD propio en gestor de secretos y expediente de beneficiarios controladores (fiscal-tienda-13, v04)",
+    "Aviso de actualización de obligaciones del operador (ficha 28/CFF inferida) para retenciones por plataformas e informativa; declaraciones mensuales incluso en ceros (fiscal-tienda-v02)",
+    "PAC autorizado con CFDI 4.0 ingreso/egreso, global (InformacionGlobal), ACuentaTerceros, retenciones 2.0 con complemento de plataformas rev. E, cancelación y sandbox; services/cfdi.py intercambiable; versiones del estándar como constantes (fiscal-tienda-24, v05)",
+    "Campos en Order: cfdi_uuid, cfdi_status, cfdi_xml_url, cfdi_pdf_url, cfdi_issuer_rfc, global_cfdi_uuid; timbrado al webhook approved de MP (PUE) dentro de 24 horas (fiscal-tienda-02)",
+    "Formulario Solicitar factura (RFC validado contra LCO por el PAC, nombre exacto SAT, CP fiscal, régimen, uso CFDI, correo); Constancia opcional solo para autollenar; aviso RFC del comprador; datos cifrados 5 años (fiscal-tienda-03)",
+    "Job de CFDI global por emisor al cierre del periodo (mensual recomendado), excluyendo pedidos facturados, con IVA separado; relación pedido-global; escalamiento al contador para solicitudes tardías (fiscal-tienda-04)",
+    "Facturación a cuenta de terceros con el CSD del operador y nodo ACuentaTerceros, autorizada en el contrato; si se usa CSD del refugio, en KMS/Vault, nunca e.firma (fiscal-tienda-14)",
+    "CFDI de ingreso por la comisión a nombre del refugio (IVA 16 %) por venta o por periodo validado; publicado en Panel del refugio → Documentos fiscales (fiscal-tienda-17)",
+    "Motor de liquidación: base sin IVA, IVA trasladado, IVA retenido, ISR retenido, comisión más IVA, comisión MP, neto; según tipo de vendedor, RFC y cuentas en el extranjero; tasas leídas de tax_rates (fiscal-tienda-09, 01)",
+    "Tabla tax_rates (tipo_vendedor, impuesto, base, tasa, vigente_desde, vigente_hasta, fundamento, fuente) con filas 2026 y revisión anual (fiscal-tienda-01, v01)",
+    "Job mensual días 1-5: CFDI de retenciones e información de pagos con complemento de plataformas por refugio; alerta de faltantes día 3; clave c_TipoRetenc confirmada con el PAC (fiscal-tienda-10)",
+    "Exportación mensual (día 10) de la declaración informativa de vendedores desde Admin → Fiscal → Informativa plataformas (fiscal-tienda-11)",
+    "Reporte mensual (día 17) para el entero de ISR e IVA retenidos; calendario con alertas en el admin (fiscal-tienda-09, v02)",
+    "Vista inmutable fiscal_transactions con los campos de la regla 2.9.21 fr. I y II, carga T+1, 5 años, fuera del borrado ARCO; portal o API de solo lectura para el SAT con MFA, IP allowlist, bitácora y manual; escrito ficha 168/CFF el mes siguiente al primer cobro de comisión; avisos de cambio en 10 días (fiscal-tienda-12)",
+    "Ledger de doble partida con cuentas separadas (cobros por cuenta de refugios, ingresos por comisión, IVA propio, IVA por cuenta de terceros, retenciones por enterar, comisiones MP) conciliable con MP (fiscal-tienda-15)",
+    "Conciliación diaria de cobros MP contra pedidos y donativos; evidencia por operación (preferencia, payment_id, contrato, CFDI) (fiscal-tienda-16)",
+    "Tabla payouts con montos desglosados, UUIDs, referencia, estado, aprobador; PDF Estado de liquidación; pagos solo por transferencia o MP; bloqueo 5 años (fiscal-tienda-25)",
+    "Estados refund_pending y refunded que disparan CFDI de egreso o cancelación con motivo SAT; motivo, evidencia y UUID relacionado; recálculo de liquidación y retenciones (fiscal-tienda-18)",
+    "Alta fiscal del refugio vendedor en tabla refuge_tax_profile cifrada con bitácora: razón social, RFC, CURP, régimen, CP y domicilio, banco y CLABE a su nombre, cuentas en el extranjero, oficio de donataria, opción 4/PLT, correo CFDI, representante; validación RFC con PAC/LCO; Constancia como respaldo sin condicionar CFDI; opcional listas 69-B (fiscal-tienda-21)",
+    "No permitir vender sin RFC activo (sí recibir donativos); función para que refugios que facturan suban XML y PDF por pedido con envío automático al comprador y validación de UUID, RFC emisor y total (fiscal-tienda-19)",
+    "Indicador anual de ventas en el panel del refugio con aviso para donatarias (10 %) y reporte anual descargable (fiscal-tienda-20)",
+    "Mercado Pago Marketplace: OAuth por refugio (Panel → Conectar Mercado Pago), tokens cifrados con refresh, preferencias con el token del refugio, marketplace_fee configurable; sin monederos ni saldos internos; cuenta MP a nombre y RFC del refugio (fiscal-tienda-22)",
+    "Filtro de moderación de anuncios de facturas en productos, publicaciones, reportes, chats, bot de WhatsApp e importaciones de Facebook; cola de revisión, denuncia y evidencia (fiscal-tienda-26)",
+    "Monitoreo del CSD y del Buzón Tributario; contingencia: pausar la tienda y avisar si el CSD se restringe (fiscal-tienda-v03)",
+    "Donativos: nunca emitir recibos deducibles; preferir split; tope por donativo y por donante por debajo de 1,605 UMA o identificación; CFDI de comisión si hay comisión (fiscal-tienda-27)",
+    "Despliegue a producción falla si SHOP_ENABLED=true y quedan marcadores fiscales vacíos en los textos legales (fiscal-tienda-29)"
+  ],
+  "retention": [
+    {
+      "category": "CFDI emitidos y recibidos (XML, PDF, acuses de timbrado y cancelación), contabilidad y soporte de operaciones de la tienda",
+      "period": "5 años contados desde la fecha en que se presentó o debió presentarse la declaración relacionada; en bloqueo, excluidos del borrado ARCO",
+      "basis": "CFF art. 30 (fiscal-tienda-02, 24, 25)"
+    },
+    {
+      "category": "Datos fiscales del comprador que pidió factura (RFC, nombre, CP, régimen, uso de CFDI)",
+      "period": "El mismo plazo que el pedido: 5 años (CFF 30), cifrados",
+      "basis": "CFF arts. 29-A fr. IV y 30 (fiscal-tienda-03)"
+    },
+    {
+      "category": "Base de datos por transacción para el acceso en línea del SAT (fiscal_transactions)",
+      "period": "5 años, disponible de forma permanente; sin borrado por solicitudes ARCO",
+      "basis": "CFF art. 30-B; RMF 2026 regla 2.9.21 (fiscal-tienda-12)"
+    },
+    {
+      "category": "Expediente fiscal del refugio vendedor (razón social, RFC, CURP, régimen, domicilio, CLABE, Constancia, oficio de donataria, contrato de comisión)",
+      "period": "5 años desde la última declaración relacionada (informativa o retenciones)",
+      "basis": "CFF art. 30; LIVA art. 18-J fr. III; RMF 2026 reglas 12.2.7 y 2.9.21 fr. II (fiscal-tienda-21)"
+    },
+    {
+      "category": "Liquidaciones y pagos a refugios (payouts, estados de liquidación, referencias SPEI o MP, UUIDs)",
+      "period": "5 años, en bloqueo",
+      "basis": "CFF arts. 28 y 30; CCom art. 305 (fiscal-tienda-25)"
+    },
+    {
+      "category": "CFDI de retenciones e información de pagos y declaraciones mensuales (informativa, entero)",
+      "period": "5 años desde su presentación",
+      "basis": "CFF art. 30; RMF 2026 reglas 12.2.2, 12.2.4, 12.2.6, 12.2.7 (fiscal-tienda-09, 10, 11)"
+    },
+    {
+      "category": "Evidencia de moderación de anuncios de facturas",
+      "period": "Mientras dure cualquier procedimiento y conforme al plazo que fije el dominio contenido-plataforma; recomendado no menor a 5 años por su relación con CFF 113 Bis",
+      "basis": "CFF arts. 29-A fr. IX y 113 Bis (fiscal-tienda-26); plazo a consolidar con otros dominios"
+    },
+    {
+      "category": "Expediente de beneficiarios controladores de la persona moral operadora",
+      "period": "Como parte de la contabilidad, mientras exista la persona moral y 5 años después conforme a CFF 30; actualizar con cada cambio",
+      "basis": "CFF arts. 32-B Ter, 32-B Quáter, 32-B Quinquies (fiscal-tienda-v04)"
+    },
+    {
+      "category": "Nota de conflicto entre dominios",
+      "period": "Este dominio usa 5 años (CFF 30, contados desde la declaración); consumidor-ecommerce, buenas-practicas, contenido-plataforma y seguridad-incidentes sostienen 10 años para contratos y registros (CCom 38 y 49) y LFPIORPI pide 10 años para expedientes de donativos. Adoptar el plazo más largo aplicable por categoría",
+      "basis": "CFF art. 30; CCom arts. 38 y 49 (citados por otros dominios); LFPIORPI (dominio donativos). Pendiente de consolidación por el abogado"
+    }
+  ],
+  "subprocessors": [
+    {
+      "name": "Proveedor autorizado de certificación de CFDI (PAC) por elegir: Facturama, SW Sapien o Finkok",
+      "purpose": "Timbrado, validación y cancelación de CFDI 4.0 (ventas, comisión, egresos, global, retenciones con complemento de plataformas); resguardo de XML",
+      "data": "Datos fiscales del emisor (RFC, CSD del operador), del receptor (RFC, nombre, CP, régimen, uso de CFDI, correo), conceptos, importes e impuestos; datos del refugio en ACuentaTerceros y en CFDI de retenciones (RFC, CURP, montos)",
+      "country": "México",
+      "type": "Encargado (tratamiento por cuenta del responsable); autorizado por el SAT (CFF 29 Bis). Verificar su permanencia en la lista vigente del SAT antes de contratar (fiscal-tienda-24)"
+    },
+    {
+      "name": "Mercado Pago (Mercado Pago, S.A. de C.V. o la entidad que indiquen sus términos para México)",
+      "purpose": "Cobro de pedidos y donativos; con Marketplace (split), acreditación directa al refugio y cobro de marketplace_fee; reembolsos; prevención de fraude",
+      "data": "Monto, concepto, correo y datos de pago del comprador o donante; tokens OAuth y cuenta del refugio; identificadores de pago y preferencia",
+      "country": "México",
+      "type": "Responsable independiente (ya listado así en el Aviso de Privacidad); pasarela de pago. Revisar sus Términos sobre cobro por cuenta de terceros, donativos y agregación (fiscal-tienda-22)"
+    },
+    {
+      "name": "Servicio de Administración Tributaria (SAT)",
+      "purpose": "Recepción de la declaración informativa mensual de vendedores, de CFDI timbrados, de las declaraciones de retenciones y acceso en línea permanente a la base de datos por transacción (CFF 30-B)",
+      "data": "Datos fiscales de refugios vendedores (nombre, RFC, CURP, domicilio, banco y CLABE, montos), datos de cada operación (tipo, precio sin IVA, IVA, total, folio, método de pago, retenciones) y RFC del comprador cuando pidió factura",
+      "country": "México",
+      "type": "Autoridad; transferencia por obligación legal sin consentimiento (LIVA 18-J fr. III; CFF 30-B; RMF 2026 reglas 12.2.7 y 2.9.21) (fiscal-tienda-11, 12, 21, 28)"
+    },
+    {
+      "name": "Refugio vendedor que emite su propio CFDI",
+      "purpose": "Emitir la factura de la compra cuando el refugio es el emisor",
+      "data": "Datos fiscales del comprador (RFC, nombre o razón social, CP, régimen, uso de CFDI, correo)",
+      "country": "México",
+      "type": "Receptor de una transferencia necesaria para la relación jurídica; responsable de su propio tratamiento (fiscal-tienda-19, 28)"
+    },
+    {
+      "name": "Gestor de secretos (KMS o Vault) de la infraestructura",
+      "purpose": "Custodia del CSD del operador y, en su caso, de CSD de refugios y tokens OAuth de Mercado Pago",
+      "data": "Certificados y llaves privadas (.cer, .key, contraseñas), tokens",
+      "country": "Según el proveedor de hosting (VPS) y Cloudflare; definir en el dominio seguridad-incidentes",
+      "type": "Componente de infraestructura; no es encargado de datos personales por sí mismo (fiscal-tienda-14, 24)"
+    }
+  ],
+  "owner_data_needed": [
+    "Razón social, RFC, régimen fiscal, domicilio fiscal y CP del operador; si la persona moral aún no existe, figura elegida (S.A.S., S.A. de C.V., otra) y fecha prevista de constitución (fiscal-tienda-13)",
+    "Expediente de beneficiarios controladores de la persona moral operadora (fiscal-tienda-v04)",
+    "Decisión formal de modelo (Modelo B con split y comisión, B con cobro centralizado o Fase 1 sin comisión) y porcentaje de comisión de tienda y de donativos, o 0 % (fiscal-tienda-07, 08, 23)",
+    "Contador público y abogado fiscalista que validarán el esquema; decisión sobre consulta al SAT (CFF 34) (fiscal-tienda-07)",
+    "CSD vigente del operador (.cer, .key y contraseña) para el gestor de secretos; la e.firma no se comparte (fiscal-tienda-24)",
+    "PAC elegido, confirmación de que está en la lista vigente del SAT, credenciales de sandbox y producción, presupuesto de folios (fiscal-tienda-24)",
+    "Credenciales de la aplicación de Mercado Pago Marketplace (client_id, client_secret) y tipo de cuenta MP del operador; confirmación con MP de que sus términos permiten el esquema (fiscal-tienda-22)",
+    "Lista de refugios vendedores con razón social, RFC, CURP, régimen, CP y domicilio fiscal, CLABE y banco, cuenta MP propia, oficio de donataria, opción 4/PLT, correo CFDI, representante legal, declaración de cuentas en el extranjero (fiscal-tienda-21)",
+    "Cuántos refugios vendedores son personas físicas sin RFC, A.C. no donatarias y donatarias autorizadas (fiscal-tienda-19, 20)",
+    "Política de envíos: quién contrata la paquetería, costos, plazos y zonas; plazo de reembolso (Términos 14.4 y 14.5) (fiscal-tienda-05, 18)",
+    "Periodicidad de pagos a refugios y plazo para pedir factura (fiscal-tienda-04, 25)",
+    "Fecha prevista para activar la tienda y la comisión, para calendarizar ficha 168/CFF, aviso 28/CFF, CFDI de retenciones (día 5), informativa (día 10) y entero (día 17) (fiscal-tienda-12, v02)",
+    "Si ya hubo operaciones con comisión antes de hoy, para regularizar el acceso 30-B (fiscal-tienda-12)",
+    "Tope máximo de donativo por operación y por donante, y si los donativos también pasarán a MP split (fiscal-tienda-27)",
+    "Si GuauWoow venderá mercancía propia (modelo A) (fiscal-tienda-08)",
+    "Correo de facturación ([CORREO DE FACTURACIÓN]) (fiscal-tienda-28)"
+  ],
+  "lawyer_points": [
+    "Calificación de la plataforma: confirmar que con comisión mayor que 0 aplica LIVA 18-B fr. II y CFF 30-B, y si con contraprestación 0 (Fase 1) queda fuera; no hay criterio del SAT; valorar consulta CFF 34 (fiscal-tienda-07, 23; confianza media)",
+    "Split y cobro por cuenta del enajenante: si con MP Marketplace hay retención (LIVA 18-J fr. II; regla 12.2.5) y si puede usarse la facturación a cuenta de terceros de la regla 2.7.1.3 (fiscal-tienda-09, 14; abierto)",
+    "Retención a personas morales del Título III y donatarias: alcance de LIF 2026 art. 25 fr. VI y IX y forma de recuperar lo retenido (fiscal-tienda-09, 20; abierto)",
+    "Forma jurídica del operador y régimen: efectos en LISR 113-A (solo personas morales retienen) y en las retenciones de refugios A.C. a un operador persona física (RLIVA 3 y 35, LISR 113-J) (fiscal-tienda-13; confianza media)",
+    "Alta como retenedor: confirmar que la ficha 28/CFF es la vía para un operador residente (fiscal-tienda-v02; agregado por verificador, confianza media)",
+    "Complemento de plataformas tecnológicas: confirmar revisión E y clave c_TipoRetenc 26 con el PAC y el Portal del SAT (fiscal-tienda-10; corregido)",
+    "CFDI global: datos de llenado (PUBLICO EN GENERAL, régimen 616, uso S01, CP) y procedimiento para solicitudes de factura posteriores al global (fiscal-tienda-04; confianza media)",
+    "Clave de c_FormaPago para ventas cobradas por Mercado Pago (abierto)",
+    "Exención de bienes usados cuando vende una A.C. (LIVA 9o. fr. IV, CFF 16) (fiscal-tienda-05)",
+    "Comisionista en nombre propio o del comitente (CCom 284 y 285) frente a la promesa de los Términos de responder junto con el refugio ante el consumidor (fiscal-tienda-08)",
+    "Custodia de fondos: LRITF 22, LGOAAC 81-A Bis y LFPIORPI 17 fr. XI; revisar los Términos y Condiciones de Mercado Pago México (fiscal-tienda-22; confianza BAJA; requiere abogado de regulación financiera; conflicto señalado por el revisor crítico)",
+    "Beneficiario controlador: verificar reglas 2.8.1.20 a 2.8.1.23 RMF 2026 e integrar el expediente (fiscal-tienda-v04; números de reglas no verificados)",
+    "Plazos de conservación: consolidar 5 años (CFF 30) frente a 10 años (CCom 38 y 49, LFPIORPI) en un solo calendario por categoría con punto de inicio (fiscal-tienda-12, 21, 25; conflicto entre dominios)",
+    "RMF 2026: confirmar si existen 2a y 3a modificaciones (DOF 01-10-2026 y 02-10-2026, mencionadas por el revisor crítico) y si tocan las reglas citadas (fiscal-tienda-01)",
+    "Reforma 2027: leer las minutas de LISR y LIF 2027 al publicarse; actualizar tasas y artículos; revisar la iniciativa de reforma al art. 18-J fr. II a) LIVA de la Gaceta del 29-09-2026 (fiscal-tienda-v01; fuentes secundarias)",
+    "PAC: comprobar en la lista oficial del SAT que el proveedor elegido sigue autorizado (fiscal-tienda-24; no verificado, portal 403)",
+    "Donativos vía plataforma: cómo emite la donataria el CFDI al donante cuando el dinero pasa por la cuenta de la plataforma; confirmar UMA 2026 $117.31 en el DOF 09-01-2026 (fiscal-tienda-27; confianza media)",
+    "Cuotas de adopción: fijar una regla única con bienestar-animal, donativos e identidad-contratos; para la tienda, no listar animales ni cuotas de adopción como productos (LIVA 2o.-A fr. I a) excluye a los perros del 0 %) (conflicto entre dominios)",
+    "Aviso de Privacidad: fracción del art. 36 de la LFPDPPP 2025 que ampara la transferencia al SAT por obligación legal (fiscal-tienda-11, 21, 28; coordinar con datos-personales)",
+    "Montos de multas (CFF 84 fr. IV y VI, 84-N) actualizados en el DOF 28-12-2025: revisar el Anexo 5 de la RMF cada enero"
+  ],
+  "key_risks": [
+    "Bloqueo temporal del servicio digital por no dar al SAT el acceso en línea del art. 30-B CFF (ficha 168/CFF en el mes siguiente al primer cobro de comisión) (fiscal-tienda-12)",
+    "Restricción temporal del CSD por omitir dos declaraciones de retenciones o la anual: toda la facturación de la tienda se detiene y no se cumple el plazo de 24 horas (CFF 17-H Bis) (fiscal-tienda-v03)",
+    "Los Términos 14.1 vigentes ya declaran el modelo de comisionista con comisión y el código no cumple retenciones, informativa ni 30-B: publicar así con la tienda activa reconoce obligaciones incumplidas (fiscal-tienda-29)",
+    "Presunción de ingresos propios por todos los depósitos de terceros en la cuenta MP de la plataforma no registrados en contabilidad (CFF 59 fr. III) (fiscal-tienda-16)",
+    "Retenciones nuevas en 2026 a personas morales (2.5 % ISR, 50 % IVA) que alcanzan a refugios A.C. y donatarias; omitirlas es responsabilidad solidaria de la plataforma; su alcance al Título III no está confirmado (fiscal-tienda-09, 20)",
+    "Multa de $21,420 a $122,440 por condicionar la factura a la Constancia de Situación Fiscal o facturar con RFC de otra persona (CFF 83 fr. IX) (fiscal-tienda-03)",
+    "Prisión de 2 a 9 años para plataformas y titulares que permitan anuncios de compra o venta de facturas falsas (CFF 113 Bis) (fiscal-tienda-26)",
+    "Custodia de fondos de refugios y donantes en la cuenta propia: posible actividad reservada (LRITF 22) y conflicto con los Términos de Mercado Pago; cuatro dominios dan teorías distintas (fiscal-tienda-22; confianza baja)",
+    "Operador persona física: los refugios A.C. tendrían que retenerle IVA e ISR por la comisión y la plataforma no encajaría en el régimen de retención de la LISR (fiscal-tienda-13)",
+    "Multas de $1,686,750 a $2,249,000 por beneficiario controlador no documentado si se constituye persona moral sin expediente (CFF 84-N) (fiscal-tienda-v04)",
+    "Reforma 2027 pendiente: tasas y artículos pueden cambiar el 01-01-2027; tasas escritas en código quedarían obsoletas (fiscal-tienda-01, v01)",
+    "PAC y complemento: no se pudo verificar la lista oficial de PAC ni el catálogo c_TipoRetenc; un complemento mal versionado genera multa de $450 a $670 por comprobante (CFF 84 fr. IV d)) (fiscal-tienda-10, 24)",
+    "Donatarias que venden más del 10 % de sus ingresos en actividades ajenas pagan ISR y con más del 50 % pierden la autorización; recibos deducibles emitidos por quien no es donataria: multa y revocación (fiscal-tienda-20, 27)",
+    "Refugios informales sin RFC no pueden vender (ni facturar a la plataforma en un modelo A): sin CFDI no hay deducción ni acreditamiento (LISR 27 fr. III, LIVA 5o. fr. II) (fiscal-tienda-08, 19)",
+    "Conflicto de plazos de conservación entre dominios (5 frente a 10 años) puede dejar al Aviso de Privacidad inconsistente (fiscal-tienda-25)"
+  ],
+  "finding_ids": [
+    "fiscal-tienda-01", "fiscal-tienda-02", "fiscal-tienda-03", "fiscal-tienda-04", "fiscal-tienda-05", "fiscal-tienda-06", "fiscal-tienda-07", "fiscal-tienda-08", "fiscal-tienda-09", "fiscal-tienda-10", "fiscal-tienda-11", "fiscal-tienda-12", "fiscal-tienda-13", "fiscal-tienda-14", "fiscal-tienda-15", "fiscal-tienda-16", "fiscal-tienda-17", "fiscal-tienda-18", "fiscal-tienda-19", "fiscal-tienda-20", "fiscal-tienda-21", "fiscal-tienda-22", "fiscal-tienda-23", "fiscal-tienda-24", "fiscal-tienda-25", "fiscal-tienda-26", "fiscal-tienda-27", "fiscal-tienda-28", "fiscal-tienda-29", "fiscal-tienda-v01", "fiscal-tienda-v02", "fiscal-tienda-v03", "fiscal-tienda-v04", "fiscal-tienda-v05"
+  ]
+}

@@ -1,8 +1,8 @@
-# PatitasFind — Investigación y Propuesta de Plataforma de Adopción y Búsqueda de Perros en México
+# GuauWoow — Investigación y Propuesta de Plataforma de Adopción y Búsqueda de Perros en México
 
 **Fecha:** 8 de septiembre de 2026
 **Alcance:** Panorama de plataformas existentes en México y el mundo, propuesta de mejora con inteligencia artificial, WhatsApp y bots de redes sociales, y análisis de seguridad.
-**Nota:** El directorio del proyecto PatitasFind está actualmente vacío; este documento sirve como documento fundacional del producto.
+**Nota:** El directorio del proyecto GuauWoow está actualmente vacío; este documento sirve como documento fundacional del producto.
 
 ---
 
@@ -10,7 +10,7 @@
 
 - México es el país de América Latina con mayor abandono animal: **29.7 millones de perros y gatos en situación de calle** (Mars Petcare) y cerca de **500,000 animales abandonados al año**; ~**128,000 perros y gatos esperan en refugios**.
 - Las plataformas mexicanas actuales (AdoptaMx, Adoptist, Ubicapet, Perromies by NUPEC, directorios de refugios) son esencialmente **catálogos estáticos + WhatsApp manual**: no hay matching inteligente, no hay búsqueda de mascotas perdidas y la verificación de adoptantes es débil.
-- En el extranjero ya existe tecnología probada para lo que PatitasFind quiere hacer: **reconocimiento facial canino** (Finding Rover, ~98% de precisión, 15,000 reencuentros; Petco Love Lost en EE.UU.; Mascofinder en España que **rastrea Internet automáticamente** comparando fotos). Esto valida la viabilidad técnica y deja clara la oportunidad: **nadie lo ha hecho bien en México, con WhatsApp como canal principal**.
+- En el extranjero ya existe tecnología probada para lo que GuauWoow quiere hacer: **reconocimiento facial canino** (Finding Rover, ~98% de precisión, 15,000 reencuentros; Petco Love Lost en EE.UU.; Mascofinder en España que **rastrea Internet automáticamente** comparando fotos). Esto valida la viabilidad técnica y deja clara la oportunidad: **nadie lo ha hecho bien en México, con WhatsApp como canal principal**.
 - La propuesta se organiza en **4 módulos**: (a) plataforma web/app de adopción, (b) bot de WhatsApp (reportes de perdidos/encontrados + gestión de adopciones), (c) motor de IA de reconocimiento de perros (fase gruesa → media → fina), y (d) bot de rastreo en redes sociales.
 - Se identifican **8 vectores de abuso principales** (estafas de "adoptimo", suplantación, robo de perros usando la plataforma como catálogo, peleas de perros/carnada, contenido falso de rescates, doxing, bots de spam, venta encubierta). Para cada uno se define una contramedida.
 - Se proponen **15 mejoras** sobre el estado del arte y **10 funciones** priorizadas por demanda de rescatistas y adoptantes.
@@ -35,7 +35,7 @@ Lectura estratégica: hay **más oferta (perros) que demanda (adoptantes)**, y l
 
 ## 3. Qué existe hoy en México (estado del arte local)
 
-| Plataforma / Organización | Qué hace | Debilidad (oportunidad para PatitasFind) |
+| Plataforma / Organización | Qué hace | Debilidad (oportunidad para GuauWoow) |
 |---|---|---|
 | **AdoptaMx (@adopta.mx)** | Difusión de adopciones en redes y plataforma en línea | Difusión manual, sin matching, sin verificación de adoptantes |
 | **Adoptist** (aliada de NUPEC, campaña Mextizos) | Plataforma de adopción con base de datos de refugios; NUPEC reporta 6,000+ adopciones promovidas | Centrada en catálogo; sin IA ni búsqueda de perdidos |
@@ -55,9 +55,9 @@ Lectura estratégica: hay **más oferta (perros) que demanda (adoptantes)**, y l
 
 - **Finding Rover (EE.UU.)** — pionero en reconocimiento facial canino: escanea ~130 puntos de referencia (distancia entre ojos, hocico, color y textura del pelaje). Reporta **98% de precisión** y **15,000 mascotas reencontradas**; asociado a 600 refugios. Solo opera en EE.UU.
 - **Petco Love Lost (EE.UU.)** — base de datos nacional de perdidos/encontrados con reconocimiento facial; cualquiera sube una foto y cruza con animales reportados. Gratuito.
-- **Mascofinder (España)** — el más cercano a la idea de PatitasFind: **rastrea Internet diariamente** (redes sociales y webs de protectoras) buscando imágenes que coincidan con mascotas perdidas, usando IA que analiza color de pelaje, manchas, forma de hocico, ojos, orejas y cola. Validación de usuarios previa, difusión por email geolocalizado y publicidad segmentada por zona. **Es la prueba de concepto directa del bot rastreador.**
+- **Mascofinder (España)** — el más cercano a la idea de GuauWoow: **rastrea Internet diariamente** (redes sociales y webs de protectoras) buscando imágenes que coincidan con mascotas perdidas, usando IA que analiza color de pelaje, manchas, forma de hocico, ojos, orejas y cola. Validación de usuarios previa, difusión por email geolocalizado y publicidad segmentada por zona. **Es la prueba de concepto directa del bot rastreador.**
 - **Mr. Odis (Uruguay/Argentina)** — app latinoamericana que conecta fotos de perdidos con encontrados vía IA; incluye calendario de vacunas/desparasitación y directorio de servicios. Lección: la **descripción textual complementa a la foto** cuando la imagen es de mala calidad.
-- **Estudio Saturdays.AI** — arquitectura de 3 fases validada con modelos abiertos: **fase gruesa** (clasificación de raza, Inception v3, ~83% accuracy), **fase media** (detección de rostro, YOLO v5, ~98.5% mAP), **fase fina** (identificación, Xception) + **decisión supervisada** con metadatos (edad, género). Usa datasets abiertos (Stanford Dogs, 120 razas). Es un blueprint técnico reproducible para PatitasFind.
+- **Estudio Saturdays.AI** — arquitectura de 3 fases validada con modelos abiertos: **fase gruesa** (clasificación de raza, Inception v3, ~83% accuracy), **fase media** (detección de rostro, YOLO v5, ~98.5% mAP), **fase fina** (identificación, Xception) + **decisión supervisada** con metadatos (edad, género). Usa datasets abiertos (Stanford Dogs, 120 razas). Es un blueprint técnico reproducible para GuauWoow.
 
 ### 4.2 Modelos de negocio / adopción
 
@@ -69,11 +69,11 @@ Lectura estratégica: hay **más oferta (perros) que demanda (adoptantes)**, y l
 
 ### 4.3 El rol de WhatsApp en LatAm
 
-En México y Latinoamérica, WhatsApp es el canal de facto de los rescatistas (la mayoría de los refugios mexicanos ya atienden adopciones por WhatsApp). Los grupos de barrio de "mascotas perdidas y encontradas" son el mecanismo más efectivo hoy, pero su falla es estructural: la información no se indexa ni se cruza. Esto es exactamente el hueco que PatitasFind puede ocupar: **mantener el canal que la gente ya usa, pero estructurar los datos detrás**.
+En México y Latinoamérica, WhatsApp es el canal de facto de los rescatistas (la mayoría de los refugios mexicanos ya atienden adopciones por WhatsApp). Los grupos de barrio de "mascotas perdidas y encontradas" son el mecanismo más efectivo hoy, pero su falla es estructural: la información no se indexa ni se cruza. Esto es exactamente el hueco que GuauWoow puede ocupar: **mantener el canal que la gente ya usa, pero estructurar los datos detrás**.
 
 ---
 
-## 5. Arquitectura propuesta de PatitasFind
+## 5. Arquitectura propuesta de GuauWoow
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -112,11 +112,11 @@ En México y Latinoamérica, WhatsApp es el canal de facto de los rescatistas (l
 
 ### 5.1 Flujo 1 — "Perdí a mi perro" (el corazón emocional del producto)
 
-1. El dueño sube una foto por **WhatsApp** (manda la foto al número de PatitasFind) o por la app.
+1. El dueño sube una foto por **WhatsApp** (manda la foto al número de GuauWoow) o por la app.
 2. El bot pide confirmar: colonia/CP, fecha, nombre, señas particulares.
 3. La IA ejecuta fase gruesa → media → fina contra todos los perros **encontrados** reportados en un radio de 3.5 km (y contra lo que el bot rastreador haya capturado de redes).
 4. Se generan N candidatos con % de similitud; el dueño confirma o descarta.
-5. Al confirmar, PatitasFind conecta a ambas partes **dentro de la plataforma** (nunca expone teléfonos directamente) y sugiere punto de encuentro seguro.
+5. Al confirmar, GuauWoow conecta a ambas partes **dentro de la plataforma** (nunca expone teléfonos directamente) y sugiere punto de encuentro seguro.
 6. Se dispara difusión automática: alerta WhatsApp a usuarios y refugios en la zona, imagen lista para compartir en redes, y publicidad geolocalizada opcional.
 
 ### 5.2 Flujo 2 — "Encontré / hay un perro en la calle"
@@ -128,7 +128,7 @@ En México y Latinoamérica, WhatsApp es el canal de facto de los rescatistas (l
 ### 5.3 Flujo 3 — Adopción responsable
 
 1. Refugios/rescatistas registran perros (foto, edad, tamaño, temperamento, salud, esterilización).
-2. Adoptantes crean perfil con **cuestionario responsable** (espacio, presupuesto, experiencia) — los refugios mexicanos ya exigen esto; PatitasFind lo estandariza.
+2. Adoptantes crean perfil con **cuestionario responsable** (espacio, presupuesto, experiencia) — los refugios mexicanos ya exigen esto; GuauWoow lo estandariza.
 3. Matching adoptante–perro por compatibilidad (estilo de vida, energía, convivencia con niños/otros animales).
 4. Solicitud → entrevista → **cita presencial en refugio o punto seguro** → seguimiento post-adopción a 15/60/180 días.
 
@@ -137,7 +137,7 @@ En México y Latinoamérica, WhatsApp es el canal de facto de los rescatistas (l
 - Mascofinder (España) ya demuestra que es viable: rastreo diario de imágenes publicadas en protectoras y redes, comparadas con la base de perdidos.
 - Implementación responsable: priorizar **fuentes abiertas y cooperativas** (grupos públicos de Facebook, hashtags de Instagram/TikTok, feeds RSS de refugios) cumpliendo términos de servicio y la LFPDPPP mexicana; usar APIs oficiales donde existan (Meta Graph API para páginas y grupos con permisos).
 - Pipeline: extracción → deduplicación (hash perceptual) → análisis IA (raza, color, señas) → extracción de texto del post con LLM (raza, zona, fecha, teléfono) → geocodificación → cruzado con la base de perdidos → alerta.
-- Importante: el rastreador **alimenta la búsqueda de perdidos** (cruzar fotos encontradas en redes con perros reportados como perdidos en PatitasFind), no solo publica contenido.
+- Importante: el rastreador **alimenta la búsqueda de perdidos** (cruzar fotos encontradas en redes con perros reportados como perdidos en GuauWoow), no solo publica contenido.
 
 ---
 
@@ -195,9 +195,9 @@ Cinco demandadas por **rescatistas y refugios** (quienes hacen la labor diaria) 
 
 ### 8.1 Vectores de abuso identificados (con evidencia documentada)
 
-| # | Ataque | Descripción real documentada | Contramedida en PatitasFind |
+| # | Ataque | Descripción real documentada | Contramedida en GuauWoow |
 |---|---|---|---|
-| 1 | **Estafa "adoptimo" / pagos por adelantado** | Estafa de mayor crecimiento en México (jul-2026): el "vendedor" dice que el perro está en otra ciudad y cobra "envío, vacunas, jaula"; modalidad idéntica documentada en España (Guardia Civil) y EE.UU. (IC3/FBI) | Adopciones **siempre gratuitas y en persona**; bloqueo de mensajes que contienen solicitudes de pago (detección de palabras + contexto con LLM); banner permanente "PatitasFind jamás cobra por adopción" |
+| 1 | **Estafa "adoptimo" / pagos por adelantado** | Estafa de mayor crecimiento en México (jul-2026): el "vendedor" dice que el perro está en otra ciudad y cobra "envío, vacunas, jaula"; modalidad idéntica documentada en España (Guardia Civil) y EE.UU. (IC3/FBI) | Adopciones **siempre gratuitas y en persona**; bloqueo de mensajes que contienen solicitudes de pago (detección de palabras + contexto con LLM); banner permanente "GuauWoow jamás cobra por adopción" |
 | 2 | **Suplantación / perfiles falsos de refugio** | Alerta oficial CERT-MX sobre perfiles falsos que piden dinero o datos; reporte "Spot the Scam" sobre rescates falsos que monetizan la empatía | Verificación KYC de refugios (documento + domicilio + video de instalaciones); sello visible; reporte comunitario con revisión en <24 h |
 | 3 | **Robo de perros usando la plataforma como catálogo** | Publicar "perdido" para obtener la ubicación de un perro valioso; o contactar "encontrados" para quedárselos | Nunca revelar ubicación exacta en público (solo geocerca aproximada); contacto solo vía chat interno; **prueba de tenencia** (fotos del perro en casa, datos del microchip/placa) exigida antes de entregar un encontrado; código de entrega con verificación |
 | 4 | **Carnada para peleas de perros** | Personas que adoptan perros medianos/grandes como carnada para entrenamiento de peleas; preocupación constante de rescatistas mexicanos | Cuestionario con señales de riesgo; entrevista obligatoria; negación de adopción de perros grandes a perfiles nuevos sin historial verificado; seguimiento post-adopción con fotos verificables |
@@ -221,8 +221,8 @@ Cinco demandadas por **rescatistas y refugios** (quienes hacen la labor diaria) 
 
 - **LFPDPPP:** consentimiento informado para datos personales; aviso de privacidad; derechos ARCO; minimización (no guardar más datos de los necesarios). Aplica a fotos, ubicaciones y teléfonos.
 - **Ley de Protección de Animales de la CDMX / normativa estatal:** sanciona maltrato y abandono; la plataforma puede integrar un canal de denuncia a autoridades (diferenciador social).
-- **Ley General de Salud (aviso A-002, comercio de mascotas):** comercialización de perros requiere aviso sanitario; por eso PatitasFind debe **prohibir explícitamente la venta** y detectarla.
-- **Términos de servicio de Meta/TikTok:** el rastreador debe operar con APIs oficiales o acuerdos; el scraping agresivo puede acarrear bloqueos y responsabilidad. Plan B: alianzas con grupos/rescatistas que voluntariamente conecten sus grupos a PatitasFind (ingesta cooperativa).
+- **Ley General de Salud (aviso A-002, comercio de mascotas):** comercialización de perros requiere aviso sanitario; por eso GuauWoow debe **prohibir explícitamente la venta** y detectarla.
+- **Términos de servicio de Meta/TikTok:** el rastreador debe operar con APIs oficiales o acuerdos; el scraping agresivo puede acarrear bloqueos y responsabilidad. Plan B: alianzas con grupos/rescatistas que voluntariamente conecten sus grupos a GuauWoow (ingesta cooperativa).
 - **Datos biométricos:** el reconocimiento facial de perros no es dato biométrico humano, pero las fotos pueden contener personas; se deben anonimizar.
 
 ---
@@ -257,4 +257,4 @@ Cinco demandadas por **rescatistas y refugios** (quienes hacen la labor diaria) 
 
 ---
 
-*Documento preparado como base de diseño del producto PatitasFind. No constituye asesoría legal; validar el plan de cumplimiento con un abogado antes de lanzar el rastreador y el tratamiento de datos.*
+*Documento preparado como base de diseño del producto GuauWoow. No constituye asesoría legal; validar el plan de cumplimiento con un abogado antes de lanzar el rastreador y el tratamiento de datos.*

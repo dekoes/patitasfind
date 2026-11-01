@@ -3,29 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PatitasFind — Encuentra a tu mejor amigo perdido</title>
-<meta name="description" content="PatitasFind reúne perritos perdidos con sus familias y conecta perros rescatados con adoptantes en México. Alertas con foto, comparación con IA, mapa, chat seguro y refugios verificados.">
+<title>GuauWoow — Encuentra a tu mejor amigo perdido</title>
+<meta name="description" content="GuauWoow reúne perritos perdidos con sus familias y conecta perros rescatados con adoptantes en México. Alertas con foto, comparación con IA, mapa, chat seguro y refugios verificados.">
 <meta name="theme-color" content="#DCC7FA">
-<link rel="canonical" href="/">
+<link rel="canonical" href="%%SITE_URL%%/">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_MX">
-<meta property="og:site_name" content="PatitasFind">
-<meta property="og:title" content="PatitasFind — Encuentra a tu mejor amigo perdido">
+<meta property="og:site_name" content="GuauWoow">
+<meta property="og:url" content="%%SITE_URL%%/">
+<meta property="og:title" content="GuauWoow — Encuentra a tu mejor amigo perdido">
 <meta property="og:description" content="Reporta perdidos y encontrados, compara fotos con IA y adopta a tu nuevo mejor amigo en refugios verificados de México.">
-<meta property="og:image" content="/img/hero.png">
+<meta property="og:image" content="%%SITE_URL%%/img/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Familia abrazando a su perrito después de reencontrarlo">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="PatitasFind — Encuentra a tu mejor amigo perdido">
+<meta name="twitter:title" content="GuauWoow — Encuentra a tu mejor amigo perdido">
 <meta name="twitter:description" content="Alertas con foto, comparación con IA, mapa y adopción responsable en México.">
-<meta name="twitter:image" content="/img/hero.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"PatitasFind","applicationCategory":"LifestyleApplication","operatingSystem":"Web","inLanguage":"es-MX","description":"Plataforma para reunir perros perdidos con sus familias y facilitar la adopción responsable en México.","offers":{"@type":"Offer","price":"0","priceCurrency":"MXN"}}</script>
+<meta name="twitter:image" content="%%SITE_URL%%/img/og-image.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"GuauWoow","url":"%%SITE_URL%%/","applicationCategory":"LifestyleApplication","operatingSystem":"Web","inLanguage":"es-MX","description":"Plataforma para reunir perros perdidos con sus familias y facilitar la adopción responsable en México.","offers":{"@type":"Offer","price":"0","priceCurrency":"MXN"}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Patrick+Hand&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="anim.css?v=10">
-<link rel="stylesheet" href="landing.css?v=3">
+<link rel="stylesheet" href="landing.css?v=6">
+<link rel="stylesheet" href="landing-anim.css?v=2">
+<link rel="stylesheet" href="landing-motion.css?v=8">
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="paw" viewBox="0 0 64 64"><ellipse cx="32" cy="40" rx="15" ry="12" fill="currentColor"/><ellipse cx="14" cy="26" rx="7" ry="9" fill="currentColor" transform="rotate(-18 14 26)"/><ellipse cx="26" cy="17" rx="7" ry="9" fill="currentColor"/><ellipse cx="40" cy="17" rx="7" ry="9" fill="currentColor"/><ellipse cx="51" cy="26" rx="7" ry="9" fill="currentColor" transform="rotate(18 51 26)"/></symbol></defs></svg>
-<div id="page-loader" aria-hidden="true"><div id="pl-dog"></div><div class="pl-title">PatitasFind</div><div class="bone-bar indeterminate" style="width:200px"><div class="fill"></div></div></div>
+<div id="page-loader" aria-hidden="true"><div id="pl-dog"></div><div class="pl-title">GuauWoow</div><div class="bone-bar indeterminate" style="width:200px"><div class="fill"></div></div></div>
 <div id="scroll-dog" aria-hidden="true"></div>
 
 <header class="header">
@@ -40,7 +50,7 @@
           <ellipse cx="51" cy="26" rx="7" ry="9" fill="currentColor" transform="rotate(18 51 26)"/>
         </svg>
       </div>
-      PatitasFind
+      GuauWoow
     </a>
     <nav class="nav">
       <a href="#como-funciona">Cómo funciona</a>
@@ -55,9 +65,9 @@
   <div class="wrap">
     <div>
       <span class="badge"><svg class="badge-paw" width="14" height="14" viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="32" cy="40" rx="15" ry="12" fill="currentColor"/><ellipse cx="14" cy="26" rx="7" ry="9" fill="currentColor" transform="rotate(-18 14 26)"/><ellipse cx="26" cy="17" rx="7" ry="9" fill="currentColor"/><ellipse cx="40" cy="17" rx="7" ry="9" fill="currentColor"/><ellipse cx="51" cy="26" rx="7" ry="9" fill="currentColor" transform="rotate(18 51 26)"/></svg> Más que una app, una red de héroes</span>
-      <h1 class="hero-title">Encuentra a tu <span>mejor amigo</span> perdido</h1>
+      <h1 class="hero-title">Encuentra a tu <span class="accent">mejor amigo</span> perdido</h1>
       <p class="hero-lead">
-        PatitasFind une inteligencia artificial, una comunidad de vecinos y rescatistas, y un bot de
+        GuauWoow une inteligencia artificial, una comunidad de vecinos y rescatistas, y un bot de
         WhatsApp para reunir a los perritos perdidos con sus familias y encontrar hogar para los rescatados.
       </p>
       <div class="hero-btns">
@@ -65,43 +75,289 @@
         <a href="#como-funciona" class="btn btn-ghost">Ver cómo funciona</a>
       </div>
     </div>
+    <div class="hero-stage">
+    <div class="hero-tilt">
     <div class="hero-img">
-      <img src="img/hero.png" alt="Chica encontrando a su perro con la app">
+      <!--escena:hero-->
+      <div class="scene scene-hero" data-scene="hero">
+        <img class="scene-base" src="img/anim/hero/base.webp" alt="Chica encontrando a su perro con la app" width="1000" height="1250" fetchpriority="high" decoding="async">
+        <img class="pt p-planta-centro a-sway" src="img/anim/hero/planta-centro.webp" alt="" width="283" height="255" style="left:48.485%;top:68.331%;width:28.342%;--ox:33.333%;--oy:102.098%;--dur:4.4s" loading="lazy" decoding="async">
+        <img class="pt p-pelo-puntas" src="img/anim/hero/pelo-puntas.webp" alt="" width="168" height="198" style="left:4.991%;top:38.659%;width:16.845%;--ox:91.005%;--oy:8.108%" loading="lazy" decoding="async">
+        <img class="pt p-mochila" src="img/anim/hero/mochila.webp" alt="" width="202" height="247" style="left:2.496%;top:48.93%;width:20.232%;--ox:77.974%;--oy:2.166%" loading="lazy" decoding="async">
+        <span class="grp g-cabeza-chica" style="left:17.469%;top:16.548%;width:45.276%;height:28.103%;--ox:55.906%;--oy:97.462%">
+          <img class="pt p-cabeza-chica" src="img/anim/hero/cabeza-chica.webp" alt="" width="428" height="339" style="left:-0.591%;top:4.569%;width:94.488%;--ox:59.792%;--oy:96.316%" loading="lazy" decoding="async">
+          <img class="pt p-arete" src="img/anim/hero/arete.webp" alt="" width="27" height="33" style="left:36.417%;top:67.513%;width:5.906%;--ox:70%;--oy:13.514%" loading="lazy" decoding="async">
+          <img class="pt p-ojo-chica" src="img/anim/hero/ojo-chica.webp" alt="" width="77" height="64" style="left:56.89%;top:60.66%;width:16.929%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+        </span>
+        <span class="grp g-manos" style="left:47.237%;top:39.658%;width:18.36%;height:18.688%;--ox:33.981%;--oy:90.076%">
+          <img class="pt p-manos" src="img/anim/hero/manos.webp" alt="" width="183" height="228" style="left:2.913%;top:0%;width:99.515%;--ox:31.22%;--oy:92.188%" loading="lazy" decoding="async">
+          <span class="fx f-flash" aria-hidden="true" style="left:34.951%;top:-9.924%;width:58.252%;height:45.802%"><i></i><i></i></span>
+        </span>
+        <span class="grp g-perro" style="left:62.389%;top:48.93%;width:35.651%;height:40.228%;--ox:45%;--oy:99.645%">
+          <img class="pt p-cuerpo-perro" src="img/anim/hero/cuerpo-perro.webp" alt="" width="354" height="357" style="left:1.25%;top:28.723%;width:99.25%;--ox:44.081%;--oy:99.751%" loading="lazy" decoding="async">
+          <img class="pt p-cola" src="img/anim/hero/cola.webp" alt="" width="91" height="196" style="left:72.5%;top:43.617%;width:25.5%;--ox:49.02%;--oy:94.545%" loading="lazy" decoding="async">
+          <img class="pt p-placa" src="img/anim/hero/placa.webp" alt="" width="84" height="78" style="left:20.75%;top:39.716%;width:23.5%;--ox:48.936%;--oy:13.793%" loading="lazy" decoding="async">
+          <span class="grp g-cabeza-perro" style="left:0%;top:0%;width:86.5%;height:40.78%;--ox:49.133%;--oy:93.043%">
+            <img class="pt p-cabeza-perro" src="img/anim/hero/cabeza-perro.webp" alt="" width="295" height="204" style="left:0.578%;top:2.174%;width:95.665%;--ox:50.755%;--oy:91.266%" loading="lazy" decoding="async">
+            <img class="pt p-lengua" src="img/anim/hero/lengua.webp" alt="" width="57" height="53" style="left:26.59%;top:70%;width:18.497%;--ox:67.188%;--oy:1.695%" loading="lazy" decoding="async">
+            <img class="pt p-ojos-perro" src="img/anim/hero/ojos-perro.webp" alt="" width="106" height="71" style="left:32.948%;top:26.957%;width:34.393%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+            <img class="pt p-oreja-izq" src="img/anim/hero/oreja-izq.webp" alt="" width="97" height="124" style="left:1.445%;top:9.565%;width:31.503%;--ox:73.394%;--oy:7.194%" loading="lazy" decoding="async">
+            <img class="pt p-oreja-der" src="img/anim/hero/oreja-der.webp" alt="" width="95" height="156" style="left:69.653%;top:24.348%;width:30.925%;--ox:15.888%;--oy:10.286%" loading="lazy" decoding="async">
+          </span>
+        </span>
+        <img class="pt p-planta-der a-sway" src="img/anim/hero/planta-der.webp" alt="" width="88" height="111" style="left:91.176%;top:80.171%;width:8.824%;--ox:52.525%;--oy:101.613%;--dur:3.6s;--delay:-1.2s" loading="lazy" decoding="async">
+        <img class="pt p-planta-izq a-sway" src="img/anim/hero/planta-izq.webp" alt="" width="237" height="189" style="left:4.278%;top:74.037%;width:23.708%;--ox:38.346%;--oy:100%;--dur:4s;--delay:-2.1s" loading="lazy" decoding="async">
+        <img class="pt p-rayitas-lila a-flash" src="img/anim/hero/rayitas-lila.webp" alt="" width="105" height="102" style="left:46.791%;top:12.91%;width:10.517%;--ox:55.085%;--oy:103.478%;--dur:2.4s;--delay:-.4s" loading="lazy" decoding="async">
+        <img class="pt p-rayitas-rojas" src="img/anim/hero/rayitas-rojas.webp" alt="" width="102" height="98" style="left:66.934%;top:41.726%;width:10.16%;--ox:53.509%;--oy:106.364%" loading="lazy" decoding="async">
+        <img class="pt p-ondas-cola" src="img/anim/hero/ondas-cola.webp" alt="" width="76" height="73" style="left:91.266%;top:63.409%;width:7.576%;--ox:-4.706%;--oy:86.585%" loading="lazy" decoding="async">
+        <span class="fx f-enfoque" aria-hidden="true" style="left:64.349%;top:48.217%;width:29.412%;height:18.117%"><i></i><i></i></span>
+        <span class="fx f-destello" aria-hidden="true" style="left:0%;top:0%;width:100%;height:100%"></span>
+        <span class="fx f-corazon" aria-hidden="true" style="left:82.888%;top:42.796%;width:7.13%;height:5.706%"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.6 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z"/></svg></span>
+        <span class="fx f-chispas" aria-hidden="true" style="left:61.497%;top:45.649%;width:34.759%;height:22.825%"><i></i><i></i><i></i><i></i></span>
+      </div>
+      <!--/escena-->
+    </div>
+    <span class="sticker st-1" style="--k:0" aria-hidden="true"><i><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#paw"/></svg></i></span>
+    <span class="sticker st-2" style="--k:1" aria-hidden="true"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.6 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z"/></svg></i></span>
+    <span class="sticker st-3" style="--k:2" aria-hidden="true"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg></i></span>
+    <span class="sticker st-4" style="--k:3" aria-hidden="true"><i><svg viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M18 22a7 7 0 1 0-8 9 7 7 0 1 0 8 9l28 0a7 7 0 1 0 8-9 7 7 0 1 0-8-9z"/></svg></i></span>
+    </div>
     </div>
   </div>
 </section>
 
-<section id="como-funciona" class="wrap center">
+<div class="bands" aria-hidden="true">
+  <div class="band b2"><div class="band-track"><span>Foto</span><svg aria-hidden="true"><use href="#paw"/></svg><span class="o ol" data-l="IA">IA</span><svg aria-hidden="true"><use href="#paw"/></svg><span>Alerta</span><svg aria-hidden="true"><use href="#paw"/></svg><span class="o ol" data-l="Reencuentro">Reencuentro</span><svg aria-hidden="true"><use href="#paw"/></svg></div></div>
+  <div class="band b1"><div class="band-track"><span>Perdido</span><svg aria-hidden="true"><use href="#paw"/></svg><span class="o ol" data-l="Encontrado">Encontrado</span><svg aria-hidden="true"><use href="#paw"/></svg><span>¡En casa!</span><svg aria-hidden="true"><use href="#paw"/></svg></div></div>
+</div>
+
+<section id="como-funciona" class="center pasos">
+<div class="hpin">
+<div class="hpin-sticky">
+<div class="wrap pasos-head">
   <span class="badge">Cómo funciona</span>
-  <h2 class="section-title">Tres pasos para volver a abrazarlo</h2>
+  <h2 class="section-title">Tres pasos para volver a <span class="hl">abrazarlo</span></h2>
   <p class="section-lead">Súbele una foto, comparte la alerta y deja que la comunidad y la IA te ayuden a buscar.</p>
+</div>
+<div class="hpin-track">
   <div class="sources">
     <div class="cards" style="margin-top:44px">
-      <div class="source-card">
+      <div class="source-card" data-n="01">
         <div class="icon"><span class="step-num">1</span></div>
-        <div class="step-img"><img src="img/step-1-photo.png" alt="Escaneo facial de un perro en el celular"></div>
+        <div class="step-img">
+          <!--escena:step-1-photo-->
+          <div class="scene scene-step-1-photo" data-scene="step-1-photo">
+            <img class="scene-base" src="img/anim/step-1-photo/base.webp" alt="Escaneo facial de un perro en el celular" width="600" height="600" loading="lazy" decoding="async">
+            <span class="grp g-telefono" style="left:4.785%;top:3.19%;width:61.404%;height:93.7%;--ox:50.649%;--oy:98.723%">
+              <img class="pt p-telefono" src="img/anim/step-1-photo/telefono.webp" alt="" width="347" height="548" style="left:4.805%;top:0.596%;width:94.286%;--ox:48.623%;--oy:100.699%" loading="lazy" decoding="async">
+              <span class="grp g-pantalla" style="left:12.857%;top:3.923%;width:80.701%;height:88.749%;--ox:50%;--oy:50%;clip-path:polygon(5.15% 4.066%,78.661% 0.479%,83.972% 3.069%,99.195% 91.369%,94.85% 94.534%,21.645% 99.521%,16.334% 96.931%,0.805% 7.231%)">
+                <span class="grp g-perro" style="left:1.77%;top:5.169%;width:94.947%;height:90.142%;--ox:54.237%;--oy:92.766%">
+                  <img class="pt p-cola" src="img/anim/step-1-photo/cola.webp" alt="" width="64" height="137" style="left:7.458%;top:49.255%;width:22.542%;--ox:73.684%;--oy:79.371%" loading="lazy" decoding="async">
+                  <img class="pt p-cuerpo" src="img/anim/step-1-photo/cuerpo.webp" alt="" width="250" height="388" style="left:6.78%;top:10.319%;width:88.475%;--ox:53.64%;--oy:95.679%" loading="lazy" decoding="async">
+                  <span class="fx f-lineas-cuerpo" aria-hidden="true" style="left:0%;top:0%;width:100%;height:100%"><svg viewBox="170 140 590 940" preserveAspectRatio="none"><path class="lc-1" pathLength="1" d="M494.6 519.3L581.7 552.0"/><path class="lc-2" pathLength="1" d="M470.1 520.6L385.7 562.8"/><path class="lc-3" pathLength="1" d="M483.3 527.9L493.2 631.7"/><path class="lc-4" pathLength="1" d="M482.0 501.2L482.0 463.0"/><path class="lc-5" pathLength="1" d="M595.0 570.0L602.8 693.8"/><path class="lc-6" pathLength="1" d="M375.3 582.4L391.6 707.5"/><path class="lc-7" pathLength="1" d="M505.7 651.1L592.2 700.4"/><path class="lc-8" pathLength="1" d="M493.5 631.7L482.0 463.0"/><path class="lc-9" pathLength="1" d="M603.0 720.1L597.0 845.7"/><path class="lc-10" pathLength="1" d="M397.6 732.6L443.5 860.5"/><path class="lc-11" pathLength="1" d="M678.6 783.9L682.6 890.4"/><path class="lc-12" pathLength="1" d="M350.3 808.8L365.2 909.1"/><path class="lc-13" pathLength="1" d="M597.5 870.9L604.7 951.0"/><path class="lc-14" pathLength="1" d="M448.4 885.0L452.4 957.4"/><path class="lc-15" pathLength="1" d="M611.7 970.7L617.8 979.9"/><path class="lc-16" pathLength="1" d="M447.9 979.4L441.4 992.6"/></svg></span>
+                  <span class="grp g-puntos-cuerpo" style="left:0%;top:0%;width:100%;height:100%;--ox:50%;--oy:50%">
+                    <img class="pt p-punto-06" src="img/anim/step-1-photo/punto-06.webp" alt="" width="20" height="20" style="left:49.492%;top:37.66%;width:6.949%;--ox:48.831%;--oy:50.171%" loading="lazy" decoding="async">
+                    <img class="pt p-punto-07" src="img/anim/step-1-photo/punto-07.webp" alt="" width="20" height="20" style="left:68.475%;top:42.128%;width:6.949%;--ox:49.223%;--oy:50.398%" loading="lazy" decoding="async">
+                    <img class="pt p-punto-08" src="img/anim/step-1-photo/punto-08.webp" alt="" width="20" height="20" style="left:31.017%;top:43.404%;width:6.949%;--ox:50.012%;--oy:49.708%" loading="lazy" decoding="async">
+                    <img class="pt p-punto-09" src="img/anim/step-1-photo/punto-09.webp" alt="" width="19" height="19" style="left:51.525%;top:51.596%;width:6.78%;--ox:51.016%;--oy:49.162%" loading="lazy" decoding="async">
+                    <img class="pt p-punto-10" src="img/anim/step-1-photo/punto-10.webp" alt="" width="20" height="19" style="left:70%;top:58.191%;width:6.949%;--ox:50.384%;--oy:49.837%" loading="lazy" decoding="async">
+                    <img class="pt p-punto-11" src="img/anim/step-1-photo/punto-11.webp" alt="" width="19" height="19" style="left:34.407%;top:59.574%;width:6.78%;--ox:50.601%;--oy:50.95%" loading="lazy" decoding="async">
+                    <img class="pt p-punto-12" src="img/anim/step-1-photo/punto-12.webp" alt="" width="19" height="19" style="left:82.881%;top:65.106%;width:6.61%;--ox:48.945%;--oy:50.078%" loading="lazy" decoding="async">
+                    <img class="pt p-punto-13" src="img/anim/step-1-photo/punto-13.webp" alt="" width="19" height="19" style="left:26.949%;top:67.766%;width:6.61%;--ox:50.073%;--oy:50.09%" loading="lazy" decoding="async">
+                    <img class="pt p-punto-14" src="img/anim/step-1-photo/punto-14.webp" alt="" width="19" height="19" style="left:68.983%;top:74.362%;width:6.61%;--ox:49.622%;--oy:49.523%" loading="lazy" decoding="async">
+                    <img class="pt p-punto-15" src="img/anim/step-1-photo/punto-15.webp" alt="" width="19" height="19" style="left:43.729%;top:75.851%;width:6.61%;--ox:50.503%;--oy:49.708%" loading="lazy" decoding="async">
+                    <img class="pt p-punto-16" src="img/anim/step-1-photo/punto-16.webp" alt="" width="18" height="18" style="left:83.729%;top:79.043%;width:6.441%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+                    <img class="pt p-punto-17" src="img/anim/step-1-photo/punto-17.webp" alt="" width="17" height="17" style="left:30.339%;top:81.064%;width:6.102%;--ox:49.461%;--oy:50.539%" loading="lazy" decoding="async">
+                    <img class="pt p-punto-18" src="img/anim/step-1-photo/punto-18.webp" alt="" width="17" height="17" style="left:70.847%;top:85.532%;width:6.102%;--ox:49.074%;--oy:49.343%" loading="lazy" decoding="async">
+                    <img class="pt p-punto-19" src="img/anim/step-1-photo/punto-19.webp" alt="" width="18" height="18" style="left:44.746%;top:86.17%;width:6.441%;--ox:50.213%;--oy:50%" loading="lazy" decoding="async">
+                    <img class="pt p-punto-20" src="img/anim/step-1-photo/punto-20.webp" alt="" width="17" height="17" style="left:73.898%;top:88.404%;width:5.932%;--ox:50.37%;--oy:49.947%" loading="lazy" decoding="async">
+                    <img class="pt p-punto-21" src="img/anim/step-1-photo/punto-21.webp" alt="" width="17" height="17" style="left:42.203%;top:89.787%;width:6.102%;--ox:48.937%;--oy:50.652%" loading="lazy" decoding="async">
+                  </span>
+                  <span class="grp g-cabeza" style="left:5.085%;top:1.064%;width:81.356%;height:39.362%;--ox:58.75%;--oy:86.486%">
+                    <img class="pt p-cabeza" src="img/anim/step-1-photo/cabeza.webp" alt="" width="164" height="160" style="left:20%;top:0%;width:71.458%;--ox:54.227%;--oy:95.522%" loading="lazy" decoding="async">
+                    <img class="pt p-oreja-izq" src="img/anim/step-1-photo/oreja-izq.webp" alt="" width="72" height="133" style="left:2.083%;top:19.459%;width:31.25%;--ox:72%;--oy:10.108%" loading="lazy" decoding="async">
+                    <img class="pt p-oreja-der" src="img/anim/step-1-photo/oreja-der.webp" alt="" width="55" height="113" style="left:71.667%;top:13.784%;width:23.75%;--ox:27.193%;--oy:14.407%" loading="lazy" decoding="async">
+                    <span class="fx f-lineas-cara" aria-hidden="true" style="left:0%;top:0%;width:100%;height:100%"><svg viewBox="200 150 480 370" preserveAspectRatio="none"><path class="lf-1" pathLength="1" d="M499.4 308.7L476.0 339.9"/><path class="lf-2" pathLength="1" d="M418.1 320.9L460.0 343.4"/></svg></span>
+                    <span class="grp g-puntos-cara" style="left:0%;top:0%;width:100%;height:100%;--ox:50%;--oy:50%">
+                      <img class="pt p-punto-01" src="img/anim/step-1-photo/punto-01.webp" alt="" width="16" height="16" style="left:57.917%;top:15.946%;width:6.875%;--ox:50%;--oy:49.564%" loading="lazy" decoding="async">
+                      <img class="pt p-punto-02" src="img/anim/step-1-photo/punto-02.webp" alt="" width="16" height="16" style="left:32.917%;top:24.324%;width:7.083%;--ox:49.804%;--oy:50.303%" loading="lazy" decoding="async">
+                      <img class="pt p-punto-03" src="img/anim/step-1-photo/punto-03.webp" alt="" width="16" height="16" style="left:60%;top:36.216%;width:7.083%;--ox:50.893%;--oy:49.632%" loading="lazy" decoding="async">
+                      <img class="pt p-punto-04" src="img/anim/step-1-photo/punto-04.webp" alt="" width="16" height="16" style="left:40.208%;top:40.27%;width:6.875%;--ox:50%;--oy:50.84%" loading="lazy" decoding="async">
+                      <img class="pt p-punto-05" src="img/anim/step-1-photo/punto-05.webp" alt="" width="17" height="17" style="left:52.5%;top:48.919%;width:7.292%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+                    </span>
+                  </span>
+                </span>
+                <span class="fx f-flash" aria-hidden="true" style="left:0%;top:0%;width:100%;height:100%"></span>
+                <span class="fx f-enfoque" aria-hidden="true" style="left:22.691%;top:8.046%;width:57.934%;height:31.646%"><i></i><i></i><i></i><i></i></span>
+                <span class="fx f-escaneo" aria-hidden="true" style="left:0%;top:0.374%;width:100%;height:11.507%"><i></i></span>
+              </span>
+              <span class="fx f-conectores" aria-hidden="true" style="left:64.935%;top:17.021%;width:38.961%;height:44.255%"><svg viewBox="560 240 300 520" preserveAspectRatio="none"><path class="cn-1" pathLength="1" d="M602 331L812 293"/><path class="cn-2" pathLength="1" d="M644 638L826 726"/></svg></span>
+              <img class="pt p-lila-1" src="img/anim/step-1-photo/lila-1.webp" alt="" width="22" height="22" style="left:67.403%;top:22.809%;width:5.974%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+              <img class="pt p-lila-2" src="img/anim/step-1-photo/lila-2.webp" alt="" width="21" height="21" style="left:72.987%;top:49.021%;width:5.714%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+            </span>
+            <span class="grp g-circ-cara" style="left:62.44%;top:8.046%;width:34.53%;height:34.53%;--ox:50%;--oy:50%">
+              <span class="grp g-ventana-cara clip" style="left:6.12%;top:6.12%;width:87.76%;height:87.76%;--ox:50%;--oy:50%;border-radius:50%/50%">
+                <img class="pt p-zoom-cara" src="img/anim/step-1-photo/zoom-cara.webp" alt="" width="188" height="188" style="left:-1.711%;top:-1.684%;width:103.421%;--ox:50%;--oy:49.975%" loading="lazy" decoding="async">
+                <span class="fx f-brillo-cara" aria-hidden="true" style="left:0%;top:0%;width:100%;height:100%"><i></i></span>
+              </span>
+              <img class="pt p-aro-cara" src="img/anim/step-1-photo/aro-cara.webp" alt="" width="208" height="204" style="left:-0.231%;top:0.716%;width:100.462%;--ox:50%;--oy:49.977%" loading="lazy" decoding="async">
+            </span>
+            <span class="grp g-circ-cuerpo" style="left:62.919%;top:46.077%;width:33.971%;height:33.971%;--ox:50%;--oy:50%">
+              <span class="grp g-ventana-cuerpo clip" style="left:5.399%;top:5.399%;width:89.202%;height:89.202%;--ox:50%;--oy:50%;border-radius:50%/50%">
+                <img class="pt p-zoom-cuerpo" src="img/anim/step-1-photo/zoom-cuerpo.webp" alt="" width="188" height="188" style="left:-1.579%;top:-1.789%;width:103.421%;--ox:49.873%;--oy:50.076%" loading="lazy" decoding="async">
+                <span class="fx f-brillo-cuerpo" aria-hidden="true" style="left:0%;top:0%;width:100%;height:100%"><i></i></span>
+              </span>
+              <img class="pt p-aro-cuerpo" src="img/anim/step-1-photo/aro-cuerpo.webp" alt="" width="206" height="202" style="left:-0.939%;top:0.282%;width:101.174%;--ox:50.348%;--oy:50.071%" loading="lazy" decoding="async">
+            </span>
+            <span class="grp g-check" style="left:6.419%;top:74.522%;width:20.893%;height:20.893%;--ox:50%;--oy:50%">
+              <img class="pt p-disco" src="img/anim/step-1-photo/disco.webp" alt="" width="125" height="125" style="left:0.573%;top:-0.191%;width:99.618%;--ox:49.617%;--oy:50.383%" loading="lazy" decoding="async">
+              <img class="pt p-palomita" src="img/anim/step-1-photo/palomita.webp" alt="" width="78" height="65" style="left:18.511%;top:24.237%;width:62.214%;--ox:68.098%;--oy:60.294%" loading="lazy" decoding="async">
+            </span>
+            <span class="fx f-onda-check" aria-hidden="true" style="left:6.738%;top:74.841%;width:20.255%;height:20.255%"><i></i><i></i></span>
+            <img class="pt p-rayita-1" src="img/anim/step-1-photo/rayita-1.webp" alt="" width="32" height="42" style="left:7.097%;top:69.059%;width:5.263%;--ox:107.576%;--oy:108.046%" loading="lazy" decoding="async">
+            <img class="pt p-rayita-2" src="img/anim/step-1-photo/rayita-2.webp" alt="" width="36" height="28" style="left:3.19%;top:73.604%;width:6.061%;--ox:118.421%;--oy:105.085%" loading="lazy" decoding="async">
+          </div>
+          <!--/escena-->
+        </div>
         <h3>Sube una foto</h3>
         <p>La IA analiza raza, tamaño, colores y señas particulares para compararlo con reportes cercanos.</p>
       </div>
-      <div class="source-card">
+      <div class="source-card" data-n="02">
         <div class="icon"><span class="step-num">2</span></div>
-        <div class="step-img"><img src="img/step-2-alert.png" alt="Alerta activada en la app"></div>
+        <div class="step-img">
+          <!--escena:step-2-alert-->
+          <div class="scene scene-step-2-alert" data-scene="step-2-alert">
+            <img class="scene-base" src="img/anim/step-2-alert/base.webp" alt="Alerta activada en la app" width="600" height="600" loading="lazy" decoding="async">
+            <span class="fx f-radar" aria-hidden="true" style="left:5.502%;top:1.994%;width:89.314%;height:89.314%"><i></i><i></i><i></i></span>
+            <img class="pt p-onda-izq-lila onda" src="img/anim/step-2-alert/onda-izq-lila.webp" alt="" width="34" height="80" style="left:33.333%;top:40.032%;width:5.742%;--ox:293.056%;--oy:49.405%" loading="lazy" decoding="async">
+            <img class="pt p-onda-der-lila onda" src="img/anim/step-2-alert/onda-der-lila.webp" alt="" width="23" height="54" style="left:60.606%;top:46.89%;width:3.907%;--ox:-267.347%;--oy:-2.679%" loading="lazy" decoding="async">
+            <img class="pt p-onda-izq-naranja onda" src="img/anim/step-2-alert/onda-izq-naranja.webp" alt="" width="58" height="132" style="left:29.107%;top:35.247%;width:9.649%;--ox:218.182%;--oy:51.812%" loading="lazy" decoding="async">
+            <img class="pt p-onda-der-lila2 onda" src="img/anim/step-2-alert/onda-der-lila2.webp" alt="" width="39" height="98" style="left:61.324%;top:43.381%;width:6.459%;--ox:-172.84%;--oy:20.098%" loading="lazy" decoding="async">
+            <img class="pt p-onda-der-naranja onda" src="img/anim/step-2-alert/onda-der-naranja.webp" alt="" width="54" height="138" style="left:62.919%;top:40.271%;width:9.011%;--ox:-141.593%;--oy:27.682%" loading="lazy" decoding="async">
+            <img class="pt p-rayitas-chica rayitas" src="img/anim/step-2-alert/rayitas-chica.webp" alt="" width="30" height="50" style="left:34.29%;top:10.287%;width:5.024%;--ox:-3.175%;--oy:82.692%" loading="lazy" decoding="async">
+            <img class="pt p-rayos-campana-izq rayitas" src="img/anim/step-2-alert/rayos-campana-izq.webp" alt="" width="30" height="40" style="left:40.51%;top:17.225%;width:4.944%;--ox:108.065%;--oy:55.422%" loading="lazy" decoding="async">
+            <img class="pt p-rayos-campana-der rayitas" src="img/anim/step-2-alert/rayos-campana-der.webp" alt="" width="27" height="42" style="left:56.459%;top:18.102%;width:4.466%;--ox:-10.714%;--oy:51.136%" loading="lazy" decoding="async">
+            <img class="pt p-rayitas-beagle rayitas" src="img/anim/step-2-alert/rayitas-beagle.webp" alt="" width="30" height="31" style="left:4.067%;top:43.86%;width:4.944%;--ox:108.065%;--oy:76.923%" loading="lazy" decoding="async">
+            <img class="pt p-rayitas-casa rayitas" src="img/anim/step-2-alert/rayitas-casa.webp" alt="" width="32" height="33" style="left:71.531%;top:37.879%;width:5.343%;--ox:105.97%;--oy:104.286%" loading="lazy" decoding="async">
+            <img class="pt p-rayitas-golden rayitas" src="img/anim/step-2-alert/rayitas-golden.webp" alt="" width="31" height="30" style="left:93.062%;top:61.085%;width:5.183%;--ox:-7.692%;--oy:106.452%" loading="lazy" decoding="async">
+            <img class="pt p-rayitas-senor rayitas" src="img/anim/step-2-alert/rayitas-senor.webp" alt="" width="31" height="31" style="left:26.475%;top:73.285%;width:5.104%;--ox:-6.25%;--oy:109.231%" loading="lazy" decoding="async">
+            <img class="pt p-rayitas-cachorro rayitas" src="img/anim/step-2-alert/rayitas-cachorro.webp" alt="" width="30" height="33" style="left:37.161%;top:79.187%;width:4.944%;--ox:109.677%;--oy:107.353%" loading="lazy" decoding="async">
+            <img class="pt p-rayitas-nina rayitas" src="img/anim/step-2-alert/rayitas-nina.webp" alt="" width="31" height="46" style="left:61.563%;top:77.193%;width:5.183%;--ox:112.308%;--oy:64.583%" loading="lazy" decoding="async">
+            <img class="pt p-campana" src="img/anim/step-2-alert/campana.webp" alt="" width="72" height="80" style="left:44.817%;top:12.121%;width:12.041%;--ox:49.669%;--oy:3.593%" loading="lazy" decoding="async">
+            <span class="fx f-aterriza-1" aria-hidden="true" style="left:60.447%;top:23.046%;width:7.177%;height:2.233%"></span>
+            <img class="pt p-pin-1 pin" src="img/anim/step-2-alert/pin-1.webp" alt="" width="44" height="59" style="left:60.447%;top:14.593%;width:7.257%;--ox:49.451%;--oy:96.774%" loading="lazy" decoding="async">
+            <span class="fx f-aterriza-2" aria-hidden="true" style="left:5.502%;top:38.278%;width:7.177%;height:2.233%"></span>
+            <img class="pt p-pin-2 pin" src="img/anim/step-2-alert/pin-2.webp" alt="" width="44" height="60" style="left:5.502%;top:29.745%;width:7.337%;--ox:48.913%;--oy:96.8%" loading="lazy" decoding="async">
+            <span class="fx f-aterriza-3" aria-hidden="true" style="left:28.549%;top:71.531%;width:7.177%;height:2.233%"></span>
+            <img class="pt p-pin-3 pin" src="img/anim/step-2-alert/pin-3.webp" alt="" width="44" height="59" style="left:28.549%;top:63.238%;width:7.257%;--ox:49.451%;--oy:95.935%" loading="lazy" decoding="async">
+            <span class="fx f-aterriza-4" aria-hidden="true" style="left:63.238%;top:74.402%;width:7.177%;height:2.233%"></span>
+            <img class="pt p-pin-4 pin" src="img/anim/step-2-alert/pin-4.webp" alt="" width="45" height="60" style="left:63.158%;top:65.789%;width:7.496%;--ox:48.936%;--oy:96.825%" loading="lazy" decoding="async">
+            <span class="grp g-celular" style="left:36.443%;top:26.475%;width:27.432%;height:40.271%;--ox:50%;--oy:50.099%">
+              <img class="pt p-celular" src="img/anim/step-2-alert/celular.webp" alt="" width="161" height="238" style="left:1.163%;top:0.792%;width:97.674%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+              <span class="fx f-pantalla-brillo" aria-hidden="true" style="left:9.012%;top:3.96%;width:82.558%;height:89.109%"></span>
+              <img class="pt p-huella" src="img/anim/step-2-alert/huella.webp" alt="" width="83" height="82" style="left:23.837%;top:31.089%;width:50.581%;--ox:49.425%;--oy:58.721%" loading="lazy" decoding="async">
+              <span class="fx f-aviso" aria-hidden="true" style="left:80.814%;top:-1.98%;width:20.349%;height:13.861%">!</span>
+            </span>
+            <span class="grp g-chica" style="left:6.38%;top:2.951%;width:31.18%;height:35.247%;--ox:56.266%;--oy:98.416%">
+              <img class="pt p-chica" src="img/anim/step-2-alert/chica.webp" alt="" width="183" height="209" style="left:1.023%;top:0.905%;width:97.954%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+              <img class="pt p-manos-chica" src="img/anim/step-2-alert/manos-chica.webp" alt="" width="57" height="62" style="left:54.987%;top:54.299%;width:30.691%;--ox:55.833%;--oy:98.462%" loading="lazy" decoding="async">
+            </span>
+            <span class="grp g-beagle" style="left:1.276%;top:36.523%;width:27.352%;height:29.027%;--ox:53.644%;--oy:95.33%">
+              <img class="pt p-cola-beagle" src="img/anim/step-2-alert/cola-beagle.webp" alt="" width="41" height="73" style="left:1.166%;top:49.725%;width:25.073%;--ox:72.093%;--oy:71.242%" loading="lazy" decoding="async">
+              <img class="pt p-beagle" src="img/anim/step-2-alert/beagle.webp" alt="" width="138" height="170" style="left:14.869%;top:1.099%;width:83.965%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+            </span>
+            <span class="grp g-chico" style="left:65.152%;top:1.435%;width:30.303%;height:36.762%;--ox:50.789%;--oy:98.048%">
+              <img class="pt p-chico" src="img/anim/step-2-alert/chico.webp" alt="" width="178" height="219" style="left:1.053%;top:0.868%;width:97.895%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+              <img class="pt p-cel-chico" src="img/anim/step-2-alert/cel-chico.webp" alt="" width="54" height="78" style="left:7.895%;top:50.976%;width:29.474%;--ox:33.929%;--oy:93.827%" loading="lazy" decoding="async">
+              <img class="pt p-dedo" src="img/anim/step-2-alert/dedo.webp" alt="" width="61" height="62" style="left:35.789%;top:63.124%;width:33.684%;--ox:85.156%;--oy:100.769%" loading="lazy" decoding="async">
+            </span>
+            <span class="grp g-casa" style="left:72.408%;top:36.204%;width:26.794%;height:19.856%;--ox:51.19%;--oy:93.976%">
+              <img class="pt p-casa" src="img/anim/step-2-alert/casa.webp" alt="" width="143" height="110" style="left:8.036%;top:1.606%;width:88.69%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+              <img class="pt p-huella-casa" src="img/anim/step-2-alert/huella-casa.webp" alt="" width="36" height="32" style="left:35.714%;top:26.104%;width:22.619%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+              <img class="pt p-arbusto-izq" src="img/anim/step-2-alert/arbusto-izq.webp" alt="" width="47" height="40" style="left:1.19%;top:60.241%;width:29.167%;--ox:51.02%;--oy:103.614%" loading="lazy" decoding="async">
+              <img class="pt p-arbusto-der" src="img/anim/step-2-alert/arbusto-der.webp" alt="" width="60" height="31" style="left:61.31%;top:72.289%;width:37.5%;--ox:48.413%;--oy:89.231%" loading="lazy" decoding="async">
+            </span>
+            <span class="grp g-golden" style="left:72.887%;top:54.147%;width:25.12%;height:24.163%;--ox:51.111%;--oy:97.69%">
+              <img class="pt p-cola-golden" src="img/anim/step-2-alert/cola-golden.webp" alt="" width="57" height="79" style="left:60.952%;top:43.234%;width:37.778%;--ox:43.697%;--oy:83.133%" loading="lazy" decoding="async">
+              <img class="pt p-golden" src="img/anim/step-2-alert/golden.webp" alt="" width="119" height="147" style="left:1.27%;top:1.32%;width:79.048%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+            </span>
+            <span class="grp g-nina" style="left:63.238%;top:72.727%;width:26.794%;height:27.273%;--ox:49.702%;--oy:98.83%">
+              <img class="pt p-nina" src="img/anim/step-2-alert/nina.webp" alt="" width="157" height="161" style="left:1.19%;top:1.17%;width:97.619%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+              <img class="pt p-manos-nina" src="img/anim/step-2-alert/manos-nina.webp" alt="" width="42" height="65" style="left:9.821%;top:50.292%;width:26.19%;--ox:40.909%;--oy:89.63%" loading="lazy" decoding="async">
+            </span>
+            <span class="grp g-senor" style="left:6.459%;top:64.992%;width:26.077%;height:34.051%;--ox:50.153%;--oy:98.595%">
+              <img class="pt p-senor" src="img/anim/step-2-alert/senor.webp" alt="" width="151" height="134" style="left:1.223%;top:33.489%;width:96.33%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+              <img class="pt p-pulgar" src="img/anim/step-2-alert/pulgar.webp" alt="" width="37" height="58" style="left:75.229%;top:42.155%;width:23.547%;--ox:58.442%;--oy:86.066%" loading="lazy" decoding="async">
+              <img class="pt p-cabeza-senor" src="img/anim/step-2-alert/cabeza-senor.webp" alt="" width="107" height="104" style="left:4.281%;top:0.937%;width:68.502%;--ox:63.839%;--oy:99.539%" loading="lazy" decoding="async">
+            </span>
+            <span class="grp g-cachorro" style="left:34.689%;top:68.421%;width:26.794%;height:28.628%;--ox:49.107%;--oy:98.05%">
+              <img class="pt p-cola-cachorro" src="img/anim/step-2-alert/cola-cachorro.webp" alt="" width="44" height="65" style="left:1.19%;top:57.939%;width:27.083%;--ox:63.736%;--oy:72.794%" loading="lazy" decoding="async">
+              <img class="pt p-pata" src="img/anim/step-2-alert/pata.webp" alt="" width="59" height="48" style="left:61.905%;top:46.797%;width:36.905%;--ox:33.065%;--oy:53.465%" loading="lazy" decoding="async">
+              <img class="pt p-cachorro" src="img/anim/step-2-alert/cachorro.webp" alt="" width="104" height="168" style="left:15.774%;top:1.114%;width:64.583%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+            </span>
+          </div>
+          <!--/escena-->
+        </div>
         <h3>Activa la alerta</h3>
-        <p>Publicamos en segundos y avisamos a vecinos, refugios y rescatistas cerca de ti.</p>
+        <p>Publicamos en segundos y avisamos a vecinos con alertas activadas, refugios y casas de paso cerca de ti.</p>
       </div>
-      <div class="source-card">
+      <div class="source-card" data-n="03">
         <div class="icon"><span class="step-num">3</span></div>
-        <div class="step-img"><img src="img/step-3-reunion.png" alt="Reencuentro seguro con el perro"></div>
+        <div class="step-img">
+          <!--escena:step-3-reunion-->
+          <div class="scene scene-step-3-reunion" data-scene="step-3-reunion">
+            <img class="scene-base" src="img/anim/step-3-reunion/base.webp" alt="Reencuentro seguro con el perro" width="600" height="600" loading="lazy" decoding="async">
+            <span class="fx f-brote-1" aria-hidden="true" style="left:44.657%;top:14.354%;width:4.785%;height:4.785%;;color:#FF6F61"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.6 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z"/></svg></span>
+            <span class="fx f-brote-2" aria-hidden="true" style="left:37.48%;top:9.569%;width:3.987%;height:3.987%;;color:#B794F4"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.6 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z"/></svg></span>
+            <span class="fx f-brote-3" aria-hidden="true" style="left:68.581%;top:23.923%;width:4.386%;height:4.386%;;color:#FF8A7A"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.6 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z"/></svg></span>
+            <span class="fx f-brote-4" aria-hidden="true" style="left:23.923%;top:19.139%;width:3.987%;height:3.987%;;color:#FF6F61"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.6 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z"/></svg></span>
+            <span class="fx f-brote-5" aria-hidden="true" style="left:49.442%;top:8.772%;width:3.828%;height:3.828%;;color:#FFB4A8"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.6 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z"/></svg></span>
+            <span class="fx f-brote-6" aria-hidden="true" style="left:71.77%;top:37.48%;width:3.987%;height:3.987%;;color:#B794F4"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.6 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z"/></svg></span>
+            <span class="grp g-abrazo" style="left:7.974%;top:19.139%;width:87.719%;height:77.352%;--ox:45.455%;--oy:99.485%">
+              <img class="pt p-cola" src="img/anim/step-3-reunion/cola.webp" alt="" width="65" height="113" style="left:81.545%;top:41.031%;width:12.364%;--ox:18.382%;--oy:92.827%" loading="lazy" decoding="async">
+              <img class="pt p-figura" src="img/anim/step-3-reunion/figura.webp" alt="" width="471" height="556" style="left:1.727%;top:-19.278%;width:89.455%;--ox:48.882%;--oy:99.054%" loading="lazy" decoding="async">
+              <img class="pt p-pelo" src="img/anim/step-3-reunion/pelo.webp" alt="" width="105" height="224" style="left:5.636%;top:4.536%;width:20%;--ox:71.818%;--oy:3.412%" loading="lazy" decoding="async">
+              <img class="pt p-arete" src="img/anim/step-3-reunion/arete.webp" alt="" width="15" height="15" style="left:30.182%;top:13.402%;width:2.909%;--ox:46.875%;--oy:-6.25%" loading="lazy" decoding="async">
+              <span class="fx f-rubor-1" aria-hidden="true" style="left:28.364%;top:11.546%;width:6%;height:4.124%"></span>
+              <span class="fx f-rubor-2" aria-hidden="true" style="left:39.091%;top:6.186%;width:4.909%;height:3.711%"></span>
+              <span class="grp g-perro" style="left:42.727%;top:0%;width:32.727%;height:35.052%;--ox:23.611%;--oy:67.647%">
+                <img class="pt p-cabeza-perro" src="img/anim/step-3-reunion/cabeza-perro.webp" alt="" width="162" height="152" style="left:2.778%;top:3.529%;width:93.889%;--ox:22.189%;--oy:68.77%" loading="lazy" decoding="async">
+                <img class="pt p-lengua" src="img/anim/step-3-reunion/lengua.webp" alt="" width="53" height="36" style="left:3.333%;top:45.588%;width:30.556%;--ox:92.727%;--oy:30.263%" loading="lazy" decoding="async">
+              </span>
+            </span>
+            <img class="pt p-rayita-1" src="img/anim/step-3-reunion/rayita-1.webp" alt="" width="18" height="47" style="left:89.234%;top:54.067%;width:3.03%;--ox:2.632%;--oy:63.265%" loading="lazy" decoding="async">
+            <img class="pt p-rayita-2" src="img/anim/step-3-reunion/rayita-2.webp" alt="" width="14" height="42" style="left:91.707%;top:57.177%;width:2.392%;--ox:-33.333%;--oy:60.92%" loading="lazy" decoding="async">
+            <span class="fx f-onda-escudo" aria-hidden="true" style="left:52.632%;top:5.582%;width:13.557%;height:14.354%"><i></i><i></i></span>
+            <span class="grp g-escudo" style="left:51.834%;top:3.589%;width:16.108%;height:17.544%;--ox:47.03%;--oy:93.182%">
+              <img class="pt p-escudo" src="img/anim/step-3-reunion/escudo.webp" alt="" width="95" height="106" style="left:-0.99%;top:1.364%;width:98.515%;--ox:48.744%;--oy:50.679%" loading="lazy" decoding="async">
+              <img class="pt p-palomita" src="img/anim/step-3-reunion/palomita.webp" alt="" width="56" height="42" style="left:17.822%;top:34.091%;width:58.416%;--ox:41.525%;--oy:79.545%" loading="lazy" decoding="async">
+              <span class="fx f-brillo-escudo" aria-hidden="true" style="left:0%;top:0%;width:100%;height:100%;;clip-path:polygon(8% 13%,47% 2%,93% 13%,88% 55%,69% 82%,43% 98%,20% 82%,7% 55%)"><i></i></span>
+            </span>
+            <span class="fx f-destello-1" aria-hidden="true" style="left:48.804%;top:4.785%;width:3.19%;height:3.19%"><svg viewBox="0 0 20 20"><path d="M10 0C11 7 13 9 20 10C13 11 11 13 10 20C9 13 7 11 0 10C7 9 9 7 10 0z"/></svg></span>
+            <span class="fx f-destello-2" aria-hidden="true" style="left:66.667%;top:3.19%;width:2.871%;height:2.871%"><svg viewBox="0 0 20 20"><path d="M10 0C11 7 13 9 20 10C13 11 11 13 10 20C9 13 7 11 0 10C7 9 9 7 10 0z"/></svg></span>
+            <span class="fx f-destello-3" aria-hidden="true" style="left:67.464%;top:14.354%;width:2.392%;height:2.392%"><svg viewBox="0 0 20 20"><path d="M10 0C11 7 13 9 20 10C13 11 11 13 10 20C9 13 7 11 0 10C7 9 9 7 10 0z"/></svg></span>
+            <span class="fx f-destello-4" aria-hidden="true" style="left:50.08%;top:15.63%;width:2.233%;height:2.233%"><svg viewBox="0 0 20 20"><path d="M10 0C11 7 13 9 20 10C13 11 11 13 10 20C9 13 7 11 0 10C7 9 9 7 10 0z"/></svg></span>
+            <span class="pt p-corazon-rojo-izq a-pop" style="left:14.035%;top:15.789%;width:8.054%;--ox:48.515%;--oy:95.146%"><img src="img/anim/step-3-reunion/corazon-rojo-izq.webp" alt="" width="48" height="49" loading="lazy" decoding="async"><i class="burst"></i></span>
+            <span class="pt p-corazon-lila-izq a-pop" style="left:9.809%;top:25.04%;width:8.293%;--ox:50%;--oy:98.077%"><img src="img/anim/step-3-reunion/corazon-lila-izq.webp" alt="" width="50" height="50" loading="lazy" decoding="async"><i class="burst"></i></span>
+            <span class="pt p-corazon-rojo-der a-pop" style="left:69.458%;top:13.955%;width:9.968%;--ox:43.2%;--oy:97.581%"><img src="img/anim/step-3-reunion/corazon-rojo-der.webp" alt="" width="60" height="59" loading="lazy" decoding="async"><i class="burst"></i></span>
+            <span class="pt p-corazon-lila-der a-pop" style="left:74.402%;top:24.96%;width:9.091%;--ox:45.614%;--oy:98.23%"><img src="img/anim/step-3-reunion/corazon-lila-der.webp" alt="" width="55" height="54" loading="lazy" decoding="async"><i class="burst"></i></span>
+          </div>
+          <!--/escena-->
+        </div>
         <h3>Reencuentro seguro</h3>
         <p>Chatea de forma privada sin compartir tu teléfono y reúnanse en un lugar seguro.</p>
       </div>
     </div>
   </div>
+</div>
+<div class="hpin-progress" aria-hidden="true"><span class="hp-line"></span><span class="hp-paw"><svg viewBox="0 0 64 64"><use href="#paw"/></svg></span></div>
+</div>
+</div>
 </section>
 
 <section id="donde-buscamos" class="wrap center" style="background:var(--butter)">
   <span class="badge">Más canales, más ojos</span>
-  <h2 class="section-title">No solo dentro de la app</h2>
+  <h2 class="section-title">No solo <span class="hl">dentro de la app</span></h2>
   <p class="section-lead">
     Reunimos reportes de varios canales en un solo lugar y los comparamos entre sí
     para que ninguna pista se pierda.
@@ -109,41 +365,286 @@
   <div class="sources">
     <div class="cards" style="margin-top:44px">
       <div class="source-card">
-        <div class="source-img"><img src="img/search-fb.png" alt="Reportes desde WhatsApp y redes"></div>
+        <div class="source-img">
+          <!--escena:search-fb-->
+          <div class="scene scene-search-fb" data-scene="search-fb">
+            <img class="scene-base" src="img/anim/search-fb/base.webp" alt="Reportes desde WhatsApp y redes" width="720" height="720" loading="lazy" decoding="async">
+            <img class="pt p-rayita-1 a-flash" src="img/anim/search-fb/rayita-1.webp" alt="" width="46" height="75" style="left:73.285%;top:19.139%;width:6.38%;--ox:2.5%;--oy:98.462%;--dur:1.9s;--delay:-.2s" loading="lazy" decoding="async">
+            <img class="pt p-rayita-2 a-flash" src="img/anim/search-fb/rayita-2.webp" alt="" width="59" height="52" style="left:77.273%;top:27.193%;width:8.214%;--ox:2.913%;--oy:96.667%;--dur:1.9s;--delay:-.5s" loading="lazy" decoding="async">
+            <img class="pt p-rayita-3 a-flash" src="img/anim/search-fb/rayita-3.webp" alt="" width="53" height="34" style="left:10.686%;top:60.925%;width:7.337%;--ox:100%;--oy:63.333%;--dur:2.3s;--delay:-1.1s" loading="lazy" decoding="async">
+            <img class="pt p-rayita-4 a-flash" src="img/anim/search-fb/rayita-4.webp" alt="" width="48" height="37" style="left:11.643%;top:68.102%;width:6.619%;--ox:100%;--oy:6.154%;--dur:2.3s;--delay:-1.4s" loading="lazy" decoding="async">
+            <span class="grp g-fb" style="left:28.708%;top:12.759%;width:27.113%;height:25.518%;--ox:54.412%;--oy:96.875%">
+              <img class="pt p-fb" src="img/anim/search-fb/fb.webp" alt="" width="182" height="172" style="left:3.529%;top:3.438%;width:93.235%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+              <span class="fx f-badge" aria-hidden="true" style="left:78.824%;top:-10%;width:23.529%;height:25%"><i>1</i><i>2</i><i>3</i></span>
+            </span>
+            <img class="pt p-huella-1" src="img/anim/search-fb/huella-1.webp" alt="" width="99" height="95" style="left:25.758%;top:40.989%;width:13.796%;--ox:47.399%;--oy:95.758%" loading="lazy" decoding="async">
+            <img class="pt p-huella-2" src="img/anim/search-fb/huella-2.webp" alt="" width="110" height="100" style="left:30.144%;top:67.783%;width:15.231%;--ox:48.168%;--oy:96.552%" loading="lazy" decoding="async">
+            <img class="pt p-huella-3" src="img/anim/search-fb/huella-3.webp" alt="" width="90" height="90" style="left:53.19%;top:47.289%;width:12.52%;--ox:49.682%;--oy:93.631%" loading="lazy" decoding="async">
+            <span class="grp g-lupa" style="left:33.573%;top:27.113%;width:61.324%;height:64.195%;--ox:42.133%;--oy:40.248%">
+              <img class="pt p-halo" src="img/anim/search-fb/halo.webp" alt="" width="253" height="363" style="left:0.65%;top:1.491%;width:57.217%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+              <img class="pt p-mango" src="img/anim/search-fb/mango.webp" alt="" width="158" height="176" style="left:60.988%;top:58.634%;width:35.891%;--ox:-52.536%;--oy:-48.208%" loading="lazy" decoding="async">
+              <span class="grp g-vidrio clip" style="left:12.354%;top:11.801%;width:59.558%;height:56.894%;--ox:50%;--oy:50%;border-radius:50%/50%">
+                <img class="pt p-ampliada" src="img/anim/search-fb/ampliada.webp" alt="" width="764" height="1068" style="left:-175.983%;top:-167.031%;width:290.393%;--ox:77.82%;--oy:53.441%" loading="lazy" decoding="async">
+              </span>
+              <span class="fx f-destello" aria-hidden="true" style="left:12.354%;top:11.801%;width:59.558%;height:56.894%"><i></i></span>
+              <img class="pt p-brillo" src="img/anim/search-fb/brillo.webp" alt="" width="250" height="253" style="left:13.784%;top:12.671%;width:56.567%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+              <img class="pt p-aro" src="img/anim/search-fb/aro.webp" alt="" width="331" height="332" style="left:4.421%;top:4.224%;width:74.902%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+              <span class="fx f-chispas" aria-hidden="true" style="left:-4.681%;top:-4.472%;width:93.628%;height:89.441%"><b></b><b></b><b></b><b></b><b></b><b></b></span>
+            </span>
+            <span class="fx f-aviso-wa" aria-hidden="true" style="left:67.783%;top:3.19%;width:12.759%;height:11.563%"><svg viewBox="0 0 64 58"><path d="M32 3C16 3 4 13.6 4 26.5c0 7 3.6 13.3 9.3 17.6L10 55l13-6.3c2.8.7 5.8 1.1 9 1.1 16 0 28-10.6 28-23.3S48 3 32 3z"/><g fill="#fff"><ellipse cx="22.5" cy="20" rx="3.6" ry="4.6"/><ellipse cx="32" cy="16.5" rx="3.6" ry="4.6"/><ellipse cx="41.5" cy="20" rx="3.6" ry="4.6"/><path d="M32 24.5c-5.2 0-9.5 6.4-9.5 9.6 0 2.8 2.6 3.6 4.6 3.6 1.8 0 3.2-1 4.9-1s3.1 1 4.9 1c2 0 4.6-.8 4.6-3.6 0-3.2-4.3-9.6-9.5-9.6z"/></g></svg></span>
+            <span class="fx f-aviso-fb" aria-hidden="true" style="left:1.595%;top:5.582%;width:11.164%;height:10.048%"><svg viewBox="0 0 64 58"><path d="M32 3C16 3 4 13.6 4 26.5c0 7 3.6 13.3 9.3 17.6L10 55l13-6.3c2.8.7 5.8 1.1 9 1.1 16 0 28-10.6 28-23.3S48 3 32 3z"/><path fill="#fff" d="M32 39s-11-6.6-11-14c0-3.6 2.7-6.2 5.8-6.2 2.2 0 4 1.2 5.2 3 1.2-1.8 3-3 5.2-3 3.1 0 5.8 2.6 5.8 6.2 0 7.4-11 14-11 14z"/></svg></span>
+          </div>
+          <!--/escena-->
+        </div>
         <h3>WhatsApp y redes</h3>
-        <p>Reporta desde WhatsApp con una foto y tu ubicación. Voluntarios suman publicaciones de redes sociales.</p>
+        <p>Reporta desde WhatsApp con una foto y tu ubicación. Nuestro equipo también suma reportes publicados en redes sociales.</p>
       </div>
       <div class="source-card">
-        <div class="source-img"><img src="img/database.png" alt="Base de datos propia"></div>
+        <div class="source-img">
+          <!--escena:database-->
+          <div class="scene scene-database" data-scene="database">
+            <img class="scene-base" src="img/anim/database/base.webp" alt="Base de datos propia" width="720" height="720" loading="lazy" decoding="async">
+            <img class="pt p-ovalo-3" src="img/anim/database/ovalo-3.webp" alt="" width="24" height="30" style="left:39.314%;top:47.368%;width:3.27%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+            <span class="grp g-carta-izq" style="left:2.951%;top:11.483%;width:29.266%;height:35.407%;--ox:96.185%;--oy:63.739%">
+              <img class="pt p-tarjeta-izq" src="img/anim/database/tarjeta-izq.webp" alt="" width="211" height="255" style="left:0%;top:0%;width:100%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+              <span class="grp g-barra-izq-1 clip" style="left:39.51%;top:72.523%;width:48.501%;height:8.108%;--ox:49.887%;--oy:49.481%;border-radius:10.112%/50%;transform:rotate(-4.70deg)">
+                <img class="pt p-barra-izq-1" src="img/anim/database/barra-izq-1.webp" alt="" width="104" height="23" style="left:-1.124%;top:-5.556%;width:102.247%;--ox:1.099%;--oy:50%" loading="lazy" decoding="async">
+              </span>
+              <span class="grp g-barra-izq-2 clip" style="left:40.599%;top:83.108%;width:33.787%;height:6.306%;--ox:49.141%;--oy:48.369%;border-radius:11.29%/50%;transform:rotate(-4.87deg)">
+                <img class="pt p-barra-izq-2" src="img/anim/database/barra-izq-2.webp" alt="" width="73" height="18" style="left:-1.613%;top:-7.143%;width:103.226%;--ox:1.562%;--oy:50%" loading="lazy" decoding="async">
+              </span>
+              <img class="pt p-corazon-izq" src="img/anim/database/corazon-izq.webp" alt="" width="42" height="38" style="left:16.621%;top:73.874%;width:20.163%;--ox:50.676%;--oy:55.97%" loading="lazy" decoding="async">
+              <span class="fx f-latido-izq" aria-hidden="true" style="left:11.172%;top:68.919%;width:31.335%;height:24.099%"><i></i></span>
+              <img class="pt p-rayitas-izq a-flash" src="img/anim/database/rayitas-izq.webp" alt="" width="32" height="37" style="left:11.444%;top:13.739%;width:14.986%;--ox:101.818%;--oy:101.562%;--dur:1.9s;--delay:-0.3s" loading="lazy" decoding="async">
+              <img class="pt p-cabeza-izq" src="img/anim/database/cabeza-izq.webp" alt="" width="171" height="140" style="left:11.444%;top:6.532%;width:81.199%;--ox:56.04%;--oy:86.831%" loading="lazy" decoding="async">
+              <span class="fx f-chispas-izq" aria-hidden="true" style="left:-8.174%;top:-6.757%;width:116.349%;height:113.514%"><b></b><b></b><b></b><b></b><b></b></span>
+            </span>
+            <span class="grp g-carta-der" style="left:67.464%;top:11.483%;width:29.027%;height:35.726%;--ox:3.022%;--oy:62.277%">
+              <img class="pt p-tarjeta-der" src="img/anim/database/tarjeta-der.webp" alt="" width="209" height="257" style="left:0%;top:0%;width:100%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+              <span class="grp g-barra-der-1 clip" style="left:34.066%;top:74.777%;width:48.901%;height:8.036%;--ox:49.832%;--oy:49.363%;border-radius:10.112%/50%;transform:rotate(4.33deg)">
+                <img class="pt p-barra-der-1" src="img/anim/database/barra-der-1.webp" alt="" width="104" height="23" style="left:-1.124%;top:-5.556%;width:102.247%;--ox:1.099%;--oy:50%" loading="lazy" decoding="async">
+              </span>
+              <span class="grp g-barra-der-2 clip" style="left:33.242%;top:84.375%;width:31.868%;height:6.027%;--ox:49.625%;--oy:47.758%;border-radius:11.638%/50%;transform:rotate(4.29deg)">
+                <img class="pt p-barra-der-2" src="img/anim/database/barra-der-2.webp" alt="" width="69" height="18" style="left:-1.724%;top:-7.407%;width:103.448%;--ox:1.667%;--oy:50%" loading="lazy" decoding="async">
+              </span>
+              <img class="pt p-corazon-der" src="img/anim/database/corazon-der.webp" alt="" width="42" height="38" style="left:11.264%;top:71.429%;width:20.055%;--ox:50%;--oy:56.061%" loading="lazy" decoding="async">
+              <span class="fx f-latido-der" aria-hidden="true" style="left:5.495%;top:66.295%;width:31.593%;height:24.107%"><i></i></span>
+              <img class="pt p-rayitas-der a-flash" src="img/anim/database/rayitas-der.webp" alt="" width="32" height="37" style="left:74.725%;top:12.946%;width:15.11%;--ox:5.455%;--oy:95.385%;--dur:1.9s;--delay:-1.1s" loading="lazy" decoding="async">
+              <img class="pt p-cabeza-der" src="img/anim/database/cabeza-der.webp" alt="" width="179" height="130" style="left:6.319%;top:6.473%;width:85.714%;--ox:43.59%;--oy:98.238%" loading="lazy" decoding="async">
+              <span class="fx f-chispas-der" aria-hidden="true" style="left:-8.242%;top:-6.696%;width:116.484%;height:113.393%"><b></b><b></b><b></b><b></b><b></b></span>
+            </span>
+            <span class="grp g-carta-aba" style="left:36.364%;top:60.128%;width:27.671%;height:33.174%;--ox:48.991%;--oy:1.442%">
+              <img class="pt p-tarjeta-aba" src="img/anim/database/tarjeta-aba.webp" alt="" width="199" height="239" style="left:0%;top:0%;width:100%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+              <span class="grp g-barra-aba-1 clip" style="left:36.311%;top:74.76%;width:51.009%;height:8.654%;--ox:49.527%;--oy:49.14%;border-radius:10.169%/50%;transform:rotate(-0.04deg)">
+                <img class="pt p-barra-aba-1" src="img/anim/database/barra-aba-1.webp" alt="" width="104" height="23" style="left:-1.13%;top:-5.556%;width:102.26%;--ox:1.105%;--oy:50%" loading="lazy" decoding="async">
+              </span>
+              <span class="grp g-barra-aba-2 clip" style="left:36.311%;top:85.577%;width:32.565%;height:6.49%;--ox:49.59%;--oy:44.176%;border-radius:11.947%/50%;transform:rotate(0.07deg)">
+                <img class="pt p-barra-aba-2" src="img/anim/database/barra-aba-2.webp" alt="" width="67" height="18" style="left:-1.77%;top:-7.407%;width:103.54%;--ox:1.709%;--oy:50%" loading="lazy" decoding="async">
+              </span>
+              <img class="pt p-corazon-aba" src="img/anim/database/corazon-aba.webp" alt="" width="42" height="37" style="left:11.816%;top:73.798%;width:21.326%;--ox:50%;--oy:56.154%" loading="lazy" decoding="async">
+              <span class="fx f-latido-aba" aria-hidden="true" style="left:6.052%;top:68.51%;width:32.853%;height:25.24%"><i></i></span>
+              <img class="pt p-rayitas-aba-1 a-flash" src="img/anim/database/rayitas-aba-1.webp" alt="" width="28" height="34" style="left:79.827%;top:10.577%;width:14.121%;--ox:-2.041%;--oy:101.695%;--dur:1.7s;--delay:-0.5s" loading="lazy" decoding="async">
+              <img class="pt p-rayitas-aba-2 a-flash" src="img/anim/database/rayitas-aba-2.webp" alt="" width="26" height="30" style="left:10.086%;top:41.587%;width:12.968%;--ox:102.222%;--oy:0%;--dur:1.7s;--delay:-1.1s" loading="lazy" decoding="async">
+              <img class="pt p-cabeza-aba" src="img/anim/database/cabeza-aba.webp" alt="" width="176" height="122" style="left:5.187%;top:6.971%;width:88.473%;--ox:46.254%;--oy:97.183%" loading="lazy" decoding="async">
+              <span class="fx f-chispas-aba" aria-hidden="true" style="left:-8.646%;top:-7.212%;width:117.291%;height:114.423%"><b></b><b></b><b></b><b></b><b></b></span>
+            </span>
+            <span class="fx f-dato-izq" aria-hidden="true" style="left:37.081%;top:39.474%;width:1.754%;height:1.754%"><i></i><i></i></span>
+            <span class="fx f-dato-der" aria-hidden="true" style="left:61.164%;top:39.553%;width:1.754%;height:1.754%"><i></i><i></i></span>
+            <span class="fx f-dato-aba" aria-hidden="true" style="left:49.043%;top:53.509%;width:1.754%;height:1.754%"><i></i><i></i></span>
+            <span class="fx f-bits" aria-hidden="true" style="left:42.265%;top:11.962%;width:15.949%;height:11.962%"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+            <span class="grp g-disco-2" style="left:36.603%;top:31.26%;width:26.874%;height:15.47%;--ox:49.852%;--oy:98.459%">
+              <img class="pt p-disco-2" src="img/anim/database/disco-2.webp" alt="" width="193" height="111" style="left:0%;top:0%;width:100%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+              <img class="pt p-ovalo-2" src="img/anim/database/ovalo-2.webp" alt="" width="24" height="30" style="left:10.089%;top:50%;width:12.166%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+            </span>
+            <span class="grp g-disco-1" style="left:36.603%;top:22.329%;width:26.874%;height:15.949%;--ox:49.852%;--oy:98.505%">
+              <img class="pt p-disco-1" src="img/anim/database/disco-1.webp" alt="" width="193" height="115" style="left:0%;top:0%;width:100%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+              <img class="pt p-ovalo-1" src="img/anim/database/ovalo-1.webp" alt="" width="23" height="32" style="left:10.089%;top:50%;width:11.869%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+            </span>
+            <span class="fx f-senal" aria-hidden="true" style="left:36.842%;top:22.488%;width:26.316%;height:7.815%"><i></i><i></i><i></i></span>
+            <img class="pt p-nodo-izq" src="img/anim/database/nodo-izq.webp" alt="" width="28" height="29" style="left:29.506%;top:32.137%;width:3.828%;--ox:41.667%;--oy:47.059%" loading="lazy" decoding="async">
+            <img class="pt p-nodo-der" src="img/anim/database/nodo-der.webp" alt="" width="29" height="28" style="left:66.188%;top:32.057%;width:3.987%;--ox:54%;--oy:42.857%" loading="lazy" decoding="async">
+            <img class="pt p-nodo-aba" src="img/anim/database/nodo-aba.webp" alt="" width="37" height="40" style="left:47.368%;top:51.754%;width:5.104%;--ox:50%;--oy:47.143%" loading="lazy" decoding="async">
+          </div>
+          <!--/escena-->
+        </div>
         <h3>Base de datos propia</h3>
         <p>Cada reporte de perdido, encontrado y adopción se compara automáticamente con IA.</p>
       </div>
       <div class="source-card">
-        <div class="source-img"><img src="img/map.png" alt="Otras plataformas"></div>
+        <div class="source-img">
+          <!--escena:map-->
+          <div class="scene scene-map" data-scene="map">
+            <img class="scene-base" src="img/anim/map/base.webp" alt="Mapa con perritos cerca de ti" width="720" height="900" loading="lazy" decoding="async">
+            <img class="pt p-letra-00 mp-letra" src="img/anim/map/letra-00.webp" alt="" width="34" height="49" style="left:22.46%;top:6.562%;width:4.724%;--ox:49.057%;--oy:98.684%;--i:0" loading="lazy" decoding="async">
+            <img class="pt p-letra-01 mp-letra" src="img/anim/map/letra-01.webp" alt="" width="28" height="33" style="left:26.471%;top:7.917%;width:3.832%;--ox:48.837%;--oy:94.118%;--i:1" loading="lazy" decoding="async">
+            <img class="pt p-letra-02 mp-letra" src="img/anim/map/letra-02.webp" alt="" width="25" height="33" style="left:29.679%;top:7.561%;width:3.476%;--ox:48.718%;--oy:94.231%;--i:2" loading="lazy" decoding="async">
+            <img class="pt p-letra-03 mp-letra" src="img/anim/map/letra-03.webp" alt="" width="24" height="32" style="left:32.799%;top:7.275%;width:3.387%;--ox:48.684%;--oy:96%;--i:3" loading="lazy" decoding="async">
+            <img class="pt p-letra-04 mp-letra" src="img/anim/map/letra-04.webp" alt="" width="13" height="39" style="left:35.651%;top:6.205%;width:1.872%;--ox:45.238%;--oy:98.361%;--i:4" loading="lazy" decoding="async">
+            <img class="pt p-letra-05 mp-letra" src="img/anim/map/letra-05.webp" alt="" width="26" height="39" style="left:36.988%;top:6.205%;width:3.654%;--ox:47.561%;--oy:96.667%;--i:5" loading="lazy" decoding="async">
+            <img class="pt p-letra-06 mp-letra" src="img/anim/map/letra-06.webp" alt="" width="28" height="31" style="left:40.107%;top:6.776%;width:3.832%;--ox:50%;--oy:95.918%;--i:6" loading="lazy" decoding="async">
+            <img class="pt p-letra-07 mp-letra" src="img/anim/map/letra-07.webp" alt="" width="24" height="34" style="left:43.494%;top:6.419%;width:3.298%;--ox:48.649%;--oy:94.34%;--i:7" loading="lazy" decoding="async">
+            <img class="pt p-letra-08 mp-letra" src="img/anim/map/letra-08.webp" alt="" width="26" height="33" style="left:48.217%;top:6.348%;width:3.654%;--ox:48.78%;--oy:94.118%;--i:8" loading="lazy" decoding="async">
+            <img class="pt p-letra-09 mp-letra" src="img/anim/map/letra-09.webp" alt="" width="26" height="33" style="left:51.337%;top:6.348%;width:3.565%;--ox:48.75%;--oy:94.231%;--i:9" loading="lazy" decoding="async">
+            <img class="pt p-letra-10 mp-letra" src="img/anim/map/letra-10.webp" alt="" width="24" height="32" style="left:54.635%;top:6.491%;width:3.387%;--ox:48.684%;--oy:94%;--i:10" loading="lazy" decoding="async">
+            <img class="pt p-letra-11 mp-letra" src="img/anim/map/letra-11.webp" alt="" width="27" height="33" style="left:57.308%;top:6.562%;width:3.743%;--ox:48.81%;--oy:94.118%;--i:11" loading="lazy" decoding="async">
+            <img class="pt p-letra-12 mp-letra" src="img/anim/map/letra-12.webp" alt="" width="31" height="34" style="left:60.606%;top:6.776%;width:4.278%;--ox:48.958%;--oy:94.34%;--i:12" loading="lazy" decoding="async">
+            <img class="pt p-letra-13 mp-letra" src="img/anim/map/letra-13.webp" alt="" width="31" height="34" style="left:64.617%;top:6.99%;width:4.367%;--ox:48.98%;--oy:98.113%;--i:13" loading="lazy" decoding="async">
+            <img class="pt p-letra-14 mp-letra" src="img/anim/map/letra-14.webp" alt="" width="30" height="33" style="left:68.538%;top:7.561%;width:4.189%;--ox:48.936%;--oy:94.118%;--i:14" loading="lazy" decoding="async">
+            <img class="pt p-letra-15 mp-letra" src="img/anim/map/letra-15.webp" alt="" width="28" height="35" style="left:72.014%;top:7.775%;width:3.832%;--ox:48.837%;--oy:96.296%;--i:15" loading="lazy" decoding="async">
+            <span class="pt p-corazon-titulo a-pop" style="left:76.203%;top:3.281%;width:6.506%;--ox:47.945%;--oy:97.297%;--dur:5.4s;--delay:-.6s"><img src="img/anim/map/corazon-titulo.webp" alt="" width="47" height="47" loading="lazy" decoding="async"><i class="burst"></i></span>
+            <img class="pt p-rayitas-titulo a-flash" src="img/anim/map/rayitas-titulo.webp" alt="" width="32" height="38" style="left:78.877%;top:8.631%;width:4.456%;--ox:-10%;--oy:49.153%;--dur:2.2s;--delay:-.4s" loading="lazy" decoding="async">
+            <img class="pt p-rayitas-lila a-flash" src="img/anim/map/rayitas-lila.webp" alt="" width="41" height="45" style="left:7.13%;top:29.529%;width:5.704%;--ox:109.375%;--oy:108.571%;--dur:2.6s;--delay:-1.2s" loading="lazy" decoding="async">
+            <img class="pt p-rayitas-teal a-flash" src="img/anim/map/rayitas-teal.webp" alt="" width="44" height="64" style="left:86.542%;top:29.387%;width:6.15%;--ox:-7.246%;--oy:105.051%;--dur:2.4s;--delay:-.2s" loading="lazy" decoding="async">
+            <img class="pt p-rayitas-teal-abajo a-flash" src="img/anim/map/rayitas-teal-abajo.webp" alt="" width="40" height="53" style="left:86.631%;top:75.535%;width:5.526%;--ox:-9.677%;--oy:97.59%;--dur:2.8s;--delay:-1.9s" loading="lazy" decoding="async">
+            <img class="pt p-rayitas-naranja a-flash" src="img/anim/map/rayitas-naranja.webp" alt="" width="33" height="35" style="left:12.121%;top:59.201%;width:4.635%;--ox:-11.538%;--oy:105.455%;--dur:2.1s;--delay:-.7s" loading="lazy" decoding="async">
+            <img class="pt p-pin-lila a-hop" src="img/anim/map/pin-lila.webp" alt="" width="39" height="49" style="left:6.15%;top:56.205%;width:5.348%;--ox:50%;--oy:100%;--dur:2.8s;--delay:-.3s;--alto:-22%" loading="lazy" decoding="async">
+            <span class="pt p-corazon-durazno a-pop" style="left:9.358%;top:70.399%;width:5.793%;--ox:49.231%;--oy:100%;--dur:4.8s;--delay:-2.4s"><img src="img/anim/map/corazon-durazno.webp" alt="" width="42" height="44" loading="lazy" decoding="async"><i class="burst"></i></span>
+            <img class="pt p-texto-izq-0 mp-renglon" src="img/anim/map/texto-izq-0.webp" alt="" width="74" height="28" style="left:5.971%;top:62.054%;width:10.339%;--ox:1.724%;--oy:93.023%;--i:0" loading="lazy" decoding="async">
+            <img class="pt p-texto-izq-1 mp-renglon" src="img/anim/map/texto-izq-1.webp" alt="" width="67" height="27" style="left:5.348%;top:64.622%;width:9.269%;--ox:0%;--oy:95.238%;--i:1" loading="lazy" decoding="async">
+            <img class="pt p-texto-izq-2 mp-renglon" src="img/anim/map/texto-izq-2.webp" alt="" width="89" height="37" style="left:4.545%;top:66.904%;width:12.299%;--ox:0.725%;--oy:96.491%;--i:2" loading="lazy" decoding="async">
+            <img class="pt p-texto-der-0 mp-renglon" src="img/anim/map/texto-der-0.webp" alt="" width="83" height="33" style="left:81.373%;top:57.204%;width:11.497%;--ox:0.775%;--oy:98.077%;--i:3" loading="lazy" decoding="async">
+            <img class="pt p-texto-der-1 mp-renglon" src="img/anim/map/texto-der-1.webp" alt="" width="95" height="44" style="left:81.462%;top:59.486%;width:13.191%;--ox:0%;--oy:97.059%;--i:4" loading="lazy" decoding="async">
+            <img class="pt p-texto-der-2 mp-renglon" src="img/anim/map/texto-der-2.webp" alt="" width="90" height="37" style="left:82.977%;top:62.268%;width:12.567%;--ox:0.709%;--oy:94.828%;--i:5" loading="lazy" decoding="async">
+            <img class="pt p-subrayado mp-subrayado" src="img/anim/map/subrayado.webp" alt="" width="72" height="34" style="left:85.205%;top:65.264%;width:9.982%;--ox:5.357%;--oy:88.679%" loading="lazy" decoding="async">
+            <img class="pt p-menu mp-menu" src="img/anim/map/menu.webp" alt="" width="26" height="23" style="left:29.768%;top:25.036%;width:3.654%;--ox:7.317%;--oy:50%" loading="lazy" decoding="async">
+            <img class="pt p-huella-app a-beat" src="img/anim/map/huella-app.webp" alt="" width="42" height="37" style="left:47.059%;top:24.394%;width:5.793%;--ox:49.231%;--oy:94.737%;--dur:1.8s" loading="lazy" decoding="async">
+            <img class="pt p-avatar a-wiggle" src="img/anim/map/avatar.webp" alt="" width="37" height="37" style="left:65.241%;top:24.251%;width:5.08%;--ox:49.123%;--oy:98.246%;--dur:3.6s;--delay:-1.2s" loading="lazy" decoding="async">
+            <img class="pt p-ubicacion a-hop" src="img/anim/map/ubicacion.webp" alt="" width="21" height="26" style="left:32.264%;top:30.385%;width:2.941%;--ox:51.515%;--oy:97.561%;--dur:2.2s;--delay:-.8s;--alto:-26%" loading="lazy" decoding="async">
+            <img class="pt p-filtros mp-filtros" src="img/anim/map/filtros.webp" alt="" width="26" height="26" style="left:65.419%;top:30.528%;width:3.654%;--ox:51.22%;--oy:50%" loading="lazy" decoding="async">
+            <img class="pt p-nav-casa a-hop" src="img/anim/map/nav-casa.webp" alt="" width="32" height="31" style="left:31.462%;top:84.879%;width:4.456%;--ox:50%;--oy:97.917%;--dur:3s;--delay:-.2s;--alto:-20%" loading="lazy" decoding="async">
+            <img class="pt p-nav-lupa mp-lupa" src="img/anim/map/nav-lupa.webp" alt="" width="30" height="30" style="left:42.424%;top:85.164%;width:4.1%;--ox:47.826%;--oy:48.936%" loading="lazy" decoding="async">
+            <img class="pt p-nav-corazon a-beat" src="img/anim/map/nav-corazon.webp" alt="" width="31" height="29" style="left:53.03%;top:85.307%;width:4.367%;--ox:48.98%;--oy:48.889%;--dur:1.5s;--delay:-.4s" loading="lazy" decoding="async">
+            <span class="fx f-nav-relleno" aria-hidden="true" style="left:53.209%;top:85.449%;width:4.011%;height:2.853%"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.6 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z"/></svg></span>
+            <img class="pt p-nav-huella a-wiggle" src="img/anim/map/nav-huella.webp" alt="" width="33" height="29" style="left:63.815%;top:85.307%;width:4.545%;--ox:49.02%;--oy:93.333%;--dur:2.8s;--delay:-1.6s" loading="lazy" decoding="async">
+            <img class="pt p-planta-izq a-sway" src="img/anim/map/planta-izq.webp" alt="" width="137" height="117" style="left:8.021%;top:78.959%;width:18.984%;--ox:46.948%;--oy:100%;--dur:4.2s" loading="lazy" decoding="async">
+            <img class="pt p-planta-der a-sway" src="img/anim/map/planta-der.webp" alt="" width="140" height="115" style="left:73.44%;top:79.315%;width:19.43%;--ox:57.798%;--oy:99.441%;--dur:4.8s;--delay:-1.7s" loading="lazy" decoding="async">
+            <img class="pt p-marco" src="img/anim/map/marco.webp" alt="" width="373" height="104" style="left:24.153%;top:82.026%;width:51.783%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+            <span class="grp g-mapa clip" style="left:26.56%;top:35.521%;width:46.881%;height:47.789%;--ox:50%;--oy:50%">
+              <span class="grp g-mapa-mov" style="left:0%;top:0%;width:100%;height:100%;--ox:50%;--oy:50%">
+                <img class="pt p-mapa" src="img/anim/map/mapa.webp" alt="" width="343" height="435" style="left:-0.57%;top:-0.448%;width:101.521%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+                <span class="fx f-radar" aria-hidden="true" style="left:34.601%;top:37.761%;width:30.608%;height:24.03%"><i></i><i></i><i></i></span>
+                <img class="pt p-pin-0 mp-pin" src="img/anim/map/pin-0.webp" alt="" width="51" height="66" style="left:25.095%;top:7.015%;width:15.019%;--ox:54.43%;--oy:98.058%;--i:0" loading="lazy" decoding="async">
+                <img class="pt p-pin-0-rayitas mp-pin-rayitas" src="img/anim/map/pin-0-rayitas.webp" alt="" width="24" height="32" style="left:20.342%;top:4.328%;width:7.224%;--ox:107.895%;--oy:104%;--i:0" loading="lazy" decoding="async">
+                <img class="pt p-pin-1 mp-pin" src="img/anim/map/pin-1.webp" alt="" width="50" height="62" style="left:67.11%;top:26.119%;width:14.829%;--ox:46.154%;--oy:96.907%;--i:1" loading="lazy" decoding="async">
+                <img class="pt p-pin-1-rayitas mp-pin-rayitas" src="img/anim/map/pin-1-rayitas.webp" alt="" width="27" height="31" style="left:76.616%;top:21.045%;width:7.985%;--ox:0%;--oy:106.25%;--i:1" loading="lazy" decoding="async">
+                <img class="pt p-pin-2 mp-pin" src="img/anim/map/pin-2.webp" alt="" width="46" height="54" style="left:13.878%;top:44.776%;width:13.498%;--ox:54.225%;--oy:96.429%;--i:2" loading="lazy" decoding="async">
+                <img class="pt p-pin-2-rayitas mp-pin-rayitas" src="img/anim/map/pin-2-rayitas.webp" alt="" width="15" height="16" style="left:10.456%;top:51.493%;width:4.563%;--ox:120.833%;--oy:-8%;--i:2" loading="lazy" decoding="async">
+                <img class="pt p-pin-3 mp-pin" src="img/anim/map/pin-3.webp" alt="" width="49" height="62" style="left:69.962%;top:52.985%;width:14.449%;--ox:46.053%;--oy:96.875%;--i:3" loading="lazy" decoding="async">
+                <img class="pt p-pin-3-rayitas mp-pin-rayitas" src="img/anim/map/pin-3-rayitas.webp" alt="" width="24" height="31" style="left:82.51%;top:50.299%;width:7.034%;--ox:-16.216%;--oy:106.25%;--i:3" loading="lazy" decoding="async">
+                <img class="pt p-burbuja mp-burbuja" src="img/anim/map/burbuja.webp" alt="" width="99" height="41" style="left:35.551%;top:34.925%;width:29.468%;--ox:49.677%;--oy:93.75%" loading="lazy" decoding="async">
+                <img class="pt p-punto mp-punto" src="img/anim/map/punto.webp" alt="" width="31" height="31" style="left:45.247%;top:46.119%;width:9.316%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+                <span class="fx f-huellas" aria-hidden="true" style="left:47.909%;top:51.791%;width:30.418%;height:16.418%"><i style="left:5.00%;top:6.36%;--r:160deg;--k:0"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="16" rx="6" ry="5"/><circle cx="5" cy="9" r="2.6"/><circle cx="9.5" cy="5" r="2.6"/><circle cx="14.5" cy="5" r="2.6"/><circle cx="19" cy="9" r="2.6"/></svg></i><i style="left:10.62%;top:27.27%;--r:165deg;--k:1"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="16" rx="6" ry="5"/><circle cx="5" cy="9" r="2.6"/><circle cx="9.5" cy="5" r="2.6"/><circle cx="14.5" cy="5" r="2.6"/><circle cx="19" cy="9" r="2.6"/></svg></i><i style="left:18.75%;top:47.27%;--r:140deg;--k:2"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="16" rx="6" ry="5"/><circle cx="5" cy="9" r="2.6"/><circle cx="9.5" cy="5" r="2.6"/><circle cx="14.5" cy="5" r="2.6"/><circle cx="19" cy="9" r="2.6"/></svg></i><i style="left:33.75%;top:42.73%;--r:105deg;--k:3"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="16" rx="6" ry="5"/><circle cx="5" cy="9" r="2.6"/><circle cx="9.5" cy="5" r="2.6"/><circle cx="14.5" cy="5" r="2.6"/><circle cx="19" cy="9" r="2.6"/></svg></i><i style="left:48.75%;top:36.36%;--r:105deg;--k:4"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="16" rx="6" ry="5"/><circle cx="5" cy="9" r="2.6"/><circle cx="9.5" cy="5" r="2.6"/><circle cx="14.5" cy="5" r="2.6"/><circle cx="19" cy="9" r="2.6"/></svg></i><i style="left:62.50%;top:40.00%;--r:140deg;--k:5"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="16" rx="6" ry="5"/><circle cx="5" cy="9" r="2.6"/><circle cx="9.5" cy="5" r="2.6"/><circle cx="14.5" cy="5" r="2.6"/><circle cx="19" cy="9" r="2.6"/></svg></i><i style="left:70.62%;top:59.09%;--r:150deg;--k:6"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="16" rx="6" ry="5"/><circle cx="5" cy="9" r="2.6"/><circle cx="9.5" cy="5" r="2.6"/><circle cx="14.5" cy="5" r="2.6"/><circle cx="19" cy="9" r="2.6"/></svg></i><i style="left:81.25%;top:74.55%;--r:135deg;--k:7"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="16" rx="6" ry="5"/><circle cx="5" cy="9" r="2.6"/><circle cx="9.5" cy="5" r="2.6"/><circle cx="14.5" cy="5" r="2.6"/><circle cx="19" cy="9" r="2.6"/></svg></i></span>
+              </span>
+            </span>
+            <span class="grp g-t-luna mp-tarjeta" style="left:12.567%;top:33.167%;width:26.292%;height:22.753%;--ox:52.949%;--oy:89.044%;--i:0;--rot:-4.79deg">
+              <span class="grp g-t-luna-pop" style="left:0%;top:0%;width:100%;height:100%;--ox:52.949%;--oy:89.044%">
+                <img class="pt p-tarjeta-luna" src="img/anim/map/tarjeta-luna.webp" alt="" width="189" height="205" style="left:0%;top:0%;width:100%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+                <img class="pt p-luna-cabeza mp-cabeza" src="img/anim/map/luna-cabeza.webp" alt="" width="107" height="71" style="left:20.339%;top:15.987%;width:56.271%;--ox:50.602%;--oy:96.364%;--i:0" loading="lazy" decoding="async">
+                <img class="pt p-luna-rayitas a-flash" src="img/anim/map/luna-rayitas.webp" alt="" width="22" height="29" style="left:14.576%;top:41.693%;width:11.525%;--ox:105.882%;--oy:48.889%;--dur:1.4s;--i:0" loading="lazy" decoding="async">
+                <img class="pt p-luna-corazon mp-corazon" src="img/anim/map/luna-corazon.webp" alt="" width="24" height="23" style="left:69.831%;top:67.085%;width:12.881%;--ox:50%;--oy:50%;--i:0" loading="lazy" decoding="async">
+                <span class="fx f-luna-relleno mp-relleno" aria-hidden="true" style="left:68.814%;top:65.517%;width:15.254%;height:14.107%;--i:0;--rot:-4.79deg"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.6 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z"/></svg></span>
+              </span>
+            </span>
+            <span class="grp g-t-max mp-tarjeta" style="left:63.993%;top:33.809%;width:23.262%;height:21.113%;--ox:45.019%;--oy:88.581%;--i:1;--rot:5.35deg">
+              <span class="grp g-t-max-pop" style="left:0%;top:0%;width:100%;height:100%;--ox:45.019%;--oy:88.581%">
+                <img class="pt p-tarjeta-max" src="img/anim/map/tarjeta-max.webp" alt="" width="167" height="190" style="left:0%;top:0%;width:100%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+                <img class="pt p-max-cabeza mp-cabeza" src="img/anim/map/max-cabeza.webp" alt="" width="81" height="85" style="left:28.736%;top:15.878%;width:48.276%;--ox:43.651%;--oy:89.474%;--i:1" loading="lazy" decoding="async">
+                <img class="pt p-max-cola mp-cola" src="img/anim/map/max-cola.webp" alt="" width="23" height="33" style="left:72.031%;top:49.662%;width:13.793%;--ox:22.222%;--oy:92.157%;--i:1" loading="lazy" decoding="async">
+                <img class="pt p-max-corazon mp-corazon" src="img/anim/map/max-corazon.webp" alt="" width="22" height="21" style="left:64.368%;top:69.932%;width:13.027%;--ox:50%;--oy:50%;--i:1" loading="lazy" decoding="async">
+                <span class="fx f-max-relleno mp-relleno" aria-hidden="true" style="left:63.218%;top:68.919%;width:15.326%;height:13.176%;--i:1;--rot:5.35deg"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.6 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z"/></svg></span>
+              </span>
+            </span>
+            <span class="grp g-t-toby mp-tarjeta" style="left:18.538%;top:61.698%;width:23.44%;height:21.541%;--ox:51.388%;--oy:89.868%;--i:2;--rot:-2.71deg">
+              <span class="grp g-t-toby-pop" style="left:0%;top:0%;width:100%;height:100%;--ox:51.388%;--oy:89.868%">
+                <img class="pt p-tarjeta-toby" src="img/anim/map/tarjeta-toby.webp" alt="" width="169" height="194" style="left:0%;top:0%;width:100%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+                <img class="pt p-toby-cabeza mp-cabeza" src="img/anim/map/toby-cabeza.webp" alt="" width="81" height="87" style="left:16.35%;top:10.265%;width:47.909%;--ox:62.698%;--oy:83.824%;--i:2" loading="lazy" decoding="async">
+                <img class="pt p-toby-cola mp-cola" src="img/anim/map/toby-cola.webp" alt="" width="26" height="32" style="left:13.688%;top:44.04%;width:15.209%;--ox:60%;--oy:84%;--i:2" loading="lazy" decoding="async">
+                <img class="pt p-toby-rayitas a-flash" src="img/anim/map/toby-rayitas.webp" alt="" width="21" height="30" style="left:66.92%;top:36.093%;width:12.167%;--ox:106.25%;--oy:47.826%;--dur:1.4s;--i:2" loading="lazy" decoding="async">
+                <img class="pt p-toby-corazon mp-corazon" src="img/anim/map/toby-corazon.webp" alt="" width="23" height="23" style="left:68.061%;top:67.55%;width:13.688%;--ox:50%;--oy:50%;--i:2" loading="lazy" decoding="async">
+                <span class="fx f-toby-relleno mp-relleno" aria-hidden="true" style="left:66.92%;top:66.556%;width:15.97%;height:13.907%;--i:2;--rot:-2.71deg"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.6 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z"/></svg></span>
+              </span>
+            </span>
+            <span class="grp g-t-nala mp-tarjeta" style="left:61.052%;top:64.123%;width:23.173%;height:21.041%;--ox:45.25%;--oy:88.695%;--i:3;--rot:5.07deg">
+              <span class="grp g-t-nala-pop" style="left:0%;top:0%;width:100%;height:100%;--ox:45.25%;--oy:88.695%">
+                <img class="pt p-tarjeta-nala" src="img/anim/map/tarjeta-nala.webp" alt="" width="167" height="189" style="left:0%;top:0%;width:100%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+                <img class="pt p-nala-cabeza mp-cabeza" src="img/anim/map/nala-cabeza.webp" alt="" width="91" height="69" style="left:25%;top:16.61%;width:54.615%;--ox:43.662%;--oy:87.85%;--i:3" loading="lazy" decoding="async">
+                <img class="pt p-nala-cola mp-cola" src="img/anim/map/nala-cola.webp" alt="" width="23" height="26" style="left:65%;top:53.559%;width:13.846%;--ox:27.778%;--oy:90.244%;--i:3" loading="lazy" decoding="async">
+                <img class="pt p-nala-corazon mp-corazon" src="img/anim/map/nala-corazon.webp" alt="" width="23" height="23" style="left:63.462%;top:69.831%;width:13.846%;--ox:50%;--oy:50%;--i:3" loading="lazy" decoding="async">
+                <span class="fx f-nala-relleno mp-relleno" aria-hidden="true" style="left:61.923%;top:68.475%;width:16.538%;height:14.576%;--i:3;--rot:5.07deg"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.6 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z"/></svg></span>
+              </span>
+            </span>
+          </div>
+          <!--/escena-->
+        </div>
         <h3>Mapa de tu zona</h3>
-        <p>Ve en el mapa los reportes y perritos en adopción cerca de ti, con refugios aliados verificados.</p>
+        <p>Ve en el mapa los reportes de perdidos, encontrados y perritos en adopción cerca de ti.</p>
       </div>
     </div>
   </div>
 </section>
 
+<div class="bands one" aria-hidden="true">
+  <div class="band b3"><div class="band-track"><span>Adopta</span><svg aria-hidden="true"><use href="#paw"/></svg><span class="o ol" data-l="Desliza">Desliza</span><svg aria-hidden="true"><use href="#paw"/></svg><span>Haz match</span><svg aria-hidden="true"><use href="#paw"/></svg><span class="o ol" data-l="Dale hogar">Dale hogar</span><svg aria-hidden="true"><use href="#paw"/></svg></div></div>
+</div>
+
+<div class="portal" aria-hidden="true">
+  <div class="portal-sticky">
+    <div class="portal-deco"></div>
+    <div class="portal-word"><span class="pl" style="--i:0;--c:var(--mint);--dx:-1.15"><b class="ol" data-l="A">A</b></span><span class="pl" style="--i:1;--c:var(--lila);--dx:-0.8"><b class="ol" data-l="D">D</b></span><span class="pl portal-o" style="--i:2"><b><svg viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="32" cy="40" rx="15" ry="12"/><ellipse cx="14" cy="26" rx="7" ry="9" transform="rotate(-18 14 26)"/><ellipse cx="26" cy="17" rx="7" ry="9"/><ellipse cx="40" cy="17" rx="7" ry="9"/><ellipse cx="51" cy="26" rx="7" ry="9" transform="rotate(18 51 26)"/></svg></b></span><span class="pl" style="--i:3;--c:var(--pink);--dx:0.8"><b class="ol" data-l="P">P</b></span><span class="pl" style="--i:4;--c:var(--orange);--dx:1.05"><b class="ol" data-l="T">T</b></span><span class="pl" style="--i:5;--c:var(--blue);--dx:1.3"><b class="ol" data-l="A">A</b></span></div>
+    <p class="portal-sub"><span>desliza</span> · <span>haz match</span> · <span>dale hogar</span></p>
+    <div class="portal-trail"></div>
+    <div class="portal-rings"><i></i><i></i><i></i></div>
+  </div>
+</div>
+
 <section class="feature alt">
   <div class="wrap">
     <div>
       <span class="badge">Adopción con sentido</span>
-      <h2 class="section-title">Encuentra a tu compañero ideal</h2>
+      <h2 class="section-title">Encuentra a tu <span class="hl">compañero ideal</span></h2>
       <p class="section-lead" style="margin:0 0 18px">
         Desliza perfiles como en una red social, pero con un propósito: conectar perros
         que necesitan hogar con personas que encajan con su personalidad.
       </p>
       <ul class="feature-list">
-        <li>Filtros por tamaño, edad, energía y compatibilidad de hogar.</li>
-        <li>Perfiles verificados de refugios y rescatistas.</li>
+        <li>Filtra por tamaño y ve primero a los perritos más cerca de ti.</li>
+        <li>Refugios revisados por nuestro equipo y celulares verificados.</li>
         <li>Cuestionario de hogar para proteger a ambos.</li>
       </ul>
     </div>
     <div class="feature-img">
-      <img src="img/swipe.png" alt="Perfil de Luna lista para adoptar">
+      <!--escena:swipe-->
+      <div class="scene scene-swipe" data-scene="swipe">
+        <img class="scene-base" src="img/anim/swipe/base.webp" alt="Perfil de Luna lista para adoptar: desliza a la derecha para adoptar" width="1000" height="1250" loading="lazy" decoding="async">
+        <span class="pt p-corazon-arriba a-pop" style="left:75.401%;top:3.709%;width:6.15%;--ox:49.275%;--oy:97.333%;--dur:4.6s;--delay:-.4s"><img src="img/anim/swipe/corazon-arriba.webp" alt="" width="61" height="67" loading="lazy" decoding="async"><i class="burst"></i></span>
+        <span class="pt p-corazon-durazno a-pop" style="left:10.25%;top:71.683%;width:5.793%;--ox:49.231%;--oy:104.167%;--dur:5.2s;--delay:-2.6s"><img src="img/anim/swipe/corazon-durazno.webp" alt="" width="58" height="64" loading="lazy" decoding="async"><i class="burst"></i></span>
+        <img class="pt p-rayitas-cafe a-flash" src="img/anim/swipe/rayitas-cafe.webp" alt="" width="38" height="48" style="left:79.679%;top:8.702%;width:3.832%;--ox:-27.907%;--oy:-18.519%;--dur:2.3s;--delay:-.3s" loading="lazy" decoding="async">
+        <img class="pt p-rayitas-lila a-flash" src="img/anim/swipe/rayitas-lila.webp" alt="" width="65" height="71" style="left:6.863%;top:35.592%;width:6.506%;--ox:116.438%;--oy:111.25%;--dur:2.6s;--delay:-1.1s" loading="lazy" decoding="async">
+        <img class="pt p-rayitas-naranja a-flash" src="img/anim/swipe/rayitas-naranja.webp" alt="" width="37" height="50" style="left:5.526%;top:59.914%;width:3.743%;--ox:133.333%;--oy:17.857%;--dur:2.1s;--delay:-.6s" loading="lazy" decoding="async">
+        <img class="pt p-rayitas-teal a-flash" src="img/anim/swipe/rayitas-teal.webp" alt="" width="54" height="59" style="left:89.75%;top:44.722%;width:5.437%;--ox:-27.869%;--oy:113.636%;--dur:2.4s;--delay:-1.7s" loading="lazy" decoding="async">
+        <img class="pt p-rayitas-teal2 a-flash" src="img/anim/swipe/rayitas-teal2.webp" alt="" width="45" height="46" style="left:85.561%;top:77.104%;width:4.456%;--ox:-24%;--oy:113.462%;--dur:2.8s;--delay:-.9s" loading="lazy" decoding="async">
+        <img class="pt p-planta-izq a-sway" src="img/anim/swipe/planta-izq.webp" alt="" width="150" height="171" style="left:10.339%;top:75.892%;width:14.973%;--ox:50%;--oy:100%;--dur:4.4s" loading="lazy" decoding="async">
+        <img class="pt p-planta-der a-sway" src="img/anim/swipe/planta-der.webp" alt="" width="143" height="170" style="left:75.223%;top:75.963%;width:14.26%;--ox:50.625%;--oy:100%;--dur:5s;--delay:-1.8s" loading="lazy" decoding="async">
+        <img class="pt p-flecha-izq" src="img/anim/swipe/flecha-izq.webp" alt="" width="111" height="49" style="left:14.171%;top:44.936%;width:11.052%;--ox:98.387%;--oy:47.273%" loading="lazy" decoding="async">
+        <img class="pt p-flecha-der" src="img/anim/swipe/flecha-der.webp" alt="" width="111" height="49" style="left:75.223%;top:44.936%;width:11.052%;--ox:1.613%;--oy:45.455%" loading="lazy" decoding="async">
+        <img class="pt p-boton-x" src="img/anim/swipe/boton-x.webp" alt="" width="151" height="151" style="left:7.665%;top:49.572%;width:15.062%;--ox:49.704%;--oy:50%" loading="lazy" decoding="async">
+        <img class="pt p-boton-corazon" src="img/anim/swipe/boton-corazon.webp" alt="" width="150" height="150" style="left:77.451%;top:49.572%;width:14.973%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+        <span class="fx f-onda-corazon" aria-hidden="true" style="left:77.852%;top:49.893%;width:14.171%;height:11.341%"><i></i><i></i></span>
+        <img class="pt p-huella-header" src="img/anim/swipe/huella-header.webp" alt="" width="56" height="51" style="left:46.97%;top:27.175%;width:5.615%;--ox:52.381%;--oy:103.509%" loading="lazy" decoding="async">
+        <span class="grp g-pantalla clip" style="left:27.184%;top:23.538%;width:46.078%;height:67.047%;--ox:50%;--oy:50%;border-radius:11.219%/6.17%">
+          <span class="grp g-tarjeta" style="left:2.515%;top:11.277%;width:95.551%;height:73.191%;--ox:50%;--oy:50%">
+            <img class="pt p-tarjeta" src="img/anim/swipe/tarjeta.webp" alt="" width="447" height="607" style="left:0.202%;top:1.163%;width:101.619%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+            <img class="pt p-cola" src="img/anim/swipe/cola.webp" alt="" width="52" height="119" style="left:69.231%;top:33.43%;width:11.741%;--ox:13.793%;--oy:89.552%" loading="lazy" decoding="async">
+            <img class="pt p-rayas-cola a-flash" src="img/anim/swipe/rayas-cola.webp" alt="" width="33" height="32" style="left:75.506%;top:32.413%;width:7.49%;--ox:-2.703%;--oy:111.111%;--dur:.9s" loading="lazy" decoding="async">
+            <img class="pt p-rayas-cara a-flash" src="img/anim/swipe/rayas-cara.webp" alt="" width="45" height="92" style="left:19.231%;top:14.971%;width:10.121%;--ox:118%;--oy:51.456%;--dur:1.6s;--delay:-.5s" loading="lazy" decoding="async">
+            <span class="fx f-sello" aria-hidden="true" style="left:18.219%;top:6.105%;width:46.964%;height:11.919%">¡Adoptar!</span>
+            <span class="fx f-sello-no" aria-hidden="true" style="left:55.061%;top:9.302%;width:40.486%;height:11.628%">Paso</span>
+          </span>
+        </span>
+        <span class="fx f-corazon-nav" aria-hidden="true" style="left:53.209%;top:82.525%;width:4.189%;height:3.566%"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.6 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z"/></svg></span>
+        <span class="fx f-lluvia" aria-hidden="true" style="left:74.866%;top:39.943%;width:21.39%;height:21.398%"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+      </div>
+      <!--/escena-->
     </div>
   </div>
 </section>
@@ -151,18 +652,97 @@
 <section id="match" class="feature">
   <div class="wrap">
     <div class="feature-img">
-      <img src="img/match.png" alt="Pantalla de match con Luna">
+      <!--escena:match-->
+      <div class="scene scene-match" data-scene="match">
+        <img class="scene-base" src="img/anim/match/base.webp" alt="Pantalla de match con Luna" width="1000" height="1250" loading="lazy" decoding="async">
+        <span class="pt p-corazon-izq a-pop" style="left:11.23%;top:29.886%;width:7.843%;--ox:50%;--oy:96.262%;--dur:5.4s;--delay:-1.2s"><img src="img/anim/match/corazon-izq.webp" alt="" width="78" height="95" loading="lazy" decoding="async"><i class="burst"></i></span>
+        <span class="pt p-corazon-der a-pop" style="left:80.214%;top:38.445%;width:10.517%;--ox:46.61%;--oy:96.094%;--dur:4.8s;--delay:-3.4s"><img src="img/anim/match/corazon-der.webp" alt="" width="105" height="114" loading="lazy" decoding="async"><i class="burst"></i></span>
+        <img class="pt p-rayitas-lila a-flash" src="img/anim/match/rayitas-lila.webp" alt="" width="64" height="71" style="left:80.927%;top:13.124%;width:6.417%;--ox:-4.167%;--oy:105%;--dur:2.3s;--delay:-.4s" loading="lazy" decoding="async">
+        <img class="pt p-rayitas-teal a-flash" src="img/anim/match/rayitas-teal.webp" alt="" width="49" height="58" style="left:16.488%;top:46.362%;width:4.902%;--ox:107.273%;--oy:-3.077%;--dur:2.6s;--delay:-1.3s" loading="lazy" decoding="async">
+        <img class="pt p-rayitas-teal2 a-flash" src="img/anim/match/rayitas-teal2.webp" alt="" width="50" height="58" style="left:80.303%;top:61.698%;width:4.991%;--ox:-5.357%;--oy:103.077%;--dur:2.1s;--delay:-.8s" loading="lazy" decoding="async">
+        <span class="grp g-maceta-izq clip" style="left:1.783%;top:64.194%;width:23.173%;height:23.252%;--ox:50%;--oy:50%">
+          <img class="pt p-planta-izq a-sway" src="img/anim/match/planta-izq.webp" alt="" width="194" height="242" style="left:17.308%;top:14.11%;width:83.846%;--ox:57.339%;--oy:99.265%;--dur:4.4s" loading="lazy" decoding="async">
+        </span>
+        <span class="grp g-maceta-der clip" style="left:75.045%;top:64.194%;width:22.995%;height:23.252%;--ox:50%;--oy:50%">
+          <img class="pt p-planta-der a-sway" src="img/anim/match/planta-der.webp" alt="" width="187" height="233" style="left:-0.775%;top:17.485%;width:81.395%;--ox:42.857%;--oy:99.234%;--dur:5s;--delay:-1.8s" loading="lazy" decoding="async">
+        </span>
+        <img class="pt p-marco-izq" src="img/anim/match/marco-izq.webp" alt="" width="44" height="271" style="left:22.46%;top:66.12%;width:4.367%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+        <img class="pt p-marco-der" src="img/anim/match/marco-der.webp" alt="" width="41" height="271" style="left:73.351%;top:66.12%;width:4.1%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+        <img class="pt p-huella-header" src="img/anim/match/huella-header.webp" alt="" width="60" height="54" style="left:46.613%;top:13.766%;width:5.971%;--ox:50.746%;--oy:101.639%" loading="lazy" decoding="async">
+        <img class="pt p-avatar" src="img/anim/match/avatar.webp" alt="" width="53" height="53" style="left:66.488%;top:13.552%;width:5.258%;--ox:50.847%;--oy:50%" loading="lazy" decoding="async">
+        <img class="pt p-menu-1" src="img/anim/match/menu-1.webp" alt="" width="37" height="9" style="left:28.342%;top:14.408%;width:3.743%;--ox:4.762%;--oy:40%" loading="lazy" decoding="async">
+        <img class="pt p-menu-2" src="img/anim/match/menu-2.webp" alt="" width="37" height="10" style="left:28.342%;top:15.335%;width:3.743%;--ox:4.762%;--oy:45.455%" loading="lazy" decoding="async">
+        <img class="pt p-menu-3" src="img/anim/match/menu-3.webp" alt="" width="37" height="9" style="left:28.342%;top:16.334%;width:3.743%;--ox:4.762%;--oy:50%" loading="lazy" decoding="async">
+        <img class="pt p-letra-1" src="img/anim/match/letra-1.webp" alt="" width="13" height="50" style="left:32.531%;top:21.612%;width:1.337%;--ox:36.667%;--oy:83.929%" loading="lazy" decoding="async">
+        <img class="pt p-letra-2" src="img/anim/match/letra-2.webp" alt="" width="32" height="48" style="left:34.135%;top:20.756%;width:3.209%;--ox:47.222%;--oy:109.259%" loading="lazy" decoding="async">
+        <img class="pt p-letra-3" src="img/anim/match/letra-3.webp" alt="" width="28" height="37" style="left:37.344%;top:21.683%;width:2.763%;--ox:62.903%;--oy:109.524%" loading="lazy" decoding="async">
+        <img class="pt p-letra-4" src="img/anim/match/letra-4.webp" alt="" width="33" height="34" style="left:41.622%;top:21.826%;width:3.298%;--ox:37.838%;--oy:115.789%" loading="lazy" decoding="async">
+        <img class="pt p-letra-5" src="img/anim/match/letra-5.webp" alt="" width="33" height="35" style="left:44.92%;top:21.826%;width:3.298%;--ox:66.216%;--oy:112.821%" loading="lazy" decoding="async">
+        <img class="pt p-letra-6" src="img/anim/match/letra-6.webp" alt="" width="48" height="36" style="left:49.822%;top:21.755%;width:4.813%;--ox:43.519%;--oy:112.5%" loading="lazy" decoding="async">
+        <img class="pt p-letra-7" src="img/anim/match/letra-7.webp" alt="" width="33" height="36" style="left:54.545%;top:21.755%;width:3.298%;--ox:47.297%;--oy:112.5%" loading="lazy" decoding="async">
+        <img class="pt p-letra-8" src="img/anim/match/letra-8.webp" alt="" width="27" height="44" style="left:57.576%;top:21.113%;width:2.674%;--ox:51.667%;--oy:110.204%" loading="lazy" decoding="async">
+        <img class="pt p-letra-9" src="img/anim/match/letra-9.webp" alt="" width="29" height="36" style="left:60.16%;top:21.755%;width:2.852%;--ox:51.562%;--oy:112.5%" loading="lazy" decoding="async">
+        <img class="pt p-letra-10" src="img/anim/match/letra-10.webp" alt="" width="32" height="50" style="left:63.012%;top:20.542%;width:3.209%;--ox:51.389%;--oy:110.714%" loading="lazy" decoding="async">
+        <img class="pt p-letra-11" src="img/anim/match/letra-11.webp" alt="" width="14" height="50" style="left:66.399%;top:20.613%;width:1.426%;--ox:59.375%;--oy:108.929%" loading="lazy" decoding="async">
+        <img class="pt p-subtitulo" src="img/anim/match/subtitulo.webp" alt="" width="349" height="28" style="left:30.749%;top:26.177%;width:34.938%;--ox:49.745%;--oy:48.387%" loading="lazy" decoding="async">
+        <img class="pt p-corazon-sub" src="img/anim/match/corazon-sub.webp" alt="" width="33" height="32" style="left:66.221%;top:25.892%;width:3.298%;--ox:48.649%;--oy:80.556%" loading="lazy" decoding="async">
+        <img class="pt p-juntos" src="img/anim/match/juntos.webp" alt="" width="367" height="23" style="left:31.551%;top:80.456%;width:36.72%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+        <img class="pt p-rayita-abajo-1 a-flash" src="img/anim/match/rayita-abajo-1.webp" alt="" width="23" height="30" style="left:46.078%;top:83.238%;width:2.317%;--ox:50%;--oy:-20.588%;--dur:1.8s;--delay:-0.00s" loading="lazy" decoding="async">
+        <img class="pt p-rayita-abajo-2 a-flash" src="img/anim/match/rayita-abajo-2.webp" alt="" width="12" height="37" style="left:49.376%;top:83.524%;width:1.248%;--ox:50%;--oy:-26.829%;--dur:1.8s;--delay:-0.25s" loading="lazy" decoding="async">
+        <img class="pt p-rayita-abajo-3 a-flash" src="img/anim/match/rayita-abajo-3.webp" alt="" width="23" height="30" style="left:51.693%;top:83.238%;width:2.317%;--ox:50%;--oy:-20.588%;--dur:1.8s;--delay:-0.50s" loading="lazy" decoding="async">
+        <span class="grp g-tu" style="left:22.371%;top:31.027%;width:28.52%;height:26.034%;--ox:50%;--oy:43.836%">
+          <img class="pt p-circulo-tu" src="img/anim/match/circulo-tu.webp" alt="" width="279" height="318" style="left:1.25%;top:-1.096%;width:97.812%;--ox:49.84%;--oy:45.938%" loading="lazy" decoding="async">
+          <img class="pt p-rayitas-tu a-flash" src="img/anim/match/rayitas-tu.webp" alt="" width="48" height="64" style="left:10.938%;top:28.219%;width:16.875%;--ox:100%;--oy:72.222%;--dur:1.9s;--delay:-.7s" loading="lazy" decoding="async">
+        </span>
+        <span class="grp g-luna" style="left:48.752%;top:31.384%;width:28.52%;height:25.678%;--ox:50%;--oy:44.444%">
+          <img class="pt p-circulo-luna" src="img/anim/match/circulo-luna.webp" alt="" width="285" height="319" style="left:0.312%;top:-1.944%;width:100%;--ox:49.688%;--oy:46.648%" loading="lazy" decoding="async">
+          <img class="pt p-cola" src="img/anim/match/cola.webp" alt="" width="49" height="56" style="left:71.25%;top:59.444%;width:17.188%;--ox:70.909%;--oy:92.063%" loading="lazy" decoding="async">
+          <img class="pt p-ondas-cola a-flash" src="img/anim/match/ondas-cola.webp" alt="" width="29" height="27" style="left:80.625%;top:57.778%;width:10%;--ox:3.125%;--oy:146.667%;--dur:.9s" loading="lazy" decoding="async">
+          <img class="pt p-oreja-izq" src="img/anim/match/oreja-izq.webp" alt="" width="76" height="68" style="left:20.312%;top:21.667%;width:26.562%;--ox:84.706%;--oy:18.421%" loading="lazy" decoding="async">
+          <img class="pt p-oreja-der" src="img/anim/match/oreja-der.webp" alt="" width="55" height="92" style="left:55.937%;top:31.944%;width:19.375%;--ox:38.71%;--oy:4.854%" loading="lazy" decoding="async">
+          <img class="pt p-rayitas-luna a-flash" src="img/anim/match/rayitas-luna.webp" alt="" width="44" height="60" style="left:73.125%;top:28.611%;width:15.313%;--ox:-10.204%;--oy:70.149%;--dur:1.7s" loading="lazy" decoding="async">
+        </span>
+        <img class="pt p-tarjeta-tu" src="img/anim/match/tarjeta-tu.webp" alt="" width="226" height="229" style="left:26.916%;top:52.425%;width:22.638%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+        <img class="pt p-titulo-tu" src="img/anim/match/titulo-tu.webp" alt="" width="35" height="27" style="left:29.679%;top:54.636%;width:3.476%;--ox:-12.821%;--oy:120%" loading="lazy" decoding="async">
+        <img class="pt p-icono-casa" src="img/anim/match/icono-casa.webp" alt="" width="33" height="32" style="left:29.679%;top:58.203%;width:3.298%;--ox:51.351%;--oy:97.222%" loading="lazy" decoding="async">
+        <img class="pt p-texto-casa" src="img/anim/match/texto-casa.webp" alt="" width="97" height="20" style="left:34.581%;top:58.773%;width:9.715%;--ox:-3.67%;--oy:47.727%" loading="lazy" decoding="async">
+        <img class="pt p-icono-corazon-tu" src="img/anim/match/icono-corazon-tu.webp" alt="" width="33" height="30" style="left:29.679%;top:61.626%;width:3.298%;--ox:51.351%;--oy:102.941%" loading="lazy" decoding="async">
+        <img class="pt p-texto-corazon-tu" src="img/anim/match/texto-corazon-tu.webp" alt="" width="101" height="20" style="left:34.581%;top:62.054%;width:10.071%;--ox:-3.54%;--oy:52.273%" loading="lazy" decoding="async">
+        <img class="pt p-icono-pesas" src="img/anim/match/icono-pesas.webp" alt="" width="37" height="26" style="left:29.501%;top:65.121%;width:3.743%;--ox:51.19%;--oy:100%" loading="lazy" decoding="async">
+        <img class="pt p-texto-pesas" src="img/anim/match/texto-pesas.webp" alt="" width="120" height="44" style="left:34.581%;top:65.193%;width:12.032%;--ox:-2.963%;--oy:51.02%" loading="lazy" decoding="async">
+        <img class="pt p-tarjeta-luna" src="img/anim/match/tarjeta-luna.webp" alt="" width="213" height="226" style="left:51.872%;top:52.639%;width:21.301%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+        <img class="pt p-titulo-luna" src="img/anim/match/titulo-luna.webp" alt="" width="67" height="27" style="left:54.724%;top:54.636%;width:6.684%;--ox:-6.667%;--oy:120%" loading="lazy" decoding="async">
+        <img class="pt p-icono-huellas" src="img/anim/match/icono-huellas.webp" alt="" width="33" height="30" style="left:54.724%;top:58.345%;width:3.298%;--ox:48.649%;--oy:100%" loading="lazy" decoding="async">
+        <img class="pt p-texto-huellas" src="img/anim/match/texto-huellas.webp" alt="" width="63" height="20" style="left:59.447%;top:58.773%;width:6.328%;--ox:-7.042%;--oy:52.273%" loading="lazy" decoding="async">
+        <img class="pt p-icono-corazon-luna" src="img/anim/match/icono-corazon-luna.webp" alt="" width="32" height="30" style="left:54.724%;top:61.626%;width:3.209%;--ox:50%;--oy:100%" loading="lazy" decoding="async">
+        <img class="pt p-texto-corazon-luna" src="img/anim/match/texto-corazon-luna.webp" alt="" width="84" height="20" style="left:59.358%;top:62.054%;width:8.378%;--ox:-4.255%;--oy:52.273%" loading="lazy" decoding="async">
+        <img class="pt p-icono-pelota" src="img/anim/match/icono-pelota.webp" alt="" width="32" height="33" style="left:54.724%;top:64.836%;width:3.209%;--ox:50%;--oy:100%" loading="lazy" decoding="async">
+        <img class="pt p-texto-pelota" src="img/anim/match/texto-pelota.webp" alt="" width="105" height="47" style="left:59.269%;top:65.121%;width:10.517%;--ox:-2.542%;--oy:50%" loading="lazy" decoding="async">
+        <span class="fx f-onda" aria-hidden="true" style="left:43.672%;top:36.198%;width:12.478%;height:9.986%"><i></i><i></i></span>
+        <span class="grp g-corazon" style="left:44.385%;top:36.769%;width:11.052%;height:8.845%;--ox:50%;--oy:50%">
+          <img class="pt p-disco-corazon" src="img/anim/match/disco-corazon.webp" alt="" width="111" height="111" style="left:0%;top:0.403%;width:100.806%;--ox:49.6%;--oy:49.597%" loading="lazy" decoding="async">
+          <img class="pt p-corazon" src="img/anim/match/corazon.webp" alt="" width="71" height="62" style="left:17.742%;top:24.597%;width:64.516%;--ox:50%;--oy:52.857%" loading="lazy" decoding="async">
+        </span>
+        <img class="pt p-rayos-corazon" src="img/anim/match/rayos-corazon.webp" alt="" width="75" height="41" style="left:46.168%;top:31.455%;width:7.487%;--ox:50%;--oy:128.261%" loading="lazy" decoding="async">
+        <span class="fx f-confeti" aria-hidden="true" style="left:36.542%;top:30.492%;width:26.738%;height:21.398%"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+        <span class="grp g-boton clip" style="left:29.857%;top:72.682%;width:40.285%;height:6.134%;--ox:50%;--oy:50%;border-radius:9.513%/50%">
+          <img class="pt p-boton" src="img/anim/match/boton.webp" alt="" width="408" height="82" style="left:-0.664%;top:-3.488%;width:101.327%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+          <img class="pt p-flecha" src="img/anim/match/flecha.webp" alt="" width="34" height="29" style="left:70.575%;top:32.558%;width:8.407%;--ox:2.632%;--oy:48.485%" loading="lazy" decoding="async">
+          <span class="fx f-brillo" aria-hidden="true" style="left:0.332%;top:1.744%;width:99.336%;height:96.512%"><i></i></span>
+        </span>
+      </div>
+      <!--/escena-->
     </div>
     <div>
       <span class="badge">Compatibilidad real</span>
-      <h2 class="section-title">Match que va más allá de lo visual</h2>
+      <h2 class="section-title">Match que va <span class="hl">más allá</span> de lo visual</h2>
       <p class="section-lead" style="margin:0 0 18px">
-        Comparamos tu estilo de vida con el perfil del perro: espacio, actividad,
-        experiencia y convivencia con niños u otras mascotas.
+        Tu cuestionario de hogar se compara con el tamaño y la edad del perrito: espacio,
+        experiencia, horas que estaría solo y convivencia con niños u otras mascotas.
       </p>
       <ul class="feature-list">
-        <li>Porcentaje de compatibilidad claro y divertido.</li>
-        <li>Consejos personalizados para cada match.</li>
+        <li>Porcentaje de compatibilidad que ayuda a quien lo publica a decidir.</li>
+        <li>Tus datos de contacto solo se comparten cuando aceptan tu solicitud.</li>
         <li>Chat seguro para coordinar la adopción.</li>
       </ul>
     </div>
@@ -173,43 +753,163 @@
   <div class="wrap">
     <div>
       <span class="badge">Recompensa colectiva</span>
-      <h2 class="section-title">Ayuda a quienes ayudan</h2>
+      <h2 class="section-title">Ayuda a <span class="hl">quienes ayudan</span></h2>
       <p class="section-lead" style="margin:0 0 18px">
-        Cada adopción, donación o compra en la tienda solidaria beneficia a refugios
-        verificados y los impulsa en el ranking de héroes.
+        Cada adopción y donativo<span data-shop>, y cada compra en la tienda solidaria,</span> beneficia
+        a refugios verificados y los impulsa en el ranking de héroes.
       </p>
       <ul class="feature-list">
-        <li>Tienda solidaria con productos que apoyan refugios.</li>
-        <li>Donaciones directas a refugios verificados.</li>
+        <li data-shop>Tienda solidaria con productos que apoyan refugios.</li>
+        <li>Donativos para refugios verificados.</li>
         <li>Ranking de refugios que más hogares logran.</li>
       </ul>
     </div>
     <div class="feature-img">
-      <img src="img/compatibility.png" alt="Compatibilidad entre dueño y perro">
+      <!--escena:compatibility-->
+      <div class="scene scene-compatibility" data-scene="compatibility">
+        <img class="scene-base" src="img/anim/compatibility/base.webp" alt="Compatibilidad entre dueño y perro" width="1000" height="1250" loading="lazy" decoding="async">
+        <img class="pt p-corazon-titulo" src="img/anim/compatibility/corazon-titulo.webp" alt="" width="71" height="75" style="left:75.223%;top:2.639%;width:7.13%;--ox:45%;--oy:92.857%" loading="lazy" decoding="async">
+        <img class="pt p-rayitas-cafe a-flash" src="img/anim/compatibility/rayitas-cafe.webp" alt="" width="44" height="55" style="left:79.947%;top:7.418%;width:4.367%;--ox:-10.204%;--oy:51.613%;--dur:2.2s;--delay:-.5s" loading="lazy" decoding="async">
+        <span class="pt p-corazon-izq a-pop" style="left:9.537%;top:52.496%;width:7.754%;--ox:49.425%;--oy:94.737%;--dur:5.2s;--delay:-2.2s"><img src="img/anim/compatibility/corazon-izq.webp" alt="" width="78" height="85" loading="lazy" decoding="async"><i class="burst"></i></span>
+        <img class="pt p-rayitas-lila a-flash" src="img/anim/compatibility/rayitas-lila.webp" alt="" width="67" height="73" style="left:6.506%;top:36.876%;width:6.684%;--ox:102.667%;--oy:101.22%;--dur:2.5s;--delay:-1.1s" loading="lazy" decoding="async">
+        <img class="pt p-rayitas-naranja a-flash" src="img/anim/compatibility/rayitas-naranja.webp" alt="" width="57" height="70" style="left:9.269%;top:68.402%;width:5.704%;--ox:106.25%;--oy:1.282%;--dur:2.1s;--delay:-.2s" loading="lazy" decoding="async">
+        <img class="pt p-rayitas-teal a-flash" src="img/anim/compatibility/rayitas-teal.webp" alt="" width="57" height="63" style="left:89.216%;top:43.581%;width:5.704%;--ox:-1.562%;--oy:102.817%;--dur:2.7s;--delay:-1.6s" loading="lazy" decoding="async">
+        <img class="pt p-rayitas-teal2 a-flash" src="img/anim/compatibility/rayitas-teal2.webp" alt="" width="53" height="58" style="left:85.829%;top:77.033%;width:5.258%;--ox:-5.085%;--oy:104.615%;--dur:2.3s;--delay:-.9s" loading="lazy" decoding="async">
+        <img class="pt p-titulo-tu" src="img/anim/compatibility/titulo-tu.webp" alt="" width="70" height="51" style="left:22.816%;top:7.917%;width:6.952%;--ox:48.718%;--oy:103.509%" loading="lazy" decoding="async">
+        <img class="pt p-titulo-perfil" src="img/anim/compatibility/titulo-perfil.webp" alt="" width="144" height="65" style="left:31.373%;top:7.775%;width:14.439%;--ox:50%;--oy:83.562%" loading="lazy" decoding="async">
+        <img class="pt p-titulo-mas" src="img/anim/compatibility/titulo-mas.webp" alt="" width="39" height="39" style="left:47.415%;top:8.417%;width:3.922%;--ox:50%;--oy:63.636%" loading="lazy" decoding="async">
+        <img class="pt p-titulo-su" src="img/anim/compatibility/titulo-su.webp" alt="" width="63" height="38" style="left:52.941%;top:8.916%;width:6.328%;--ox:49.296%;--oy:104.651%" loading="lazy" decoding="async">
+        <img class="pt p-titulo-perfil2" src="img/anim/compatibility/titulo-perfil2.webp" alt="" width="146" height="65" style="left:60.963%;top:7.775%;width:14.617%;--ox:50%;--oy:83.562%" loading="lazy" decoding="async">
+        <img class="pt p-subtitulo" src="img/anim/compatibility/subtitulo.webp" alt="" width="404" height="65" style="left:29.768%;top:13.267%;width:40.374%;--ox:49.89%;--oy:52.055%" loading="lazy" decoding="async">
+        <span class="grp g-maceta-izq clip" style="left:4.456%;top:69.9%;width:22.371%;height:22.539%;--ox:50%;--oy:50%">
+          <img class="pt p-planta-izq a-sway" src="img/anim/compatibility/planta-izq.webp" alt="" width="183" height="242" style="left:19.124%;top:11.709%;width:81.673%;--ox:49.756%;--oy:98.897%;--dur:4.6s" loading="lazy" decoding="async">
+        </span>
+        <span class="grp g-maceta-der clip" style="left:73.262%;top:69.9%;width:22.995%;height:22.539%;--ox:50%;--oy:50%">
+          <img class="pt p-planta-der a-sway" src="img/anim/compatibility/planta-der.webp" alt="" width="180" height="174" style="left:-0.388%;top:36.076%;width:78.295%;--ox:53.96%;--oy:98.462%;--dur:5.2s;--delay:-2s" loading="lazy" decoding="async">
+        </span>
+        <img class="pt p-marco-izq" src="img/anim/compatibility/marco-izq.webp" alt="" width="47" height="275" style="left:24.599%;top:71.113%;width:4.724%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+        <img class="pt p-marco-der" src="img/anim/compatibility/marco-der.webp" alt="" width="47" height="275" style="left:70.856%;top:71.113%;width:4.724%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+        <img class="pt p-huella-header" src="img/anim/compatibility/huella-header.webp" alt="" width="53" height="48" style="left:47.237%;top:23.966%;width:5.348%;--ox:50%;--oy:100%" loading="lazy" decoding="async">
+        <img class="pt p-avatar" src="img/anim/compatibility/avatar.webp" alt="" width="51" height="52" style="left:64.884%;top:23.609%;width:5.08%;--ox:50.877%;--oy:50%" loading="lazy" decoding="async">
+        <img class="pt p-menu-1" src="img/anim/compatibility/menu-1.webp" alt="" width="37" height="9" style="left:30.036%;top:24.251%;width:3.654%;--ox:4.878%;--oy:50%" loading="lazy" decoding="async">
+        <img class="pt p-menu-2" src="img/anim/compatibility/menu-2.webp" alt="" width="37" height="9" style="left:30.036%;top:25.25%;width:3.654%;--ox:4.878%;--oy:50%" loading="lazy" decoding="async">
+        <img class="pt p-menu-3" src="img/anim/compatibility/menu-3.webp" alt="" width="37" height="9" style="left:30.036%;top:26.248%;width:3.654%;--ox:4.878%;--oy:50%" loading="lazy" decoding="async">
+        <img class="pt p-compatibilidad" src="img/anim/compatibility/compatibilidad.webp" alt="" width="245" height="41" style="left:38.235%;top:29.387%;width:24.51%;--ox:49.818%;--oy:60.87%" loading="lazy" decoding="async">
+        <img class="pt p-rayitas-tit-izq a-flash" src="img/anim/compatibility/rayitas-tit-izq.webp" alt="" width="34" height="40" style="left:33.155%;top:28.959%;width:3.387%;--ox:105.263%;--oy:57.778%;--dur:1.9s;--delay:-.3s" loading="lazy" decoding="async">
+        <img class="pt p-rayitas-tit-der a-flash" src="img/anim/compatibility/rayitas-tit-der.webp" alt="" width="32" height="40" style="left:64.349%;top:28.959%;width:3.209%;--ox:-5.556%;--oy:57.778%;--dur:1.9s;--delay:-1.2s" loading="lazy" decoding="async">
+        <span class="grp g-tu" style="left:26.783%;top:32.097%;width:23.173%;height:18.545%;--ox:50%;--oy:50%">
+          <img class="pt p-perfil-tu" src="img/anim/compatibility/perfil-tu.webp" alt="" width="205" height="204" style="left:5.962%;top:6.154%;width:88.462%;--ox:49.783%;--oy:49.782%" loading="lazy" decoding="async">
+        </span>
+        <span class="grp g-su" style="left:50.134%;top:32.097%;width:23.173%;height:18.545%;--ox:50%;--oy:50%">
+          <img class="pt p-perfil-su" src="img/anim/compatibility/perfil-su.webp" alt="" width="205" height="204" style="left:5.962%;top:6.154%;width:88.462%;--ox:49.783%;--oy:49.782%" loading="lazy" decoding="async">
+          <img class="pt p-cola" src="img/anim/compatibility/cola.webp" alt="" width="37" height="60" style="left:73.654%;top:60.385%;width:16.154%;--ox:61.905%;--oy:94.03%" loading="lazy" decoding="async">
+          <img class="pt p-oreja-izq" src="img/anim/compatibility/oreja-izq.webp" alt="" width="67" height="53" style="left:21.346%;top:17.692%;width:28.846%;--ox:82.667%;--oy:16.949%" loading="lazy" decoding="async">
+          <img class="pt p-oreja-der" src="img/anim/compatibility/oreja-der.webp" alt="" width="45" height="75" style="left:57.5%;top:30.769%;width:19.615%;--ox:43.137%;--oy:7.143%" loading="lazy" decoding="async">
+          <img class="pt p-rayitas-su a-flash" src="img/anim/compatibility/rayitas-su.webp" alt="" width="37" height="62" style="left:76.346%;top:30%;width:16.154%;--ox:-11.905%;--oy:52.857%;--dur:1.7s;--delay:-.6s" loading="lazy" decoding="async">
+        </span>
+        <img class="pt p-corazon-tu" src="img/anim/compatibility/corazon-tu.webp" alt="" width="35" height="37" style="left:44.118%;top:34.807%;width:3.476%;--ox:48.718%;--oy:87.805%" loading="lazy" decoding="async">
+        <img class="pt p-pildora-tu" src="img/anim/compatibility/pildora-tu.webp" alt="" width="126" height="41" style="left:32.442%;top:47.504%;width:12.567%;--ox:50%;--oy:90.217%" loading="lazy" decoding="async">
+        <img class="pt p-pildora-su" src="img/anim/compatibility/pildora-su.webp" alt="" width="126" height="41" style="left:55.08%;top:47.504%;width:12.567%;--ox:50%;--oy:90.217%" loading="lazy" decoding="async">
+        <span class="fx f-onda" aria-hidden="true" style="left:44.742%;top:37.803%;width:10.695%;height:8.559%"><i></i><i></i></span>
+        <img class="pt p-corazon-medio" src="img/anim/compatibility/corazon-medio.webp" alt="" width="44" height="38" style="left:47.95%;top:40.442%;width:4.367%;--ox:48.98%;--oy:76.744%" loading="lazy" decoding="async">
+        <span class="fx f-corazones" aria-hidden="true" style="left:39.216%;top:33.524%;width:21.39%;height:12.126%"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+        <img class="pt p-rasgo-1" src="img/anim/compatibility/rasgo-1.webp" alt="" width="102" height="39" style="left:39.127%;top:52.496%;width:10.16%;--ox:0.877%;--oy:43.182%" loading="lazy" decoding="async">
+        <img class="pt p-icono-1a" src="img/anim/compatibility/icono-1a.webp" alt="" width="37" height="36" style="left:31.907%;top:52.354%;width:3.743%;--ox:52.381%;--oy:97.5%" loading="lazy" decoding="async">
+        <img class="pt p-icono-1b" src="img/anim/compatibility/icono-1b.webp" alt="" width="37" height="36" style="left:63.725%;top:52.354%;width:3.654%;--ox:51.22%;--oy:97.5%" loading="lazy" decoding="async">
+        <img class="pt p-palomita-1" src="img/anim/compatibility/palomita-1.webp" alt="" width="36" height="37" style="left:53.654%;top:52.354%;width:3.565%;--ox:50%;--oy:51.22%" loading="lazy" decoding="async">
+        <img class="pt p-rasgo-2" src="img/anim/compatibility/rasgo-2.webp" alt="" width="72" height="36" style="left:39.216%;top:57.489%;width:7.219%;--ox:0%;--oy:47.5%" loading="lazy" decoding="async">
+        <img class="pt p-icono-2a" src="img/anim/compatibility/icono-2a.webp" alt="" width="40" height="32" style="left:31.818%;top:57.561%;width:4.011%;--ox:51.111%;--oy:100%" loading="lazy" decoding="async">
+        <img class="pt p-icono-2b" src="img/anim/compatibility/icono-2b.webp" alt="" width="40" height="32" style="left:63.547%;top:57.561%;width:4.011%;--ox:51.111%;--oy:100%" loading="lazy" decoding="async">
+        <img class="pt p-palomita-2" src="img/anim/compatibility/palomita-2.webp" alt="" width="36" height="37" style="left:53.654%;top:57.347%;width:3.565%;--ox:50%;--oy:51.22%" loading="lazy" decoding="async">
+        <img class="pt p-rasgo-3" src="img/anim/compatibility/rasgo-3.webp" alt="" width="70" height="36" style="left:39.216%;top:62.553%;width:7.041%;--ox:0%;--oy:47.5%" loading="lazy" decoding="async">
+        <img class="pt p-icono-3a" src="img/anim/compatibility/icono-3a.webp" alt="" width="41" height="36" style="left:31.907%;top:62.482%;width:4.1%;--ox:47.826%;--oy:95%" loading="lazy" decoding="async">
+        <img class="pt p-icono-3b" src="img/anim/compatibility/icono-3b.webp" alt="" width="41" height="36" style="left:63.636%;top:62.482%;width:4.1%;--ox:47.826%;--oy:95%" loading="lazy" decoding="async">
+        <img class="pt p-palomita-3" src="img/anim/compatibility/palomita-3.webp" alt="" width="36" height="37" style="left:53.654%;top:62.411%;width:3.565%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+        <img class="pt p-rasgo-4" src="img/anim/compatibility/rasgo-4.webp" alt="" width="70" height="36" style="left:39.394%;top:67.546%;width:6.952%;--ox:-2.564%;--oy:47.5%" loading="lazy" decoding="async">
+        <img class="pt p-icono-4a" src="img/anim/compatibility/icono-4a.webp" alt="" width="45" height="35" style="left:31.64%;top:67.689%;width:4.545%;--ox:49.02%;--oy:89.744%" loading="lazy" decoding="async">
+        <img class="pt p-icono-4b" src="img/anim/compatibility/icono-4b.webp" alt="" width="45" height="35" style="left:63.369%;top:67.689%;width:4.456%;--ox:50%;--oy:89.744%" loading="lazy" decoding="async">
+        <img class="pt p-palomita-4" src="img/anim/compatibility/palomita-4.webp" alt="" width="36" height="37" style="left:53.654%;top:67.475%;width:3.565%;--ox:50%;--oy:48.78%" loading="lazy" decoding="async">
+        <img class="pt p-rasgo-5" src="img/anim/compatibility/rasgo-5.webp" alt="" width="73" height="19" style="left:39.305%;top:73.252%;width:7.308%;--ox:-1.22%;--oy:47.619%" loading="lazy" decoding="async">
+        <img class="pt p-icono-5a" src="img/anim/compatibility/icono-5a.webp" alt="" width="36" height="32" style="left:32.086%;top:72.825%;width:3.565%;--ox:50%;--oy:94.444%" loading="lazy" decoding="async">
+        <img class="pt p-icono-5b" src="img/anim/compatibility/icono-5b.webp" alt="" width="36" height="32" style="left:63.815%;top:72.825%;width:3.565%;--ox:50%;--oy:94.444%" loading="lazy" decoding="async">
+        <img class="pt p-palomita-5" src="img/anim/compatibility/palomita-5.webp" alt="" width="36" height="37" style="left:53.654%;top:72.539%;width:3.565%;--ox:50%;--oy:48.78%" loading="lazy" decoding="async">
+        <span class="fx f-relleno" aria-hidden="true" style="left:31.373%;top:77.461%;width:37.255%;height:5.278%"><i></i></span>
+        <img class="pt p-huella-95" src="img/anim/compatibility/huella-95.webp" alt="" width="57" height="53" style="left:40.196%;top:77.889%;width:5.704%;--ox:50%;--oy:96.667%" loading="lazy" decoding="async">
+        <span class="grp g-cifra clip" style="left:46.881%;top:77.746%;width:11.765%;height:4.565%;--ox:50%;--oy:50%">
+          <img class="pt p-digito-1" src="img/anim/compatibility/digito-1.webp" alt="" width="33" height="45" style="left:4.545%;top:10.938%;width:28.03%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+          <img class="pt p-digito-2" src="img/anim/compatibility/digito-2.webp" alt="" width="31" height="45" style="left:31.818%;top:10.938%;width:26.515%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+          <img class="pt p-digito-3" src="img/anim/compatibility/digito-3.webp" alt="" width="44" height="45" style="left:56.818%;top:10.938%;width:37.121%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+        </span>
+        <img class="pt p-raya-95 a-flash" src="img/anim/compatibility/raya-95.webp" alt="" width="29" height="39" style="left:59.893%;top:78.388%;width:2.852%;--ox:-6.25%;--oy:93.182%;--dur:1.3s;--delay:-.4s" loading="lazy" decoding="async">
+        <span class="fx f-chispas" aria-hidden="true" style="left:37.433%;top:75.606%;width:26.738%;height:9.272%"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+        <img class="pt p-equipo" src="img/anim/compatibility/equipo.webp" alt="" width="203" height="23" style="left:39.84%;top:83.524%;width:20.321%;--ox:50.439%;--oy:50%" loading="lazy" decoding="async">
+        <img class="pt p-nav-1" src="img/anim/compatibility/nav-1.webp" alt="" width="43" height="42" style="left:31.373%;top:87.874%;width:4.278%;--ox:50%;--oy:102.128%" loading="lazy" decoding="async">
+        <img class="pt p-nav-2" src="img/anim/compatibility/nav-2.webp" alt="" width="40" height="41" style="left:42.335%;top:87.946%;width:4.011%;--ox:51.111%;--oy:102.174%" loading="lazy" decoding="async">
+        <img class="pt p-nav-3" src="img/anim/compatibility/nav-3.webp" alt="" width="42" height="40" style="left:53.119%;top:88.017%;width:4.189%;--ox:51.064%;--oy:102.222%" loading="lazy" decoding="async">
+        <img class="pt p-nav-4" src="img/anim/compatibility/nav-4.webp" alt="" width="44" height="41" style="left:63.904%;top:87.946%;width:4.367%;--ox:44.898%;--oy:102.174%" loading="lazy" decoding="async">
+      </div>
+      <!--/escena-->
     </div>
   </div>
 </section>
 
+<div class="bands one" aria-hidden="true">
+  <div class="band b1"><div class="band-track"><span>Cada segundo cuenta</span><svg aria-hidden="true"><use href="#paw"/></svg><span class="o ol" data-l="Únete a la manada">Únete a la manada</span><svg aria-hidden="true"><use href="#paw"/></svg></div></div>
+</div>
+
 <section class="cta">
+  <div class="ghost-txt ol" aria-hidden="true" data-l="¡Únete! ¡Únete! ¡Únete! ¡Únete!">¡Únete! ¡Únete! ¡Únete! ¡Únete!</div>
   <div class="wrap">
     <div class="cta-img">
-      <img src="img/family-hug.png" alt="Familia reencontrando a su perro">
+      <!--escena:family-hug-->
+      <div class="scene scene-family-hug" data-scene="family-hug">
+        <img class="scene-base" src="img/anim/family-hug/base.webp" alt="Familia reencontrando a su perro" width="780" height="520" loading="lazy" decoding="async">
+        <img class="pt p-cabeza-papa" src="img/anim/family-hug/cabeza-papa.webp" alt="" width="164" height="175" style="left:47.07%;top:1.758%;width:21.029%;--ox:63.467%;--oy:94.186%" loading="lazy" decoding="async">
+        <img class="pt p-cabeza-mama" src="img/anim/family-hug/cabeza-mama.webp" alt="" width="196" height="181" style="left:24.349%;top:10.156%;width:25.065%;--ox:57.662%;--oy:91.877%" loading="lazy" decoding="async">
+        <img class="pt p-planta-izq a-sway" src="img/anim/family-hug/planta-izq.webp" alt="" width="137" height="141" style="left:2.865%;top:62.891%;width:17.513%;--ox:39.405%;--oy:92.086%;--dur:4.2s" loading="lazy" decoding="async">
+        <img class="pt p-planta-der a-sway" src="img/anim/family-hug/planta-der.webp" alt="" width="73" height="131" style="left:87.826%;top:64.16%;width:9.31%;--ox:49.65%;--oy:94.186%;--dur:3.8s;--delay:-1.7s" loading="lazy" decoding="async">
+        <img class="pt p-tapa-tenis-mama" src="img/anim/family-hug/tapa-tenis-mama.webp" alt="" width="80" height="88" style="left:9.896%;top:73.633%;width:10.286%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+        <img class="pt p-tapa-tenis-papa" src="img/anim/family-hug/tapa-tenis-papa.webp" alt="" width="41" height="94" style="left:86.458%;top:72.07%;width:5.208%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+        <img class="pt p-brote-1 a-sway" src="img/anim/family-hug/brote-1.webp" alt="" width="52" height="32" style="left:25.456%;top:86.035%;width:6.641%;--ox:50%;--oy:93.651%;--dur:3.2s;--delay:-.6s" loading="lazy" decoding="async">
+        <img class="pt p-brote-2 a-sway" src="img/anim/family-hug/brote-2.webp" alt="" width="37" height="28" style="left:48.828%;top:86.523%;width:4.688%;--ox:50%;--oy:96.429%;--dur:2.8s;--delay:-1.9s" loading="lazy" decoding="async">
+        <img class="pt p-brote-3 a-sway" src="img/anim/family-hug/brote-3.webp" alt="" width="53" height="33" style="left:74.414%;top:86.23%;width:6.771%;--ox:51.923%;--oy:96.923%;--dur:3.4s;--delay:-1.1s" loading="lazy" decoding="async">
+        <img class="pt p-cola" src="img/anim/family-hug/cola.webp" alt="" width="63" height="109" style="left:15.104%;top:51.758%;width:8.138%;--ox:59.2%;--oy:82.243%" loading="lazy" decoding="async">
+        <img class="pt p-tapa-cola" src="img/anim/family-hug/tapa-cola.webp" alt="" width="28" height="50" style="left:19.271%;top:63.281%;width:3.646%;--ox:50%;--oy:50%" loading="lazy" decoding="async">
+        <img class="pt p-rayita-cola" src="img/anim/family-hug/rayita-cola.webp" alt="" width="33" height="49" style="left:13.477%;top:50.488%;width:4.232%;--ox:93.846%;--oy:85.567%" loading="lazy" decoding="async">
+        <span class="grp g-cabeza-perro" style="left:39.062%;top:27.344%;width:18.49%;height:26.562%;--ox:65.141%;--oy:82.721%">
+          <img class="pt p-cabeza-perro" src="img/anim/family-hug/cabeza-perro.webp" alt="" width="124" height="122" style="left:21.479%;top:2.206%;width:85.915%;--ox:50.82%;--oy:91.25%" loading="lazy" decoding="async">
+          <img class="pt p-lengua" src="img/anim/family-hug/lengua.webp" alt="" width="29" height="29" style="left:64.085%;top:53.309%;width:20.07%;--ox:52.632%;--oy:0%" loading="lazy" decoding="async">
+          <img class="pt p-oreja-perro" src="img/anim/family-hug/oreja-perro.webp" alt="" width="57" height="98" style="left:1.761%;top:29.412%;width:39.789%;--ox:55.752%;--oy:6.25%" loading="lazy" decoding="async">
+        </span>
+        <img class="pt p-cabeza-nino" src="img/anim/family-hug/cabeza-nino.webp" alt="" width="133" height="119" style="left:53.646%;top:31.641%;width:17.057%;--ox:50%;--oy:100.426%" loading="lazy" decoding="async">
+        <img class="pt p-mano-mama" src="img/anim/family-hug/mano-mama.webp" alt="" width="87" height="54" style="left:39.518%;top:58.203%;width:11.198%;--ox:2.907%;--oy:50.943%" loading="lazy" decoding="async">
+        <img class="pt p-mano-papa" src="img/anim/family-hug/mano-papa.webp" alt="" width="111" height="75" style="left:58.333%;top:57.91%;width:14.258%;--ox:93.151%;--oy:58.784%" loading="lazy" decoding="async">
+        <span class="pt p-corazon-1 a-pop" style="left:19.727%;top:16.504%;width:5.599%;--ox:50%;--oy:94.186%;--dur:4.2s;--delay:-.3s"><img src="img/anim/family-hug/corazon-1.webp" alt="" width="44" height="44" loading="lazy" decoding="async"><i class="burst"></i></span>
+        <span class="pt p-corazon-2 a-pop" style="left:15.56%;top:25.684%;width:5.469%;--ox:50%;--oy:93.103%;--dur:4.8s;--delay:-2.4s"><img src="img/anim/family-hug/corazon-2.webp" alt="" width="43" height="44" loading="lazy" decoding="async"><i class="burst"></i></span>
+        <span class="pt p-corazon-3 a-pop" style="left:11.719%;top:43.555%;width:4.232%;--ox:50.769%;--oy:96.875%;--dur:4.4s;--delay:-1.3s"><img src="img/anim/family-hug/corazon-3.webp" alt="" width="33" height="32" loading="lazy" decoding="async"><i class="burst"></i></span>
+        <span class="pt p-corazon-4 a-pop" style="left:72.852%;top:18.164%;width:5.078%;--ox:48.718%;--oy:94.737%;--dur:4.6s;--delay:-3.4s"><img src="img/anim/family-hug/corazon-4.webp" alt="" width="40" height="39" loading="lazy" decoding="async"><i class="burst"></i></span>
+        <span class="pt p-corazon-5 a-pop" style="left:78.19%;top:24.609%;width:5.013%;--ox:49.351%;--oy:100%;--dur:5s;--delay:-.9s"><img src="img/anim/family-hug/corazon-5.webp" alt="" width="39" height="36" loading="lazy" decoding="async"><i class="burst"></i></span>
+        <span class="fx f-corazones" aria-hidden="true" style="left:36.458%;top:11.719%;width:35.156%;height:42.969%"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+      </div>
+      <!--/escena-->
     </div>
     <span class="badge">¿Listo para unirte?</span>
-    <h2 class="section-title">Cada segundo cuenta cuando se pierde un amigo</h2>
+    <h2 class="section-title">Cada segundo cuenta cuando se pierde <span class="hl">un amigo</span></h2>
     <p class="section-lead" style="margin:14px auto 28px">
       Empieza ahora. Crea tu alerta, explora adopciones o apoya a un refugio.
     </p>
-    <a href="/app/" class="btn" style="font-size:18px;padding:14px 32px">Entrar a PatitasFind</a>
+    <a href="/app/" class="btn" style="font-size:18px;padding:14px 32px">Entrar a GuauWoow</a>
   </div>
 </section>
 
 <footer class="footer">
-  <p>Hecho con amor por el equipo de PatitasFind · <a href="/app/">Abrir app</a></p>
-  <p style="margin-top:8px;font-size:14px"><a href="/app/legal/terminos.html">Términos y condiciones</a> · <a href="/app/legal/privacidad.html">Aviso de privacidad</a> · <a href="/app/legal/privacidad.html#cookies">Cookies</a></p>
+  <p>Hecho con amor por el equipo de GuauWoow · <a href="/app/">Abrir app</a></p>
+  <p style="margin-top:8px;font-size:14px"><a href="/app/legal/centro-legal.html">Centro legal</a> · <a href="/app/legal/terminos.html">Términos y condiciones</a> · <a href="/app/legal/privacidad.html">Aviso de privacidad</a> · <a href="/app/legal/cookies.html">Cookies</a> · <a href="#" data-cookie-prefs>Preferencias de cookies</a> · <a href="/app/legal/atencion-y-quejas.html">Quejas</a> · <a href="/app/#ayuda">Ayuda</a></p>
 </footer>
 
 <script src="fx.js?v=10"></script>
-<script src="landing.js?v=3"></script>
+<script src="landing.js?v=6"></script>
+<script src="landing-motion.js?v=7"></script>
+<script src="/app/legal/js/cookies.js?v=1"></script>
 </body>
 </html>

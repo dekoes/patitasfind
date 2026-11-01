@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="38" height="46" viewBox="0 0 38 46" aria-hidden="true">
+  <!-- Pin de veterinaria para el mapa: mismo tamaño que los demás pines (38x46, ancla 19,44) -->
+  <path d="M19 44C8 31 3 24 3 16.5A16 16 0 1 1 35 16.5C35 24 30 31 19 44Z" fill="#33C7BE" stroke="#1D2233" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M15.5 8.5h7v5h5v7h-5v5h-7v-5h-5v-7h5Z" fill="#FFFFFF" stroke="#1D2233" stroke-width="1.6" stroke-linejoin="round"/>
+</svg>

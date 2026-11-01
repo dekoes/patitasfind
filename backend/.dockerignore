@@ -1,4 +1,4 @@
-# Nunca copiar a la imagen: datos locales, secretos ni artefactos
+# Nunca copiar a la imagen: datos locales, secretos, pruebas ni artefactos
 .env
 .env.*
 uploads/
@@ -15,3 +15,11 @@ celerybeat-schedule*
 *.log
 .DS_Store
 .git
+# Pruebas y datos de demostración: seed_data.py BORRA la base, no debe existir en producción
+tests/
+pytest.ini
+seed_data.py
+# Scripts del host (respaldos, despliegue): se montan en sus contenedores, no van en la imagen
+scripts/
+Dockerfile
+.dockerignore

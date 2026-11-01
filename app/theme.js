@@ -1,5 +1,5 @@
 /* ============================================================
-   PatitasFind — Motor de apariencia
+   GuauWoow — Motor de apariencia
    Se carga en <head> (sin defer) para aplicar el tema antes de
    pintar. La pantalla de Apariencia se construye con Theme.mount().
    ============================================================ */
@@ -10,7 +10,7 @@ const Theme = (() => {
   const root = document.documentElement;
 
   const PALETTES = {
-    patitas:  { label: 'PatitasFind', teal: '#33C7BE', orange: '#8E66D9', lila: '#DCC7FA', green: '#86E0D4', blue: '#A9D6F9', pink: '#F6C8A4', yellow: '#C9F0EB', sand: '#EFE3FD', grad: ['#E8F8F6', '#EBDFFC', '#DCC7FA', '#F6D9C4'], solid: '#F3EDFC' },
+    patitas:  { label: 'GuauWoow', teal: '#33C7BE', orange: '#8E66D9', lila: '#DCC7FA', green: '#86E0D4', blue: '#A9D6F9', pink: '#F6C8A4', yellow: '#C9F0EB', sand: '#EFE3FD', grad: ['#E8F8F6', '#EBDFFC', '#DCC7FA', '#F6D9C4'], solid: '#F3EDFC' },
     oceano:   { label: 'Océano', teal: '#1FA2C9', orange: '#3B5BDB', lila: '#C9DEFA', green: '#9BE7E0', blue: '#B8D8F8', pink: '#CFE9F5', yellow: '#D4F3F7', sand: '#E3EFFB', grad: ['#E6F7FB', '#D9ECFB', '#C9DEFA', '#DFF5F1'], solid: '#EAF4FB' },
     atardecer:{ label: 'Atardecer', teal: '#F2709C', orange: '#FF9F43', lila: '#FFD6C9', green: '#FFE3A3', blue: '#FFC9D9', pink: '#FFD1B3', yellow: '#FFEDC2', sand: '#FFE9DF', grad: ['#FFF1E6', '#FFE0E9', '#FFD6C9', '#FFE9B8'], solid: '#FFF0EA' },
     bosque:   { label: 'Bosque', teal: '#2F9E6E', orange: '#B5763F', lila: '#D8E8C8', green: '#A8DDB5', blue: '#C5E1D2', pink: '#EED9BE', yellow: '#E2F0CB', sand: '#EAF1E1', grad: ['#EEF7EA', '#E2F0DA', '#D8E8C8', '#F1E6D2'], solid: '#EEF4E8' },
@@ -299,7 +299,7 @@ const Theme = (() => {
       <div class="ap-preview">
         <div class="card ap-pv-card">
           <div class="between"><b class="h2" style="font-size:17px">Vista previa</b><span class="badge b-teal">${count} opciones</span></div>
-          <p class="small muted">Así se verá PatitasFind con tu estilo.</p>
+          <p class="small muted">Así se verá GuauWoow con tu estilo.</p>
           <div class="row mt8" style="flex-wrap:wrap;gap:8px"><button class="btn btn-sm shine" type="button">Principal</button><button class="btn btn-sm btn-orange" type="button">Acento</button><button class="btn btn-sm btn-ghost" type="button">Secundario</button></div>
           <div class="row mt8" style="gap:8px"><input class="inp grow" placeholder="Campo de texto" style="padding:9px 14px"><span class="chip on">Etiqueta</span></div>
           <div class="ap-pv-chart" id="ap-chart"></div>

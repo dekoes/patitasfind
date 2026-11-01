@@ -1,6 +1,7 @@
 """Observabilidad: Sentry (opcional), request id y logs estructurados de cada petición.
 
-Todo es no-op si SENTRY_DSN no está definido.
+Todo es no-op si SENTRY_DSN no está definido. En Sentry, el entorno es SENTRY_ENVIRONMENT (o
+ENVIRONMENT) y el release es "patitasfind@<GIT_SHA>" cuando la imagen trae GIT_SHA.
 """
 import contextvars
 import json
@@ -83,17 +84,32 @@ def init_sentry(component: str = "backend") -> bool:
     except ImportError:
         logging.getLogger(__name__).warning("SENTRY_DSN definido pero sentry-sdk no está instalado.")
         return False
-    sentry_sdk.init(
-        dsn=settings.sentry_dsn,
-        environment=settings.sentry_environment or settings.environment,
-        traces_sample_rate=settings.sentry_traces_sample_rate,
-        send_default_pii=False,
-        before_send=_before_send,
-        integrations=[StarletteIntegration(), FastApiIntegration(), CeleryIntegration()],
-    )
+    sentry_sdk.init(**sentry_options(),
+                    integrations=[StarletteIntegration(), FastApiIntegration(), CeleryIntegration()])
     sentry_sdk.set_tag("component", component)
     _sentry_ready = True
     return True
+
+
+def sentry_release() -> str | None:
+    """Release de Sentry a partir de GIT_SHA (lo exporta el despliegue); None si no está definido."""
+    sha = (settings.git_sha or "").strip()
+    return f"patitasfind@{sha}" if sha else None
+
+
+def sentry_options() -> dict:
+    """Opciones de sentry_sdk.init: entorno = SENTRY_ENVIRONMENT (o ENVIRONMENT), release = GIT_SHA."""
+    options = {
+        "dsn": settings.sentry_dsn,
+        "environment": (settings.sentry_environment or settings.environment or "").strip() or None,
+        "traces_sample_rate": settings.sentry_traces_sample_rate,
+        "send_default_pii": False,
+        "before_send": _before_send,
+    }
+    release = sentry_release()
+    if release:
+        options["release"] = release
+    return options
 
 
 # --------------------------------------------------------------------------- middleware ASGI

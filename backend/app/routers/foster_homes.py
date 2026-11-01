@@ -1,10 +1,11 @@
-from fastapi import APIRouter, Depends, HTTPException, status, Query
+from fastapi import APIRouter, Depends, HTTPException, Request, status, Query
 from sqlalchemy.orm import Session
 
 from app.dependencies import get_current_user, get_verified_user
 from app.database import get_db
 from app.models import FosterHome, User
 from app.schemas import FosterHomeCreate, FosterHomeOut
+from app.services import legal_acceptance
 
 router = APIRouter(tags=["foster_homes"])
 
@@ -12,6 +13,7 @@ router = APIRouter(tags=["foster_homes"])
 @router.post("/foster-homes/register", response_model=FosterHomeOut, status_code=status.HTTP_201_CREATED)
 def register_foster_home(
     payload: FosterHomeCreate,
+    request: Request,
     current_user: User = Depends(get_verified_user),
     db: Session = Depends(get_db),
 ):
@@ -31,8 +33,14 @@ def register_foster_home(
         status="pending",
     )
     db.add(foster_home)
+    db.flush()
+    # Términos para casas de paso (casilla separada): bitácora; obligatoria con LEGAL_ANNEX_REQUIRED
+    legal_acceptance.accept_annex(db, current_user, "casa_de_paso", payload.accepted_annex, request,
+                                  context={"foster_home_id": foster_home.id})
 
-    current_user.role = "foster"
+    # Solo se asigna a usuarios normales: nunca se degrada a admins, superadmins ni refugios
+    if current_user.role == "user":
+        current_user.role = "foster"
     db.commit()
     db.refresh(foster_home)
     return foster_home
@@ -42,6 +50,8 @@ def register_foster_home(
 def list_foster_homes(
     city: str | None = Query(None),
     country: str | None = Query(None),
+    skip: int = Query(0, ge=0),
+    limit: int = Query(50, ge=1, le=100),
     db: Session = Depends(get_db),
 ):
     query = db.query(FosterHome).filter(FosterHome.status == "approved")
@@ -49,7 +59,7 @@ def list_foster_homes(
         query = query.filter(FosterHome.city.ilike(f"%{city}%"))
     if country:
         query = query.filter(FosterHome.country.ilike(f"%{country}%"))
-    return query.order_by(FosterHome.created_at.desc()).all()
+    return query.order_by(FosterHome.created_at.desc()).offset(skip).limit(limit).all()
 
 
 @router.get("/foster-homes/me", response_model=FosterHomeOut)

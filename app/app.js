@@ -1,5 +1,5 @@
 /* ============================================================
-   PatitasFind — App web (SPA sin framework)
+   GuauWoow — App web (SPA sin framework)
    ============================================================ */
 'use strict';
 
@@ -24,19 +24,20 @@ const STATUS_LABEL = {
   available: 'Disponible', adopted: 'Adoptado', in_foster: 'En casa de paso', unavailable: 'No disponible', in_process: 'En proceso',
   pending_application: 'Pendiente', approved: 'Aprobada', rejected: 'Rechazada', completed: '¡Adoptado!',
   active: 'Activo', resolved: 'Resuelto', pending: 'En revisión', created: 'Creado', pending_payment: 'Pago pendiente', paid: 'Pagado', cancelled: 'Cancelado',
+  expired: 'Expirado', shipped: 'Enviado', delivered: 'Entregado', closed: 'Cerrado',
 };
 
 const state = {
   token: localStorage.getItem('patitas_token') || '',
   me: null,
-  config: { google_enabled: false, demo_enabled: false, otp_enabled: false, payments_enabled: false, ai_enabled: false },
+  config: { google_enabled: false, demo_enabled: false, otp_enabled: false, payments_enabled: false, ai_enabled: false, shop_enabled: true, support_email: null, support_whatsapp: null },
   coords: JSON.parse(localStorage.getItem('patitas_coords') || 'null'),
   city: localStorage.getItem('patitas_city') || 'Ciudad de México',
   country: 'México',
   cart: JSON.parse(localStorage.getItem('patitas_cart') || '[]'),
   deck: [], deckIdx: 0, deckSize: '',
   matchId: null, matchDog: null,
-  conv: null, ws: null, typingTimer: null, lastTypingSent: 0,
+  conv: null, ws: null, wsAttempt: 0, wsRetry: null, typingTimer: null, lastTypingSent: 0,
   reportType: 'lost', psType: '', psFile: null,
   products: [], authMode: 'login', resetToken: null,
   map: null, mapLayers: {},
@@ -68,12 +69,32 @@ function age(y, m) {
 function dist(km) { if (km == null) return ''; return km < 1 ? `${Math.round(km * 1000)} m` : `${km.toFixed(1)} km`; }
 function initials(n) { return (n || '?').trim().split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase(); }
 function photo(o) { return (o && o.photos && o.photos.length) ? o.photos[0] : ''; }
+/* Solo se usan en src/href rutas /uploads/ del sitio, blob: (vistas previas locales) y https: */
+function safeUrl(u) {
+  const s = String(u ?? '').trim();
+  return /^(\/uploads\/|blob:|https:\/\/)[^\s"'<>`]+$/i.test(s) ? s : '';
+}
+/* Miniatura que genera el backend: /uploads/<nombre>.<ext> -> /uploads/<nombre>_thumb.jpg */
+function thumbUrl(u) {
+  const s = safeUrl(u);
+  return /^\/uploads\/[^/]+\.(jpe?g|png|webp)$/i.test(s) && !/_thumb\.jpg$/i.test(s) ? s.replace(/\.(jpe?g|png|webp)$/i, '_thumb.jpg') : s;
+}
+/* <img> perezosa; con thumb usa la miniatura y data-full para volver a la imagen completa si falla
+   (lo hace un listener global de "error": la CSP no permite onerror en línea) */
+function imgTag(src, { thumb = true, alt = '', id = '' } = {}) {
+  const full = safeUrl(src);
+  if (!full) return '';
+  const shown = thumb ? thumbUrl(full) : full;
+  return `<img${id ? ` id="${id}"` : ''} src="${esc(shown)}"${shown !== full ? ` data-full="${esc(full)}"` : ''} alt="${esc(alt)}" loading="lazy" decoding="async">`;
+}
 function avatarHtml(u, size = 46) {
   const st = `width:${size}px;height:${size}px`;
-  if (u && u.avatar_url) return `<div class="avatar" style="${st}"><img src="${esc(u.avatar_url)}" alt=""></div>`;
+  const img = u && imgTag(u.avatar_url);
+  if (img) return `<div class="avatar" style="${st}">${img}</div>`;
   return `<div class="avatar" style="${st}">${esc(initials(u && u.full_name))}</div>`;
 }
-function imgOrDog(src, size = 40) { return src ? `<img src="${esc(src)}" alt="" loading="lazy">` : `<svg width="${size}" height="${size}"><use href="#dogface"/></svg>`; }
+function imgOrDog(src, size = 40) { return imgTag(src) || `<svg width="${size}" height="${size}"><use href="#dogface"/></svg>`; }
+function shopOn() { return state.config.shop_enabled !== false; }
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 function locParams(extra = {}) {
   const p = new URLSearchParams();
@@ -105,32 +126,106 @@ async function api(path, opts = {}) {
   let res;
   try { res = await fetch(API + path, { method: opts.method || 'GET', headers, body }); }
   catch { throw new Error('Sin conexión. Revisa tu internet 🐾'); }
-  if (res.status === 401 && !opts.noLogout) { logout(true); throw new Error('Tu sesión expiró, vuelve a entrar'); }
+  if (res.status === 401 && !opts.noLogout) {
+    sessionExpired();
+    const err = new Error('Tu sesión expiró. Vuelve a entrar 🐾');
+    err.status = 401;
+    throw err;
+  }
   if (res.status === 204) return null;
   const text = await res.text();
   let data = null;
-  try { data = text ? JSON.parse(text) : null; } catch { data = { detail: text }; }
+  // Si no es JSON (p. ej. la página de error de Nginx) no se muestra tal cual al usuario
+  try { data = text ? JSON.parse(text) : null; } catch { data = null; }
   if (!res.ok) {
     let d = data && data.detail;
     if (Array.isArray(d)) d = d.map(e => e.msg).join(', ');
-    const err = new Error(d || `Error ${res.status}`);
+    if (typeof d !== 'string' || !d) {
+      d = res.status === 429 ? 'Vas muy rápido 🐾 Espera un momento e inténtalo de nuevo.'
+        : res.status >= 500 ? 'Algo falló de nuestro lado. Inténtalo de nuevo en un momento.' : `Error ${res.status}`;
+    }
+    const err = new Error(d);
     err.status = res.status;
     err.code = data && data.code;
+    err.data = data;  // cuerpo del error (p. ej. report_id de una publicación ya enviada)
     if (err.code === 'phone_verification_required' && !opts.noVerifyRedirect && current !== 'verify-phone') {
       setTimeout(() => startPhoneVerify(), 50);
       err.message = 'Primero verifica tu teléfono 📲';
     }
+    // Edad (verificación reforzada o fecha de nacimiento) y anexos de aliados: cumplimiento.js abre la ventana
+    if (err.code && window.Cumplimiento) Cumplimiento.onApiError(err);
     throw err;
   }
   return data;
 }
 
+/* Reduce las fotos en el teléfono antes de subirlas: máximo 1600 px, JPEG ~0.85, respetando la
+   orientación EXIF. Al volver a codificar también se descartan los metadatos (GPS). */
+const MAX_PHOTO_PX = 1600;
+const shrunkCache = new WeakMap();
+function loadImgEl(file) {
+  return new Promise((ok, fail) => {
+    const url = URL.createObjectURL(file);
+    const im = new Image();
+    im.onload = () => { URL.revokeObjectURL(url); ok(im); };
+    im.onerror = () => { URL.revokeObjectURL(url); fail(new Error('imagen')); };
+    im.src = url;
+  });
+}
+async function shrinkImage(file, maxPx = MAX_PHOTO_PX) {
+  if (!file || !file.type || !file.type.startsWith('image/') || file.type === 'image/gif') return file;
+  const key = shrunkCache.get(file);
+  if (key && key.maxPx === maxPx) return key.out;
+  let out = file;
+  try {
+    let src = null;
+    if (window.createImageBitmap) {
+      try { src = await createImageBitmap(file, { imageOrientation: 'from-image' }); } catch { src = null; }
+    }
+    if (!src) src = await loadImgEl(file);  // <img> ya aplica la orientación EXIF en navegadores actuales
+    const w = src.width || src.naturalWidth, h = src.height || src.naturalHeight;
+    const k = Math.min(1, maxPx / Math.max(w, h));
+    const cw = Math.max(1, Math.round(w * k)), ch = Math.max(1, Math.round(h * k));
+    const canvas = document.createElement('canvas');
+    canvas.width = cw; canvas.height = ch;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, cw, ch);
+    ctx.drawImage(src, 0, 0, cw, ch);
+    if (src.close) src.close();
+    const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.85));
+    if (blob && blob.size) out = new File([blob], (file.name || 'foto').replace(/\.[^.]+$/, '') + '.jpg', { type: 'image/jpeg', lastModified: Date.now() });
+  } catch { out = file; }
+  shrunkCache.set(file, { maxPx, out });
+  return out;
+}
+
 async function uploadFiles(files) {
   if (!files || !files.length) return [];
   const fd = new FormData();
-  files.forEach(f => fd.append('files', f));
+  (await Promise.all(files.map(f => shrinkImage(f)))).forEach(f => fd.append('files', f));
   const data = await api('/upload/multiple', { method: 'POST', body: fd });
   return data.urls || [];
+}
+
+/* Documentos privados del refugio (C2): cada archivo va a POST /upload/document y se guarda su id.
+   Las fotos de documentos se reducen menos (2400 px) para que sigan siendo legibles. */
+async function uploadDocuments(files) {
+  const ids = [];
+  for (const f of files || []) {
+    const isPdf = f.type === 'application/pdf' || /\.pdf$/i.test(f.name || '');
+    const fd = new FormData();
+    fd.append('file', isPdf ? f : await shrinkImage(f, 2400));
+    try {
+      const r = await api('/upload/document', { method: 'POST', body: fd });
+      ids.push(r.id);
+    } catch (e) {
+      // Servidor sin el endpoint todavía: las fotos se suben como antes, los PDF no se pueden
+      if (e.status !== 404 || e.message !== 'Not Found') throw e;
+      if (isPdf) throw new Error('Por ahora solo puedes subir fotos de tus documentos');
+      ids.push(...await uploadFiles([f]));
+    }
+  }
+  return ids;
 }
 
 async function withBtn(btn, fn) {
@@ -154,7 +249,7 @@ async function reverseGeocode(c) {
     const r = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${c.lat}&lon=${c.lon}&zoom=14&accept-language=es`);
     const d = await r.json();
     const a = d.address || {};
-    return { area: a.suburb || a.neighbourhood || a.city_district || '', city: a.city || a.town || a.state || '', country: a.country || 'México' };
+    return { area: a.suburb || a.neighbourhood || a.city_district || '', city: a.city || a.town || a.state || '', state: a.state || '', country: a.country || 'México' };
   } catch { return null; }
 }
 
@@ -168,6 +263,7 @@ let stack = [];
 
 function navigate(name, opts = {}) {
   if (!screens[name]) return;
+  if (name === 'shop' && !shopOn()) { toast('La tienda no está disponible por ahora.', 'error'); return; }
   if (name !== current) track('$pageview', { $current_url: `${location.origin}/app/#${name}`, screen: name });
   const prev = screens[current];
   const next = screens[name];
@@ -215,8 +311,8 @@ function onEnter(name, opts) {
   const fn = {
     home: loadHome, discover: loadDiscover, 'chat-list': loadChatList, notifications: loadNotifications,
     profile: loadProfile, shop: loadShop, ranking: loadRanking, map: loadMap, 'edit-profile': loadEditProfile,
-    'my-refuge': loadMyRefuge, appearance: () => Theme.mount($('#appearance-body')),
-  }[name];
+    'my-refuge': loadMyRefuge, appearance: () => Theme.mount($('#appearance-body')), help: loadHelp,
+  }[name] || (window.screenLoaders || {})[name];  // pantallas de módulos aparte (p. ej. veterinarias.js)
   if (fn) fn(opts);
   FX.decorate(screens[name]);
 }
@@ -225,7 +321,7 @@ function onEnter(name, opts) {
    Splash / Onboarding / Auth
    ============================================================ */
 function runSplash() {
-  $('#splash-title').innerHTML = [...'PatitasFind'].map((c, i) => `<span style="--i:${i}">${c}</span>`).join('');
+  $('#splash-title').innerHTML = [...'GuauWoow'].map((c, i) => `<span style="--i:${i}">${c}</span>`).join('');
   $('#splash-run').innerHTML = FX.runDog();
   const steps = $('#splash-steps');
   for (let i = 0; i < 9; i++) steps.insertAdjacentHTML('beforeend', `<i style="left:${8 + i * 10}%;bottom:${i % 2 ? 22 : 8}px;transform:rotate(90deg);animation-delay:${i * .45}s">${FX.PAW}</i>`);
@@ -325,9 +421,11 @@ async function submitAuth(e) {
       if (full_name.length < 2) throw new Error('Escribe tu nombre');
       if (phone.replace(/\D/g, '').length < 10) throw new Error('Escribe tu celular a 10 dígitos');
       if (!$('#auth-terms').checked) throw new Error('Para crear tu cuenta acepta los Términos y el Aviso de Privacidad');
+      // Fecha de nacimiento + casilla separada «Declaro que tengo 18 años o más» (cumplimiento.js)
+      const age = window.Cumplimiento ? Cumplimiento.signupPayload() : {};
       const tk = await api('/auth/register', { method: 'POST', body: {
         email, password, full_name, phone, city: state.city, country: state.country,
-        accepted_terms: true, marketing_opt_in: $('#auth-marketing').checked,
+        accepted_terms: true, marketing_opt_in: $('#auth-marketing').checked, ...age,
       }, noLogout: true });
       await setToken(tk.access_token);
       track('signup', { method: 'email' });
@@ -335,7 +433,14 @@ async function submitAuth(e) {
       return startPhoneVerify();
     }
     const form = new URLSearchParams({ username: email, password });
-    const tk = await api('/auth/login', { method: 'POST', body: form, headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, noLogout: true });
+    let tk = await api('/auth/login', { method: 'POST', body: form, headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, noLogout: true });
+    if (tk && tk.mfa_required) {
+      // Personal administrador: verificación en dos pasos (el alta se hace en el panel /admin/)
+      if (tk.mfa_enrollment_required) { location.href = `/admin/#mfa=${encodeURIComponent(tk.mfa_token)}&enroll=1`; return; }
+      const code = (prompt('Escribe el código de 6 dígitos de tu app de autenticación (o un código de recuperación):') || '').trim();
+      if (!code) throw new Error('Necesitas el código de tu app de autenticación para entrar');
+      tk = await api('/auth/mfa/verify', { method: 'POST', body: { mfa_token: tk.mfa_token, code }, noLogout: true });
+    }
     await setToken(tk.access_token);
     toast(`¡Hola, ${state.me.full_name.split(' ')[0]}! 🐶`, 'ok');
     afterLogin();
@@ -352,22 +457,86 @@ async function demoLogin() {
 }
 
 function logout(silent = false) {
-  state.token = ''; state.me = null;
+  state.token = ''; state.me = null; state.conv = null;
   try { window.posthog && posthog.reset(); } catch { }
   localStorage.removeItem('patitas_token');
+  stopPolling();
   closeWS();
+  $$('.modal.open').forEach(m => m.classList.remove('open'));
+  FX.hideLoading();
+  updateEmailBanner();
   if (!silent) toast('Sesión cerrada. ¡Vuelve pronto! 👋');
   showAuth('login');
+}
+/* Cualquier 401 (token vencido, contraseña cambiada o "cerrar sesión en todos lados") saca al usuario una sola vez */
+function sessionExpired() {
+  if (!state.token) return;
+  logout(true);
+  toast('Tu sesión expiró. Vuelve a entrar 🐾', 'error');
+}
+async function logoutAll(btn) {
+  if (!confirm('¿Cerrar tu sesión en todos tus dispositivos, incluido este?')) return;
+  await withBtn(btn, async () => {
+    await api('/auth/logout-all', { method: 'POST', noLogout: true });
+    logout(true);
+    toast('Cerramos tu sesión en todos tus dispositivos 🔒', 'ok');
+  });
+}
+
+/* ---------- verificación de correo (aviso no bloqueante) ---------- */
+const EMAIL_SNOOZE_KEY = 'patitas_email_banner';
+function updateEmailBanner() {
+  const b = $('#email-banner');
+  if (!b) return;
+  let until = 0;
+  try { until = +localStorage.getItem(EMAIL_SNOOZE_KEY) || 0; } catch { }
+  const show = !!(state.me && state.me.email_verified === false && Date.now() > until);
+  b.classList.toggle('hidden', !show);
+  if (show) $('#email-banner-addr').textContent = state.me.email;
+}
+function snoozeEmailBanner() {
+  try { localStorage.setItem(EMAIL_SNOOZE_KEY, String(Date.now() + 3 * 86400000)); } catch { }
+  updateEmailBanner();
+}
+async function resendVerification() {
+  try {
+    const r = await api('/auth/resend-verification', { method: 'POST' });
+    if (r && r.email_verified) {
+      if (state.me) state.me.email_verified = true;
+      updateEmailBanner();
+      return toast('Tu correo ya está verificado ✅', 'ok');
+    }
+    if (r && r.dev_link) console.info('Enlace de verificación (dev):', r.dev_link);
+    toast('Te enviamos un nuevo enlace. Revisa tu correo 📬', 'ok');
+  } catch (e) { toast(e.message, 'error'); }
+}
+async function verifyEmailToken(token) {
+  try {
+    await api('/auth/verify-email', { method: 'POST', body: { token }, noLogout: true });
+    if (state.me) state.me.email_verified = true;
+    updateEmailBanner();
+    track('email_verified');
+    await FX.success('¡Correo verificado!', 'Gracias por confirmar tu cuenta ✅');
+  } catch (e) { toast(e.message, 'error'); }
+}
+
+/* Aplica la configuración pública (/auth/config): tienda encendida o apagada */
+function applyConfig() {
+  document.documentElement.classList.toggle('shop-off', !shopOn());
 }
 
 function needsPhoneVerification() {
   return state.config.require_phone_verification && state.me && !state.me.phone_verified && !['admin', 'superadmin'].includes(state.me.role);
 }
-function afterLogin() {
+function afterLogin(gated = false) {
   identify();
-  if (state.me && !state.me.terms_accepted_at && !['admin', 'superadmin'].includes(state.me.role)) {
+  const staff = state.me && ['admin', 'superadmin'].includes(state.me.role);
+  if (state.me && !staff && (!state.me.terms_accepted_at || state.me.age_declared === false)) {
+    if (window.Cumplimiento) Cumplimiento.prepareTermsModal(state.me);
     $('#terms-modal').classList.add('open'); FX.decorate($('#terms-modal')); return;
   }
+  // Nuevas versiones de documentos, verificación de edad y avisos (cumplimiento.js)
+  if (!gated && window.Cumplimiento) return Cumplimiento.gate(() => afterLogin(true));
   if (needsPhoneVerification()) return startPhoneVerify();
   enterApp();
 }
@@ -376,6 +545,8 @@ function enterApp() {
   stack = [];
   navigate('home', { push: false, reset: true });
   startPolling();
+  updateEmailBanner();
+  if (window.Cumplimiento) Cumplimiento.homeNotices();  // aviso de 30 días, anexos e invitación a las alertas
   handleDeepLinks();
 }
 
@@ -466,7 +637,8 @@ async function saveLocation(c, city) {
   setCoords(c, city);
   $('#location-modal').classList.remove('open');
   $('#home-location').textContent = state.city;
-  if (state.me) api('/users/me', { method: 'PATCH', body: { latitude: c.lat, longitude: c.lon, city: state.city } }).catch(() => {});
+  // La ubicación precisa se guarda en la cuenta solo con las alertas cercanas encendidas (privacidad.html §8); si no, solo la ciudad
+  if (state.me) api('/users/me', { method: 'PATCH', body: state.me.notify_nearby ? { latitude: c.lat, longitude: c.lon, city: state.city } : { city: state.city } }).catch(() => {});
   toast(`📍 ${state.city}`, 'ok');
   if (current === 'home') loadHome();
 }
@@ -500,9 +672,10 @@ async function loadHome() {
 
 function reportRow(r) {
   const lost = r.report_type === 'lost';
+  const st = r.is_hidden ? '<span class="badge b-gray">OCULTO</span>' : r.status === 'expired' ? '<span class="badge b-gray">EXPIRADO</span>' : r.status === 'resolved' ? '<span class="badge b-teal">REUNIDO</span>' : '';
   return `<div class="card alert-row tap" data-report="${r.id}">
     <div class="thumb">${imgOrDog(photo(r), 34)}</div>
-    <div class="grow"><div class="row" style="gap:6px"><span class="badge ${lost ? 'b-red' : 'b-green'}">${lost ? 'PERDIDO' : 'ENCONTRADO'}</span><span class="small muted">${timeAgo(r.created_at)}</span></div>
+    <div class="grow"><div class="row" style="gap:6px"><span class="badge ${lost ? 'b-red' : 'b-green'}">${lost ? 'PERDIDO' : 'ENCONTRADO'}</span>${st}<span class="small muted">${timeAgo(r.created_at)}</span></div>
     <div style="font-weight:800" class="ellipsis">${esc(r.dog_name)}</div><div class="small muted ellipsis">${esc([r.city, dist(r.distance_km)].filter(Boolean).join(' · '))}</div></div>
     <b>→</b></div>`;
 }
@@ -536,7 +709,7 @@ function renderDeck() {
     <div class="tcard pop-in" id="tcard">
       <div class="tph" id="tph">
         ${photos.length > 1 ? `<div class="dots">${photos.map((_, i) => `<i class="${i ? '' : 'on'}"></i>`).join('')}</div>` : ''}
-        ${photos[0] ? `<img id="tph-img" src="${esc(photos[0])}" alt="${esc(dog.name)}">` : FX.dogFace(150)}
+        ${imgTag(photos[0], { thumb: false, id: 'tph-img', alt: dog.name }) || FX.dogFace(150)}
         <div class="grad"></div>
         <div class="stamp like" id="st-like">ME GUSTA</div><div class="stamp nope" id="st-nope">PASO</div>
       </div>
@@ -584,7 +757,8 @@ function bindCard(dog, photos) {
       if (!moved && photos.length > 1 && e.target.closest('#tph')) {
         const r = card.getBoundingClientRect();
         pi = (pi + (e.clientX - r.left > r.width / 2 ? 1 : photos.length - 1)) % photos.length;
-        $('#tph-img').src = photos[pi];
+        const im = $('#tph-img'), next = safeUrl(photos[pi]);
+        if (im && next) im.src = next;
         $$('#tph .dots i').forEach((d, i) => d.classList.toggle('on', i === pi));
       } else if (!moved && !e.target.closest('#tph')) openDog(dog.id);
     }
@@ -622,8 +796,8 @@ function openMatchModal(matchId, dog) {
   $('#match-dog-name').textContent = dog.name;
   let li = 0;
   $('#mm-title').innerHTML = `¡${dog.name}!`.split(' ').map(w => `<span class="mm-word">${[...w].map(c => `<span style="--i:${li++}">${esc(c)}</span>`).join('')}</span>`).join(' ');
-  $('#mm-dog').innerHTML = photo(dog) ? `<img src="${esc(photo(dog))}" alt="">` : FX.dogFace(80);
-  $('#mm-me').innerHTML = state.me && state.me.avatar_url ? `<img src="${esc(state.me.avatar_url)}" alt="">` : `<b style="font-size:30px">${esc(initials(state.me && state.me.full_name))}</b>`;
+  $('#mm-dog').innerHTML = imgTag(photo(dog)) || FX.dogFace(80);
+  $('#mm-me').innerHTML = (state.me && imgTag(state.me.avatar_url)) || `<b style="font-size:30px">${esc(initials(state.me && state.me.full_name))}</b>`;
   const m = $('#match-modal');
   m.classList.add('open');
   FX.decorate(m);
@@ -644,14 +818,17 @@ async function openDog(id, nav = {}) {
     state.dog = d;
     const photos = d.photos && d.photos.length ? d.photos : [''];
     const mine = state.me && d.owner_id === state.me.id;
+    $('#dog-flag').classList.toggle('hidden', !!mine || !state.me);
     body.innerHTML = `
-      <div class="gallery pop-in"><div class="track">${photos.map(p => `<div>${p ? `<img src="${esc(p)}" alt="${esc(d.name)}">` : FX.dogFace(160)}</div>`).join('')}</div></div>
+      <div class="gallery pop-in"><div class="track">${photos.map(p => `<div>${imgTag(p, { thumb: false, alt: d.name }) || FX.dogFace(160)}</div>`).join('')}</div></div>
       ${photos.length > 1 ? `<p class="small muted center mt8">← Desliza para ver ${photos.length} fotos →</p>` : ''}
       <div class="between mt16"><div><div class="h1">${esc(d.name)}</div><div class="small muted row" style="gap:4px"><svg width="13" height="13"><use href="#pin"/></svg>${esc([d.city, d.country].filter(Boolean).join(', '))}${d.distance_km != null ? ' · ' + dist(d.distance_km) : ''}</div></div><span class="badge ${d.status === 'available' ? 'b-green' : 'b-yellow'}">${esc(STATUS_LABEL[d.status] || d.status)}</span></div>
       <div class="pill facts mt16"><div><small>EDAD</small><b>${esc(age(d.age_years, d.age_months))}</b></div><div><small>RAZA</small><b>${esc(d.breed || 'Mestizo')}</b></div><div><small>TAMAÑO</small><b>${esc(d.size || '—')}</b></div></div>
+      ${mine && d.review ? `<div class="card p small mt12 shop-note">🔎 <b>${d.review.status === 'rechazado' ? 'No aprobada' : 'En revisión'}:</b> ${esc(d.review.message || '')}</div>` : mine && d.is_hidden ? HIDDEN_NOTE : ''}
+      ${mine && d.found_hold ? foundHoldCard(d) : ''}
       ${d.color ? `<div class="chips mt12"><span class="badge b-yellow">🎨 ${esc(d.color)}</span></div>` : ''}
       <div class="card p mt16"><div class="small muted" style="font-weight:800">SOBRE ${esc(d.name.toUpperCase())}</div><p class="body mt8" style="white-space:pre-line">${esc(d.description || 'Sin descripción todavía.')}</p></div>
-      ${d.owner ? `<div class="card p row mt12">${avatarHtml(d.owner)}<div class="grow"><b class="row" style="gap:5px">${esc(d.owner.full_name)} <svg width="16" height="16"><use href="#shield"/></svg></b><div class="small muted">Publicado ${timeAgo(d.created_at)}</div></div></div>` : ''}
+      ${d.owner ? `<div class="card p row mt12">${avatarHtml(d.owner)}<div class="grow"><b class="row" style="gap:5px;flex-wrap:wrap">${esc(d.owner.full_name)} <svg width="16" height="16"><use href="#shield"/></svg> <span class="badge ${d.owner.role === 'refuge' ? 'b-lila' : d.owner.role === 'foster' ? 'b-blue' : 'b-green'}">${d.owner.role === 'refuge' ? 'Refugio' : d.owner.role === 'foster' ? 'Casa de paso' : 'Particular / Rescatista'}</span></b><div class="small muted">Publicado ${timeAgo(d.created_at)}</div></div></div>` : ''}
       ${mine ? `<div class="col mt16"><span class="lbl">Gestionar publicación</span>
         <div class="chips">${['available', 'in_process', 'adopted', 'in_foster'].map(s => `<span class="chip ${d.status === s ? 'on' : ''}" data-dog-status="${s}">${STATUS_LABEL[s]}</span>`).join('')}</div>
         <button class="btn btn-sm btn-ghost" id="dog-delete">Retirar publicación</button></div>` : ''}`;
@@ -664,7 +841,20 @@ async function openDog(id, nav = {}) {
     });
     const del = $('#dog-delete');
     if (del) del.onclick = async () => { if (!confirm(`¿Retirar la publicación de ${d.name}?`)) return; try { await api(`/dogs/${d.id}`, { method: 'DELETE' }); toast('Publicación retirada'); back(); } catch (e) { toast(e.message, 'error'); } };
+    // Lista de revisión de un perro encontrado (microchip y aviso a la autoridad): PATCH /dogs/{id}
+    const fh = (body2, msg) => async () => { try { await api(`/dogs/${d.id}`, { method: 'PATCH', body: body2 }); toast(msg, 'ok'); openDog(d.id, { push: false }); } catch (e) { toast(e.message, 'error'); } };
+    const chipBtn = $('#fh-chip');
+    if (chipBtn) chipBtn.onclick = fh({ microchip_checked: true }, 'Microchip revisado ✔');
+    const authBtn = $('#fh-authority');
+    if (authBtn) authBtn.onclick = () => { const notice = (prompt('¿A qué autoridad avisaste? Escribe también el folio de la constancia, si te lo dieron:') || '').trim(); if (notice.length >= 3) fh({ authority_notified: true, authority_notice: notice }, 'Aviso a la autoridad registrado ✔')(); else if (notice) toast('Escribe a qué autoridad avisaste', 'error'); };
   } catch (e) { toast(e.message, 'error'); back(); }
+}
+/* Resguardo de un perro encontrado (perdidos-y-encontrados §6): lo que falta para ofrecerlo en adopción */
+function foundHoldCard(d) {
+  const h = d.found_hold;
+  if (!h.active) return `<div class="card p small mt12" style="background:var(--green)">✔ Cumplió el resguardo de perro encontrado: ya puede ofrecerse en adopción.</div>`;
+  return `<div class="card p small mt12" style="background:var(--blue)">🏠 <b>En resguardo.</b> ${esc(h.message || '')}
+    <div class="row mt8" style="flex-wrap:wrap;gap:8px">${!h.microchip_checked_at ? '<button type="button" class="btn btn-sm" id="fh-chip">Ya le revisaron el microchip</button>' : ''}${!h.authority_notified_at ? '<button type="button" class="btn btn-sm btn-ghost" id="fh-authority">Ya avisé a la autoridad</button>' : ''}</div></div>`;
 }
 
 async function adoptCurrentDog() {
@@ -726,8 +916,8 @@ function initPhotoDrops() {
       const room = 5 - photoStore[key].length;
       const added = [...input.files].filter(f => f.type.startsWith('image/')).slice(0, room);
       if (input.files.length > room) toast('Máximo 5 fotos', 'error');
-      const big = added.find(f => f.size > 10 * 1024 * 1024);
-      if (big) { toast('Cada foto debe pesar menos de 10 MB', 'error'); input.value = ''; return; }
+      const big = added.find(f => f.size > 40 * 1024 * 1024);
+      if (big) { toast('Esa foto es demasiado pesada. Prueba con otra', 'error'); input.value = ''; return; }
       const wasEmpty = !photoStore[key].length;
       photoStore[key].push(...added);
       input.value = '';
@@ -763,12 +953,14 @@ function initLocPickers() {
         const g = await reverseGeocode(c);
         const cityInput = $(`#${key}-city`);
         if (g && cityInput && !cityInput.value) cityInput.value = [g.area, g.city].filter(Boolean).join(', ');
+        if (g && window.Compartir) Compartir.onGeocode(key, g);  // estado de la República (compartir.js)
       });
     });
   });
 }
 function resetLoc(key) {
   delete locStore[key];
+  if (window.Compartir) Compartir.clearGeo(key);
   const box = $(`[data-loc="${key}"]`);
   box.classList.remove('ok');
   $('[data-loc-text]', box).textContent = 'Usar mi ubicación actual';
@@ -781,7 +973,7 @@ async function aiAutofill(file, prefix) {
   hint.classList.remove('hidden');
   txt.innerHTML = 'La IA está mirando la foto <span class="paw-dots">🐾</span>';
   try {
-    const fd = new FormData(); fd.append('file', file);
+    const fd = new FormData(); fd.append('file', await shrinkImage(file));
     const a = await api('/ai/analyze-photo', { method: 'POST', body: fd });
     if (a && a.is_dog === false) { txt.textContent = 'Mmm... no parece un perrito. ¿Probamos con otra foto?'; return; }
     const set = (id, v) => { const el = $(id); if (el && v && !el.value) el.value = v; };
@@ -797,19 +989,42 @@ async function aiAutofill(file, prefix) {
 /* ============================================================
    Publicar en adopción
    ============================================================ */
-function openPublish() {
+function openPublish(opts = {}) {
   $('#publish-form').reset();
   $('#pub-country').value = 'México';
   $('#pub-city').value = state.me && state.me.city || '';
   clearPhotos('pub'); resetLoc('pub');
   $('#pub-ai').classList.add('hidden');
+  // Perro encontrado (perdidos-y-encontrados §6): liga su reporte y la lista de revisión; se queda en resguardo
+  const foundReport = opts && opts.foundReportId ? +opts.foundReportId : null;
+  $('#pub-found').checked = !!foundReport;
+  $('#pub-found-wrap').classList.toggle('hidden', !foundReport);
+  loadFoundReports(foundReport);
+  donationRules().then(rules => { const days = rules && rules.adoption && rules.adoption.found_dog_hold_days; if (days) $$('[data-found-days]').forEach(el => el.textContent = days); });
   navigate('publish');
+}
+async function loadFoundReports(selected) {
+  const sel = $('#pub-found-report'); if (!sel || !state.me) return;
+  let mine = [];
+  try { mine = (await api('/lost-reports/me')).filter(r => r.report_type === 'found' && r.status !== 'resolved'); } catch { mine = []; }
+  sel.innerHTML = '<option value="">Aún no lo publico</option>' + mine.map(r => `<option value="${r.id}">#${r.id} · ${esc(r.dog_name)} · ${fmtDate(r.created_at)}</option>`).join('');
+  if (selected) sel.value = String(selected);
+}
+function foundFields() {
+  if (!$('#pub-found').checked) return {};
+  const notice = $('#pub-authority-notice').value.trim();
+  return {
+    was_found: true, found_report_id: +$('#pub-found-report').value || null,
+    microchip_checked: $('#pub-chip').checked || null, microchip_result: $('#pub-chip-result').value || null,
+    authority_notified: $('#pub-authority').checked || null, authority_notice: notice || null,
+  };
 }
 async function submitPublish(e) {
   e.preventDefault();
   const name = $('#pub-name').value.trim();
   if (!name) return toast('¿Cómo se llama el perrito?', 'error');
   if (!photoStore.pub.length) return toast('Agrega al menos una foto 📸', 'error');
+  if ($('#pub-found').checked && $('#pub-authority').checked && $('#pub-authority-notice').value.trim().length < 3) return toast('Escribe a qué autoridad avisaste (y el folio, si te lo dieron)', 'error');
   const btn = $('#publish-submit');
   FX.setLoading(btn, true);
   FX.showLoading('Publicando a ' + name, ['Subiendo fotos...', 'Optimizando imágenes...', 'Avisando a adoptantes cerca...'], 'run');
@@ -822,11 +1037,14 @@ async function submitPublish(e) {
       age_years: parseInt($('#pub-age-years').value) || 0, age_months: parseInt($('#pub-age-months').value) || 0,
       size: sizeChip ? sizeChip.dataset.v : null, description: $('#pub-description').value.trim() || null,
       city: $('#pub-city').value.trim() || state.city, country: $('#pub-country').value.trim() || 'México',
-      latitude: c ? c.lat : null, longitude: c ? c.lon : null, photos,
+      latitude: c ? c.lat : null, longitude: c ? c.lon : null, photos, ...foundFields(),
     } });
     FX.hideLoading();
     track('dog_published');
-    await FX.success('¡Publicado!', `${name} ya está buscando familia`);
+    // Reglas de adopción: en revisión por cobros o rifas, o en resguardo por ser un perro encontrado
+    if (dog.review) await FX.success('Publicación en revisión', dog.review.message || 'Un moderador la revisará pronto');
+    else if (dog.found_hold && dog.found_hold.active) await FX.success('Guardado en resguardo', dog.found_hold.message || 'Podrás publicarlo en adopción cuando se cumpla el plazo');
+    else await FX.success('¡Publicado!', `${name} ya está buscando familia`);
     stack = ['home'];
     openDog(dog.id, { push: false });
   } catch (err) { FX.hideLoading(); toast(err.message, 'error'); }
@@ -871,6 +1089,7 @@ async function submitReport(e) {
     const r = await api('/lost-reports', { method: 'POST', body: {
       dog_name: name || 'Desconocido', report_type: state.reportType, description: $('#rf-description').value.trim() || null,
       city: $('#rf-city').value.trim() || state.city, country: $('#rf-country').value.trim() || 'México',
+      state: window.Compartir ? Compartir.reportState('rf') : null,  // geocoder → selector → texto de la colonia
       latitude: c ? c.lat : null, longitude: c ? c.lon : null, photos,
     } });
     FX.hideLoading();
@@ -888,25 +1107,44 @@ async function openReport(id, nav = {}) {
   navigate('report', nav);
   try {
     const r = await api(`/lost-reports/${id}`);
+    state.report = r;
     const lost = r.report_type === 'lost';
     const mine = state.me && r.reporter_id === state.me.id;
+    const expired = r.status === 'expired';
+    $('#report-flag').classList.toggle('hidden', !!mine || !state.me);
     $('#report-title').textContent = lost ? 'Perro perdido' : 'Perro encontrado';
     const photos = r.photos && r.photos.length ? r.photos : [''];
-    const srcLbl = { whatsapp: 'vía WhatsApp', facebook: 'vía Facebook' }[r.source] || '';
+    const srcLbl = { whatsapp: 'vía WhatsApp', facebook: 'vía Facebook', volunteer: 'vía voluntario' }[r.source] || '';
+    // Contenido importado de una publicación pública de Facebook (grupos o voluntarios): su autor no es usuario
+    const imported = r.source === 'facebook' || r.source === 'volunteer';
     body.innerHTML = `
-      <div class="gallery pop-in" style="height:250px"><div class="track">${photos.map(p => `<div>${p ? `<img src="${esc(p)}" alt="">` : FX.dogFace(140)}</div>`).join('')}</div></div>
-      <div class="between mt16"><div class="grow"><div class="row" style="gap:6px"><span class="badge ${lost ? 'b-red' : 'b-green'}">${lost ? 'PERDIDO' : 'ENCONTRADO'}</span>${r.status === 'resolved' ? '<span class="badge b-teal">¡REUNIDO!</span>' : ''}${srcLbl ? `<span class="badge">${srcLbl}</span>` : ''}</div>
+      <div class="gallery pop-in" style="height:250px"><div class="track">${photos.map(p => `<div>${imgTag(p, { thumb: false, alt: r.dog_name }) || FX.dogFace(140)}</div>`).join('')}</div></div>
+      <div class="between mt16"><div class="grow"><div class="row" style="gap:6px"><span class="badge ${lost ? 'b-red' : 'b-green'}">${lost ? 'PERDIDO' : 'ENCONTRADO'}</span>${r.status === 'resolved' ? '<span class="badge b-teal">¡REUNIDO!</span>' : ''}${expired ? '<span class="badge b-gray">EXPIRADO</span>' : ''}${srcLbl ? `<span class="badge">${srcLbl}</span>` : ''}</div>
       <div class="h1 mt8">${esc(r.dog_name)}</div><div class="small muted">${esc([r.city, dist(r.distance_km), timeAgo(r.created_at)].filter(Boolean).join(' · '))}</div></div></div>
+      ${mine && r.is_hidden ? HIDDEN_NOTE : ''}
       ${r.description ? `<div class="card p mt12"><div class="small muted" style="font-weight:800">SEÑAS PARTICULARES</div><p class="body mt8" style="white-space:pre-line">${esc(r.description)}</p></div>` : ''}
-      ${r.reporter ? `<div class="card p row mt12">${avatarHtml(r.reporter)}<div class="grow"><b>${esc(r.reporter.full_name)}</b><div class="small muted">${lost ? 'Busca a su perrito' : 'Lo tiene resguardado'}</div></div></div>` : ''}
+      ${imported ? (window.Compartir ? Compartir.importedHtml(r) : `<div class="card p small mt12" style="background:var(--blue)">ℹ️ Importado de una publicación pública de Facebook; su autor no es usuario de GuauWoow.</div>`) : ''}
+      ${r.reporter ? `<div class="card p row mt12">${avatarHtml(r.reporter)}<div class="grow"><b>${esc(r.reporter.full_name)}</b><div class="small muted">${r.source === 'volunteer' ? 'Compartió esta publicación de Facebook' : lost ? 'Busca a su perrito' : 'Lo tiene resguardado'}</div></div></div>` : ''}
       <div class="col mt16">
-        ${mine && r.status === 'active' ? `<button class="btn block btn-green shine" id="rp-resolve">🎉 ¡Ya está en casa!</button>` : ''}
+        ${mine && expired && imported ? `<div class="card p small" style="background:var(--yellow)">⏳ Las publicaciones importadas de Facebook caducan a los 30 días y ya no son públicas. Si el perrito sigue perdido, crea un reporte nuevo con tus propias fotos.</div>` : ''}
+        ${mine && expired && !imported ? `<div class="card p small" style="background:var(--yellow)">⏳ Este reporte expiró porque no tuvo cambios en 90 días. Si sigues buscando, renuévalo para que vuelva a aparecer en las listas y el mapa.</div>
+        <button class="btn block btn-orange shine" id="rp-renew">🔄 Renovar reporte</button>` : ''}
+        ${mine && (r.status === 'active' || expired) ? `<button class="btn block btn-green shine" id="rp-resolve">🎉 ¡Ya está en casa!</button>` : ''}
+        ${mine && !lost && !imported && r.status === 'active' ? `<div class="card p small" style="background:var(--blue)">🏠 Si nadie lo reclama, podrás ofrecerlo en adopción cuando pasen <span data-found-days>30</span> días con este reporte publicado, con su microchip revisado y aviso a la autoridad local. Puedes preparar su ficha desde ahora: quedará en resguardo.<button type="button" class="btn btn-sm btn-ghost block mt8" id="rp-adopt">Preparar su ficha de adopción</button></div>` : ''}
         ${!mine && r.reporter_id && r.status === 'active' ? `<button class="btn block btn-orange shine" id="rp-contact"><svg width="18" height="18"><use href="#chat"/></svg> ${lost ? 'Lo vi / lo tengo' : 'Es mi perro'}</button>` : ''}
         <button class="btn block btn-ghost" id="rp-share"><svg width="18" height="18"><use href="#send"/></svg> Compartir alerta</button>
       </div>
       <div class="between mt24"><span class="h2">Posibles coincidencias</span><svg width="22" height="22" style="color:var(--purple)"><use href="#sparkle"/></svg></div>
       <div class="col mt12" id="rp-matches">${FX.inlineLoader('La IA compara fotos cercanas...')}</div>`;
     FX.decorate(body);
+    if (imported && window.Compartir) Compartir.bindImported(r);  // «Soy el autor: retirar» (sin cuenta)
+    const ad = $('#rp-adopt');
+    if (ad) {
+      ad.onclick = () => openPublish({ foundReportId: r.id });
+      donationRules().then(rules => { const days = rules && rules.adoption && rules.adoption.found_dog_hold_days; if (days) $$('[data-found-days]', body).forEach(el => el.textContent = days); });
+    }
+    const rn = $('#rp-renew');
+    if (rn) rn.onclick = () => withBtn(rn, async () => { await api(`/lost-reports/${r.id}/renew`, { method: 'POST' }); toast('¡Reporte renovado! Vuelve a estar visible 🔔', 'ok'); openReport(r.id, { push: false }); });
     const rs = $('#rp-resolve');
     if (rs) rs.onclick = () => withBtn(rs, async () => { await api(`/lost-reports/${r.id}/resolve`, { method: 'PATCH' }); await FX.success('¡Qué alegría!', `${r.dog_name} está de vuelta 💚`); openReport(r.id, { push: false }); });
     const ct = $('#rp-contact');
@@ -931,7 +1169,7 @@ function matchRow(m) {
 async function share(text, path) {
   const url = location.origin + path;
   try {
-    if (navigator.share) await navigator.share({ title: 'PatitasFind', text, url });
+    if (navigator.share) await navigator.share({ title: 'GuauWoow', text, url });
     else { await navigator.clipboard.writeText(`${text} ${url}`); toast('Enlace copiado 📋', 'ok'); }
   } catch { }
 }
@@ -972,7 +1210,7 @@ async function runPhotoSearch() {
     if (p > (mi + 1) * 18 && mi < msgs.length - 1) $('#ps-scan-msg').textContent = msgs[++mi];
   }, 300);
   const fd = new FormData();
-  fd.append('file', state.psFile);
+  fd.append('file', await shrinkImage(state.psFile));
   if (state.coords) { fd.append('lat', state.coords.lat); fd.append('lon', state.coords.lon); }
   if (state.city) fd.append('city', state.city);
   if (state.psType) fd.append('report_type', state.psType);
@@ -1034,16 +1272,26 @@ async function openChat(id) {
     state.conv = c;
     $('#chat-title').textContent = c.title;
     $('#chat-subtitle').textContent = c.other_user ? `con ${c.other_user.full_name}` : '';
-    $('#chat-avatar').innerHTML = c.photo ? `<img src="${esc(c.photo)}" alt="">` : esc(initials(c.title));
+    $('#chat-avatar').innerHTML = imgTag(c.photo) || esc(initials(c.title));
     const ref = $('#chat-open-ref');
     ref.classList.toggle('hidden', !c.lost_report_id);
+    $('#chat-flag').classList.toggle('hidden', !c.other_user);
     area.innerHTML = '';
     if (!msgs.length) area.innerHTML = `<div class="center small muted" id="chat-empty" style="margin-top:30px">${FX.dogFace(80)}<p class="mt8">¡Salúdense! Coordinen con calma y siempre en lugares públicos.</p></div>`;
     msgs.slice().reverse().forEach(m => renderMsg(m, false));
     area.scrollTop = area.scrollHeight;
     api(`/conversations/${id}/read`, { method: 'PATCH' }).catch(() => {});
+    state.wsAttempt = 0;
     connectWS(id);
   } catch (e) { toast(e.message, 'error'); back(); }
+}
+/* Tras reconectar se traen los mensajes que llegaron mientras no había conexión */
+async function syncMessages(id) {
+  try {
+    const msgs = await api(`/conversations/${id}/messages?limit=50`);
+    if (!state.conv || state.conv.id != id || current !== 'chat') return;
+    msgs.slice().reverse().forEach(m => renderMsg(m, false));
+  } catch { }
 }
 
 function renderMsg(m, animate = true) {
@@ -1056,7 +1304,9 @@ function renderMsg(m, animate = true) {
   el.className = `bubble ${mine ? 'me' : 'them'}`;
   if (m.id) el.dataset.mid = m.id;
   if (!animate) el.style.animation = 'none';
-  el.innerHTML = `${esc(m.content)}<time>${fmtTime(m.created_at)}</time>`;
+  // «Reportar» en cada mensaje recibido (moderacion.html §3: solo se revisa lo que un participante reporta)
+  const flag = !mine && m.id ? ` · <button type="button" data-flag-msg="${+m.id}" aria-label="Reportar este mensaje" style="all:unset;cursor:pointer;text-decoration:underline">Reportar</button>` : '';
+  el.innerHTML = `${esc(m.content)}<time>${fmtTime(m.created_at)}${flag}</time>`;
   area.appendChild(el);
   area.scrollTop = area.scrollHeight;
 }
@@ -1071,25 +1321,65 @@ function showTyping() {
 }
 function hideTyping() { const t = $('#typing'); if (t) t.remove(); }
 
+const WS_PING_MS = 25000, WS_MAX_DELAY = 30000;
 function connectWS(id) {
   closeWS();
+  if (!state.token) return;
   const local = ['localhost', '127.0.0.1'].includes(location.hostname) && location.port !== '8001' && location.port !== '';
   const host = local ? `${location.hostname}:8001` : location.host;
   const proto = location.protocol === 'https:' ? 'wss:' : 'ws:';
   let ws;
-  try { ws = new WebSocket(`${proto}//${host}/ws/chat/${id}?token=${encodeURIComponent(state.token)}`); } catch { return; }
+  try { ws = new WebSocket(`${proto}//${host}/ws/chat/${id}?token=${encodeURIComponent(state.token)}`); } catch { return scheduleReconnect(id); }
   state.ws = ws;
+  ws.onopen = () => {
+    if (state.ws !== ws) return;
+    const reconnected = state.wsAttempt > 0;
+    state.wsAttempt = 0;
+    // ping cada 25 s para que proxies y celulares no corten la conexión inactiva
+    ws._ping = setInterval(() => { if (ws.readyState === 1) ws.send(JSON.stringify({ type: 'ping' })); }, WS_PING_MS);
+    if (reconnected) syncMessages(id);
+  };
   ws.onmessage = ev => {
     let d; try { d = JSON.parse(ev.data); } catch { return; }
+    if (d.type === 'pong') return;
     if (d.type === 'typing') { if (!state.me || d.sender_id !== state.me.id) showTyping(); return; }
+    if (d.type === 'error') {
+      // Cuenta limitada (teléfono sin verificar, verificación de edad...): mismo trato que un error de api()
+      const err = new Error(d.detail || 'No pudimos enviar tu mensaje.');
+      err.code = d.code;
+      if (err.code === 'phone_verification_required' && current !== 'verify-phone') { setTimeout(() => startPhoneVerify(), 50); err.message = 'Primero verifica tu teléfono 📲'; }
+      if (err.code && window.Cumplimiento) Cumplimiento.onApiError(err);
+      toast(err.message, 'error');
+      return;
+    }
     if (d.content) {
       renderMsg(d);
       if (state.me && d.sender_id !== state.me.id) api(`/conversations/${id}/read`, { method: 'PATCH' }).catch(() => {});
     }
   };
-  ws.onclose = () => { if (state.ws === ws) state.ws = null; };
+  ws.onclose = ev => {
+    clearInterval(ws._ping);
+    if (state.ws !== ws) return;  // cierre intencional (closeWS)
+    state.ws = null;
+    // 4401/4403/1008: sin permiso o token inválido; no tiene caso reintentar
+    if ([1008, 4401, 4403].includes(ev.code)) return;
+    scheduleReconnect(id);
+  };
 }
-function closeWS() { if (state.ws) { const w = state.ws; state.ws = null; try { w.close(); } catch { } } }
+/* Reintento con espera exponencial: 1 s, 2 s, 4 s... hasta 30 s, solo mientras el chat siga abierto */
+function scheduleReconnect(id) {
+  clearTimeout(state.wsRetry);
+  if (current !== 'chat' || !state.conv || state.conv.id != id || !state.token || document.hidden) return;
+  const delay = Math.min(WS_MAX_DELAY, 1000 * 2 ** state.wsAttempt);
+  state.wsAttempt++;
+  state.wsRetry = setTimeout(() => {
+    if (current === 'chat' && state.conv && state.conv.id == id && !state.ws) connectWS(id);
+  }, delay);
+}
+function closeWS() {
+  clearTimeout(state.wsRetry);
+  if (state.ws) { const w = state.ws; state.ws = null; clearInterval(w._ping); try { w.close(); } catch { } }
+}
 
 async function sendChat(e) {
   e.preventDefault();
@@ -1137,8 +1427,9 @@ async function openList(title, sub, fetcher, renderer, opts = {}) {
 function dogRow(d) {
   return `<div class="card p row tap" data-dog="${d.id}"><div class="thumb">${imgOrDog(photo(d), 34)}</div>
     <div class="grow"><b class="ellipsis">${esc(d.name)}</b><div class="small muted ellipsis">${esc([d.breed || 'Mestizo', age(d.age_years, d.age_months), d.distance_km != null ? dist(d.distance_km) : d.city].filter(Boolean).join(' · '))}</div></div>
-    <span class="badge ${d.status === 'available' ? 'b-green' : 'b-yellow'}">${esc(STATUS_LABEL[d.status] || d.status)}</span></div>`;
+    ${d.is_hidden ? '<span class="badge b-gray">OCULTO</span>' : `<span class="badge ${d.status === 'available' ? 'b-green' : 'b-yellow'}">${esc(STATUS_LABEL[d.status] || d.status)}</span>`}</div>`;
 }
+const HIDDEN_NOTE = '<div class="card p small mt12" style="background:var(--sand)">🙈 Ocultamos esta publicación porque no cumple las reglas de la comunidad. Solo tú la ves. Si crees que es un error, escríbenos desde Ayuda.</div>';
 function refugeRow(r) {
   return `<div class="card p row tap" data-refuge="${r.id}"><div class="avatar" style="background:var(--pink);border-radius:16px">${esc(initials(r.name))}</div>
     <div class="grow"><b class="ellipsis">${esc(r.name)}</b> <svg width="14" height="14"><use href="#shield"/></svg><div class="small muted">${esc(r.city || '')} · ${r.adopted_count} adopciones · ${r.points} pts</div></div><b>→</b></div>`;
@@ -1150,25 +1441,21 @@ function openReportsList(type) {
     { emptyTitle: lost ? 'No hay perdidos reportados cerca' : 'No hay encontrados cerca', emptyText: '¡Buenas noticias! 💚', action: () => openReportForm(type) });
 }
 function openRefugesList() {
-  openList('Refugios', 'Verificados por PatitasFind', () => api(`/refuges${state.coords ? '' : '?city=' + encodeURIComponent(state.city)}`), refugeRow,
+  openList('Refugios', 'Verificados por GuauWoow', () => api(`/refuges${state.coords ? '' : '?city=' + encodeURIComponent(state.city)}`), refugeRow,
     { emptyTitle: 'Aún no hay refugios aquí', emptyText: '¿Tienes uno? Regístralo gratis', emptyBtn: { action: 'refuge-register', label: 'Registrar refugio' } });
 }
 function openAdoptList() {
-  openList('En adopción', state.city, size => api(`/dogs/featured?${locParams({ limit: 20 })}`).then(ds => size ? ds.filter(d => d.size === size) : ds), dogRow,
-    { chips: [['', 'Todos'], ['Pequeño', 'Pequeños'], ['Mediano', 'Medianos'], ['Grande', 'Grandes']], emptyTitle: 'Sin perritos con ese filtro' });
+  openList('En adopción', 'Refugios, casas de paso y particulares · ' + state.city, size => api(`/dogs/featured?${locParams({ limit: 20 })}`).then(ds => size ? ds.filter(d => d.size === size) : ds), dogRow,
+    { action: openPublish, chips: [['', 'Todos'], ['Pequeño', 'Pequeños'], ['Mediano', 'Medianos'], ['Grande', 'Grandes']], emptyTitle: 'Sin perritos con ese filtro', emptyBtn: { action: 'publish', label: 'Publicar en adopción' } });
 }
 function openMyDogs() {
   openList('Mis publicaciones', 'Perritos que diste en adopción', () => api('/dogs/me'), dogRow,
     { action: openPublish, emptyTitle: 'Aún no publicas perritos', emptyBtn: { action: 'publish', label: 'Publicar uno' } });
 }
 function openMyReports() {
-  openList('Mis reportes', 'Perdidos y encontrados', () => api('/lost-reports/me'), reportRow, { action: () => openReportForm('lost'), emptyTitle: 'No tienes reportes', emptyText: 'Ojalá nunca lo necesites 🐾' });
+  openList('Mis reportes', 'Perdidos y encontrados', () => api('/lost-reports/me'), reportRow, { action: () => openReportForm('found'), emptyTitle: 'No tienes reportes', emptyText: 'Sube aquí perritos perdidos o encontrados en la calle 🐾' });
 }
-function openMyOrders() {
-  openList('Mis pedidos', 'Tienda solidaria', () => api('/orders'), o => `<div class="card p"><div class="between"><b>Pedido #${o.id}</b><span class="badge ${o.status === 'paid' ? 'b-green' : 'b-yellow'}">${esc(STATUS_LABEL[o.status] || o.status)}</span></div>
-    <div class="small muted mt8">${fmtDate(o.created_at)} · ${money(o.total)}</div><div class="chips mt8">${(o.items || []).map(i => `<span class="badge">${i.quantity}× ${esc(i.product ? i.product.name : '')}</span>`).join('')}</div></div>`,
-    { emptyTitle: 'Sin pedidos aún', emptyBtn: { action: 'shop', label: 'Ir a la tienda' } });
-}
+/* Mis pedidos, carrito, checkout y "Mi tienda" del refugio viven en tienda.js (window.Tienda) */
 
 function openMyMatches() {
   openList('Solicitudes', 'Adopciones que enviaste y recibiste', async role => {
@@ -1180,6 +1467,7 @@ function openMyMatches() {
     return `<div class="card p"><div class="row"><div class="thumb">${imgOrDog(photo(m.dog), 32)}</div>
       <div class="grow"><b class="ellipsis">${esc(m.dog.name)}</b><div class="small muted ellipsis">${owner ? `Solicitó ${esc(m.user.full_name)}` : 'Tu solicitud'} · ${timeAgo(m.created_at)}</div></div>
       <span class="badge ${col}">${esc(STATUS_LABEL[m.status] || m.status)}</span></div>
+      ${owner ? contactHtml(m) : (m.status === 'pending_application' ? '<div class="small muted mt8">🔒 Tus datos de contacto se comparten solo si aceptan tu solicitud.</div>' : '')}
       <div class="row mt12" style="flex-wrap:wrap;gap:8px">
         ${owner && m.has_application ? `<button class="btn btn-sm btn-lila" data-app="${m.id}">Ver solicitud${m.compatibility != null ? ` · ${m.compatibility}%` : ''}</button>` : ''}
         ${!owner && !m.has_application && m.status === 'pending_application' ? `<button class="btn btn-sm btn-orange" data-fill="${m.id}">Llenar cuestionario</button>` : ''}
@@ -1193,6 +1481,15 @@ function openMyMatches() {
       $$('[data-conv-open]', box).forEach(b => b.onclick = () => openChat(b.dataset.convOpen));
     },
   });
+}
+
+/* Datos de contacto del solicitante: el backend los manda solo si la solicitud se aceptó */
+function contactHtml(m) {
+  const u = m.user || {};
+  const visible = m.contact_visible ?? !!(u.email || u.phone);
+  if (!visible || (!u.email && !u.phone)) return `<div class="small muted mt8">🔒 Los datos de contacto se mostrarán cuando se acepte la solicitud${m.conversation_id ? '. Mientras, usa el chat.' : '.'}</div>`;
+  const tel = (u.phone || '').replace(/[^\d+]/g, '');
+  return `<div class="small mt8 row" style="flex-wrap:wrap;gap:6px 14px">${u.email ? `<a class="link" href="mailto:${esc(u.email)}">✉️ ${esc(u.email)}</a>` : ''}${tel ? `<a class="link" href="tel:${esc(tel)}">📞 ${esc(u.phone)}</a>` : ''}</div>`;
 }
 
 const Q_LABELS = {
@@ -1214,6 +1511,7 @@ async function openApplication(matchId, m) {
     body.innerHTML = `
       <div class="card p row pop-in">${avatarHtml(m.user, 56)}<div class="grow"><b>${esc(m.user.full_name)}</b><div class="small muted">Envió ${timeAgo(a.created_at)}</div></div>
       ${score != null ? `<div class="score-ring" style="--p:${score}"><b>${score}%</b></div>` : ''}</div>
+      <div class="card p mt12"><div class="small muted" style="font-weight:800">CONTACTO</div>${contactHtml(m)}</div>
       <div class="card p mt12 col" style="gap:8px">${Object.entries(Q_LABELS).filter(([k]) => ans[k]).map(([k, [l, map]]) => `<div class="between"><span class="small muted">${l}</span><b>${esc(map[ans[k]] || ans[k])}</b></div>`).join('')}</div>
       ${ans.why ? `<div class="card p mt12"><div class="small muted" style="font-weight:800">¿POR QUÉ QUIERE ADOPTAR?</div><p class="body mt8">${esc(ans.why)}</p></div>` : ''}
       <div class="col mt20">
@@ -1239,6 +1537,12 @@ async function openRefuge(id) {
   navigate('refuge');
   try {
     const [r, dogs] = await Promise.all([api(`/refuges/${id}`), api(`/refuges/${id}/dogs`).catch(() => [])]);
+    state.refuge = r;
+    // Sin Mercado Pago conectado el refugio no puede recibir donativos (salvo el respaldo con la cuenta de la plataforma).
+    // donations_ready no exige RFC (a diferencia de la tienda); si el backend no lo manda se usa la regla anterior.
+    const donOff = r.donations_ready != null ? r.donations_ready === false : (r.seller_payments_ready === false && !state.config.donations_fallback);
+    const ownRefuge = !!(state.me && r.user_id === state.me.id);  // nadie se dona a sí mismo (donativos §8)
+    $('#refuge-flag').classList.toggle('hidden', !state.me || r.user_id === state.me.id);
     body.innerHTML = `
       <div class="center pad pop-in"><div class="avatar" style="width:92px;height:92px;margin:0 auto;background:var(--pink);font-size:30px;border-radius:30px;border-width:3px">${esc(initials(r.name))}</div>
       <div class="h2 mt12 row" style="justify-content:center;gap:6px">${esc(r.name)} <svg width="20" height="20"><use href="#shield"/></svg></div><div class="small muted">${esc([r.city, r.country].filter(Boolean).join(', '))} · Desde ${fmtDate(r.created_at)}</div></div>
@@ -1247,25 +1551,45 @@ async function openRefuge(id) {
       <div class="pad mt20"><span class="h2">Buscan hogar</span></div>
       <div class="hscroll mt8">${dogs.filter(d => d.status === 'available').map(d => `<div class="card dog-card tap" data-dog="${d.id}"><div class="ph">${imgOrDog(photo(d), 60)}</div><div class="nm">${esc(d.name)}</div><div class="mt">${esc(d.breed || 'Mestizo')}</div></div>`).join('') || '<p class="small muted">Por ahora no hay perritos publicados.</p>'}</div>
       <div class="pad mt16"><div class="card p" style="background:var(--yellow)"><div class="h2 row" style="gap:8px"><svg width="22" height="22"><use href="#gift"/></svg> Donar</div>
-        <p class="small muted">100% llega al refugio. Cada $10 suma 1 punto en el ranking.</p>
+        <p class="small muted">Tu donativo va directo a la cuenta de Mercado Pago de este refugio. Donar es voluntario: no es requisito para adoptar y no suma puntos ni da productos o descuentos.</p>
+        <p class="small mt8" id="don-tax">${r.is_donataria ? '🧾 Este refugio declara ser donataria autorizada: tu donativo es deducible solo si le pides tu CFDI de donativo (aplican los límites del SAT).' : '🧾 Este refugio no es donataria autorizada: tu donativo no es deducible de impuestos.'}</p>
+        <p class="small muted mt8" id="don-limits"></p>
         <div class="chips mt12" id="don-amounts">${[50, 100, 250, 500].map((a, i) => `<span class="chip ${i === 1 ? 'on' : ''}" data-v="${a}">${money(a)}</span>`).join('')}<span class="chip" data-v="other">Otro</span></div>
         <input id="don-other" class="inp mt12 hidden" type="number" min="10" placeholder="Monto en MXN">
         <label class="row small mt12" style="align-items:flex-start"><input type="checkbox" id="don-share" style="width:20px;height:20px;flex-shrink:0;margin-top:2px"> <span>Compartir mi nombre con el refugio (si no, tu donativo es anónimo).</span></label>
-        <button class="btn block btn-orange shine mt12" id="don-btn">Donar con Mercado Pago</button></div></div>`;
+        <label class="row small mt12" style="align-items:flex-start"><input type="checkbox" id="don-policy" style="width:20px;height:20px;flex-shrink:0;margin-top:2px"> <span>Leí la <a href="/app/legal/donativos.html" target="_blank" rel="noopener">Política de donativos</a>.</span></label>
+        ${donOff ? '<div class="small shop-note mt12">Este refugio aún no activa cobros. En cuanto conecte Mercado Pago podrás donarle desde aquí 💚</div>' : ''}
+        ${ownRefuge ? '<div class="small shop-note mt12">No puedes donar a tu propio refugio.</div>' : ''}
+        <button class="btn block btn-orange shine mt12" id="don-btn" ${donOff || ownRefuge ? 'disabled' : ''}>Donar con Mercado Pago</button></div></div>`;
     FX.decorate(body);
     $$('#don-amounts .chip').forEach(c => c.onclick = () => { $$('#don-amounts .chip').forEach(x => x.classList.remove('on')); c.classList.add('on'); $('#don-other').classList.toggle('hidden', c.dataset.v !== 'other'); });
     $('#don-btn').onclick = () => donate(r);
+    donationRules().then(rules => {
+      const box = $('#don-limits'), d = rules && rules.donations;
+      if (!box || !d) return;
+      box.textContent = `Tope por donativo: ${money(d.max_mxn)} · tope diario por cuenta: ${money(d.daily_max_mxn)}. ${Number(d.fee_percent) > 0 ? `GuauWoow cobra ${d.fee_percent} % de comisión` : 'GuauWoow no cobra comisión'}; Mercado Pago le cobra su comisión al refugio.`;
+    });
   } catch (e) { toast(e.message, 'error'); back(); }
+}
+/* Topes y comisión de donativos (GET /cumplimiento/reglas; services/reglas.py) */
+let rulesPromise = null;
+function donationRules() {
+  if (!rulesPromise) rulesPromise = api('/cumplimiento/reglas').catch(() => { rulesPromise = null; return null; });
+  return rulesPromise;
 }
 
 async function donate(r) {
   const on = $('#don-amounts .chip.on');
   const amount = on.dataset.v === 'other' ? parseFloat($('#don-other').value) : parseFloat(on.dataset.v);
   if (!amount || amount < 10) return toast('El monto mínimo es $10', 'error');
+  const rules = await donationRules();
+  const max = rules && rules.donations ? Number(rules.donations.max_mxn) : null;
+  if (max && amount > max) return toast(`El tope por donativo es de ${money(max)}. Para donar más, contacta directo al refugio`, 'error');
+  if (!$('#don-policy').checked) return toast('Marca que leíste la Política de donativos para continuar', 'error');
   const btn = $('#don-btn');
   await withBtn(btn, async () => {
-    const d = await api('/payments/donations', { method: 'POST', body: { refuge_id: r.id, amount, share_name: $('#don-share').checked } });
-    if (d.checkout_url) { FX.showLoading('Te llevamos a Mercado Pago', ['Pago 100% seguro 🔒'], 'run'); location.href = d.checkout_url; return; }
+    const d = await api('/payments/donations', { method: 'POST', body: { refuge_id: r.id, amount, share_name: $('#don-share').checked, accepted_policy: true } });
+    if (d.checkout_url) { FX.showLoading('Te llevamos a Mercado Pago', ['Pagas en Mercado Pago; GuauWoow no ve ni guarda tu tarjeta'], 'run'); location.href = d.checkout_url; return; }
     FX.boneBurst(btn, 8);
     await FX.success('¡Gracias por donar!', `${money(amount)} para ${r.name}`);
     openRefuge(r.id); stack.pop();
@@ -1276,20 +1600,47 @@ async function submitRefuge(e) {
   e.preventDefault();
   const name = $('#rg-name').value.trim();
   if (!name) return toast('Escribe el nombre del refugio', 'error');
+  if (!$('#rg-annex').checked) return toast('Acepta los Términos para Refugios y el Acuerdo de datos', 'error');
   const btn = $('#refuge-form button[type=submit]');
   await withBtn(btn, async () => {
-    const documents = await uploadFiles(photoStore.rg);
-    await api('/refuges/register', { method: 'POST', body: { name, description: $('#rg-desc').value.trim() || null, city: $('#rg-city').value.trim() || state.city, country: $('#rg-country').value.trim() || 'México', documents } });
+    const documents = await uploadDocuments(docStore);
+    await api('/refuges/register', { method: 'POST', body: { name, description: $('#rg-desc').value.trim() || null, city: $('#rg-city').value.trim() || state.city, country: $('#rg-country').value.trim() || 'México', documents, accepted_annex: true } });
     state.me = await api('/users/me');
-    await FX.success('¡Solicitud enviada!', 'Revisaremos tus documentos en menos de 48 h');
+    docStore.length = 0; renderDocDrop();
+    await FX.success('¡Solicitud enviada!', 'Te avisaremos en cuanto revisemos tus documentos');
     navigate('my-refuge', { push: false });
   });
 }
+/* Selector de documentos del refugio: fotos o PDF, máximo 5 y 10 MB cada uno */
+const docStore = [];
+const DOC_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'application/pdf'];
+function renderDocDrop() {
+  const box = $('#rg-docs');
+  box.innerHTML = docStore.map((f, i) => {
+    const pdf = f.type === 'application/pdf';
+    return `<div class="doc-item"><div class="doc-ic">${pdf ? 'PDF' : `<img src="${URL.createObjectURL(f)}" alt="">`}</div><span class="grow ellipsis">${esc(f.name || 'Documento')}</span><button type="button" data-doc-rm="${i}" aria-label="Quitar ${esc(f.name || 'documento')}">×</button></div>`;
+  }).join('') + (docStore.length < 5 ? `<button type="button" class="btn btn-sm btn-ghost doc-add" id="rg-docs-add"><svg width="16" height="16"><use href="#plus"/></svg> Agregar documento</button>` : '');
+  FX.decorate(box);
+  const add = $('#rg-docs-add');
+  if (add) add.onclick = () => $('#rg-docs-file').click();
+  $$('[data-doc-rm]', box).forEach(b => b.onclick = () => { docStore.splice(+b.dataset.docRm, 1); renderDocDrop(); });
+}
+function addDocs(files) {
+  const ok = [...files].filter(f => DOC_TYPES.includes(f.type) || /\.pdf$/i.test(f.name || ''));
+  if (ok.length < files.length) toast('Solo se aceptan fotos (JPG, PNG, WebP) o PDF', 'error');
+  if (ok.some(f => f.type === 'application/pdf' && f.size > 10 * 1024 * 1024)) return toast('Cada PDF debe pesar menos de 10 MB', 'error');
+  const room = 5 - docStore.length;
+  if (ok.length > room) toast('Máximo 5 documentos', 'error');
+  docStore.push(...ok.slice(0, room));
+  renderDocDrop();
+}
+
 async function submitFoster(e) {
   e.preventDefault();
+  if (!$('#fh-annex').checked) return toast('Acepta los Términos para casas de paso y el Acuerdo de datos', 'error');
   const btn = $('#foster-form button[type=submit]');
   await withBtn(btn, async () => {
-    await api('/foster-homes/register', { method: 'POST', body: { description: $('#fh-desc').value.trim() || null, city: $('#fh-city').value.trim() || state.city, country: $('#fh-country').value.trim() || 'México', capacity: parseInt($('#fh-cap').value) || 1 } });
+    await api('/foster-homes/register', { method: 'POST', body: { description: $('#fh-desc').value.trim() || null, city: $('#fh-city').value.trim() || state.city, country: $('#fh-country').value.trim() || 'México', capacity: parseInt($('#fh-cap').value) || 1, accepted_annex: true } });
     await FX.success('¡Gracias, héroe!', 'Te avisaremos cuando aprobemos tu casa de paso');
     back();
   });
@@ -1303,25 +1654,29 @@ async function loadMyRefuge() {
   catch (e) {
     if (e.status === 404) {
       $('#mr-status').textContent = '';
-      body.innerHTML = FX.empty('Aún no registras un refugio', 'Regístralo para publicar perritos, recibir donaciones y vender en la tienda', { action: 'refuge-register', label: 'Registrar refugio' });
+      body.innerHTML = FX.empty('Aún no registras un refugio', `Regístralo para publicar perritos y recibir donativos${shopOn() ? ', y vender en la tienda solidaria' : ''}`, { action: 'refuge-register', label: 'Registrar refugio' });
       FX.decorate(body);
     } else toast(e.message, 'error');
     return;
   }
   $('#mr-status').textContent = r.name;
   if (r.status !== 'approved') {
-    body.innerHTML = `<div class="empty">${FX.sniffDog()}<h3>${r.status === 'pending' ? 'Estamos revisando tus documentos' : 'Tu solicitud no fue aprobada'}</h3><p>${r.status === 'pending' ? 'Te avisaremos por notificación en cuanto esté listo (menos de 48 h).' : 'Revisa tus notificaciones para conocer el motivo.'}</p></div>`;
+    body.innerHTML = `<div class="empty">${FX.sniffDog()}<h3>${r.status === 'pending' ? 'Estamos revisando tus documentos' : r.status === 'suspended' ? 'Tu refugio está suspendido' : 'Tu solicitud no fue aprobada'}</h3><p>${r.status === 'pending' ? 'Te avisaremos por notificación en cuanto terminemos de revisarlos.' : 'Revisa tus notificaciones para conocer el motivo.'}</p></div>`;
     return;
   }
-  const [stats, products] = await Promise.all([api('/refuges/me/stats').catch(() => null), api('/refuges/me/products').catch(() => [])]);
+  const stats = await api('/refuges/me/stats').catch(() => null);
   const byStatus = (stats && stats.dogs_by_status) || {};
+  // Los rescates, adopciones y casas de paso fuera de la app los registra un admin (un refugio no se suma puntos solo)
+  const { mail: supportMail } = supportLinks();
+  const manualPointsNote = `Los rescates, adopciones y casas de paso fuera de la app los registra un administrador después de verificarlos${supportMail ? `: escríbenos a <a href="mailto:${esc(supportMail)}?subject=${encodeURIComponent('Puntos de mi refugio')}">${esc(supportMail)}</a>` : ''}.`;
   body.innerHTML = `
     <div class="row pop-in"><div class="card stat"><b>${r.points}</b><span>Puntos</span></div><div class="card stat"><b>${r.adopted_count}</b><span>Adopciones</span></div><div class="card stat"><b>${stats ? money(stats.donations_total || 0) : '—'}</b><span>Donado</span></div></div>
     <div class="card p mt12 row" style="background:var(--lila)"><div class="grow"><b>${stats ? stats.pending_applications || 0 : 0} solicitudes por revisar</b><div class="small muted">${byStatus.available || 0} disponibles · ${byStatus.in_process || 0} en proceso</div></div><button class="btn btn-sm" id="mr-apps">Ver</button></div>
     <div class="col mt16"><span class="lbl">Acciones rápidas</span>
-      <div class="row"><button class="btn btn-sm btn-orange grow" id="mr-publish">+ Publicar perrito</button><button class="btn btn-sm btn-green grow" id="mr-rescue">+ Registrar rescate</button></div></div>
-    <div class="between mt20"><span class="h2">Mis productos</span><button class="btn btn-sm btn-lila" id="mr-add-product">+ Agregar</button></div>
-    <div class="col mt12">${products.length ? products.map(p => `<div class="card p row"><div class="thumb">${imgOrDog(photo(p), 30)}</div><div class="grow"><b class="ellipsis">${esc(p.name)}</b><div class="small muted">${money(p.price)} · ${p.stock} en inventario</div></div><div class="iconbtn sm" data-edit-product="${p.id}"><svg width="16" height="16"><use href="#edit"/></svg></div></div>`).join('') : '<p class="small muted">Vende playeras, correas o placas QR para financiar tu refugio.</p>'}</div>
+      <div class="row"><button class="btn btn-sm btn-orange grow" id="mr-publish">+ Publicar perrito</button></div>
+      <p class="small muted mt8">${manualPointsNote}</p></div>
+    <div id="mr-transparency"></div>
+    <div data-shop><div class="card p mt16 row tap" data-act="my-shop" role="button" tabindex="0" style="background:var(--yellow)"><svg width="30" height="30" aria-hidden="true"><use href="#store"/></svg><div class="grow"><b>Mi tienda</b><div class="small muted">Productos, pedidos, facturas, cobros y estado de cuenta</div></div><b>→</b></div></div>
     <div class="mt20"><div class="between"><span class="h2">Puntos por semana</span><svg width="22" height="22" style="color:var(--orange)"><use href="#chart"/></svg></div><div class="card p mt12"><div id="mr-chart-points" style="height:200px"></div></div></div>
     <div class="row mt12" style="align-items:stretch;gap:12px"><div class="card p grow"><b class="small">Perritos por estado</b><div id="mr-chart-status" style="height:170px"></div></div></div>
     <div class="card p mt12"><b class="small">¿De dónde vienen tus puntos?</b><div id="mr-chart-actions" style="height:170px"></div></div>
@@ -1330,9 +1685,7 @@ async function loadMyRefuge() {
   FX.decorate(body);
   $('#mr-apps').onclick = openMyMatches;
   $('#mr-publish').onclick = openPublish;
-  $('#mr-rescue').onclick = e => withBtn(e.currentTarget, async () => { const d = prompt('Describe el rescate (opcional)') ?? ''; await api(`/refuges/${r.id}/rescue`, { method: 'POST', body: { description: d || null } }); toast('+5 puntos por el rescate 💪', 'ok'); loadMyRefuge(); });
-  $('#mr-add-product').onclick = () => openProductModal(null);
-  $$('[data-edit-product]', body).forEach(b => b.onclick = () => openProductModal(products.find(p => p.id == b.dataset.editProduct)));
+  loadRefugeTransparency();
   try {
     const pts = await api(`/refuges/${r.id}/points`);
     renderPointCharts(pts);
@@ -1340,32 +1693,32 @@ async function loadMyRefuge() {
   } catch { $('#mr-points').innerHTML = ''; }
 }
 
-let editingProduct = null;
-function openProductModal(p) {
-  editingProduct = p;
-  $('#pm-title').textContent = p ? 'Editar producto' : 'Nuevo producto';
-  $('#pm-name').value = p ? p.name : '';
-  $('#pm-desc').value = p ? p.description || '' : '';
-  $('#pm-price').value = p ? p.price : '';
-  $('#pm-stock').value = p ? p.stock : 10;
-  clearPhotos('pm');
-  $('#product-modal').classList.add('open');
-  FX.decorate($('#product-modal'));
-}
-async function submitProduct(e) {
-  e.preventDefault();
-  const btn = $('#product-form button[type=submit]');
-  await withBtn(btn, async () => {
-    const newPhotos = await uploadFiles(photoStore.pm);
-    const body = { name: $('#pm-name').value.trim(), description: $('#pm-desc').value.trim() || null, price: parseFloat($('#pm-price').value), stock: parseInt($('#pm-stock').value) || 0 };
-    if (!body.name || !body.price) throw new Error('Nombre y precio son obligatorios');
-    if (editingProduct) {
-      if (newPhotos.length) body.photos = newPhotos;
-      await api(`/products/${editingProduct.id}`, { method: 'PATCH', body });
-    } else await api('/products', { method: 'POST', body: { ...body, photos: newPhotos } });
-    $('#product-modal').classList.remove('open');
-    toast('Producto guardado', 'ok');
-    loadMyRefuge();
+/* Informe de transparencia: una persona física decide si sus cifras aparecen con su nombre (terminos-refugios 13.2;
+   acuerdo-datos-refugios 15.2). Casilla desmarcada de inicio; cada cambio queda en la bitácora de consentimientos. */
+async function loadRefugeTransparency() {
+  const box = $('#mr-transparency');
+  if (!box) return;
+  let t;
+  try { t = await api('/cumplimiento/transparencia/mi-refugio'); } catch { box.innerHTML = ''; return; }
+  const link = '<a class="link" href="/app/legal/transparencia-fondos.html" target="_blank" rel="noopener">A dónde va tu dinero</a>';
+  if (!t.requiere_consentimiento) {
+    box.innerHTML = `<div class="card p mt12 small"><b>Transparencia</b><div class="muted mt4">Como persona moral, las cifras agregadas de tu refugio (donativos y ventas por mes) aparecen con su nombre en el informe de transparencia y en ${link}.</div></div>`;
+    return;
+  }
+  box.innerHTML = `<div class="card p mt12">
+    <label class="row small cp-check" for="mr-transp"><input type="checkbox" id="mr-transp" ${t.publicar ? 'checked' : ''}>
+      <span><b>Publicar mis cifras con mi nombre</b><br><span class="muted">Como persona física, tus montos de donativos y ventas son datos patrimoniales: solo aparecen con tu nombre en el informe de transparencia y en ${link} si marcas esta casilla. Si no, se suman en «Otros Refugios». Puedes desmarcarla cuando quieras.</span></span></label>
+    <div class="small muted mt4" id="mr-transp-since">${t.publicar && t.desde ? 'Autorizado desde el ' + esc(fmtDate(t.desde)) : ''}</div></div>`;
+  const input = $('#mr-transp', box);
+  input.addEventListener('change', async () => {
+    input.disabled = true;
+    try {
+      const r = await api('/cumplimiento/transparencia/mi-refugio', { method: 'POST', body: { publicar: input.checked } });
+      input.checked = !!r.publicar;
+      $('#mr-transp-since', box).textContent = r.publicar && r.desde ? 'Autorizado desde el ' + fmtDate(r.desde) : '';
+      toast(r.publicar ? 'Listo: tus cifras aparecerán con tu nombre' : 'Listo: tus cifras se suman en «Otros Refugios»', 'ok');
+    } catch (e) { input.checked = !input.checked; toast(e.message, 'error'); }
+    input.disabled = false;
   });
 }
 
@@ -1383,80 +1736,20 @@ async function loadRanking() {
       <div class="blk mt8" style="height:${H[i]}px;background:${C[i]};animation-delay:${i * .15}s">${N[i]}</div></div>` : '<div class="pd"></div>').join('')}</div>
       <div class="col mt16 stagger">${rs.slice(3).map((r, i) => `<div class="card p row tap" data-refuge="${r.id}" style="--i:${i}"><b style="width:28px">${i + 4}</b>${avatarHtml({ full_name: r.name }, 40)}<div class="grow"><b class="ellipsis">${esc(r.name)}</b><div class="small muted">${r.adopted_count} adopciones · ${esc(r.city || '')}</div></div><span class="badge b-yellow">${r.points} pts</span></div>`).join('')}</div>
       <div class="card p mt16"><b class="small">Puntos del top 8</b><div id="rank-chart" style="height:${Math.min(8, rs.length) * 30 + 40}px"></div></div>
-      <div class="card p mt16 small" style="background:var(--lila)">🏆 El top 3 de cada mes recibe las ganancias de la tienda solidaria.</div>`;
+      <div class="card p mt16 small" style="background:var(--lila)">🏆 Los refugios suman puntos por rescates, adopciones y casas de paso. Los donativos no suman puntos.</div>`;
     const top8 = rs.slice(0, 8);
     chart('#rank-chart', { type: 'hbar', labels: top8.map(r => r.name), series: [{ name: 'Puntos', data: top8.map(r => r.points) }], valueLabels: true, height: Math.min(8, rs.length) * 30 + 40 });
   } catch (e) { toast(e.message, 'error'); list.innerHTML = ''; }
 }
 
 /* ============================================================
-   Tienda
-   ============================================================ */
-async function loadShop() {
-  updateCartCount();
-  const list = $('#shop-list');
-  list.innerHTML = Array.from({ length: 4 }, () => `<div class="skel" style="height:220px"><i class="skel-paw">${FX.PAW}</i></div>`).join('');
-  try {
-    state.products = await api('/products');
-    if (!state.products.length) { list.innerHTML = `<div style="grid-column:1/-1">${FX.empty('La tienda está vacía', 'Pronto habrá productos solidarios')}</div>`; return; }
-    list.innerHTML = state.products.map((p, i) => `<div class="card p pop-in" style="animation-delay:${i * 50}ms;padding:10px">
-      <div class="thumb" style="width:100%;height:120px;border-radius:16px">${imgOrDog(photo(p), 60)}</div>
-      <b class="mt8" style="display:block;line-height:1.15;min-height:36px">${esc(p.name)}</b>
-      <div class="between mt8"><b style="color:var(--orange-d);font-size:17px">${money(p.price)}</b>${p.stock < 5 ? `<span class="small muted">¡Quedan ${p.stock}!</span>` : ''}</div>
-      <button class="btn btn-sm btn-orange block mt8" data-add="${p.id}" ${p.stock < 1 ? 'disabled' : ''}>${p.stock < 1 ? 'Agotado' : 'Agregar'}</button></div>`).join('');
-    FX.decorate(list);
-    $$('[data-add]', list).forEach(b => b.onclick = () => addToCart(+b.dataset.add, b));
-  } catch (e) { toast(e.message, 'error'); list.innerHTML = ''; }
-}
-function saveCart() { localStorage.setItem('patitas_cart', JSON.stringify(state.cart)); updateCartCount(); }
-function updateCartCount() {
-  const n = state.cart.reduce((s, i) => s + i.quantity, 0);
-  const el = $('#cart-count'); el.textContent = n; el.classList.toggle('hidden', !n);
-}
-function addToCart(id, btn) {
-  const p = state.products.find(x => x.id === id); if (!p) return;
-  const it = state.cart.find(i => i.product_id === id);
-  if (it) { if (it.quantity >= p.stock) return toast('No hay más inventario', 'error'); it.quantity++; }
-  else state.cart.push({ product_id: id, name: p.name, price: parseFloat(p.price), quantity: 1, photo: photo(p) });
-  saveCart();
-  FX.boneBurst(btn, 5);
-  const cb = $('#cart-btn'); cb.classList.remove('boom'); void cb.offsetWidth; cb.style.animation = 'heartBeat .5s var(--spring)'; setTimeout(() => cb.style.animation = '', 500);
-  toast(`${p.name} al carrito 🛒`, 'ok');
-}
-function renderCart() {
-  const box = $('#cart-items');
-  if (!state.cart.length) { box.innerHTML = FX.empty('Tu carrito está vacío'); $('#cart-total').textContent = '$0'; return; }
-  box.innerHTML = state.cart.map(i => `<div class="card p row"><div class="thumb" style="width:46px;height:46px">${imgOrDog(i.photo, 26)}</div><div class="grow"><b class="ellipsis">${esc(i.name)}</b><div class="small muted">${money(i.price)} c/u</div></div>
-    <div class="row" style="gap:6px"><div class="iconbtn sm" data-q="${i.product_id}" data-d="-1">−</div><b>${i.quantity}</b><div class="iconbtn sm" data-q="${i.product_id}" data-d="1">+</div></div></div>`).join('');
-  $('#cart-total').textContent = money(state.cart.reduce((s, i) => s + i.price * i.quantity, 0));
-  $$('[data-q]', box).forEach(b => b.onclick = () => {
-    const it = state.cart.find(i => i.product_id == b.dataset.q);
-    it.quantity += +b.dataset.d;
-    if (it.quantity <= 0) state.cart = state.cart.filter(i => i !== it);
-    saveCart(); renderCart();
-  });
-}
-async function checkout() {
-  if (!state.cart.length) return toast('Tu carrito está vacío', 'error');
-  const address = $('#cart-address').value.trim();
-  if (address.length < 10) return toast('Escribe tu dirección completa de envío', 'error');
-  await withBtn($('#cart-checkout'), async () => {
-    const o = await api('/orders', { method: 'POST', body: { items: state.cart.map(({ product_id, quantity }) => ({ product_id, quantity })), shipping_address: address } });
-    state.cart = []; saveCart();
-    $('#cart-modal').classList.remove('open');
-    if (o.checkout_url) { FX.showLoading('Te llevamos a Mercado Pago', ['Pago 100% seguro 🔒'], 'run'); location.href = o.checkout_url; return; }
-    await FX.success('¡Pedido confirmado!', `Gracias por apoyar a los refugios · #${o.id}`);
-    openMyOrders();
-  });
-}
-
-/* ============================================================
    Mapa (Leaflet + OpenStreetMap)
    ============================================================ */
-function pinIcon(color, label) {
+function pinIcon(color, label, img = '') {
   return L.divIcon({ className: '', iconSize: [38, 46], iconAnchor: [19, 44], popupAnchor: [0, -40],
-    html: `<div class="map-pin-wrap"><div class="map-pin" style="background:${color}"><span>${esc(label)}</span></div></div>` });
+    html: `<div class="map-pin-wrap"><div class="map-pin" style="background:${color}">${imgTag(img) || `<span>${esc(label)}</span>`}</div></div>` });
 }
+function mapPopup(img, html) { return `<div class="map-pop">${imgTag(img)}<div>${html}</div></div>`; }
 async function loadMap() {
   if (!window.L) return toast('No se pudo cargar el mapa', 'error');
   const center = state.coords ? [state.coords.lat, state.coords.lon] : (CITIES.find(c => c[0] === state.city) || CITIES[0]).slice(1);
@@ -1479,24 +1772,32 @@ async function loadMap() {
     let n = 0;
     reports.filter(r => r.latitude != null).forEach(r => {
       const lost = r.report_type === 'lost';
-      L.marker([r.latitude, r.longitude], { icon: pinIcon(lost ? '#FF6B5C' : '#21A39B', (r.dog_name || '?')[0]) })
-        .bindPopup(`<b>${esc(r.dog_name)}</b><br>${lost ? 'Perdido' : 'Encontrado'} · ${timeAgo(r.created_at)}<br><a href="#" data-report="${r.id}">Ver reporte →</a>`)
+      L.marker([r.latitude, r.longitude], { icon: pinIcon(lost ? '#FF6B5C' : '#21A39B', (r.dog_name || '?')[0], photo(r)) })
+        .bindPopup(mapPopup(photo(r), `<b>${esc(r.dog_name)}</b><br>${lost ? 'Perdido' : 'Encontrado'} · ${timeAgo(r.created_at)}<br><a href="#" data-report="${r.id}">Ver reporte →</a>`))
         .addTo(state.mapLayers[lost ? 'lost' : 'found']); n++;
     });
     dogs.filter(d => d.latitude != null).forEach(d => {
-      L.marker([d.latitude, d.longitude], { icon: pinIcon('#8E66D9', d.name[0]) })
-        .bindPopup(`<b>${esc(d.name)}</b><br>En adopción · ${esc(d.breed || 'Mestizo')}<br><a href="#" data-dog="${d.id}">Ver perfil →</a>`)
+      L.marker([d.latitude, d.longitude], { icon: pinIcon('#8E66D9', d.name[0], photo(d)) })
+        .bindPopup(mapPopup(photo(d), `<b>${esc(d.name)}</b><br>En adopción · ${esc(d.breed || 'Mestizo')}<br><a href="#" data-dog="${d.id}">Ver perfil →</a>`))
         .addTo(state.mapLayers.dog); n++;
     });
     $('#map-sub').textContent = `${n} perritos en un radio de 30 km`;
   } catch (e) { toast(e.message, 'error'); }
+  if (window.VET) VET.loadMapMarkers(center[0], center[1]);  // pines de veterinarias (veterinarias.js)
 }
 
 /* ============================================================
    Notificaciones y badges
    ============================================================ */
 const NOTIF_ICON = { new_message: ['💬', 'var(--blue)'], new_like: ['❤️', 'var(--pink)'], new_application: ['📋', 'var(--lila)'], match_approved: ['🎉', 'var(--green)'], match_rejected: ['🐾', 'var(--sand)'],
-  possible_match: ['✨', 'var(--yellow)'], refuge_approved: ['🏠', 'var(--green)'], refuge_rejected: ['🏠', 'var(--sand)'], new_order: ['🛒', 'var(--lila)'], donation: ['🎁', 'var(--yellow)'], reminder: ['⏰', 'var(--blue)'], adoption_completed: ['💚', 'var(--green)'] };
+  possible_match: ['✨', 'var(--yellow)'], refuge_approved: ['🏠', 'var(--green)'], refuge_rejected: ['🏠', 'var(--sand)'], new_order: ['🛒', 'var(--lila)'], donation: ['🎁', 'var(--yellow)'], reminder: ['⏰', 'var(--blue)'], adoption_completed: ['💚', 'var(--green)'],
+  nearby_alert: ['📍', 'var(--pink)'], report_expired: ['⏳', 'var(--sand)'], report_contact: ['💬', 'var(--blue)'],
+  order_paid: ['🛍️', 'var(--green)'], order_shipped: ['📦', 'var(--blue)'], order_delivered: ['📦', 'var(--green)'], order_expired: ['⌛', 'var(--sand)'],
+  order_refund_pending: ['💸', 'var(--sand)'], order_refunded: ['💸', 'var(--sand)'],
+  donation_received: ['🎁', 'var(--yellow)'], donation_receipt: ['💛', 'var(--yellow)'], report_resolved: ['🛡️', 'var(--green)'], content_hidden: ['🙈', 'var(--sand)'], moderation_alert: ['🚩', 'var(--pink)'],
+  foster_home_approved: ['🏡', 'var(--green)'], foster_home_rejected: ['🏡', 'var(--sand)'],
+  moderation_notice: ['⚖️', 'var(--sand)'], moderation_urgent: ['🚩', 'var(--pink)'], content_restored: ['👀', 'var(--green)'],
+  copyright_notice_copy: ['©️', 'var(--sand)'] };
 async function loadNotifications() {
   const list = $('#notifications-list');
   list.innerHTML = FX.skeletonList(4);
@@ -1505,14 +1806,22 @@ async function loadNotifications() {
     list.innerHTML = ns.length ? `<div class="col stagger">${ns.map((n, i) => { const [ic, bg] = NOTIF_ICON[n.type] || ['🔔', 'var(--white)']; return `
       <div class="card p row tap" data-notif="${n.type}" data-ndata="${esc(JSON.stringify(n.data || {}))}" style="--i:${Math.min(i, 10)};${n.is_read ? '' : 'border-width:2.5px;box-shadow:var(--sh-btn)'}">
         <div class="avatar" style="background:${bg};font-size:20px">${ic}</div>
-        <div class="grow"><b>${esc(n.title)}</b><div class="small muted">${esc(n.body)}</div><div class="small muted mt8">${timeAgo(n.created_at)}</div></div>
+        <div class="grow"><b>${esc(n.title)}</b><div class="small muted" style="white-space:pre-line">${esc(n.body)}</div><div class="small muted mt8">${timeAgo(n.created_at)}</div></div>
         ${n.is_read ? '' : '<span style="width:10px;height:10px;border-radius:50%;background:var(--orange);flex-shrink:0"></span>'}</div>`; }).join('')}</div>`
       : FX.empty('Todo tranquilo por aquí', 'Te avisaremos de coincidencias, mensajes y solicitudes');
     if (ns.some(n => !n.is_read)) setTimeout(() => api('/notifications/read-all', { method: 'PATCH' }).then(refreshBadges).catch(() => {}), 2500);
   } catch (e) { toast(e.message, 'error'); list.innerHTML = ''; }
 }
 function notifAction(type, data = {}) {
+  if (type === 'moderation_alert' || type === 'moderation_urgent') { location.href = '/admin/'; return; }
+  // Medidas de moderación: apelar (moderacion.html §7) o contra-aviso por derechos de autor
+  if (data.copyright_notice && /^DA-[A-Z0-9]+$/.test(data.copyright_notice)) { location.href = `/app/legal/derechos-de-autor.html?contraaviso=${encodeURIComponent(data.copyright_notice)}#formularios`; return; }
+  if (data.moderation_action && /^MOD-[A-Z0-9]+$/.test(data.moderation_action)) { location.href = `/app/legal/moderacion.html?apelacion=${encodeURIComponent(data.moderation_action)}#apelacion`; return; }
+  if (type.startsWith('veterinary') && window.VET) return VET.onNotif(type, data);
+  if (window.Tienda && Tienda.onNotification(type, data)) return;  // pedidos, facturas y cobros (tienda.js)
+  if (type === 'new_order' || type === 'donation_received') return navigate('my-refuge');
   if (data.conversation_id) return openChat(data.conversation_id);
+  if (data.match_report_id) return openReport(data.match_report_id);
   if (data.report_id) return openReport(data.report_id);
   if (data.order_id) return openMyOrders();
   if (type === 'new_message') navigate('chat-list');
@@ -1533,8 +1842,22 @@ async function refreshBadges() {
     lastUnread = n;
   } catch { }
 }
-let pollTimer;
-function startPolling() { clearInterval(pollTimer); lastUnread = -1; refreshBadges(); pollTimer = setInterval(refreshBadges, 30000); }
+let pollTimer = null, pollingOn = false;
+const POLL_MS = 30000;
+function startPolling() {
+  stopPolling();
+  pollingOn = true; lastUnread = -1;
+  refreshBadges();
+  if (!document.hidden) pollTimer = setInterval(refreshBadges, POLL_MS);
+}
+function stopPolling() { pollingOn = false; clearInterval(pollTimer); pollTimer = null; }
+/* Con la pestaña oculta no se consulta nada; al volver se refresca una vez y se reanuda */
+function onVisibilityChange() {
+  clearInterval(pollTimer); pollTimer = null;
+  if (document.hidden) return;
+  if (pollingOn && state.token) { refreshBadges(); pollTimer = setInterval(refreshBadges, POLL_MS); }
+  if (current === 'chat' && state.conv && !state.ws && state.token) { state.wsAttempt = 0; connectWS(state.conv.id); syncMessages(state.conv.id); }
+}
 
 /* ============================================================
    Perfil
@@ -1542,40 +1865,54 @@ function startPolling() { clearInterval(pollTimer); lastUnread = -1; refreshBadg
 async function loadProfile() {
   const body = $('#profile-body');
   try { state.me = await api('/users/me'); } catch (e) { return toast(e.message, 'error'); }
+  updateEmailBanner();
   const u = state.me;
   const isAdmin = ['admin', 'superadmin'].includes(u.role);
   const item = (act, icon, label, sub = '', bg = 'var(--white)') => `<div class="card p row tap" data-act="${act}" style="padding:11px 14px;background:${bg}"><div class="iconbtn sm" style="box-shadow:none">${icon}</div><div class="grow"><b>${label}</b>${sub ? `<div class="small muted">${sub}</div>` : ''}</div><b>→</b></div>`;
   const svg = id => `<svg width="18" height="18"><use href="#${id}"/></svg>`;
   body.innerHTML = `
-    <div class="center pop-in"><div class="avatar" style="width:92px;height:92px;margin:0 auto;font-size:30px;border-width:3px;background:var(--teal);color:#fff">${u.avatar_url ? `<img src="${esc(u.avatar_url)}" alt="">` : esc(initials(u.full_name))}</div>
+    <div class="center pop-in"><div class="avatar" style="width:92px;height:92px;margin:0 auto;font-size:30px;border-width:3px;background:var(--teal);color:#fff">${imgTag(u.avatar_url) || esc(initials(u.full_name))}</div>
       <div class="h2 mt8">${esc(u.full_name)}</div><div class="small muted">${esc(u.email)}</div>
-      <div class="chips mt8" style="justify-content:center">${u.phone ? (u.phone_verified ? '<span class="badge b-green">✓ Teléfono verificado</span>' : '<span class="badge b-yellow tap" id="pf-verify" style="cursor:pointer">Verificar teléfono</span>') : ''}${u.role === 'refuge' ? '<span class="badge b-lila">Refugio</span>' : ''}${u.role === 'foster' ? '<span class="badge b-blue">Casa de paso</span>' : ''}${isAdmin ? '<span class="badge b-orange">Admin</span>' : ''}</div></div>
+      <div class="chips mt8" style="justify-content:center">${u.phone ? (u.phone_verified ? '<span class="badge b-green">✓ Teléfono verificado</span>' : '<button type="button" class="badge b-yellow tap" id="pf-verify" style="cursor:pointer">Verificar teléfono</button>') : ''}${u.email_verified === true ? '<span class="badge b-green">✓ Correo verificado</span>' : u.email_verified === false ? '<button type="button" class="badge b-yellow tap" id="pf-email" style="cursor:pointer">Verificar correo</button>' : ''}${u.role === 'refuge' ? '<span class="badge b-lila">Refugio</span>' : ''}${u.role === 'foster' ? '<span class="badge b-blue">Casa de paso</span>' : ''}${isAdmin ? '<span class="badge b-orange">Admin</span>' : ''}</div></div>
+    <div class="mt20"><span class="h2">Avisos</span>
+      <div class="card p row tap mt12" data-act="preferences" role="button" tabindex="0" style="padding:11px 14px"><div class="iconbtn sm" style="box-shadow:none">${svg('bell')}</div><div class="grow"><b>Preferencias</b><div class="small muted">Alertas de perritos cerca ${u.notify_nearby ? '(activadas)' : '(apagadas)'}, WhatsApp, correos y cookies</div></div><b>→</b></div></div>
     <div class="mt20"><div class="between"><span class="h2">Recordatorios</span></div><div class="col mt12" id="pf-reminders">${FX.skeletonList(1)}</div></div>
     <div class="mt20"><div class="between"><span class="h2">Mi actividad</span><div class="chips" id="act-types"></div></div><div class="card p mt12"><div id="act-chart" style="height:190px"></div></div></div>
     <div class="col mt20 stagger">
       ${item('appearance', svg('palette'), 'Apariencia', 'Colores, botones, animaciones y gráficas', 'linear-gradient(135deg,var(--lila),var(--green))')}
+      ${item('publish-dog', svg('dogface'), 'Dar en adopción (particular)', 'Publica gratis sin ser refugio ni casa de paso', 'var(--yellow)')}
+      ${item('report-found', svg('search'), 'Reportar perrito encontrado', 'Sube foto y ubicación de un perrito en la calle', 'var(--green)')}
       ${item('matches', svg('heart'), 'Solicitudes de adopción', 'Enviadas y recibidas')}
       ${item('my-dogs', svg('paw'), 'Mis publicaciones')}
       ${item('my-reports', svg('search'), 'Mis reportes', 'Perdidos y encontrados')}
-      ${item('orders', svg('cart'), 'Mis pedidos')}
-      ${item('my-refuge', svg('home'), u.role === 'refuge' ? 'Mi refugio' : 'Registrar refugio', u.role === 'refuge' ? 'Productos, puntos y solicitudes' : 'Publica, recibe donaciones y vende', 'var(--lila)')}
+      ${shopOn() ? item('orders', svg('cart'), 'Mis pedidos') : ''}
+      ${item('my-refuge', svg('home'), u.role === 'refuge' ? 'Mi refugio' : 'Registrar refugio', u.role === 'refuge' ? 'Puntos, donativos y solicitudes' : (shopOn() ? 'Publica, recibe donativos y vende' : 'Publica y recibe donativos'), 'var(--lila)')}
+      ${u.role === 'refuge' && shopOn() ? item('my-shop', svg('store'), 'Mi tienda', 'Productos, pedidos, facturas y cobros', 'var(--yellow)') : ''}
       ${u.role !== 'foster' ? item('foster', svg('heart'), 'Ser casa de paso', 'Recibe perritos temporalmente', 'var(--green)') : ''}
       ${item('ranking', svg('trophy'), 'Ranking de héroes')}
-      ${item('shop', svg('store'), 'Tienda solidaria')}
+      ${shopOn() ? item('shop', svg('store'), 'Tienda solidaria') : ''}
       ${item('map', svg('map'), 'Mapa de mi zona')}
+      ${item('vets', svg('vet'), 'Veterinarias', 'Clínicas cerca con cédula verificada')}
+      ${item('my-vet', svg('vet'), 'Mi veterinaria', '¿Tienes una clínica? Regístrala gratis', 'var(--green)')}
+      ${item('help', svg('help'), 'Ayuda', 'Preguntas frecuentes, seguridad y contacto')}
       ${isAdmin ? item('admin', svg('shield'), 'Panel de administración', '', 'var(--yellow)') : ''}
       <div class="lbl mt12">Seguridad y privacidad</div>
       ${item('password', svg('shield'), 'Cambiar contraseña')}
       ${item('export', svg('send'), 'Descargar mis datos', 'Copia de tu información (derecho de acceso)')}
-      ${item('consent', svg('sparkle'), 'Preferencias de cookies', localStorage.getItem('patitas_consent') === 'all' ? 'Analítica activada' : 'Solo esenciales')}
+      ${item('my-requests', svg('edit'), 'Mis solicitudes', 'Derechos ARCO, quejas y su folio')}
+      ${item('consent', svg('sparkle'), 'Preferencias de cookies', window.PatitasCookies && PatitasCookies.analyticsAllowed() ? 'Analítica activada' : 'Solo necesarias')}
+      ${item('legal', svg('shield'), 'Centro legal y privacidad', 'Reglas, tus derechos, quejas y transparencia')}
       ${item('terms', svg('edit'), 'Términos y condiciones')}
       ${item('privacy', svg('shield'), 'Aviso de privacidad')}
       <button class="btn block btn-ghost mt8" id="logout-btn">${svg('logout')} Cerrar sesión</button>
+      <button class="btn block btn-ghost btn-sm" id="logout-all-btn">${svg('shield')} Cerrar sesión en todos los dispositivos</button>
       <button class="link small mt8" id="delete-account-btn" style="color:var(--red)">Eliminar mi cuenta</button>
     </div>`;
   FX.decorate(body);
   const v = $('#pf-verify'); if (v) v.onclick = startPhoneVerify;
+  const ev = $('#pf-email'); if (ev) ev.onclick = resendVerification;
   $('#logout-btn').onclick = () => logout();
+  $('#logout-all-btn').onclick = e => logoutAll(e.currentTarget);
   $('#delete-account-btn').onclick = openDeleteAccount;
   loadReminders();
   loadActivityChart();
@@ -1599,7 +1936,7 @@ async function loadReminders() {
 function loadEditProfile() {
   const u = state.me; if (!u) return;
   $('#ep-name').value = u.full_name || ''; $('#ep-phone').value = u.phone || ''; $('#ep-city').value = u.city || ''; $('#ep-country').value = u.country || 'México';
-  $('#ep-avatar').innerHTML = u.avatar_url ? `<img src="${esc(u.avatar_url)}" alt="">` : esc(initials(u.full_name));
+  $('#ep-avatar').innerHTML = imgTag(u.avatar_url) || esc(initials(u.full_name));
   state.newAvatar = null;
 }
 async function submitEditProfile(e) {
@@ -1635,7 +1972,8 @@ function renderPointCharts(pts) {
   for (let i = 7; i >= 0; i--) { const w = new Date(now); w.setDate(w.getDate() - i * 7); weeks.push(w); }
   const sum = weeks.map(w => pts.filter(p => +weekKey(parseDate(p.created_at)) === +w).reduce((a, p) => a + p.points, 0));
   chart('#mr-chart-points', { type: ['donut', 'radar'].includes(Theme.chartType()) ? 'area' : Theme.chartType(), labels: weeks.map(w => w.toLocaleDateString('es-MX', { day: 'numeric', month: 'short' })), series: [{ name: 'Puntos', data: sum }], height: 200 });
-  const ACT = { rescue: 'Rescates', adopted_to_home: 'Adopciones', foster_home: 'Casas de paso', donation: 'Donaciones' };
+  // donation y donation_refund: historial anterior (los donativos ya no suman puntos; donation_points_removed los retiró)
+  const ACT = { rescue: 'Rescates', adopted_to_home: 'Adopciones', foster_home: 'Casas de paso', donation: 'Donaciones (antes)', donation_refund: 'Reembolsos de donativos (antes)', donation_points_removed: 'Ajuste: los donativos no suman puntos' };
   const by = {};
   pts.forEach(p => { const k = ACT[p.action] || 'Otros'; by[k] = (by[k] || 0) + p.points; });
   const labels = Object.keys(by);
@@ -1680,20 +2018,23 @@ async function submitPassword(e) {
   if (new_password.length < 8) return toast('La nueva contraseña debe tener al menos 8 caracteres', 'error');
   if (new_password !== $('#pw-new2').value) return toast('Las contraseñas no coinciden', 'error');
   await withBtn($('#password-form button[type=submit]'), async () => {
-    await api('/users/me/password', { method: 'POST', body: { current_password: current_password || null, new_password }, noLogout: true });
+    const r = await api('/users/me/password', { method: 'POST', body: { current_password: current_password || null, new_password }, noLogout: true });
+    if (r && r.access_token) { state.token = r.access_token; localStorage.setItem('patitas_token', r.access_token); }
     $('#password-modal').classList.remove('open');
-    toast('Contraseña actualizada 🔒', 'ok');
+    toast('Contraseña actualizada 🔒 Cerramos tus otras sesiones', 'ok');
   });
 }
 async function exportMyData() {
   FX.showLoading('Preparando tus datos...', ['Juntando publicaciones, mensajes y pedidos'], 'sniff');
   try {
     const res = await fetch('/users/me/export', { headers: { Authorization: `Bearer ${state.token}` } });
+    if (res.status === 401) { sessionExpired(); return; }
+    if (res.status === 429) throw new Error('Ya descargaste tus datos hace poco. Inténtalo más tarde');
     if (!res.ok) throw new Error('No pudimos generar tu archivo');
     const blob = await res.blob();
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = `patitasfind-mis-datos-${new Date().toISOString().slice(0, 10)}.json`;
+    a.download = `guauwoow-mis-datos-${new Date().toISOString().slice(0, 10)}.json`;
     document.body.appendChild(a); a.click(); a.remove();
     toast('Descarga lista 📦', 'ok');
   } catch (e) { toast(e.message, 'error'); }
@@ -1720,6 +2061,71 @@ async function submitDelete(e) {
 }
 
 /* ============================================================
+   Ayuda (FAQ y contacto) y reportes de contenido (moderación)
+   ============================================================ */
+function supportLinks() {
+  const c = state.config;
+  const wa = String(c.support_whatsapp || '').replace(/\D/g, '');
+  const mail = /^[^\s@<>"']+@[^\s@<>"']+\.[^\s@<>"']+$/.test(c.support_email || '') ? c.support_email : '';
+  return { mail, wa };
+}
+function loadHelp() {
+  if (!$('#help-art').innerHTML) $('#help-art').innerHTML = FX.dogFace(96);
+  const { mail, wa } = supportLinks();
+  $('#help-contact').classList.toggle('hidden', !mail && !wa);
+  const em = $('#help-email'), w = $('#help-whatsapp');
+  em.classList.toggle('hidden', !mail);
+  if (mail) em.href = `mailto:${mail}?subject=${encodeURIComponent('Ayuda con GuauWoow')}`;
+  w.classList.toggle('hidden', !wa);
+  if (wa) w.href = `https://wa.me/${wa}?text=${encodeURIComponent('Hola, necesito ayuda con GuauWoow')}`;
+  $('#help-contact-text').textContent = mail ? `Nuestro correo: ${mail}` : '';
+}
+function reportProblem() {
+  const { mail, wa } = supportLinks();
+  if (mail) location.href = `mailto:${mail}?subject=${encodeURIComponent('Problema en GuauWoow')}&body=${encodeURIComponent('Cuéntanos qué pasó, en qué pantalla y desde qué celular:\n\n')}`;
+  else if (wa) window.open(`https://wa.me/${wa}?text=${encodeURIComponent('Hola, encontré un problema en GuauWoow: ')}`, '_blank', 'noopener');
+  else toast('Para reportar una publicación o a un usuario usa el botón 🚩 en su perfil o en el chat', 'info');
+}
+
+const FLAG_TARGET = { dog: 'esta publicación', lost_report: 'este reporte', refuge: 'este refugio', product: 'este producto', user: 'esta persona', message: 'este mensaje' };
+let flagTarget = null;
+function openFlag(type, id, name = '') {
+  if (!state.me) return toast('Inicia sesión para reportar', 'error');
+  flagTarget = { type, id: +id };
+  $('#flag-title').textContent = type === 'user' ? 'Reportar usuario' : 'Reportar';
+  $('#flag-sub').textContent = `¿Qué pasa con ${FLAG_TARGET[type] || 'esto'}${name ? ` («${name}»)` : ''}? Tu reporte es confidencial.`;
+  $('#flag-form').reset();
+  $$('#flag-reasons .chip').forEach(c => { c.classList.remove('on'); c.setAttribute('aria-checked', 'false'); });
+  // Motivos propios de un tipo (p. ej. clínicas y reseñas): data-for="veterinary veterinary_review"
+  $$('#flag-reasons .chip[data-for]').forEach(c => c.classList.toggle('hidden', !c.dataset.for.split(' ').includes(type)));
+  $('#flag-modal').classList.add('open');
+  FX.decorate($('#flag-modal'));
+}
+async function submitFlag(e) {
+  e.preventDefault();
+  const on = $('#flag-reasons .chip.on');
+  if (!on) return toast('Elige un motivo', 'error');
+  if (!flagTarget) return;
+  const details = $('#flag-details').value.trim();
+  await withBtn($('#flag-submit'), async () => {
+    try {
+      await api('/reports', { method: 'POST', body: { target_type: flagTarget.type, target_id: flagTarget.id, reason: on.dataset.v, details: details || null } });
+    } catch (err) {
+      // Servidor sin moderación todavía: se ofrece el correo de soporte en lugar de fallar en silencio
+      if (err.status !== 404 || err.message !== 'Not Found') throw err;
+      $('#flag-modal').classList.remove('open');
+      const { mail } = supportLinks();
+      return toast(mail ? `Escríbenos a ${mail} para reportarlo` : 'No pudimos enviar el reporte. Inténtalo más tarde', 'error');
+    }
+    $('#flag-modal').classList.remove('open');
+    track('content_reported', { type: flagTarget.type, reason: on.dataset.v });
+    // Lo que involucra a menores se oculta al recibirlo (moderacion.html §4)
+    const minor = ['involucra_menor', 'abuso_sexual_infantil'].includes(on.dataset.v);
+    toast(minor ? 'Gracias. Lo ocultamos y lo revisamos con prioridad 🛡️' : '¡Gracias! Nuestro equipo lo revisará 🛡️', 'ok');
+  });
+}
+
+/* ============================================================
    Analítica (PostHog con consentimiento) y monitoreo (Sentry)
    ============================================================ */
 function loadScript(src) {
@@ -1729,29 +2135,23 @@ async function initAnalytics() {
   const c = state.config;
   if (c.sentry_dsn_frontend && !window.Sentry) {
     try {
-      await loadScript('https://browser.sentry-cdn.com/8.55.0/bundle.min.js');
+      await loadScript('/app/vendor/sentry/bundle.min.js');  // @sentry/browser 8.55.0 autohospedado
       Sentry.init({ dsn: c.sentry_dsn_frontend, environment: c.environment, tracesSampleRate: 0.1, sendDefaultPii: false,
-        beforeSend(ev) { if (ev.request && ev.request.url) ev.request.url = ev.request.url.replace(/token=[^&]+/, 'token=[filtrado]'); return ev; } });
+        beforeSend(ev) { if (ev.request && ev.request.url) ev.request.url = scrubUrl(ev.request.url); return ev; } });
     } catch { }
   }
-  if (c.posthog_key) {
-    const consent = localStorage.getItem('patitas_consent');
-    if (!consent) showCookieBanner();
-    else if (consent === 'all') startPosthog();
+  // PostHog solo se carga si se aceptó la analítica en el aviso de cookies; si se retira, se detiene
+  if (window.PatitasCookies) {
+    if (c.posthog_key && PatitasCookies.analyticsAllowed()) startPosthog();
+    PatitasCookies.onChange(s => {
+      if (s.analytics) startPosthog();
+      toast(s.analytics ? '¡Gracias! Nos ayudas a mejorar 💜' : 'Listo, solo usaremos lo necesario', 'ok');
+      if (current === 'profile') loadProfile();
+    });
   }
 }
-function showCookieBanner(force = false) {
-  if (!state.config.posthog_key && !force) return;
-  $('#cookie-banner').classList.remove('hidden');
-  FX.decorate($('#cookie-banner'));
-}
-function setConsent(v) {
-  localStorage.setItem('patitas_consent', v);
-  $('#cookie-banner').classList.add('hidden');
-  if (v === 'all') startPosthog();
-  else { try { window.posthog && posthog.opt_out_capturing(); } catch { } }
-  toast(v === 'all' ? '¡Gracias! Nos ayudas a mejorar 💜' : 'Listo, solo usaremos lo esencial', 'ok');
-  if (current === 'profile') loadProfile();
+function showCookieBanner() {
+  if (window.PatitasCookies) PatitasCookies.open();
 }
 async function startPosthog() {
   const c = state.config;
@@ -1759,10 +2159,18 @@ async function startPosthog() {
   try {
     const assets = c.posthog_host.replace('.i.posthog.com', '-assets.i.posthog.com');
     await loadScript(`${assets}/static/array.js`);
-    posthog.init(c.posthog_key, { api_host: c.posthog_host, person_profiles: 'identified_only', autocapture: true, capture_pageview: false, persistence: 'localStorage', mask_all_text: false, disable_session_recording: true });
+    posthog.init(c.posthog_key, {
+      api_host: c.posthog_host, person_profiles: 'identified_only', autocapture: true, capture_pageview: false, persistence: 'localStorage',
+      // Nunca se manda a PostHog lo que escribe la gente ni el texto en pantalla (nombres, mensajes, direcciones)
+      mask_all_text: true, mask_all_element_attributes: true, disable_session_recording: true,
+      session_recording: { maskAllInputs: true, maskTextSelector: '*' },
+      sanitize_properties: props => { ['$current_url', '$referrer'].forEach(k => { if (props[k]) props[k] = scrubUrl(props[k]); }); return props; },
+    });
     identify();
   } catch { }
 }
+/* Quita de las URLs los tokens de sesión, verificación y recuperación antes de enviarlas a terceros */
+function scrubUrl(u) { return String(u).replace(/([?#&](token|verify_email|reset)=)[^&#]+/g, '$1[filtrado]'); }
 function identify() {
   try { if (window.posthog && posthog.__loaded && state.me) posthog.identify(String(state.me.id), { role: state.me.role, city: state.me.city }); } catch { }
   try { if (window.Sentry && state.me) Sentry.setUser({ id: String(state.me.id) }); } catch { }
@@ -1777,8 +2185,12 @@ function track(event, props = {}) {
 async function handleDeepLinks() {
   const p = new URLSearchParams(location.search);
   const clean = () => history.replaceState({}, '', location.pathname);
-  if (p.get('dog')) { clean(); openDog(p.get('dog')); }
+  if (state.openHelp) { state.openHelp = false; navigate('help'); }
+  else if (p.get('dog')) { clean(); openDog(p.get('dog')); }
   else if (p.get('report')) { clean(); openReport(p.get('report')); }
+  else if (/^\d+$/.test(p.get('vet') || '') && window.VET) { clean(); VET.open(p.get('vet')); }
+  // Publicación compartida por un voluntario: ?share=1&url=&text= (botón) o ?title=&text=&url= (share_target de Android)
+  else if (p.has('share') || p.has('url') || p.has('text') || p.has('title')) { clean(); if (window.Compartir) Compartir.openFromParams(p); }
   else if (p.get('payment')) {
     const status = p.get('payment'), order = p.get('order'), donation = p.get('donation');
     clean();
@@ -1790,9 +2202,16 @@ async function handleDeepLinks() {
       if (st !== 'paid' && st !== 'approved') await sleep(1500);
     }
     FX.hideLoading();
-    if (st === 'paid' || st === 'approved') FX.success('¡Pago recibido!', order ? 'Tu pedido está en camino 📦' : 'Gracias por tu donación 💚', 2200);
+    if (st === 'paid' || st === 'approved') await FX.success('¡Pago recibido!', order ? 'El refugio ya prepara tu pedido 📦' : 'Gracias por tu donación 💚', 2200);
     else toast('Tu pago está en proceso. Te avisaremos cuando se confirme', 'info');
+    if (order && window.Tienda) Tienda.openOrder(+order);
   }
+  // Enlace de un aviso o correo de la tienda: /app/?order=N (comprador o refugio que vende)
+  else if (/^\d+$/.test(p.get('order') || '') && window.Tienda) { const receipt = p.get('receipt') === '1'; clean(); Tienda.openOrder(+p.get('order'), { fallbackShop: true, receipt }); }
+  // Avisos y correos para el refugio que vende: /app/?shop=pedidos (abre "Mi tienda" en esa pestaña)
+  else if (/^(productos|pedidos|facturas|fiscal|cobros|cuenta)$/.test(p.get('shop') || '') && window.Tienda && state.me) { clean(); Tienda.openMyShop(p.get('shop')); }
+  // Regreso de conectar Mercado Pago (refugio vendedor): /app/#mp=connected|error
+  else if (state.mpReturn) { const mp = state.mpReturn; state.mpReturn = null; if (window.Tienda) Tienda.onMpReturn(mp); }
 }
 
 /* ============================================================
@@ -1811,27 +2230,65 @@ function bindEvents() {
 
   // Delegación: abrir perros, reportes, refugios y acciones de estados vacíos
   device.addEventListener('click', e => {
-    const t = e.target.closest('[data-dog],[data-report],[data-refuge],[data-conv],[data-empty-action],[data-notif],[data-act],[data-city]');
+    const t = e.target.closest('[data-dog],[data-report],[data-refuge],[data-conv],[data-empty-action],[data-notif],[data-act],[data-city],[data-product]');
     if (!t || t.closest('#publish-menu')) return;
     if (t.matches('a')) e.preventDefault();
-    if (t.dataset.dog) openDog(t.dataset.dog);
+    const inModal = t.closest('#product-detail');
+    if (inModal && !t.dataset.product) inModal.classList.remove('open');
+    if (t.dataset.product) openProduct(t.dataset.product);
+    else if (t.dataset.dog) openDog(t.dataset.dog);
     else if (t.dataset.report) openReport(t.dataset.report);
     else if (t.dataset.refuge) openRefuge(t.dataset.refuge);
     else if (t.dataset.conv) openChat(t.dataset.conv);
     else if (t.dataset.notif) { let d = {}; try { d = JSON.parse(t.dataset.ndata || '{}'); } catch { } notifAction(t.dataset.notif, d); }
     else if (t.dataset.city) { const c = CITIES[+t.dataset.city]; saveLocation({ lat: c[1], lon: c[2] }, c[0]); }
     else if (t.dataset.act) ({
+      'publish-dog': () => openPublish(), 'report-found': () => openReportForm('found'),
       matches: openMyMatches, 'my-dogs': openMyDogs, 'my-reports': openMyReports, orders: openMyOrders, 'my-refuge': () => navigate('my-refuge'),
       foster: () => { $('#foster-art').innerHTML = FX.dogFace(100, { fur: '#86E0D4' }); $('#fh-city').value = state.me.city || ''; navigate('foster-register'); },
       ranking: () => navigate('ranking'), shop: () => navigate('shop'), map: () => navigate('map'), admin: () => { location.href = '/admin/'; },
-      appearance: () => navigate('appearance'), password: openPassword, export: exportMyData, consent: () => showCookieBanner(true),
+      appearance: () => navigate('appearance'), password: openPassword, export: exportMyData, consent: () => showCookieBanner(true), preferences: () => navigate('preferences'),
       terms: () => window.open('/app/legal/terminos.html', '_blank'), privacy: () => window.open('/app/legal/privacidad.html', '_blank'),
+      'my-requests': () => window.open('/app/legal/derechos-arco.html#mis-solicitudes', '_blank'),
+      legal: () => window.open('/app/legal/centro-legal.html', '_blank'),
+      help: () => navigate('help'),
     }[t.dataset.act] || (() => {}))();
     else if (t.dataset.emptyAction) ({
       'reload-discover': loadDiscover, 'go-discover': () => navigate('discover'), publish: openPublish, shop: () => navigate('shop'),
-      'refuge-register': () => { $('#rg-city').value = state.me.city || ''; navigate('refuge-register'); },
+      'refuge-register': () => { $('#rg-city').value = state.me.city || ''; renderDocDrop(); navigate('refuge-register'); },
     }[t.dataset.emptyAction] || (() => {}))();
   });
+
+  // Teclado: Escape cierra el modal abierto; Enter/Espacio activan tarjetas con rol de botón
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      const m = $$('.modal.open').filter(x => x.id !== 'terms-modal').pop();
+      if (m) { if (m.id === 'match-modal') closeMatchModal(); else m.classList.remove('open'); }
+      return;
+    }
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('[role=button]:not(button)')) { e.preventDefault(); e.target.click(); }
+  });
+  document.addEventListener('visibilitychange', onVisibilityChange);
+
+  // Ayuda, correo y reportes de contenido
+  $('#auth-help').addEventListener('click', () => navigate('help'));
+  $('#help-problem').addEventListener('click', reportProblem);
+  $('#email-resend').addEventListener('click', resendVerification);
+  $('#email-banner-close').addEventListener('click', snoozeEmailBanner);
+  $('#flag-form').addEventListener('submit', submitFlag);
+  $('#flag-close').addEventListener('click', () => $('#flag-modal').classList.remove('open'));
+  $$('#flag-reasons .chip').forEach(c => c.addEventListener('click', () => {
+    $$('#flag-reasons .chip').forEach(x => { x.classList.toggle('on', x === c); x.setAttribute('aria-checked', String(x === c)); });
+  }));
+  $('#dog-flag').addEventListener('click', () => state.dog && openFlag('dog', state.dog.id, state.dog.name));
+  $('#report-flag').addEventListener('click', () => state.report && openFlag('lost_report', state.report.id, state.report.dog_name));
+  $('#refuge-flag').addEventListener('click', () => state.refuge && openFlag('refuge', state.refuge.id, state.refuge.name));
+  $('#chat-flag').addEventListener('click', () => state.conv && state.conv.other_user && openFlag('user', state.conv.other_user.id, state.conv.other_user.full_name));
+  $('#chat-messages').addEventListener('click', e => { const b = e.target.closest('[data-flag-msg]'); if (b) openFlag('message', b.dataset.flagMsg); });
+  $('#pd-flag').addEventListener('click', () => { if (!state.product) return; $('#product-detail').classList.remove('open'); openFlag('product', state.product.id, state.product.name); });
+  $('#pd-close').addEventListener('click', () => $('#product-detail').classList.remove('open'));
+  $('#rg-docs-file').addEventListener('change', e => { addDocs(e.target.files); e.target.value = ''; });
+  renderDocDrop();
 
   // Splash / onboarding / auth
   $('#ob-next').addEventListener('click', () => obGo(obIdx + 1));
@@ -1852,17 +2309,16 @@ function bindEvents() {
   $('#password-form').addEventListener('submit', submitPassword);
   $('#delete-form').addEventListener('submit', submitDelete);
   $('#delete-cancel').addEventListener('click', () => $('#delete-modal').classList.remove('open'));
-  $('#cookie-accept').addEventListener('click', () => setConsent('all'));
   $('#tm-accept').addEventListener('click', e => {
     if (!$('#tm-terms').checked) return toast('Marca la casilla para continuar', 'error');
     withBtn(e.currentTarget, async () => {
-      state.me = await api('/users/me/terms', { method: 'POST', body: { accepted_terms: true, marketing_opt_in: $('#tm-marketing').checked }, noVerifyRedirect: true });
+      const age = window.Cumplimiento ? Cumplimiento.termsPayload(state.me) : {};
+      state.me = await api('/users/me/terms', { method: 'POST', body: { accepted_terms: true, marketing_opt_in: $('#tm-marketing').checked, ...age }, noVerifyRedirect: true });
       $('#terms-modal').classList.remove('open');
       afterLogin();
     });
   });
   $('#tm-logout').addEventListener('click', () => { $('#terms-modal').classList.remove('open'); logout(); });
-  $('#cookie-essential').addEventListener('click', () => setConsent('essential'));
   $$('.code-box').forEach((b, i, all) => {
     b.addEventListener('input', () => { b.value = b.value.replace(/\D/g, '').slice(0, 1); if (b.value && all[i + 1]) all[i + 1].focus(); if (b.value && i === all.length - 1) verifyCode(); });
     b.addEventListener('keydown', e => { if (e.key === 'Backspace' && !b.value && all[i - 1]) all[i - 1].focus(); });
@@ -1881,6 +2337,10 @@ function bindEvents() {
   $('#home-photo').addEventListener('click', openPhotoSearch);
   $('#home-photo-btn').addEventListener('click', openPhotoSearch);
   $('#home-lost-btn').addEventListener('click', () => openReportForm('lost'));
+  const hFound = $('#home-found-btn'); if (hFound) hFound.addEventListener('click', () => openReportForm('found'));
+  const hAdopt = $('#home-adopt-btn'); if (hAdopt) hAdopt.addEventListener('click', () => openPublish());
+  const hResFound = $('#home-rescue-found'); if (hResFound) hResFound.addEventListener('click', () => openReportForm('found'));
+  const hResAdopt = $('#home-rescue-adopt'); if (hResAdopt) hResAdopt.addEventListener('click', () => openPublish());
   $('#home-see-all').addEventListener('click', openAdoptList);
   $('#home-map').addEventListener('click', () => navigate('map'));
   $('#home-shop').addEventListener('click', () => navigate('shop'));
@@ -1900,7 +2360,7 @@ function bindEvents() {
 
   // Perro / cuestionario
   $('#dog-adopt').addEventListener('click', adoptCurrentDog);
-  $('#dog-share').addEventListener('click', () => state.dog && share(`🐶 ${state.dog.name} busca hogar en PatitasFind`, `/app/?dog=${state.dog.id}`));
+  $('#dog-share').addEventListener('click', () => state.dog && share(`🐶 ${state.dog.name} busca hogar en GuauWoow`, `/app/?dog=${state.dog.id}`));
   $$('#questionnaire-form [data-q] .chip, [data-single] .chip').forEach(c => c.addEventListener('click', () => {
     $$('.chip', c.parentElement).forEach(x => x.classList.remove('on')); c.classList.add('on');
   }));
@@ -1919,11 +2379,11 @@ function bindEvents() {
   photoHooks.pub = f => aiAutofill(f, 'pub');
   photoHooks.rf = f => aiAutofill(f, 'rf');
   $('#publish-form').addEventListener('submit', submitPublish);
+  $('#pub-found').addEventListener('change', e => $('#pub-found-wrap').classList.toggle('hidden', !e.target.checked));
   $('#report-form').addEventListener('submit', submitReport);
   $$('#rf-type button').forEach(b => b.addEventListener('click', () => setReportType(b.dataset.v)));
   $('#refuge-form').addEventListener('submit', submitRefuge);
   $('#foster-form').addEventListener('submit', submitFoster);
-  $('#product-form').addEventListener('submit', submitProduct);
   $('#edit-profile-form').addEventListener('submit', submitEditProfile);
   $('#profile-edit').addEventListener('click', () => navigate('edit-profile'));
   const pickAvatar = () => $('#ep-avatar-file').click();
@@ -1941,9 +2401,7 @@ function bindEvents() {
   // Notificaciones, ranking, tienda, mapa
   $('#notif-read-all').addEventListener('click', async () => { try { await api('/notifications/read-all', { method: 'PATCH' }); refreshBadges(); loadNotifications(); } catch (e) { toast(e.message, 'error'); } });
   $('#ranking-filter-btn').addEventListener('click', loadRanking);
-  $('#cart-btn').addEventListener('click', () => { renderCart(); $('#cart-modal').classList.add('open'); FX.decorate($('#cart-modal')); });
-  $('#cart-close').addEventListener('click', () => $('#cart-modal').classList.remove('open'));
-  $('#cart-checkout').addEventListener('click', checkout);
+  // Carrito, checkout y "Mi tienda": los eventos los conecta tienda.js
   $('#map-locate').addEventListener('click', e => withBtn(e.currentTarget, async () => { const c = await getPosition(); setCoords(c); loadMap(); }));
   $$('#map-filters .chip').forEach(c => c.addEventListener('click', () => {
     c.classList.toggle('on');
@@ -1959,6 +2417,11 @@ function bindEvents() {
    Arranque
    ============================================================ */
 async function init() {
+  // Miniaturas: si una no existe se usa la imagen completa (capturing: "error" no burbujea)
+  document.addEventListener('error', e => {
+    const img = e.target;
+    if (img instanceof HTMLImageElement && img.dataset.full && img.getAttribute('src') !== img.dataset.full) img.src = img.dataset.full;
+  }, true);
   FX.init(device);
   Theme.initInteractions(device);
   document.addEventListener('themechange', onThemeChange);
@@ -1966,16 +2429,27 @@ async function init() {
   initLocPickers();
   bindEvents();
   FX.decorate(device);
+
+  // Token de Google en el fragmento (#token=...; ?token= se acepta por compatibilidad), enlace de
+  // verificación de correo (#verify_email=...) y #ayuda. Se quitan de la URL antes de cualquier otra cosa.
+  const params = new URLSearchParams(location.search);
+  const hash = new URLSearchParams(location.hash.replace(/^#/, ''));
+  const tk = hash.get('token') || params.get('token');
+  if (tk) { state.token = tk; localStorage.setItem('patitas_token', tk); }
+  const verifyEmail = hash.get('verify_email');
+  state.mpReturn = /^(connected|error)$/.test(hash.get('mp') || '') ? hash.get('mp') : null;  // OAuth de Mercado Pago (tienda.js)
+  state.openHelp = /^#(ayuda|help)$/.test(location.hash);
+  const authError = params.get('auth_error');  // se lee antes de borrarlo de params (el toast sale después del splash)
+  if (authError) setTimeout(() => toast('No pudimos entrar con Google: ' + authError, 'error'), 2200);
+  if (params.get('reset')) state.resetToken = params.get('reset');
+  ['token', 'auth_error', 'reset'].forEach(k => params.delete(k));
+  history.replaceState({}, '', location.pathname + (params.toString() ? '?' + params : ''));
   history.pushState({}, '', location.href);
   const finishSplash = runSplash();
   const minSplash = sleep(1700);
 
-  const params = new URLSearchParams(location.search);
-  if (params.get('token')) { state.token = params.get('token'); localStorage.setItem('patitas_token', state.token); params.delete('token'); history.replaceState({}, '', location.pathname + (params.toString() ? '?' + params : '')); }
-  if (params.get('auth_error')) { setTimeout(() => toast('No pudimos entrar con Google: ' + params.get('auth_error'), 'error'), 2200); history.replaceState({}, '', location.pathname); }
-  if (params.get('reset')) { state.resetToken = params.get('reset'); history.replaceState({}, '', location.pathname); }
-
   try { state.config = { ...state.config, ...(await api('/auth/config', { noLogout: true })) }; } catch { }
+  applyConfig();
   let logged = false;
   if (state.token) {
     try { await setToken(state.token); logged = true; } catch { state.token = ''; localStorage.removeItem('patitas_token'); }
@@ -1986,9 +2460,11 @@ async function init() {
 
   if (state.resetToken) return showAuth('reset');
   initAnalytics();
+  if (verifyEmail) verifyEmailToken(verifyEmail);
   if (logged) return afterLogin();
-  if (!localStorage.getItem('patitas_onboarded')) return showOnboarding();
+  if (!localStorage.getItem('patitas_onboarded') && !state.openHelp) return showOnboarding();
   showAuth('login');
+  if (state.openHelp) { state.openHelp = false; navigate('help'); }
 }
 
 init();

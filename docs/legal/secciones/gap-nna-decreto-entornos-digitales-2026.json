@@ -1,0 +1,523 @@
+{
+  "domain": "gap-nna-decreto-entornos-digitales-2026",
+  "as_of": "2026-10-17",
+  "disclaimer": "No es asesoría legal. Los puntos con confianza media o baja, veredicto 'corregido' o 'agregado_por_verificador', o marcados 'sin hallazgo verificado', requieren confirmación de abogado(a) mexicano(a) antes de publicarse. Esta sección cierra la brecha 'nna-decreto-entornos-digitales-2026' señalada por el crítico: todo se verificó el 17-10-2026 en el DOF (texto íntegro del decreto), en los PDF vigentes de diputados.gob.mx (LGDNNA, CPEUM, CNPP, CPF, LFPDPPP, LFPA) y en gob.mx (Presidencia, CJEF, ATDT, Guardia Nacional).",
+  "finding_ids": [
+    "gap-nna-decreto-entornos-digitales-2026-01",
+    "gap-nna-decreto-entornos-digitales-2026-02",
+    "gap-nna-decreto-entornos-digitales-2026-03",
+    "gap-nna-decreto-entornos-digitales-2026-04",
+    "gap-nna-decreto-entornos-digitales-2026-05",
+    "gap-nna-decreto-entornos-digitales-2026-06",
+    "gap-nna-decreto-entornos-digitales-2026-07",
+    "gap-nna-decreto-entornos-digitales-2026-08",
+    "gap-nna-decreto-entornos-digitales-2026-09",
+    "gap-nna-decreto-entornos-digitales-2026-10",
+    "gap-nna-decreto-entornos-digitales-2026-11",
+    "gap-nna-decreto-entornos-digitales-2026-12"
+  ],
+  "findings": [
+    {
+      "id": "gap-nna-decreto-entornos-digitales-2026-01",
+      "topic": "Naturaleza del instrumento: decreto presidencial que no reforma la LGDNNA",
+      "requirement": "El «Decreto de entornos digitales seguros para niñas, niños y adolescentes» es un decreto del Ejecutivo Federal dictado con fundamento en el art. 89 fr. I de la CPEUM, refrendado por los titulares de SEDENA, SSPC, SEP, Salud y la Agencia de Transformación Digital y Telecomunicaciones (ATDT). No es una ley ni una reforma a la LGDNNA: no crea ni modifica los arts. 101 Bis 2 y 101 Bis 3, solo los invoca como fundamento. Esos artículos conservan su texto (101 Bis 2 adicionado DOF 20-06-2018; 101 Bis 3 adicionado DOF 24-12-2024) y la ficha de la LGDNNA con «última reforma DOF 15-01-2026» sigue siendo correcta al 17-10-2026. Consta de 7 artículos y 4 transitorios; entró en vigor el mismo 14-10-2026 (transitorio Segundo). Se publicó en la edición vespertina del DOF del 14-10-2026, sección Poder Ejecutivo / Presidencia de la República.",
+      "legal_basis": "Decreto de entornos digitales seguros para NNA (DOF 14-10-2026, edición vespertina): proemio, arts. 1 y 2, transitorios Primero y Segundo. CPEUM art. 89 fr. I. LGDNNA arts. 101 Bis 2 y 101 Bis 3 (texto vigente, última reforma DOF 15-01-2026).",
+      "source_url": "https://dof.gob.mx/nota_detalle.php?codigo=5801237&fecha=14/10/2026",
+      "quote": "Proemio: «CLAUDIA SHEINBAUM PARDO, Presidenta de los Estados Unidos Mexicanos, en ejercicio de la facultad que me confiere el artículo 89, fracción I, de la Constitución Política de los Estados Unidos Mexicanos, con fundamento en los artículos 1o., párrafo tercero, 4o., párrafo décimo primero y 7o. de la propia Constitución; 101 Bis 2 y 101 Bis 3 de la Ley General de los Derechos de Niñas, Niños y Adolescentes...». Transitorio Segundo: «El presente decreto entra en vigor el día de su publicación en el Diario Oficial de la Federación.»",
+      "platform_action": "(1) En las páginas legales y en el expediente, citarlo como «Decreto de entornos digitales seguros para niñas, niños y adolescentes (DOF 14-10-2026, edición vespertina)», nunca como reforma de la LGDNNA. (2) Mantener la ficha de la LGDNNA con «última reforma DOF 15-01-2026» y citar sus arts. 101 Bis 2 y 101 Bis 3 como fundamento del decreto, no como obligaciones directas de la plataforma. (3) Anotar en /legal/versiones y en el expediente que es un decreto administrativo sin régimen propio de sanciones (ver NNA-11) y que la Mesa de Trabajo del transitorio Tercero puede producir más regulación: programar revisión mensual del DOF.",
+      "priority": "obligatorio",
+      "confidence": "alta",
+      "applies_to": ["centro legal", "expediente de cumplimiento", "fichas normativas"],
+      "pages": ["/legal/proteccion-nna", "/legal/versiones"],
+      "notes": "Que un decreto del Ejecutivo imponga obligaciones a particulares sin una ley que las establezca (reserva de ley y subordinación jerárquica del art. 89 fr. I) es un punto impugnable por amparo; es cuestión de criterio jurídico para abogado constitucionalista. Para GuauWoow la vía prudente es cumplir y documentar, no litigar.",
+      "verdict": "verificado",
+      "evidence": "Texto íntegro leído en dof.gob.mx (codigo=5801237, fecha 14/10/2026) el 17-10-2026: proemio con fundamento en el art. 89 fr. I CPEUM y en los arts. 101 Bis 2 y 101 Bis 3 LGDNNA; arts. 1 a 7; transitorios Primero a Cuarto; firmas de la Presidenta y de los titulares de SEDENA, SSPC, SEP, Salud y ATDT. El índice del DOF del 14-10-2026 lo ubica en «Edición Vespertina», «Poder Ejecutivo / Presidencia de la República». PDF de la LGDNNA de diputados.gob.mx («Última reforma publicada DOF 15-01-2026»): art. 101 Bis 2 («Artículo adicionado DOF 20-06-2018») y art. 101 Bis 3 («Artículo adicionado DOF 24-12-2024») conservan su texto; el decreto no contiene ningún artículo que reforme o adicione la LGDNNA."
+    },
+    {
+      "id": "gap-nna-decreto-entornos-digitales-2026-02",
+      "topic": "Ámbito subjetivo: aplica a GuauWoow aunque sea un servicio solo para mayores de 18",
+      "requirement": "El decreto es «de observancia obligatoria en todo el territorio nacional» (art. 1) y obliga a toda «Plataforma digital»: el servicio digital que prestan intermediarios por Internet y que permite «la interacción, comunicación, generación, difusión o compartición de contenidos entre personas usuarias», incluso para «ofrecer, proveer, comercializar o intermediar bienes, servicios... o contenidos» (art. 2). No fija umbral de usuarios ni de ingresos, no se limita a redes sociales y no exime a los servicios dirigidos solo a mayores de edad ni a los que no están dirigidos a menores. La consejera jurídica lo explicó el 14-10-2026: «le aplica a plataformas digitales, entendiendo por ello todo servicio digital en internet». GuauWoow (perfiles, fotos, reportes, chat, bot de WhatsApp, contenido importado de Facebook, tienda de refugios, reseñas de clínicas) encaja en la definición. Lo que cambia para un servicio 18+ es cómo se cumple: si la verificación de edad (art. 4 fr. I) excluye de manera efectiva a menores, las obligaciones pensadas para cuentas de menores (clasificación por edad, supervisión parental y configuración predeterminada para menores: fr. III, VI y VIII) se satisfacen por diseño y deben documentarse así. Además, por el art. 5 de la LGDNNA, en caso de duda sobre si una persona es mayor de 18 se presume que es adolescente.",
+      "legal_basis": "Decreto NNA (DOF 14-10-2026) arts. 1, 2, 3 y 4. LGDNNA art. 5.",
+      "source_url": "https://dof.gob.mx/nota_detalle.php?codigo=5801237&fecha=14/10/2026",
+      "quote": "Art. 2: «Plataforma digital: servicio digital que prestan intermediarios a través de Internet que permiten la interacción, comunicación, generación, difusión o compartición de contenidos entre personas usuarias, con la finalidad de, entre otros, ofrecer, proveer, comercializar o intermediar bienes, servicios, aplicaciones, productos o contenidos; entre las que se encuentran, redes sociales, videojuegos, tiendas de aplicaciones, entre otros.» LGDNNA art. 5: «Cuando exista la duda de si se trata de una persona mayor de dieciocho años de edad, se presumirá que es adolescente.»",
+      "platform_action": "(1) Partir de que el decreto aplica y decirlo en /legal/proteccion-nna: «GuauWoow es un servicio exclusivo para personas mayores de 18 años; aun así cumplimos el Decreto del 14-10-2026 y así lo documentamos». (2) En el expediente, matriz artículo por artículo (3; 4 fr. I a IX; 5 fr. I a III; transitorio Cuarto) con tres columnas: «aplica / se cumple por diseño (no hay cuentas de menores) / medida implementada», con evidencia (capturas, commits, políticas). (3) Aplicar la presunción del art. 5 LGDNNA: ante duda razonable de que una cuenta es de un menor (reporte, foto, lenguaje, fecha de nacimiento incoherente) tratarla como de adolescente: suspender publicaciones y chat hasta verificar la edad; si se confirma, cerrar la cuenta, reembolsar compras y borrar los datos salvo la evidencia que deba conservarse (ver datos-personales-28 y contenido-plataforma-v03). (4) Incluir en la matriz el bot de WhatsApp, el botón de voluntarios y la ingestión de grupos de Facebook: también «difunden contenidos entre personas usuarias».",
+      "priority": "obligatorio",
+      "confidence": "media",
+      "applies_to": ["toda la plataforma", "bot de WhatsApp", "ingestión de Facebook", "tienda", "clínicas veterinarias"],
+      "pages": ["/legal/proteccion-nna", "/legal/terminos (requisitos)"],
+      "notes": "El texto es claro en que no hay exención; lo que requiere abogado es si una plataforma que excluye a menores puede dar por cumplidas por diseño las fr. III, VI y VIII del art. 4 y qué nivel de verificación de edad lo justifica (NNA-03). La confianza es media por esa interpretación, no por el texto.",
+      "verdict": "verificado",
+      "evidence": "Arts. 1 y 2 confirmados en el DOF. Versión estenográfica de la conferencia de prensa del 14-10-2026 (gob.mx/presidencia): Luisa María Alcalde, «es un Decreto que le aplica a plataformas digitales, entendiendo por ello todo servicio digital en internet». LGDNNA art. 5 literal en el PDF vigente: «Para efectos de los tratados internacionales y la mayoría de edad, son niños los menores de dieciocho años de edad. Cuando exista la duda de si se trata de una persona mayor de dieciocho años de edad, se presumirá que es adolescente.»"
+    },
+    {
+      "id": "gap-nna-decreto-entornos-digitales-2026-03",
+      "topic": "Verificación de edad: qué exige el art. 4 fr. I y qué capas proporcionales caben sin datos sensibles",
+      "requirement": "Art. 4 fr. I: «Implementar mecanismos confiables y seguros para identificar la edad de las personas usuarias de sus servicios. Dichos mecanismos no deberán limitarse a la autodeclaración de las personas usuarias para la acreditación de la edad.» El decreto no enumera mecanismos aceptados, no fija estándar técnico, no distingue por tamaño de plataforma ni dice qué datos pueden recabarse. Tampoco lo hicieron la Presidencia ni la Consejería Jurídica el 14-10-2026: se habló de «mecanismos... guardando todo lo que tiene que ver con los datos personales», «en la propia apertura de la cuenta», sin mencionar INE, CURP ni biométricos; una pregunta sobre CURP y biométricos no fue respondida. Conclusión: la casilla «Tengo 18 años o más» y su registro (CCF art. 640; contenido-plataforma-v03) siguen siendo necesarios como declaración, pero por sí solos ya no bastan frente al decreto. Toda capa adicional debe respetar la proporcionalidad de la LFPDPPP (art. 12: tratamiento «necesario, adecuado y relevante»; para sensibles, periodo mínimo) y evitar biométricos (reconocimiento facial o estimación de edad por rostro: potencialmente sensibles, ver datos-personales-10 y seguridad-incidentes-11). Pedir credencial a todas las personas al registrarse sería desproporcionado y un riesgo de seguridad mayor que el que evita.",
+      "legal_basis": "Decreto NNA (DOF 14-10-2026) art. 4 fr. I. LFPDPPP (DOF 20-03-2025, última reforma DOF 14-11-2025) arts. 6, 11 y 12. LGDNNA art. 5. CCF art. 640 (ver contenido-plataforma-v03).",
+      "source_url": "https://dof.gob.mx/nota_detalle.php?codigo=5801237&fecha=14/10/2026",
+      "quote": "Art. 4 fr. I: «Implementar mecanismos confiables y seguros para identificar la edad de las personas usuarias de sus servicios. Dichos mecanismos no deberán limitarse a la autodeclaración de las personas usuarias para la acreditación de la edad». LFPDPPP art. 12: «El tratamiento de datos personales será el que resulte necesario, adecuado y relevante en relación con las finalidades previstas en el aviso de privacidad, para los datos personales sensibles, el responsable deberá realizar esfuerzos razonables para limitar el periodo de tratamiento de los mismos a efecto de que sea el mínimo indispensable.»",
+      "platform_action": "Esquema por capas, proporcional y sin biométricos, para validarlo con el abogado y describirlo en el informe: (1) Registro (todas las cuentas): casilla separada «Declaro que tengo 18 años o más» + fecha de nacimiento (no solo la casilla; ambas en legal_acceptances con versión, IP y sello de tiempo) + teléfono verificado por OTP; si la fecha indica menos de 18, rechazar sin guardar datos y bloquear reintentos del mismo teléfono o correo por 30 días. (2) Señales de riesgo automáticas, informadas en el aviso: menciones de edad o escuela en el perfil, fotos reportadas, reportes «es menor de edad», edad incoherente con la que entregue Google OAuth si la entrega. Cualquier señal pone la cuenta en «edad por confirmar»: sin chat ni publicaciones hasta verificar. (3) Verificación reforzada solo en momentos de riesgo: aprobar una adopción, publicar productos, operar como refugio, casa de acogida o clínica, concertar un encuentro, o cuando haya una señal del punto 2. Método preferido: revisión en vivo (videollamada o visita) de una identificación oficial sin conservar copia; alternativa: subirla a un almacén cifrado con borrado automático a los 7 días. Solo se conserva constancia: fecha, método, quién verificó y resultado («≥18 confirmado»). Nunca OCR facial, comparación de selfies ni envío a proveedores de IA (seguridad-incidentes-10 y 11). (4) Bot de WhatsApp y botón «enviar a GuauWoow»: declaración de edad antes de publicar, wa_id en hash; publicar en nombre de terceros exige cuenta verificada. (5) Documentar por qué el esquema es «confiable y seguro» y proporcional para un servicio sin cuentas de menores, con métricas (cuentas rechazadas por edad, cuentas en «edad por confirmar», tiempos) para el reporte del art. 4 fr. IX. (6) Si aparece un estándar o proveedor mexicano de verificación de edad, reevaluar.",
+      "priority": "obligatorio",
+      "confidence": "media",
+      "applies_to": ["registro (correo y Google)", "bot de WhatsApp", "adopciones", "tienda", "refugios, casas de acogida y clínicas"],
+      "pages": ["/legal/proteccion-nna", "/legal/privacidad (finalidades y conservación)", "/legal/terminos (requisitos)"],
+      "notes": "Confianza media porque el decreto no dice cuánto es «suficiente». El abogado debe confirmar (a) que fecha de nacimiento + OTP + señales + verificación reforzada en momentos de riesgo satisface «no limitarse a la autodeclaración» en una plataforma sin cuentas de menores, y (b) que la verificación con identificación sin conservar copia no genera datos sensibles. Resuelve el conflicto señalado por el crítico: datos-personales-28, buenas-practicas-33 y contenido-plataforma-v03 siguen vigentes (la casilla es necesaria) pero ya no son suficientes por sí solos.",
+      "verdict": "verificado",
+      "evidence": "Art. 4 fr. I literal en el DOF. LFPDPPP 2025 (PDF diputados.gob.mx, última reforma DOF 14-11-2025): arts. 6, 11 y 12 confirmados con el texto citado. Versión estenográfica del 14-10-2026 (gob.mx/presidencia): Alcalde, «Deben verificar la edad de las personas usuarias»; Sheinbaum, «Ellos tienen mecanismos, por supuesto, guardando todo lo que tiene que ver con los datos personales... en la propia apertura de la cuenta». Ningún documento oficial consultado (DOF, Presidencia, CJEF, ATDT) lista mecanismos aceptados al 17-10-2026. LGDNNA art. 5 confirmado; CCF art. 640 lo confirmó contenido-plataforma-v03."
+    },
+    {
+      "id": "gap-nna-decreto-entornos-digitales-2026-04",
+      "topic": "Contenido prohibido (art. 3), criterios publicados de retiro, retiro inmediato y mecanismo de reporte (art. 4 fr. II, IV y V)",
+      "requirement": "El art. 3 prohíbe permitir a menores «el acceso, exposición o recomendación» de contenido que genere o promueva: I acoso, ciberacoso y ciberbullying; II abuso, explotación o violencia sexual; III discursos de odio, extremismo violento o violencia masiva; IV intercambio de usuario a usuario que incite al odio o a la violencia, «especialmente en el entorno escolar»; V conductas ilícitas o apología del delito; VI pornografía y material sexual explícito; VII suicidio, autolesiones deliberadas y trastornos alimenticios. El art. 4 obliga a: fr. II «establecer y publicar los criterios para la identificación y retiro de cuentas o contenidos» que promuevan esas prohibiciones «y habilitar los mecanismos técnicos necesarios»; fr. IV «identificar y retirar de forma inmediata» esas cuentas o contenidos; fr. V mecanismos de reporte «accesibles, visibles y permanentemente disponibles» y expeditos. No fija plazos en horas ni formato de publicación. Aunque no haya cuentas de menores, las siete categorías también son contenido prohibido entre adultos y los criterios deben estar publicados.",
+      "legal_basis": "Decreto NNA (DOF 14-10-2026) arts. 3 fr. I a VII y 4 fr. II, IV y V. Relación: LFDA art. 114 Octies y LFPC arts. 10 y 90 fr. I (debido proceso al retirar; contenido-plataforma-13).",
+      "source_url": "https://dof.gob.mx/nota_detalle.php?codigo=5801237&fecha=14/10/2026",
+      "quote": "Art. 4 fr. V: «Implementar mecanismos accesibles, visibles y permanentemente disponibles para que las personas usuarias reporten de manera expedita cuentas o contenidos que generen o promuevan cualquiera de las conductas previstas en el artículo 3 del presente decreto».",
+      "platform_action": "(1) En /legal/normas-comunidad, sección «Contenido prohibido por el Decreto del 14-10-2026» con las siete categorías del art. 3, ejemplos aplicados a GuauWoow (amenazas en el chat, fotos de maltrato con apología, contenido sexual, incitación a autolesiones) y la consecuencia: retiro inmediato, suspensión y aviso a autoridades cuando haya menores involucrados. (2) Publicar los criterios de identificación: reportes de usuarios, filtros automáticos (lista de palabras, hash de imágenes conocidas, detección de desnudos en fotos), revisión humana y orden de prioridad (menores y violencia sexual primero). (3) Botón «Reportar» en todo contenido y mensaje, sin exigir cuenta verificada para reportar (hoy POST /reports la exige, según contenido-plataforma), con los motivos del art. 3 como opciones y el motivo «involucra a un menor de edad». (4) Compromiso publicado: ocultamiento en menos de 24 horas para contenido del art. 3 y retiro inmediato al confirmarse; aviso al autor con motivo y apelación (contenido-plataforma-13). (5) Métricas por categoría para el art. 4 fr. IX.",
+      "priority": "obligatorio",
+      "confidence": "alta",
+      "applies_to": ["moderación", "reportes", "chat", "fotos y reportes de perros", "tienda", "reseñas de clínicas"],
+      "pages": ["/legal/normas-comunidad", "/legal/moderacion-y-apelaciones", "/legal/proteccion-nna"],
+      "notes": "«De forma inmediata» no está cuantificado; el compromiso de 24 horas es autorregulación prudente que el abogado debe validar para no crear una obligación contractual que un equipo pequeño no pueda cumplir.",
+      "verdict": "verificado",
+      "evidence": "Arts. 3 (fr. I a VII) y 4 (fr. II, IV y V) confirmados literalmente en el DOF del 14-10-2026."
+    },
+    {
+      "id": "gap-nna-decreto-entornos-digitales-2026-05",
+      "topic": "Supervisión parental, seguridad desde el diseño y configuración predeterminada más estricta (art. 4 fr. VI, VII y VIII) en un servicio 18+",
+      "requirement": "Fr. VI: «Fijar y habilitar mecanismos para que los padres, madres o personas tutoras puedan ejercer la supervisión parental sobre las cuentas de los menores»; fr. VII: «Garantizar desde su diseño la seguridad y protección de niñas, niños y adolescentes»; fr. VIII: «Asegurar que, de manera predeterminada, al crear nuevas cuentas, estén activas las configuraciones de privacidad y seguridad más estrictas disponibles, a fin de que niñas, niños y adolescentes no accedan a los contenidos previstos en el artículo 3». En una plataforma sin cuentas de menores la fr. VI no tiene objeto y debe documentarse como «no aplicable por diseño», sustituida por un canal para que madres, padres o tutores reporten la cuenta de un menor y pidan su eliminación (LGDNNA art. 76; datos-personales-28). Las fr. VII y VIII sí aplican a todas las cuentas nuevas aunque sean de adultos.",
+      "legal_basis": "Decreto NNA (DOF 14-10-2026) art. 4 fr. VI, VII y VIII. LGDNNA art. 76. LFPDPPP art. 12.",
+      "source_url": "https://dof.gob.mx/nota_detalle.php?codigo=5801237&fecha=14/10/2026",
+      "quote": "Art. 4 fr. VIII: «Asegurar que, de manera predeterminada, al crear nuevas cuentas, estén activas las configuraciones de privacidad y seguridad más estrictas disponibles, a fin de que niñas, niños y adolescentes no accedan a los contenidos previstos en el artículo 3 del presente decreto».",
+      "platform_action": "(1) Valores por defecto en cuentas nuevas, documentados: ubicación aproximada (no exacta) en perfiles públicos, teléfono y correo ocultos, chat solo tras match o solicitud aceptada, alertas cercanas desactivadas hasta que la persona las active, fotos sin metadatos EXIF, perfil no indexable por buscadores. (2) En /legal/proteccion-nna, apartado «Madres, padres y tutores»: cómo reportar la cuenta de un menor (formulario sin cuenta), qué pasa (suspensión, verificación, eliminación con constancia) y plazo de respuesta. (3) «Seguridad desde el diseño», lista en el expediente: 18+ en registro, OTP, moderación de fotos con detección de desnudos, lista de bloqueo por hash para material conocido, chat sin imágenes mientras se mantenga así, ingestión de Facebook con teléfonos y nombres eliminados y difuminado de caras de menores. (4) Revisar estos valores en cada cambio de producto (punto en la plantilla de PR).",
+      "priority": "recomendado",
+      "confidence": "media",
+      "applies_to": ["registro", "perfil", "chat", "alertas cercanas", "fotos"],
+      "pages": ["/legal/proteccion-nna", "/legal/privacidad (configuración)"],
+      "notes": "Que la fr. VI pueda darse por cumplida «por diseño» es interpretación que el abogado debe confirmar. La fr. VIII habla de «configuraciones más estrictas disponibles»: definir cuáles son es decisión de la persona dueña, pero una vez publicadas se vuelven exigibles.",
+      "verdict": "verificado",
+      "evidence": "Art. 4 fr. VI, VII y VIII literales en el DOF. LGDNNA art. 76 confirmado por datos-personales-28 (PDF vigente, última reforma DOF 15-01-2026)."
+    },
+    {
+      "id": "gap-nna-decreto-entornos-digitales-2026-06",
+      "topic": "Evaluaciones periódicas de riesgo y reportes estadísticos a autoridades (art. 4 fr. IX)",
+      "requirement": "«Realizar evaluaciones periódicas de los riesgos asociados al diseño, funcionalidades, sistemas de recomendación de contenidos, interacción entre personas usuarias y características del servicio que pudieran afectar a las niñas, niños y adolescentes, así como adoptar medidas razonables para prevenirlos o mitigarlos. Asimismo, elaborar reportes estadísticos sobre los patrones o tendencias detectadas sobre los contenidos a que se refiere el artículo 3..., mismos que deberán compartir de manera oportuna y periódica con las autoridades competentes». No define periodicidad, formato ni autoridad; participar en campañas de uso seguro es optativo («podrán»).",
+      "legal_basis": "Decreto NNA (DOF 14-10-2026) art. 4 fr. IX, párrafos primero a tercero.",
+      "source_url": "https://dof.gob.mx/nota_detalle.php?codigo=5801237&fecha=14/10/2026",
+      "quote": "Art. 4 fr. IX, segundo párrafo: «Asimismo, elaborar reportes estadísticos sobre los patrones o tendencias detectadas sobre los contenidos a que se refiere el artículo 3 del presente decreto, mismos que deberán compartir de manera oportuna y periódica con las autoridades competentes».",
+      "platform_action": "(1) Primera evaluación de riesgos antes del 12-11-2026, como anexo del informe de 30 días: tabla por funcionalidad (registro, perfiles, fotos, reportes de perdidos, matching por IA, chat, alertas cercanas, bot de WhatsApp, ingestión de Facebook, tienda, donativos, clínicas) por categoría del art. 3, con probabilidad, impacto y mitigación. (2) Repetirla cada 6 meses y ante cada funcionalidad nueva (chat con imágenes, videollamadas). (3) Reporte estadístico semestral sin datos personales: reportes recibidos por categoría del art. 3, retiros, cuentas suspendidas, cuentas rechazadas o cerradas por edad, requerimientos de autoridad, alertas enviadas a autoridades y tiempos de respuesta. (4) Enviarlo a la ATDT (ver NNA-07) y publicarlo en /legal/transparencia. (5) Conservar la evidencia de envío.",
+      "priority": "obligatorio",
+      "confidence": "media",
+      "applies_to": ["toda la plataforma", "informe de transparencia"],
+      "pages": ["/legal/transparencia", "/legal/proteccion-nna"],
+      "notes": "La periodicidad semestral es propuesta; no hay norma. Si la Mesa de Trabajo o la ATDT publican formato o periodicidad, adoptarlos.",
+      "verdict": "verificado",
+      "evidence": "Art. 4 fr. IX (tres párrafos) literal en el DOF del 14-10-2026."
+    },
+    {
+      "id": "gap-nna-decreto-entornos-digitales-2026-07",
+      "topic": "Informe de implementación en 30 días naturales (transitorio Cuarto): plazo, destinatario, medio y contenido",
+      "requirement": "«Las Plataformas digitales deben documentar e informar las acciones implementadas para dar cumplimiento a las disposiciones del presente decreto, dentro de un plazo máximo de treinta días naturales, contado a partir de su entrada en vigor.» Entró en vigor el 14-10-2026. El decreto no dice a qué autoridad se informa, por qué medio ni con qué formato, y al 17-10-2026 ni Presidencia, ni la Consejería Jurídica (CJEF), ni la ATDT han publicado formato, portal o canal. En la conferencia del 14-10-2026 la Presidenta dijo «le vamos a dar seguimiento con la Agencia de Transformación Digital» y la consejera jurídica que «la Agencia Digital dará seguimiento a cuáles son estos avances implementados por las plataformas»; el comunicado de Presidencia habla de «documentar formalmente las medidas adoptadas ante la autoridad». Cómputo: si el día 1 es el propio 14-10-2026 el plazo vence el 12-11-2026; si se cuenta desde el día siguiente, el 13-11-2026. Como el decreto no dice cómo contar, la fecha prudente es el jueves 12-11-2026 (las demás secciones usan el 13-11-2026).",
+      "legal_basis": "Decreto NNA (DOF 14-10-2026) transitorios Segundo, Tercero y Cuarto.",
+      "source_url": "https://dof.gob.mx/nota_detalle.php?codigo=5801237&fecha=14/10/2026",
+      "quote": "Transitorio Cuarto: «Las Plataformas digitales deben documentar e informar las acciones implementadas para dar cumplimiento a las disposiciones del presente decreto, dentro de un plazo máximo de treinta días naturales, contado a partir de su entrada en vigor.»",
+      "platform_action": "(1) Fecha interna de entrega: 12-11-2026; confirmar canal con la ATDT a más tardar el 05-11-2026. (2) Contenido del informe (PDF firmado por la persona representante, con fecha, razón social, RFC, domicilio y contacto 24/7): a) descripción del servicio y por qué es 18+; b) matriz artículo por artículo (NNA-02); c) verificación de edad implementada (NNA-03); d) enlaces a /legal/normas-comunidad, /legal/moderacion-y-apelaciones, /legal/proteccion-nna y /legal/autoridades; e) mecanismo de reporte con capturas; f) configuración predeterminada (NNA-05); g) evaluación de riesgos (NNA-06); h) punto de contacto 24/7 (NNA-08); i) conservación de evidencia (NNA-09); j) alerta a autoridades (NNA-10); k) calendario de reportes estadísticos; l) anexos técnicos. (3) Entrega: a falta de canal publicado, a la ATDT (dependencia que da seguimiento) por oficialía de partes o por el correo oficial que confirme el abogado, con copia a la Consejería Jurídica del Ejecutivo Federal (instala la Mesa de Trabajo del transitorio Tercero); conservar acuse (sello o respuesta); si no hay acuse, enviar también por mensajería con constancia. (4) Antes de enviar, revisar el DOF y gob.mx/atdt por si aparece un formato o portal; si existe, usarlo. (5) Publicar una versión pública en /legal/proteccion-nna (sin datos internos de seguridad) y anotar en /legal/versiones fecha y folio de entrega. (6) Sellar el PDF con constancia NOM-151 si ya hay prestador (contenido-plataforma-15).",
+      "priority": "obligatorio",
+      "confidence": "media",
+      "applies_to": ["operador", "expediente de cumplimiento"],
+      "pages": ["/legal/proteccion-nna", "/legal/versiones", "/legal/transparencia"],
+      "notes": "Confianza alta en que la obligación y el plazo existen; media en destinatario y medio, que el decreto no fija. Si la ATDT no recibe el informe, guardar la evidencia del intento: el deber es «documentar e informar» y el intento documentado es la mejor defensa. Conflicto menor con las demás secciones (13-11-2026): resolver con el abogado; en cualquier caso entregar antes del 12-11-2026.",
+      "verdict": "verificado",
+      "evidence": "Transitorios Segundo y Cuarto literales en el DOF. Comunicado de Presidencia del 14-10-2026 («documentar formalmente las medidas adoptadas ante la autoridad»; «le vamos a dar seguimiento con la Agencia de Transformación Digital»). Versión estenográfica del 14-10-2026 (Alcalde: «la Agencia Digital dará seguimiento a cuáles son estos avances implementados por las plataformas»; Sheinbaum: «Lo único que pidieron fue un mes para poder preparar sus plataformas»). Artículo de la CJEF del 09-10-2026 y página gob.mx/atdt consultados el 17-10-2026: sin formato, canal ni domicilio para el informe. Cómputo verificado con calendario (octubre tiene 31 días)."
+    },
+    {
+      "id": "gap-nna-decreto-entornos-digitales-2026-08",
+      "topic": "Punto de contacto 24/7 para autoridades con capacidad técnica inmediata (art. 5 fr. I)",
+      "requirement": "«Designar un punto de contacto directo y especializado en atención a autoridades de procuración y administración de justicia, el cual deberá estar disponible las 24 horas del día y los 365 días del año, para atender los requerimientos de información de las autoridades competentes. Dicho punto de contacto deberá contar con capacidad de actuación técnica inmediata frente a contenido generado por las personas usuarias.» No exige una persona abogada ni un formato; exige disponibilidad continua, especialización y capacidad técnica de actuar (retirar, preservar, entregar). El contacto atiende requerimientos, pero lo que se entrega sigue el estándar constitucional y legal: datos de cuenta con requerimiento fundado y motivado de autoridad competente (LFPDPPP arts. 9 fr. VII y 36 fr. V); contenido de chats o extracción de información almacenada solo con autorización judicial (CPEUM art. 16; CNPP art. 291), salvo que lo aporte una de las partes; emergencias con riesgo a la persona por la vía rápida (LFPDPPP art. 9 fr. V; CNPP art. 303, casos excepcionales).",
+      "legal_basis": "Decreto NNA (DOF 14-10-2026) art. 5 fr. I. CPEUM art. 16 (párrafos sobre comunicaciones privadas). CNPP arts. 291 y 303. LFPDPPP arts. 9 fr. V y VII y 36 fr. I y V.",
+      "source_url": "https://dof.gob.mx/nota_detalle.php?codigo=5801237&fecha=14/10/2026",
+      "quote": "Art. 5 fr. I: «Designar un punto de contacto directo y especializado en atención a autoridades de procuración y administración de justicia, el cual deberá estar disponible las 24 horas del día y los 365 días del año... Dicho punto de contacto deberá contar con capacidad de actuación técnica inmediata frente a contenido generado por las personas usuarias».",
+      "platform_action": "(1) Designar titular y suplente (datos que aporta la persona dueña) con teléfono móvil dedicado y correo de autoridades con guardia rotativa; publicar en /legal/autoridades el canal, el horario 24/7, qué incluir en el requerimiento (oficio firmado, autoridad, fundamento, expediente, datos concretos, plazo) y el estándar de entrega por niveles (NNA-12). (2) Capacidad técnica: acceso de emergencia con MFA y bitácora en AdminAuditLog para retirar contenido, suspender cuentas y poner retención legal (NNA-09) en minutos. (3) Procedimiento escrito: verificar autenticidad (llamada de vuelta a número oficial), registrar en authority_requests (buenas-practicas-18), entregar lo mínimo con acuse, avisar a la persona salvo prohibición legal o riesgo. (4) Niveles de servicio internos: primera respuesta en 1 hora para alertas sobre menores o riesgo de vida; 24 horas para el resto. (5) Incluirlo en el informe de 30 días.",
+      "priority": "obligatorio",
+      "confidence": "alta",
+      "applies_to": ["operador", "panel de administración", "página de autoridades"],
+      "pages": ["/legal/autoridades", "/legal/proteccion-nna"],
+      "notes": "Confianza alta en la obligación; la forma concreta (persona de guardia con teléfono) es propuesta. El abogado debe confirmar que un equipo pequeño con guardia rotativa satisface «especializado». Complementa buenas-practicas-18, seguridad-incidentes-21 y contenido-plataforma-06, que ya proponen la página y el procedimiento; este hallazgo añade el 24/7 y la capacidad técnica.",
+      "verdict": "verificado",
+      "evidence": "Art. 5 fr. I literal en el DOF. CPEUM art. 16 y CNPP arts. 291 y 303 confirmados en los PDF vigentes de diputados.gob.mx (ver NNA-12). LFPDPPP arts. 9 fr. V y VII y 36 fr. I y V literales en el PDF vigente."
+    },
+    {
+      "id": "gap-nna-decreto-entornos-digitales-2026-09",
+      "topic": "Conservación de evidencia de cuentas y contenidos retirados durante al menos 90 días hábiles (art. 5 fr. II)",
+      "requirement": "«Cuando sea retirada una cuenta o contenido, preservar cualquier evidencia digital, durante el plazo de al menos 90 días hábiles. Lo anterior, con el fin de garantizar su integridad y disponibilidad para su entrega a las autoridades requirentes». Aplica a todo retiro, no solo a los que involucran menores. No define «días hábiles»; la referencia federal más cercana es la LFPA art. 28 (no son hábiles sábados, domingos y los festivos listados), lo que da unos cuatro meses y medio de calendario. Conservar datos de cuentas retiradas con esta finalidad es tratamiento por «disposición legal» y para «la investigación y persecución de delitos»: no hay obligación de cancelarlos mientras dure el plazo (LFPDPPP art. 25 fr. II y III), pero debe informarse en el aviso de privacidad y limitarse a lo necesario (art. 12).",
+      "legal_basis": "Decreto NNA (DOF 14-10-2026) art. 5 fr. II. LFPA art. 28 (definición federal de días hábiles, como referencia). LFPDPPP arts. 12, 15 y 25 fr. II y III. CNPP art. 303, último párrafo (orden de conservación inmediata de datos hasta por 90 días).",
+      "source_url": "https://dof.gob.mx/nota_detalle.php?codigo=5801237&fecha=14/10/2026",
+      "quote": "Art. 5 fr. II: «Cuando sea retirada una cuenta o contenido, preservar cualquier evidencia digital, durante el plazo de al menos 90 días hábiles. Lo anterior, con el fin de garantizar su integridad y disponibilidad para su entrega a las autoridades requirentes». LFPDPPP art. 25: «El responsable no estará obligado a cancelar los datos personales cuando: ... II. Deban ser tratados por disposición legal; III. Obstaculice las actuaciones judiciales o administrativas vinculadas a obligaciones fiscales, la investigación y persecución de delitos...»",
+      "platform_action": "(1) Bóveda de evidencia: al retirar contenido o cuenta, copiar a un almacén aislado (bucket R2 separado, cifrado, sin acceso desde la app) el contenido, sus metadatos (autor, fechas, IP, user agent), el reporte que lo originó, la decisión y quién la tomó; SHA-256 de cada objeto y un índice de solo inserción encadenado por hash. (2) Retención: fecha de borrado = fecha de retiro + 90 días hábiles con el calendario de la LFPA art. 28 (en la práctica, 135 días naturales como margen), prorrogable por «retención legal» si una autoridad lo pide (CNPP art. 303, último párrafo) o hay apelación en curso. (3) Acceso: solo el punto de contacto 24/7 y superadmin con MFA; cada consulta en AdminAuditLog. (4) Entrega: exportación con hashes y acta de cadena de custodia. (5) Aviso de privacidad: finalidad «conservación de evidencia de contenido retirado por obligación legal (Decreto DOF 14-10-2026) durante al menos 90 días hábiles» y explicar que la eliminación de cuenta no vacía esa bóveda hasta vencer el plazo (LFPDPPP art. 25 fr. II y III). (6) Excepción para material de abuso sexual infantil: ver NNA-10.",
+      "priority": "obligatorio",
+      "confidence": "alta",
+      "applies_to": ["moderación", "backend (almacenamiento)", "aviso de privacidad", "ARCO"],
+      "pages": ["/legal/privacidad (conservación)", "/legal/moderacion-y-apelaciones", "/legal/proteccion-nna"],
+      "notes": "La definición de «días hábiles» es suposición razonable (LFPA) que el abogado debe confirmar; de ahí el margen de 135 días naturales. Aplicar el plazo a todo retiro, aunque no involucre menores, es la lectura literal y la más segura.",
+      "verdict": "verificado",
+      "evidence": "Art. 5 fr. II literal. LFPA art. 28 literal (PDF diputados.gob.mx, última reforma DOF 14-11-2025). LFPDPPP arts. 12 y 25 fr. II y III confirmados. CNPP art. 303, último párrafo: el Procurador «podrá requerir a los sujetos obligados... la conservación inmediata de datos contenidos en redes, sistemas o equipos de informática, hasta por un tiempo máximo de noventa días»."
+    },
+    {
+      "id": "gap-nna-decreto-entornos-digitales-2026-10",
+      "topic": "Alerta inmediata a autoridades (art. 5 fr. III), deber de denunciar y tensión con el CPF por material de abuso sexual infantil",
+      "requirement": "Art. 5 fr. III: «Informar y alertar de manera inmediata a las autoridades nacionales competentes aquellas cuentas o contenidos que atenten en contra de la vida, dignidad, seguridad, integridad o privacidad de niñas, niños y adolescentes.» No dice cuáles son esas autoridades ni el canal. Coincide con el deber general de denunciar del CNPP art. 222 (toda persona a quien le conste un hecho probablemente delictivo debe denunciarlo ante el Ministerio Público y, en urgencia, ante cualquier policía). El canal federal público de orientación para ciberdelitos es el 088 de la Guardia Nacional. Tensión para el abogado: el CPF art. 202 impone la misma pena de 7 a 12 años a «quien reproduzca, almacene, distribuya... o transmita» material de pornografía de menores, y el art. 202 BIS castiga de 1 a 5 años a quien lo «almacene» sin fines de comercialización; el decreto, en cambio, ordena preservar la evidencia de todo retiro 90 días hábiles. Ni el decreto ni el CPF prevén una excepción expresa para plataformas que conserven ese material para entregarlo a la autoridad.",
+      "legal_basis": "Decreto NNA (DOF 14-10-2026) art. 5 fr. III. CNPP art. 222. CPF arts. 202 y 202 BIS (última reforma del código DOF 13-03-2026). LFPDPPP arts. 9 fr. V y 36 fr. V.",
+      "source_url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/CPF.pdf",
+      "quote": "CNPP art. 222: «Toda persona a quien le conste que se ha cometido un hecho probablemente constitutivo de un delito está obligada a denunciarlo ante el Ministerio Público y en caso de urgencia ante cualquier agente de la Policía.» CPF art. 202, tercer párrafo: «La misma pena se impondrá a quien reproduzca, almacene, distribuya, venda, compre, arriende, exponga, publicite, transmita, importe o exporte el material a que se refieren los párrafos anteriores.»",
+      "platform_action": "(1) Protocolo «menores en riesgo»: ante contenido sexual con menores, amenazas a un menor o datos que lo exponen: retirar y bloquear en minutos, suspender la cuenta, preservar la evidencia en la bóveda con acceso bloqueado (nadie la abre salvo para entregarla) y alertar el mismo día: denuncia ante el Ministerio Público (FGR o fiscalía estatal según el caso) y orientación en el 088 de la Guardia Nacional; registrar folio. (2) Material de abuso sexual infantil: no reproducirlo, no enviarlo a proveedores de IA, no descargarlo a equipos personales; conservar solo el original en la bóveda con hash y pedir a la autoridad instrucciones de entrega y destrucción; documentar que la conservación es exclusivamente para la entrega del art. 5 fr. II del decreto y del CNPP art. 222. (3) Lista de bloqueo por hash para impedir resubidas. (4) Publicar el protocolo resumido en /legal/proteccion-nna y /legal/autoridades. (5) Formación del equipo de moderación y apoyo psicológico (Línea de la Vida, art. 6 del decreto, como recurso). (6) El abogado penalista define por escrito la postura frente al CPF arts. 202 y 202 BIS antes de implementar la bóveda para este material.",
+      "priority": "obligatorio",
+      "confidence": "media",
+      "applies_to": ["moderación", "punto de contacto 24/7", "bóveda de evidencia"],
+      "pages": ["/legal/proteccion-nna", "/legal/autoridades"],
+      "notes": "La tensión CPF/decreto es un riesgo penal real que el investigador no puede resolver; es el punto más importante de esta sección para el abogado penalista. El 088 es un canal de orientación y no sustituye la denuncia formal; no se verificó su horario 24/7 ni una unidad específica de la FGR para estos casos.",
+      "verdict": "verificado",
+      "evidence": "Art. 5 fr. III literal en el DOF. CNPP art. 222 literal (PDF diputados.gob.mx, última reforma DOF 28-11-2025). CPF arts. 202 y 202 BIS literales (PDF diputados.gob.mx, última reforma DOF 13-03-2026). Página oficial Guardia Nacional CERT-MX (gob.mx/gncertmx, 29-01-2026): «En caso de ser víctima de algún ciberdelito, llama al 088 Atención Ciudadana»."
+    },
+    {
+      "id": "gap-nna-decreto-entornos-digitales-2026-11",
+      "topic": "Sanciones, exigibilidad y futuro del instrumento (Mesa de Trabajo e iniciativas)",
+      "requirement": "El decreto no contiene capítulo de infracciones ni sanciones y no designa autoridad sancionadora. La consejera jurídica lo describió el 14-10-2026 como «obligatorio, más no punitivo» y la Presidenta dijo que si no se cumple «pasaríamos a una ley que también implicaría sanciones a las plataformas». Las infracciones federales de la LGDNNA (art. 148) están dirigidas a servidores públicos, concesionarios de radio y televisión, medios impresos, distribuidores de videojuegos y profesionales en adopciones; la fr. IX («las demás contravenciones a lo dispuesto en esta Ley») se refiere a la Ley, no al decreto, y la Secretaría de Gobernación sanciona solo los supuestos de las fr. III a VII Bis (art. 151). Hoy el riesgo directo por incumplir el decreto es de seguimiento administrativo (ATDT) y reputacional, no una multa tasada; el riesgo indirecto sigue en la LFPDPPP, la LFPC, el CPF y la responsabilidad civil. El transitorio Tercero crea una Mesa de Trabajo en la CJEF para proponer regulación, y en el Senado hay al menos una iniciativa (29-04-2026) para regular el uso de plataformas digitales por menores, no revisada en detalle.",
+      "legal_basis": "Decreto NNA (DOF 14-10-2026), sin artículos de sanción; transitorio Tercero. LGDNNA arts. 148, 149 y 151.",
+      "source_url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LGDNNA.pdf",
+      "quote": "Transitorio Tercero: «Se instruye a la Consejería Jurídica del Ejecutivo Federal a instalar una Mesa de Trabajo con las dependencias y entidades competentes de la Administración Pública Federal, con el objeto de coordinar los trabajos para elaborar propuestas de regulación necesarias para promover y fortalecer la protección y defensa de los derechos de las niñas, niños y adolescentes en entornos digitales.» LGDNNA art. 148 fr. IX: «Las demás contravenciones a lo dispuesto en esta Ley, competencia del orden federal.»",
+      "platform_action": "(1) No bajar la prioridad por la falta de sanción: cumplir y documentar es la defensa frente a la ley que venga y frente a reclamaciones civiles o de datos personales. (2) Seguimiento: alerta mensual del DOF y de gob.mx/atdt y gob.mx/cjef por «entornos digitales», «plataformas digitales» y «verificación de edad»; seguimiento de iniciativas en Senado y Cámara; anotar en /legal/versiones. (3) Si se emite ley o lineamientos, actualizar /legal/proteccion-nna y el expediente en 30 días. (4) Transparencia: declarar en /legal/proteccion-nna que el decreto no prevé sanciones y que GuauWoow lo cumple de forma íntegra y voluntaria.",
+      "priority": "recomendado",
+      "confidence": "alta",
+      "applies_to": ["operador", "centro legal"],
+      "pages": ["/legal/proteccion-nna", "/legal/versiones"],
+      "notes": "La iniciativa del Senado se identificó solo por su título en la gaceta (Sen. Lorenia Valles, Morena, 29-04-2026); no se leyó: https://infosen.senado.gob.mx/sgsp/gaceta/66/2/2026-04-29-1/assets/documentos/Ini_Morena_Sen_Lorenia_Valles_Regular_Uso_Plataformas_Digitales.pdf. El abogado debe seguir el proceso legislativo.",
+      "verdict": "verificado",
+      "evidence": "Texto íntegro del decreto sin sanciones. Versión estenográfica del 14-10-2026: Alcalde, «Es obligatorio, más no punitivo»; Sheinbaum, «Y si hay una ley, entonces ya vendrían sanciones». LGDNNA arts. 148 (fr. I a IX), 149 y 151 confirmados en el PDF vigente."
+    },
+    {
+      "id": "gap-nna-decreto-entornos-digitales-2026-12",
+      "topic": "CPEUM art. 16 (DOF 07-10-2026): sin cambios en comunicaciones privadas; estándar del CNPP para entregar chats, ubicación y datos conservados",
+      "requirement": "La reforma constitucional publicada en el DOF el 07-10-2026 (decreto 285) reformó y adicionó los arts. 82, 116 y 122 (nacionalidad única para titulares de los Ejecutivos); no tocó el art. 16. La última reforma del art. 16 fue la del DOF 30-09-2024 y afectó solo su último párrafo (alojamiento de la Fuerza Armada permanente, que ahora incluye a la Guardia Nacional). Los párrafos sobre comunicaciones privadas («Las comunicaciones privadas son inviolables... excepto cuando sean aportadas de forma voluntaria por alguno de los particulares que participen en ellas» y «Exclusivamente la autoridad judicial federal... podrá autorizar la intervención de cualquier comunicación privada») siguen intactos desde la reforma del DOF 18-06-2008; la cita de contenido-plataforma-12 es exacta y la mención «última reforma DOF 07-10-2026» solo describe la fecha del texto consolidado. Efecto en GuauWoow: ninguno nuevo para el chat ni para la página de autoridades. Lo que sí hay que incorporar es el CNPP: se requiere autorización judicial también para la «extracción de información», que incluye comunicaciones privadas, datos de identificación de las comunicaciones y archivos «incluyendo la almacenada en las plataformas o centros de datos remotos» (art. 291, cuarto párrafo); y la localización geográfica en tiempo real y la entrega de «datos conservados» por «proveedores de servicios de aplicaciones y contenidos» requieren orden del Juez de control, salvo casos excepcionales (peligro para la vida o integridad, secuestro, extorsión, delincuencia organizada) en que el Procurador la ordena directamente y debe informar al juez en 48 horas para su ratificación (art. 303). El decreto NNA (art. 5 fr. I) no altera estos estándares: un decreto no puede reducir garantías constitucionales.",
+      "legal_basis": "CPEUM art. 16, párrafos sobre comunicaciones privadas (última reforma del artículo DOF 30-09-2024; texto consolidado con última reforma DOF 07-10-2026). Decreto DOF 07-10-2026 (reforma a los arts. 82, 116 y 122). CNPP arts. 291 y 303 (última reforma DOF 28-11-2025). LFPDPPP arts. 9 fr. VII y 36 fr. V.",
+      "source_url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/CPEUM.pdf",
+      "quote": "CNPP art. 291, cuarto párrafo: «También se requerirá autorización judicial en los casos de extracción de información, la cual consiste en la obtención de comunicaciones privadas, datos de identificación de las comunicaciones; así como la información, documentos, archivos de texto, audio, imagen o video contenidos en cualquier dispositivo... incluyendo la almacenada en las plataformas o centros de datos remotos vinculados con éstos.»",
+      "platform_action": "(1) En /legal/autoridades fijar tres niveles: a) datos de cuenta (nombre, correo, teléfono verificado, IP de alta, fechas): con oficio fundado y motivado de autoridad competente (LFPDPPP arts. 9 fr. VII y 36 fr. V); b) contenido de chats, archivos y mensajes almacenados: solo con autorización judicial (CPEUM art. 16; CNPP art. 291) o cuando una persona participante lo aporte voluntariamente (reporte); c) ubicación en tiempo real o historial de ubicación: solo con orden del Juez de control, o requerimiento directo del Fiscal en los casos excepcionales del CNPP art. 303, con registro y seguimiento de la ratificación judicial. (2) Mantener en la página el párrafo de contenido-plataforma-12 y añadir que ninguna reforma de 2025-2026 cambió el art. 16, con fecha de última revisión. (3) Órdenes de conservación (CNPP art. 303, último párrafo): aplicar retención legal en la bóveda de NNA-09 de inmediato. (4) Si una autoridad invoca el decreto NNA para pedir contenido de chats sin orden judicial, responder por escrito con el estándar constitucional y ofrecer preservar la evidencia mientras obtiene la orden.",
+      "priority": "recomendado",
+      "confidence": "alta",
+      "applies_to": ["chat", "ubicación", "página de autoridades", "punto de contacto 24/7"],
+      "pages": ["/legal/autoridades", "/legal/moderacion-y-apelaciones", "/legal/privacidad"],
+      "notes": "Si GuauWoow es «proveedor de servicios de aplicaciones y contenidos» para el CNPP art. 303 (término tomado de la LFTR, abrogada por la LMTR DOF 16-07-2025) y si los mensajes almacenados son «comunicaciones privadas» según la SCJN son preguntas para el abogado (ya señaladas en buenas-practicas-18). Confianza alta en los textos; media en esas calificaciones. Resuelve el pendiente que contenido-plataforma dejó en su sección 5, punto 7.",
+      "verdict": "verificado",
+      "evidence": "Lista cronológica de reformas constitucionales (diputados.gob.mx/LeyesBiblio/ref/cpeum_crono.htm): decreto 285, DOF 07-10-2026, «se reforman y adicionan los artículos 82, 116 y 122... en materia de nacionalidad única»; ningún decreto de 2025-2026 reforma el art. 16. Lista por artículo (cpeum_art.htm): última reforma del art. 16 el 30-09-2024. PDF de la CPEUM (última reforma DOF 07-10-2026): en el art. 16 el único párrafo con nota «Párrafo reformado DOF 30-09-2024» es el último (Fuerza Armada permanente); los párrafos de comunicaciones privadas coinciden con la cita y la nota de reformas del artículo termina en 18-06-2008. CNPP arts. 291 y 303 literales en el PDF de diputados.gob.mx (última reforma DOF 28-11-2025); el art. 303 aún remite al art. 190 fr. II de la LFTR, abrogada."
+    }
+  ],
+  "hard_deadlines": [
+    {
+      "date": "2026-11-05",
+      "what": "Fecha interna propuesta para confirmar con la ATDT (y, en su caso, la CJEF) el canal y formato de entrega del informe del transitorio Cuarto; no es un plazo legal.",
+      "findings": ["gap-nna-decreto-entornos-digitales-2026-07"]
+    },
+    {
+      "date": "2026-11-12",
+      "what": "Informe de acciones implementadas bajo el Decreto de entornos digitales seguros para NNA (transitorio Cuarto: 30 días naturales desde la entrada en vigor el 14-10-2026). Fecha prudente contando el 14-10 como día 1; las demás secciones usan el 13-11-2026 (día siguiente como día 1). Entregar a más tardar el 12-11-2026.",
+      "findings": ["gap-nna-decreto-entornos-digitales-2026-07", "gap-nna-decreto-entornos-digitales-2026-02", "gap-nna-decreto-entornos-digitales-2026-03"]
+    },
+    {
+      "date": "rolling",
+      "what": "Por cada retiro de cuenta o contenido: conservar la evidencia al menos 90 días hábiles (unos 135 días naturales con el calendario de la LFPA art. 28), prorrogables por retención legal.",
+      "findings": ["gap-nna-decreto-entornos-digitales-2026-09"]
+    }
+  ],
+  "pages": [
+    {
+      "slug": "proteccion-nna",
+      "title": "Protección de niñas, niños y adolescentes (Decreto DOF 14-10-2026)",
+      "purpose": "Página principal del decreto: explica que GuauWoow es 18+, cómo cumple cada artículo, cómo verifica la edad, qué hace ante contenido contra menores y cómo pueden actuar madres, padres y tutores. Versión pública del expediente de cumplimiento.",
+      "required_contents": [
+        "Ficha del decreto: nombre completo, DOF 14-10-2026 (edición vespertina), decreto presidencial (CPEUM art. 89 fr. I), vigente desde el 14-10-2026, fundado en LGDNNA arts. 101 Bis 2 y 101 Bis 3; aclaración de que no reforma la LGDNNA y de que no prevé sanciones",
+        "Declaración «servicio exclusivo para mayores de 18 años» y matriz resumida artículo por artículo (aplica / se cumple por diseño / medida)",
+        "Verificación de edad por capas: declaración expresa + fecha de nacimiento + OTP + señales de riesgo + verificación reforzada en momentos de riesgo, sin biométricos y sin conservar copias de identificaciones",
+        "Qué ocurre si se detecta a un menor: suspensión, verificación, cierre de cuenta, reembolso de compras y borrado de datos salvo evidencia legal (presunción del art. 5 LGDNNA)",
+        "Las siete categorías del art. 3 como contenido prohibido, con enlace a Normas de la Comunidad y al botón de reporte (motivo «involucra a un menor»)",
+        "Apartado «Madres, padres y tutores»: formulario sin cuenta para reportar la cuenta de un menor o pedir eliminación de datos (LGDNNA art. 76), plazo de respuesta",
+        "Configuración predeterminada más estricta en cuentas nuevas (lista)",
+        "Protocolo resumido de alerta inmediata a autoridades y conservación de evidencia (sin detalles que permitan evadirlo)",
+        "Fecha de entrega del informe de 30 días y folio o acuse; enlace a la versión pública del informe y al reporte estadístico semestral",
+        "Fecha de última revisión y aviso de que el decreto puede cambiar (Mesa de Trabajo, transitorio Tercero)"
+      ],
+      "legal_basis": [
+        "Decreto NNA (DOF 14-10-2026) arts. 1 a 5 y transitorios Segundo a Cuarto",
+        "LGDNNA arts. 5, 76, 101 Bis 2 y 101 Bis 3",
+        "LFPDPPP arts. 12 y 25 fr. II y III"
+      ],
+      "findings": ["gap-nna-decreto-entornos-digitales-2026-01", "gap-nna-decreto-entornos-digitales-2026-02", "gap-nna-decreto-entornos-digitales-2026-03", "gap-nna-decreto-entornos-digitales-2026-05", "gap-nna-decreto-entornos-digitales-2026-07", "gap-nna-decreto-entornos-digitales-2026-10", "gap-nna-decreto-entornos-digitales-2026-11"]
+    },
+    {
+      "slug": "normas-comunidad",
+      "title": "Normas de la Comunidad (aportes de esta sección)",
+      "purpose": "Publicar los criterios de identificación y retiro que exige el art. 4 fr. II y las siete categorías del art. 3 como contenido prohibido para todas las personas.",
+      "required_contents": [
+        "Sección «Contenido prohibido por el Decreto del 14-10-2026» con las categorías I a VII del art. 3 y ejemplos aplicados a GuauWoow",
+        "Criterios de identificación: reportes, filtros automáticos (palabras, hash de imágenes, detección de desnudos), revisión humana, orden de prioridad",
+        "Consecuencias: retiro inmediato, suspensión, aviso a autoridades si hay menores",
+        "Compromiso de plazo (propuesta: ocultamiento en menos de 24 h para contenido del art. 3) y enlace a apelaciones"
+      ],
+      "legal_basis": ["Decreto NNA arts. 3 y 4 fr. II, IV y V"],
+      "findings": ["gap-nna-decreto-entornos-digitales-2026-04"]
+    },
+    {
+      "slug": "moderacion-y-apelaciones",
+      "title": "Moderación, sanciones y apelaciones (aportes de esta sección)",
+      "purpose": "Explicar el mecanismo de reporte permanente, el retiro inmediato, la conservación de evidencia 90 días hábiles y que el chat solo se revisa con reporte o por filtros informados.",
+      "required_contents": [
+        "Botón «Reportar» en todo contenido y mensaje, disponible sin cuenta verificada, con los motivos del art. 3 y «involucra a un menor»",
+        "Qué se conserva al retirar algo y por cuánto tiempo (al menos 90 días hábiles), quién accede y cómo se entrega a autoridades",
+        "Regla de chat: solo se revisa lo reportado por un participante o lo marcado por filtros informados; nunca navegación libre (CPEUM art. 16)",
+        "Declaración de motivos y apelación (contenido-plataforma-13)"
+      ],
+      "legal_basis": ["Decreto NNA art. 4 fr. II, IV y V y art. 5 fr. II", "CPEUM art. 16", "CNPP art. 291"],
+      "findings": ["gap-nna-decreto-entornos-digitales-2026-04", "gap-nna-decreto-entornos-digitales-2026-09", "gap-nna-decreto-entornos-digitales-2026-12"]
+    },
+    {
+      "slug": "autoridades",
+      "title": "Solicitudes de autoridades (aportes de esta sección)",
+      "purpose": "Publicar el punto de contacto 24/7 del art. 5 fr. I y el estándar por niveles para entregar datos, contenido de chats y ubicación, sin reducir las garantías del art. 16 constitucional.",
+      "required_contents": [
+        "Punto de contacto 24/7/365 para autoridades de procuración y administración de justicia (canal, sin datos personales del titular) y niveles de respuesta",
+        "Tres niveles de entrega: datos de cuenta con oficio fundado y motivado; contenido de chats y archivos solo con autorización judicial o aportado por un participante; ubicación en tiempo real o historial solo con orden del Juez de control o requerimiento excepcional del Fiscal (CNPP art. 303) con ratificación",
+        "Órdenes de conservación de datos (CNPP art. 303, último párrafo): retención legal inmediata",
+        "Protocolo de alerta inmediata ante contenido contra menores (art. 5 fr. III) y canal de denuncia (Ministerio Público; orientación 088 Guardia Nacional)",
+        "Nota de que la reforma constitucional del DOF 07-10-2026 no modificó el art. 16, con fecha de revisión"
+      ],
+      "legal_basis": ["Decreto NNA art. 5 fr. I y III", "CPEUM art. 16", "CNPP arts. 222, 291 y 303", "LFPDPPP arts. 9 fr. V y VII y 36 fr. I y V"],
+      "findings": ["gap-nna-decreto-entornos-digitales-2026-08", "gap-nna-decreto-entornos-digitales-2026-10", "gap-nna-decreto-entornos-digitales-2026-12"]
+    },
+    {
+      "slug": "transparencia",
+      "title": "Informe de transparencia (aportes de esta sección)",
+      "purpose": "Alojar el reporte estadístico semestral del art. 4 fr. IX y la versión pública del informe de 30 días.",
+      "required_contents": [
+        "Reporte semestral sin datos personales: reportes por categoría del art. 3, retiros, suspensiones, cuentas rechazadas o cerradas por edad, requerimientos de autoridad, alertas a autoridades, tiempos de respuesta",
+        "Fecha de envío a la ATDT y constancia",
+        "Versión pública del informe del transitorio Cuarto y de las evaluaciones de riesgo"
+      ],
+      "legal_basis": ["Decreto NNA art. 4 fr. IX y transitorio Cuarto"],
+      "findings": ["gap-nna-decreto-entornos-digitales-2026-06", "gap-nna-decreto-entornos-digitales-2026-07"]
+    },
+    {
+      "slug": "privacidad",
+      "title": "Aviso de Privacidad (aportes de esta sección)",
+      "purpose": "Añadir las finalidades y plazos que derivan del decreto: verificación de edad y conservación de evidencia de retiros.",
+      "required_contents": [
+        "Finalidad «verificación de edad» con los datos tratados (fecha de nacimiento, teléfono verificado, señales automáticas, constancia de verificación reforzada) y la regla de no conservar copias de identificaciones ni biométricos",
+        "Finalidad «conservación de evidencia de contenido o cuentas retirados por obligación legal (Decreto DOF 14-10-2026) durante al menos 90 días hábiles», con la aclaración de que la eliminación de cuenta no vacía esa bóveda hasta vencer el plazo (LFPDPPP art. 25 fr. II y III)",
+        "Transferencias a autoridades por obligación legal (LFPDPPP art. 36 fr. I y V) y aviso a la persona salvo prohibición",
+        "Filtros automáticos de seguridad sobre contenido y chat, informados con anticipación"
+      ],
+      "legal_basis": ["LFPDPPP arts. 11, 12, 15, 25 fr. II y III y 36 fr. I y V", "Decreto NNA arts. 4 fr. I y 5 fr. II"],
+      "findings": ["gap-nna-decreto-entornos-digitales-2026-03", "gap-nna-decreto-entornos-digitales-2026-09"]
+    },
+    {
+      "slug": "terminos",
+      "title": "Términos y Condiciones (aportes de esta sección)",
+      "purpose": "Requisitos de edad y consecuencias si se detecta a un menor, alineados con el decreto y con contenido-plataforma-v03.",
+      "required_contents": [
+        "Requisito de 18 años con declaración expresa y fecha de nacimiento; aviso de que GuauWoow puede pedir verificación reforzada en momentos de riesgo y suspender la cuenta mientras tanto",
+        "Si se detecta a un menor: cierre de cuenta, reembolso de compras y borrado de datos salvo la evidencia que deba conservarse",
+        "Contenido prohibido del art. 3 por referencia a las Normas de la Comunidad"
+      ],
+      "legal_basis": ["Decreto NNA art. 4 fr. I", "CCF art. 640", "LGDNNA art. 5"],
+      "findings": ["gap-nna-decreto-entornos-digitales-2026-02", "gap-nna-decreto-entornos-digitales-2026-03"]
+    },
+    {
+      "slug": "versiones",
+      "title": "Historial de versiones (aportes de esta sección)",
+      "purpose": "Dejar rastro de la entrega del informe, de las revisiones mensuales del DOF y de los cambios que produzca la Mesa de Trabajo.",
+      "required_contents": [
+        "Entrada «Informe Decreto NNA entregado el [fecha] a [autoridad], folio [n]» con hash del PDF",
+        "Entrada por cada revisión mensual del DOF y por cada cambio normativo relevante"
+      ],
+      "legal_basis": ["Decreto NNA transitorios Tercero y Cuarto"],
+      "findings": ["gap-nna-decreto-entornos-digitales-2026-01", "gap-nna-decreto-entornos-digitales-2026-07", "gap-nna-decreto-entornos-digitales-2026-11"]
+    }
+  ],
+  "product_requirements": [
+    {
+      "id": "gap-nna-decreto-entornos-digitales-2026-02",
+      "priority": "obligatorio",
+      "requirement": "Matriz de cumplimiento artículo por artículo (3; 4 fr. I a IX; 5 fr. I a III; transitorio Cuarto) con columnas «aplica / se cumple por diseño / medida implementada» y evidencia; incluir bot de WhatsApp, botón de voluntarios, ingestión de Facebook, tienda y clínicas. Estado de cuenta «edad por confirmar» (sin chat ni publicaciones) cuando haya duda razonable de minoría de edad, con cierre, reembolso y borrado si se confirma."
+    },
+    {
+      "id": "gap-nna-decreto-entornos-digitales-2026-03",
+      "priority": "obligatorio",
+      "requirement": "Verificación de edad por capas: casilla separada «Declaro que tengo 18 años o más» + fecha de nacimiento + OTP, registradas en legal_acceptances (versión, IP, sello, canal); rechazo sin guardar datos y bloqueo de reintentos 30 días si la fecha indica menos de 18; señales automáticas de riesgo que ponen la cuenta en «edad por confirmar»; verificación reforzada sin conservar copia (videollamada/visita, o almacén cifrado con borrado a 7 días) al aprobar adopciones, vender, operar como refugio, casa de acogida o clínica, concertar encuentros o ante señales; constancia mínima (fecha, método, verificador, resultado); nunca OCR facial, selfies ni envío a IA; declaración de edad en el bot de WhatsApp con wa_id en hash."
+    },
+    {
+      "id": "gap-nna-decreto-entornos-digitales-2026-04",
+      "priority": "obligatorio",
+      "requirement": "Botón «Reportar» en todo contenido y mensaje, disponible sin cuenta verificada (hoy POST /reports la exige), con los siete motivos del art. 3 y «involucra a un menor de edad»; cola prioritaria para menores y violencia sexual; filtros automáticos (palabras, hash de imágenes conocidas, detección de desnudos) que marcan y ocultan preventivamente; ocultamiento en menos de 24 h y retiro inmediato al confirmar; métricas por categoría."
+    },
+    {
+      "id": "gap-nna-decreto-entornos-digitales-2026-05",
+      "priority": "recomendado",
+      "requirement": "Configuración predeterminada más estricta en cuentas nuevas: ubicación aproximada en perfiles públicos, teléfono y correo ocultos, chat solo tras match o solicitud aceptada, alertas cercanas desactivadas por defecto, fotos sin EXIF, perfil no indexable; formulario sin cuenta para que madres, padres o tutores reporten la cuenta de un menor; punto de «seguridad desde el diseño» en la plantilla de PR."
+    },
+    {
+      "id": "gap-nna-decreto-entornos-digitales-2026-06",
+      "priority": "obligatorio",
+      "requirement": "Evaluación de riesgos por funcionalidad y categoría del art. 3 antes del 12-11-2026 y cada 6 meses o ante funcionalidades nuevas; reporte estadístico semestral sin datos personales (reportes por categoría, retiros, suspensiones, cuentas rechazadas o cerradas por edad, requerimientos, alertas, tiempos) enviado a la ATDT y publicado en /legal/transparencia, con constancia de envío."
+    },
+    {
+      "id": "gap-nna-decreto-entornos-digitales-2026-07",
+      "priority": "obligatorio",
+      "requirement": "Informe del transitorio Cuarto (PDF firmado, con los doce apartados de NNA-07) entregado a más tardar el 12-11-2026 a la ATDT con copia a la CJEF, por el canal que confirme el abogado antes del 05-11-2026; acuse conservado; versión pública en /legal/proteccion-nna; entrada en /legal/versiones con hash; constancia NOM-151 si hay prestador."
+    },
+    {
+      "id": "gap-nna-decreto-entornos-digitales-2026-08",
+      "priority": "obligatorio",
+      "requirement": "Punto de contacto 24/7/365 para autoridades: titular y suplente, teléfono dedicado y correo con guardia rotativa; acceso de emergencia con MFA y bitácora para retirar contenido, suspender cuentas y aplicar retención legal en minutos; tabla authority_requests; niveles de respuesta (1 h para menores o riesgo de vida; 24 h para el resto); publicado en /legal/autoridades."
+    },
+    {
+      "id": "gap-nna-decreto-entornos-digitales-2026-09",
+      "priority": "obligatorio",
+      "requirement": "Bóveda de evidencia aislada y cifrada para todo retiro de contenido o cuenta: objeto + metadatos + reporte + decisión + SHA-256 e índice de solo inserción encadenado; retención ≥ 90 días hábiles (135 días naturales como margen) con retención legal prorrogable; acceso solo del contacto 24/7 y superadmin con MFA y bitácora; exportación con hashes y acta de cadena de custodia; la eliminación de cuenta no vacía la bóveda hasta vencer el plazo; finalidad declarada en el aviso de privacidad."
+    },
+    {
+      "id": "gap-nna-decreto-entornos-digitales-2026-10",
+      "priority": "obligatorio",
+      "requirement": "Protocolo «menores en riesgo»: retiro y bloqueo en minutos, suspensión, evidencia con acceso bloqueado, denuncia ante el Ministerio Público y orientación en el 088 el mismo día, folio registrado; material de abuso sexual infantil nunca reproducido, descargado ni enviado a IA, conservado solo el original con hash a la espera de instrucciones de la autoridad; lista de bloqueo por hash; formación del equipo; postura penal escrita del abogado antes de implementar."
+    },
+    {
+      "id": "gap-nna-decreto-entornos-digitales-2026-11",
+      "priority": "recomendado",
+      "requirement": "Alerta mensual del DOF y de gob.mx/atdt y gob.mx/cjef («entornos digitales», «plataformas digitales», «verificación de edad») y seguimiento de iniciativas legislativas; actualización de /legal/proteccion-nna y del expediente en 30 días ante cualquier ley o lineamiento; leyenda de cumplimiento voluntario e íntegro."
+    },
+    {
+      "id": "gap-nna-decreto-entornos-digitales-2026-12",
+      "priority": "recomendado",
+      "requirement": "Tres niveles de entrega en /legal/autoridades y en el procedimiento interno: datos de cuenta con oficio fundado y motivado; contenido de chats y archivos solo con autorización judicial o aportado por un participante; ubicación en tiempo real o historial solo con orden del Juez de control o requerimiento excepcional del Fiscal (CNPP art. 303) con seguimiento de ratificación; retención legal inmediata ante órdenes de conservación; respuesta escrita estándar si se invoca el decreto NNA para pedir chats sin orden judicial; nota de que el art. 16 no cambió en 2025-2026."
+    }
+  ],
+  "shop_requirements": [
+    {
+      "id": "gap-nna-decreto-entornos-digitales-2026-02",
+      "priority": "obligatorio",
+      "requirement": "La tienda entra en la definición de «Plataforma digital» (art. 2: «comercializar o intermediar bienes»): incluirla en la matriz de cumplimiento, en la evaluación de riesgos y en los criterios publicados de retiro (productos con contenido del art. 3)."
+    },
+    {
+      "id": "gap-nna-decreto-entornos-digitales-2026-03",
+      "priority": "obligatorio",
+      "requirement": "Verificación reforzada de edad (sin conservar copia de identificación) antes de que un refugio publique productos y antes de la primera compra o donativo de una cuenta con señales de riesgo; leyenda «Solo personas mayores de 18 años» en checkout y donativo (coincide con buenas-practicas-33)."
+    },
+    {
+      "id": "gap-nna-decreto-entornos-digitales-2026-09",
+      "priority": "obligatorio",
+      "requirement": "Los productos y cuentas de vendedor retirados también pasan a la bóveda de evidencia por al menos 90 días hábiles; los pedidos en curso se completan o reembolsan (contenido-plataforma-13)."
+    }
+  ],
+  "retention": [
+    {
+      "category": "Evidencia de cuentas y contenidos retirados (bóveda aislada): objeto, metadatos, reporte, decisión, hashes",
+      "period": "Al menos 90 días hábiles desde el retiro (135 días naturales como margen con el calendario de la LFPA art. 28); más con retención legal, apelación en curso u orden de conservación",
+      "basis": "Decreto NNA art. 5 fr. II; LFPDPPP arts. 12 y 25 fr. II y III; CNPP art. 303 último párrafo. Coincide con la fila «Evidencia de contenido y cuentas retirados» de contenido-plataforma."
+    },
+    {
+      "category": "Material de abuso sexual infantil detectado",
+      "period": "Solo el original, con acceso bloqueado, hasta recibir instrucciones de entrega y destrucción de la autoridad; nunca copias ni envío a terceros",
+      "basis": "Decreto NNA art. 5 fr. II y III; CNPP art. 222; CPF arts. 202 y 202 BIS (tensión pendiente de postura del abogado penalista)."
+    },
+    {
+      "category": "Declaración de mayoría de edad y fecha de nacimiento (legal_acceptances)",
+      "period": "10 años desde la aceptación, seudonimizada al borrar la cuenta (misma regla que la bitácora de aceptaciones de contenido-plataforma)",
+      "basis": "CCF art. 640; CCom arts. 49 y 1047 (por contenido-plataforma-15); Decreto NNA art. 4 fr. I."
+    },
+    {
+      "category": "Constancia de verificación reforzada de edad (fecha, método, verificador, resultado)",
+      "period": "Mientras exista la cuenta y 2 años después (propuesta), seudonimizada al borrar la cuenta",
+      "basis": "Decreto NNA art. 4 fr. I; LFPDPPP art. 12 (minimización). Plazo propuesto; el abogado lo confirma."
+    },
+    {
+      "category": "Imágenes de identificaciones subidas para verificación reforzada (solo si se usa la alternativa de carga)",
+      "period": "7 días desde la carga, borrado automático; nunca OCR ni biometría",
+      "basis": "LFPDPPP arts. 8, 12 y 2 fr. VI (riesgo de dato sensible, ver seguridad-incidentes-10 y 11); Recomendaciones INAI–INE 2018."
+    },
+    {
+      "category": "Informe del transitorio Cuarto, acuses, evaluaciones de riesgo y reportes estadísticos enviados",
+      "period": "10 años (propuesta) como prueba de cumplimiento",
+      "basis": "Decreto NNA art. 4 fr. IX y transitorio Cuarto; CCom art. 1047 por analogía (prescripción de 10 años)."
+    },
+    {
+      "category": "Registro de requerimientos y alertas a autoridades (authority_requests) y denuncias presentadas",
+      "period": "Mientras el expediente esté abierto y 10 años (propuesta), igual que contenido-plataforma",
+      "basis": "Decreto NNA art. 5 fr. I y III; CNPP art. 222; AdminAuditLog."
+    },
+    {
+      "category": "Lista de bloqueo por hash de material retirado",
+      "period": "Indefinida mientras el servicio opere (solo hashes, sin contenido)",
+      "basis": "Decreto NNA art. 4 fr. IV; LFDA art. 114 Octies fr. II inc. a) (staydown, contenido-plataforma-04)."
+    }
+  ],
+  "subprocessors": [
+    {
+      "name": "Cloudflare, Inc. (R2: bóveda de evidencia cifrada, separada de los respaldos)",
+      "purpose": "Conservar la evidencia de cuentas y contenidos retirados durante al menos 90 días hábiles con integridad verificable",
+      "data": "Contenido retirado (fotos, textos, mensajes reportados), metadatos de autor (id, IP, user agent, fechas), reportes y decisiones, hashes",
+      "country": "Estados Unidos (ubicación del bucket configurable; cifrado en reposo con clave propia)",
+      "type": "Encargado (LFPDPPP; contrato con cláusulas de confidencialidad y seguridad). Ya listado como proveedor de respaldos en otras secciones."
+    },
+    {
+      "name": "Agencia de Transformación Digital y Telecomunicaciones (ATDT) y Consejería Jurídica del Ejecutivo Federal (CJEF)",
+      "purpose": "Recepción del informe del transitorio Cuarto y de los reportes estadísticos del art. 4 fr. IX; seguimiento",
+      "data": "Información agregada y descriptiva; sin datos personales de usuarios salvo los del representante y del contacto 24/7",
+      "country": "México",
+      "type": "Autoridad receptora: transferencia por obligación legal (LFPDPPP art. 36 fr. I), no encargado. Canal pendiente de confirmación."
+    },
+    {
+      "name": "Ministerio Público (FGR o fiscalías estatales) y Guardia Nacional (088)",
+      "purpose": "Alertas inmediatas por contenido contra menores (art. 5 fr. III), denuncias (CNPP art. 222) y atención de requerimientos del punto de contacto 24/7",
+      "data": "Lo mínimo necesario según el nivel (datos de cuenta; contenido solo con orden judicial; evidencia preservada)",
+      "country": "México",
+      "type": "Autoridad: transferencia para la procuración o administración de justicia (LFPDPPP arts. 9 fr. V y VII y 36 fr. V), no encargado."
+    },
+    {
+      "name": "Proveedor externo de verificación de edad",
+      "purpose": "No previsto en el esquema propuesto; se prefiere verificación interna sin conservar copias",
+      "data": "Ninguno mientras no se contrate; si se contrata, evitar biometría y exigir borrado inmediato",
+      "country": "Por definir",
+      "type": "Encargado potencial. Antes de contratar: análisis de LFPDPPP arts. 8, 12 y 36 y de transferencias internacionales."
+    }
+  ],
+  "owner_data_needed": [
+    "Nombre, cargo, teléfono móvil dedicado y correo de la persona titular del punto de contacto 24/7 para autoridades y de su suplente, y el calendario de guardias que el equipo puede sostener de verdad (Decreto NNA art. 5 fr. I).",
+    "Razón social, RFC, domicilio y nombre de la persona representante que firmará el informe del transitorio Cuarto (depende de la forma legal del Operador, pendiente en identidad-contratos).",
+    "Decisión sobre el esquema de verificación de edad por capas: si se acepta fecha de nacimiento + OTP + señales + verificación reforzada en momentos de riesgo, qué método de verificación reforzada (videollamada o visita sin copia, o carga cifrada con borrado a 7 días) y quién la realiza.",
+    "Lista de configuraciones predeterminadas que el producto puede garantizar en cuentas nuevas (ubicación aproximada, contacto oculto, chat tras match, alertas desactivadas, sin EXIF, no indexable).",
+    "Si existe ya un filtro de desnudos o una lista de bloqueo por hash y con qué proveedor; si no, presupuesto para implementarlo.",
+    "Si se contratará un Prestador de Servicios de Certificación (NOM-151) para sellar el informe y las evidencias.",
+    "Confirmación de que el chat seguirá siendo solo texto (afecta el riesgo de material con menores y el protocolo de NNA-10).",
+    "Plazos reales que el equipo puede cumplir para ocultar contenido del art. 3 (propuesta: menos de 24 h) y para responder a madres, padres o tutores (propuesta: 72 h).",
+    "Correo y domicilio desde los que se enviará el informe y quién gestionará el acuse con la ATDT y la CJEF."
+  ],
+  "lawyer_points": [
+    "Naturaleza del decreto y su exigibilidad frente a particulares (CPEUM art. 89 fr. I; reserva de ley): si conviene cumplir y documentar sin impugnar, como propone esta sección (NNA-01, NNA-11).",
+    "Si una plataforma que excluye a menores puede dar por cumplidas «por diseño» las fr. III, VI y VIII del art. 4 y qué verificación de edad lo justifica (NNA-02, NNA-05).",
+    "Suficiencia del esquema de verificación de edad por capas frente a «no deberán limitarse a la autodeclaración» (art. 4 fr. I), proporcionalidad (LFPDPPP art. 12) y si la verificación con identificación sin conservar copia genera datos sensibles (NNA-03). Resuelve el conflicto entre datos-personales-28, buenas-practicas-33, contenido-plataforma-v03 y contenido-plataforma-11: la casilla es necesaria pero no suficiente.",
+    "Destinatario y canal del informe del transitorio Cuarto: confirmar con la ATDT (y la CJEF) antes del 05-11-2026; cómputo del plazo (12 u 13-11-2026) y valor probatorio del intento documentado si no hay canal (NNA-07).",
+    "Definición de «días hábiles» para los 90 días del art. 5 fr. II (propuesta: LFPA art. 28) y si el plazo aplica a todo retiro o solo a contenido relacionado con menores (NNA-09).",
+    "Postura penal escrita sobre la conservación de material de abuso sexual infantil como evidencia (Decreto art. 5 fr. II) frente al CPF arts. 202 y 202 BIS («almacene»), y la autoridad y forma correctas de denuncia y entrega (CNPP art. 222) (NNA-10).",
+    "Si un equipo pequeño con guardia rotativa satisface el punto de contacto «especializado» 24/7 del art. 5 fr. I (NNA-08).",
+    "Confirmado por esta sección: la reforma CPEUM del DOF 07-10-2026 no tocó el art. 16 (decreto 285: arts. 82, 116 y 122; última reforma del art. 16: 30-09-2024, último párrafo). Queda para el abogado si los mensajes almacenados son «comunicaciones privadas» según la SCJN y si GuauWoow es «proveedor de servicios de aplicaciones y contenidos» para el CNPP art. 303 (NNA-12; cierra el punto 7 de contenido-plataforma).",
+    "Validez de los compromisos de plazo que se publiquen (24 h para ocultar contenido del art. 3; 1 h de primera respuesta a autoridades en casos de menores) como obligaciones contractuales (NNA-04, NNA-08).",
+    "Seguimiento de la Mesa de Trabajo (transitorio Tercero) y de la iniciativa del Senado del 29-04-2026 sobre uso de plataformas por menores (NNA-11)."
+  ],
+  "key_risks": [
+    "No entregar el informe del transitorio Cuarto a más tardar el 12-11-2026 o entregarlo sin verificación de edad más allá de la casilla, sin criterios publicados, sin contacto 24/7 y sin conservación de evidencia (NNA-03, NNA-04, NNA-07, NNA-08, NNA-09).",
+    "Suponer que el decreto no aplica por ser un servicio 18+: el art. 2 no exime a nadie y la CJEF lo confirmó públicamente (NNA-02).",
+    "Pedir credencial o biometría a todas las personas al registrarse: desproporcionado (LFPDPPP art. 12), crea datos de alto riesgo o sensibles y multiplica el daño de una brecha (NNA-03).",
+    "Conservar material de abuso sexual infantil sin postura penal y sin denuncia inmediata: riesgo bajo el CPF arts. 202 y 202 BIS (NNA-10).",
+    "Entregar contenido de chats o ubicación a una autoridad sin orden judicial invocando el decreto: violación del art. 16 constitucional y del CNPP arts. 291 y 303, y posible delito del CPF art. 177 (NNA-08, NNA-12).",
+    "Borrar la evidencia de un retiro antes de 90 días hábiles por una solicitud ARCO o por la eliminación de la cuenta (NNA-09).",
+    "Publicar compromisos de plazo o configuraciones «más estrictas» que el producto no cumple: se vuelven exigibles (NNA-04, NNA-05).",
+    "Citar el decreto como reforma de la LGDNNA o desactualizar la ficha de la LGDNNA (sigue en DOF 15-01-2026) (NNA-01).",
+    "No dar seguimiento a la Mesa de Trabajo ni a las iniciativas: la ley con sanciones que anunció la Presidenta puede llegar con plazos cortos (NNA-11)."
+  ]
+}

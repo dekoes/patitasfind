@@ -28,7 +28,7 @@ def _rewind_cooldown(email: str, seconds: int = 120):
 
 
 def test_register_requires_phone_and_terms(client):
-    base = {"email": _email(), "password": "Segura123", "full_name": "Nueva"}
+    base = {"email": _email(), "password": "Segura123", "full_name": "Nueva", "is_adult": True, "birth_date": "1990-01-01"}
     r = client.post("/auth/register", json={**base, "accepted_terms": True})
     assert r.status_code == 400 and "celular" in r.json()["detail"]
     r = client.post("/auth/register", json={**base, "phone": "12345", "accepted_terms": True})
@@ -53,7 +53,7 @@ def test_writes_require_verified_phone(client, unverified, owner):
     assert r.status_code == 403 and r.json() == PHONE_403
     assert client.post("/dogs", headers=h, json={"name": "X"}).json() == PHONE_403
     assert client.post("/orders", headers=h, json={"items": [], "shipping_address": "x"}).status_code == 403
-    assert client.post("/payments/donations", headers=h, json={"refuge_id": 1, "amount": 50}).status_code == 403
+    assert client.post("/payments/donations", headers=h, json={"accepted_policy": True, "refuge_id": 1, "amount": 50}).status_code == 403
     assert client.post("/refuges/register", headers=h, json={"name": "R"}).status_code == 403
     assert client.post("/foster-homes/register", headers=h, json={"capacity": 1}).status_code == 403
     dog = client.post("/dogs", headers=owner["h"], json={"name": "Lupe"}).json()
@@ -127,7 +127,7 @@ def test_send_code_with_phone_in_body(client, make_user):
 def test_duplicate_verified_phone(client, user, make_user):
     # Registrar con un teléfono ya verificado en otra cuenta
     r = client.post("/auth/register", json={"email": _email(), "password": "Segura123", "full_name": "Dup",
-                                            "phone": user["phone"], "accepted_terms": True})
+                                            "phone": user["phone"], "accepted_terms": True, "is_adult": True, "birth_date": "1990-01-01"})
     assert r.status_code == 409 and r.json()["detail"] == "Este teléfono ya está verificado en otra cuenta"
     # Cambiar a un teléfono ya verificado y pedir código
     other = make_user("Otro", verify=False)
@@ -160,7 +160,7 @@ def test_change_password(client, user):
     assert client.post("/users/me/password", headers=h, json={"current_password": "mal", "new_password": "NuevaClave9"}).status_code == 400
     assert client.post("/users/me/password", headers=h, json={"current_password": user["password"], "new_password": "corta"}).status_code == 400
     r = client.post("/users/me/password", headers=h, json={"current_password": user["password"], "new_password": "NuevaClave9"})
-    assert r.json() == {"ok": True}
+    assert r.json()["ok"] is True and r.json()["access_token"]
     assert client.post("/auth/login", data={"username": user["email"], "password": "NuevaClave9"}).status_code == 200
     assert client.post("/auth/login", data={"username": user["email"], "password": user["password"]}).status_code == 401
 
@@ -174,8 +174,11 @@ def test_passwordless_user_can_set_password(client, user):
     finally:
         db.close()
     assert client.get("/users/me", headers=user["h"]).json()["has_password"] is False
-    assert client.post("/users/me/password", headers=user["h"], json={"new_password": "DesdeGoogle1"}).json() == {"ok": True}
-    assert client.get("/users/me", headers=user["h"]).json()["has_password"] is True
+    r = client.post("/users/me/password", headers=user["h"], json={"new_password": "DesdeGoogle1"})
+    assert r.json()["ok"] is True
+    # Las sesiones anteriores se cierran; la respuesta trae el token nuevo
+    new_h = {"Authorization": f"Bearer {r.json()['access_token']}"}
+    assert client.get("/users/me", headers=new_h).json()["has_password"] is True
 
 
 def test_accept_terms_endpoint(client, user):
@@ -211,9 +214,9 @@ def test_delete_account(client, make_user):
     assert r.json() == {"ok": True}
     assert client.get("/users/me", headers=h).status_code == 401
     assert client.post("/auth/login", data={"username": u["email"], "password": u["password"]}).status_code == 401
-    assert client.get(f"/dogs/{dog['id']}").json()["status"] == "unavailable"
-    rep_after = client.get(f"/lost-reports/{rep['id']}").json()
-    assert rep_after["status"] == "resolved"
+    # El contenido de cuentas eliminadas deja de ser público (más casos en test_privacy_exposure.py)
+    assert client.get(f"/dogs/{dog['id']}").status_code == 404
+    assert client.get(f"/lost-reports/{rep['id']}").status_code == 404
     db = SessionLocal()
     try:
         row = db.query(User).filter(User.email == f"eliminado-{uid}@patitasfind.invalid").first()
@@ -223,7 +226,7 @@ def test_delete_account(client, make_user):
         db.close()
     # El teléfono queda libre para otra cuenta
     r = client.post("/auth/register", json={"email": _email(), "password": "Segura123", "full_name": "Nuevo",
-                                            "phone": u["phone"], "accepted_terms": True})
+                                            "phone": u["phone"], "accepted_terms": True, "is_adult": True, "birth_date": "1990-01-01"})
     assert r.status_code == 201
 
 

@@ -3,13 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PatitasFind Admin</title>
-  <link rel="stylesheet" href="/admin/admin.css" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>GuauWoow Admin</title>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/admin/admin.css?v=2" />
 </head>
 <body>
   <div id="login-view" class="login-view">
     <div class="login-card">
-      <h1>PatitasFind Admin</h1>
+      <h1>GuauWoow Admin</h1>
       <form id="login-form">
         <label for="email">Correo</label>
         <input id="email" type="email" required />
@@ -18,12 +21,23 @@
         <button type="submit">Entrar</button>
         <p id="login-error" class="error"></p>
       </form>
+      <!-- Verificación en dos pasos (segundo paso del inicio de sesión; alta en admin-seguridad.js) -->
+      <form id="mfa-form" class="hidden" autocomplete="off">
+        <p class="hint">Escribe el código de 6 dígitos de tu app de autenticación.</p>
+        <label for="mfa-code">Código de verificación</label>
+        <input id="mfa-code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="20" required />
+        <button type="submit">Verificar</button>
+        <button type="button" id="mfa-cancel" class="btn-secondary">Volver</button>
+        <p class="hint">¿No tienes tu teléfono? Escribe uno de tus códigos de recuperación (xxxxx-xxxxx).</p>
+        <p id="mfa-error" class="error"></p>
+      </form>
+      <div id="mfa-enroll" class="hidden"></div>
     </div>
   </div>
 
   <div id="app-view" class="app-view hidden">
     <aside class="sidebar">
-      <div class="brand">PatitasFind Admin</div>
+      <div class="brand">GuauWoow Admin</div>
       <nav>
         <button data-section="dashboard" class="nav-btn active">Dashboard</button>
         <button data-section="users" class="nav-btn">Usuarios</button>
@@ -31,12 +45,22 @@
         <button data-section="matches" class="nav-btn">Matches</button>
         <button data-section="refuges" class="nav-btn">Refugios pendientes</button>
         <button data-section="foster-homes" class="nav-btn">Casas de paso</button>
+        <button data-section="veterinaries" class="nav-btn">Veterinarias</button>
         <button data-section="products" class="nav-btn">Productos</button>
         <button data-section="orders" class="nav-btn">Pedidos</button>
+        <button data-section="cfdi" class="nav-btn">CFDI</button>
+        <button data-section="statements" class="nav-btn">Estados de cuenta</button>
         <button data-section="donations" class="nav-btn">Donaciones</button>
         <button data-section="lost-reports" class="nav-btn">Perdidos y encontrados</button>
+        <button data-section="reports" class="nav-btn">Reportes</button>
+        <button data-section="moderacion-legal" class="nav-btn">Moderación legal</button>
+        <button data-section="reglas" class="nav-btn">Reglas de negocio</button>
+        <button data-section="solicitudes" class="nav-btn">Solicitudes</button>
+        <button data-section="consentimiento" class="nav-btn">Consentimiento y edad</button>
         <button data-section="whatsapp" class="nav-btn">Bot WhatsApp</button>
         <button data-section="facebook" class="nav-btn">Facebook</button>
+        <button data-section="audit" class="nav-btn">Bitácora</button>
+        <button data-section="seguridad" class="nav-btn">Seguridad</button>
       </nav>
     </aside>
 
@@ -68,6 +92,7 @@
       <section id="users" class="section">
         <h2>Usuarios</h2>
         <div id="users-table" class="table-wrap"></div>
+        <div class="pagination" id="users-pagination"></div>
       </section>
 
       <section id="dogs" class="section">
@@ -101,6 +126,38 @@
         <div id="foster-homes-table" class="table-wrap"></div>
       </section>
 
+      <!-- Veterinarias: cola de verificación (admin-veterinarias.js) -->
+      <section id="veterinaries" class="section">
+        <h2>Veterinarias</h2>
+        <p class="hint">Antes de verificar: abre la cédula, búscala en el
+          <a href="https://www.cedulaprofesional.sep.gob.mx/" target="_blank" rel="noopener noreferrer">Registro Nacional de Profesionistas (SEP)</a>
+          y confirma que el nombre del responsable, el número y la carrera (Medicina Veterinaria y Zootecnia o afín) coinciden.
+          La imagen de la cédula es privada: no la compartas.</p>
+        <div class="filters">
+          <select id="vets-filter-status"><option value="pending">Pendientes</option><option value="verified">Verificadas</option><option value="rejected">Rechazadas</option><option value="">Todas</option></select>
+          <input id="vets-filter-q" type="search" placeholder="Nombre, ciudad o cédula" maxlength="100" />
+          <button id="vets-filter-btn">Filtrar</button>
+        </div>
+        <div id="veterinaries-table" class="table-wrap"></div>
+        <div class="pagination" id="veterinaries-pagination"></div>
+
+        <h3>Reseñas retenidas u ocultas</h3>
+        <p class="hint">Las reseñas con posibles insultos o acusaciones quedan ocultas hasta que alguien del equipo las revise
+          (en 24 horas hábiles). Publícala si solo narra una experiencia; si no, déjala oculta.</p>
+        <div id="vet-reviews-table" class="table-wrap"></div>
+
+        <h3>Aclaraciones y quejas</h3>
+        <p class="hint">Llegan desde el perfil de la clínica o del formulario público sin cuenta
+          (<a href="/app/veterinarias-solicitud.html" target="_blank" rel="noopener">/app/veterinarias-solicitud.html</a>).
+          Plazos: quejas en 72 horas hábiles y aclaraciones en 5 días hábiles. «Publicar» muestra la aclaración junto a la
+          reseña tal cual, sin comentarios; para retirar la reseña usa «Ocultar» en la tabla de arriba o en Reportes.</p>
+        <div class="filters">
+          <select id="vet-req-status"><option value="pending">Pendientes</option><option value="published">Publicadas</option><option value="resolved">Atendidas</option><option value="rejected">No proceden</option><option value="all">Todas</option></select>
+          <button id="vet-req-btn">Filtrar</button>
+        </div>
+        <div id="vet-requests-table" class="table-wrap"></div>
+      </section>
+
       <section id="products" class="section">
         <h2>Productos</h2>
         <div id="products-table" class="table-wrap"></div>
@@ -108,31 +165,208 @@
 
       <section id="orders" class="section">
         <h2>Pedidos de la tienda</h2>
+        <p class="hint">Cada pedido es de un solo refugio y el dinero llega directo a su cuenta de Mercado Pago (split). «Reembolsar» devuelve el pago
+          desde Mercado Pago; si la devolución la aprueba el refugio, el reembolso sale solo.</p>
         <div class="filters">
-          <select id="orders-filter-status"><option value="">Todos los estados</option><option value="pending_payment">Pago pendiente</option><option value="paid">Pagado</option><option value="shipped">Enviado</option><option value="cancelled">Cancelado</option></select>
+          <select id="orders-filter-status"><option value="">Todos los estados</option><option value="pending_payment">Pago pendiente</option><option value="paid">Pagado</option><option value="preparing">Preparando</option><option value="shipped">Enviado</option><option value="delivered">Entregado</option><option value="completed">Completado</option><option value="return_requested">Devolución solicitada</option><option value="return_approved">Devolución aprobada</option><option value="return_rejected">Devolución rechazada</option><option value="refund_pending">Reembolso pendiente</option><option value="refunded">Reembolsado</option><option value="amount_mismatch">Monto distinto (revisar)</option><option value="cancelled">Cancelado</option><option value="expired">Expirado</option></select>
+          <input id="orders-filter-refuge" type="text" inputmode="numeric" placeholder="ID del refugio" />
+          <input id="orders-filter-q" type="text" placeholder="Pedido, cliente o ID de pago" />
           <button id="orders-filter-btn">Filtrar</button>
         </div>
         <div id="orders-table" class="table-wrap"></div>
+        <div class="pagination" id="orders-pagination"></div>
+      </section>
+
+      <section id="cfdi" class="section">
+        <h2>CFDI de la plataforma</h2>
+        <p class="hint">Cada mes (día 3) se emite a cada refugio con ventas el CFDI de ingreso por la comisión (IVA 16 %) y, si es persona física,
+          el CFDI de retenciones (ISR e IVA). Sin PAC configurado (<code>PAC_PROVIDER</code>) quedan «pendientes de PAC» y no se envía nada.</p>
+        <div class="filters">
+          <select id="cfdi-filter-period"></select>
+          <select id="cfdi-filter-status"><option value="">Todos los estados</option><option value="pending_pac">Pendiente de PAC</option><option value="issued">Emitido</option><option value="error">Error</option></select>
+          <button id="cfdi-filter-btn">Filtrar</button>
+          <button id="cfdi-generate-btn" class="btn-secondary">Generar CFDI del periodo</button>
+        </div>
+        <div id="cfdi-summary" class="mini-stats"></div>
+        <div id="cfdi-table" class="table-wrap"></div>
+      </section>
+
+      <section id="statements" class="section">
+        <h2>Estados de cuenta</h2>
+        <p class="hint">Resumen mensual por refugio: ventas, envíos, comisión de la plataforma, impuestos retenidos y neto recibido en Mercado Pago.
+          No hay dispersiones: el dinero llega directo a cada refugio con el pago dividido.</p>
+        <div class="filters">
+          <select id="statements-filter-period"></select>
+        </div>
+        <div id="statements-summary" class="mini-stats"></div>
+        <div id="statements-table" class="table-wrap"></div>
       </section>
 
       <section id="donations" class="section">
         <h2>Donaciones</h2>
         <div class="filters">
-          <select id="donations-filter-status"><option value="">Todos los estados</option><option value="pending">Pendiente</option><option value="approved">Aprobada</option><option value="rejected">Rechazada</option></select>
+          <select id="donations-filter-status"><option value="">Todos los estados</option><option value="pending">Pendiente</option><option value="approved">Aprobada</option><option value="amount_mismatch">Monto distinto (revisar)</option><option value="refund_pending">Reembolso pendiente</option><option value="refunded">Reembolsada</option><option value="rejected">Rechazada</option></select>
           <button id="donations-filter-btn">Filtrar</button>
         </div>
         <div id="donations-summary" class="mini-stats"></div>
         <div id="donations-table" class="table-wrap"></div>
       </section>
 
+      <!-- Reglas de negocio (admin-reglas.js; services/reglas.py) -->
+      <section id="reglas" class="section">
+        <h2>Reglas de negocio</h2>
+        <p class="hint">Publicaciones retenidas por cobros, venta o rifas y por la lista de productos prohibidos; bonificaciones de 20 % (LFPC 92 Ter) a cargo de los refugios; alertas de la ley antilavado en donativos y facturas pedidas hace más de 24 h.</p>
+        <h3>Retenciones para revisión</h3>
+        <div class="filters">
+          <select id="reglas-holds-status"><option value="en_revision">En revisión</option><option value="liberado">Liberadas</option><option value="rechazado">Rechazadas</option><option value="all">Todas</option></select>
+          <button id="reglas-holds-btn">Filtrar</button>
+        </div>
+        <div id="reglas-holds-table" class="table-wrap"></div>
+        <h3>Bonificaciones (LFPC art. 92 Ter)</h3>
+        <div class="filters">
+          <select id="reglas-bonus-status"><option value="pendiente">Pendientes</option><option value="pagada">Pagadas</option><option value="improcedente">No proceden</option><option value="all">Todas</option></select>
+          <button id="reglas-bonus-btn">Filtrar</button>
+        </div>
+        <div id="reglas-bonus-table" class="table-wrap"></div>
+        <h3>Alertas antilavado en donativos</h3>
+        <div id="reglas-aml-table" class="table-wrap"></div>
+        <h3>Facturas pedidas hace más de 24 h</h3>
+        <div id="reglas-invoices-table" class="table-wrap"></div>
+      </section>
+
       <section id="lost-reports" class="section">
         <h2>Perdidos y encontrados</h2>
         <div class="filters">
-          <select id="lost-filter-status"><option value="">Todos los estados</option><option value="active">Activos</option><option value="resolved">Resueltos</option><option value="closed">Cerrados</option></select>
-          <select id="lost-filter-source"><option value="">Todas las fuentes</option><option value="app">App</option><option value="whatsapp">WhatsApp</option><option value="facebook">Facebook</option></select>
+          <select id="lost-filter-status"><option value="">Todos los estados</option><option value="active">Activos</option><option value="resolved">Resueltos</option><option value="expired">Expirados</option><option value="closed">Cerrados</option></select>
+          <select id="lost-filter-source"><option value="">Todas las fuentes</option><option value="app">App</option><option value="whatsapp">WhatsApp</option><option value="facebook">Facebook</option><option value="volunteer">Voluntarios</option></select>
           <button id="lost-filter-btn">Filtrar</button>
         </div>
         <div id="lost-reports-table" class="table-wrap"></div>
+      </section>
+
+      <section id="reports" class="section">
+        <h2>Reportes de contenido</h2>
+        <p class="hint">Publicaciones, refugios, productos y usuarios que la comunidad reportó. «Ocultar contenido» lo retira del público
+          (su dueño y los admins lo siguen viendo); «Suspender usuario» desactiva la cuenta y cierra sus sesiones.</p>
+        <div class="filters">
+          <select id="reports-filter-status"><option value="open">Abiertos</option><option value="resolved">Resueltos</option><option value="dismissed">Descartados</option><option value="all">Todos</option></select>
+          <button id="reports-filter-btn">Filtrar</button>
+        </div>
+        <div id="reports-table" class="table-wrap"></div>
+        <div class="pagination" id="reports-pagination"></div>
+      </section>
+
+      <!-- Moderación legal: cola priorizada, apelaciones, derechos de autor, autoridades y evidencia (admin-cumplimiento.js) -->
+      <section id="moderacion-legal" class="section">
+        <h2>Moderación legal</h2>
+        <p class="hint">Lo que involucra a menores va primero y ya está oculto. El material de abuso sexual infantil nunca se
+          muestra aquí (solo metadatos): no lo descargues ni lo reproduzcas. Cada medida le llega a la persona con la regla,
+          cómo se detectó y cómo apelar; la apelación la resuelve alguien distinto de quien decidió.</p>
+        <p class="hint" id="ml-summary"></p>
+        <div class="filters" role="group" aria-label="Secciones de moderación legal">
+          <button type="button" class="ml-tab btn-success" data-tab="cola" aria-pressed="true">Cola priorizada</button>
+          <button type="button" class="ml-tab btn-secondary" data-tab="apelaciones" aria-pressed="false">Apelaciones</button>
+          <button type="button" class="ml-tab btn-secondary" data-tab="derechos" aria-pressed="false">Derechos de autor</button>
+          <button type="button" class="ml-tab btn-secondary" data-tab="autoridades" aria-pressed="false">Autoridades</button>
+          <button type="button" class="ml-tab btn-secondary" data-tab="evidencia" aria-pressed="false">Evidencia</button>
+          <button type="button" class="ml-tab btn-secondary" data-tab="medidas" aria-pressed="false">Medidas</button>
+        </div>
+
+        <div class="ml-panel" data-panel="cola">
+          <p class="hint">Orden: menores, urgentes (siete categorías del Decreto, contenido íntimo, venta, maltrato), estafas y el
+            resto. «Descartar» un reporte que ocultó el contenido al llegar lo vuelve a mostrar.</p>
+          <div class="filters">
+            <select id="ml-queue-priority"><option value="">Todas las prioridades</option><option value="0">Menores</option><option value="1">Urgentes</option><option value="2">Estafas y venta</option><option value="3">General</option></select>
+            <label><input type="checkbox" id="ml-queue-overdue" /> Solo vencidos</label>
+            <button id="ml-queue-filter" type="button">Filtrar</button>
+          </div>
+          <div id="ml-queue-table" class="table-wrap"></div>
+        </div>
+
+        <div class="ml-panel hidden" data-panel="apelaciones">
+          <div class="filters">
+            <select id="ml-appeals-filter"><option value="pending">Pendientes</option><option value="upheld">Confirmadas</option><option value="reversed">Revocadas</option><option value="all">Todas</option></select>
+          </div>
+          <div id="ml-appeals-table" class="table-wrap"></div>
+        </div>
+
+        <div class="ml-panel hidden" data-panel="derechos">
+          <p class="hint">Somos neutrales. «Retirar» oculta el contenido, bloquea la imagen para que no se vuelva a subir, guarda la
+            evidencia y le manda a quien lo subió la copia del aviso y el enlace al contra-aviso. Con contra-aviso se restaura
+            solo entre el día hábil 10 y el 15, salvo que quien avisó acredite un procedimiento. Reincidentes: 2 avisos
+            procedentes en 12 meses suspenden 30 días; 3 cancelan la cuenta.</p>
+          <div class="filters">
+            <select id="ml-notices-filter"><option value="open">Abiertos</option><option value="received">Recibidos</option><option value="incomplete">Incompletos</option><option value="removed">Retirados</option><option value="counter_notice">Con contra-aviso</option><option value="litigation">Con procedimiento</option><option value="restored">Restaurados</option><option value="final">Firmes</option><option value="rejected">No proceden</option><option value="all">Todos</option></select>
+          </div>
+          <div id="ml-notices-table" class="table-wrap"></div>
+        </div>
+
+        <div class="ml-panel hidden" data-panel="autoridades">
+          <p class="hint">Solo por escrito. Antes de entregar: verifica la autenticidad, la competencia y el fundamento. Nivel 1
+            (datos de cuenta): oficio fundado y motivado. Nivel 2 (comunicaciones): autorización judicial o que lo aporte una
+            persona participante. Nivel 3 (ubicación): Juez de control o CNPP art. 303. «Preservar» aplica la retención legal.</p>
+          <form id="ml-authority-form" class="form-stack">
+            <div class="form-row">
+              <div><label for="mla-direction">Registro</label><select id="mla-direction" name="direction"><option value="entrante">Requerimiento recibido</option><option value="saliente">Denuncia o alerta que presentamos</option></select></div>
+              <div><label for="mla-kind">Qué se pide</label><select id="mla-kind" name="kind"></select></div>
+              <div><label for="mla-level">Nivel de la información</label><select id="mla-level" name="level"><option value="">Según lo que se pide</option><option value="1">1 · Datos de la cuenta</option><option value="2">2 · Contenido de comunicaciones</option><option value="3">3 · Ubicación</option></select></div>
+              <div><label for="mla-authority-type">Tipo de autoridad</label><select id="mla-authority-type" name="authority_type"></select></div>
+            </div>
+            <div class="form-row">
+              <div><label for="mla-authority-name">Autoridad</label><input id="mla-authority-name" name="authority_name" type="text" maxlength="255" required /></div>
+              <div><label for="mla-case">Expediente o carpeta</label><input id="mla-case" name="case_number" type="text" maxlength="120" /></div>
+              <div><label for="mla-targets">Cuentas o contenidos (tipo:id)</label><input id="mla-targets" name="targets" type="text" placeholder="user:12, dog:5, conversation:3" /></div>
+            </div>
+            <label for="mla-basis">Fundamento y motivación</label>
+            <textarea id="mla-basis" name="legal_basis" rows="2" maxlength="4000"></textarea>
+            <label for="mla-data">Datos que se piden</label>
+            <textarea id="mla-data" name="requested_data" rows="2" maxlength="4000"></textarea>
+            <div class="form-row">
+              <div><label for="mla-received">Recibido</label><input id="mla-received" name="received_at" type="datetime-local" /></div>
+              <div><label for="mla-due">Plazo del oficio</label><input id="mla-due" name="due_at" type="datetime-local" /></div>
+              <div><label for="mla-auth-method">Cómo se verificó</label><input id="mla-auth-method" name="authenticity_method" type="text" maxlength="300" placeholder="Llamada al número oficial…" /></div>
+            </div>
+            <div class="filters">
+              <label><input type="checkbox" name="involves_minor" /> Involucra a menores</label>
+              <label><input type="checkbox" name="life_risk" /> Riesgo para la vida</label>
+              <label><input type="checkbox" name="judicial_order" /> Trae orden judicial</label>
+              <label><input type="checkbox" name="participant_consent" /> Lo aporta un participante</label>
+              <label><input type="checkbox" name="authenticity_verified" /> Autenticidad verificada</label>
+              <label><input type="checkbox" name="legal_review" /> Revisión legal</label>
+            </div>
+            <button type="submit">Registrar</button>
+          </form>
+          <div class="filters">
+            <select id="ml-authorities-filter"><option value="open">Abiertos</option><option value="all">Todos</option><option value="pendiente_denuncia">Denuncias pendientes</option><option value="entregado">Entregados</option><option value="rechazado">Rechazados</option></select>
+          </div>
+          <div id="ml-authorities-table" class="table-wrap"></div>
+        </div>
+
+        <div class="ml-panel hidden" data-panel="evidencia">
+          <p class="hint">Copias cifradas de lo retirado, al menos 90 días hábiles (más con retención legal). Aquí solo hay
+            metadatos y huellas. Exportar para una autoridad y liberar una cuarentena son acciones de superadmin y quedan en la
+            bitácora.</p>
+          <div class="filters">
+            <select id="ml-evidence-filter"><option value="">Toda la evidencia</option><option value="true">En cuarentena</option><option value="false">Sin cuarentena</option></select>
+            <button id="ml-verify-chain" type="button" class="btn-secondary">Verificar la cadena de hashes</button>
+          </div>
+          <div id="ml-evidence-table" class="table-wrap"></div>
+        </div>
+
+        <div class="ml-panel hidden" data-panel="medidas">
+          <div id="ml-actions-table" class="table-wrap"></div>
+        </div>
+      </section>
+
+      <section id="audit" class="section">
+        <h2>Bitácora de administración</h2>
+        <p class="hint">Quién hizo qué en el panel (solo superadmins).</p>
+        <div class="filters">
+          <input id="audit-filter-action" type="text" placeholder="Acción (p. ej. user.suspend)" />
+          <button id="audit-filter-btn">Filtrar</button>
+        </div>
+        <div id="audit-table" class="table-wrap"></div>
+        <div class="pagination" id="audit-pagination"></div>
       </section>
 
       <section id="whatsapp" class="section">
@@ -159,9 +393,48 @@
 
       <section id="facebook" class="section">
         <h2>Facebook</h2>
-        <p class="hint">Meta retiró la API de Grupos en 2024 y el scraping de grupos viola sus términos. Aquí puedes
-          conectar <strong>Páginas de Facebook</strong> (Graph API, requiere <code>FACEBOOK_PAGE_ACCESS_TOKEN</code>)
-          o <strong>importar manualmente</strong> publicaciones que voluntarios encuentren en grupos.</p>
+        <p class="hint">Cuando alguien publica un reporte de perrito perdido o encontrado, leemos los <strong>grupos públicos
+          de su estado</strong> con un proveedor externo (Apify, sin cuenta de Facebook). Solo guardamos foto y texto sin
+          teléfonos, correos ni usuarios, con enlace a la publicación original; los reportes importados caducan a los 30 días.
+          Esta captación está pendiente de revisión legal (Términos de Meta y LFPDPPP art. 17): consulta
+          <code>docs/facebook-grupos.md</code> antes de activar grupos.</p>
+        <div id="fb-provider" class="fb-banner">Cargando…</div>
+        <div id="fb-spend"></div>
+
+        <h3>Grupos públicos por estado</h3>
+        <div class="filters">
+          <div><label for="fbg-filter-state">Estado</label><select id="fbg-filter-state"><option value="">Todos los estados</option></select></div>
+          <div><label for="fbg-filter-active">Situación</label>
+            <select id="fbg-filter-active"><option value="">Activos y pausados</option><option value="true">Activos</option><option value="false">Pausados</option></select></div>
+          <div><label for="fbg-filter-q">Buscar</label><input id="fbg-filter-q" type="search" placeholder="Nombre, ciudad o URL" /></div>
+          <button id="fbg-filter-btn" type="button">Filtrar</button>
+          <button id="fbg-add-btn" type="button" class="btn-secondary">Agregar grupo</button>
+        </div>
+        <div id="fbg-form-wrap" class="hidden">
+          <h3 id="fbg-form-title">Agregar grupo público</h3>
+          <form id="fbg-form" class="form-inline">
+            <div><label for="fbg-name">Nombre del grupo</label><input id="fbg-name" type="text" minlength="2" maxlength="255" required /></div>
+            <div><label for="fbg-url">URL del grupo</label><input id="fbg-url" type="url" maxlength="500" placeholder="https://www.facebook.com/groups/..." required /></div>
+            <div><label for="fbg-state">Estado</label><select id="fbg-state" required><option value="">Elige el estado</option></select></div>
+            <div><label for="fbg-city">Ciudad (opcional)</label><input id="fbg-city" type="text" maxlength="100" /></div>
+            <div class="fb-check"><input id="fbg-active" type="checkbox" checked /><label for="fbg-active">Activo</label></div>
+            <button type="submit">Guardar grupo</button>
+            <button type="button" id="fbg-cancel" class="btn-secondary">Cancelar</button>
+          </form>
+        </div>
+        <form id="fbg-csv-form" class="form-inline">
+          <div><label for="fbg-csv-file">Importar CSV (columnas <code>name,state,city,group_url</code> y opcional <code>active</code>; los nuevos quedan pausados salvo <code>active</code> = sí)</label>
+            <input id="fbg-csv-file" type="file" accept=".csv,text/csv" required /></div>
+          <button type="submit">Importar CSV</button>
+          <a href="#" id="fbg-csv-template">Descargar plantilla</a>
+        </form>
+        <p id="fbg-csv-result" class="hint"></p>
+        <p class="hint" id="fbg-count"></p>
+        <div id="fbg-table" class="table-wrap"></div>
+        <h3 id="fbg-history-title" class="hidden">Gasto por día</h3>
+        <div id="fbg-history" class="table-wrap"></div>
+
+        <h3>Páginas de Facebook (Graph API)</h3>
         <p class="hint" id="facebook-status"></p>
 
         <h3>Importar publicación manualmente</h3>
@@ -180,7 +453,7 @@
           <p id="facebook-import-result" class="hint"></p>
         </form>
 
-        <h3>Fuentes</h3>
+        <h3>Páginas y fuentes manuales</h3>
         <form id="facebook-form" class="form-inline">
           <div><label for="fb-name">Nombre</label><input id="fb-name" type="text" required /></div>
           <div><label for="fb-url">URL</label><input id="fb-url" type="url" required /></div>
@@ -193,9 +466,103 @@
         </form>
         <div id="facebook-table" class="table-wrap"></div>
       </section>
+
+      <!-- Seguridad: MFA, incidentes, cifrado y conservación (admin-seguridad.js) -->
+      <section id="seguridad" class="section">
+        <h2>Seguridad</h2>
+        <div class="panel">
+          <h3>Tu verificación en dos pasos</h3>
+          <div id="sec-mfa-me"></div>
+        </div>
+        <div class="panel">
+          <h3>Personal administrador</h3>
+          <p class="hint">Solo un superadmin puede restablecer la verificación de otra persona (por ejemplo, si perdió su teléfono).</p>
+          <div id="sec-mfa-admins" class="table-wrap"></div>
+        </div>
+        <div class="panel">
+          <h3>Registro de incidentes</h3>
+          <p class="hint">Abre un incidente en cuanto sospeches una vulneración (hora 0 del plan de respuesta): mientras esté abierto con
+            «congelar purgas», la purga automática no borra nada. Para cerrar una vulneración registra la causa raíz y la decisión
+            sobre la afectación significativa. Solo el resumen público aparece en la página de estado.</p>
+          <div class="filters">
+            <select id="sec-inc-status"><option value="activos">Abiertos y contenidos</option><option value="cerrado">Cerrados</option><option value="">Todos</option></select>
+            <button id="sec-inc-filter" type="button">Filtrar</button>
+            <button id="sec-inc-new" type="button" class="btn-secondary">Registrar incidente</button>
+          </div>
+          <div id="sec-inc-form" class="hidden"></div>
+          <div id="sec-inc-table" class="table-wrap"></div>
+        </div>
+        <div class="panel">
+          <h3>Cifrado de documentos privados</h3>
+          <div id="sec-cifrado"></div>
+        </div>
+        <div class="panel">
+          <h3>Conservación de datos</h3>
+          <p class="hint">La purga diaria aplica la tabla publicada en <a href="/app/legal/conservacion.html" target="_blank" rel="noopener">Conservación de datos</a>.
+            «Simular» cuenta lo que borraría sin borrar nada.</p>
+          <div class="filters">
+            <button id="sec-ret-dry" type="button" class="btn-secondary">Simular purga</button>
+            <button id="sec-ret-run" type="button" class="btn-danger">Ejecutar purga ahora</button>
+          </div>
+          <div id="sec-ret-status" class="hint"></div>
+          <div id="sec-ret-runs" class="table-wrap"></div>
+        </div>
+      </section>
+      <!-- Centro de solicitudes: ARCO, quejas y retiro de importados (admin-solicitudes.js) -->
+      <section id="solicitudes" class="section">
+        <h2>Centro de solicitudes</h2>
+        <p class="hint">Derechos ARCO, revocación y limitación del consentimiento, dudas y quejas, y retiro de publicaciones importadas,
+          con o sin cuenta. Plazos en días hábiles (sin fines de semana ni días de descanso obligatorio): datos personales, respuesta en
+          20 y, si procede, efectiva en 15; quejas según la política publicada; retiro de una publicación importada por su autor, menos
+          de 72 horas (se oculta al recibirla). Pide información solo una vez y dentro de los primeros 5 días hábiles. Una identificación
+          solo se pide si hace falta y se borra al comprobar la identidad o al resolver.</p>
+        <div id="sol-summary" class="mini-stats"></div>
+        <div class="filters">
+          <select id="sol-filter-estado"><option value="abiertas">Abiertas</option><option value="recibida">Recibidas</option><option value="en_revision">En revisión</option><option value="respondida">Respondidas</option><option value="efectiva">Hechas efectivas</option><option value="cerrada">Cerradas</option><option value="todas">Todas</option></select>
+          <select id="sol-filter-tipo"><option value="">Todos los tipos</option></select>
+          <input id="sol-filter-q" type="search" placeholder="Folio, nombre o correo" maxlength="120" />
+          <button id="sol-filter-btn">Filtrar</button>
+          <button id="sol-new-btn" class="btn-secondary" type="button">Registrar solicitud</button>
+        </div>
+        <div id="sol-table" class="table-wrap"></div>
+        <div class="pagination" id="sol-pagination"></div>
+      </section>
+      <!-- Consentimiento: verificación reforzada de edad, bitácora de aceptaciones y registro de versiones (admin-consentimiento.js) -->
+      <section id="consentimiento" class="section">
+        <h2>Consentimiento y edad</h2>
+        <p class="hint">Verificación reforzada de edad: un reporte «involucra a un menor» contra una cuenta, o tu solicitud, la deja en solo
+          lectura hasta que la persona confirma su fecha de nacimiento, un código nuevo por SMS y una declaración. Nunca pidas copia de una
+          identificación ni uses biometría. Libérala solo si resolviste la señal por otro medio (queda en la bitácora).</p>
+        <div class="filters">
+          <select id="cons-age-status"><option value="required">Pendientes</option><option value="review">Revisión manual</option><option value="failed">Fallidas (revisar)</option><option value="passed">Aprobadas</option><option value="cleared">Liberadas</option><option value="all">Todas</option></select>
+          <input id="cons-age-user" type="number" min="1" placeholder="ID de la cuenta" />
+          <button id="cons-age-request" class="btn-secondary" type="button">Pedir verificación a esta cuenta</button>
+        </div>
+        <div id="cons-age-table" class="table-wrap"></div>
+        <h3>Bitácora de aceptaciones</h3>
+        <p class="hint">De solo inserción y encadenada con SHA-256: cada fila guarda la huella de la anterior.</p>
+        <div class="filters">
+          <button id="cons-chain-btn" type="button">Verificar la cadena</button>
+          <input id="cons-acc-user" type="number" min="1" placeholder="ID de la cuenta" />
+          <button id="cons-acc-btn" class="btn-secondary" type="button">Ver aceptaciones y permisos</button>
+          <button id="cons-sync-btn" class="btn-secondary" type="button">Sincronizar versiones</button>
+        </div>
+        <div id="cons-chain-status" class="hint"></div>
+        <div id="cons-acc-table" class="table-wrap"></div>
+        <div id="cons-consent-table" class="table-wrap"></div>
+      </section>
     </main>
   </div>
 
-  <script src="/admin/admin.js"></script>
+  <script src="/admin/admin.js?v=3"></script>
+  <script src="/app/admin-facebook.js?v=2"></script>
+  <script src="/app/admin-veterinarias.js?v=2"></script>
+  <script src="/app/admin-tienda.js?v=1"></script>
+  <script src="/app/admin-reglas.js?v=1"></script>
+  <script src="/app/admin-solicitudes.js?v=1"></script>
+  <script src="/app/vendor/qrcode-generator/qrcode.js?v=1.4.4"></script>
+  <script src="/app/admin-seguridad.js?v=1"></script>
+  <script src="/app/admin-cumplimiento.js?v=1"></script>
+  <script src="/app/admin-consentimiento.js?v=1"></script>
 </body>
 </html>

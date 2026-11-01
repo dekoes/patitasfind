@@ -1,0 +1,5 @@
+qrcode-generator 1.4.4 (Kazuhiko Arase, licencia MIT; ver el encabezado de qrcode.js)
+Origen: https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js
+SHA-256: 18ae399f81182bc9de916e9c77b195df20cc58d6f2d55a62b085a299f1bf1780
+Uso: código QR de la verificación en dos pasos del panel (app/admin-seguridad.js); se genera en el navegador,
+el secreto nunca sale a un servicio externo.

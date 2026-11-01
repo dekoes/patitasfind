@@ -14,6 +14,7 @@ from app.config import settings
 
 logger = logging.getLogger(__name__)
 CHANNEL_PREFIX = "chat:"
+SEND_TIMEOUT_SECONDS = 5  # un socket que no recibe en este tiempo se considera muerto
 
 
 class ChatHub:
@@ -23,6 +24,7 @@ class ChatHub:
         self._redis = None
         self._ready: asyncio.Event | None = None
         self._loop: asyncio.AbstractEventLoop | None = None
+        self._closing: set[asyncio.Task] = set()  # cierres en curso (referencia para que no se pierdan)
 
     def _check_loop(self):
         loop = asyncio.get_running_loop()
@@ -51,13 +53,28 @@ class ChatHub:
                 self.local.pop(conversation_id, None)
 
     async def deliver_local(self, conversation_id: int, event: dict, exclude: WebSocket | None = None):
-        for ws in list(self.local.get(conversation_id, ())):
-            if ws is exclude:
-                continue
-            try:
-                await ws.send_json(event)
-            except Exception:  # noqa: BLE001 - socket muerto
-                self.disconnect(conversation_id, ws)
+        """Envía a todos los sockets locales en paralelo; uno lento o roto no frena a los demás."""
+        targets = [ws for ws in list(self.local.get(conversation_id, ())) if ws is not exclude]
+        if targets:
+            await asyncio.gather(*(self._send(conversation_id, ws, event) for ws in targets))
+
+    async def _send(self, conversation_id: int, ws: WebSocket, event: dict) -> bool:
+        try:
+            await asyncio.wait_for(ws.send_json(event), timeout=SEND_TIMEOUT_SECONDS)
+            return True
+        except Exception:  # noqa: BLE001 - socket muerto o lento: se suelta y se cierra (el cliente reconecta)
+            self.disconnect(conversation_id, ws)
+            task = asyncio.create_task(self._close_quietly(ws))
+            self._closing.add(task)
+            task.add_done_callback(self._closing.discard)
+            return False
+
+    @staticmethod
+    async def _close_quietly(ws: WebSocket):
+        try:
+            await asyncio.wait_for(ws.close(code=1011), timeout=1)
+        except Exception:  # noqa: BLE001
+            pass
 
     # ---------------------------------------------------------------- publicación
     async def publish(self, conversation_id: int, event: dict, exclude: WebSocket | None = None):
@@ -72,17 +89,20 @@ class ChatHub:
         await self.deliver_local(conversation_id, event, exclude=exclude)
 
     def publish_sync(self, conversation_id: int, event: dict):
-        """Para código síncrono (endpoints REST en threadpool, tareas Celery)."""
-        if settings.redis_url:
-            try:
-                import redis
+        """Para código síncrono (endpoints REST en threadpool, tareas Celery).
 
-                client = redis.from_url(settings.redis_url)
-                client.publish(f"{CHANNEL_PREFIX}{conversation_id}", json.dumps(event, default=str))
-                client.close()
-                return
-            except Exception as exc:  # noqa: BLE001
-                logger.warning("No se pudo publicar en Redis: %s", exc)
+        Usa el cliente de Redis compartido del proceso (pool de conexiones) en vez de abrir uno por mensaje.
+        """
+        if settings.redis_url:
+            from app import cache
+
+            client = cache._get_redis()
+            if client is not None:
+                try:
+                    client.publish(f"{CHANNEL_PREFIX}{conversation_id}", json.dumps(event, default=str))
+                    return
+                except Exception as exc:  # noqa: BLE001
+                    logger.warning("No se pudo publicar en Redis: %s", exc)
         if self._loop and self._loop.is_running():
             asyncio.run_coroutine_threadsafe(self.deliver_local(conversation_id, event), self._loop)
 

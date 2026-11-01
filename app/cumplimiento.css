@@ -1,0 +1,15 @@
+/* GuauWoow — consentimiento en la app (cumplimiento.js): ventanas de aceptación, edad, avisos y preferencias */
+.mt4{margin-top:4px}
+.cp-card{max-width:400px;max-height:86vh;overflow-y:auto}
+.cp-doc{background:var(--surface);text-align:left}
+.cp-doc .badge{flex-shrink:0}
+.cp-check{align-items:flex-start;gap:8px;font-weight:700}
+.cp-check input{width:20px;height:20px;flex-shrink:0;margin-top:2px}
+.cp-banner{margin-top:0}
+.cp-banner .link{white-space:nowrap}
+#cp-notices{display:flex;flex-direction:column;gap:8px;margin-bottom:8px}
+#cp-notices:empty{display:none}
+.cp-pref .switch{margin-top:2px}
+.cp-acc{gap:10px;border-bottom:1px dashed var(--line);padding-bottom:6px}
+.cp-acc:last-of-type{border-bottom:none}
+#tm-age.hidden,#f-age.hidden{display:none}

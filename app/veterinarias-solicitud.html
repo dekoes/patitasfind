@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aclaraciones y quejas sobre clínicas veterinarias · GuauWoow</title>
+<meta name="description" content="Formulario público, sin cuenta, para pedir una aclaración sobre una reseña o presentar una queja sobre una clínica veterinaria del directorio de GuauWoow.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#33C7BE">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#1D2233;--muted:#5B6275;--bg:#FFF8EC;--card:#FFFFFF;--teal:#33C7BE;--teal-d:#1E9C94;--yellow:#FFE58A;--pink:#F6C8A4;--line:#1D2233;--err:#C2392E}
+  @media (prefers-color-scheme: dark){:root{--ink:#F3F1EA;--muted:#B9BCC8;--bg:#171A24;--card:#222634;--line:#3A4053;--yellow:#5C4E12;--pink:#5A3A26}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:500 16px/1.45 "Baloo 2",system-ui,sans-serif}
+  main{max-width:640px;margin:0 auto;padding:20px 16px 48px}
+  .brand{display:flex;align-items:center;gap:8px;font-weight:800;font-size:20px;color:var(--ink);text-decoration:none}
+  .paw{width:34px;height:34px;border-radius:12px;background:var(--teal);display:grid;place-items:center}
+  .paw svg{width:22px;height:22px;fill:#fff}
+  h1{font-size:26px;line-height:1.15;margin:18px 0 6px}
+  .card{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:14px;margin-top:14px;box-shadow:0 3px 0 var(--line)}
+  .note{background:var(--yellow);border-radius:14px;padding:10px 12px;font-size:14px;font-weight:600;margin-top:12px}
+  label,.lbl{display:block;font-weight:800;font-size:14px;margin:12px 0 4px}
+  input[type=text],input[type=email],input[type=search],select,textarea{width:100%;font:inherit;color:inherit;background:var(--card);border:2px solid var(--line);border-radius:12px;padding:9px 11px}
+  textarea{min-height:120px;resize:vertical}
+  .row{display:flex;gap:8px;align-items:center}
+  .row>input{flex:1;min-width:0}
+  button{font:inherit;font-weight:800;border:2px solid var(--line);border-radius:14px;padding:9px 16px;background:var(--teal);color:#fff;cursor:pointer;box-shadow:0 3px 0 var(--line)}
+  button.ghost{background:var(--card);color:var(--ink)}
+  button[disabled]{opacity:.6;cursor:wait}
+  .small{font-size:13.5px}.muted{color:var(--muted)}
+  .opt{display:flex;gap:10px;align-items:flex-start;padding:10px;border:2px solid var(--line);border-radius:14px;margin-top:8px;cursor:pointer;font-weight:600}
+  .opt input{margin-top:4px;width:18px;height:18px;flex-shrink:0}
+  .opt.on{background:rgba(51,199,190,.15)}
+  .check{display:flex;gap:8px;align-items:flex-start;font-weight:600;font-size:14px}
+  .check input{width:20px;height:20px;flex-shrink:0;margin-top:2px}
+  .err{color:var(--err);font-weight:700;font-size:14px;margin-top:10px}
+  .ok{background:#D9F6F2;border-color:var(--teal-d)}
+  .hidden{display:none!important}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+  a{color:var(--teal-d);font-weight:700}
+  .review{white-space:pre-line}
+</style>
+</head>
+<body>
+<main>
+  <a class="brand" href="/" aria-label="GuauWoow, ir al inicio"><span class="paw" aria-hidden="true"><svg viewBox="0 0 64 64"><ellipse cx="32" cy="40" rx="15" ry="12"/><ellipse cx="14" cy="26" rx="7" ry="9" transform="rotate(-18 14 26)"/><ellipse cx="26" cy="17" rx="7" ry="9"/><ellipse cx="40" cy="17" rx="7" ry="9"/><ellipse cx="51" cy="26" rx="7" ry="9" transform="rotate(18 51 26)"/></svg></span>Guau<b>Woow</b></a>
+  <h1>Aclaraciones y quejas sobre clínicas veterinarias</h1>
+  <p class="muted">No necesitas cuenta. Úsalo si una reseña te menciona y quieres aclarar algo, o si quieres reportar una clínica o una reseña del directorio.</p>
+  <div class="note">🐾 Plazos: revisamos las quejas en un máximo de 72 horas hábiles y las aclaraciones en 5 días hábiles. Si una aclaración procede, la publicamos junto a la reseña, sin comentarios. Te respondemos al correo que nos dejes.</div>
+
+  <section class="card" id="step-vet" aria-labelledby="t-vet">
+    <h2 class="lbl" id="t-vet" style="margin-top:0">1. Clínica</h2>
+    <div id="vet-picked" class="hidden"></div>
+    <form id="vet-search" class="row" role="search" novalidate>
+      <label for="vet-q" class="sr-only">Nombre de la clínica o ciudad</label>
+      <input id="vet-q" type="search" maxlength="100" placeholder="Nombre de la clínica o ciudad" autocomplete="off">
+      <button type="submit">Buscar</button>
+    </form>
+    <div id="vet-results" aria-live="polite"></div>
+  </section>
+
+  <form class="card hidden" id="req-form" novalidate aria-labelledby="t-req">
+    <h2 class="lbl" id="t-req" style="margin-top:0">2. Tu solicitud</h2>
+    <fieldset style="border:0;padding:0;margin:0"><legend class="lbl">¿Qué quieres hacer?</legend>
+      <label class="opt on"><input type="radio" name="kind" value="aclaracion" checked> <span>Pedir una aclaración sobre una reseña que me menciona<br><span class="small muted">Si procede, se publica junto a la reseña.</span></span></label>
+      <label class="opt"><input type="radio" name="kind" value="queja"> <span>Presentar una queja sobre la clínica o una reseña<br><span class="small muted">Solo la ve nuestro equipo.</span></span></label>
+    </fieldset>
+    <div id="reviews-box"><span class="lbl" id="t-reviews">Reseña</span><div id="reviews" role="radiogroup" aria-labelledby="t-reviews"></div></div>
+    <div id="reason-box" class="hidden"><label for="reason">Motivo</label>
+      <select id="reason">
+        <option value="honor_reputacion">Afecta mi honor o reputación</option>
+        <option value="resena_falsa">Reseña falsa o pagada</option>
+        <option value="datos_personales">Publica datos personales</option>
+        <option value="cedula_falsa">Cédula o veterinario falso</option>
+        <option value="condiciones_sanitarias">Condiciones sanitarias del establecimiento</option>
+        <option value="publicidad_enganosa">Publicidad engañosa</option>
+        <option value="otro">Otro motivo</option>
+      </select></div>
+    <label for="relation">¿Quién eres?</label>
+    <select id="relation">
+      <option value="aludido">Me mencionan en una reseña</option>
+      <option value="clinica">Trabajo en la clínica</option>
+      <option value="cliente">Fui cliente de la clínica</option>
+      <option value="otro">Otra relación</option>
+    </select>
+    <label for="name">Tu nombre</label><input id="name" type="text" maxlength="120" autocomplete="name" required>
+    <label for="email">Tu correo (para responderte; no se publica)</label><input id="email" type="email" maxlength="255" autocomplete="email" required>
+    <label for="text" id="text-lbl">Tu aclaración</label>
+    <textarea id="text" maxlength="2000" required></textarea>
+    <p class="small muted" id="text-hint">Escribe la aclaración tal como quieres que se publique: sin teléfonos, correos ni datos de otras personas.</p>
+    <label class="check"><input type="checkbox" id="privacy"> <span>Leí el <a href="/app/legal/privacidad.html" target="_blank" rel="noopener">Aviso de privacidad</a>: usaremos tu nombre y correo solo para atender esta solicitud y responderte.</span></label>
+    <p class="err hidden" id="err" role="alert"></p>
+    <div class="row" style="margin-top:14px"><button type="submit" id="send">Enviar solicitud</button></div>
+  </form>
+
+  <section class="card ok hidden" id="done" role="status" aria-live="polite"></section>
+  <p class="small muted" style="margin-top:20px">¿Tienes cuenta? También puedes hacerlo desde el perfil de la clínica en la <a href="/app/">app de GuauWoow</a>. Las reseñas de Google Maps se reportan en Google.</p>
+</main>
+<script src="/app/veterinarias-solicitud.js?v=1"></script>
+</body>
+</html>

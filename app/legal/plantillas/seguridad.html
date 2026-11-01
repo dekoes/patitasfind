@@ -1,0 +1,431 @@
+<!doctype html>
+<!-- PLANTILLA: edita este archivo y genera app/legal/seguridad.html con python3 scripts/render-legal.py -->
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seguridad · GuauWoow</title>
+<meta name="description" content="Cómo protege GuauWoow tus datos, quién puede ver qué, cómo funcionan los pagos con Mercado Pago, qué hacemos si ocurre un incidente y cómo reportar una vulnerabilidad.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#33C7BE">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<link rel="canonical" href="%%SITE_URL%%/app/legal/seguridad.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="legal.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+<header class="site-header">
+  <a class="brand" href="/" aria-label="GuauWoow, ir al inicio">
+    <span class="brand-badge" aria-hidden="true"><svg viewBox="0 0 64 64"><ellipse cx="32" cy="40" rx="15" ry="12"/><ellipse cx="14" cy="26" rx="7" ry="9" transform="rotate(-18 14 26)"/><ellipse cx="26" cy="17" rx="7" ry="9"/><ellipse cx="40" cy="17" rx="7" ry="9"/><ellipse cx="51" cy="26" rx="7" ry="9" transform="rotate(18 51 26)"/></svg></span>
+    <span>Guau<b>Woow</b></span>
+  </a>
+  <!--INCLUIR:nav-legal-->
+</header>
+
+<div class="shell">
+
+  <aside class="card toc" aria-label="Índice del documento">
+    <details open>
+      <summary>Índice</summary>
+      <ol>
+        <li><a href="#lo-esencial"><span class="n">★</span>Lo esencial</a></li>
+        <li><a href="#compromisos"><span class="n">1</span>Nuestros compromisos</a></li>
+        <li><a href="#medidas"><span class="n">2</span>Cómo protegemos tus datos</a></li>
+        <li><a href="#quien-ve"><span class="n">3</span>Quién puede ver qué</a></li>
+        <li><a href="#pagos"><span class="n">4</span>Pagos y donativos</a></li>
+        <li><a href="#documentos"><span class="n">5</span>Documentos de verificación</a></li>
+        <li><a href="#cuentas-mp"><span class="n">6</span>Cuentas de Mercado Pago de Refugios</a></li>
+        <li><a href="#ubicacion-datos"><span class="n">7</span>Dónde se guardan tus datos</a></li>
+        <li><a href="#conservacion"><span class="n">8</span>Cuánto tiempo los guardamos</a></li>
+        <li><a href="#respaldos"><span class="n">9</span>Respaldos</a></li>
+        <li><a href="#registros"><span class="n">10</span>Registros técnicos</a></li>
+        <li><a href="#equipo"><span class="n">11</span>Acceso del equipo</a></li>
+        <li><a href="#incidentes"><span class="n">12</span>Si ocurre un incidente</a></li>
+        <li><a href="#avisos"><span class="n">13</span>Avisos de seguridad</a></li>
+        <li><a href="#protegerte"><span class="n">14</span>Cómo protegerte</a></li>
+        <li><a href="#reportar"><span class="n">15</span>Reporta una vulnerabilidad</a></li>
+        <li><a href="#autoridades"><span class="n">16</span>Solicitudes de autoridades</a></li>
+        <li><a href="#rendicion"><span class="n">17</span>Cómo rendimos cuentas</a></li>
+        <li><a href="#marco-legal"><span class="n">18</span>Marco legal y estándares</a></li>
+        <li><a href="#contacto"><span class="n">19</span>Contacto y estado del servicio</a></li>
+        <li><a href="#versiones"><span class="n">V</span>Versiones</a></li>
+      </ol>
+      <div class="toc-cross">Documentos relacionados:<br><a href="privacidad.html#seguridad">Aviso de Privacidad →</a><br><a href="proveedores.html">Proveedores →</a><br><a href="conservacion.html">Conservación →</a><br><a href="estado-del-servicio.html">Estado del servicio →</a></div>
+    </details>
+  </aside>
+
+  <main class="doc" id="contenido">
+
+    <section class="card doc-hero" aria-labelledby="titulo">
+      <span class="eyebrow">Privacidad</span>
+      <h1 id="titulo">Seguridad, divulgación responsable y avisos de vulneración</h1>
+      <p class="lead">Qué hacemos para proteger tus datos y tus pagos, qué hacemos si algo sale mal y cómo nos ayudas a encontrar fallas.</p>
+      <ul class="meta">
+        <li>Actualizada: 17 de octubre de 2026</li>
+        <li>Aplica a: <span class="ph">[DOMINIO]</span>, la app /app/, su API y el bot de WhatsApp</li>
+      </ul>
+      <div class="ai-note" role="note">
+        <span class="ico" aria-hidden="true">⚠️</span>
+        <span>Documento base preparado con apoyo de IA; debe ser revisado por un abogado antes de su publicación definitiva.</span>
+      </div>
+      <div class="callout lila" id="lo-esencial">
+        <h2 class="callout-title">Lo esencial</h2>
+        <ul>
+          <li>La conexión está cifrada y tu contraseña nunca se guarda tal cual.</li>
+          <li>Pagas en Mercado Pago: GuauWoow no ve ni guarda los datos de tu tarjeta.</li>
+          <li>Tu teléfono y tu ubicación exacta nunca son públicos.</li>
+          <li>Los documentos de verificación se guardan cifrados, solo los ve personal autorizado y se borran 30 días después de la decisión.</li>
+          <li>El personal administrador entra con verificación en dos pasos y sus acciones quedan registradas.</li>
+          <li>Si ocurre un incidente que te afecte de forma importante, te avisamos de inmediato.</li>
+          <li>Si encuentras una falla de seguridad, escríbenos a <span class="ph">[CORREO DE SEGURIDAD]</span>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 1 -->
+    <section class="card section" id="compromisos" aria-labelledby="h-compromisos">
+      <h2 id="h-compromisos"><span class="num">1</span>Nuestros compromisos</h2>
+      <!-- PLANTILLA: req seguridad-rc17 (seguridad-incidentes-29) -->
+      <div class="summary-grid">
+        <div class="tile"><b>No vendemos tus datos</b><span>Ni los rentamos ni los cedemos con fines comerciales.</span></div>
+        <div class="tile"><b>No vemos tu tarjeta</b><span>La captura Mercado Pago. Nosotros nunca la vemos ni la guardamos.</span></div>
+        <div class="tile"><b>Tu teléfono y tu ubicación exacta no son públicos</b><span>En lo público solo se ve una zona aproximada.</span></div>
+        <div class="tile"><b>Te avisamos</b><span>Si ocurre un incidente que te afecte de forma importante, te lo decimos de inmediato.</span></div>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="card section" id="medidas" aria-labelledby="h-medidas">
+      <h2 id="h-medidas"><span class="num">2</span>Cómo protegemos tus datos</h2>
+      <!-- PLANTILLA: req seguridad-rc01 rc07 rc08 rc18 (I01 I02 I03 I12 I13; seguridad-incidentes-02, -22, -23, -28; contrato L-seguridad) -->
+      <p>La ley nos pide medidas de seguridad administrativas, técnicas y físicas (LFPDPPP, art. 18). Aquí describimos solo las que existen, sin detalles que ayuden a un atacante.</p>
+      <h3>Técnicas</h3>
+      <ul>
+        <li>Conexión cifrada (HTTPS con TLS) en todo el sitio, con HSTS para que tu navegador no use conexiones sin cifrar.</li>
+        <li>Contraseñas guardadas con bcrypt y sal: nunca en texto legible.</li>
+        <li>Verificación de tu teléfono con un código que vence en minutos y tiene límite de intentos. También verificamos tu correo.</li>
+        <li>Sesiones que puedes cerrar en todos tus dispositivos con un clic. Al cambiar o restablecer tu contraseña, se cierran las demás sesiones.</li>
+        <li>Fotos sin metadatos (EXIF), incluida la ubicación GPS que guardan algunos teléfonos.</li>
+        <li>En las páginas públicas, la ubicación se muestra redondeada, a alrededor de 1 km.</li>
+        <li>Documentos privados (identificaciones, actas, cédulas y constancias fiscales) <strong>cifrados</strong> y fuera del acceso público.</li>
+        <li>Límites de solicitudes contra abusos y extracción masiva de datos.</li>
+        <li>Reglas en el navegador que impiden cargar código de sitios no autorizados (política de seguridad de contenido).</li>
+        <li>Respaldos cifrados.</li>
+        <li>A la IA solo le enviamos fotos de perros; nunca documentos, chats ni datos de contacto.</li>
+      </ul>
+      <h3>Administrativas</h3>
+      <ul>
+        <!-- PLANTILLA: I13 y K10: solo medidas que existen; roles mínimos y acuerdos de confidencialidad quedan en notas (dependencies.py solo tiene admin y superadmin) -->
+        <li>El acceso al panel de administración está limitado al personal administrador.</li>
+        <li>Verificación en dos pasos obligatoria para el personal administrador.</li>
+        <li>Bitácora de las acciones del personal administrador y registro de incidentes.</li>
+        <li>Deber de confidencialidad para quienes tratan datos (sección <a href="#equipo">11</a>).</li>
+      </ul>
+      <h3>Físicas</h3>
+      <p>Los servidores están en centros de datos de <span class="ph">[PROVEEDOR DE HOSTING]</span>. Las medidas físicas de esas instalaciones, como el control de acceso, las aplica el proveedor conforme a su contrato. <span class="ph" data-clave="VERIFICAR_MEDIDAS_FISICAS">[VERIFICAR: cuando definas dónde se guardan los escritos en papel que lleguen al domicilio, escribe aquí: «Los escritos en papel que nos entregues (por ejemplo, una solicitud de derechos) se guardan bajo llave y solo los consulta el personal autorizado.»; si no, pon true]</span></p>
+      <!-- PLANTILLA: I12 y K10: no se afirman pruebas de seguridad antes del escaneo en CI y la prueba de penetración -->
+      <p>Nuestro programa de seguridad toma como referencia las Recomendaciones en materia de seguridad de datos personales (DOF 30-10-2013) y la norma ISO/IEC 27001. <span class="ph" data-clave="VERIFICAR_PRUEBAS_SEGURIDAD">[VERIFICAR: cuando existan el escaneo de dependencias en CI y una prueba de penetración, escribe aquí el texto, p. ej. «Aplicamos actualizaciones de seguridad al software y sus dependencias, y hacemos pruebas de seguridad; la última fue el ...»; si no existen, pon true y no se publica nada]</span></p>
+      <p>Ningún sistema es infalible. Por eso también te contamos qué hacemos si algo sale mal (sección <a href="#incidentes">12</a>).</p>
+    </section>
+
+    <!-- 3 -->
+    <section class="card section" id="quien-ve" aria-labelledby="h-quien-ve">
+      <h2 id="h-quien-ve"><span class="num">3</span>Quién puede ver qué</h2>
+      <!-- PLANTILLA: req seguridad-rc19 rc09 (seguridad-incidentes-22, -29; schemas.MatchOut: contacto visible solo al aprobar) -->
+      <div class="table-wrap">
+        <table>
+          <caption class="legal-refs">Visibilidad de cada tipo de dato</caption>
+          <thead><tr><th scope="col">Dato</th><th scope="col">Público</th><th scope="col">Otras personas usuarias</th><th scope="col">Refugio, Casa de paso o quien publica</th><th scope="col">Equipo de GuauWoow</th><th scope="col">Proveedores</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Nombre y foto de perfil</th><td>Pueden aparecer junto a lo que publicas</td><td>Con quienes interactúas</td><td>Si te postulas o donas con tu nombre</td><td>Personal autorizado</td><td>Servidor y respaldos cifrados</td></tr>
+            <tr><th scope="row">Teléfono</th><td>No</td><td>No</td><td>Solo si aprueban tu postulación</td><td>Personal autorizado</td><td>SMS (solo el código) y WhatsApp si usas el bot</td></tr>
+            <tr><th scope="row">Correo</th><td>No</td><td>No</td><td>Si aprueban tu postulación</td><td>Personal autorizado</td><td>Proveedor de correo</td></tr>
+            <tr><th scope="row">Ubicación exacta</th><td>No</td><td>No</td><td>No</td><td>Personal autorizado</td><td>Nominatim, si usas tu ubicación</td></tr>
+            <tr><th scope="row">Ubicación aproximada (alrededor de 1 km)</th><td>Sí, en perros y reportes publicados</td><td>Sí</td><td>Sí</td><td>Sí</td><td>—</td></tr>
+            <tr><th scope="row">Fotos de perros</th><td>Sí, en lo publicado</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Proveedor de IA (solo la foto)</td></tr>
+            <tr><th scope="row">Mensajes del chat</th><td>No</td><td>Solo quienes participan en la conversación</td><td>Si participa en la conversación</td><td>Solo mensajes reportados o que ordene una autoridad judicial</td><td>Servidor y respaldos cifrados</td></tr>
+            <tr><th scope="row">Cuestionario de adopción</th><td>No</td><td>No</td><td>Quien publicó al perro al que te postulas</td><td>Personal autorizado</td><td>Servidor y respaldos cifrados</td></tr>
+            <tr><th scope="row">Documentos de verificación</th><td>No</td><td>No</td><td>No</td><td>Solo personal administrador autorizado; cada consulta queda registrada</td><td>Servidor y respaldos, cifrados</td></tr>
+            <tr><th scope="row">Datos de envío de un pedido</th><td>No</td><td>No</td><td>Solo el Refugio que vende ese pedido</td><td>Personal autorizado</td><td>Paquetería</td></tr>
+            <tr><th scope="row">Dirección IP</th><td>No</td><td>No</td><td>No</td><td>Personal técnico</td><td>Cloudflare, Sentry y servicios que reciben tu IP (ver <a href="cookies.html#terceros">cookies</a>)</td></tr>
+            <tr><th scope="row">Datos de tu tarjeta</th><td>No</td><td>No</td><td>No</td><td>No</td><td>Solo Mercado Pago</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><span class="ph" data-clave="VERIFICAR_TABLA_VISIBILIDAD">[VERIFICAR: que esta tabla coincida con lo que muestran las respuestas públicas de la API y las pantallas de la app, en especial nombre, foto y ubicación aproximada]</span></p>
+    </section>
+
+    <!-- 4 -->
+    <section class="card section" id="pagos" aria-labelledby="h-pagos">
+      <h2 id="h-pagos"><span class="num">4</span>Pagos y donativos</h2>
+      <!-- PLANTILLA: req seguridad-rc02 rc16 rc20 (G14; buenas-practicas-v09; seguridad-incidentes-14, -15, -v01; contrato L-donativos y L-tienda: Split) -->
+      <ul>
+        <li>Los pagos y donativos se procesan en <strong>Mercado Pago (Checkout Pro)</strong>. GuauWoow no ve, no captura y no guarda el número de tu tarjeta, su fecha ni su código de seguridad.</li>
+        <li>De Mercado Pago recibimos solo el identificador del pago, el monto y su estado.</li>
+        <li>El dinero va directo a la cuenta de Mercado Pago de cada Refugio (Split). GuauWoow no lo guarda.</li>
+        <li>Comprobamos la firma de cada notificación de pago que nos envía Mercado Pago, para que nadie pueda hacerse pasar por ella.</li>
+        <li>El fraude y los contracargos se atienden con las herramientas de Mercado Pago. <span class="ph" data-clave="VERIFICAR_PCI">[VERIFICAR: si ya respondiste y tienes archivado el cuestionario de seguridad de pagos PCI (SAQ A) que pide Mercado Pago, escribe aquí: «Respondemos cada año el cuestionario de seguridad de pagos (PCI) que Mercado Pago pide a los comercios.»; si no, pon true]</span></li>
+      </ul>
+      <div class="callout" role="note">
+        <span class="callout-title">Antes de pagar</span>
+        <p>Comprueba que la dirección de tu navegador empiece con <strong>https://www.mercadopago.com.mx/</strong>. Si alguien te manda otro enlace para pagar «en nombre de GuauWoow», no pagues y repórtalo.</p>
+      </div>
+      <p>Hoy no ofrecemos cobros recurrentes. Si algún día ofrecemos donativos o compras que se cobren de forma automática, te pediremos un consentimiento expreso, te avisaremos al menos 5 días naturales antes de cada cobro y podrás cancelar de inmediato (LFPC, art. 76 Bis fr. VIII y IX). <span class="ph" data-clave="VERIFICAR_COBROS_RECURRENTES">[VERIFICAR: que la Plataforma no tenga hoy donativos ni compras recurrentes]</span></p>
+    </section>
+
+    <!-- 5 -->
+    <section class="card section" id="documentos" aria-labelledby="h-documentos">
+      <h2 id="h-documentos"><span class="num">5</span>Documentos de verificación</h2>
+      <!-- PLANTILLA: req seguridad-rc21 (B07; seguridad-incidentes-10, -11, -12, -13, -23; contrato L-seguridad: cifrado en reposo y borrado a 30 días; L-edad: nunca biometría) -->
+      <ul>
+        <li><strong>Para qué:</strong> comprobar que un Refugio, una Casa de paso o una Clínica existe y quién responde por ella.</li>
+        <li><strong>Qué documentos:</strong> identificación oficial de la persona responsable, acta constitutiva (solo las páginas necesarias), cédula profesional del veterinario y constancia de situación fiscal, según el caso. El detalle está en <a href="verificacion.html">Verificación</a>.</li>
+        <li><strong>Quién los ve:</strong> solo el personal administrador autorizado, que entra con verificación en dos pasos. Cada consulta queda registrada.</li>
+        <li><strong>Cómo se protegen:</strong> se guardan cifrados y fuera del acceso público. Nunca se envían a proveedores de IA ni se usan para extraer datos biométricos.</li>
+        <li><strong>Cuándo se borran:</strong> la imagen de identificaciones, actas y cédulas se borra 30 días después de aprobar o rechazar la solicitud; conservamos solo una constancia de la verificación, sin la imagen. La Constancia de Situación Fiscal se conserva cifrada con el expediente fiscal 10 años desde la última operación (tabla de <a href="conservacion.html">Conservación</a>).</li>
+      </ul>
+      <p>Para comprobar la edad de las personas usuarias no pedimos copias de identificaciones ni usamos biometría.</p>
+    </section>
+
+    <!-- 6 -->
+    <section class="card section" id="cuentas-mp" aria-labelledby="h-cuentas-mp">
+      <h2 id="h-cuentas-mp"><span class="num">6</span>Cuentas de Mercado Pago de los Refugios</h2>
+      <!-- PLANTILLA: req seguridad-rc14 rc22 (gap-custodia-fondos-transmisor-dinero-y-terminos-mercado-pago-09; seguridad-incidentes-16; backend/app/services/mercadopago_oauth.py) -->
+      <ul>
+        <li>Cada Refugio conecta su propia cuenta de Mercado Pago autorizándolo dentro de Mercado Pago. Por eso GuauWoow no necesita ni guarda la CLABE de los Refugios.</li>
+        <li>Solo la persona responsable del Refugio, con su sesión iniciada, puede conectar o cambiar esa cuenta.</li>
+        <li>Las credenciales de la conexión se guardan cifradas, tienen solo los permisos que el Refugio autorizó y se renuevan de forma automática antes de vencer.</li>
+        <li>Si el Refugio retira la autorización desde Mercado Pago, borramos esas credenciales.</li>
+      </ul>
+    </section>
+
+    <!-- 7 -->
+    <section class="card section" id="ubicacion-datos" aria-labelledby="h-ubicacion-datos">
+      <h2 id="h-ubicacion-datos"><span class="num">7</span>Dónde se guardan tus datos</h2>
+      <!-- PLANTILLA: req seguridad-rc23 (seguridad-incidentes-09; B10) -->
+      <ul>
+        <li><strong>Servidor y base de datos:</strong> <span class="ph">[PROVEEDOR DE HOSTING]</span>, en <span class="ph">[PAÍS O REGIÓN DEL HOSTING]</span>.</li>
+        <li><strong>Red de entrega y protección:</strong> Cloudflare, que cifra la conexión y ve el tráfico para protegerlo.</li>
+        <li><strong>Respaldos externos:</strong> <span class="ph">[PROVEEDOR DE RESPALDOS EXTERNOS]</span>, en <span class="ph">[PAÍS O REGIÓN DE LOS RESPALDOS EXTERNOS]</span>, siempre cifrados.</li>
+        <li><strong>Inteligencia artificial:</strong> Alibaba Cloud, en Singapur, solo con fotos de perros. <span class="ph" data-clave="VERIFICAR_ALIBABA_REGION">[VERIFICAR: entidad contratante, región del servicio y ámbito de cómputo fijado en Singapur]</span></li>
+        <li><strong>Errores:</strong> Sentry, en <span class="ph">[REGIÓN DE SENTRY]</span>, con los datos personales filtrados.</li>
+        <li><strong>Analítica, solo si la aceptas:</strong> PostHog, en <span class="ph">[REGIÓN DE POSTHOG]</span>.</li>
+        <li><strong>Mapa:</strong> OpenStreetMap recibe tu IP al cargar el mapa y tus coordenadas cuando usas tu ubicación.</li>
+      </ul>
+      <p>La lista completa, con lo que recibe cada proveedor: <a href="proveedores.html">Proveedores y transferencias</a> y la sección de flujos internacionales del <a href="privacidad.html#internacionales">Aviso de Privacidad</a>.</p>
+    </section>
+
+    <!-- 8 -->
+    <section class="card section" id="conservacion" aria-labelledby="h-conservacion">
+      <h2 id="h-conservacion"><span class="num">8</span>Cuánto tiempo guardamos tus datos</h2>
+      <!-- PLANTILLA: req seguridad-rc24 (seguridad-incidentes-17, -18, -v02, -v03; contrato L-seguridad: purgas automáticas según la tabla publicada) -->
+      <ul>
+        <li>Tu cuenta y tu perfil, mientras existan.</li>
+        <li>Cuando eliminas tu cuenta, borramos tu nombre, correo, teléfono, foto, ubicación y contraseña. Solo conservamos, <strong>bloqueados</strong> y sin usarlos, los datos mínimos que la ley nos obliga a guardar, por ejemplo los de compras y donativos para fines fiscales (LFPDPPP, arts. 24 y 25).</li>
+        <li>Imágenes de documentos de verificación: 30 días después de la decisión.</li>
+        <li>Interacciones con el bot de WhatsApp: hasta cumplir su finalidad y nunca más de 12 meses.</li>
+        <li>Publicaciones importadas de Facebook (cuando esa función esté activa): 30 días.</li>
+      </ul>
+      <p>Los plazos de cada tipo de dato están en <a href="conservacion.html">Conservación y eliminación de datos</a>. Esa tabla sale de la configuración que usa el sistema para borrar o anonimizar datos de forma automática.</p>
+    </section>
+
+    <!-- 9 -->
+    <section class="card section" id="respaldos" aria-labelledby="h-respaldos">
+      <h2 id="h-respaldos"><span class="num">9</span>Respaldos y continuidad</h2>
+      <!-- PLANTILLA: req seguridad-rc25 (I08; seguridad-incidentes-19; contrato L-seguridad: respaldos cifrados) -->
+      <!-- PLANTILLA: backend/scripts/backup.sh y backup-offsite.sh: respaldo diario cifrado con caducidad; llave externa, prueba de restauración y reaplicación de borrados quedan en la nota (K10) -->
+      <p>Hacemos respaldos diarios cifrados de la base de datos y de los archivos. La copia en nuestro servidor se conserva <span class="ph">[PLAZO LOCAL DE RESPALDOS]</span> y la copia externa <span class="ph">[PLAZO DE CONSERVACIÓN DE RESPALDOS EXTERNOS]</span>; después se borran solas. <span class="ph" data-clave="VERIFICAR_RESPALDOS">[VERIFICAR: cuando la llave de los respaldos esté fuera del servidor, exista una prueba periódica de restauración registrada y el procedimiento de restauración reaplique los borrados, escribe aquí: «La llave para descifrarlos se guarda fuera del servidor. Probamos que se puedan restaurar y, si restauramos un respaldo, volvemos a aplicar los borrados hechos después de su fecha para no recuperar cuentas ya eliminadas.»; si no, pon true]</span></p>
+    </section>
+
+    <!-- 10 -->
+    <section class="card section" id="registros" aria-labelledby="h-registros">
+      <h2 id="h-registros"><span class="num">10</span>Registros técnicos</h2>
+      <!-- PLANTILLA: req seguridad-rc26 (I09; seguridad-incidentes-20; R37) -->
+      <ul>
+        <li><strong>Qué registramos:</strong> dirección IP, navegador, fecha y hora, la página o función que se pidió y un identificador de solicitud.</li>
+        <li><strong>Para qué:</strong> detectar abusos, fallas y ataques, y poder investigarlos.</li>
+        <li><strong>Cuánto tiempo:</strong> lo que diga la <a href="conservacion.html">tabla de conservación</a>. El calendario prevé 90 días, con la IP acortada a los 30, salvo los registros ligados a un incidente en investigación. <span class="ph" data-clave="VERIFICAR_REGISTROS_TECNICOS">[VERIFICAR: que la rotación de los registros del servidor web y de la app cumpla 90 días y acorte la IP a los 30; al 17-10-2026 rotan por tamaño]</span></li>
+        <li><strong>Qué nunca registramos:</strong> tu contraseña, tus códigos de verificación ni el contenido de tus mensajes.</li>
+      </ul>
+    </section>
+
+    <!-- 11 -->
+    <section class="card section" id="equipo" aria-labelledby="h-equipo">
+      <h2 id="h-equipo"><span class="num">11</span>Acceso del equipo</h2>
+      <!-- PLANTILLA: req seguridad-rc06 rc09 rc13 (B16; I02; buenas-practicas-v06; datos-personales-21; PR-160; contrato L-seguridad: MFA de administradores y bitácora) -->
+      <ul>
+        <li>El acceso al panel de administración está limitado al personal administrador.</li>
+        <li>El personal administrador entra con contraseña y un código de una aplicación de autenticación (verificación en dos pasos). Sus sesiones vencen a las 8 horas.</li>
+        <li>Las acciones del personal administrador quedan en una bitácora.</li>
+        <!-- PLANTILLA: conflicto 11 (Constitución art. 16: comunicaciones privadas solo con autorización judicial o aportadas por una de las personas participantes) -->
+        <li><strong>Chats:</strong> el equipo no lee conversaciones privadas. Solo ve un mensaje cuando una de las personas de la conversación lo reporta o cuando una autoridad judicial lo ordena (Constitución, art. 16), y esa revisión queda registrada. <span class="ph" data-clave="VERIFICAR_REVISION_DE_CHAT">[VERIFICAR: confirma que el panel de administración solo muestra los mensajes reportados y que cada acceso queda en la bitácora de administración]</span></li>
+        <li><strong>Confidencialidad:</strong> quienes acceden a datos personales deben guardar confidencialidad, también después de terminar su relación con nosotros (LFPDPPP, art. 20). <span class="ph" data-clave="VERIFICAR_CONFIDENCIALIDAD">[VERIFICAR: cuando cada persona con acceso al panel haya firmado un acuerdo de confidencialidad antes de recibir acceso, escribe aquí: «Por eso, las personas del equipo, moderadoras y voluntarias que acceden a datos firman un acuerdo de confidencialidad.»; si no, pon true]</span></li>
+      </ul>
+    </section>
+
+    <!-- 12 -->
+    <section class="card section" id="incidentes" aria-labelledby="h-incidentes">
+      <h2 id="h-incidentes"><span class="num">12</span>Si ocurre un incidente</h2>
+      <!-- PLANTILLA: req seguridad-rc05 rc10 rc15 rc27 (I04 I05; breach_procedure pasos 1 a 9; seguridad-incidentes-04, -06, -v01; contrato L-seguridad: registro de incidentes y aviso a personas afectadas) -->
+      <p>Una <strong>vulneración de seguridad</strong> es la pérdida o destrucción de datos, su robo, extravío o copia no autorizada, su uso o acceso no autorizado, o su daño o alteración.</p>
+      <p>Si una vulneración afecta de forma importante tus derechos patrimoniales o morales, <strong>te lo informaremos de inmediato</strong> para que puedas protegerte (LFPDPPP, art. 19). <span class="ph" data-clave="VERIFICAR_META_72_HORAS">[VERIFICAR: si el equipo puede comprometerse públicamente a un plazo, escribe aquí: «Nuestra meta interna es avisarte dentro de las 72 horas siguientes a confirmar el incidente, y antes si hay riesgo de fraude.»; si no, pon true]</span></p>
+      <p>Te avisaremos por correo y con una notificación en la app y, si el incidente es amplio, también en esta página. El aviso te dirá:</p>
+      <ol>
+        <li>qué pasó y cuándo;</li>
+        <li>qué datos tuyos se vieron afectados;</li>
+        <li>qué te recomendamos hacer para protegerte;</li>
+        <li>qué hicimos de inmediato para corregirlo;</li>
+        <li>dónde puedes obtener más información.</li>
+      </ol>
+      <p>Además:</p>
+      <ul>
+        <li>Registramos cada incidente: qué pasó, qué datos y personas afectó, qué hicimos y qué cambiamos.</li>
+        <li>Si el incidente toca pagos o credenciales de Mercado Pago, avisamos a Mercado Pago en el plazo que fijan sus términos (24 horas). Si toca datos de WhatsApp o Facebook, avisamos a Meta lo antes posible.</li>
+        <li>Analizamos la causa y aplicamos acciones para que no vuelva a pasar.</li>
+        <li>Cuando proceda, lo denunciamos ante las autoridades competentes.</li>
+      </ul>
+      <p>Más información en la sección de vulneraciones del <a href="privacidad.html#vulneraciones">Aviso de Privacidad</a>.</p>
+    </section>
+
+    <!-- 13 -->
+    <section class="card section" id="avisos" aria-labelledby="h-avisos">
+      <h2 id="h-avisos"><span class="num">13</span>Avisos de seguridad</h2>
+      <!-- PLANTILLA: req seguridad-rc05 rc12 rc28 (seguridad-incidentes-04) -->
+      <p>Aquí publicaremos los incidentes que hayamos notificado: fecha, resumen, datos afectados, acciones tomadas, estado y lo que cambiamos para evitar que se repitan.</p>
+      <div class="callout" role="status">
+        <span class="callout-title">Sin incidentes notificados a la fecha</span>
+        <p>Última revisión: <span class="ph">[FECHA DE ÚLTIMA REVISIÓN LEGAL]</span></p>
+      </div>
+    </section>
+
+    <!-- 14 -->
+    <section class="card section" id="protegerte" aria-labelledby="h-protegerte">
+      <h2 id="h-protegerte"><span class="num">14</span>Cómo protegerte</h2>
+      <!-- PLANTILLA: req seguridad-rc03 rc29 (seguridad-incidentes-27; CR22) -->
+      <h3>Lo que nunca te pediremos</h3>
+      <ul>
+        <li>Tu código de verificación.</li>
+        <li>Tu contraseña.</li>
+        <li>Pagos, anticipos o «cuotas» para adoptar, ni por teléfono ni por mensaje.</li>
+        <li>Documentos o datos de tarjeta por WhatsApp.</li>
+      </ul>
+      <h3>Consejos</h3>
+      <ul>
+        <li>Si alguien dice tener a tu perro y te pide dinero por adelantado, no pagues. Reporta la conversación desde la app.</li>
+        <li>Dona solo dentro de la Plataforma o a Refugios con la insignia de verificación.</li>
+        <li>Nuestros correos llegan desde una dirección que termina en @<span class="ph">[DOMINIO]</span>. Revisa los <a href="canales-oficiales.html">canales oficiales</a>.</li>
+        <li>Usa una contraseña que no uses en otros sitios.</li>
+        <li>Cierra sesión en equipos compartidos y borra los datos del sitio si guardaste tu dirección de envío.</li>
+      </ul>
+      <h3>Si crees que alguien entró a tu cuenta</h3>
+      <ol>
+        <li>Cambia tu contraseña. Eso cierra tus otras sesiones.</li>
+        <li>En <em>Perfil</em>, usa «Cerrar sesión en todos los dispositivos».</li>
+        <li>Escríbenos a <span class="ph">[CORREO DE SEGURIDAD]</span> o desde <em>Perfil → Ayuda</em>, y cuéntanos qué viste.</li>
+      </ol>
+    </section>
+
+    <!-- 15 -->
+    <section class="card section" id="reportar" aria-labelledby="h-reportar">
+      <h2 id="h-reportar"><span class="num">15</span>Reporta una vulnerabilidad</h2>
+      <!-- PLANTILLA: req seguridad-rc04 rc11 rc30 (I06; seguridad-incidentes-07, -28; buenas-practicas-30; RFC 9116) -->
+      <p>Si encuentras una falla de seguridad en GuauWoow, escríbenos a <span class="ph">[CORREO DE SEGURIDAD]</span>. Describe el problema, los pasos para reproducirlo y, si puedes, su impacto. Nuestros datos de contacto para investigadores también están en <a href="/.well-known/security.txt">/.well-known/security.txt</a>.</p>
+      <h3>Alcance</h3>
+      <ul>
+        <li><strong>Dentro:</strong> el sitio y la app en <span class="ph">[DOMINIO]</span>, su API y el bot de WhatsApp de GuauWoow.</li>
+        <li><strong>Fuera:</strong> ataques de denegación de servicio, ingeniería social o engaños al equipo o a personas usuarias, envío masivo de mensajes, pruebas físicas, y las plataformas de terceros que usamos (Mercado Pago, Meta, Cloudflare y otros proveedores), que tienen sus propios canales.</li>
+      </ul>
+      <h3>Reglas</h3>
+      <ul>
+        <li>No accedas a datos de otras personas más allá de lo mínimo para demostrar la falla.</li>
+        <li>No extraigas, guardes, modifiques ni publiques datos personales.</li>
+        <li>Detente y avísanos en cuanto confirmes la falla.</li>
+        <li>No la hagas pública durante los 90 días siguientes a tu reporte, para darnos tiempo de corregirla.</li>
+      </ul>
+      <h3>Nuestro compromiso</h3>
+      <ul>
+        <li>Te confirmaremos que recibimos tu reporte, te diremos si confirmamos la falla y te avisaremos cuando la corrijamos. <span class="ph" data-clave="VERIFICAR_PLAZOS_DIVULGACION">[VERIFICAR: si el equipo puede comprometerse a acusar recibo en 3 días hábiles y a corregir las fallas críticas en 7 días; si es así, agrega esos plazos]</span></li>
+        <li>Si investigas de buena fe y respetas estas reglas, GuauWoow no presentará denuncia ni acción legal en tu contra por esa investigación. Este compromiso no sustituye a la ley: el acceso no autorizado a sistemas protegidos es delito (Código Penal Federal, art. 211 bis 1), y estas reglas marcan el límite. <span class="ph" data-clave="VERIFICAR_PUERTO_SEGURO">[VERIFICAR: redacción final del compromiso de no denunciar a quien investiga de buena fe, sin prometer inmunidad penal]</span></li>
+        <li>No ofrecemos recompensas económicas. Si lo deseas, podemos reconocer tu aporte en esta página.</li>
+      </ul>
+    </section>
+
+    <!-- 16 -->
+    <section class="card section" id="autoridades" aria-labelledby="h-autoridades">
+      <h2 id="h-autoridades"><span class="num">16</span>Solicitudes de autoridades</h2>
+      <!-- PLANTILLA: req seguridad-rc31 (seguridad-incidentes-21; contrato L-reportes: tres niveles y contacto 24/7; L-transparencia: solicitudes agregadas) -->
+      <ul>
+        <li>Solo entregamos datos personales a una autoridad cuando recibimos por escrito una orden judicial o un requerimiento fundado y motivado de autoridad competente, o cuando la ley nos obliga.</li>
+        <!-- PLANTILLA: conflicto 11 (Constitución art. 16) -->
+        <li>El contenido de los chats solo lo entregamos con autorización judicial o si una de las personas participantes lo aporta (Constitución, art. 16).</li>
+        <li>Verificamos cada solicitud y entregamos solo lo estrictamente necesario.</li>
+        <li>Te avisamos, salvo que la ley lo prohíba o que avisarte ponga en riesgo una investigación.</li>
+        <li>En emergencias con riesgo para la vida o la seguridad de una persona actuamos con rapidez y registramos el caso.</li>
+      </ul>
+      <p>El procedimiento y el contacto para autoridades están en <a href="autoridades.html">Solicitudes de autoridades</a>. Publicamos el número de solicitudes recibidas y cómo las atendimos, en cifras agregadas, en el <a href="informe-transparencia.html">informe de transparencia</a>.</p>
+    </section>
+
+    <!-- 17 -->
+    <section class="card section" id="rendicion" aria-labelledby="h-rendicion">
+      <h2 id="h-rendicion"><span class="num">17</span>Cómo rendimos cuentas</h2>
+      <!-- PLANTILLA: req seguridad-rc33 (I11; seguridad-incidentes-24, -v02, -v04; contrato L-seguridad: bitácora de administración y registro de incidentes) -->
+      <ul>
+        <li>Llevamos una bitácora de las acciones del personal administrador, incluida cada consulta de documentos de verificación.</li>
+        <li>Llevamos un registro de incidentes de seguridad. <span class="ph" data-clave="VERIFICAR_DOCUMENTO_SEGURIDAD">[VERIFICAR: cuando exista el documento de seguridad interno con inventario de datos, análisis de riesgos y plan de trabajo, escribe aquí: «También mantenemos un documento de seguridad interno con el inventario de datos, los riesgos y las medidas.»; si no, pon true]</span></li>
+        <li>Cooperamos con las verificaciones de la Secretaría Anticorrupción y Buen Gobierno y con las revisiones de seguridad de las plataformas con las que nos integramos, como Meta y Mercado Pago.</li>
+      </ul>
+    </section>
+
+    <!-- 18 -->
+    <section class="card section" id="marco-legal" aria-labelledby="h-marco-legal">
+      <h2 id="h-marco-legal"><span class="num">18</span>Marco legal y estándares</h2>
+      <!-- PLANTILLA: req seguridad-rc08 rc32 (seguridad-incidentes-01, -25; datos-personales-v03; conflicto 1) -->
+      <ul>
+        <li>Ley Federal de Protección de Datos Personales en Posesión de los Particulares (DOF 20-03-2025), artículos 18 a 20 (seguridad, vulneraciones y confidencialidad). Autoridad: Secretaría Anticorrupción y Buen Gobierno.</li>
+        <li>Ley Federal de Protección al Consumidor, artículo 76 Bis (seguridad y confidencialidad en la venta en línea), para la Tienda Solidaria y los donativos.</li>
+        <li>Código Fiscal de la Federación, artículo 30 (conservación de la contabilidad).</li>
+        <li>México no tiene hoy una ley de ciberseguridad vigente. Como referencia seguimos ISO/IEC 27001, OWASP ASVS y PCI DSS, y las Recomendaciones en materia de seguridad de datos personales (DOF 30-10-2013).</li>
+        <li>El Reglamento de la LFPDPPP de 2011 lo tomamos como referencia en lo que no se oponga a la ley vigente.</li>
+      </ul>
+    </section>
+
+    <!-- 19 -->
+    <section class="card section" id="contacto" aria-labelledby="h-contacto">
+      <h2 id="h-contacto"><span class="num">19</span>Contacto y estado del servicio</h2>
+      <!-- PLANTILLA: req seguridad-rc06 rc11 rc34 (LFPDPPP art. 29; seguridad-incidentes-01, -v04) -->
+      <ul>
+        <li><strong>Seguridad y vulnerabilidades:</strong> <span class="ph">[CORREO DE SEGURIDAD]</span></li>
+        <li><strong>Datos personales:</strong> <span class="ph">[DEPARTAMENTO DE DATOS PERSONALES]</span>, <span class="ph">[CORREO DE PRIVACIDAD]</span>, <span class="ph">[TELÉFONO]</span>, en el horario <span class="ph">[HORARIO DE ATENCIÓN]</span> (LFPDPPP, art. 29).</li>
+        <li><strong>Estado del servicio:</strong> disponibilidad e interrupciones en <a href="estado-del-servicio.html">Estado del servicio</a>.</li>
+      </ul>
+      <p class="signature">Última revisión legal: <span class="ph">[FECHA DE ÚLTIMA REVISIÓN LEGAL]</span></p>
+    </section>
+
+    <!-- VERSIONES -->
+    <section class="card section" id="versiones" aria-labelledby="h-versiones">
+      <h2 id="h-versiones"><span class="num">V</span>Versiones</h2>
+      <!-- PLANTILLA: req seguridad-rc34 (contrato L-legal) -->
+      <ul>
+        <li>Versión: 2026-10-17</li>
+        <li>Vigente desde: <span class="ph">[FECHA DE ENTRADA EN VIGOR]</span></li>
+      </ul>
+      <p>Primera versión de esta página. Consulta todas las versiones y sus cambios en el <a href="historial.html">historial de versiones</a>.</p>
+    </section>
+
+    <footer class="card doc-footer">
+      <span>© 2026 GuauWoow · <span class="ph">[RAZÓN SOCIAL]</span></span>
+      <!--INCLUIR:pie-legal-->
+    </footer>
+
+  </main>
+</div>
+
+<a class="to-top" href="#top" aria-label="Volver al inicio del documento">↑</a>
+</body>
+</html>

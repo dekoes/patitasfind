@@ -1,6 +1,6 @@
 """Envío de SMS para la verificación de teléfono.
 
-PatitasFind genera y valida su PROPIO código (ver app/services/otp.py); este módulo solo
+GuauWoow genera y valida su PROPIO código (ver app/services/otp.py); este módulo solo
 entrega el mensaje. Así todos los proveedores comparten las mismas reglas (expiración,
 intentos, límites) y cambiar de proveedor no cambia la API.
 
@@ -8,6 +8,7 @@ Proveedores (SMS_PROVIDER):
 - smsmasivos (recomendado en México, ~$0.47–0.90 MXN por SMS): POST JSON a
   https://api.smsmasivos.com.mx/sms/send con encabezado `apikey`.
 - twilio: Messages API (no Verify) con TWILIO_FROM_NUMBER o TWILIO_MESSAGING_SERVICE_SID.
+- zernio: POST JSON a https://zernio.com/api/v1/sms/messages con Authorization Bearer ZERNIO_API_KEY y ZERNIO_FROM.
 - dev: no envía nada; el código se devuelve como `dev_code` (solo ENVIRONMENT=development).
 """
 import logging
@@ -58,7 +59,7 @@ def normalize_mx_phone(raw: str | None) -> str | None:
 
 
 def otp_message(code: str) -> str:
-    return f"PatitasFind: tu codigo es {code}. Vence en {settings.otp_ttl_minutes} min. No lo compartas con nadie."
+    return f"GuauWoow: tu codigo es {code}. Vence en {settings.otp_ttl_minutes} min. No lo compartas con nadie."
 
 
 def provider() -> str | None:
@@ -79,6 +80,8 @@ def send_otp(phone_e164: str, code: str) -> str:
         _send_smsmasivos(phone_e164, message)
     elif name == "twilio":
         _send_twilio(phone_e164, message)
+    elif name == "zernio":
+        _send_zernio(phone_e164, message)
     else:
         logger.info("[sms:dev] SMS a %s: %s", phone_e164, message)
     return name
@@ -134,3 +137,30 @@ def _send_twilio(phone_e164: str, message: str) -> None:
     if resp.status_code >= 300:
         logger.error("Twilio rechazó el envío (HTTP %s): %s", resp.status_code, resp.text[:500])
         raise SMSError("No pudimos enviar el SMS, intenta de nuevo")
+
+
+def _send_zernio(phone_e164: str, message: str) -> None:
+    payload = {
+        "from": (settings.zernio_from or "").strip(),
+        "to": phone_e164,
+        "text": message,
+    }
+    headers = {
+        "Authorization": f"Bearer {(settings.zernio_api_key or '').strip()}",
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+    }
+    try:
+        resp = requests.post(
+            settings.zernio_sms_url,
+            json=payload,
+            headers=headers,
+            timeout=TIMEOUT,
+        )
+    except requests.RequestException as exc:
+        logger.error("Zernio sin conexión: %s", exc)
+        raise SMSError("No pudimos enviar el SMS, intenta de nuevo") from exc
+    if resp.status_code >= 300:
+        logger.error("Zernio rechazó el envío (HTTP %s): %s", resp.status_code, resp.text[:500])
+        raise SMSError("No pudimos enviar el SMS, intenta de nuevo")
+    logger.info("Zernio SMS OK (HTTP %s)", resp.status_code)

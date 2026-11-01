@@ -1,0 +1,6 @@
+Contact: mailto:[CORREO DE SEGURIDAD]
+Expires: 2027-04-17T00:00:00.000Z
+Acknowledgments: https://[DOMINIO]/app/legal/seguridad.html#reportar
+Preferred-Languages: es, en
+Canonical: https://[DOMINIO]/.well-known/security.txt
+Policy: https://[DOMINIO]/app/legal/seguridad.html#reportar

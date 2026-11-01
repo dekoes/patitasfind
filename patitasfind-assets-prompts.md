@@ -1,4 +1,4 @@
-# PatitasFind — Prompts de assets e imágenes + Arquitectura recomendada
+# GuauWoow — Prompts de assets e imágenes + Arquitectura recomendada
 
 > Generado el 2026-09-23. Usa estos prompts en Midjourney, DALL·E 3, Stable Diffusion XL, Ideogram o Leonardo para crear los íconos e ilustraciones que faltan en la app.
 
@@ -7,7 +7,7 @@
 ## 1. Paleta y estilo base (manda este preámbulo en cada prompt)
 
 > **Style prefix (copia y pega al inicio de cada prompt):**
-> “Cute kawaii cartoon illustration for a pet rescue app called PatitasFind. Flat 2D vector style, thick rounded shapes, friendly and warm. Color palette: teal/turquoise #2EC4B6, coral/orange #FF6B5B, soft lilac #C3A6FF, blush pink #FFB6C1, sand/cream #FDF6EC, dark ink outline #3B2F2F. White or transparent background. Clean edges, no text, no watermarks, no photorealism.”
+> “Cute kawaii cartoon illustration for a pet rescue app called GuauWoow. Flat 2D vector style, thick rounded shapes, friendly and warm. Color palette: teal/turquoise #2EC4B6, coral/orange #FF6B5B, soft lilac #C3A6FF, blush pink #FFB6C1, sand/cream #FDF6EC, dark ink outline #3B2F2F. White or transparent background. Clean edges, no text, no watermarks, no photorealism.”
 
 ---
 

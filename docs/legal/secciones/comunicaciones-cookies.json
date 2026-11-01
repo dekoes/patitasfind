@@ -1,0 +1,305 @@
+{
+  "domain": "comunicaciones-cookies",
+  "generated_at": "2026-10-17",
+  "disclaimer": "No es asesoría legal. Confianza media = requiere confirmación de abogado mexicano. Ningún hallazgo de este dominio quedó con veredicto no_verificable/no_revisado ni confianza baja.",
+  "pages": [
+    {
+      "slug": "cookies",
+      "title": "Política de cookies y tecnologías similares",
+      "purpose": "Página propia, enlazada desde el banner y el pie de landing, app y páginas legales, que informa qué tecnologías de rastreo se usan, qué datos obtienen, para qué, cuánto duran y cómo desactivarlas; sustituye como fuente única a la sección 10 del aviso integral.",
+      "required_contents": [
+        "Responsable: razón social, domicilio y correo de privacidad; versión y fecha (comunicaciones-cookies-24, 01)",
+        "Definición de cookies, localStorage/sessionStorage, SDK de terceros y web beacons; declaración de que no se usa fingerprinting (24)",
+        "Tabla de inventario generada desde app/legal/cookies.json: nombre, proveedor, propio/tercero, tipo, categoría, finalidad, datos, duración, ubicación del proveedor y cómo desactivar; incluye patitas_token, patitas_cart, patitas_city, patitas_coords (precisión real), patitas_consent, patitas_onboarded, patitas_theme, patitas_email_banner, patitasfind_admin_token, ph_<token>_posthog y las cookies de Cloudflare según funciones activas (05, 22)",
+        "Categorías y base: necesarias y seguridad (informadas, sin consentimiento), preferencias, analítica (solo con consentimiento previo y revocable) (03)",
+        "Servicios de terceros que reciben la IP sin cookies: fuentes (hasta autohospedar), teselas OSM/CARTO con atribución, Nominatim, Cloudflare, Sentry (solo eventos; SDK autohospedado), Mercado Pago, Google; Google Maps/Places si la sección de veterinarias lo carga (06)",
+        "Correos: no se usan píxeles de seguimiento ni rastreo de clics; si se activan, se declaran con opción de rechazo (19)",
+        "Lo que no se hace: publicidad de terceros, rastreo entre sitios, venta de datos (24)",
+        "Cómo cambiar la elección: botón que abre el panel, instrucciones por navegador, revocar ubicación y notificaciones, qué deja de funcionar (03, 24)",
+        "Conservación de cada clave (05)",
+        "Remisiones internacionales con enlace a /legal/proveedores (22)",
+        "Notificaciones push: solo si se implementan, con los servicios de push del navegador (21)",
+        "Versión, fecha e historial de cambios (01)",
+        "Enlaces al aviso integral y a derechos ARCO (24)",
+        "Marco legal: LFPDPPP 2025 (DOF 20-03-2025, últ. ref. 14-11-2025) arts. 7, 14, 15, 16; Reglamento 2011 art. 14 y Lineamientos 2013 Trigésimo primero (supletorios); autoridad SABG (01)"
+      ],
+      "legal_basis": [
+        "LFPDPPP 2025 arts. 6, 7, 12, 14, 15 fr. II-IV, 16 fr. II, 58 fr. V y XV, 59 fr. II y III",
+        "Reglamento LFPDPPP (DOF 21-12-2011) arts. 14 y 21 (supletorio)",
+        "Lineamientos del Aviso de Privacidad (DOF 17-01-2013) numerales Tercero, Vigésimo, Trigésimo y Trigésimo primero (supletorios)",
+        "Cloudflare cookies policy; PostHog SDK docs; Sentry data storage location; Nominatim Usage Policy (OSMF)"
+      ]
+    },
+    {
+      "slug": "preferencias",
+      "title": "Centro de preferencias de comunicación",
+      "purpose": "Página pública que explica categorías de comunicación, canales, cómo darse de baja, el listado de exclusión propio, el REPEP y los plazos; respaldo de la pantalla Perfil → Preferencias de comunicación y de la página de baja con token sin sesión.",
+      "required_contents": [
+        "Categorías A-J con canal (app, correo, WhatsApp, push/SMS) y si son esenciales, opt-in o desactivables; explicación de por qué las esenciales no se apagan (comunicaciones-cookies-17)",
+        "Alertas cercanas: opt-in, radio 5 km (15 km refugios y casas de paso), tope diario, horario silencioso, baja de un clic (08)",
+        "WhatsApp: qué se envía, opt-in requerido, categorías de plantillas de Meta (utilidad, marketing, autenticación), palabras de baja (BAJA, STOP, ALTO, CANCELAR), reactivación solo con ALTA, número vinculado y fecha de opt-in (09, 10, 12)",
+        "Botón «Darme de baja de todo lo promocional» y enlace de baja por categoría sin iniciar sesión (17, 18)",
+        "Listado de exclusión propio con constancia (folio, fecha), gratuito e indefinido (14; Reglamento 110-111)",
+        "Enlace al REPEP (repep.profeco.gob.mx), efectos a los 30 días naturales, prevalencia del opt-in expreso otorgado a GuauWoow mientras no se revoque; declaración expresa si no habrá publicidad telefónica (14, v01)",
+        "Historial de consentimientos exportable (fecha, canal, versión del texto, origen) (15, 16)",
+        "Derecho LFPC art. 16: saber qué información se usa con fines mercadotécnicos, con quién se compartió; plazo 20 días hábiles (15)",
+        "Identificación del remitente en publicidad y datos de PROFECO; enlace a /legal/canales-oficiales (13)",
+        "Plazos: cambios inmediatos (< 24 h; nunca más de 20 días hábiles); sin patrones engañosos; accesibilidad (17)",
+        "Multas vigentes LFPC arts. 127 y 128 (montos 2026) y nota sobre la minuta del 18 Bis pendiente (28)",
+        "Enlace a preferencias de cookies y a borrar ubicación guardada (07, J)",
+        "Marco legal y versión (01)"
+      ],
+      "legal_basis": [
+        "LFPDPPP 2025 arts. 7 último párrafo, 15 fr. III y IV, 31",
+        "Reglamento LFPDPPP arts. 20, 21, 110 y 111 (supletorio)",
+        "LFPC arts. 16, 17, 18, 18 Bis, 76 Bis fr. VI, 127 y 128",
+        "Reglas REPEP (DOF 08-11-2007, ref. 27-01-2012) arts. 6, 13, 14, 22, 28, 30; Acuerdo SE/PROFECO DOF 30-03-2026",
+        "WhatsApp Business Messaging Policy §1; Meta Get opt-in; Template categorization",
+        "Código de Ética en materia de Comercio Electrónico art. 9 c) (solo si hay adhesión)"
+      ]
+    },
+    {
+      "slug": "whatsapp",
+      "title": "Aviso de privacidad y reglas del asistente de WhatsApp",
+      "purpose": "Aviso simplificado enlazado desde el primer mensaje del bot y desde las plantillas; explica qué datos trata el bot, el opt-in, las bajas, la atención humana, lo que nunca se pide y los límites del bot (sin adopciones con pago ni intercambio de animales).",
+      "required_contents": [
+        "Identidad del responsable y nombre visible de la cuenta de WhatsApp Business; número oficial (comunicaciones-cookies-11, 25)",
+        "Datos tratados por el bot: número, mensajes, fotos, ubicación compartida; finalidades (reportes, coincidencias, respuesta); enlace al aviso integral (11; LFPDPPP 16 fr. II)",
+        "Opt-in: solo se envían avisos a quien lo autorizó; texto del opt-in y versión; opt-in dentro del chat «¿Quieres que te avisemos por este chat?» (09, 27)",
+        "Bajas: palabras reconocidas, efecto inmediato, registro; HOLA no reactiva; ALTA reactiva; baja desde Preferencias equivale (10)",
+        "Categorías de plantillas y pie «Responde BAJA» (12)",
+        "Atención humana: PERSONA, correo, teléfono y horario (11)",
+        "Nunca se piden INE, CURP, tarjetas ni pagos por WhatsApp; verificación de refugios y veterinarias solo en la app (11)",
+        "El bot no gestiona adopciones con pago ni intercambio de animales; solo redirige a la app (11)",
+        "No se contacta a teléfonos que aparezcan en publicaciones importadas o reenviadas (27)",
+        "Meta/WhatsApp Cloud API como encargado; servidores fuera de México (22)",
+        "Derechos ARCO y correo de privacidad; versión y fecha"
+      ],
+      "legal_basis": [
+        "LFPDPPP 2025 arts. 2 fr. IV, 7, 16 fr. II, 17",
+        "Reglamento LFPDPPP art. 21 (supletorio)",
+        "WhatsApp Business Messaging Policy (23-09-2026) §1, §2, §3, §4; Meta Get opt-in for WhatsApp; Template categorization"
+      ]
+    },
+    {
+      "slug": "canales-oficiales",
+      "title": "Canales oficiales y prevención de fraudes",
+      "purpose": "Lista pública de los únicos medios por los que GuauWoow se comunica, con los datos del operador y de PROFECO exigidos en la publicidad, para evitar suplantaciones y cumplir LFPC art. 17 en mensajes cortos.",
+      "required_contents": [
+        "Razón social, domicilio, teléfono, correo y horario de atención del operador (comunicaciones-cookies-13, 25; LFPC 76 Bis fr. III)",
+        "Número oficial de WhatsApp y nombre visible verificado (25)",
+        "Dominios y direcciones de correo oficiales (transaccional y promocional) y remitente de SMS (18, 20)",
+        "Cuentas oficiales en redes sociales (25)",
+        "Datos de PROFECO: Teléfono del Consumidor 55 5568 8722 y 800 468 8722, gob.mx/profeco, domicilio (verificar) (13)",
+        "Lo que nunca se pide: código OTP, contraseña, pagos o anticipos por adoptar, documentos por WhatsApp (20, 25)",
+        "Cómo reportar phishing o suplantación (25)",
+        "Método de importación de publicaciones de Facebook y procedimiento de retiro (v03)"
+      ],
+      "legal_basis": [
+        "LFPC arts. 17 y 76 Bis fr. III",
+        "LFPDPPP 2025 art. 18",
+        "WhatsApp Business Messaging Policy §1"
+      ]
+    },
+    {
+      "slug": "proveedores",
+      "title": "Proveedores y encargados del tratamiento",
+      "purpose": "Lista fechada de encargados y terceros con servicio, datos, país o región y base de la remisión; compartida con el dominio datos-personales (este dominio aporta las entradas de comunicaciones, analítica, CDN y mapas).",
+      "required_contents": [
+        "Cloudflare, Inc.: CDN, WAF, proxy inverso y R2 (IP, encabezados, contenido en tránsito, respaldos cifrados); EE. UU. y red global; cookies según funciones (comunicaciones-cookies-22)",
+        "Sentry: monitoreo de errores; región contratada (EE. UU./Iowa o UE/Fráncfort); metadatos en EE. UU.; sin grabación de sesiones; PII depurada (22)",
+        "PostHog, Inc.: analítica solo con consentimiento; región; retención 12 meses; IP descartada (04, 22)",
+        "Meta Platforms (WhatsApp Cloud API, Graph API): número, mensajes, plantillas; EE. UU. (09, 11)",
+        "Google LLC: OAuth (nombre, correo, foto, sub); Google Fonts hasta autohospedar (IP); Maps/Places si se usa en veterinarias (06, 23)",
+        "OpenStreetMap Foundation (Nominatim, teselas) y CARTO (teselas Voyager): IP y coordenadas redondeadas (06)",
+        "Proveedor SMTP y proveedor de SMS: por definir; seguimiento de aperturas desactivado (18, 19, 20)",
+        "Servicios de push del navegador (Apple, Google FCM, Mozilla) solo si se implementa (21)",
+        "Apify (captación de grupos de Facebook): solo si el abogado lo valida; marcar como riesgo (v03)",
+        "Fecha de última actualización; DPA archivados (22)"
+      ],
+      "legal_basis": [
+        "LFPDPPP 2025 arts. 2 fr. XII y XX, 14, 15 fr. II",
+        "Reglamento LFPDPPP art. 14 último párrafo (supletorio)"
+      ]
+    },
+    {
+      "slug": "privacidad",
+      "title": "Aviso de privacidad integral (aportaciones de este dominio)",
+      "purpose": "Ajustes al aviso integral existente para que coincida con el código y con las páginas nuevas de cookies, preferencias y WhatsApp.",
+      "required_contents": [
+        "§10 reducido a resumen con remisión a /legal/cookies; corregir «coordenadas aproximadas»; añadir patitas_email_banner, patitasfind_admin_token y cookies de Cloudflare; eliminar mención a CDN de Sentry (comunicaciones-cookies-05, 06, 24)",
+        "§22: consentimiento expreso por casilla para comunicaciones promocionales (no tácito); alertas cercanas opt-in; retirar VERIFICAR_ALERTAS_POR_DEFECTO (08, 16)",
+        "Sección «Datos que recibimos de Google» con revocación en myaccount.google.com/permissions (23)",
+        "Ubicación: precisión real guardada, finalidad, conservación hasta borrarla o eliminar la cuenta, botón para borrarla (07)",
+        "Encargados: Cloudflare (CDN/WAF/proxy/R2), Sentry (región), PostHog (región, solo con consentimiento), Meta, Google, OSMF/CARTO; push condicional (21, 22)",
+        "§21.2 importaciones de Facebook: método, campos, expiración 30 días, no contacto, retiro en 20 días hábiles, aviso compensatorio (27, v03)",
+        "§21.3 bot: aviso simplificado al primer contacto; retirar VERIFICAR_AVISO_BOT al implementarlo (11)",
+        "Transferencias a refugios y veterinarias con limitaciones y corresponsabilidad; confidencialidad del comprador (26, v02)",
+        "Derecho LFPC art. 16 y exportación «Comunicaciones» (15)",
+        "Web beacons: no se usan; retirar VERIFICAR_PIXELES al confirmar con el proveedor SMTP (19)",
+        "Autoridad: Secretaría Anticorrupción y Buen Gobierno; marco legal con versiones (01)"
+      ],
+      "legal_basis": [
+        "LFPDPPP 2025 arts. 6, 7, 11, 12, 14, 15, 16, 17, 31, 35",
+        "Reglamento LFPDPPP arts. 14, 20, 21, 31, 32 (supletorio)",
+        "LFPC arts. 16, 76 Bis fr. I",
+        "Google API Services User Data Policy"
+      ]
+    },
+    {
+      "slug": "terminos",
+      "title": "Términos y condiciones (aportaciones de este dominio)",
+      "purpose": "Cláusulas que deben cambiar para que los Términos no presuman consentimientos y reflejen el opt-in, los límites del bot y las obligaciones de refugios.",
+      "required_contents": [
+        "Cláusula 29: remitir a Preferencias en lugar de presumir aceptación de SMS/WhatsApp (comunicaciones-cookies-09)",
+        "7.1: la ubicación pública redondeada (~1 km) y la zona guardada deben coincidir con la precisión real (07)",
+        "7.7 y 13.2: alertas cercanas como opt-in (08)",
+        "Nueva cláusula: el bot de WhatsApp no gestiona adopciones con pago ni intercambio de animales; solo redirige a la app (11)",
+        "Refugios y veterinarias: uso limitado de datos, sin publicidad propia sin consentimiento, respeto de la lista de supresión y del REPEP, no exportar contactos, atender ARCO, datos completos antes de promocionar sus productos, corresponsabilidad LFPC 18 Bis (13, 26)",
+        "Tienda: confidencialidad del comprador; solo datos del pedido al refugio vendedor; medidas de seguridad informadas antes de comprar (v02)",
+        "5.3: GuauWoow nunca pide OTP, contraseña ni pagos por adoptar; enlace a /legal/canales-oficiales (25)",
+        "Sello del Distintivo Digital solo si se obtiene (29)"
+      ],
+      "legal_basis": [
+        "LFPDPPP 2025 arts. 2 fr. IV, 7, 35",
+        "LFPC arts. 17, 18 Bis, 76 Bis fr. I, II, III y VI",
+        "WhatsApp Business Messaging Policy §1 y §4"
+      ]
+    },
+    {
+      "slug": "refugios",
+      "title": "Convenio y guía para refugios (aportaciones de este dominio)",
+      "purpose": "Obligaciones de los refugios como receptores de datos y como proveedores objeto de publicidad; registro de aceptación con fecha y versión.",
+      "required_contents": [
+        "Uso de datos solo para la adopción, el pedido o el donativo (comunicaciones-cookies-26)",
+        "Prohibición de publicidad propia sin consentimiento y de exportar o compartir listas (26, v02)",
+        "Respeto de la lista de supresión de GuauWoow y del REPEP; datos de contacto completos para el pie de publicidad (13, 14)",
+        "Atención y reenvío de solicitudes ARCO (26)",
+        "Datos del pedido que reciben en la tienda y confidencialidad (v02)",
+        "Aceptación registrada con fecha y versión al aprobar el refugio (26)"
+      ],
+      "legal_basis": [
+        "LFPDPPP 2025 arts. 35 y 58 fr. X",
+        "LFPC arts. 17, 18 Bis, 76 Bis fr. I"
+      ]
+    }
+  ],
+  "product_requirements": [
+    {"id": "comunicaciones-cookies-02", "priority": "obligatorio", "requirement": "Mostrar el banner de cookies en la primera visita a app, landing y páginas legales aunque no haya posthog_key; incluir identidad, tecnologías, datos y finalidades resumidos y enlaces a /legal/cookies y al aviso integral; enlace a /legal/cookies en el pie de todas las páginas."},
+    {"id": "comunicaciones-cookies-03", "priority": "recomendado", "requirement": "Banner con «Aceptar analítica», «Rechazar» y «Configurar» del mismo peso; casillas sin premarcar; PostHog solo tras aceptar; patitas_consent como JSON versionado {v, analytics, ts}; volver a preguntar al cambiar la versión o a los 12 meses; enlace permanente «Preferencias de cookies»; al revocar opt_out_capturing()+reset() y borrar ph_*; no bloquear el flujo de reportar; opcional Global Privacy Control."},
+    {"id": "comunicaciones-cookies-04", "priority": "obligatorio", "requirement": "Cambiar «medimos el uso de forma anónima» por «identificador seudónimo ligado a tu cuenta» o dejar de llamar a posthog.identify(); clase ph-no-capture en chat, cuestionario, direcciones, documentos y admin; before_send que elimine correos, teléfonos y tokens de URL; descartar IP en el proyecto; región y retención 12 meses; DPA; declarar ph_<token>_posthog."},
+    {"id": "comunicaciones-cookies-05", "priority": "obligatorio", "requirement": "Registro app/legal/cookies.json que genere la tabla de /legal/cookies; prueba de CI que falle ante claves de localStorage/sessionStorage/document.cookie no registradas; añadir patitas_email_banner, patitasfind_admin_token y cookies de Cloudflare; corregir la precisión declarada de patitas_coords."},
+    {"id": "comunicaciones-cookies-06", "priority": "recomendado", "requirement": "Autohospedar fuentes Baloo 2 y Patrick Hand y quitar preconnect a Google; geocodificación inversa en backend con redondeo a 3 decimales, caché, 1 req/s y User-Agent identificable (o redondear en cliente antes del fetch); declarar proveedor de teselas con atribución; quitar la mención a CDN de Sentry."},
+    {"id": "comunicaciones-cookies-07", "priority": "obligatorio", "requirement": "Pedir permiso de ubicación solo al tocar «Usar mi ubicación» con explicación previa; separar «ver cerca» (sin guardar) de «guardar mi zona» (confirmación explícita); guardar zona redondeada (3 decimales o geohash 6); patitas_coords redondeado o en sessionStorage; botón «Borrar mi ubicación guardada»; enableHighAccuracy solo al crear un reporte; declarar conservación."},
+    {"id": "comunicaciones-cookies-08", "priority": "obligatorio", "requirement": "notify_nearby default=False y server_default=false (migración); ofrecer activación al guardar la zona con elección de canal; explicar radio 5/15 km, tope 5 avisos/día y horario silencioso 22:00-8:00; enlace de un clic de baja en correo y BAJA en WhatsApp; alinear Términos 7.7 y 13.2."},
+    {"id": "comunicaciones-cookies-09", "priority": "obligatorio", "requirement": "Campos whatsapp_opt_in_at, whatsapp_opt_in_source, whatsapp_opt_in_text_version y whatsapp_marketing_opt_in_at; casilla sin marcar tras verificar el teléfono que nombre a la empresa (mismo nombre que el perfil de WhatsApp Business); can_whatsapp() exige opt-in; plantillas de marketing exigen el opt-in de marketing; reescribir cláusula 29."},
+    {"id": "comunicaciones-cookies-10", "priority": "obligatorio", "requirement": "Registro único de bajas por número E.164 consultado por bot, preferencias, notify.send_whatsapp() y matching._notify_whatsapp(); ampliar OPT_OUT_WORDS (baja, stop, alto, cancelar, no quiero recibir, con y sin acentos); HOLA no reactiva plantillas proactivas, solo ALTA o botón; pie «Responde BAJA»; desactivar WhatsApp en Preferencias = baja; registrar fecha, canal y origen."},
+    {"id": "comunicaciones-cookies-11", "priority": "obligatorio", "requirement": "Bot: aviso simplificado con enlace a /legal/whatsapp en el primer mensaje y tras 12 meses sin actividad (registrar fecha y versión); opción «Hablar con una persona»; perfil de WhatsApp Business completo; rechazar INE/CURP/tarjetas; «Quiero adoptar» solo redirige a la app sin precios ni cuotas ni gestión de entrega."},
+    {"id": "comunicaciones-cookies-12", "priority": "recomendado", "requirement": "Catálogo de plantillas con categoría Meta y opt-in requerido (utilidad / marketing / autenticación); nunca promoción en utilidad; enviar la plantilla de alerta cercana a revisión de Meta antes del lanzamiento."},
+    {"id": "comunicaciones-cookies-13", "priority": "obligatorio", "requirement": "Plantilla de pie exclusiva para publicidad con datos del operador, del refugio proveedor y de PROFECO; identificación breve y enlace a /legal/canales-oficiales en WhatsApp, SMS y push de marketing; exigir datos completos a refugios antes de promocionarlos; interruptor SHOP_ENABLED."},
+    {"id": "comunicaciones-cookies-14", "priority": "obligatorio", "requirement": "Lista de supresión global por correo y teléfono consultada antes de cada envío promocional; botón de inscripción al listado de exclusión con constancia (folio, fecha) por correo; si habrá publicidad a teléfonos, inscripción como proveedor en el REPEP, descarga y filtrado con evidencia; enlace al REPEP; declarar si no habrá publicidad telefónica."},
+    {"id": "comunicaciones-cookies-v01", "priority": "recomendado", "requirement": "Explicar en /legal/preferencias la prevalencia del opt-in expreso sobre el REPEP respecto de GuauWoow; filtrar el REPEP antes de SMS o llamadas promocionales desde repep.profeco.gob.mx/Registro.jsp; agendar revisión en marzo de 2027."},
+    {"id": "comunicaciones-cookies-15", "priority": "obligatorio", "requirement": "Ampliar «Descargar mis datos» con sección «Comunicaciones»: consentimientos (fecha, canal, versión), preferencias vigentes, registro de envíos promocionales y terceros (refugios) con los que se compartió nombre o correo; plazo 20 días hábiles; propagar rectificaciones a refugios."},
+    {"id": "comunicaciones-cookies-16", "priority": "obligatorio", "requirement": "Opt-in expreso para toda comunicación promocional; sustituir marketing_opt_in por preferencias por categoría y canal; tabla inmutable y exportable consent_events (user_id/teléfono, finalidad, canal, otorgado/revocado, origen, versión o hash del texto, privacy_version, fecha, IP truncada opcional); source='google' desde la bandera m del estado OAuth."},
+    {"id": "comunicaciones-cookies-17", "priority": "obligatorio", "requirement": "Centro de preferencias en Perfil con categorías A-J por canal, número de WhatsApp y correo vinculados con fecha de opt-in, «Darme de baja de todo lo promocional», listado de exclusión con constancia, enlace al REPEP, historial de consentimientos; página pública /legal/preferencias; página de baja con token firmado sin sesión; cambios inmediatos; sin patrones engañosos; WCAG."},
+    {"id": "comunicaciones-cookies-18", "priority": "recomendado", "requirement": "Endpoint de baja por categoría con token firmado y expiración; encabezados List-Unsubscribe y List-Unsubscribe-Post: List-Unsubscribe=One-Click en todo correo no esencial; pie con motivo, identidad y enlaces; Reply-To a soporte; SPF, DKIM 2048, DMARC alineado, PTR, TLS; Postmaster Tools < 0.1%; subdominios separados transaccional/promocional."},
+    {"id": "comunicaciones-cookies-19", "priority": "recomendado", "requirement": "Desactivar seguimiento de aperturas y clics en el proveedor SMTP y verificarlo antes del lanzamiento; mantener «No usamos píxeles de seguimiento en correos»."},
+    {"id": "comunicaciones-cookies-20", "priority": "recomendado", "requirement": "OTP por SMS sin enlaces ni promociones; publicar remitente oficial; sin SMS de marketing salvo opt-in específico, filtro REPEP y datos del art. 17; mantener límites de OTP por número e IP."},
+    {"id": "comunicaciones-cookies-21", "priority": "buena_practica", "requirement": "Si se implementa push: explicación propia antes del aviso nativo, categorías del centro de preferencias, declarar servicios de push (Apple, Google FCM, Mozilla), borrar suscripción al cerrar sesión, inventariar en /legal/cookies; mientras tanto dejar la mención del aviso como condicional o quitarla."},
+    {"id": "comunicaciones-cookies-22", "priority": "obligatorio", "requirement": "Añadir Cloudflare (CDN/WAF/proxy/R2), Sentry (región) y PostHog (región, solo con consentimiento) a Encargados y /legal/proveedores; DPA firmados y archivados; cookies de Cloudflare según funciones activas; fecha de última actualización."},
+    {"id": "comunicaciones-cookies-23", "priority": "obligatorio", "requirement": "Sección «Datos que recibimos de Google» en el aviso; texto junto al botón «Continuar con Google»; consola de Google Cloud con nombre, logo, correo de soporte, landing pública, enlaces a privacidad y términos en el mismo dominio, dominio verificado; verificación de marca; botón conforme a guías de marca."},
+    {"id": "comunicaciones-cookies-24", "priority": "obligatorio", "requirement": "Crear /legal/cookies con las 13 secciones y enlazarla desde el banner y el pie; resumir la sección 10 del aviso integral."},
+    {"id": "comunicaciones-cookies-25", "priority": "buena_practica", "requirement": "Crear /legal/canales-oficiales y enlazarla desde pie de correos, perfil del bot, landing y centro de preferencias."},
+    {"id": "comunicaciones-cookies-26", "priority": "obligatorio", "requirement": "Entregar a cada refugio aprobado el aviso y las limitaciones de uso y registrar la aceptación con fecha y versión; detectar spam y promociones masivas en el chat."},
+    {"id": "comunicaciones-cookies-27", "priority": "obligatorio", "requirement": "Prueba automatizada que garantice que nunca se escribe por WhatsApp ni SMS a un contact_phone de origen facebook o reenviado; mantener la condición source=='whatsapp' en matching.run_report_matching; mostrar «contacta por la publicación original»; opt-in dentro del bot «¿Quieres que te avisemos por este chat?»."},
+    {"id": "comunicaciones-cookies-28", "priority": "recomendado", "requirement": "Topes de frecuencia por canal y registro de envíos que permita demostrar la autorización; vigilar el DOF por la reforma a los arts. 18 Bis y 127 de la LFPC."},
+    {"id": "comunicaciones-cookies-v03", "priority": "recomendado", "requirement": "Prueba que falle si facebook_monitor.py añade scraping de grupos o perfiles; depurar teléfonos y nombres del texto importado; aviso compensatorio en cada ficha importada; procedimiento de retiro en 20 días hábiles. La captación vía Apify decidida por el dueño contradice esta regla y requiere opinión del abogado antes de implementarse."},
+    {"id": "comunicaciones-cookies-01", "priority": "recomendado", "requirement": "Recuadro «Marco legal» e «Historial de versiones» en /legal/cookies y /legal/preferencias; usar SABG en lugar de INAI; revisión legal trimestral; textos versionados con fecha."},
+    {"id": "comunicaciones-cookies-v02", "priority": "obligatorio", "requirement": "En la tienda, el backend entrega al refugio vendedor solo nombre, dirección de envío y teléfono si es necesario para la entrega; nunca correo ni historial de compras con otros refugios; cualquier otro uso requiere casilla expresa separada registrada en consent_events (LFPC 76 Bis fr. I)."}
+  ],
+  "shop_requirements": [
+    {"id": "comunicaciones-cookies-13", "requirement": "Toda publicidad de productos debe identificar al refugio proveedor (nombre, domicilio, teléfono o correo), a GuauWoow como quien envía y a PROFECO; corresponsabilidad LFPC 18 Bis; SHOP_ENABLED controla el envío de promociones de productos."},
+    {"id": "comunicaciones-cookies-14", "requirement": "Respetar la negativa, la lista de supresión propia y el REPEP antes de promociones de la tienda (LFPC 18 Bis y 76 Bis fr. VI); constancia de inscripción al listado de exclusión."},
+    {"id": "comunicaciones-cookies-15", "requirement": "Derecho del consumidor a saber qué información se usa con fines mercadotécnicos y con quién se compartió (LFPC art. 16); exportación «Comunicaciones» en 20 días hábiles."},
+    {"id": "comunicaciones-cookies-17", "requirement": "Categoría F «Promociones de la tienda y de refugios» con opt-in por canal en el centro de preferencias; respetar la decisión de no recibir avisos comerciales (LFPC 76 Bis fr. VI)."},
+    {"id": "comunicaciones-cookies-18", "requirement": "Baja en un clic y pie identificado en correos promocionales de la tienda; separación de flujo transaccional (recibos, envíos) y promocional."},
+    {"id": "comunicaciones-cookies-v02", "requirement": "Confidencialidad del comprador (LFPC 76 Bis fr. I y II): al refugio vendedor solo nombre, dirección de envío y teléfono si es necesario para la entrega; nunca correo ni historial con otros refugios; cualquier otro uso con casilla expresa separada; informar medidas de seguridad antes de comprar; multa art. 128."},
+    {"id": "comunicaciones-cookies-26", "requirement": "Convenio con refugios vendedores: datos solo para el pedido, sin publicidad propia sin consentimiento, respeto de supresión y REPEP, no exportar listas, atender ARCO."},
+    {"id": "comunicaciones-cookies-25", "requirement": "Datos de contacto y aclaraciones antes de la transacción (LFPC 76 Bis fr. III) en /legal/canales-oficiales y en la tienda."},
+    {"id": "comunicaciones-cookies-29", "requirement": "Opcional: adhesión al Código de Ética de Comercio Electrónico y Distintivo Digital Profeco para la tienda; mostrar el sello solo si se obtiene."}
+  ],
+  "retention": [
+    {"category": "patitas_consent (elección de cookies)", "period": "12 meses o hasta cambio de versión de la política; luego se vuelve a preguntar", "basis": "comunicaciones-cookies-03; LFPDPPP art. 7 (revocación) — plazo de buena práctica, no legal"},
+    {"category": "ph_<token>_posthog (identificador de analítica)", "period": "Hasta revocar el consentimiento (localStorage); 365 días si se usa modo cookie; datos en PostHog con retención de 12 meses", "basis": "comunicaciones-cookies-04; LFPDPPP art. 12 (proporcionalidad)"},
+    {"category": "Cookies de Cloudflare", "period": "__cf_bm 30 min de inactividad; __cflb hasta 24 h; cf_ob_info/cf_use_ob 30 s; _cfuvid y __cfwaitingroom sesión; cf_clearance según configuración", "basis": "comunicaciones-cookies-05 y 22; documentación de Cloudflare"},
+    {"category": "Zona de ubicación guardada (redondeada)", "period": "Hasta que la persona la cambie, la borre desde Preferencias o elimine su cuenta", "basis": "comunicaciones-cookies-07; LFPDPPP arts. 11 y 12; W3C Geolocation §3.2"},
+    {"category": "Registros de consentimiento y bajas (consent_events, opt-in de WhatsApp, lista de supresión)", "period": "Mientras la cuenta o el número existan y después el plazo probatorio que fije el abogado (la carga de la prueba es del responsable); la inscripción en el listado de exclusión es indefinida hasta que la persona la revierta", "basis": "comunicaciones-cookies-14 y 16; Reglamento LFPDPPP arts. 20, 31 y 110 (supletorio); Reglas REPEP art. 13 (analogía)"},
+    {"category": "Aviso simplificado mostrado por el bot (fecha y versión por número)", "period": "Mientras exista la interacción; se vuelve a mostrar tras 12 meses sin actividad", "basis": "comunicaciones-cookies-11; LFPDPPP art. 16 fr. II; Reglamento art. 31"},
+    {"category": "Registro de envíos promocionales (fecha, canal, categoría)", "period": "Mientras exista la cuenta; disponible en la exportación ARCO; plazo final a fijar por el abogado", "basis": "comunicaciones-cookies-15 y 28; LFPC art. 16"},
+    {"category": "Comprobantes de descarga del REPEP", "period": "Conservar cada comprobante; renovación de la lista en máximo 15 días naturales y actualización quincenal", "basis": "comunicaciones-cookies-14 y v01; Reglas REPEP arts. 28 y 30"},
+    {"category": "Publicaciones importadas de Facebook (foto, texto depurado, enlace)", "period": "30 días (decisión del dueño) o antes si la persona autora pide el retiro (respuesta en 20 días hábiles)", "basis": "comunicaciones-cookies-v03; LFPDPPP arts. 17 y 31"},
+    {"category": "Suscripción push (si se implementa)", "period": "Hasta cerrar sesión o eliminar la cuenta", "basis": "comunicaciones-cookies-21"}
+  ],
+  "subprocessors": [
+    {"name": "Cloudflare, Inc.", "purpose": "CDN, WAF, proxy inverso, protección contra bots; almacenamiento R2 de respaldos cifrados", "data": "IP, encabezados HTTP y contenido en tránsito; cookies __cf_bm, cf_clearance, _cfuvid, __cflb, __cfwaitingroom según funciones; respaldos cifrados", "country": "Estados Unidos y red global", "type": "encargado"},
+    {"name": "Functional Software, Inc. (Sentry)", "purpose": "Monitoreo de errores y rendimiento (operación y seguridad); SDK autohospedado, solo se envían eventos", "data": "Eventos de error con PII depurada, agente de usuario, IP si no se descarta; sin grabación de sesiones", "country": "Estados Unidos (Iowa) o Unión Europea (Fráncfort), fijo al crear la organización; algunos metadatos en Estados Unidos", "type": "encargado"},
+    {"name": "PostHog, Inc.", "purpose": "Analítica de uso de la app, solo con consentimiento", "data": "Eventos de uso, identificador seudónimo ligado a la cuenta (si se mantiene identify()), rol y ciudad; IP descartada; texto enmascarado", "country": "Estados Unidos (us.i.posthog.com por defecto) o Unión Europea (eu.i.posthog.com), por decidir", "type": "encargado"},
+    {"name": "Meta Platforms, Inc. (WhatsApp Cloud API y Graph API)", "purpose": "Envío y recepción de mensajes de WhatsApp (bot y plantillas); lectura de páginas de Facebook administradas", "data": "Número de teléfono, mensajes, fotos y ubicaciones enviadas por el chat; plantillas; publicaciones de páginas administradas", "country": "Estados Unidos", "type": "encargado"},
+    {"name": "Google LLC (OAuth, Fonts, Maps/Places si aplica)", "purpose": "Acceso con Google; fuentes tipográficas hasta autohospedar; mapas y reseñas de veterinarias si se carga en el navegador", "data": "OAuth: nombre, correo, email_verified, foto, sub; Fonts: IP, URL y encabezados sin cookies; Maps/Places: por inventariar", "country": "Estados Unidos", "type": "encargado (OAuth) / tercero que recibe IP (Fonts, Maps)"},
+    {"name": "OpenStreetMap Foundation (Nominatim y teselas)", "purpose": "Geocodificación inversa y teselas del mapa", "data": "IP, coordenadas (redondear a 3 decimales antes de enviar), User-Agent identificable", "country": "Por confirmar con la OSMF (servidores fuera de México)", "type": "tercero que recibe IP y coordenadas"},
+    {"name": "CARTO (teselas Voyager)", "purpose": "Teselas del mapa en el tema correspondiente", "data": "IP y teselas solicitadas (zona aproximada visible)", "country": "Por confirmar (términos de CARTO por verificar)", "type": "tercero que recibe IP"},
+    {"name": "Mercado Pago (en su propio dominio)", "purpose": "Cobro de donativos y compras de la tienda", "data": "Cookies propias de Mercado Pago en su dominio; datos de pago no pasan por GuauWoow", "country": "México (por confirmar la entidad contratante)", "type": "tercero / encargado (ver dominio fiscal-tienda y donativos)"},
+    {"name": "Proveedor SMTP (por definir)", "purpose": "Envío de correos transaccionales y promocionales", "data": "Correo, nombre, contenido del mensaje; seguimiento de aperturas y clics desactivado", "country": "Por definir", "type": "encargado"},
+    {"name": "Proveedor de SMS (por definir)", "purpose": "Envío de OTP", "data": "Número de teléfono y código de un solo uso", "country": "Por definir", "type": "encargado"},
+    {"name": "Apple, Google FCM y Mozilla (servicios de push del navegador)", "purpose": "Entrega de notificaciones push, solo si se implementa", "data": "Endpoint de suscripción push", "country": "Estados Unidos", "type": "tercero (condicional)"},
+    {"name": "Apify (captación de grupos de Facebook)", "purpose": "Decisión del dueño pendiente de validación legal; contradice la regla verificada de solo Graph API + importación manual y la sección 3.2.3 de los Términos de Meta", "data": "Fotos y texto de publicaciones públicas con teléfonos y nombres depurados; enlace al original", "country": "Por confirmar", "type": "encargado (condicional; riesgo contractual y de datos no obtenidos del titular)"}
+  ],
+  "owner_data_needed": [
+    "Razón social, RFC, domicilio, teléfono y correo de atención del operador (pie de publicidad LFPC art. 17; responsable en banner y /legal/cookies).",
+    "Nombre comercial exacto y nombre visible de la cuenta de WhatsApp Business, número oficial y estado de la verificación de Meta Business; el opt-in debe nombrar a esa empresa.",
+    "Si habrá publicidad o boletines y por qué canales (correo, WhatsApp de marketing, SMS, push), categorías y frecuencia.",
+    "Si se contratará la consulta del REPEP como proveedor, o la declaración expresa de que no habrá publicidad telefónica.",
+    "Proveedor SMTP; si activa por defecto el seguimiento de aperturas y clics; dominios y subdominios de envío; From y Reply-To; acceso al DNS para SPF, DKIM y DMARC.",
+    "Región de PostHog (EE. UU. o UE) y configuración (descartar IP, retención); región elegida en Sentry; DPA firmados.",
+    "Funciones activas de Cloudflare (proxy/CDN, Bot Fight Mode o Bot Management, WAF o rate limiting con unique visitor ID, Turnstile, Waiting Room, Load Balancer, Web Analytics, Zaraz) y DPA.",
+    "Si se planean píxeles o etiquetas de marketing en la landing (Meta Pixel, Google Analytics/Ads, TikTok).",
+    "Datos del proyecto de Google Cloud: correo de soporte, logo, dominio verificado en Search Console y URLs finales de inicio, privacidad y términos.",
+    "Proveedor de teselas del mapa (OpenStreetMap o CARTO) y decisión de mover la geocodificación inversa al backend.",
+    "Si se implementarán notificaciones push y para qué categorías.",
+    "Horario silencioso, topes de frecuencia y radio de alertas para personas usuarias, refugios y casas de paso.",
+    "Si se busca la adhesión al Código de Ética de Comercio Electrónico de PROFECO y al Distintivo Digital.",
+    "Verificar el domicilio y teléfonos vigentes de PROFECO que se incluirán en la publicidad.",
+    "Decisión final sobre la captación de grupos de Facebook vía Apify y, si se mantiene, su contrato y política sobre el origen de los datos.",
+    "Si la sección de veterinarias carga Google Maps o Places API en el navegador y bajo qué términos se muestran las reseñas (no cubierto por la investigación verificada).",
+    "Proveedor de SMS y su política de contenido y consentimiento."
+  ],
+  "lawyer_points": [
+    "Fuerza jurídica del Reglamento LFPDPPP 2011 y de los Lineamientos 2013 tras la ley de 2025: fijar una sola postura para todas las páginas (afecta aviso de cookies, prueba del consentimiento, listados de exclusión y medidas compensatorias). IDs 01, 02, 03, 05, 19, 24, v03.",
+    "Confirmar al lanzamiento si se publicó el nuevo Reglamento de la LFPDPPP o lineamientos de la SABG (no localizados en el DOF al 17-10-2026). ID 01.",
+    "Alcance del REPEP a WhatsApp y aplicación de la exclusión informal de «entidades de beneficencia» si el operador es A.C. o donataria. IDs 14, v01.",
+    "Qué comunicaciones son publicidad bajo LFPC art. 16 último párrafo (campañas de adopción y solicitudes de donativo frente a promociones de la tienda). IDs 13, 15.",
+    "Si un enlace a /legal/canales-oficiales basta para cumplir LFPC art. 17 en mensajes cortos (WhatsApp, SMS, push). ID 13.",
+    "Si canalizar adopciones gratuitas por el bot de WhatsApp es «facilitating the exchange» de animales vivos (política de WhatsApp §4); coordinar con la postura única sobre cuotas de adopción. ID 11.",
+    "Captación de grupos de Facebook vía Apify (decisión del dueño): contradice la sección 3.2 numeral 3 de los Términos de Meta y la regla verificada del código; evaluar riesgo de bloqueo de la cuenta de Meta Business/WhatsApp Cloud API, calificación como fuente de acceso público (LFPDPPP art. 2 fr. X), base del art. 17 y medidas compensatorias. IDs 27, v03.",
+    "Texto final, canales cubiertos y entrada en vigor de la minuta de reforma a los arts. 18 Bis y 127 de la LFPC (Senado 07-10-2026). ID 28.",
+    "Calificación de las alertas cercanas como finalidad primaria o secundaria (se recomienda opt-in en todo caso). IDs 07, 08.",
+    "Precisión de ubicación aceptable y redacción de la cláusula 7.1 de Términos. ID 07.",
+    "Validez del consentimiento agrupado de la cláusula 29 de Términos y del opt-in «general» de Meta frente a LFPDPPP art. 2 fr. IV. ID 09.",
+    "Convenio con refugios y veterinarias: corresponsabilidad LFPC 18 Bis, transferencias LFPDPPP 35, confidencialidad del comprador LFPC 76 Bis fr. I y datos mínimos del pedido. IDs 26, v02.",
+    "Verificar domicilio y teléfonos de PROFECO antes de publicarlos en la publicidad. ID 13.",
+    "Contador: costo y requisitos del Distintivo Digital Profeco y del pago por consulta del REPEP. IDs 14, 29.",
+    "Convertir las multas en UMA (LFPDPPP arts. 58-59) a pesos con el valor vigente de la UMA al redactar las páginas."
+  ],
+  "key_risks": [
+    "Bloqueo o degradación del número de WhatsApp Business por enviar plantillas sin opt-in explícito (hoy can_whatsapp() solo exige teléfono verificado y notify_nearby está activo por defecto). IDs 08, 09, 10.",
+    "Suspensión de la cuenta de WhatsApp por usar el bot para facilitar el intercambio de animales vivos (política §4) o por pedir identificadores sensibles. ID 11.",
+    "Captación de grupos de Facebook vía Apify contraria a los Términos de Meta: riesgo de bloqueo de la cuenta de Meta Business, de la Graph API y de la WhatsApp Cloud API, y tratamiento de datos no obtenidos del titular sin base clara. IDs 27, v03.",
+    "Banner y aviso inexactos (analítica «anónima» con identify(); coordenadas «aproximadas» de 5 decimales; sin aviso cuando no hay PostHog): infracción por recabar datos de forma engañosa u omitir elementos del aviso (LFPDPPP 58 fr. V y XV; 59 fr. II y III, 100 a 320,000 UMA). IDs 02, 04, 05, 07.",
+    "Publicidad de la tienda sin identificación del proveedor, de quien envía y de PROFECO, o enviada a quien se negó o está en el REPEP: multas LFPC 127 ($760.89 a $2,434,847.42) y 128 ($1,093.02 a $4,274,960.73). IDs 13, 14, v02.",
+    "Imposibilidad de probar el consentimiento (carga de la prueba del responsable) por tener un solo booleano marketing_opt_in sin fecha, versión ni origen, y un aviso que dice «tácito» mientras la interfaz usa casilla expresa. IDs 16, 17.",
+    "Correos promocionales sin baja en un clic ni autenticación del dominio: filtrado como spam por Gmail al superar 5,000 correos/día con alertas cercanas. ID 18.",
+    "Encargados no declarados (Cloudflare como CDN/WAF, Sentry, PostHog con región en EE. UU.) y DPA sin firmar. ID 22.",
+    "Pantalla de consentimiento de Google sin verificación de marca o con política de privacidad incompleta: advertencias en el login o rechazo de la app. ID 23.",
+    "Reforma en curso a LFPC 18 Bis y 127 que elevaría multas y prohibiría contactos reiterados por cualquier medio no autorizado. ID 28."
+  ]
+}

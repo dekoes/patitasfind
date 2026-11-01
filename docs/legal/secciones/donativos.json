@@ -1,0 +1,324 @@
+{
+  "domain": "donativos",
+  "generated_at": "2026-10-17",
+  "disclaimer": "No es asesoría legal. Hallazgos con confianza baja (donativos-12, donativos-19) y los agregados por el verificador (donativos-v01, v02, v03) requieren confirmación de abogado o contador antes de usarse en textos públicos.",
+  "finding_ids": [
+    "donativos-01", "donativos-02", "donativos-03", "donativos-04", "donativos-05", "donativos-06", "donativos-07", "donativos-08", "donativos-09", "donativos-10",
+    "donativos-11", "donativos-12", "donativos-13", "donativos-14", "donativos-15", "donativos-16", "donativos-17", "donativos-18", "donativos-19", "donativos-20",
+    "donativos-21", "donativos-22", "donativos-23", "donativos-24", "donativos-25", "donativos-26", "donativos-v01", "donativos-v02", "donativos-v03"
+  ],
+  "pages": [
+    {
+      "slug": "donativos",
+      "title": "Política de donativos",
+      "purpose": "Explicar al donante qué es un donativo en GuauWoow, a dónde va su dinero, si es deducible, cómo se reembolsa y qué datos se comparten con el refugio. Ruta prevista: /legal/donativos.",
+      "required_contents": [
+        "Naturaleza: aportación voluntaria, en dinero, sin contraprestación; el contrato de donación es entre donante y refugio; GuauWoow recibe en nombre y por cuenta del refugio (o vía la cuenta MP del refugio con split) y no es donatario [donativos-01, donativos-02, donativos-19]",
+        "GuauWoow no es institución financiera, ITF ni de financiamiento colectivo; Mercado Pago procesa los pagos; no hay saldos, monederos, intereses ni recompensas [donativos-13, donativos-12]",
+        "A dónde va tu dinero: modelo de fondos vigente (concentradora, split o cobro directo), comisión de GuauWoow [COMISION_DONATIVOS], comisión de Mercado Pago y quién la paga, periodicidad de entrega [PERIODICIDAD_DE_DISPERSION], enlaces a /legal/comisiones y /legal/transparencia [donativos-01, donativos-03, donativos-05, donativos-10]",
+        "¿Es deducible mi donativo?: solo con refugio donataria autorizada vigente (insignia verificada) y si se pide CFDI al donar; el refugio lo emite en 24 horas; límites del 7 % y tope de deducciones personales; anónimos y RESICO reciben S01; GuauWoow no emite recibos deducibles; la aportación voluntaria a GuauWoow no es deducible [donativos-04, donativos-06, donativos-07, donativos-09]",
+        "Leyenda fija para refugios no donatarias: 'Este refugio no es donataria autorizada: tu donativo no es deducible de impuestos' [donativos-07, donativos-14]",
+        "Donar no es pagar por un perro: el donativo nunca es requisito para adoptar ni precio del animal; distinción donativo / cuota de recuperación / venta prohibida [donativos-v02]",
+        "Donar no es comprar: sin productos, descuentos, cupones ni puntos canjeables a cambio de donar; tienda y donativos son flujos y comprobantes distintos [donativos-08]",
+        "Comprobante de operación: contenido y leyenda 'no es CFDI ni recibo deducible' [donativos-26, donativos-04]",
+        "Reembolsos: supuestos (a) error o duplicado, (b) cargo no reconocido o fraude, (c) imposibilidad de entrega; 30 días naturales; sin limitar derechos ante banco o MP [donativos-18]",
+        "Donativos recurrentes: condiciones del art. 76 Bis fr. VIII y IX LFPC o 'no disponibles por ahora' [donativos-17]",
+        "Topes y prevención de fraude y lavado: tope por donativo, monitoreo de acumulados a 6 meses, prohibición de autodonaciones, cooperación con autoridades; enlace a /legal/prevencion-lavado [donativos-11, donativos-16]",
+        "Solo donativos en dinero; no se gestionan donativos en especie [donativos-v03]",
+        "Rifas y sorteos prohibidos sin permiso vigente de SEGOB [donativos-23]",
+        "Tus datos: nombre compartido solo con autorización; datos fiscales solo con consentimiento y para el CFDI; conservación 5 años bloqueados; enlace al Aviso de Privacidad [donativos-20, donativos-21]",
+        "Ranking: cómo afectan (o no) los donativos, alineado con Términos 11.2 [donativos-16]",
+        "Datos del operador (razón social, RFC, domicilio), contacto para aclaraciones, versión y fecha [donativos-26]"
+      ],
+      "legal_basis": [
+        "CCF arts. 2332, 2338, 2340, 2344, 2546, 2560-2570",
+        "CFF arts. 29-A fr. V inciso b), 30, 59 fr. III",
+        "LISR arts. 27 fr. I, 151 fr. III, 80, 82, 82-Quáter",
+        "RMF 2026 reglas 2.7.1.8, 3.10.1.2, 3.10.1.5, 3.10.1.25",
+        "LFPC arts. 7 Bis, 32, 76 Bis fr. III, IV, V, VIII y IX, 76 Bis 1 fr. IV",
+        "LFPIORPI arts. 17 fr. XIII, 18",
+        "LRITF arts. 12, 15, 16, 22; LIC arts. 2 y 103",
+        "LFPDPPP arts. 35, 36",
+        "LFJS arts. 2 fr. II, 3, 4"
+      ]
+    },
+    {
+      "slug": "refugios",
+      "title": "Términos y convenio para Refugios Verificados",
+      "purpose": "Contrato de adhesión que el refugio acepta con clic y constancia de versión antes de habilitar donativos: mandato, destino de fondos, comisión, dispersión, obligaciones fiscales y de PLD, datos de donantes, compensación y terminación. Ruta prevista: /legal/refugios.",
+      "required_contents": [
+        "Mandato civil con representación (o autorización de split por OAuth); el contrato de donación es entre donante y refugio; GuauWoow no es donatario [donativos-02, donativos-24]",
+        "Aceptación general y anticipada de los donativos recibidos por la plataforma [donativos-19]",
+        "Destino exclusivo de los fondos al rescate y cuidado de animales [donativos-24]",
+        "Comisión de la plataforma más IVA con CFDI mensual o por payout; tratamiento de la comisión de MP [donativos-03, donativos-09]",
+        "Periodicidad de dispersión (mínimo mensual si no hay split) y pago solo a CLABE verificada a nombre del refugio; cambios de CLABE con nueva verificación, doble factor y espera de 72 horas [donativos-05, donativos-15]",
+        "Compensación de reembolsos y contracargos contra dispersiones futuras; deber de cancelar el CFDI [donativos-18]",
+        "Donatarias: CFDI con Complemento Donatarias en 24 horas, subir UUID, no amparar ventas ni cuotas con CFDI de donativo, aviso en 24 horas de revocación, pérdida de vigencia o inclusión en el 69-B [donativos-04, donativos-06, donativos-08, donativos-15]",
+        "Obligaciones fiscales propias de cada refugio; ventas de donatarias como ingreso exento de IVA y límites del 10 % y 50 % del art. 80 LISR; personas físicas: exención 3 UMA anuales e informativa de $600,000 [donativos-08, donativos-14]",
+        "PLD: el refugio A.C./S.C. es el sujeto obligado de la fr. XIII aunque reciba por la plataforma; medidas de la UIF (RCG 38 Bis a 38 Bis 2) desde el 30-11-2026; recepción de datos mínimos del donante para monitoreo; suspensión de dispersiones ante indicios de fraude [donativos-11, donativos-v01, donativos-16]",
+        "Uso de datos de donantes solo para CFDI y obligaciones fiscales y de PLD; el refugio es responsable independiente [donativos-21]",
+        "Prohibición de condicionar la adopción a un pago; distinción donativo / cuota de recuperación / venta [donativos-v02]",
+        "Prohibición de rifas y sorteos sin permiso SEGOB [donativos-23]",
+        "Informes de uso de fondos y consentimiento para publicar agregados en /legal/transparencia (consentimiento expreso para personas físicas) [donativos-22]",
+        "Terminación y destino de saldos: dispersión, reembolso o traslado a otro refugio con autorización del donante [donativos-18, donativos-24]",
+        "Documentos de alta: Constancia de Situación Fiscal, CLABE con carátula, poder del representante, beneficiario controlador, oficio de donataria [donativos-15]"
+      ],
+      "legal_basis": [
+        "CCF arts. 2340, 2346, 2546, 2560, 2561, 2569, 2570, 2572",
+        "CCom art. 273 (tienda)",
+        "LISR arts. 80, 82 fr. IV, V y VI, 82-Quáter apartado A, 90, 93 fr. XXIII",
+        "RLISR art. 138 apartados A y E",
+        "CFF art. 69-B",
+        "LFPIORPI arts. 17 fr. XIII, 18, 21",
+        "Acuerdo 115/2026 (RCG LFPIORPI) arts. 12, 21, 23 Quinquies, 38 Bis, 38 Bis 1, 38 Bis 2",
+        "LFPDPPP art. 35",
+        "LFJS art. 4"
+      ]
+    },
+    {
+      "slug": "transparencia",
+      "title": "Transparencia de donativos",
+      "purpose": "Reporte público, agregado y generado desde el ledger, de lo recibido, los costos y lo entregado a cada refugio; respalda las afirmaciones publicitarias y la rendición de cuentas del mandatario. Ruta prevista: /legal/transparencia.",
+      "required_contents": [
+        "Por mes y por refugio: número de donativos, monto bruto, comisión de MP, comisión de GuauWoow, neto, monto dispersado y fecha, saldo pendiente, reembolsos y contracargos [donativos-22, donativos-02]",
+        "Por refugio: forma jurídica, estatus de donataria con fecha de verificación y enlace al minisitio de Donatarias Autorizadas del SAT; informes de uso de fondos subidos (opcional) [donativos-06, donativos-14, donativos-22]",
+        "Metodología, fecha de corte y leyenda 'solo totales agregados; sin datos de donantes' [donativos-22]",
+        "Montos de refugios personas físicas solo con su consentimiento [donativos-22]",
+        "Vista privada del donante en 'Mis donativos': 'Has donado $X; se entregó el dd/mm (referencia payout)' [donativos-22]"
+      ],
+      "legal_basis": [
+        "LISR art. 82 fr. VI",
+        "RMF 2026 reglas 3.10.1.3, 3.10.1.5, 3.10.1.12",
+        "RLISR art. 140",
+        "CCF art. 2569",
+        "LFPC art. 32"
+      ]
+    },
+    {
+      "slug": "comisiones",
+      "title": "Comisiones y costos de donativos",
+      "purpose": "Tabla pública de qué se descuenta de cada donativo, quién lo cobra, si lleva IVA y quién lo paga, con ejemplo; enlazada desde la pantalla de donar. Ruta prevista: /legal/comisiones.",
+      "required_contents": [
+        "Comisión de Mercado Pago: tarifa contratada [TARIFA_MP], estimada (la exacta la fija MP según medio de pago) [donativos-10]",
+        "Comisión de GuauWoow [COMISION_DONATIVOS] más IVA, facturada al refugio con CFDI; 0 % o muy baja para donatarias [donativos-03, donativos-09]",
+        "Aportación voluntaria a GuauWoow (si existe): opcional, casilla desmarcada, monto editable, no deducible [donativos-09]",
+        "Neto estimado para el refugio y ejemplo con $100 [donativos-10]",
+        "Nota: el refugio donatario decide con su contador cómo clasificar las comisiones frente al límite del 5 % de gastos de administración [donativos-09]",
+        "Quién paga cada concepto y en qué fase del modelo de fondos [donativos-01]"
+      ],
+      "legal_basis": [
+        "LFPC arts. 7 Bis, 32, 76 Bis fr. III y V",
+        "LIVA art. 14 fr. IV",
+        "RMF 2026 reglas 2.7.1.3, 2.7.1.12",
+        "LISR art. 82 fr. IV; RLISR art. 138 apartado A"
+      ]
+    },
+    {
+      "slug": "prevencion-lavado",
+      "title": "Prevención de fraude y lavado de dinero",
+      "purpose": "Explicar los topes, el monitoreo, la verificación de refugios y la cooperación con autoridades; informar a los refugios A.C. de sus obligaciones bajo la LFPIORPI y las medidas de la UIF. Ruta prevista: /legal/prevencion-lavado.",
+      "required_contents": [
+        "Umbrales 2026 de la fr. XIII (identificación 1,605 UMA = $188,282.55; aviso 3,210 UMA = $376,565.10), acumulación a 6 meses, aviso el día 17, expedientes 10 años; el refugio A.C. es el sujeto obligado aunque reciba por la plataforma [donativos-11]",
+        "Medidas de la UIF para asociaciones sin fines de lucro (RCG 38 Bis a 38 Bis 2) desde el 30-11-2026, con independencia del umbral [donativos-v01]",
+        "Qué hace GuauWoow: tope por donativo, monitoreo de acumulados, verificación de refugios y consulta del listado 69-B, prohibición de autodonaciones, sin saldos ni vales ni tarjetas de regalo, cooperación con requerimientos de UIF y SAT [donativos-11, donativos-12, donativos-15, donativos-16]",
+        "Qué no es GuauWoow: no sujeto obligado por la fr. XIII; evaluación interna documentada respecto de la fr. XI (pendiente de opinión de abogado) [donativos-12]",
+        "Donativos mayores al tope: canal manual fuera de la plataforma con KYC del refugio [donativos-11]",
+        "Cómo reportar sospechas y señales de alerta (donativos repetidos, montos redondos altos, reembolsos frecuentes, países de alto riesgo) [donativos-16, donativos-v01]",
+        "Rifas y sorteos: solo con permiso SEGOB; actividad vulnerable desde 325 UMA [donativos-23]"
+      ],
+      "legal_basis": [
+        "LFPIORPI arts. 17 fr. I, II c), XI y XIII, 18, 21, 23",
+        "RLFPIORPI arts. 7, 7 Bis, 8, 21 Bis, 22",
+        "Acuerdo 115/2026 (RCG) arts. 2 fr. I, 24 Bis, 38 Bis, 38 Bis 1, 38 Bis 2, Transitorios Primero a Tercero",
+        "CFF art. 69-B",
+        "CPF art. 139 Quáter",
+        "LFJS art. 4; Reglamento LFJS arts. 107, 136"
+      ]
+    },
+    {
+      "slug": "ayuda-refugios-donataria",
+      "title": "Cómo hacerte donataria autorizada",
+      "purpose": "Guía informativa (no asesoría individual) para refugios sobre la autorización del SAT, con enlace al trámite 19/ISR, la vigencia anual y la declaración de transparencia de mayo. Ruta prevista: /ayuda/refugios.",
+      "required_contents": [
+        "Qué es la autorización, rubros posibles para refugios (ecológico, art. 79 fr. XIX; flora y fauna, fr. XXV e); el SAT decide) y ejemplo real de refugio autorizado en 2026 [donativos-25, donativos-06]",
+        "Trámite: ficha 19/ISR; vigencia por ejercicio; renovación con declaración de transparencia (ficha 21/ISR, mayo) e informativa del art. 86 [donativos-06]",
+        "Obligaciones una vez autorizada: CFDI con Complemento Donatarias en 24 horas, 5 % de gastos de administración, información a disposición del público, límites del 10 % y 50 % de actividades distintas, causales de revocación [donativos-04, donativos-08, donativos-09, donativos-22]",
+        "Cómo subir el oficio en GuauWoow y cómo se verifica (Anexo 14, directorio, listado de pendientes) [donativos-06]",
+        "Leyenda: contenido informativo; consulta a tu contador"
+      ],
+      "legal_basis": [
+        "LISR arts. 79 fr. XIX y XXV e), 82, 82-Quáter, 86",
+        "RLISR art. 138 apartados A, C y E",
+        "RMF 2026 reglas 3.10.1.3, 3.10.1.5, 3.10.1.6, 3.10.1.12; fichas 19/ISR y 21/ISR",
+        "LFFAOSC art. 5 fr. XII"
+      ]
+    }
+  ],
+  "terms_and_privacy_updates": [
+    "Términos 4: GuauWoow no es institución financiera, ITF ni de financiamiento colectivo; no custodia saldos [donativos-13]",
+    "Términos 6.2: donativo sugerido voluntario, no condiciona la adopción ni es precio del animal; cuotas de recuperación fuera del módulo de donativos [donativos-v02]",
+    "Términos 11.2: alinear con la realidad de los puntos por donativo (quitarlos o mostrarlos como 'Apoyo recibido') y con app.js línea 1480 [donativos-16]",
+    "Términos 15.1: 'en nombre y por cuenta del refugio' (o cuenta MP del refugio con split); contrato de donación entre donante y refugio; GuauWoow no es donatario; llenar periodicidad y comisión; eliminar VERIFICAR_DONATIVO_NETO cuando la pantalla muestre el neto [donativos-02, donativos-10]",
+    "Términos 15.2: añadir CFDI global S01 para anónimos o sin RFC [donativos-04]",
+    "Términos 17: prohibición de rifas y sorteos sin permiso SEGOB [donativos-23]",
+    "Términos 28.1: conservar registros de donativos bloqueados 5 años desde la declaración fiscal, no 'desvinculados' [donativos-20]",
+    "Aviso de privacidad, transferencias: refugios como terceros receptores (nombre con autorización; datos fiscales para CFDI); cláusula de aceptación o no de la transferencia [donativos-21]",
+    "Aviso de privacidad, conservación: fila de registros de donativos (5 años desde la declaración, bloqueados) y expedientes PLD del refugio (10 años) [donativos-20]"
+  ],
+  "product_requirements": [
+    "Elegir y documentar el modelo de fondos: Fase 1 cuenta concentradora con mandato, Fase 2 Split 1:1 de MP (recomendada) o Fase 3 cobro directo [donativos-01, donativos-02]",
+    "Split 1:1: vinculación OAuth de la cuenta MP de cada refugio verificado, preferencia creada con el token del refugio, marketplace_fee configurable (puede ser 0); Donation guarda refuge_mp_user_id, marketplace_fee, mp_fee, net_to_refuge [donativos-01]",
+    "Cuenta concentradora: cuenta MP o bancaria dedicada solo a fondos de refugios, contabilidad separada, conciliación diaria con reportes de MP, tablas payouts y ledger (donativo, comisión MP, comisión plataforma, neto, payout_id, fecha, referencia SPEI), estado de cuenta mensual descargable por refugio [donativos-02, donativos-03]",
+    "Dispersión al menos una vez por mes calendario con corte el último día hábil (si no hay split), y aviso al refugio de cada donativo aprobado en el acto [donativos-05]",
+    "CFDI de ingreso por la comisión de la plataforma más IVA a cada refugio (mensual o por payout), con RFC y régimen capturados en el alta; guardar los CFDI que MP emite a la plataforma [donativos-03]",
+    "Modelo Refuge: is_donataria, donataria_oficio_numero, donataria_oficio_fecha, rubro, ejercicio_autorizado, verified_at, verified_by, evidencia; forma jurídica, RFC, régimen fiscal, CLABE verificada [donativos-06, donativos-14, donativos-15]",
+    "Admin: verificación del estatus de donataria contra Anexo 14, directorio y listado de pendientes (alta, cada modificación, cada año tras mayo); job de aviso 30 días antes del fin de ejercicio; consulta trimestral del listado 69-B con constancia [donativos-06, donativos-15]",
+    "UI: insignia 'Donataria autorizada SAT (verificado el dd/mm/aaaa)' con enlace al minisitio del SAT; retiro inmediato de insignia y opción de CFDI al perder la autorización, con aviso a donantes recientes [donativos-06]",
+    "UI pantalla de donar: desglose 'Donas $X · Comisión estimada de MP $Y · Comisión de GuauWoow $Z · El refugio recibe aprox. $N' con enlace a /legal/comisiones; guardar fee_estimate y net_estimate y luego los reales del webhook; resolver VERIFICAR_DONATIVO_NETO; sustituir 'Pago 100 % seguro' [donativos-10]",
+    "UI pantalla de donar: leyenda de deducibilidad según estatus verificado del refugio (no donataria: 'no es deducible'; donataria: 'deducible si solicitas tu CFDI; aplican límites del SAT') [donativos-07]",
+    "UI pantalla de donar y ficha de adopción: 'Donativo voluntario. No es requisito para adoptar ni precio del perro'; el flujo de aprobación de adopción no lee si hubo donativo [donativos-v02]",
+    "UI: casillas independientes no preseleccionadas 'Compartir mi nombre con el refugio' (share_name) y 'Quiero CFDI deducible: autorizo compartir mis datos fiscales con [refugio]' (solo donatarias; campos RFC, nombre o razón social, CP, régimen) [donativos-04, donativos-21]",
+    "Backend: donor_tax_data cifrado, visible solo al refugio receptor y solo para ese donativo; notificación en tiempo real al refugio para emitir el CFDI en 24 horas; campo para UUID y cfdi_issued_at; resumen para CFDI global S01 de anónimos [donativos-04, donativos-21]",
+    "Comprobante de operación (pantalla y correo): folio, ID de pago MP, fecha y hora, refugio y forma jurídica, monto, desglose y neto, estado del CFDI, contacto, leyenda 'no es CFDI ni recibo deducible'; pie de pantalla con razón social, RFC y domicilio del operador [donativos-26]",
+    "Constancia electrónica del donativo: declaración 'Dono voluntariamente y sin contraprestación $X a [refugio]', fecha, hora, IP, versión de la Política e ID de pago; registro del aviso de aceptación del refugio [donativos-19]",
+    "Backend: tope por donativo (le=MAX_DONATION en DonationCreate; hoy no hay máximo); job de acumulado por donante y refugio a 6 meses con alerta al 50 % del umbral de identificación; canal manual para montos mayores [donativos-11]",
+    "Backend create_donation_checkout: rechazar si current_user.id == refuge.user_id o si administra el refugio; marcar para revisión por IP o dispositivo del refugio; alertas de admin por donativos repetidos, montos redondos altos y reembolsos frecuentes [donativos-16]",
+    "Ranking: quitar los puntos por donativo o mostrarlos aparte como 'Apoyo recibido'; alinear app.js línea 1480 y Términos 11.2 [donativos-16]",
+    "Guardar país e identificador de pagador de MP por donativo; exportación del historial para el refugio; alerta por países de alto riesgo [donativos-v01]",
+    "No crear saldos, monederos, tarjetas de regalo, vales, intereses, recompensas económicas ni metas con devolución automática [donativos-12, donativos-13]",
+    "Reembolsos: estado refunded/charged_back existente; notificación al refugio para cancelar el CFDI; asiento negativo en el ledger; compensación contra la siguiente dispersión [donativos-18]",
+    "Donativos recurrentes (si se habilitan): casilla separada no preseleccionada, resumen de periodicidad, monto y próxima fecha, correo 5 días antes de cada cargo, botón 'Cancelar donativo mensual' en Ajustes con cancelación inmediata en MP, registro del consentimiento [donativos-17]",
+    "Retención: al eliminar una cuenta, bloquear (no anonimizar) los registros de donativos 5 años desde la declaración fiscal correspondiente; ajustar VERIFICAR_REGISTROS_FISCALES [donativos-20]",
+    "Convenio para refugios con aceptación por clic, versión y constancia antes de habilitar donativos [donativos-24]",
+    "Página /legal/transparencia generada desde el ledger con agregados mensuales por refugio y vista privada 'Has donado $X; se entregó el dd/mm' [donativos-22]",
+    "Moderación: prohibir rifas, sorteos y boletos sin permiso SEGOB verificado; motivo de reporte 'Rifa o sorteo sin permiso' [donativos-23]",
+    "Marketing: eliminar 'deducible' genérico, '100 % llega al refugio' (si hay comisiones), 'crowdfunding regulado', 'fondeo colectivo' [donativos-07, donativos-13]",
+    "Estado anual de donativos recibidos enviado a cada refugio en enero [donativos-14]",
+    "Guía '¿Cómo hacerte donataria autorizada?' con enlace al trámite 19/ISR [donativos-25]"
+  ],
+  "shop_requirements": [
+    "Donation y Order son flujos, registros y CFDI separados; ninguna 'compra solidaria' se liga a un donativo ni genera recibo de donativo [donativos-08]",
+    "Las ventas de un refugio donatario en la tienda se facturan como ingreso exento de IVA (LIVA 9 fr. X, 15 fr. VII, 20 fr. I), nunca con Complemento Donatarias; el refugio vigila los límites del 10 % (ISR por el excedente) y 50 % (pérdida de autorización) del art. 80 LISR [donativos-08]",
+    "No ofrecer descuentos, cupones, productos ni puntos canjeables a cambio de donar; el reconocimiento al donante es simbólico y opcional [donativos-08]",
+    "Las cuotas de recuperación de una donataria (servicios de su objeto hasta el costo) se cobran fuera del módulo de donativos, con CFDI de ingreso sin Complemento Donatarias (RMF 3.10.1.25; FAQ SAT 7) [donativos-v02]",
+    "Donativos en especie ('comprar para el refugio') no se habilitan sin diseño fiscal: tipo de operación separado, captura de si el donante ya dedujo los bienes, CFDI en especie con forma de pago 12 y cantidad, valor y descripción; factura global en especie XAXX010101000 uso S01 para público en general [donativos-v03]",
+    "La comisión de la plataforma a refugios (tienda y donativos) se factura con IVA (LIVA 14 fr. IV) y, en la tienda, con la facilidad de la regla 2.7.1.3 (nodo ACuentaTerceros) [donativos-03]"
+  ],
+  "retention": [
+    {
+      "category": "Registro del donativo (folio, ID de pago y payer de MP, monto, fecha, refugio, comisiones, neto, payout) y constancia de la declaración del donante",
+      "period": "5 años, bloqueados sin uso operativo si la cuenta se elimina; después supresión. Si el calendario consolidado adopta 10 años (CCom arts. 38 y 49, según otros dominios), aplicar el plazo mayor",
+      "basis": "CFF art. 30 tercer párrafo (desde la presentación de la declaración correspondiente); RLISR art. 140; LFPDPPP (bloqueo previo a supresión) [donativos-20]"
+    },
+    {
+      "category": "Datos fiscales del donante que solicitó CFDI (RFC, nombre o razón social, CP, régimen)",
+      "period": "5 años, cifrados y bloqueados, mismo punto de inicio que el registro del donativo",
+      "basis": "CFF art. 30; LFPDPPP arts. 35 y 36 [donativos-20, donativos-21]"
+    },
+    {
+      "category": "CFDI de comisión emitidos a refugios y CFDI de Mercado Pago a la plataforma",
+      "period": "5 años desde la declaración correspondiente",
+      "basis": "CFF art. 30; LIVA art. 14 fr. IV; RMF 2026 regla 2.7.1.3 [donativos-03]"
+    },
+    {
+      "category": "Ledger y payouts (rendición de cuentas del mandatario al refugio)",
+      "period": "5 años desde el payout, o el plazo mayor que fije el calendario consolidado",
+      "basis": "CCF art. 2569; CFF art. 30 [donativos-02]"
+    },
+    {
+      "category": "Expediente de identificación de donativos iguales o mayores a 1,605 UMA (a cargo del refugio A.C. sujeto obligado; canal manual)",
+      "period": "10 años desde la realización de la actividad vulnerable",
+      "basis": "LFPIORPI art. 18 fr. IV; RLFPIORPI art. 8 [donativos-11, donativos-20]"
+    },
+    {
+      "category": "Constancia de aceptación del Convenio para refugios (versión, fecha, IP) y evidencias de verificación (donataria, 69-B, CLABE)",
+      "period": "Vigencia del convenio más el plazo que fije el calendario consolidado (10 años propuesto por otros dominios)",
+      "basis": "CCF arts. 2546 y ss.; CCom art. 89 bis; CFF art. 69-B [donativos-06, donativos-15, donativos-24]"
+    },
+    {
+      "category": "Consentimiento de donativos recurrentes y registro de avisos de 5 días (si se habilitan)",
+      "period": "Vigencia de la suscripción más el plazo del calendario consolidado",
+      "basis": "LFPC art. 76 Bis fr. VIII y IX [donativos-17]"
+    }
+  ],
+  "subprocessors": [
+    {
+      "name": "Mercado Pago (México)",
+      "purpose": "Procesamiento de pagos de donativos; con split, dispersión directa a la cuenta del refugio y retención de marketplace_fee; emisión de CFDI de sus comisiones a la plataforma",
+      "data": "Nombre, correo y datos de pago del donante gestionados por MP; ID de pago, ID y país del pagador, monto, fecha y estado devueltos a GuauWoow; con split, token OAuth y user_id de MP de cada refugio",
+      "country": "México (confirmar en los Términos y Condiciones de Mercado Pago México la entidad contratante y la ubicación de sus servidores; no fueron revisados por ningún dominio)",
+      "type": "Pasarela de pago / encargado y responsable independiente para sus propios fines regulatorios [donativos-01, donativos-13, donativos-18]"
+    },
+    {
+      "name": "Refugios Verificados (receptores de donativos)",
+      "purpose": "Emisión del CFDI de donativo (solo donatarias), cumplimiento de sus obligaciones fiscales y de PLD, aceptación de la donación",
+      "data": "Nombre del donante solo si lo autorizó; RFC, nombre o razón social, CP y régimen fiscal solo si pidió CFDI; monto, fecha, ID de pago, país del pagador",
+      "country": "México",
+      "type": "Tercero receptor (transferencia); responsable independiente que asume las mismas obligaciones del aviso de privacidad [donativos-21, donativos-v01]"
+    },
+    {
+      "name": "Proveedor Autorizado de Certificación (PAC) de la plataforma (por definir)",
+      "purpose": "Timbrado del CFDI de ingreso por la comisión de la plataforma a cada refugio",
+      "data": "RFC, razón social, CP y régimen fiscal del refugio; importe de la comisión e IVA",
+      "country": "México",
+      "type": "Encargado (ver dominio fiscal-tienda para la elección del PAC) [donativos-03]"
+    },
+    {
+      "name": "Servicio de correo transaccional (SMTP del proyecto)",
+      "purpose": "Envío del comprobante de operación, notificaciones al refugio para emitir o cancelar CFDI y avisos de 5 días en donativos recurrentes",
+      "data": "Correo del donante y del refugio, folio, monto, refugio, estado del CFDI",
+      "country": "Según el proveedor SMTP contratado (dominio comunicaciones-cookies)",
+      "type": "Encargado [donativos-26, donativos-17]"
+    }
+  ],
+  "owner_data_needed": [
+    "Razón social, RFC, régimen fiscal y domicilio del operador (comprobante, pie de la pantalla de donar y Política de donativos)",
+    "COMISION_DONATIVOS (porcentaje o 0 %) y QUIEN_PAGA_COMISION_MP, con la tarifa de Mercado Pago contratada (TARIFA_MP)",
+    "Decisión de modelo de fondos (Fase 1 concentradora, Fase 2 Split 1:1 o Fase 3 cobro directo); si split, credenciales de la aplicación marketplace de MP y URL de redirección OAuth",
+    "PERIODICIDAD_DE_DISPERSION (mínimo una vez por mes calendario, o inmediata con split)",
+    "TOPE_DONATIVO por operación (sugerido $50,000 MXN) y TOPE_ACUMULADO_6M por donante y refugio, por debajo de 1,605 UMA ($188,282.55 en 2026)",
+    "Cuenta bancaria o de MP dedicada exclusivamente a fondos de refugios (si se mantiene la cuenta concentradora) y responsable de la conciliación",
+    "Por cada refugio: forma jurídica, RFC, Constancia de Situación Fiscal, CLABE a su nombre con estado de cuenta, poder del representante, declaración de beneficiario controlador y, si es donataria, número y fecha del oficio, rubro y ejercicio autorizado",
+    "Decisión sobre si se aceptan rescatistas personas físicas y grupos informales como receptores, solo personas morales, o solo donatarias",
+    "Decisión sobre el ranking: quitar los puntos por donativo o mostrarlos por separado como 'Apoyo recibido'",
+    "Decisión sobre donativos recurrentes y sobre la 'aportación voluntaria a GuauWoow'",
+    "CORREO_DE_CONTACTO y teléfono para aclaraciones y reembolsos",
+    "Contacto del abogado (contratos y PLD) y del contador (donatarias y CFDI) que revisarán /legal/donativos, /legal/refugios, /legal/transparencia, /legal/comisiones y /legal/prevencion-lavado"
+  ],
+  "lawyer_points": [
+    "Abogado: opinión escrita única sobre el régimen de custodia y dispersión de fondos de terceros en la cuenta concentradora: LFPIORPI art. 17 fr. XI (donativos-12, confianza baja), LGOAAC art. 81-A Bis (identidad-contratos-v02, confianza baja) y LRITF art. 22 (fiscal-tienda-22); el crítico señala que no hay conclusión común",
+    "Abogado: si a los donativos corresponde mandato civil con representación (CCF 2546) y no comisión mercantil (CCom 273); redacción de la cláusula de mandato del Convenio (donativos-02, donativos-24)",
+    "Abogado de PLD: alcance de la definición de asociaciones sin fines de lucro de las RCG (art. 2 fr. I) para refugios A.C. y de las medidas de los arts. 38 Bis a 38 Bis 2 (donativos-11, donativos-v01)",
+    "Abogado: forma del contrato de donación en línea y montos del CCF 2343-2344; variaciones estatales (donativos-19, confianza baja)",
+    "Abogado: Términos y Condiciones de Mercado Pago México (cuentas de vendedor y marketplace): recepción de donativos por cuenta de terceros, actividades restringidas, retención de dinero, contracargos y protección al comprador; ninguna fuente los revisó",
+    "Abogado: postura única sobre donativo sugerido, cuotas de recuperación y cuotas de adopción frente a bienestar-animal-10, fiscal-tienda-v02 e identidad-contratos-12, NOM-148-SCFI-2018 y leyes de CDMX y Edomex (donativos-v02)",
+    "Abogado: confirmar que no existe una ley nueva de juegos y sorteos que sustituya la LFJS de 1947 (donativos-23)",
+    "Abogado: si el donante es consumidor ante la LFPC art. 2 y aplicación de 7 Bis y 76 Bis a la pantalla de donar (donativos-10, donativos-26)",
+    "Contador: tratamiento de fondos en tránsito como ingresos por cuenta de terceros frente a CFF 59-III (donativos-01, donativos-03)",
+    "Contador: facturación de la comisión y del costo de MP (servicio con IVA o reembolso de gasto por cuenta de terceros, RMF 2.7.1.12) y naturaleza de la 'aportación voluntaria a GuauWoow' (servicio con IVA o donativo a persona moral) (donativos-03, donativos-09)",
+    "Contador: cuándo 'recibe' la donataria el donativo para el plazo de 24 horas y la cancelación si no llega en el mes (donativos-05)",
+    "Contador: si las comisiones de plataforma y procesamiento cuentan para el 5 % de gastos de administración (RLISR 138-A) (donativos-09)",
+    "Contador: efecto del tope global del art. 151 LISR (reforma 12-11-2021) sobre donativos (donativos-07)",
+    "Contador: régimen de A.C. no donatarias y rescatistas personas físicas; lectura 'salario mínimo = UMA' por el decreto de desindexación DOF 27-01-2016 (no verificado) (donativos-14)",
+    "Contador: fracción del art. 79 LISR aplicable a refugios (XIX vs XXV e); conflicto con identidad-contratos-23; la decide el SAT (donativos-25)",
+    "Contador: diseño fiscal de donativos en especie si se habilitan (donativos-v03)",
+    "Contador: revisar si se publica en el DOF la reforma a la LISR aprobada por Diputados el 14-10-2026 (donativos-07)",
+    "Abogado y contador: calendario único de conservación (5 años CFF 30 desde la declaración; 10 años LFPIORPI 18-IV; 10 años CCom 38 y 49 de otros dominios) (donativos-20)",
+    "Confirmar antes de usar: donativos-12 y donativos-19 (confianza baja); donativos-v01, v02 y v03 (agregados por el verificador sin segunda revisión); RFC XEXX010101000 para extranjeros (fuente secundaria); guía Cemefi (no verificada)"
+  ],
+  "key_risks": [
+    "Cuenta concentradora sin mandato ni contabilidad separada: el SAT puede presumir cada depósito como ingreso propio (CFF 59-III); deberes de mandatario (CCF 2569-2570); abuso de confianza (CPF 382); posible encuadre en LFPIORPI 17 fr. XI, LGOAAC 81-A Bis o LRITF 22 [donativos-01, 02, 12, 13]",
+    "Bloqueo de la cuenta de Mercado Pago si sus Términos para México no permiten recibir donativos por cuenta de terceros; es la única pasarela [donativos-01; pregunta abierta 7]",
+    "Promesas de deducibilidad o de '100 % llega al refugio' falsas: información engañosa (LFPC 32, 76 Bis IV) y, para la donataria, causal de revocación si ampara con CFDI de donativo operaciones distintas (LISR 82-Quáter A II) [donativos-07, 08, v02]",
+    "Desfase entre el CFDI de 24 horas y una dispersión quincenal o que cruza de mes: CFDI cancelables y donatarias en incumplimiento [donativos-04, 05]",
+    "Refugio A.C. que recibe por la plataforma donativos iguales o mayores a 1,605 UMA sin identificar al donante ni avisar: incumplimiento de LFPIORPI 17 fr. XIII y 18; hoy no hay tope por donativo [donativos-11]",
+    "Autodonaciones y puntos de ranking por donativo: contradicción con Términos 11.2, información engañosa y vehículo para inflar ranking o mover dinero de forma opaca [donativos-16]",
+    "Donativo 'sugerido' convertido en condición de hecho para adoptar: deja de ser donativo, puede ser venta prohibida de animales y afecta el bot de WhatsApp y la moderación [donativos-v02; conflicto entre dominios]",
+    "Compartir nombre o datos fiscales del donante con el refugio sin consentimiento separado y sin cláusula de transferencia en el aviso de privacidad (LFPDPPP 35, 36; LFPC 76 Bis I) [donativos-21]",
+    "Anonimizar por completo los registros de donativos al borrar cuentas: imposibilidad de reconstruir operaciones, atender contracargos o requerimientos de UIF/SAT en 10 días hábiles [donativos-20]",
+    "Rifas o sorteos 'pro-refugio' publicados en la plataforma sin permiso de SEGOB: ilegales (LFJS 4) y actividad vulnerable desde 325 UMA [donativos-23]",
+    "Pérdida de la autorización de donataria no detectada: CFDI inválidos emitidos y promesas de deducibilidad falsas; lo recibido es ingreso acumulable para el refugio [donativos-06]",
+    "Comisiones de plataforma y MP que presionan el 5 % de gastos de administración de las donatarias (RLISR 138-A) [donativos-09]",
+    "Entrada en vigor del Acuerdo 115/2026 (30-11-2026) y posible reforma a la LISR aprobada el 14-10-2026: textos públicos que queden desactualizados antes o poco después del lanzamiento [donativos-11, donativos-v01, donativos-07]"
+  ]
+}
