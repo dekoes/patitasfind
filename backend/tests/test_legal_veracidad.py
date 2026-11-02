@@ -13,6 +13,7 @@ hace la Plataforma.
 import datetime
 import importlib.util
 import json
+import re
 import os
 import shutil
 import uuid
@@ -407,4 +408,6 @@ def test_check_requires_domain_identity_and_30_days_notice(rl, mini_repo, capsys
 def test_repo_privacidad_keeps_archived_anchor_alias(rl):
     text = (REPO / "app" / "legal" / "privacidad.html").read_text(encoding="utf-8")
     assert 'id="secundarias"' in text  # terminos-2026-10-16.html enlaza privacidad.html#secundarias
-    assert "[PLAZO DE CONSERVACIÓN DE RESPALDOS]" not in text and "PLAZO LOCAL DE RESPALDOS" in text
+    assert "[PLAZO DE CONSERVACIÓN DE RESPALDOS]" not in text
+    # Copia local: el marcador sin llenar o el plazo ya calculado desde la configuración de respaldos
+    assert re.search(r"Copia local (<span class=\"ph\">\[PLAZO LOCAL DE RESPALDOS\]</span>|\d+ días)", text)

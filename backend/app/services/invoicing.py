@@ -180,9 +180,15 @@ class FacturamaAdapter(PacAdapter):
         uuid = self._uuid(data)
         if not provider_ref or not uuid:
             raise PacError("Facturama no devolvió el UUID del CFDI timbrado.")
-        return {"uuid": uuid.upper(), "provider_ref": provider_ref,
-                "xml_bytes": self._download("xml", kind, provider_ref),
-                "pdf_bytes": self._download("pdf", kind, provider_ref)}
+        result = {"uuid": uuid.upper(), "provider_ref": provider_ref, "xml_bytes": None, "pdf_bytes": None}
+        # A partir de aquí el CFDI YA está timbrado ante el SAT: un fallo al descargar no debe perder el UUID (si se
+        # perdía, el reintento timbraba un segundo CFDI por el mismo concepto).
+        try:
+            result["xml_bytes"] = self._download("xml", kind, provider_ref)
+            result["pdf_bytes"] = self._download("pdf", kind, provider_ref)
+        except PacError as exc:
+            result["download_error"] = str(exc)
+        return result
 
 
 def get_adapter() -> PacAdapter | None:
@@ -281,13 +287,23 @@ def build_retention_payload(cfdi: Cfdi, profile, statement: dict) -> dict:
 # --------------------------------------------------------------------------- emisión
 def issue_cfdi_row(db: Session, cfdi: Cfdi, adapter: PacAdapter | None = None, statement: dict | None = None) -> Cfdi:
     """Timbra un registro pendiente o con error. Sin PAC queda "pending_pac" (no se envía nada). Hace commit."""
-    if cfdi.status == "issued":
+    if cfdi.status in ("issued", "stamping"):
         return cfdi
     adapter = adapter or get_adapter()
     if adapter is None:
         cfdi.status = "pending_pac"
         db.commit()
         return cfdi
+    # Un solo timbrado por registro: se toma la fila con bloqueo y se marca "stamping" ANTES de llamar al PAC.
+    # Dos reintentos a la vez (admin + tarea programada) o un proceso que muere a mitad ya no timbran dos veces:
+    # si el proceso muere, el registro queda "stamping" para que alguien revise en Facturama antes de reintentar.
+    locked = db.query(Cfdi).filter(Cfdi.id == cfdi.id).with_for_update().one()
+    if locked.status in ("issued", "stamping"):
+        db.commit()
+        return locked
+    cfdi = locked
+    cfdi.status = "stamping"
+    db.commit()
     refuge = db.query(Refuge).filter(Refuge.id == cfdi.refuge_id).first()
     profile = refuge.fiscal_profile if refuge else None
     cfdi.attempts = (cfdi.attempts or 0) + 1
@@ -316,7 +332,8 @@ def issue_cfdi_row(db: Session, cfdi: Cfdi, adapter: PacAdapter | None = None, s
     if result.get("pdf_bytes"):
         cfdi.pdf_document_id = store_fiscal_file(result["pdf_bytes"], "pdf")
     cfdi.status = "issued"
-    cfdi.error = None
+    cfdi.error = (f"Timbrado (UUID {cfdi.uuid}), pero no se pudo descargar el XML/PDF: {result['download_error']} "
+                  "Descárgalo desde Facturama; NO lo vuelvas a timbrar.")[:2000] if result.get("download_error") else None
     cfdi.issued_at = _now()
     db.commit()
     return cfdi

@@ -36,11 +36,12 @@ INSUFFICIENT_BALANCE_DETAIL = (
 _INSUFFICIENT_HINTS = ("insufficient", "insuficiente", "not enough", "without balance", "sin saldo")
 
 
-def _headers(idempotency: bool = False, access_token: str | None = None) -> dict:
+def _headers(idempotency: bool | str = False, access_token: str | None = None) -> dict:
+    """idempotency=True genera una clave nueva; una cadena se usa tal cual (misma operación = misma clave)."""
     token = access_token or settings.mercadopago_access_token
     headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
     if idempotency:
-        headers["X-Idempotency-Key"] = uuid.uuid4().hex
+        headers["X-Idempotency-Key"] = idempotency if isinstance(idempotency, str) else uuid.uuid4().hex
     return headers
 
 
@@ -142,7 +143,8 @@ def search_payments(external_reference: str, access_token: str | None = None) ->
     return resp.json().get("results") or []
 
 
-def refund_payment(payment_id: str, amount=None, access_token: str | None = None) -> dict:
+def refund_payment(payment_id: str, amount=None, access_token: str | None = None,
+                   idempotency_key: str | None = None) -> dict:
     """Reembolso total (amount=None) o parcial de un pago aprobado. Devuelve el reembolso: {id, amount, status}.
 
     Lo que dice la documentación de Mercado Pago (consultada el 17-10-2026):
@@ -156,13 +158,17 @@ def refund_payment(payment_id: str, amount=None, access_token: str | None = None
       X-Idempotency-Key.
     El pago vive en la cuenta del refugio, así que se reembolsa con SU token (access_token). El dinero regresa al
     medio de pago original. Saldo insuficiente => PaymentError(code="insufficient_balance").
+
+    idempotency_key: la MISMA clave para el mismo reembolso lógico (ver payment_flow.refund_idempotency_key). Así un
+    doble clic, un reintento tras un timeout o un proceso que murió antes del commit no reembolsan dos veces:
+    Mercado Pago responde el reembolso ya hecho en lugar de crear otro.
     """
     if not is_valid_payment_id(payment_id):
         raise PaymentError("El pago no tiene un id válido de Mercado Pago.")
     body = {"amount": float(Decimal(str(amount)))} if amount is not None else {}
     try:
         resp = requests.post(f"{MP_API}/v1/payments/{payment_id}/refunds", json=body,
-                             headers=_headers(True, access_token), timeout=20)
+                             headers=_headers(idempotency_key or True, access_token), timeout=20)
     except requests.RequestException as exc:
         raise PaymentError("No pudimos conectar con Mercado Pago. Inténtalo de nuevo.") from exc
     if resp.status_code >= 400:

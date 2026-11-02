@@ -1,6 +1,7 @@
 import logging
 import re
 
+from fastapi.concurrency import run_in_threadpool
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query, Request
 from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
@@ -103,7 +104,8 @@ async def mercadopago_webhook(request: Request, background_tasks: BackgroundTask
         payment_id = body["resource"].rstrip("/").split("/")[-1]
 
     if topic == "mp-connect":
-        return _mp_connect_event(request, body, params)
+        # Toca la base (bloqueante): fuera del event loop para no frenar las demás peticiones del worker
+        return await run_in_threadpool(_mp_connect_event, request, body, params)
     if topic != "payment" or not payment_id:
         return {"received": True, "ignored": True}
 
@@ -126,7 +128,10 @@ async def mercadopago_webhook(request: Request, background_tasks: BackgroundTask
     seller = str(body.get("user_id") or "")
     seller = seller if seller.isdigit() and len(seller) <= 20 else None
     args = (payment_id, ref_hint, seller) if (ref_hint or seller) else (payment_id,)
-    dispatch("app.tasks.payments.process_mercadopago_payment", *args, background_tasks=background_tasks)
+    # dispatch() encola en Celery; con Redis caído reintenta conectar varios segundos. Dentro de una función async
+    # eso congelaba el event loop (y con él todas las peticiones del worker): va a un hilo.
+    await run_in_threadpool(dispatch, "app.tasks.payments.process_mercadopago_payment", *args,
+                            background_tasks=background_tasks)
     return {"received": True}
 
 

@@ -192,13 +192,17 @@ def mp(monkeypatch):
     monkeypatch.setattr(settings, "mercadopago_webhook_secret", None)
     monkeypatch.setattr(settings, "mercadopago_app_id", "1234567890")
     monkeypatch.setattr(settings, "mercadopago_client_secret", "secreto-app")
-    calls = {"preferences": [], "refunds": [], "searches": []}
+    calls = {"preferences": [], "refunds": [], "searches": [], "refund_keys": []}
 
     def fake_preference(items, external_reference, back_query, payer_email=None, **kwargs):
         calls["preferences"].append({"items": items, "external_reference": external_reference, **kwargs})
         return {"id": f"pref-{uuid.uuid4().hex[:8]}", "init_point": "https://www.mercadopago.com.mx/checkout/v1/redirect"}
 
     def fake_refund(payment_id, **kwargs):
+        # Todo reembolso lleva una clave de idempotencia estable (ver test_admin_refund_is_idempotent_...)
+        key = kwargs.pop("idempotency_key", None)
+        assert key and key.startswith("guauwoow-"), "reembolso sin X-Idempotency-Key estable"
+        calls["refund_keys"].append(key)
         calls["refunds"].append({"payment_id": payment_id, **kwargs})
         return {"id": random.randint(10 ** 6, 10 ** 7), "status": "approved", "amount": kwargs.get("amount")}
 
@@ -537,6 +541,43 @@ def test_buyer_cancel_paid_order_refunds_with_seller_token(client, user, monkeyp
         db.close()
 
 
+def test_cancel_refund_racing_with_webhook_is_recorded_once(client, user, monkeypatch, mp):
+    """El aviso «refunded» de Mercado Pago llega MIENTRAS la cancelación espera la respuesta del reembolso.
+
+    Antes: el webhook registraba el reembolso y la cancelación lo registraba otra vez (refund_amount al doble,
+    dos filas en order_refunds y estados de cuenta / CFDI con el doble descontado).
+    """
+    seller = _make_seller(client)
+    product = _product(client, seller, price=150, stock=3)
+    order = _buy(client, user, [(product, 2)])
+    payment = _pay(monkeypatch, order, collector=seller["mp_user_id"])
+    refunded = dict(payment, status="refunded")
+
+    def refund_and_webhook_arrives(payment_id, **kwargs):
+        kwargs.pop("idempotency_key", None)
+        mp["refunds"].append({"payment_id": payment_id, **kwargs})
+        monkeypatch.setattr(payments, "get_payment", lambda pid, **kw: refunded)
+        other = _db()  # el webhook corre en otra conexión mientras esperamos a Mercado Pago
+        try:
+            payment_flow.process_payment(other, str(payment["id"]))
+        finally:
+            other.close()
+        return {"id": 8_123_456, "status": "approved"}
+
+    monkeypatch.setattr(payments, "refund_payment", refund_and_webhook_arrives)
+    r = client.post(f"/orders/{order['id']}/cancel", headers=user["h"])
+    assert r.status_code == 200, r.text
+    o = _order(order["id"])
+    assert o.refund_amount == Decimal("300.00") and o.refunded_at
+    db = _db()
+    try:
+        rows = db.query(OrderRefund).filter(OrderRefund.order_id == order["id"]).all()
+        assert len(rows) == 1 and rows[0].amount == Decimal("300.00")
+    finally:
+        db.close()
+    assert _stock(product["id"]) == 3  # el inventario vuelve una sola vez
+
+
 # --------------------------------------------------------------------------- S3 devoluciones
 def test_return_window_uses_business_days():
     # Entregado el viernes 16-10-2026 (CDMX): 5 días hábiles -> viernes 23
@@ -644,6 +685,7 @@ def test_admin_partial_refund(client, user, admin, monkeypatch, mp):
     assert _stock(product["id"]) == stock and not r.json()["refunded_at"]
     assert mp["refunds"][-1] == {"payment_id": str(payment["id"]), "access_token": seller["seller_token"],
                                  "amount": Decimal("50.00")}
+    assert mp["refund_keys"][-1] == f"guauwoow-orders-{oid}-refund-0-5000"
     assert r.json()["refund_id"]
     assert r.json()["timeline"][-1]["status"] == "partial_refund"
     assert _notifs(_user_id(user["email"]), "order_partial_refund", oid)
@@ -672,6 +714,53 @@ def test_admin_partial_refund(client, user, admin, monkeypatch, mp):
     finally:
         db.close()
     assert client.post(f"/admin/orders/{oid}/refund", headers=admin["h"]).status_code == 409
+
+
+def test_admin_refund_is_idempotent_after_timeout_and_double_click(client, user, admin, monkeypatch, mp):
+    """Mercado Pago aplica el reembolso pero la respuesta no llega (timeout) y luego el admin pulsa dos veces.
+
+    Mercado Pago (como el real) responde el MISMO reembolso para la misma X-Idempotency-Key. Antes cada intento
+    mandaba una clave aleatoria y el comprador recibía su dinero dos o tres veces.
+    """
+    seller = _make_seller(client)
+    product = _product(client, seller, price=300)
+    order = _buy(client, user, [(product, 1)])
+    _pay(monkeypatch, order)
+    oid = order["id"]
+    at_mp = {}          # clave de idempotencia -> reembolso hecho en Mercado Pago
+    lose_response = {"left": 1}
+
+    def mp_refund(payment_id, **kwargs):
+        key = kwargs["idempotency_key"]
+        if key not in at_mp:
+            at_mp[key] = {"id": 7_000_000 + len(at_mp), "status": "approved", "amount": kwargs.get("amount")}
+        if lose_response["left"]:
+            lose_response["left"] -= 1
+            raise payments.PaymentError("No pudimos conectar con Mercado Pago. Inténtalo de nuevo.")
+        return at_mp[key]
+
+    monkeypatch.setattr(payments, "refund_payment", mp_refund)
+    first = client.post(f"/admin/orders/{oid}/refund", headers=admin["h"], json={"amount": 100})
+    assert first.status_code == 502  # el admin ve el error y reintenta
+    retry = client.post(f"/admin/orders/{oid}/refund", headers=admin["h"], json={"amount": 100})
+    assert retry.status_code == 200, retry.text
+    assert Decimal(retry.json()["refund_amount"]) == Decimal("100.00")
+    assert sum(Decimal(str(r["amount"])) for r in at_mp.values()) == Decimal("100.00")  # se devolvió UNA vez
+    # Doble clic: el segundo clic llega con lo ya reembolsado actualizado => es OTRO reembolso legítimo de 100.
+    # Lo que no debe pasar es que el mismo reembolso de Mercado Pago se registre dos veces en la base.
+    db = _db()
+    try:
+        order_row = db.query(Order).filter(Order.id == oid).first()
+        rows = db.query(OrderRefund).filter(OrderRefund.order_id == oid).all()
+        assert len(rows) == 1 and rows[0].provider_refund_id == str(at_mp[next(iter(at_mp))]["id"])
+        same = {"id": rows[0].provider_refund_id, "status": "approved"}
+        from app.services import payment_flow as pf
+
+        assert pf.record_refund(db, order_row, Decimal("100.00"), same, by="admin").id == rows[0].id
+        assert order_row.refund_amount == Decimal("100.00")
+    finally:
+        db.rollback()
+        db.close()
 
 
 def test_auto_complete_after_delivery(client, user):
@@ -829,7 +918,7 @@ def test_cfdi_pending_without_pac_and_facturama_payload(client, user, admin, mon
                                                                 Decimal("116.00"))
         # Retenciones: base 1000.00 -> ISR 25.00; IVA cobrado 160.00 -> 80.00
         assert (ret.isr_retenido, ret.iva_retenido, ret.status) == (Decimal("25.00"), Decimal("80.00"), "pending_pac")
-        com_id = com.id
+        com_id, ret_id = com.id, ret.id
     finally:
         db.close()
     r = client.post(f"/admin/cfdi/{com_id}/retry", headers=admin["h"])
@@ -881,6 +970,42 @@ def test_cfdi_pending_without_pac_and_facturama_payload(client, user, admin, mon
     dl = client.get(f"/admin/cfdi/{com_id}/xml", headers=admin["h"])
     assert dl.status_code == 200 and dl.content == b"<cfdi/>"
     assert client.post(f"/admin/cfdi/{com_id}/retry", headers=admin["h"]).status_code == 409
+
+    # Facturama timbra el CFDI de retenciones pero la descarga del XML falla (timeout / 5xx). Antes el registro quedaba
+    # "error" SIN el UUID y el reintento timbraba un segundo CFDI ante el SAT por el mismo concepto.
+    posts = []
+
+    def stamp_then_download_fails(method, url, auth=None, timeout=None, json=None):
+        if method == "POST":
+            posts.append(url)
+            return Resp({"Id": "ret-1", "Complement": {"TaxStamp": {"Uuid": "cccccccc-1111-2222-3333-dddddddddddd"}}})
+        return Resp({"Message": "Servicio no disponible"}, status=503)
+
+    monkeypatch.setattr(invoicing.requests, "request", stamp_then_download_fails)
+    db = _db()
+    try:
+        row = db.query(Cfdi).filter(Cfdi.id == ret_id).first()
+        invoicing.issue_cfdi_row(db, row, adapter=adapter)
+        assert row.status == "issued" and row.uuid == "CCCCCCCC-1111-2222-3333-DDDDDDDDDDDD"
+        assert row.provider_ref == "ret-1" and "NO lo vuelvas a timbrar" in row.error
+        invoicing.issue_cfdi_row(db, row, adapter=adapter)  # la tarea programada lo vuelve a intentar
+    finally:
+        db.close()
+    assert len(posts) == 1  # un solo timbrado
+    assert client.post(f"/admin/cfdi/{ret_id}/retry", headers=admin["h"]).status_code == 409
+    # Un registro que se quedó a mitad del timbrado (el proceso murió) no se reintenta solo ni desde el panel
+    db = _db()
+    try:
+        row = db.query(Cfdi).filter(Cfdi.id == ret_id).first()
+        row.status, row.uuid = "stamping", None
+        db.commit()
+        invoicing.issue_cfdi_row(db, row, adapter=adapter)
+        assert row.status == "stamping"
+    finally:
+        db.close()
+    assert len(posts) == 1
+    stuck = client.post(f"/admin/cfdi/{ret_id}/retry", headers=admin["h"])
+    assert stuck.status_code == 409 and "Facturama" in stuck.json()["detail"]
 
 
 # --------------------------------------------------------------------------- S6 estados de cuenta

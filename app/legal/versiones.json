@@ -4,7 +4,7 @@
     "title": "Accesibilidad",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "ded1eed949ff9f3d3a534a3e4145e7a95ebe75cc9af0efb5cb60aaba57e2f1e7",
+    "sha256": "bb9cef0e69a1791e907821329f05c80b01d206d0194f24c445276128959acac0",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/accesibilidad.html"
@@ -14,7 +14,7 @@
     "title": "Acuerdo de datos",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "e21ae6384afc4cb29e11b775d87c2bd29061580b4c078157e1a12ddcbe842930",
+    "sha256": "9802f9ad2b96b905ca4b341466e3ba34efe1c702554b970deff631572dcae2e2",
     "requires_reacceptance": true,
     "summary": "Esta es la primera versión de este Acuerdo.",
     "url": "/app/legal/acuerdo-datos-refugios.html"
@@ -24,7 +24,7 @@
     "title": "Política de adopción responsable",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "5a0b1f6a0664f2f7d66aa3474bad5c1fdbe99cc633ac47657fe52e813c0c2cd5",
+    "sha256": "3e941b1334d2e6097e57080e745d61b9b29a40d1cc8145567f37b7078db95ca0",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/adopcion-responsable.html"
@@ -34,7 +34,7 @@
     "title": "Atención, quejas y PROFECO",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "d6fa537b1e865e7747e620c78d928f685351eec5e7f0815d74c36d36e34c54aa",
+    "sha256": "9a3cb2e569ba33737fdc35c61f041e1d9e5fa89f2b3a332548f10c68dcb94710",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/atencion-y-quejas.html"
@@ -44,7 +44,7 @@
     "title": "Solicitudes de autoridades y contacto 24/7",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "1428b54b4e9faf28288648b55b8f0ba26c71212f88f07092e25d63241696d9f8",
+    "sha256": "ec0ec5dfa6e49c9f40e8d4694df059b3d7b0957cce85600988773fa1d8bec761",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/autoridades.html"
@@ -54,7 +54,7 @@
     "title": "Canales oficiales y prevención de fraudes",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "86b345d060d40038db8e248d1b024a98da1525677804192c3f2dd532ccd48b6f",
+    "sha256": "b7502c9ac95c243641e61171731d85a65a8a1c165099a8b77be26f3bf0d80422",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/canales-oficiales.html"
@@ -64,7 +64,7 @@
     "title": "Centro legal y de transparencia",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "e4eac2e2655a6eb5f9cc81f92cfbacb576130f3e0637c39edfa89192163d1909",
+    "sha256": "daa7db930ed138bf3ef18c77ed72fac1c9626b14a5671ef4eada00c75c6c7f00",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/centro-legal.html"
@@ -74,7 +74,7 @@
     "title": "Cero venta y cero cuotas",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "7fb02f20246057fc5e46a20dae29f360d2dbd396ee8f3a5ee9cfb723105d6022",
+    "sha256": "af3fd12d80cce70833e9638eec88b4232c0a314487eb85596d0ff5c5262c5f58",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/cero-venta.html"
@@ -84,7 +84,7 @@
     "title": "Compromisos",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "76c34d995d5f16813284212ab2991133787a23fadd9af2a0b7cd6d49ba0671cb",
+    "sha256": "2e26947051f24915bda752aee238dcdee193f42a0b357b77ac8f42fed28dfe16",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/compromisos.html"
@@ -94,7 +94,7 @@
     "title": "Comunicaciones y preferencias",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "ca7fd25643052a5023d8ba6e27954742ab12bb358eb1347684fcf51fbe4a617a",
+    "sha256": "580814dd66fa7c39631feef3a51b57f290ed2a25e2513006af67169a72e14f32",
     "requires_reacceptance": false,
     "summary": "Primera versión de esta página.",
     "url": "/app/legal/comunicaciones.html"
@@ -104,7 +104,7 @@
     "title": "Lineamientos de la comunidad",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "f99246b280130c0a4b4b84edaa70ad7c6783041ac9378c2024173c17b4a2a45d",
+    "sha256": "acf9389bb64540fb6fdec73218d517913ba7470193dc5919ee71304361bebbe7",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/comunidad.html"
@@ -114,7 +114,7 @@
     "title": "Conservación de datos",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "ffda3e33cd895464622296c4271c74953684bce8b225643c2d405023cdfd464a",
+    "sha256": "b88fd349ef390aff4bd8c216145e5ef109b777270733641222de5d10b142e6a6",
     "requires_reacceptance": false,
     "summary": "Primera versión de esta página.",
     "url": "/app/legal/conservacion.html"
@@ -124,7 +124,7 @@
     "title": "Publicaciones importadas",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "7de3f63b41a560dc190eee373ff1866e76aeb495d44e5e3bd594f1424254091c",
+    "sha256": "442777be742220363271a9c14efc80c7028d955aee07bc6e885bbb95fe16026f",
     "requires_reacceptance": false,
     "summary": "Primera versión de esta página.",
     "url": "/app/legal/contenido-importado.html"
@@ -134,7 +134,7 @@
     "title": "Política de cookies",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "ed3ea1b467c8b201862c245019985ec7bccff9fd4d15fb8dd380571165af7f53",
+    "sha256": "b86ee20d09a5f54ef3c94adc9a937f63e7e7f5bbb0b559e289d660b87424dec3",
     "requires_reacceptance": false,
     "summary": "Primera versión de esta política como página propia.",
     "url": "/app/legal/cookies.html"
@@ -144,7 +144,7 @@
     "title": "Créditos y licencias",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "a1181a186cbf19f744444015b273ed95807dbe6fd79279a528d3477c0e34cab2",
+    "sha256": "65e94c023e04830beaf82f50a232768b30371b56b6f510d7bb0d604afc3df44f",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/creditos.html"
@@ -154,7 +154,7 @@
     "title": "Cómo denunciar maltrato animal",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "5cec9bbcb7a7e44e910fc795ca20d3762432215c7c59d053f62f369c7cb26fe7",
+    "sha256": "eddcd5ec302a5a0b4f790b6223be2c732e612c5d3ca06d366a20ea04b2b8dadb",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/denunciar-maltrato.html"
@@ -164,7 +164,7 @@
     "title": "Centro de privacidad",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "ac5fa5dfd32375eb164c490521dbea4004c02de4d0ea27456dca9ad26be81a50",
+    "sha256": "058956a3f84a2bb9150fd7734749a4fb8d985973a19c215660b99de9acc41bb4",
     "requires_reacceptance": false,
     "summary": "Primera versión del centro de privacidad.",
     "url": "/app/legal/derechos-arco.html"
@@ -174,7 +174,7 @@
     "title": "Propiedad intelectual: aviso y contra-aviso",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "c3a13722c372ebbcdd8f513727b2b0498283886ca31943c999e01912a82b287d",
+    "sha256": "9d0c0881e191a5eb226efd8d72faffc3dda4a136a972c736711ac95f15da4737",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/derechos-de-autor.html"
@@ -184,7 +184,7 @@
     "title": "Directorio de Refugios verificados",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "3b2a16a651f702990e93a7425b2e4336ed5f78641635812e5f3eb7401cce3579",
+    "sha256": "e6a3f261dcb815ada46376cbe0470726c712948c5b05812140cf0926c33090e5",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/directorio-refugios.html"
@@ -194,7 +194,7 @@
     "title": "Guía de donataria autorizada",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "f8f48a0a0c4b9ea729e036ec78f80ea980a69440a7ec1facaab9ea4e89d9b2bb",
+    "sha256": "aa207c6323728a3912825b1eb1cfc5cc520c9f4301c9750c51c9c889cb14e63e",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/donataria-autorizada.html"
@@ -204,7 +204,7 @@
     "title": "Política de donativos",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "b2fd3d50faf72fbb8faaf1c900fd22b99108745d3d87a0de4fc9245a087754e5",
+    "sha256": "9ed5ea317aec7389e79cfb7556c3bf100ba080f8c78c4d6757dc0de8662f3ca3",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/donativos.html"
@@ -214,7 +214,7 @@
     "title": "Eliminación de datos",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "c59857d878fd827723779d6faa28354f95a40b784c114c9226a91e9221830891",
+    "sha256": "d7b8c8a3f385d2660b2e683e670ad8cbf18cdc686fd46467093f0580c39c9181",
     "requires_reacceptance": false,
     "summary": "Primera versión de esta página.",
     "url": "/app/legal/eliminacion-datos.html"
@@ -224,7 +224,7 @@
     "title": "Envíos, devoluciones y garantías",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "2636d7c5b37dc2deff5e31c0c4569e65ece2560411964cd0bb414a1a5711b265",
+    "sha256": "2c6421e591a0105d55edc2de82b5a940ff635fa947eaf15d42c7dd1b10a84b23",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/envios-devoluciones-garantias.html"
@@ -234,7 +234,7 @@
     "title": "Estado del servicio",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "3e96e1013c6a7717148520a4121a3a2c535458f444cf54896688508cd31e4366",
+    "sha256": "d2aab312e696402a474d3a9df48a38464e8876840b74631cdf30cc21eec5d141",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/estado-del-servicio.html"
@@ -244,7 +244,7 @@
     "title": "Facturación (CFDI)",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "82a3a2417fab0550b034da28bfd875aa88c359334f2c0ce35c9f0de34c497ead",
+    "sha256": "d743d4bcde764d667e5c0926da8d408ce1705b2ff1b72b9f0e68d9f045ba2588",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/facturacion.html"
@@ -254,7 +254,7 @@
     "title": "Glosario y preguntas frecuentes",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "e93dbd0846e918cd93ad5416c69a1700390ffc894922a052e064f35ec27272ad",
+    "sha256": "7bf9c3b3689f3114b9efd444e3d0e34b91b657bf1d2a7b1a4a11c0eed1467502",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/glosario-y-faq.html"
@@ -264,7 +264,7 @@
     "title": "Historial de versiones",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "689f0ea6fb77b5724c6098135c6ce55d11fafeb7b05dba282aa1f5d0214bc07a",
+    "sha256": "dc82deb7d4197027c7326e6db820294b40174592f69421a57538acbfeca7a7c6",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/historial.html"
@@ -274,7 +274,7 @@
     "title": "IA y algoritmos",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "4100a2ef3c6e743cac53b30a9f1db69a8f8d6c6d95919460564c484d78c9067e",
+    "sha256": "2bf6e235bdad25c6b4078ef0d30868b93a9a102a65ff3e90b2a1df2017bbef3a",
     "requires_reacceptance": false,
     "summary": "Primera versión de esta página.",
     "url": "/app/legal/ia-y-algoritmos.html"
@@ -284,7 +284,7 @@
     "title": "Informe de transparencia",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "1c5a9f8f8371c7deb6daaa99da0d5c005fc5dc83546a5487d2a7e34271f41aea",
+    "sha256": "5bbe223c1edc79203784432cbeb34bfaa32e97044a41c3e55c458a8dd9de0f3a",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/informe-transparencia.html"
@@ -294,7 +294,7 @@
     "title": "Marco legal",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "37d3c29135cc8f055d571f52ce71315e987cbce5780266d9f11034036f352dfd",
+    "sha256": "621631e631bb09a122a562765b14ea17ad5e76459423d384139e0206ba44561b",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/marco-legal.html"
@@ -304,7 +304,7 @@
     "title": "Bienestar animal: la ley en tu estado",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "71f208dd4141aa60300d6704d90bfb096fb2bde2848641de865eaaad532abe99",
+    "sha256": "5aead250564550afc83d3f2cd301f3697af0a3a1617e194ed8060c794ccd42e8",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/marco-legal-bienestar-animal.html"
@@ -314,7 +314,7 @@
     "title": "Modelo de carta responsiva de adopción",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "a24ca411216268f5d2b2926fe095d8d8981aea2fadc2d88adee70f54ea79d00e",
+    "sha256": "3d2c1d237bdba34b153d5333621080ff45d18bd6ea91ee828cdffa488cd38684",
     "requires_reacceptance": false,
     "summary": "Primera versión del modelo de carta responsiva.",
     "url": "/app/legal/modelo-carta-responsiva.html"
@@ -324,7 +324,7 @@
     "title": "Moderación, reportes, sanciones y apelaciones",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "9c95853bae513b27214269f1fe435a0c4b4d694b775d1c0c1f6d45366e652d2c",
+    "sha256": "57e9bba422aba6ff7b948c26384bec8f194aedbcc2d5270f965c448d07b831a6",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/moderacion.html"
@@ -334,7 +334,7 @@
     "title": "Guía legal de perros perdidos y encontrados",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "37d0bb6eb068ae467ec75c7f1dba4f8fecafbba3166617b672ce7d0ecfda712f",
+    "sha256": "969fcc8925caee05c8ff10b266e4bb9e980cd7f2bef202e03d421b34d0f87b52",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/perdidos-y-encontrados.html"
@@ -344,7 +344,7 @@
     "title": "Prevención de fraude y lavado de dinero",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "752642ef608a3d068e67cedb55740e7e3d50f6c73e7f592c1ab0c64bc0a78557",
+    "sha256": "3ae4ecb404fb59895b877a0b13bcd3d46aa63816fa4bab841f9057b9263818b2",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/prevencion-lavado.html"
@@ -354,7 +354,7 @@
     "title": "Aviso de Privacidad Integral",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "9b7681d00a66f657bf56c230513dc7621b3fb6214439538d5315d799e40fbfc2",
+    "sha256": "38d7126b9b2cc59d8648f6a96c2ce929ab1613f81e461ad26c249ee9bfab97cd",
     "requires_reacceptance": true,
     "summary": "Cambios principales de esta versión: se reescribe conforme al artículo 15 de la LFPDPPP de 2025; se agregan la verificación de edad por capas, la conservación de evidencia de contenidos retirados, el centro de solicitudes con folio, el centro de preferencias con alertas y mercadotecnia apagadas por defecto, el pago dividido de Mercado Pago, las Clínicas y sus reseñas, los datos de Google, las fuentes indirectas, la lista de proveedores con país y el resumen de conservación.",
     "url": "/app/legal/privacidad.html"
@@ -364,7 +364,7 @@
     "title": "Aviso de Privacidad",
     "version": "2026-10-16",
     "effective_at": null,
-    "sha256": "a3ea4855431f918e88cf945720b0cde961c97ff23aa37a16f30dbc0559a0c133",
+    "sha256": "03cd2769195a29773beade3c40ece3b0dfefd24179a7c360fe98d44f0abb9d08",
     "requires_reacceptance": true,
     "summary": "Versión anterior; su texto completo queda publicado en esta dirección.",
     "url": "/app/legal/privacidad-2026-10-16.html"
@@ -374,7 +374,7 @@
     "title": "Aviso de privacidad para refugios y clínicas",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "9ee542752ac8a3e1499e1c18900ac16adbe0978bf2b25b56973febea113e500e",
+    "sha256": "ada839f6e43c435bce8d7b6a562deb487ede11c867935ebd77d0e2ea5af68b20",
     "requires_reacceptance": false,
     "summary": "Primera versión de este aviso.",
     "url": "/app/legal/privacidad-refugios.html"
@@ -384,7 +384,7 @@
     "title": "Aviso de privacidad simplificado",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "0831414458d505c9414ee12d9e49c3b59e9179d73d2fb9b11d149b889f16c695",
+    "sha256": "97d896d43b0a91a778bc0eb7289788a606c2d75d6507a6c28b6d9e2031027acd",
     "requires_reacceptance": false,
     "summary": "Primera versión publicada como página propia.",
     "url": "/app/legal/privacidad-simplificado.html"
@@ -394,7 +394,7 @@
     "title": "Aviso del asistente de WhatsApp",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "aa1b19b6bef1fa13bac0d1dee0147c1b00a26a2d55e24548207fbb57ab747b7a",
+    "sha256": "2ed10a962b71ed853997b242e3b37c1db461bf8eaa7d7a3f685129df45584459",
     "requires_reacceptance": false,
     "summary": "Primera versión de este aviso.",
     "url": "/app/legal/privacidad-whatsapp.html"
@@ -404,7 +404,7 @@
     "title": "Productos permitidos y prohibidos",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "1a62d7107fa7754dc2fd8a20a16b0cb614eb30a6a643c16809897574ee401b25",
+    "sha256": "bac12829f9937ac57e727e8db5226baff3ae0de73d24478e68b4c229819ec92e",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/productos-prohibidos.html"
@@ -414,7 +414,7 @@
     "title": "Protección de niñas, niños y adolescentes",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "45c7565beed42b9c998ec884e4556791c26b9e3c650efd710d1bac2fbda1f5c1",
+    "sha256": "68b96dc9554b3be634183395c62807ec74788c29d2850f193b8096a04ed3c8a8",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/proteccion-nna.html"
@@ -424,7 +424,7 @@
     "title": "Proveedores y transferencias",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "6c5d01a4b607ecabfb99f657921cc1ede489aa30066a2da43758e2e88d48b860",
+    "sha256": "5051b24a4b0510e8b27ca432fd082ac102347b8af088bb266ab6c8014737083e",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/proveedores.html"
@@ -434,7 +434,7 @@
     "title": "Quiénes somos",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "8da21184d02711e3df79907dd8da60eb0355f417c7b62dcaf5edff3c806795c0",
+    "sha256": "17226caf25fda3ff26f3e004c391292b4ea214d4690a4034371a4e66ddf1c496",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/quienes-somos.html"
@@ -444,7 +444,7 @@
     "title": "Política de reseñas",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "d129e6e2d5f5a08a2dcb0363f350bcb05eae4cbab6e1c63f6e2c5682cc46d7aa",
+    "sha256": "08473d1911f3081e9d50499ffccaf55d158e332889f6271370ca74afcd29d000",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/resenas.html"
@@ -454,7 +454,7 @@
     "title": "Seguridad",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "162fd6fadde4a11ea4c4dadd88c72a6066a7d249ea2d4e3bde62b18c71337be5",
+    "sha256": "116ee378fe4574f43264a90be21e8746cf652cdaaf57a425b002d766a2ca1436",
     "requires_reacceptance": false,
     "summary": "Primera versión de esta página.",
     "url": "/app/legal/seguridad.html"
@@ -464,7 +464,7 @@
     "title": "Tarifas y comisiones",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "2a5af79e620d594ae0a3de2bf20e8ed3f14ba8b9d4c6e47f4031a36c298554c4",
+    "sha256": "3cf5f78e46f6b1bc373060abdb5ffedce23977cb812df3f3c7a0a264420ce85d",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/tarifas.html"
@@ -474,7 +474,7 @@
     "title": "Términos y Condiciones",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "71aabdeadb80eee06b470cb0dd9756514ebabe83d207bec9d6e87a5fe8a15f86",
+    "sha256": "96e83451df95981ae1edfc9c3cc9f98111dbecaa70a0f36cb19c9ec8ebfc784f",
     "requires_reacceptance": true,
     "summary": "Cambios principales respecto de la versión 2026-10-16: el contrato se forma solo al crear la cuenta y la casilla de mayoría de edad va aparte; verificación de edad por capas; adopción gratuita sin “donativos sugeridos”; plazo de espera para perros encontrados; alertas cercanas desactivadas de inicio; reglas del bot de WhatsApp, del contenido importado, de las Clínicas y de las reseñas; Tienda Solidaria y donativos con el dinero directo al Refugio por Mercado Pago; licencia de contenido acotada; apelaciones; aviso de 30 días y aceptación expresa de cambios; tribunales de tu domicilio; marco legal de bienestar animal actualizado.",
     "url": "/app/legal/terminos.html"
@@ -484,7 +484,7 @@
     "title": "Términos y Condiciones",
     "version": "2026-10-16",
     "effective_at": null,
-    "sha256": "b72e006b2a0fd20394cf92e892e0220d3c43762fa8a8b069bf169331639b5446",
+    "sha256": "6927735cef1f4eeac82abf271eb8753f9885fb85b4694e610e8e59815802f8f0",
     "requires_reacceptance": true,
     "summary": "Versión anterior; su texto completo queda publicado en esta dirección.",
     "url": "/app/legal/terminos-2026-10-16.html"
@@ -494,7 +494,7 @@
     "title": "Términos para Casas de paso",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "48c2aac00131cbaa511101b7e23eae98b567af706486f72d7daba0730659f466",
+    "sha256": "4c956524e908392e2a29729b89b8c63273e0ebe092fdd8aed9c6dc49a8e90a18",
     "requires_reacceptance": true,
     "summary": "Esta es la primera versión de estos Términos.",
     "url": "/app/legal/terminos-casas-de-paso.html"
@@ -504,7 +504,7 @@
     "title": "Términos para Clínicas",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "2fd8bc4ad3261ce6a2d623e1349d460b0378cf2a992dfb03b29e92bef7f2f448",
+    "sha256": "86a298c09e3953da556a284321dde126d8a88090596be95fd46d5bab47f3698f",
     "requires_reacceptance": true,
     "summary": "Esta es la primera versión de estos Términos.",
     "url": "/app/legal/terminos-clinicas.html"
@@ -514,7 +514,7 @@
     "title": "Convenio para Refugios",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "cbff87ca693057ee5642e7672e53585749ab18219279e324a3a3cd1609838290",
+    "sha256": "54a57fadc4d0785a13a789ed3397d5872a7e57a7e997c4f1e5746f5a35affaa8",
     "requires_reacceptance": true,
     "summary": "Esta es la primera versión del Convenio.",
     "url": "/app/legal/terminos-refugios.html"
@@ -524,7 +524,7 @@
     "title": "Condiciones de compra",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "fa1af3911099a26663ac19819bdc9a33dfb6b5d54a5137ad13baedc6f1fdcbdb",
+    "sha256": "81275c7005b0940140f4106e7c84054c4929931f63016f8f755f8466302ff695",
     "requires_reacceptance": true,
     "summary": "Primera versión de las Condiciones de compra como documento propio. Antes, estas reglas estaban en la sección 14 de los Términos y Condiciones.",
     "url": "/app/legal/terminos-tienda.html"
@@ -534,7 +534,7 @@
     "title": "Términos para Vendedores",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "d0694c873c727e8514c6593e693797ba565b04fc050987cef7442df00f7417eb",
+    "sha256": "634ac68098a1943129b8de9e418d5e660bea4af7bae1284cd9a3ddfd54bd2957",
     "requires_reacceptance": true,
     "summary": "Esta es la primera versión de estos Términos.",
     "url": "/app/legal/terminos-vendedores.html"
@@ -544,7 +544,7 @@
     "title": "A dónde va tu dinero",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "b4bcb2da106e43f4f1e84b80f33921beb47c77251ef7a080018a0c7dd44e96fd",
+    "sha256": "b7eddf2c5d25997fd93e82e57ee2fb6b3ec51fa37c255127d751547b7f0533cf",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/transparencia-fondos.html"
@@ -554,7 +554,7 @@
     "title": "Verificación de Refugios, Casas de paso, rescatistas y Clínicas",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "7887cc9c5b15b762fb8dfd4269ce6604aca6b22de9b62321bd545f9e423672d6",
+    "sha256": "da7c9a1231f6b54a00f38a940241170a6c916c025bd5d13de9aa017cf0a21b0a",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/verificacion.html"
@@ -564,7 +564,7 @@
     "title": "Clínicas veterinarias: qué verificamos y qué no",
     "version": "2026-10-17",
     "effective_at": null,
-    "sha256": "49944a7133b096372b1bf2ed6b09ffd673a2c98d964d5efefb5ac90e1d67b1c0",
+    "sha256": "66720c802ab4d4998c8161f2e839b778a21f123c57bf9d787b76b80bab39b13a",
     "requires_reacceptance": false,
     "summary": "Primera versión.",
     "url": "/app/legal/veterinarias.html"

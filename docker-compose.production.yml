@@ -293,7 +293,7 @@ services:
     stop_grace_period: 30s
     restart: unless-stopped
     logging: *default-logging
-    # 4 vCPU / 8 GB: 3 CPUs y 3 GB (WEB_CONCURRENCY=4).
+    # Hostinger KVM 2 (2 vCPU / 8 GB): 1.5 CPUs y 3 GB (WEB_CONCURRENCY=4). 4 vCPU / 8 GB: cpus "3".
     # 8/16: cpus "6", memory 6G y WEB_CONCURRENCY=8 (revisa la cuenta de conexiones en app/database.py).
     deploy:
       resources:

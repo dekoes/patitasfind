@@ -70,7 +70,7 @@ Empieza siempre con `SMOKE=1`, luego `TARGET_VUS=200` y al final 800.
 
 ## Qué mirar mientras corre
 
-- `docker stats`: CPU y memoria del backend (límite de 3 CPU / 3 GB con `WEB_CONCURRENCY=4`, según
+- `docker stats`: CPU y memoria del backend (límite de 1.5 CPU / 3 GB con `WEB_CONCURRENCY=4`, según
   `deploy.resources.limits` del servicio `backend` en `docker-compose.production.yml`) y de Postgres.
 - Conexiones de Postgres: `SELECT count(*), state FROM pg_stat_activity GROUP BY state;` debe quedarse muy por
   debajo de 150 (cada worker de uvicorn usa como máximo `DB_POOL_SIZE + DB_MAX_OVERFLOW` = 10).

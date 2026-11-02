@@ -939,6 +939,7 @@ def refund_at_provider(db: Session, obj, amount=None) -> dict:
     kwargs = _token_kwargs(token)
     if amount is not None:
         kwargs["amount"] = amount
+    kwargs["idempotency_key"] = refund_idempotency_key(obj, amount)
     try:
         refund = payments.refund_payment(payment_id, **kwargs) or {}
     except payments.PaymentError as exc:
@@ -950,6 +951,21 @@ def refund_at_provider(db: Session, obj, amount=None) -> dict:
 
 
 _refund_at_provider = refund_at_provider  # nombre anterior
+
+
+def refund_idempotency_key(obj, amount=None) -> str:
+    """Clave estable para UN reembolso lógico: tabla, id, lo ya reembolsado y el monto pedido.
+
+    Dos clics seguidos o un reintento tras un timeout (con la base todavía sin el registro) producen la misma clave
+    y Mercado Pago no repite el reembolso. Un reembolso parcial siguiente ya cambia "lo ya reembolsado" y obtiene
+    una clave nueva, como debe ser.
+    """
+    def cents(value) -> str:
+        return str(int((money2(value) * 100).to_integral_value()))
+
+    already = cents(getattr(obj, "refund_amount", None) or 0)
+    wanted = "total" if amount is None else cents(amount)
+    return f"guauwoow-{obj.__tablename__}-{obj.id}-refund-{already}-{wanted}"
 
 
 def refundable_remaining(order: Order) -> Decimal:
@@ -967,6 +983,14 @@ def record_refund(db: Session, order: Order, amount, refund: dict | None, by: st
     Mercado Pago lo reparte en proporción entre el refugio y la plataforma (payments.refund_payment), así que
     regresa la misma proporción de la comisión y de las retenciones; el último reembolso absorbe el redondeo.
     """
+    refund_id = (refund or {}).get("id")
+    if refund_id:
+        # Mismo reembolso de Mercado Pago ya registrado (doble clic con la misma clave de idempotencia, o el aviso
+        # del webhook llegó antes): no se cuenta dos veces.
+        existing = db.query(OrderRefund).filter(OrderRefund.order_id == order.id,
+                                                OrderRefund.provider_refund_id == str(refund_id)).first()
+        if existing:
+            return existing
     amount = money2(amount)
     total = money2(order.total)
     fee, isr, iva = (money2(order.fee_amount or 0), money2(order.isr_retenido or 0), money2(order.iva_retenido or 0))

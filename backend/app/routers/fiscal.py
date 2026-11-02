@@ -91,6 +91,10 @@ def retry_cfdi(id: int, request: Request, admin_user: User = Depends(require_adm
         raise HTTPException(status_code=404, detail="No encontramos ese CFDI.")
     if row.status == "issued":
         raise HTTPException(status_code=409, detail="Este CFDI ya está timbrado.")
+    if row.status == "stamping":
+        raise HTTPException(status_code=409, detail="Este CFDI se quedó a mitad del timbrado. Revisa en Facturama si "
+                                                    "ya existe antes de hacer cualquier cosa: reintentarlo podría "
+                                                    "timbrarlo dos veces.")
     previous = row.status
     invoicing.issue_cfdi_row(db, row)
     record_admin_action(db, admin_user, "cfdi_retry", "cfdi", row.id, request=request,

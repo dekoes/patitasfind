@@ -43,6 +43,7 @@ from app.schemas import (
     UserRoleUpdate,
 )
 from app.services.audit import record_admin_action
+from app.services.payment_flow import PAID_ORDER
 from app.utils.notifications import create_notification
 
 router = APIRouter(tags=["admin"])
@@ -127,7 +128,7 @@ def get_dashboard(
             "pending_foster_homes": db.query(FosterHome).filter(FosterHome.status == "pending").count(),
             "products": total_products,
             "lost_reports": total_lost_reports,
-            "orders_paid": db.query(Order).filter(Order.status == "paid").count(),
+            "orders_paid": db.query(Order).filter(Order.status.in_(PAID_ORDER)).count(),  # pagados en cualquier etapa (no solo «sin preparar»)
             "donations_approved": db.query(Donation).filter(Donation.status == "approved").count(),
             "donations_total": float(
                 db.query(func.coalesce(func.sum(Donation.amount), 0)).filter(Donation.status == "approved").scalar() or 0

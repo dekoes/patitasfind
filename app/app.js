@@ -228,12 +228,24 @@ async function uploadDocuments(files) {
   return ids;
 }
 
+// fn puede devolver KEEP_LOADING cuando ya se va a otra página (p. ej. Mercado Pago): el botón sigue ocupado y un
+// segundo clic no crea otro donativo pendiente mientras el navegador cambia de página.
+const KEEP_LOADING = Symbol('keep-loading');
 async function withBtn(btn, fn) {
+  if (btn.dataset.busy === '1') return;
+  btn.dataset.busy = '1';
   FX.setLoading(btn, true);
-  try { return await fn(); }
+  let keep = false;
+  try { const r = await fn(); keep = r === KEEP_LOADING; return r; }
   catch (e) { toast(e.message, 'error'); }
-  finally { FX.setLoading(btn, false); }
+  finally { if (!keep) { FX.setLoading(btn, false); delete btn.dataset.busy; } }
 }
+// Al volver con «Atrás» desde Mercado Pago (caché del navegador) el botón no se queda ocupado
+window.addEventListener('pageshow', (ev) => {
+  if (!ev.persisted) return;
+  $$('[data-busy="1"]').forEach((b) => { FX.setLoading(b, false); delete b.dataset.busy; });
+  FX.hideLoading && FX.hideLoading();
+});
 
 function getPosition(timeout = 8000) {
   return new Promise((resolve, reject) => {
@@ -1589,7 +1601,7 @@ async function donate(r) {
   const btn = $('#don-btn');
   await withBtn(btn, async () => {
     const d = await api('/payments/donations', { method: 'POST', body: { refuge_id: r.id, amount, share_name: $('#don-share').checked, accepted_policy: true } });
-    if (d.checkout_url) { FX.showLoading('Te llevamos a Mercado Pago', ['Pagas en Mercado Pago; GuauWoow no ve ni guarda tu tarjeta'], 'run'); location.href = d.checkout_url; return; }
+    if (d.checkout_url) { FX.showLoading('Te llevamos a Mercado Pago', ['Pagas en Mercado Pago; GuauWoow no ve ni guarda tu tarjeta'], 'run'); location.href = d.checkout_url; return KEEP_LOADING; }
     FX.boneBurst(btn, 8);
     await FX.success('¡Gracias por donar!', `${money(amount)} para ${r.name}`);
     openRefuge(r.id); stack.pop();

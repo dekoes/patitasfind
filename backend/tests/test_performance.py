@@ -221,6 +221,9 @@ def test_report_matches_never_decode_cached_and_rate_limited(client, user, monke
 
     monkeypatch.setattr(matching_tasks.enrich_signatures, "delay", lambda kind, ids: queued.append((kind, ids)))
     monkeypatch.setattr(settings, "report_matches_ip_minute_limit", 3)
+    # Con Celery las firmas van a la cola (.delay, simulado arriba). CI corre con USE_CELERY=false y entonces
+    # irían a BackgroundTasks, que TestClient ejecuta en el mismo hilo: forzamos el camino de producción.
+    monkeypatch.setattr(settings, "use_celery", True)
     h = {"X-Real-IP": random_ip()}
     r = client.get(f"/lost-reports/{lost_id}/matches", headers=h)
     assert r.status_code == 200, r.text

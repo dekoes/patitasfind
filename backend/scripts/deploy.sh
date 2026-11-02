@@ -91,8 +91,10 @@ if $PULL; then
   git pull --ff-only
 fi
 
-GIT_SHA=$(git rev-parse --short=12 HEAD 2>/dev/null || echo "sin-git")
-if [ -n "$(git status --porcelain --untracked-files=no -- . ':(exclude).deploy' 2>/dev/null)" ]; then
+# DEPLOY_GIT_SHA: lo pasa desplegar-vps.sh cuando el servidor recibe el código sin .git (si no, cada versión
+# sería "sin-git", la imagen se sobrescribiría y rollback.sh no tendría a qué regresar)
+GIT_SHA=${DEPLOY_GIT_SHA:-$(git rev-parse --short=12 HEAD 2>/dev/null || echo "sin-git")}
+if [ -z "${DEPLOY_GIT_SHA:-}" ] && [ -n "$(git status --porcelain --untracked-files=no -- . ':(exclude).deploy' 2>/dev/null)" ]; then
   warn "hay cambios sin commit en el servidor; la imagen se marca como $GIT_SHA-dirty"
   GIT_SHA="$GIT_SHA-dirty"
 fi

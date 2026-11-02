@@ -97,8 +97,16 @@ function el(tag, attrs = {}, children = []) {
   return node;
 }
 
+// Mientras la acción (una promesa, p. ej. run(...)) está en curso el botón se desactiva: un segundo clic en
+// «Reembolsar», «Cancelar» o «Aceptar pago» no manda una segunda operación de dinero.
 function button(label, onclick, className = "") {
-  return el("button", { class: className, onclick, text: label });
+  const node = el("button", { class: className, text: label });
+  node.addEventListener("click", async (ev) => {
+    if (node.disabled) return;
+    node.disabled = true;
+    try { await onclick(ev); } finally { node.disabled = false; }
+  });
+  return node;
 }
 
 function select(options, value) {
@@ -275,19 +283,28 @@ $("#login-form").addEventListener("submit", async (e) => {
   const params = new URLSearchParams();
   params.append("username", $("#email").value);
   params.append("password", $("#password").value);
+  const submit = e.submitter || $("#login-form button[type=submit]");
+  if (submit) submit.disabled = true;  // cada doble clic gastaba dos intentos del límite de 10 por minuto
   try {
-    const res = await fetch(`${API_BASE}/auth/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: params,
-    });
-    const body = await res.json();
-    if (!res.ok) throw new Error(body.detail || "No se pudo iniciar sesión");
+    let res;
+    try {
+      res = await fetch(`${API_BASE}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: params,
+      });
+    } catch { throw new Error("Sin conexión con el servidor. Revisa tu internet e inténtalo de nuevo."); }
+    // Nginx responde 429/502 con una página HTML: no es JSON
+    const body = await res.json().catch(() => ({}));
+    if (res.status === 429) throw new Error("Demasiados intentos. Espera un minuto e inténtalo de nuevo.");
+    if (!res.ok) throw new Error(typeof body.detail === "string" ? body.detail : `No se pudo iniciar sesión (error ${res.status}).`);
     $("#password").value = "";
     if (body.mfa_required) { startMfaStep(body.mfa_token, !!body.mfa_enrollment_required); return; }
     await finishLogin(body.access_token);
   } catch (err) {
     $("#login-error").textContent = err.message;
+  } finally {
+    if (submit) submit.disabled = false;
   }
 });
 

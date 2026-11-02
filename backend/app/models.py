@@ -880,7 +880,7 @@ class Cfdi(Base):
     period = Column(String(7), nullable=False)  # YYYY-MM
     refuge_id = Column(Integer, ForeignKey("refuges.id"), nullable=False, index=True)
     uuid = Column(String(36), nullable=True)
-    status = Column(String(20), default="pending_pac", server_default=text("'pending_pac'"), nullable=False)  # pending_pac | issued | error
+    status = Column(String(20), default="pending_pac", server_default=text("'pending_pac'"), nullable=False)  # pending_pac | stamping | issued | error
     subtotal = Column(Numeric(12, 2), default=0, server_default=text("0"), nullable=False)
     iva = Column(Numeric(12, 2), default=0, server_default=text("0"), nullable=False)
     isr_retenido = Column(Numeric(12, 2), default=0, server_default=text("0"), nullable=False)

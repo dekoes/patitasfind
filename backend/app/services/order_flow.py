@@ -226,10 +226,14 @@ def _cancel_order(db: Session, order_id: int, *, by: str, reason: str, note: str
             pf._notify_admins(db, "order_cancel_race", "Revisa un pedido cancelado",
                               f"El pedido #{order.id} se reembolsó por cancelación pero ya estaba {order.status}.",
                               {"order_id": order.id})
-        if remaining > 0:
+        if order.refunded_at or order.status == "refunded":
+            # El aviso de Mercado Pago (webhook) ya registró este reembolso mientras se llamaba a la API
+            logger.info("Pedido %s: el reembolso ya estaba registrado por el aviso de Mercado Pago", order.id)
+            refunded = remaining if remaining > 0 else None  # el dinero sí se devolvió: se avisa igual
+        elif remaining > 0:
             pf.record_refund(db, order, remaining, refund, by=by, note="Reembolso por cancelación.", final=True)
             refunded = remaining
-        order.refunded_at = _now()
+        order.refunded_at = order.refunded_at or _now()
     if order.status in pf.STOCK_HELD_ORDER:
         pf.release_stock(db, order)
     timeline = {"buyer": "Cancelado por el comprador.", "refuge": "Cancelado por el refugio.",

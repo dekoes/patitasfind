@@ -29,6 +29,9 @@ engine = create_engine(
     pool_timeout=settings.db_pool_timeout,
     pool_pre_ping=True,
     pool_recycle=1800,
+    # Si PostgreSQL deja de responder sin rechazar la conexión (red caída, servidor congelado), sin esto cada hilo
+    # espera el timeout TCP del sistema operativo (minutos) y el backend entero se queda colgado.
+    **({"connect_args": {"connect_timeout": 5}} if settings.database_url.startswith("postgresql") else {}),
 )
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 # Al cambiar perros o reportes se invalidan sus listados en caché (Redis), venga de donde venga el cambio

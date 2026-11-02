@@ -16,11 +16,16 @@
   let reviews = [];
 
   async function api(path, opts = {}) {
-    const res = await fetch(path, {
-      method: opts.method || 'GET',
-      headers: opts.body ? { 'Content-Type': 'application/json' } : {},
-      body: opts.body ? JSON.stringify(opts.body) : undefined,
-    });
+    let res;
+    try {
+      res = await fetch(path, {
+        method: opts.method || 'GET',
+        headers: opts.body ? { 'Content-Type': 'application/json' } : {},
+        body: opts.body ? JSON.stringify(opts.body) : undefined,
+      });
+    } catch {
+      throw new Error('Sin conexión. Revisa tu internet e inténtalo de nuevo.');
+    }
     let data = null;
     try { data = await res.json(); } catch { data = null; }
     if (!res.ok) {
@@ -121,7 +126,15 @@
     } finally { btn.disabled = false; }
   }
 
-  $('#vet-search').addEventListener('submit', e => { e.preventDefault(); const q = $('#vet-q').value.trim(); if (q.length >= 2) search(q.slice(0, 100)); });
+  $('#vet-search').addEventListener('submit', e => {
+    e.preventDefault();
+    const input = $('#vet-q'), q = input.value.trim();
+    // Antes, con menos de 2 letras el botón «Buscar» no hacía nada y no decía por qué
+    input.setCustomValidity(q.length >= 2 ? '' : 'Escribe al menos 2 letras del nombre de la clínica o veterinaria.');
+    if (!input.reportValidity()) return;
+    search(q.slice(0, 100));
+  });
+  $('#vet-q').addEventListener('input', e => e.target.setCustomValidity(''));
   $$('input[name=kind]').forEach(r => r.addEventListener('change', syncKind));
   $('#req-form').addEventListener('submit', submit);
   const vid = params.get('vet');
