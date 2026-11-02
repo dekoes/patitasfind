@@ -8,6 +8,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from sqlalchemy import text
+from sqlalchemy.exc import OperationalError
 from sqlalchemy.exc import TimeoutError as PoolTimeoutError
 
 from app.config import settings
@@ -105,6 +106,15 @@ async def pool_timeout_handler(request: Request, exc: PoolTimeoutError):
     logger.warning("Pool de conexiones agotado en %s %s", request.method, request.url.path)
     return JSONResponse(status_code=503,
                         content={"detail": "Hay mucha demanda en este momento, inténtalo de nuevo en unos segundos."})
+
+
+@app.exception_handler(OperationalError)
+async def database_unavailable_handler(request: Request, exc: OperationalError):
+    """PostgreSQL caído o reiniciándose (probado apagándolo con la app en marcha): antes la app recibía un 500 en texto
+    plano «Internal Server Error». Ahora un 503 con un mensaje que la app muestra tal cual y que invita a reintentar."""
+    logger.error("Base de datos no disponible en %s %s: %s", request.method, request.url.path, str(exc).splitlines()[0][:200])
+    return JSONResponse(status_code=503, headers={"Retry-After": "15"},
+                        content={"detail": "GuauWoow no está disponible por un momento. Inténtalo de nuevo en unos minutos."})
 
 
 @app.exception_handler(RequestValidationError)
