@@ -1,0 +1,53 @@
+name: Deploy GuauWoow
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-guauwoow-production
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Actualizar VPS de producción
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      VPS_HOST: 2.24.30.179
+      VPS_USER: root
+      REMOTE_DIR: /opt/patitasfind
+    steps:
+      - name: Configurar SSH
+        env:
+          VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+          VPS_HOST_KEY: "2.24.30.179 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFFmbWEZ0ZYJNANbvbmYj/hfllhypCOd/mKq+adcj+or"
+        run: |
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "$VPS_SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          printf '%s\n' "$VPS_HOST_KEY" > ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Descargar cambios y desplegar
+        run: |
+          ssh -o BatchMode=yes -o ConnectTimeout=20 -o StrictHostKeyChecking=yes "$VPS_USER@$VPS_HOST" \
+            "cd '$REMOTE_DIR' && \
+             git fetch --prune origin && \
+             git checkout main && \
+             git pull --ff-only origin main && \
+             install -m 644 nginx/host/guauwoow.conf /etc/nginx/sites-available/guauwoow && \
+             nginx -t && \
+             systemctl reload nginx && \
+             ./backend/scripts/deploy.sh --allow-legal-placeholders"
+
+      - name: Verificar aplicación pública
+        run: |
+          curl -fsS --retry 5 --retry-delay 3 https://guauwoow.com/health | python3 -c \
+            'import json,sys; data=json.load(sys.stdin); assert data["status"] == "ok", data; assert all(v == "ok" for v in data["checks"].values()), data'
+          curl -fsS https://guauwoow.com/ | python3 -c \
+            'import sys; body=sys.stdin.read(); assert "GuauWoow" in body; assert "Lanito" not in body'
