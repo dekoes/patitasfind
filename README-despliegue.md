@@ -477,6 +477,11 @@ cd /opt/patitasfind && ./backend/scripts/deploy.sh --pull     # git pull + revis
 ./backend/scripts/rollback.sh <tag|commit>                    # volver a una versión concreta
 ```
 
+Al actualizar `main` en GitHub, el workflow **Deploy GuauWoow** (`.github/workflows/deploy.yml`) descarga el
+commit en `/opt/patitasfind`, actualiza el Nginx del host, ejecuta `deploy.sh` y comprueba `/health` y la
+portada. Usa el secreto cifrado `VPS_SSH_KEY_BASE64`; las demás ramas no se despliegan. También se puede
+ejecutar a mano desde **GitHub → Actions → Deploy GuauWoow → Run workflow**.
+
 `rollback.sh` **no revierte migraciones**: las migraciones deben ser compatibles hacia atrás (agregar
 columnas, no borrarlas en el mismo despliegue). Si una migración dañó datos, restaura antes el dump que
 `deploy.sh` hace justo antes de migrar (`backups/db/`, [§14](#14-respaldos-y-restauración)). El detalle
